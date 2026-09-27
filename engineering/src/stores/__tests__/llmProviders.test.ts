@@ -217,7 +217,7 @@ describe('useLLMProvidersStore', () => {
       warnSpy.mockRestore()
     })
 
-    it('listProviders 失败时调用 handleError 并显示错误', async () => {
+    it('listProviders 失败时不重复弹提示（拦截器统一提示），仅记录日志', async () => {
       const apiErr = new Error('加载失败') as Error & { response?: unknown }
       apiErr.response = { data: { detail: '加载失败' } }
       apiMocks.listProviders.mockRejectedValue(apiErr)
@@ -228,17 +228,17 @@ describe('useLLMProvidersStore', () => {
       const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const store = useLLMProvidersStore()
       await store.loadAll()
-      expect(elMessageMock.error).toHaveBeenCalledWith('加载失败')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
       expect(store.loading).toBe(false)
       errSpy.mockRestore()
     })
 
-    it('listProviders 失败无 detail 时使用 fallback', async () => {
+    it('listProviders 失败无 detail 时同样只记录日志', async () => {
       apiMocks.listProviders.mockRejectedValue(new Error('boom'))
       const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const store = useLLMProvidersStore()
       await store.loadAll()
-      expect(elMessageMock.error).toHaveBeenCalledWith('加载 LLM Provider 列表失败')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
       errSpy.mockRestore()
     })
   })
@@ -278,14 +278,14 @@ describe('useLLMProvidersStore', () => {
       expect(store.detecting).toBe(false)
     })
 
-    it('失败时清空 detected 并显示错误', async () => {
+    it('失败时清空 detected，不重复弹提示（拦截器统一提示）', async () => {
       apiMocks.previewAutoDetect.mockRejectedValue(new Error('detect err'))
       const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const store = useLLMProvidersStore()
       store.$patch({ detected: [makeProvider() as never] })
       await store.previewDetect()
       expect(store.detected).toEqual([])
-      expect(elMessageMock.error).toHaveBeenCalled()
+      expect(elMessageMock.error).not.toHaveBeenCalled()
       expect(store.detecting).toBe(false)
       errSpy.mockRestore()
     })
@@ -309,7 +309,7 @@ describe('useLLMProvidersStore', () => {
       const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const store = useLLMProvidersStore()
       await expect(store.importDetectedProviders()).rejects.toThrow('import err')
-      expect(elMessageMock.error).toHaveBeenCalled()
+      expect(elMessageMock.error).not.toHaveBeenCalled()
       expect(store.detecting).toBe(false)
       errSpy.mockRestore()
     })
@@ -328,13 +328,13 @@ describe('useLLMProvidersStore', () => {
       expect(elMessageMock.success).toHaveBeenCalled()
     })
 
-    it('失败时返回 null 并显示错误', async () => {
+    it('失败时返回 null 且不重复弹提示（拦截器统一提示）', async () => {
       apiMocks.createProvider.mockRejectedValue(new Error('create err'))
       const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const store = useLLMProvidersStore()
       const result = await store.createProvider({ provider_id: 'x', name: 'X', provider_type: 'ollama' })
       expect(result).toBeNull()
-      expect(elMessageMock.error).toHaveBeenCalled()
+      expect(elMessageMock.error).not.toHaveBeenCalled()
       errSpy.mockRestore()
     })
   })

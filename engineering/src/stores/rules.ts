@@ -15,12 +15,14 @@ import type {
   RuleGroupUpdateRequest,
 } from '@/types'
 import { ElMessage } from 'element-plus'
-import { extractErrorMessage } from '@/utils/error-handler'
 import { API_CONFIG, buildApiPath } from '@/config/api'
 
 /**
  * 工艺规则管理 Store
  * 管理工艺规则的增删改查、分组管理、导入导出和数据库备份。
+ *
+ * 错误提示约定：失败提示由 utils/http 的响应拦截器统一弹出，
+ * store 层不再重复 ElMessage.error（双重提示缺陷修复，2026-09）。
  */
 export const useRuleStore = defineStore('rules', () => {
   /** 规则列表 */
@@ -69,7 +71,8 @@ export const useRuleStore = defineStore('rules', () => {
       pageSize.value = data.page_size
       totalPages.value = data.total_pages
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '获取规则列表失败'))
+      // 错误提示由 http 响应拦截器统一弹出，store 只负责状态收敛
+      console.warn('[rules] fetchRules failed:', e)
     } finally {
       loading.value = false
     }
@@ -81,7 +84,8 @@ export const useRuleStore = defineStore('rules', () => {
       const data: RuleGroupListResponse = response.data.data
       groups.value = data.groups
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '获取规则分组失败'))
+      // 错误提示由 http 响应拦截器统一弹出
+      console.warn('[rules] fetchGroups failed:', e)
     }
   }
 
@@ -103,7 +107,6 @@ export const useRuleStore = defineStore('rules', () => {
       await fetchStats()
       return response.data.data
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '创建规则失败'))
       throw e
     }
   }
@@ -116,7 +119,6 @@ export const useRuleStore = defineStore('rules', () => {
       await fetchStats()
       return response.data.data
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '更新规则失败'))
       throw e
     }
   }
@@ -128,7 +130,6 @@ export const useRuleStore = defineStore('rules', () => {
       await fetchRules()
       await fetchStats()
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '删除规则失败'))
       throw e
     }
   }
@@ -139,7 +140,6 @@ export const useRuleStore = defineStore('rules', () => {
       currentRule.value = response.data.data
       return response.data.data
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '获取规则详情失败'))
       throw e
     }
   }
@@ -152,7 +152,6 @@ export const useRuleStore = defineStore('rules', () => {
       await fetchStats()
       return response.data.data
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '创建分组失败'))
       throw e
     }
   }
@@ -164,7 +163,6 @@ export const useRuleStore = defineStore('rules', () => {
       await fetchGroups()
       return response.data.data
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '更新分组失败'))
       throw e
     }
   }
@@ -176,7 +174,6 @@ export const useRuleStore = defineStore('rules', () => {
       await fetchGroups()
       await fetchStats()
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '删除分组失败'))
       throw e
     }
   }
@@ -195,7 +192,6 @@ export const useRuleStore = defineStore('rules', () => {
       triggerFileDownload(new Blob([response.data]), filename)
       ElMessage.success('规则导出成功')
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '规则导出失败'))
       throw e
     }
   }
@@ -216,7 +212,6 @@ export const useRuleStore = defineStore('rules', () => {
       await fetchStats()
       return data
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '规则导入失败'))
       throw e
     }
   }
@@ -227,7 +222,6 @@ export const useRuleStore = defineStore('rules', () => {
       ElMessage.success(response.data.message || '数据库备份成功')
       return response.data.data
     } catch (e: unknown) {
-      ElMessage.error(extractErrorMessage(e, '数据库备份失败'))
       throw e
     }
   }
