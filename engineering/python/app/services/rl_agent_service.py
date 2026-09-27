@@ -47,6 +47,7 @@ import threading
 import time
 from pathlib import Path
 from app.utils.time import utcnow
+from collections.abc import Callable
 from typing import Any
 
 import numpy as np
@@ -785,61 +786,67 @@ class RLAgentService(BaseSingletonService):
         except ImportError:
             return state_arr
 
-    def _get_or_load_policy(self, model_uri: str):
-        """获取或加载 PolicyNet（LRU 缓存，limit=4）."""
+    def _get_or_load_net(
+        self,
+        cache: dict,
+        model_uri: str,
+        build_net: Callable[[], Any],
+        *,
+        kind: str,
+    ):
+        """获取或按需构造网络（双检锁 + LRU 缓存，limit 见 _NET_CACHE_LIMIT）.
+
+        policy/value 两套加载流程的唯一实现（此前为逐行相同的两个方法）：
+        ``build_net`` 负责构造网络实例，权重加载与 eval 模式切换在此统一完成。
+        """
         # 快速路径
-        net = self._policy_cache.get(model_uri)
+        net = cache.get(model_uri)
         if net is not None:
             return net
 
         with self._cache_lock:
-            net = self._policy_cache.get(model_uri)
+            net = cache.get(model_uri)
             if net is not None:
                 return net
 
-            # 延迟导入，避免循环依赖
-            from app.plugins.rl_agent.policy import PolicyConfig, PolicyNet
-
-            net = PolicyNet(PolicyConfig())
-            self._weights_loaded[model_uri] = _load_weights(net, model_uri, kind="policy")
+            net = build_net()
+            self._weights_loaded[model_uri] = _load_weights(net, model_uri, kind=kind)
             self._set_inference_mode(net)
 
             # LRU 淘汰
-            if len(self._policy_cache) >= self._NET_CACHE_LIMIT:
-                oldest = next(iter(self._policy_cache))
-                self._policy_cache.pop(oldest, None)
-            self._policy_cache[model_uri] = net
+            if len(cache) >= self._NET_CACHE_LIMIT:
+                oldest = next(iter(cache))
+                cache.pop(oldest, None)
+            cache[model_uri] = net
             return net
+
+    def _get_or_load_policy(self, model_uri: str):
+        """获取或加载 PolicyNet（LRU 缓存，limit=4）."""
+        # 延迟导入，避免循环依赖
+        from app.plugins.rl_agent.policy import PolicyConfig, PolicyNet
+
+        return self._get_or_load_net(
+            self._policy_cache,
+            model_uri,
+            lambda: PolicyNet(PolicyConfig()),
+            kind="policy",
+        )
 
     def _get_or_load_value(self, model_uri: str):
-        """获取或加载 ValueNet（LRU 缓存，limit=4）."""
-        net = self._value_cache.get(model_uri)
-        if net is not None:
-            return net
+        """获取或加载 ValueNet（LRU 缓存，维度与 PolicyNet 对齐）."""
+        from app.plugins.rl_agent.policy import PolicyConfig
+        from app.plugins.rl_agent.value import ValueConfig, ValueNet
 
-        with self._cache_lock:
-            net = self._value_cache.get(model_uri)
-            if net is not None:
-                return net
-
-            from app.plugins.rl_agent.policy import PolicyConfig
-            from app.plugins.rl_agent.value import ValueConfig, ValueNet
-
+        def build_value_net() -> ValueNet:
             policy_config = PolicyConfig()
             value_config = ValueConfig(
                 state_dim=policy_config.state_dim,
                 hidden_dim=policy_config.hidden_dim,
                 seed=policy_config.seed,
             )
-            net = ValueNet(value_config)
-            self._weights_loaded[model_uri] = _load_weights(net, model_uri, kind="value")
-            self._set_inference_mode(net)
+            return ValueNet(value_config)
 
-            if len(self._value_cache) >= self._NET_CACHE_LIMIT:
-                oldest = next(iter(self._value_cache))
-                self._value_cache.pop(oldest, None)
-            self._value_cache[model_uri] = net
-            return net
+        return self._get_or_load_net(self._value_cache, model_uri, build_value_net, kind="value")
 
     def _get_or_create_shield(self, constraints_spec: SafetyConstraintsSpec):
         """获取或创建 SafetyShield（按约束规格缓存）.
