@@ -58,13 +58,15 @@ def get_task_or_not_found(
         ``(task, None)`` 或 ``(None, error 响应 dict)``。
     """
     not_found_response = error(code=ErrorCode.NOT_FOUND, message="任务不存在或已被删除")
+    # 各模块任务 store 的取数方法名：多数为 get_task，feature_extraction 为 get
+    get_task = getattr(store, "get_task", None) or store.get
     if not_found_exc is not None:
         try:
-            task = store.get_task(task_id)
+            task = get_task(task_id)
         except not_found_exc:
             return None, not_found_response
     else:
-        task = store.get_task(task_id)
+        task = get_task(task_id)
     if task is None:
         return None, not_found_response
     return task, None
@@ -107,12 +109,14 @@ def validate_review_action(
     edited_params: dict[str, Any] | None,
     review_status_enum: Any,
     *,
-    editable_hint: str,
+    edited_suggestion: str,
 ) -> dict[str, Any] | None:
     """工程师审核动作校验；非法时返回错误响应，合法返回 ``None``。
 
     - ``action`` 必须是 ``review_status_enum`` 的 CONFIRMED / REJECTED / EDITED；
-    - ``action=edited`` 时必须提供 ``edited_params``。
+    - ``action=edited`` 时必须提供 ``edited_params``，
+      ``edited_suggestion`` 为该场景下返回给前端的完整 suggestion 文案
+      （各模块可编辑字段语义不同）。
     """
     valid_actions = {
         review_status_enum.CONFIRMED.value,
@@ -125,7 +129,7 @@ def validate_review_action(
         return error(
             code=ErrorCode.INVALID_REQUEST,
             message="action=edited 时必须提供 edited_params",
-            suggestion=f"请提供编辑后的参数（字段可为 {editable_hint} 的子集）",
+            suggestion=edited_suggestion,
         )
     return None
 

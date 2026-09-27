@@ -444,7 +444,7 @@ async def review_result(
         body.action,
         body.edited_params,
         ChatterReviewStatus,
-        editable_hint="limit_depth_mm / axial_depth_mm / stable（0/1）",
+        edited_suggestion="请提供编辑后的参数（字段可为 limit_depth_mm / axial_depth_mm / stable（0/1）的子集）",
     )
     if action_error is not None:
         return action_error

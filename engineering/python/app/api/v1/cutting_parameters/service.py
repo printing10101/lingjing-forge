@@ -482,9 +482,9 @@ async def review_params(
         body.action,
         body.edited_params,
         CuttingReviewStatus,
-        editable_hint="spindle_speed_rpm / feed_rate_mm_per_min "
+        edited_suggestion="请提供编辑后的参数（字段可为 spindle_speed_rpm / feed_rate_mm_per_min "
         "/ feed_per_tooth_mm / cutting_speed_m_per_min / axial_depth_mm "
-        "/ radial_depth_mm",
+        "/ radial_depth_mm 的子集）",
     )
     if action_error is not None:
         return action_error
