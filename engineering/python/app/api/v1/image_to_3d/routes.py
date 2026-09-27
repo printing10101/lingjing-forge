@@ -13,6 +13,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from app.auth.permissions import require_permission
+from app.api.v1._shared.task_infra import spawn_background_task
 from app.config import config
 from app.core.response import success, error, ErrorCode
 from app.core.safe_errors import safe_error_message
@@ -29,18 +30,6 @@ from app.image_to_3d.task_store import (
 )
 
 logger = logging.getLogger(__name__)
-
-# 后台任务引用集合（C5 修复：asyncio.create_task 不保存引用会被 GC 回收）
-_background_tasks: set = set()
-
-
-def _spawn(coro):
-    """启动后台任务并保存引用，避免被 Python GC 回收。"""
-    t = asyncio.create_task(coro)
-    _background_tasks.add(t)
-    t.add_done_callback(_background_tasks.discard)
-    return t
-
 
 router = APIRouter(
     prefix="/api/v1/image_to_3d",
@@ -315,8 +304,8 @@ async def run_task(task_id: str) -> dict[str, Any]:
         store.update(task_id, error_message="")
 
     pipeline = _get_pipeline()
-    # 用 _spawn 启动后台执行，不 await（C5 修复：保存引用避免 GC）
-    _spawn(pipeline.run_task(task_id))
+    # 用 spawn_background_task 启动后台执行，不 await（C5 修复：保存引用避免 GC）
+    spawn_background_task(pipeline.run_task(task_id))
 
     return success(
         data={
