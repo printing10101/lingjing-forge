@@ -697,9 +697,9 @@ async def download_step_file(task_id: str, final: bool = True) -> FileResponse:
     返回 STEP 文件（ISO 10303-21 AP214 格式）。
     """
     store = get_task_store()
-    task = store.get(task_id)
-    if task is None:
-        raise HTTPException(status_code=404, detail=f"任务不存在 task_id={task_id}")
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if final:
         # 下载最终 STEP

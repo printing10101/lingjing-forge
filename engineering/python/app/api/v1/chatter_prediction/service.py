@@ -595,9 +595,9 @@ async def download_chatter_report(task_id: str) -> FileResponse:
     - industrial_hard_gates_note: 强制告知工业硬约束
     """
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        raise HTTPException(status_code=404, detail=f"任务不存在 task_id={task_id}")
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status != ChatterPredictionTaskStatus.SUCCEEDED.value:
         raise HTTPException(

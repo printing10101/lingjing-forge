@@ -695,9 +695,9 @@ async def download_exported_features(task_id: str) -> FileResponse:
     仅当任务状态为 SUCCEEDED 且导出文件存在时可下载。
     """
     store = get_feature_store()
-    task = store.get(task_id)
-    if task is None:
-        raise HTTPException(status_code=404, detail=f"任务不存在 task_id={task_id}")
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status != FeatureExtractionTaskStatus.SUCCEEDED.value:
         raise HTTPException(
