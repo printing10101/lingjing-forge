@@ -208,7 +208,7 @@ class RLAgentService(BaseSingletonService):
         finally:
             await session.close()
 
-        versions = [self._orm_to_dataclass(o) for o in orms]
+        versions = [_orm_to_dataclass(o) for o in orms]
         return versions, total
 
     async def get_version(self, version: str) -> PolicyVersion:
@@ -238,7 +238,7 @@ class RLAgentService(BaseSingletonService):
 
         if orm is None:
             raise PolicyNotFoundError(f"RL 策略版本 '{version}' 不存在")
-        return self._orm_to_dataclass(orm)
+        return _orm_to_dataclass(orm)
 
     async def register_version(
         self,
@@ -312,7 +312,7 @@ class RLAgentService(BaseSingletonService):
             algorithm,
             set_active,
         )
-        return self._orm_to_dataclass(orm)
+        return _orm_to_dataclass(orm)
 
     async def set_active_version(self, version: str) -> PolicyVersion:
         """切换激活版本.
@@ -351,7 +351,7 @@ class RLAgentService(BaseSingletonService):
             await session.close()
 
         logger.info("RL 策略激活版本已切换: version=%s", version)
-        return self._orm_to_dataclass(target)
+        return _orm_to_dataclass(target)
 
     # ── 决策推理 ──────────────────────────────────────────────────────
 
@@ -387,11 +387,11 @@ class RLAgentService(BaseSingletonService):
         start_time = time.perf_counter()
         try:
             # 1. 状态字典 ndarray
-            state_arr = self._state_dict_to_array(request.current_state, field_name="current_state")
+            state_arr = _state_dict_to_array(request.current_state, field_name="current_state")
 
             # 2. 候选动作 list[dict] list[ndarray]
             candidate_action_arrs = [
-                self._action_dict_to_array(act, field_name=f"candidate_actions[{idx}]")
+                _action_dict_to_array(act, field_name=f"candidate_actions[{idx}]")
                 for idx, act in enumerate(request.candidate_actions)
             ]
 
@@ -403,9 +403,9 @@ class RLAgentService(BaseSingletonService):
             # 4. 策略前向 原始推荐动作
             with self._infer_lock:
                 policy_out = policy_net(self._to_net_input(policy_net, state_arr))
-                raw_action = self._extract_action(policy_out)
+                raw_action = _extract_action(policy_out)
                 value_out = value_net(self._to_net_input(value_net, state_arr))
-                state_value = self._extract_value(value_out)
+                state_value = _extract_value(value_out)
 
             # 安全过滤推荐动作
             ref_action = self._get_last_action()
@@ -422,12 +422,12 @@ class RLAgentService(BaseSingletonService):
                 expected_return = q_value * (0.0 if cand_result.violated else 1.0)
 
                 # 从 current_state 提取预测颤振概率 / 刀具磨损
-                chatter_prob = self._extract_state_field(state_arr, StateField.CHATTER_PROBABILITY, default=0.0)
-                tool_wear = self._extract_state_field(state_arr, StateField.TOOL_WEAR, default=0.0)
+                chatter_prob = _extract_state_field(state_arr, StateField.CHATTER_PROBABILITY, default=0.0)
+                tool_wear = _extract_state_field(state_arr, StateField.TOOL_WEAR, default=0.0)
 
                 action_evaluations.append(
                     ActionEvaluation(
-                        action=self._action_array_to_dict(cand_safe),
+                        action=_action_array_to_dict(cand_safe),
                         expected_return=expected_return,
                         predicted_chatter_prob=max(0.0, min(1.0, float(chatter_prob))),
                         predicted_tool_wear=max(0.0, float(tool_wear)),
@@ -504,7 +504,7 @@ class RLAgentService(BaseSingletonService):
                 max_steps=100000,
                 current_episode=0,
             )
-        return self._training_run_to_status_info(orm)
+        return _training_run_to_status_info(orm)
 
     async def start_training(self, request: TrainingStartRequest) -> TrainingStatusInfo:
         """启动训练：真实训练循环（轨迹回放环境 + PPO），后台线程执行.
@@ -749,34 +749,12 @@ class RLAgentService(BaseSingletonService):
             active_trainer.request_stop()
 
         logger.info("RL 训练停止请求已发送: run_id=%s", target.id)
-        return self._training_run_to_status_info(target)
+        return _training_run_to_status_info(target)
 
     @staticmethod
     def _pop_active_trainer(run_id: str) -> PPOTrainer | None:
         with _active_trainers_lock:
             return _active_trainers.pop(run_id, None)
-
-    # ── 内部辅助方法：ORM dataclass ──────────────────────────────
-
-    def _orm_to_dataclass(self, orm: RLAgentPolicyVersionORM) -> PolicyVersion:
-        return _orm_to_dataclass(orm)
-
-    def _training_run_to_status_info(self, orm: RLAgentTrainingRunORM) -> TrainingStatusInfo:
-        return _training_run_to_status_info(orm)
-
-    # ── 内部辅助方法：dict ndarray ────────────────────────────────
-
-    def _state_dict_to_array(self, state_dict: dict[str, float], *, field_name: str) -> np.ndarray:
-        return _state_dict_to_array(state_dict, field_name=field_name)
-
-    def _action_dict_to_array(self, action_dict: dict[str, float], *, field_name: str) -> np.ndarray:
-        return _action_dict_to_array(action_dict, field_name=field_name)
-
-    def _action_array_to_dict(self, action_arr: np.ndarray) -> dict[str, float]:
-        return _action_array_to_dict(action_arr)
-
-    def _extract_state_field(self, state_arr: np.ndarray, field_name: str, *, default: float = 0.0) -> float:
-        return _extract_state_field(state_arr, field_name)
 
     # ── 内部辅助方法：网络加载与推理 ────────────────────────────────
 
@@ -823,7 +801,7 @@ class RLAgentService(BaseSingletonService):
             from app.plugins.rl_agent.policy import PolicyConfig, PolicyNet
 
             net = PolicyNet(PolicyConfig())
-            self._weights_loaded[model_uri] = self._load_weights(net, model_uri, kind="policy")
+            self._weights_loaded[model_uri] = _load_weights(net, model_uri, kind="policy")
             self._set_inference_mode(net)
 
             # LRU 淘汰
@@ -854,7 +832,7 @@ class RLAgentService(BaseSingletonService):
                 seed=policy_config.seed,
             )
             net = ValueNet(value_config)
-            self._weights_loaded[model_uri] = self._load_weights(net, model_uri, kind="value")
+            self._weights_loaded[model_uri] = _load_weights(net, model_uri, kind="value")
             self._set_inference_mode(net)
 
             if len(self._value_cache) >= self._NET_CACHE_LIMIT:
@@ -891,16 +869,6 @@ class RLAgentService(BaseSingletonService):
             )
             self._shield_cache[cache_key] = shield
             return shield
-
-    def _load_weights(self, net: Any, model_uri: str, *, kind: str) -> bool:
-        """加载权重并返回是否成功（False=随机初始化，输出不可信）."""
-        return _load_weights(net, model_uri, kind=kind)
-
-    def _extract_action(self, policy_out: Any) -> np.ndarray:
-        return _extract_action(policy_out)
-
-    def _extract_value(self, value_out: Any) -> float:
-        return _extract_value(value_out)
 
     def _get_last_action(self) -> np.ndarray | None:
         """获取最后一次合法动作（跨请求维持变化率约束）."""
@@ -940,11 +908,11 @@ class RLAgentService(BaseSingletonService):
         RecommendedAction
             推荐动作 + 推荐理由.
         """
-        action_dict = self._action_array_to_dict(safe_action)
+        action_dict = _action_array_to_dict(safe_action)
 
         # 若策略动作未违反约束，直接推荐
         if not safety_result.violated:
-            reasoning = self._build_reasoning(
+            reasoning = _build_reasoning(
                 action_dict=action_dict,
                 optimization_target=optimization_target,
                 source="policy",
@@ -958,36 +926,14 @@ class RLAgentService(BaseSingletonService):
             raise SafetyViolationError("所有候选动作均被 SafetyShield 过滤，无安全动作可选")
 
         # 按 optimization_target 排序安全候选动作
-        best = self._rank_candidates(safe_candidates, optimization_target)[0]
-        reasoning = self._build_reasoning(
+        best = _rank_candidates(safe_candidates, optimization_target)[0]
+        reasoning = _build_reasoning(
             action_dict=best.action,
             optimization_target=optimization_target,
             source="candidate_fallback",
             safety_violated=False,
         )
         return RecommendedAction(action=best.action, reasoning=reasoning)
-
-    def _rank_candidates(
-        self,
-        candidates: list[ActionEvaluation],
-        optimization_target: str,
-    ) -> list[ActionEvaluation]:
-        return _rank_candidates(candidates, optimization_target)
-
-    def _build_reasoning(
-        self,
-        *,
-        action_dict: dict[str, float],
-        optimization_target: str,
-        source: str,
-        safety_violated: bool,
-    ) -> str:
-        return _build_reasoning(
-            action_dict=action_dict,
-            optimization_target=optimization_target,
-            source=source,
-            safety_violated=safety_violated,
-        )
 
     async def _build_policy_info(self, *, model_uri: str, exploration_rate: float) -> PolicyInfo:
         """构建策略元信息.
