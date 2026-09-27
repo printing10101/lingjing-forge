@@ -11,6 +11,7 @@
 
 import { reactive, ref, onMounted, type Ref } from 'vue'
 import { setBackendPort } from '@/utils/http'
+import { isTauriEnv } from '@/utils/environment'
 
 export type BackendStatusKind =
   | 'idle'
@@ -41,22 +42,6 @@ const DEFAULT_STATE: BackendState = {
   started_at: null,
   restart_count: 0,
   port: 8765,
-}
-
-/**
- * 检测当前是否运行在 Tauri 容器内
- */
-// Tauri 注入到 window 的内部 API 标记，无官方类型定义，使用结构化类型而非 any
-interface TauriInternalsWindow extends Window {
-  __TAURI_INTERNALS__?: unknown
-}
-
-export function isTauriEnv(): boolean {
-  // 仅检测内部标记是否存在，不调用任何内部方法，无副作用
-  return (
-    typeof window !== 'undefined' &&
-    Boolean((window as TauriInternalsWindow).__TAURI_INTERNALS__)
-  )
 }
 
 /**
