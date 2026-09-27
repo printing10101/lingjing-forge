@@ -116,6 +116,12 @@
 | 1007 | `RATE_LIMIT_EXCEEDED` | 请求过于频繁 | warning | 超出速率限制 | 等待 Retry-After 秒后重试 |
 | 1009 | `CONFLICT` | 资源冲突 | warning | 资源状态冲突 | 重新查询资源状态 |
 
+> **任务型端点 not-found 约定（防枚举）**：任务类端点（cam_validation /
+> chatter_prediction / cutting_parameters / feature_extraction /
+> gcode_generation / parametric_geometry）在任务不存在时统一返回
+> `1001 NOT_FOUND` + 文案「任务不存在或已被删除」，**不回显 task_id**，
+> 防止任务枚举攻击（2026-09 统一，此前部分模块会在消息中回显 task_id）。
+
 ### 4.7 业务资源错误 (4xxx)
 
 | 数值码 | 常量 | 描述 | 严重程度 | 可能原因 | 解决建议 |
