@@ -270,31 +270,11 @@ class GCodeGenerationPipeline:
         await asyncio.to_thread(self._store.update_task, task)
 
         try:
-            # 1. 加载阶段 5 ChatterReport
-            # H10 修复：loader.load 涉及文件 I/O + JSON 解析，转移到线程池。
-            report = await asyncio.to_thread(self._loader.load, task.source_chatter_report_path)
-            if not report.feature_results:
-                raise ChatterReportLoadError(
-                    f"阶段 5 ChatterReport feature_results 为空: {task.source_chatter_report_path}"
-                )
-
-            # 2. 加载阶段 3 OperationPlan
-            operation_plan = await asyncio.to_thread(load_operation_plan, task.source_operation_plan_path)
-            # 匹配刀具共识直径（mm）随任务落盘 → report.json → 阶段 7 体素仿真；
-            # 上游未携带时保持 None（阶段 7 回退配置默认并如实标注来源）
-            task.tool_diameter_mm = operation_plan.tool_diameter_mm
+            report, operation_plan = await self._load_inputs(task)
 
             # 3. 调用 GeneratorAdapter.adapt() 生成基础 G 代码 + 特征级结果
-            # H10 修复：adapt 是同步 CPU 密集计算，转移到线程池。
-            base_result, feature_gcode_results = await asyncio.to_thread(
-                self._adapter.adapt,
-                operation_plan=operation_plan,
-                chatter_results=report.feature_results,
-                controller_type=task.controller_type,
-                material_name=task.material_name,
-                program_number=task.program_number,
-                safe_z=task.safe_z,
-                stock_top_z=task.stock_top_z,
+            base_result, feature_gcode_results = await self._generate(
+                task, operation_plan, report.feature_results
             )
 
             # 4. 检查 is_valid（含 unstable 特征时 base_result.errors 非空）
@@ -409,43 +389,68 @@ class GCodeGenerationPipeline:
             ValueError,
             OSError,
         ) as e:
-            safe = safe_error_message(e, context="gcode_generation.run_pipeline")
-            task.status = GCodeGenerationTaskStatus.FAILED.value
-            task.error_message = safe.get("message", "")
-            self._store.update_task(task)
-            self._record_outcome(
-                task,
-                outcome="failure",
-                source="pipeline_exception",
-                error_codes=[type(e).__name__],
-                error_messages=[safe.get("message", "")],
-            )
-            logger.error(
-                "任务 %s 执行失败 error_id=%s message=%s",
-                task_id,
-                safe.get("error_id"),
-                safe.get("message"),
-            )
-            return self._build_result(task, error_message=safe.get("message"))
+            return self._fail_from_exception(task, e, uncaught=False)
         except Exception as e:
-            safe = safe_error_message(e, context="gcode_generation.run_pipeline")
-            task.status = GCodeGenerationTaskStatus.FAILED.value
-            task.error_message = safe.get("message", "")
-            self._store.update_task(task)
-            self._record_outcome(
-                task,
-                outcome="failure",
-                source="pipeline_exception",
-                error_codes=[type(e).__name__],
-                error_messages=[safe.get("message", "")],
+            return self._fail_from_exception(task, e, uncaught=True)
+
+    async def _load_inputs(self, task) -> tuple:
+        """加载阶段 5 ChatterReport 与阶段 3 OperationPlan（I/O 转线程池）.
+
+        Raises:
+            ChatterReportLoadError: ChatterReport 的 feature_results 为空
+        """
+        # H10 修复：loader.load 涉及文件 I/O + JSON 解析，转移到线程池。
+        report = await asyncio.to_thread(self._loader.load, task.source_chatter_report_path)
+        if not report.feature_results:
+            raise ChatterReportLoadError(
+                f"阶段 5 ChatterReport feature_results 为空: {task.source_chatter_report_path}"
             )
-            logger.error(
-                "任务 %s 执行失败（未捕获异常）error_id=%s message=%s",
-                task_id,
-                safe.get("error_id"),
-                safe.get("message"),
-            )
-            return self._build_result(task, error_message=safe.get("message"))
+
+        operation_plan = await asyncio.to_thread(load_operation_plan, task.source_operation_plan_path)
+        # 匹配刀具共识直径（mm）随任务落盘 → report.json → 阶段 7 体素仿真；
+        # 上游未携带时保持 None（阶段 7 回退配置默认并如实标注来源）
+        task.tool_diameter_mm = operation_plan.tool_diameter_mm
+        return report, operation_plan
+
+    async def _generate(self, task, operation_plan, chatter_results) -> tuple:
+        """调用 GeneratorAdapter.adapt() 生成基础 G 代码（CPU 密集，转线程池）."""
+        return await asyncio.to_thread(
+            self._adapter.adapt,
+            operation_plan=operation_plan,
+            chatter_results=chatter_results,
+            controller_type=task.controller_type,
+            material_name=task.material_name,
+            program_number=task.program_number,
+            safe_z=task.safe_z,
+            stock_top_z=task.stock_top_z,
+        )
+
+    def _fail_from_exception(self, task, e: Exception, *, uncaught: bool) -> GCodeGenerationResult:
+        """执行异常兜底：置 FAILED + 脱敏落库 + 记录 outcome.
+
+        此前为两段逐字相同的 except 体内联（预期异常 / 未捕获异常），
+        仅日志措辞不同。
+        """
+        safe = safe_error_message(e, context="gcode_generation.run_pipeline")
+        task.status = GCodeGenerationTaskStatus.FAILED.value
+        task.error_message = safe.get("message", "")
+        self._store.update_task(task)
+        self._record_outcome(
+            task,
+            outcome="failure",
+            source="pipeline_exception",
+            error_codes=[type(e).__name__],
+            error_messages=[safe.get("message", "")],
+        )
+        suffix = "（未捕获异常）" if uncaught else ""
+        logger.error(
+            "任务 %s 执行失败%s error_id=%s message=%s",
+            task.task_id,
+            suffix,
+            safe.get("error_id"),
+            safe.get("message"),
+        )
+        return self._build_result(task, error_message=safe.get("message"))
 
     # 工程师审核
 
