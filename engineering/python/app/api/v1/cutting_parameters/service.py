@@ -27,7 +27,13 @@ from app.cutting_parameters import (
     get_material_resolver,
     get_task_store,
 )
-from app.api.v1._shared.task_infra import spawn_background_task
+from app.api.v1._shared.task_infra import (
+    build_internal_error,
+    clamp_limit,
+    get_task_or_not_found,
+    spawn_background_task,
+    validate_review_action,
+)
 from app.api.v1.cutting_parameters._helpers import (
     _get_pipeline,
     _disclaimer_dict,
@@ -211,16 +217,10 @@ async def create_task(body: TaskCreateRequest) -> dict[str, Any]:
             num_flutes=body.num_flutes,
         )
     except Exception as e:
-        safe = safe_error_message(e, context="cutting_parameters.create_task")
-        logger.error(
-            "创建切削参数任务失败 | error_id=%s | exc=%s",
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="cutting_parameters.create_task",
+            action="创建切削参数任务失败",
         )
 
     return success(
@@ -254,12 +254,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
     仅 PENDING / FAILED 状态可触发执行（FAILED 允许重试）。
     """
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status not in (
         CuttingParametersTaskStatus.PENDING.value,
@@ -294,12 +291,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
 async def get_task_status(task_id: str) -> dict[str, Any]:
     """查询任务当前状态、审核进度、ChatterParams 路径、精度告知字段。"""
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     # 统计审核进度
     pending_count = sum(1 for p in task.recommended_params if p.review_status == CuttingReviewStatus.PENDING.value)
@@ -341,8 +335,7 @@ async def get_task_status(task_id: str) -> dict[str, Any]:
 
 async def list_tasks(limit: int = 20) -> dict[str, Any]:
     """列出最近的切削参数任务（按创建时间倒序）。"""
-    if limit < 1 or limit > 100:
-        limit = max(1, min(100, limit))
+    limit = clamp_limit(limit)
 
     store = get_task_store()
     tasks = store.list_tasks(limit=limit)
@@ -384,12 +377,9 @@ async def get_task_result(task_id: str) -> dict[str, Any]:
     - warnings（推荐时生成的告警，如材料 pending_calibration / 切速越界）
     """
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     allowed_states = {
         CuttingParametersTaskStatus.PARAMS_RECOMMENDED.value,
@@ -473,12 +463,9 @@ async def review_params(
     请求体中 ``feature_id`` 作为查询参数传入，便于 RESTful 路径表达。
     """
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status != CuttingParametersTaskStatus.PARAMS_RECOMMENDED.value:
         return error(
@@ -490,27 +477,17 @@ async def review_params(
             suggestion="请等待流水线执行完成（状态变为 params_recommended）后再审核",
         )
 
-    # 校验 action
-    valid_actions = {
-        CuttingReviewStatus.CONFIRMED.value,
-        CuttingReviewStatus.REJECTED.value,
-        CuttingReviewStatus.EDITED.value,
-    }
-    if body.action not in valid_actions:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message=f"非法 action: {body.action}，应为 {sorted(valid_actions)}",
-        )
-
-    # edited 动作必须提供 edited_params
-    if body.action == CuttingReviewStatus.EDITED.value and not body.edited_params:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message="action=edited 时必须提供 edited_params",
-            suggestion="请提供编辑后的参数（字段可为 spindle_speed_rpm / feed_rate_mm_per_min "
-            "/ feed_per_tooth_mm / cutting_speed_m_per_min / axial_depth_mm "
-            "/ radial_depth_mm 的子集）",
-        )
+    # 校验 action（非法 action / edited 缺 edited_params）
+    action_error = validate_review_action(
+        body.action,
+        body.edited_params,
+        CuttingReviewStatus,
+        editable_hint="spindle_speed_rpm / feed_rate_mm_per_min "
+        "/ feed_per_tooth_mm / cutting_speed_m_per_min / axial_depth_mm "
+        "/ radial_depth_mm",
+    )
+    if action_error is not None:
+        return action_error
 
     try:
         pipeline = _get_pipeline()
@@ -528,18 +505,12 @@ async def review_params(
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="cutting_parameters.review_params")
-        logger.error(
-            "审核特征失败 task_id=%s feature_id=%s | error_id=%s | exc=%s",
-            task_id,
-            feature_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="cutting_parameters.review_params",
+            action="审核特征失败",
+            task_id=task_id,
+            feature_id=feature_id,
         )
 
     # 重新查询任务状态（review_params 内部可能已将状态置为 REVIEWED）
@@ -591,12 +562,9 @@ async def export_chatter_params(task_id: str) -> dict[str, Any]:
     - K_s（cutting_force_coeff）直接取自材料数据库，HRC52 数据待自采校准
     """
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status != CuttingParametersTaskStatus.REVIEWED.value:
         return error(
@@ -614,17 +582,11 @@ async def export_chatter_params(task_id: str) -> dict[str, Any]:
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="cutting_parameters.export_chatter_params")
-        logger.error(
-            "导出 ChatterParams 失败 task_id=%s | error_id=%s | exc=%s",
-            task_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="cutting_parameters.export_chatter_params",
+            action="导出 ChatterParams 失败",
+            task_id=task_id,
         )
 
     # 重新查询任务获取最新状态
@@ -716,12 +678,9 @@ async def delete_task(task_id: str) -> dict[str, Any]:
     避免误删下游链路已引用的资源。
     """
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     # SUCCEEDED 状态的任务禁止删除（避免误删阶段 5 已引用的 ChatterParams）
     if task.status == CuttingParametersTaskStatus.SUCCEEDED.value:
@@ -741,27 +700,22 @@ async def delete_task(task_id: str) -> dict[str, Any]:
         try:
             store.update_task(task)
         except Exception as e:
-            safe = safe_error_message(e, context="cutting_parameters.delete_task.cancel")
-            logger.error(
-                "取消任务失败 task_id=%s | error_id=%s | exc=%s",
-                task_id,
-                safe.get("error_id"),
+            return build_internal_error(
                 e,
-                exc_info=True,
-            )
-            return error(
-                code=ErrorCode.INTERNAL_ERROR,
-                message=safe["message"],
+                context="cutting_parameters.delete_task.cancel",
+                action="取消任务失败",
+                task_id=task_id,
             )
 
     # delete_task 内部会检查 SUCCEEDED 状态并抛 ReviewError（已在前置校验中拦截）
     try:
         deleted = store.delete_task(task_id)
     except Exception as e:
-        safe = safe_error_message(e, context="cutting_parameters.delete_task")
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+        return build_internal_error(
+            e,
+            context="cutting_parameters.delete_task",
+            action="删除任务失败",
+            task_id=task_id,
         )
 
     if not deleted:
