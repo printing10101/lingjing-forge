@@ -5,13 +5,18 @@
 
 from __future__ import annotations
 
-from __future__ import annotations
-import asyncio
 import logging
 from pathlib import Path
 from typing import Any
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import FileResponse
+from app.api.v1._shared.task_infra import (
+    build_internal_error,
+    clamp_limit,
+    get_task_or_not_found,
+    spawn_background_task as _spawn,
+    validate_review_action,
+)
 from app.api.v1.parametric_geometry.schemas import (
     ReviewRequest,
     TaskCreateRequest,
@@ -32,18 +37,6 @@ from app.parametric_geometry import (
 
 
 logger = logging.getLogger(__name__)
-
-# 后台任务引用集合（防 GC 回收，与原 routes 行为一致）
-_background_tasks: set = set()
-
-
-def _spawn(coro):
-    """启动后台任务并保存引用，避免被 Python GC 回收。"""
-    t = asyncio.create_task(coro)
-    _background_tasks.add(t)
-    t.add_done_callback(_background_tasks.discard)
-    return t
-
 
 router = APIRouter(
     prefix="/api/v1/parametric_geometry",
@@ -306,16 +299,10 @@ async def create_task(body: TaskCreateRequest) -> dict[str, Any]:
             mesh_calibrated=mesh_calibrated,
         )
     except Exception as e:
-        safe = safe_error_message(e, context="parametric_geometry.create_task")
-        logger.error(
-            "创建参数化几何任务失败 | error_id=%s | exc=%s",
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="parametric_geometry.create_task",
+            action="创建参数化几何任务失败",
         )
 
     return success(
@@ -351,12 +338,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
     仅 PENDING / FAILED 状态可触发执行（FAILED 允许重试）。
     """
     store = get_task_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status not in (
         ParametricGeometryTaskStatus.PENDING.value,
@@ -390,12 +374,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
 async def get_task_status(task_id: str) -> dict[str, Any]:
     """查询任务当前状态、审核进度、STEP 路径、精度告知字段。"""
     store = get_task_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     # 统计审核进度
     pending_count = sum(1 for f in task.input_features if f.review_status == StepReviewStatus.PENDING.value)
@@ -430,8 +411,7 @@ async def get_task_status(task_id: str) -> dict[str, Any]:
 
 async def list_tasks(limit: int = 20) -> dict[str, Any]:
     """列出最近的参数化几何任务（按创建时间倒序）。"""
-    if limit < 1 or limit > 100:
-        limit = max(1, min(100, limit))
+    limit = clamp_limit(limit)
 
     store = get_task_store()
     tasks = store.list_tasks(limit=limit)
@@ -470,12 +450,9 @@ async def get_task_result(task_id: str) -> dict[str, Any]:
     - edited_params / engineer_notes（工程师审核后填充）
     """
     store = get_task_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     allowed_states = {
         ParametricGeometryTaskStatus.STEP_GENERATED.value,
@@ -550,12 +527,9 @@ async def review_step_feature(
     请求体中 ``feature_id`` 作为查询参数传入，便于 RESTful 路径表达。
     """
     store = get_task_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status != ParametricGeometryTaskStatus.STEP_GENERATED.value:
         return error(
@@ -566,25 +540,15 @@ async def review_step_feature(
             suggestion="请等待流水线执行完成（状态变为 step_generated）后再审核",
         )
 
-    # 校验 action
-    valid_actions = {
-        StepReviewStatus.CONFIRMED.value,
-        StepReviewStatus.REJECTED.value,
-        StepReviewStatus.EDITED.value,
-    }
-    if body.action not in valid_actions:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message=f"非法 action: {body.action}，应为 {sorted(valid_actions)}",
-        )
-
-    # edited 动作必须提供 edited_params
-    if body.action == StepReviewStatus.EDITED.value and not body.edited_params:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message="action=edited 时必须提供 edited_params",
-            suggestion="请提供编辑后的完整参数（字段结构需与 source_params 一致）",
-        )
+    # 校验 action（非法 action / edited 缺 edited_params）
+    action_error = validate_review_action(
+        body.action,
+        body.edited_params,
+        StepReviewStatus,
+        edited_suggestion="请提供编辑后的完整参数（字段结构需与 source_params 一致）",
+    )
+    if action_error is not None:
+        return action_error
 
     try:
         pipeline = _get_pipeline()
@@ -602,18 +566,12 @@ async def review_step_feature(
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="parametric_geometry.review_step_feature")
-        logger.error(
-            "审核特征失败 task_id=%s feature_id=%s | error_id=%s | exc=%s",
-            task_id,
-            feature_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="parametric_geometry.review_step_feature",
+            action="审核特征失败",
+            task_id=task_id,
+            feature_id=feature_id,
         )
 
     # 重新查询任务状态（review_step_feature 内部可能已将状态置为 REVIEWED）
@@ -664,12 +622,9 @@ async def finalize_step(task_id: str) -> dict[str, Any]:
     - 本系统定位为「工程师助手」，非「全自动生产线」
     """
     store = get_task_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status != ParametricGeometryTaskStatus.REVIEWED.value:
         return error(
@@ -689,17 +644,11 @@ async def finalize_step(task_id: str) -> dict[str, Any]:
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="parametric_geometry.finalize_step")
-        logger.error(
-            "最终化 STEP 失败 task_id=%s | error_id=%s | exc=%s",
-            task_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="parametric_geometry.finalize_step",
+            action="最终化 STEP 失败",
+            task_id=task_id,
         )
 
     # 重新查询任务获取最新状态（finalize_step 内部已 update）
@@ -827,12 +776,9 @@ async def delete_task(task_id: str) -> dict[str, Any]:
     避免误删下游链路已引用的资源。
     """
     store = get_task_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     # SUCCEEDED 状态的任务禁止删除（避免误删下游 CAM 模块已引用的最终 STEP）
     if task.status == ParametricGeometryTaskStatus.SUCCEEDED.value:
@@ -859,17 +805,11 @@ async def delete_task(task_id: str) -> dict[str, Any]:
                 message=str(e),
             )
         except Exception as e:
-            safe = safe_error_message(e, context="parametric_geometry.delete_task.cancel")
-            logger.error(
-                "取消任务失败 task_id=%s | error_id=%s | exc=%s",
-                task_id,
-                safe.get("error_id"),
+            return build_internal_error(
                 e,
-                exc_info=True,
-            )
-            return error(
-                code=ErrorCode.INTERNAL_ERROR,
-                message=safe["message"],
+                context="parametric_geometry.delete_task.cancel",
+                action="取消任务失败",
+                task_id=task_id,
             )
 
     deleted = store.delete(task_id)
