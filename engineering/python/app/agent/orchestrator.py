@@ -46,6 +46,8 @@ from enum import Enum
 from typing import Any
 from collections.abc import Callable
 
+from app.agent import dxf_planning_bridge
+from app.agent import gcode_repair
 from app.agent.failure_recorder import record_agent_failure, record_agent_success
 from app.agent.knowledge_augmenter import KnowledgeAugmenter
 from app.agent.memory import OrchestratorMemory, summarize_pipeline_for_memory
@@ -635,20 +637,6 @@ class AgentOrchestrator:
 
     # W1.1 校验修复闭环
 
-    # 可自动修复的安全错误码 → 修复动作（其余错误码先走 LLM 诊断修复，
-    # 仍失败才转人工，不做半吊子修复）
-    _REPAIRABLE_CODES: dict[str, str] = {
-        "NO_PROGRAM_END": "append_program_end",
-        "NEGATIVE_FEED": "clamp_negative_feed",
-        # FEED_OUT_OF_RANGE：validate_gcode_text 文本级进给越界（G94 模态），
-        # recommended 为 clamp 建议值（2026-09 接线，此前该错误码从未产出）
-        "FEED_OUT_OF_RANGE": "clamp_feed_range",
-        # 以下两类当前 validate 步骤不产出，但保留映射：一旦 L1/L2 参数级校验
-        # 接入编排校验（带 recommended clamp 值），修复闭环无需改动即生效。
-        "SPINDLE_OUT_OF_RANGE": "clamp_parameter",
-        "AXIS_TRAVEL_EXCEEDED": "clamp_parameter",
-    }
-
     async def _maybe_repair(
         self,
         result: PipelineResult,
@@ -682,11 +670,13 @@ class AgentOrchestrator:
         if "gcode_generate" not in context or "gcode_generate" not in self._step_registry:
             return _escalate(f"安全校验未通过且无生成产物可修复，需人工介入；错误码：{error_codes}")
 
-        actions = self._plan_repairs(report)
+        actions = gcode_repair.plan_repairs(report)
         if not actions:
             # 2026-09 升级：白名单外错误先尝试 LLM 诊断修复（提案位）；
             # 修复后的 G 代码会回到 validate_safety 重验，LLM 无权绕过校验。
-            llm_repaired = await self._llm_repair_gcode(report, context)
+            llm_repaired = await gcode_repair.llm_repair_gcode(
+                report, context, enabled=self._llm_repair_enabled
+            )
             if llm_repaired is not None:
                 attempt = repair_attempt + 1
                 # 自进化 M0：修复所用提示词版本入 repair_history（可追溯）
@@ -731,7 +721,7 @@ class AgentOrchestrator:
         text_actions = [a for a in actions if a["action"] != "clamp_parameter"]
         applied: list[str] = []
         if param_actions:
-            applied.extend(self._apply_parameter_repairs(context, param_actions))
+            applied.extend(gcode_repair.apply_parameter_repairs(context, param_actions))
 
         gen_config = next(
             (cfg for name, cfg in steps if name == "gcode_generate"),
@@ -756,7 +746,7 @@ class AgentOrchestrator:
         else:
             context["gcode_generate"] = gen_result.output
         if text_actions:
-            applied.extend(self._apply_text_repairs(context["gcode_generate"], text_actions))
+            applied.extend(gcode_repair.apply_text_repairs(context["gcode_generate"], text_actions))
 
         repair_record["applied"] = applied
         result.repair_count = attempt
@@ -769,200 +759,6 @@ class AgentOrchestrator:
             applied,
         )
         return False
-
-    def _plan_repairs(self, report: dict[str, Any]) -> list[dict[str, Any]]:
-        """根据安全报告规划修复动作；存在任何不可修复错误时返回空（转 LLM/人工）。"""
-        actions: list[dict[str, Any]] = []
-        for issue in report.get("issues", []):
-            if issue.get("severity") != "error":
-                continue
-            code = issue.get("code", "")
-            mapped = self._REPAIRABLE_CODES.get(code)
-            if mapped is None:
-                return []
-            action: dict[str, Any] = {
-                "action": mapped,
-                "code": code,
-                "message": issue.get("message", ""),
-            }
-            if mapped == "clamp_negative_feed":
-                action["line"] = (issue.get("context") or {}).get("line")
-            elif mapped in ("clamp_parameter", "clamp_feed_range"):
-                if issue.get("recommended") is None:
-                    return []
-                action["value"] = issue["recommended"]
-                if mapped == "clamp_feed_range":
-                    action["line"] = (issue.get("context") or {}).get("line")
-            if not any(a["code"] == code for a in actions):
-                actions.append(action)
-        return actions
-
-    def _apply_parameter_repairs(
-        self,
-        context: dict[str, Any],
-        actions: list[dict[str, Any]],
-    ) -> list[str]:
-        """参数级修复：在重新生成之前，把 clamp 建议值注入工艺参数上下文。"""
-        applied: list[str] = []
-        plan_output = context.get("parameter_recommend")
-        if not isinstance(plan_output, dict) or not isinstance(plan_output.get("parameters"), dict):
-            return applied
-        for action in actions:
-            key = "spindle_rpm" if action.get("code") == "SPINDLE_OUT_OF_RANGE" else "safe_z"
-            plan_output["parameters"][key] = action.get("value")
-            applied.append(f"参数 {key} clamp 至 {action.get('value')}")
-        return applied
-
-    def _apply_text_repairs(
-        self,
-        gen_output: dict[str, Any],
-        actions: list[dict[str, Any]],
-    ) -> list[str]:
-        """文本级修复：直接修正重新生成后的 G 代码文本（追加 M30 / 负进给取绝对值）。"""
-        applied: list[str] = []
-        gcode = gen_output.get("gcode", "") if isinstance(gen_output, dict) else ""
-
-        for action in actions:
-            kind = action.get("action")
-            if kind == "append_program_end":
-                if not re.search(r"\bM(30|02)\b", gcode, re.IGNORECASE):
-                    gcode = (gcode.rstrip() + "\nM30\n") if gcode else "M30\n"
-                    applied.append("追加程序结束指令 M30")
-            elif kind == "clamp_negative_feed":
-                gcode, desc = self._clamp_negative_feed_line(gcode, action.get("line"))
-                if desc:
-                    applied.append(desc)
-            elif kind == "clamp_feed_range":
-                gcode, desc = self._clamp_feed_range_line(gcode, action.get("line"), action.get("value"))
-                if desc:
-                    applied.append(desc)
-
-        if isinstance(gen_output, dict) and applied:
-            gen_output["gcode"] = gcode
-            warnings = gen_output.setdefault("repair_warnings", [])
-            warnings.append("自动修复：" + "；".join(applied))
-        return applied
-
-    @staticmethod
-    def _clamp_negative_feed_line(gcode: str, target_line: int | None) -> tuple[str, str]:
-        """把第 target_line 个有效行（跳过空行/注释）中的负进给取绝对值。
-
-        Returns:
-            (新文本, 描述)；未定位到目标行时原样返回。
-        """
-        if not gcode:
-            return gcode, ""
-        lines = gcode.split("\n")
-        effective = 0
-        for i, ln in enumerate(lines):
-            stripped = ln.strip()
-            if not stripped or stripped.startswith(";"):
-                continue
-            effective += 1
-            if target_line is not None and effective != target_line:
-                continue
-            new_ln, n = re.subn(
-                r"F\s*(-\d+(?:\.\d+)?)",
-                lambda m: f"F{abs(float(m.group(1))):g}",
-                ln,
-                flags=re.IGNORECASE,
-            )
-            if n:
-                lines[i] = new_ln
-                return "\n".join(lines), f"第 {effective} 行负进给已取绝对值"
-            if target_line is not None:
-                break
-        return gcode, ""
-
-    @staticmethod
-    def _clamp_feed_range_line(gcode: str, target_line: int | None, recommended: float | None) -> tuple[str, str]:
-        """把第 target_line 个有效行（跳过空行/注释）中的进给 clamp 至建议值。
-
-        Returns:
-            (新文本, 描述)；未定位到目标行或无建议值时原样返回。
-        """
-        if not gcode or recommended is None:
-            return gcode, ""
-        lines = gcode.split("\n")
-        effective = 0
-        for i, ln in enumerate(lines):
-            stripped = ln.strip()
-            if not stripped or stripped.startswith(";"):
-                continue
-            effective += 1
-            if target_line is not None and effective != target_line:
-                continue
-            new_ln, n = re.subn(
-                r"F\s*\d+(?:\.\d+)?",
-                f"F{float(recommended):g}",
-                ln,
-                count=1,
-                flags=re.IGNORECASE,
-            )
-            if n:
-                lines[i] = new_ln
-                return "\n".join(lines), f"第 {effective} 行进给已 clamp 至 {float(recommended):g}"
-            if target_line is not None:
-                break
-        return gcode, ""
-
-    async def _llm_repair_gcode(
-        self,
-        report: dict[str, Any],
-        context: dict[str, Any],
-    ) -> str | None:
-        """白名单外安全错误的 LLM 诊断修复（提案位）。
-
-        把结构化诊断 + 当前 G 代码交 LLM 产出修复版本；返回 None 表示
-        LLM 不可用/输出不合法（调用方转人工）。**LLM 无权绕过校验**——
-        修复产物会回到 validate_safety 重验，重验失败仍走升级人工。
-
-        开关：``LNN_ORCHESTRATOR_LLM_REPAIR``（默认开）。
-        """
-        if not self._llm_repair_enabled:
-            return None
-        gen_output = context.get("gcode_generate")
-        gcode = gen_output.get("gcode", "") if isinstance(gen_output, dict) else ""
-        if not gcode:
-            return None
-        try:
-            from app.ai.llm_client import get_llm_client
-
-            # 提示词走注册表（自进化 M0）：版本随 repair_history 入 trace
-            repair_system, _ = get_prompt_registry().render(ORCHESTRATOR_GCODE_REPAIR_SYSTEM_ID)
-            client = await get_llm_client()
-            payload = {
-                "issues": report.get("issues", []),
-                "gcode": gcode,
-            }
-            response = await client.chat_completion(
-                [
-                    {
-                        "role": "system",
-                        "content": repair_system,
-                    },
-                    {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
-                ],
-                max_tokens=2048,
-                temperature=0.1,
-            )
-        except Exception as e:
-            logger.info("LLM 诊断修复不可用（转人工）: %s", type(e).__name__)
-            return None
-        repaired = re.sub(r"```[a-z]*", "", response.get("content", "")).strip()
-        # 基本合法性守卫：非空、仍是多行 G 代码形态、未膨胀超过 1.5 倍（防幻觉重写）
-        if not repaired or "\n" not in repaired or len(repaired) > len(gcode) * 1.5 + 64:
-            # LLM 应答了但输出非法：模型质量信号，入册（口径见 failure_recorder）
-            record_agent_failure(
-                task_id=str(context.get("pipeline_id", "") or "orchestrator"),
-                source="gcode_repair",
-                error_codes=["LLM_INVALID_OUTPUT"],
-                error_messages=[f"修复提案原始输出(截断): {repaired[:400]}"],
-                gcode_text=gcode,
-            )
-            logger.info("LLM 诊断修复输出不合法（转人工）")
-            return None
-        return repaired
 
     async def _execute_step(
         self,
@@ -1046,80 +842,13 @@ class AgentOrchestrator:
             logger.error("DXF module not available: %s", e)
             raise RuntimeError(f"DXF解析模块不可用，请确保已安装依赖: {e}") from e
 
-        features, metadata = self._normalize_dxf_output(parse_result)
+        features, metadata = dxf_planning_bridge.normalize_dxf_output(parse_result)
         return {
             "status": "success",
             "features": features,
             "metadata": metadata,
             "dxf_path": dxf_path,
         }
-
-    @staticmethod
-    def _normalize_dxf_output(parse_result: Any) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-        """把 ``DxfProcessResult`` 桥接为规划器兼容的规范化特征列表。
-
-        HoleFeatureInfo → 规划器孔 dict 契约：
-        ``{type, id, hole_type, position{x,y}, diameter, depth,
-        tolerance_grade, surface}``。通孔深度缺失（=0）时以板厚
-        （overall_height）推断——规划器校验要求通孔深度 > 0。
-        """
-        features: list[dict[str, Any]] = []
-        stage = getattr(parse_result, "features", None)
-        summary = getattr(stage, "summary", None) if stage is not None else None
-        if not isinstance(summary, dict):
-            summary = {}
-        plate_thickness = float(summary.get("overall_height") or 0.0)
-
-        for h in summary.get("holes_detail") or []:
-            if not isinstance(h, dict):
-                continue
-            hole_type = str(h.get("hole_type") or "through_hole")
-            depth = float(h.get("depth") or 0.0)
-            if depth <= 0 and hole_type == "through_hole":
-                depth = plate_thickness
-            features.append(
-                {
-                    "type": "hole",
-                    "id": h.get("hole_id") or f"H{len(features) + 1:03d}",
-                    "hole_type": hole_type,
-                    "position": {
-                        "x": float(h.get("center_x") or 0.0),
-                        "y": float(h.get("center_y") or 0.0),
-                    },
-                    "diameter": float(h.get("diameter") or 0.0),
-                    "depth": depth,
-                    "tolerance_grade": h.get("tolerance_grade") or "IT8",
-                    "surface": h.get("surface") or "A",
-                }
-            )
-        for p in summary.get("planes_detail") or []:
-            if not isinstance(p, dict):
-                continue
-            features.append(
-                {
-                    "type": "plane",
-                    "id": p.get("plane_id") or f"P{len(features) + 1:03d}",
-                    "position": {
-                        "x": float(p.get("center_x") or 0.0),
-                        "y": float(p.get("center_y") or 0.0),
-                    },
-                    "length": float(p.get("length") or 0.0),
-                    "width": float(p.get("width") or 0.0),
-                    "surface": p.get("surface") or "A",
-                }
-            )
-        metadata = {
-            "feature_stage_success": bool(getattr(stage, "success", False)),
-            "feature_stage_error": getattr(stage, "error", "") or "",
-            "hole_count": len([f for f in features if f["type"] == "hole"]),
-            "plane_count": len([f for f in features if f["type"] == "plane"]),
-            "overall": {
-                "length": summary.get("overall_length"),
-                "width": summary.get("overall_width"),
-                "height": summary.get("overall_height"),
-            },
-        }
-        return features, metadata
 
     async def _step_process_understanding(self, input_data: Any, context: dict[str, Any]) -> dict[str, Any]:
         """Analyze part features and determine process requirements."""

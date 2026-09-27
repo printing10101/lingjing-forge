@@ -327,16 +327,21 @@ class TestFeedOutOfRange:
 
 
 class TestLLMRepair:
-    def _fabricate(self, tmp_path, llm_content: str | None, llm_exc: Exception | None = None):
+    def _fabricate(self, tmp_path, llm_content: str | None, llm_exc: Exception | None = None, monkeypatch=None):
         orch = _orchestrator(tmp_path)
         gen_output = {"status": "success", "gcode": "G01 X1 F100\nG01 X2 F100\nM30\n"}
 
-        async def _llm_repair_stub(report, context):
+        async def _llm_repair_stub(report, context, *, enabled):
             if llm_exc:
                 return None  # 真实实现对异常内部捕获并返回 None
             return llm_content
 
-        orch._llm_repair_gcode = _llm_repair_stub  # type: ignore[method-assign]
+        # 修复逻辑已拆至 app.agent.gcode_repair，编排器经模块直调；
+        # 打桩需替换模块属性（实例属性打桩不再生效）
+        if monkeypatch is not None:
+            from app.agent import gcode_repair as _gcode_repair_mod
+
+            monkeypatch.setattr(_gcode_repair_mod, "llm_repair_gcode", _llm_repair_stub)
         report = {
             "issues": [
                 {"code": "MYSTERY_ERROR", "severity": "error", "message": "未知错误", "context": {}}
@@ -350,9 +355,9 @@ class TestLLMRepair:
         result = PipelineResult(pipeline_id="p", success=False)
         return orch, result, validate_result, {"gcode_generate": gen_output}
 
-    async def test_llm_repair_applies_and_continues(self, tmp_path):
+    async def test_llm_repair_applies_and_continues(self, tmp_path, monkeypatch):
         orch, result, validate_result, context = self._fabricate(
-            tmp_path, "G01 X1 F100\nG01 X2 F100\nM30\n(已修复)"
+            tmp_path, "G01 X1 F100\nG01 X2 F100\nM30\n(已修复)", monkeypatch=monkeypatch
         )
         escalate = await orch._maybe_repair(
             result=result,
@@ -366,8 +371,10 @@ class TestLLMRepair:
         assert result.repair_history[0]["source"] == "llm"
         assert "已修复" in context["gcode_generate"]["gcode"]
 
-    async def test_llm_unavailable_escalates_to_human(self, tmp_path):
-        orch, result, validate_result, context = self._fabricate(tmp_path, None, llm_exc=RuntimeError("x"))
+    async def test_llm_unavailable_escalates_to_human(self, tmp_path, monkeypatch):
+        orch, result, validate_result, context = self._fabricate(
+            tmp_path, None, llm_exc=RuntimeError("x"), monkeypatch=monkeypatch
+        )
         escalate = await orch._maybe_repair(
             result=result,
             steps=[("validate_safety", {})],
