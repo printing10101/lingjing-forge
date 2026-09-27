@@ -2,13 +2,9 @@
 
 从原 ``app/budget/budget_enforcer.py`` 拆分而来，聚焦于成本优化职责：
 模型替代建议、GPU 利用率分析、训练复用建议等。
-
-向后兼容：``app/budget/budget_enforcer.py`` 仍作为 re-export shim 暴露
-本模块的全部公开符号。
 """
 
 import logging
-import threading
 import time
 
 
@@ -241,32 +237,6 @@ class CostOptimizer(BaseSingletonService):
             return cls._service_singleton
 
 
-class _CostOptimizerHolder:
-    """[Deprecated] 已被 :class:`BaseSingletonService` 单例机制取代.
-
-    本类仅作为占位符保留，避免破坏 ``app/budget/budget_enforcer.py`` re-export
-    shim 的导入。新代码应直接使用 :meth:`CostOptimizer.get_instance` /
-    :meth:`CostOptimizer.init` / :meth:`CostOptimizer.reset_instance`。
-    """
-
-    def __init__(self) -> None:
-        # 保留原属性名以兼容可能的外部反射访问
-        self._lock = threading.Lock()
-        self._instance: CostOptimizer | None = None
-
-    def get(self) -> CostOptimizer:
-        return CostOptimizer.get_instance()  # type: ignore[return-value]
-
-    def init(self) -> CostOptimizer:
-        return CostOptimizer.init()
-
-    def reset(self) -> None:
-        CostOptimizer.reset_instance()
-
-
-_optimizer_holder = _CostOptimizerHolder()
-
-
 def get_cost_optimizer() -> CostOptimizer:
     """获取共享的 :class:`CostOptimizer` 单例；首次访问时懒初始化。
 
@@ -288,8 +258,6 @@ def init_cost_optimizer() -> CostOptimizer:
 
 __all__ = [
     "CostOptimizer",
-    "_CostOptimizerHolder",
-    "_optimizer_holder",
     "get_cost_optimizer",
     "init_cost_optimizer",
 ]

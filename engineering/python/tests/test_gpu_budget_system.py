@@ -23,11 +23,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import pytest  # noqa: E402
 
-from app.budget.budget_enforcer import (  # noqa: E402
-    BudgetEnforcer,
-    CostOptimizer,
-    EnforcementAction,
-)
+from app.budget.cost_optimizer import CostOptimizer  # noqa: E402
 from app.budget.cost_tracker import (  # noqa: E402
     BudgetEvent,
     CostDimension,
@@ -36,6 +32,8 @@ from app.budget.cost_tracker import (  # noqa: E402
     MultiDimensionCostTracker,
     ProviderType,
 )
+from app.budget.enforcer import BudgetEnforcer  # noqa: E402
+from app.budget.models import EnforcementAction  # noqa: E402
 from app.models.budget import (  # noqa: E402
     BudgetLevel,
     BudgetPeriod,
