@@ -100,130 +100,90 @@ export const useRuleStore = defineStore('rules', () => {
   }
 
   async function createRule(rule: RuleCreateRequest) {
-    try {
-      const response = await http.post(buildApiPath(API_CONFIG.RULES, '/create'), rule)
-      ElMessage.success(response.data.message || '规则创建成功')
-      await fetchRules()
-      await fetchStats()
-      return response.data.data
-    } catch (e: unknown) {
-      throw e
-    }
+    const response = await http.post(buildApiPath(API_CONFIG.RULES, '/create'), rule)
+    ElMessage.success(response.data.message || '规则创建成功')
+    await fetchRules()
+    await fetchStats()
+    return response.data.data
   }
 
   async function updateRule(ruleId: number, rule: RuleUpdateRequest) {
-    try {
-      const response = await http.put(buildApiPath(API_CONFIG.RULES, `/update/${ruleId}`), rule)
-      ElMessage.success(response.data.message || '规则更新成功')
-      await fetchRules()
-      await fetchStats()
-      return response.data.data
-    } catch (e: unknown) {
-      throw e
-    }
+    const response = await http.put(buildApiPath(API_CONFIG.RULES, `/update/${ruleId}`), rule)
+    ElMessage.success(response.data.message || '规则更新成功')
+    await fetchRules()
+    await fetchStats()
+    return response.data.data
   }
 
   async function deleteRule(ruleId: number) {
-    try {
-      const response = await http.delete(buildApiPath(API_CONFIG.RULES, `/delete/${ruleId}`))
-      ElMessage.success(response.data.message || '规则删除成功')
-      await fetchRules()
-      await fetchStats()
-    } catch (e: unknown) {
-      throw e
-    }
+    const response = await http.delete(buildApiPath(API_CONFIG.RULES, `/delete/${ruleId}`))
+    ElMessage.success(response.data.message || '规则删除成功')
+    await fetchRules()
+    await fetchStats()
   }
 
   async function getRule(ruleId: number) {
-    try {
-      const response = await http.get(buildApiPath(API_CONFIG.RULES, `/detail/${ruleId}`))
-      currentRule.value = response.data.data
-      return response.data.data
-    } catch (e: unknown) {
-      throw e
-    }
+    const response = await http.get(buildApiPath(API_CONFIG.RULES, `/detail/${ruleId}`))
+    currentRule.value = response.data.data
+    return response.data.data
   }
 
   async function createGroup(group: RuleGroupCreateRequest) {
-    try {
-      const response = await http.post(buildApiPath(API_CONFIG.RULES, '/groups/create'), group)
-      ElMessage.success(response.data.message || '分组创建成功')
-      await fetchGroups()
-      await fetchStats()
-      return response.data.data
-    } catch (e: unknown) {
-      throw e
-    }
+    const response = await http.post(buildApiPath(API_CONFIG.RULES, '/groups/create'), group)
+    ElMessage.success(response.data.message || '分组创建成功')
+    await fetchGroups()
+    await fetchStats()
+    return response.data.data
   }
 
   async function updateGroup(groupId: number, group: RuleGroupUpdateRequest) {
-    try {
-      const response = await http.put(buildApiPath(API_CONFIG.RULES, `/groups/update/${groupId}`), group)
-      ElMessage.success(response.data.message || '分组更新成功')
-      await fetchGroups()
-      return response.data.data
-    } catch (e: unknown) {
-      throw e
-    }
+    const response = await http.put(buildApiPath(API_CONFIG.RULES, `/groups/update/${groupId}`), group)
+    ElMessage.success(response.data.message || '分组更新成功')
+    await fetchGroups()
+    return response.data.data
   }
 
   async function deleteGroup(groupId: number) {
-    try {
-      const response = await http.delete(buildApiPath(API_CONFIG.RULES, `/groups/delete/${groupId}`))
-      ElMessage.success(response.data.message || '分组删除成功')
-      await fetchGroups()
-      await fetchStats()
-    } catch (e: unknown) {
-      throw e
-    }
+    const response = await http.delete(buildApiPath(API_CONFIG.RULES, `/groups/delete/${groupId}`))
+    ElMessage.success(response.data.message || '分组删除成功')
+    await fetchGroups()
+    await fetchStats()
   }
 
   async function exportRules() {
-    try {
-      const response = await http.get(buildApiPath(API_CONFIG.RULES, '/export'), {
-        responseType: 'blob',
-      })
-      const disposition = response.headers['content-disposition']
-      let filename = 'rules_export.json'
-      if (disposition) {
-        const match = disposition.match(/filename="?([^"]+)"?/)
-        if (match) filename = match[1]
-      }
-      triggerFileDownload(new Blob([response.data]), filename)
-      ElMessage.success('规则导出成功')
-    } catch (e: unknown) {
-      throw e
+    const response = await http.get(buildApiPath(API_CONFIG.RULES, '/export'), {
+      responseType: 'blob',
+    })
+    const disposition = response.headers['content-disposition']
+    let filename = 'rules_export.json'
+    if (disposition) {
+      const match = disposition.match(/filename="?([^"]+)"?/)
+      if (match) filename = match[1]
     }
+    triggerFileDownload(new Blob([response.data]), filename)
+    ElMessage.success('规则导出成功')
   }
 
   async function importRules(file: File) {
-    try {
-      const formData = new FormData()
-      formData.append('file', file)
-      const response = await http.post(buildApiPath(API_CONFIG.RULES, '/import'), formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
-      const data: RuleImportResponse = response.data.data
-      ElMessage.success(
-        response.data.message || `导入成功: ${data.imported_rules} 条规则, ${data.imported_groups} 个分组`
-      )
-      await fetchRules()
-      await fetchGroups()
-      await fetchStats()
-      return data
-    } catch (e: unknown) {
-      throw e
-    }
+    const formData = new FormData()
+    formData.append('file', file)
+    const response = await http.post(buildApiPath(API_CONFIG.RULES, '/import'), formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+    const data: RuleImportResponse = response.data.data
+    ElMessage.success(
+      response.data.message || `导入成功: ${data.imported_rules} 条规则, ${data.imported_groups} 个分组`
+    )
+    await fetchRules()
+    await fetchGroups()
+    await fetchStats()
+    return data
   }
 
   async function backupDatabase() {
-    try {
-      const response = await http.post(buildApiPath(API_CONFIG.RULES, '/backup'))
-      ElMessage.success(response.data.message || '数据库备份成功')
-      return response.data.data
-    } catch (e: unknown) {
-      throw e
-    }
+    const response = await http.post(buildApiPath(API_CONFIG.RULES, '/backup'))
+    ElMessage.success(response.data.message || '数据库备份成功')
+    return response.data.data
   }
 
   function openCreateDialog() {
