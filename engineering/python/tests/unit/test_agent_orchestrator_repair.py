@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import pytest
 
+from app.agent import gcode_repair
 from app.agent.orchestrator import AgentOrchestrator, StepStatus
 
 pytestmark = [pytest.mark.asyncio, pytest.mark.unit]
@@ -169,21 +170,19 @@ class TestRepairTrace:
 class TestPlanRepairs:
     def test_unmixable_error_blocks_all_repairs(self, tmp_path):
         """可修复与不可修复错误混合出现时，宁可转人工也不做部分修复。"""
-        orch = AgentOrchestrator(trace_log_dir=str(tmp_path / "t"))
         report = {
             "issues": [
                 {"code": "NO_PROGRAM_END", "severity": "error", "message": "", "context": {}},
                 {"code": "EMPTY_PROGRAM", "severity": "error", "message": "", "context": {}},
             ]
         }
-        assert orch._plan_repairs(report) == []
+        assert gcode_repair.plan_repairs(report) == []
 
     def test_warnings_do_not_trigger_repair(self, tmp_path):
         """仅 warning 级问题不进入修复闭环（交由工程师审核）。"""
-        orch = AgentOrchestrator(trace_log_dir=str(tmp_path / "t"))
         report = {
             "issues": [
                 {"code": "UNKNOWN_G_M_CODE", "severity": "warning", "message": "", "context": {}}
             ]
         }
-        assert orch._plan_repairs(report) == []
+        assert gcode_repair.plan_repairs(report) == []

@@ -18,6 +18,7 @@ from types import SimpleNamespace
 
 import pytest
 
+from app.agent.dxf_planning_bridge import normalize_dxf_output
 from app.agent.orchestrator import AgentOrchestrator
 
 pytestmark = pytest.mark.asyncio
@@ -57,7 +58,7 @@ class TestNormalizeDxfOutput:
                 }
             ]
         )
-        features, metadata = orch._normalize_dxf_output(parse_result)
+        features, metadata = normalize_dxf_output(parse_result)
         assert metadata["hole_count"] == 1
         hole = features[0]
         assert hole["type"] == "hole"
@@ -75,7 +76,7 @@ class TestNormalizeDxfOutput:
             [{"plane_id": "P01", "center_x": 50.0, "center_y": 40.0,
               "length": 100.0, "width": 80.0, "surface": "A"}],
         )
-        features, metadata = orch._normalize_dxf_output(parse_result)
+        features, metadata = normalize_dxf_output(parse_result)
         assert features[0]["depth"] == 9.0  # 盲孔保留标注深度
         assert features[1]["type"] == "plane"
         assert features[1]["length"] == 100.0
@@ -84,7 +85,7 @@ class TestNormalizeDxfOutput:
     def test_stage_result_shape_no_longer_leaks(self):
         """回归：features 必须是规范化 list[dict]，不得再是 StageResult 对象。"""
         orch = AgentOrchestrator(trace_log_dir=tempfile.mkdtemp(), memory=False)
-        features, _ = orch._normalize_dxf_output(_fake_parse_result([]))
+        features, _ = normalize_dxf_output(_fake_parse_result([]))
         assert isinstance(features, list)
 
 

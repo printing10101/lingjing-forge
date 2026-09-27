@@ -17,6 +17,7 @@ from typing import Any
 import pytest
 
 from app.agent import failure_recorder
+from app.agent import gcode_repair
 from app.agent.failure_recorder import (
     record_agent_failure,
     record_agent_success,
@@ -208,9 +209,8 @@ class TestOrchestratorRecording:
             return _FakeLLM("无法修复")  # 单行文本 → 合法性守卫拦截
 
         monkeypatch.setattr(mod, "get_llm_client", _get)
-        orch = _orchestrator(tmp_path)
         context = {"pipeline_id": "pipe-2", "gcode_generate": {"gcode": "G01 X1 F100\nM30"}}
-        out = await orch._llm_repair_gcode({"issues": []}, context)
+        out = await gcode_repair.llm_repair_gcode({"issues": []}, context, enabled=True)
         assert out is None
         assert len(recorded) == 1
         case = recorded[0]
@@ -226,9 +226,8 @@ class TestOrchestratorRecording:
             raise RuntimeError("no llm")
 
         monkeypatch.setattr(mod, "get_llm_client", _boom)
-        orch = _orchestrator(tmp_path)
         context = {"pipeline_id": "pipe-2", "gcode_generate": {"gcode": "G01 X1 F100\nM30"}}
-        out = await orch._llm_repair_gcode({"issues": []}, context)
+        out = await gcode_repair.llm_repair_gcode({"issues": []}, context, enabled=True)
         assert out is None
         assert recorded == []
 
