@@ -427,11 +427,11 @@ describe('useStepImportStore', () => {
       expect(http.get).toHaveBeenCalled()
     })
 
-    it('删除失败时显示错误提示', async () => {
+    it('删除失败时不重复弹提示（拦截器统一提示）', async () => {
       (http.delete as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('network'))
       const store = useStepImportStore()
       await store.deleteHistoryFile('old.step')
-      expect(elMessageMock.error).toHaveBeenCalledWith('删除历史文件失败，请稍后重试')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 
@@ -444,11 +444,11 @@ describe('useStepImportStore', () => {
       expect(elMessageMock.error).not.toHaveBeenCalled()
     })
 
-    it('清理缓存失败时显示错误提示', async () => {
+    it('清理缓存失败时不重复弹提示（拦截器统一提示）', async () => {
       (http.delete as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('network'))
       const store = useStepImportStore()
       await store.clearCache()
-      expect(elMessageMock.error).toHaveBeenCalledWith('清理缓存失败，请稍后重试')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 })
