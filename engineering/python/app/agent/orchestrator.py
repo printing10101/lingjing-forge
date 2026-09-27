@@ -1460,10 +1460,6 @@ class AgentOrchestrator:
         except (OSError, IOError, TypeError, ValueError) as exc:
             logger.error("Failed to write agent trace: %s", exc)
 
-    def get_history(self, limit: int = 50) -> list[PipelineResult]:
-        """Get recent pipeline execution history."""
-        return self._pipeline_history[-limit:]
-
     def get_pipeline_history(self, limit: int = 50, offset: int = 0) -> list[PipelineResult]:
         """Get pipeline execution history with pagination.
 
