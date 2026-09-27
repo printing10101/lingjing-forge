@@ -41,6 +41,86 @@ def build_not_found_response() -> JSONResponse:
     )
 
 
+def get_task_or_not_found(store: Any, task_id: str, *, not_found_exc: type[Exception]) -> tuple[Any, dict[str, Any] | None]:
+    """按 id 取任务；不存在时返回 ``(None, NOT_FOUND 错误响应)``。
+
+    安全约束：错误响应不回显 task_id，防止任务枚举攻击。
+    ``not_found_exc`` 传入各模块任务 store 的查询异常类型
+    （如 ``CamValidationError``）；store 亦可能以返回 None 表示不存在，
+    两种情况同样处理。
+
+    Returns:
+        ``(task, None)`` 或 ``(None, error 响应 dict)``。
+    """
+    try:
+        task = store.get_task(task_id)
+    except not_found_exc:
+        return None, error(code=ErrorCode.NOT_FOUND, message="任务不存在或已被删除")
+    if task is None:
+        return None, error(code=ErrorCode.NOT_FOUND, message="任务不存在或已被删除")
+    return task, None
+
+
+def build_internal_error(
+    exc: Exception,
+    *,
+    context: str,
+    action: str,
+    **log_detail: Any,
+) -> dict[str, Any]:
+    """兜底 ``Exception`` 的统一处理：脱敏 → 记日志 → INTERNAL_ERROR 响应。
+
+    收敛各 service 模块重复的
+    ``safe_error_message → logger.error(exc_info=True) → error(INTERNAL_ERROR)``
+    三段式样板。日志经 ``context``（含模块.函数名）与 ``action``
+    （中文动作描述）定位来源，``log_detail`` 以 k=v 形式附加上下文字段。
+    """
+    safe = safe_error_message(exc, context=context)
+    detail = " ".join(f"{k}={v}" for k, v in log_detail.items())
+    logger.error(
+        "%s | %s | error_id=%s | exc=%s",
+        action,
+        detail,
+        safe.get("error_id"),
+        exc,
+        exc_info=True,
+    )
+    return error(code=ErrorCode.INTERNAL_ERROR, message=safe["message"])
+
+
+def clamp_limit(value: int, *, lo: int = 1, hi: int = 100) -> int:
+    """分页 ``limit`` 限幅到 ``[lo, hi]``。"""
+    return max(lo, min(hi, value))
+
+
+def validate_review_action(
+    action: str,
+    edited_params: dict[str, Any] | None,
+    review_status_enum: Any,
+    *,
+    editable_hint: str,
+) -> dict[str, Any] | None:
+    """工程师审核动作校验；非法时返回错误响应，合法返回 ``None``。
+
+    - ``action`` 必须是 ``review_status_enum`` 的 CONFIRMED / REJECTED / EDITED；
+    - ``action=edited`` 时必须提供 ``edited_params``。
+    """
+    valid_actions = {
+        review_status_enum.CONFIRMED.value,
+        review_status_enum.REJECTED.value,
+        review_status_enum.EDITED.value,
+    }
+    if action not in valid_actions:
+        return error(code=ErrorCode.INVALID_REQUEST, message=f"非法 action: {action}，应为 {sorted(valid_actions)}")
+    if action == review_status_enum.EDITED.value and not edited_params:
+        return error(
+            code=ErrorCode.INVALID_REQUEST,
+            message="action=edited 时必须提供 edited_params",
+            suggestion=f"请提供编辑后的参数（字段可为 {editable_hint} 的子集）",
+        )
+    return None
+
+
 def build_file_download_response(
     file_path: str | Path | None,
     *,

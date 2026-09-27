@@ -5,7 +5,6 @@
 
 from __future__ import annotations
 
-import logging
 from pathlib import Path
 from typing import Any
 
@@ -13,8 +12,12 @@ from fastapi.responses import FileResponse, JSONResponse
 
 from app.api.v1._shared.task_infra import (
     build_file_download_response,
+    build_internal_error,
     build_not_found_response,
+    clamp_limit,
+    get_task_or_not_found,
     spawn_background_task as _spawn,
+    validate_review_action,
 )
 from app.api.v1.cam_validation._helpers import (
     _disclaimer_dict,
@@ -37,9 +40,6 @@ from app.cam_validation import (
 )
 from app.config import config
 from app.core.response import ErrorCode, error, success
-from app.core.safe_errors import safe_error_message
-
-logger = logging.getLogger(__name__)
 
 
 async def get_precision_info() -> dict[str, Any]:
@@ -204,17 +204,11 @@ async def create_task(body: TaskCreateRequest) -> dict[str, Any]:
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="cam_validation.create_task")
-        logger.error(
-            "创建任务失败 gcode_report=%s | error_id=%s | exc=%s",
-            gcode_report_path,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="cam_validation.create_task",
+            action="创建任务失败",
+            gcode_report=gcode_report_path,
         )
 
     return success(
@@ -250,14 +244,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
     仅 PENDING / FAILED 状态可触发执行（FAILED 允许重试）。
     """
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except CamValidationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=CamValidationError)
+    if not_found is not None:
+        return not_found
 
     if task.status not in (
         CamValidationTaskStatus.PENDING.value,
@@ -295,14 +284,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
 async def get_task_status(task_id: str) -> dict[str, Any]:
     """查询任务当前状态、审核进度、CAM 校验统计、导出产物路径。"""
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except CamValidationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=CamValidationError)
+    if not_found is not None:
+        return not_found
 
     # 统计审核进度
     pending_review_count = sum(
@@ -371,8 +355,7 @@ async def list_tasks(
         status_filter: 可选状态过滤（pending / running / validated / reviewed /
                        succeeded / failed / timeout / cancelled）
     """
-    if limit < 1 or limit > 100:
-        limit = max(1, min(100, limit))
+    limit = clamp_limit(limit)
 
     store = get_task_store()
     tasks = store.list_tasks(status_filter=status_filter or None)
@@ -422,14 +405,9 @@ async def get_task_result(task_id: str) -> dict[str, Any]:
       safety_margin_ratio / warning）
     """
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except CamValidationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=CamValidationError)
+    if not_found is not None:
+        return not_found
 
     allowed_states = {
         CamValidationTaskStatus.VALIDATED.value,
@@ -526,14 +504,9 @@ async def review_feature(
         如需重跑，请删除任务后重新创建。
     """
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except CamValidationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=CamValidationError)
+    if not_found is not None:
+        return not_found
 
     if task.status != CamValidationTaskStatus.VALIDATED.value:
         return error(
@@ -542,25 +515,15 @@ async def review_feature(
             suggestion="请等待流水线执行完成（状态变为 validated）后再审核",
         )
 
-    # 校验 action
-    valid_actions = {
-        CamReviewStatus.CONFIRMED.value,
-        CamReviewStatus.REJECTED.value,
-        CamReviewStatus.EDITED.value,
-    }
-    if body.action not in valid_actions:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message=f"非法 action: {body.action}，应为 {sorted(valid_actions)}",
-        )
-
-    # edited 动作必须提供 edited_params
-    if body.action == CamReviewStatus.EDITED.value and not body.edited_params:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message="action=edited 时必须提供 edited_params",
-            suggestion=("请提供编辑后的参数（字段可为 safe_z / cam_backend / stock_top_z 的子集）"),
-        )
+    # 校验 action（非法 action / edited 缺 edited_params）
+    action_error = validate_review_action(
+        body.action,
+        body.edited_params,
+        CamReviewStatus,
+        editable_hint="safe_z / cam_backend / stock_top_z",
+    )
+    if action_error is not None:
+        return action_error
 
     try:
         pipeline = _get_pipeline()
@@ -583,18 +546,12 @@ async def review_feature(
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="cam_validation.review_feature")
-        logger.error(
-            "审核特征失败 task_id=%s feature_id=%s | error_id=%s | exc=%s",
-            task_id,
-            feature_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="cam_validation.review_feature",
+            action="审核特征失败",
+            task_id=task_id,
+            feature_id=feature_id,
         )
 
     # 重新查询任务状态（review_task 内部可能已将状态置为 REVIEWED）
@@ -653,14 +610,9 @@ async def confirm_task(
     - SUCCEEDED 状态禁止删除（链路最终产物，需保留供审计追溯）
     """
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except CamValidationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=CamValidationError)
+    if not_found is not None:
+        return not_found
 
     if task.status != CamValidationTaskStatus.REVIEWED.value:
         return error(
@@ -683,17 +635,11 @@ async def confirm_task(
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="cam_validation.confirm_task")
-        logger.error(
-            "确认任务失败 task_id=%s | error_id=%s | exc=%s",
-            task_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="cam_validation.confirm_task",
+            action="确认任务失败",
+            task_id=task_id,
         )
 
     # 重新查询任务获取最新状态
@@ -831,14 +777,9 @@ async def delete_task(task_id: str) -> dict[str, Any]:
     避免误删下游链路已引用的资源。
     """
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except CamValidationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=CamValidationError)
+    if not_found is not None:
+        return not_found
 
     # SUCCEEDED 状态的任务禁止删除（避免误删链路最终产物）
     if task.status == CamValidationTaskStatus.SUCCEEDED.value:
@@ -859,17 +800,11 @@ async def delete_task(task_id: str) -> dict[str, Any]:
         try:
             store.update_task(task)
         except Exception as e:
-            safe = safe_error_message(e, context="cam_validation.delete_task.cancel")
-            logger.error(
-                "取消任务失败 task_id=%s | error_id=%s | exc=%s",
-                task_id,
-                safe.get("error_id"),
+            return build_internal_error(
                 e,
-                exc_info=True,
-            )
-            return error(
-                code=ErrorCode.INTERNAL_ERROR,
-                message=safe["message"],
+                context="cam_validation.delete_task.cancel",
+                action="取消任务失败",
+                task_id=task_id,
             )
 
     # 删除任务
@@ -888,17 +823,11 @@ async def delete_task(task_id: str) -> dict[str, Any]:
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="cam_validation.delete_task")
-        logger.error(
-            "删除任务失败 task_id=%s | error_id=%s | exc=%s",
-            task_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="cam_validation.delete_task",
+            action="删除任务失败",
+            task_id=task_id,
         )
 
     return success(
