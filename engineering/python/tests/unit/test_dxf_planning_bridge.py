@@ -11,9 +11,7 @@
 
 from __future__ import annotations
 
-import asyncio
 import os
-import tempfile
 from types import SimpleNamespace
 
 import pytest
@@ -43,7 +41,6 @@ def _fake_parse_result(holes_detail: list[dict], planes_detail: list[dict] | Non
 
 class TestNormalizeDxfOutput:
     def test_hole_mapping_with_through_hole_depth_inference(self):
-        orch = AgentOrchestrator(trace_log_dir=tempfile.mkdtemp(), memory=False)
         parse_result = _fake_parse_result(
             [
                 {
@@ -69,7 +66,6 @@ class TestNormalizeDxfOutput:
         assert hole["tolerance_grade"] == "IT7"
 
     def test_blind_hole_keeps_depth_and_plane_mapping(self):
-        orch = AgentOrchestrator(trace_log_dir=tempfile.mkdtemp(), memory=False)
         parse_result = _fake_parse_result(
             [{"hole_id": "H01", "center_x": 1.0, "center_y": 2.0, "diameter": 6.0,
               "depth": 9.0, "hole_type": "blind_hole"}],
@@ -84,7 +80,6 @@ class TestNormalizeDxfOutput:
 
     def test_stage_result_shape_no_longer_leaks(self):
         """回归：features 必须是规范化 list[dict]，不得再是 StageResult 对象。"""
-        orch = AgentOrchestrator(trace_log_dir=tempfile.mkdtemp(), memory=False)
         features, _ = normalize_dxf_output(_fake_parse_result([]))
         assert isinstance(features, list)
 
