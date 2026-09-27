@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { isTauriEnv } from '@/utils/environment'
 // 安全修复：不再静态导入 @tauri-apps/api/core 的 invoke，
 // 改为在调用处动态导入，避免在 Web/测试环境因模块缺失抛错。
 
@@ -51,7 +52,7 @@ export const useVersionStore = defineStore('version', () => {
   async function fetchVersionInfo() {
     isLoading.value = true
     try {
-      if (typeof window !== 'undefined' && '__TAURI__' in window) {
+      if (isTauriEnv()) {
         // 安全修复：动态导入 invoke，避免在非 Tauri 环境静态导入抛错
         const { invoke } = await import('@tauri-apps/api/core')
         const result = await invoke<VersionStatus>('get_version_info')

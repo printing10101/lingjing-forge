@@ -188,6 +188,7 @@ import {
   CircleCloseFilled,
   WarningFilled,
 } from "@element-plus/icons-vue";
+import { isTauriEnv } from "@/utils/environment";
 
 /**
  * 安全修复：原代码静态导入 invoke，在非 Tauri 环境（Web/测试）会抛错。
@@ -195,7 +196,7 @@ import {
  * 每个 async 函数内调用 `const invoke = await getInvoke()` 获取 invoke。
  */
 async function getInvoke() {
-  if (typeof window === "undefined" || !("__TAURI__" in window)) {
+  if (!isTauriEnv()) {
     throw new Error("当前操作仅在桌面应用环境可用");
   }
   const mod = await import("@tauri-apps/api/core");

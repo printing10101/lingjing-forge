@@ -78,6 +78,7 @@ import Tour from "@/components/Onboarding/Tour.vue";
 import type { TourStep } from "@/components/Onboarding/Tour.vue";
 import AppFileDialogs from "@/components/AppFileDialogs.vue";
 import { useBackendStatus } from "@/composables/useBackendStatus";
+import { isTauriEnv } from "@/utils/environment";
 import { Loading } from "@element-plus/icons-vue";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 
@@ -266,12 +267,7 @@ const fileDialogsRef = ref<InstanceType<typeof AppFileDialogs> | null>(null);
 // Tauri 模式下使用原生 splashscreen 窗口（splashscreen.html）覆盖预处理白屏阶段，
 // Vue 内部 SplashScreen 不再触发，避免双重启动动画；
 // Web 模式下仍使用 Vue 内部 SplashScreen 作为启动动画。
-const isTauriEnv =
-  typeof window !== "undefined" &&
-  Boolean(
-    (window as Window & { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__,
-  );
-const showSplash = ref(!isTauriEnv);
+const showSplash = ref(!isTauriEnv());
 // 应用初始化完成标志（auto-login 完成后才渲染路由页面）
 const appReady = ref(false);
 
