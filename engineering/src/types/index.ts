@@ -30,8 +30,11 @@ export type {
   UseEventSourceOptions,
 } from '@/composables/useEventSource'
 
-/** 训练/推理任务状态 */
-export type TaskStatus = 'pending' | 'running' | 'completed' | 'failed' | 'cancelled'
+/**
+ * 任务状态：单一来源为 @/contracts/task（与后端 app/contracts/task.py 对齐）。
+ * 此前的本地窄版本缺少 queued/skipped，与契约不一致（2026-09 收敛）。
+ */
+export type { TaskStatus } from '@/contracts/task'
 
 /** 插件类型 */
 export type PluginType = 'adapter' | 'data_source' | 'tool' | 'enhancement'
