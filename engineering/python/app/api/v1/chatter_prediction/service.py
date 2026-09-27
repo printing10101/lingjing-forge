@@ -16,7 +16,6 @@ from app.api.v1.chatter_prediction.schemas import (
 )
 from app.config import config
 from app.core.response import success, error, ErrorCode
-from app.core.safe_errors import safe_error_message
 from app.chatter_prediction import (
     ChatterPredictionPipelineError,
     ChatterPredictionTaskStatus,
@@ -26,7 +25,13 @@ from app.chatter_prediction import (
     check_ltc_model_available,
     get_task_store,
 )
-from app.api.v1._shared.task_infra import spawn_background_task
+from app.api.v1._shared.task_infra import (
+    build_internal_error,
+    clamp_limit,
+    get_task_or_not_found,
+    spawn_background_task,
+    validate_review_action,
+)
 from app.api.v1.chatter_prediction._helpers import (
     _get_pipeline,
     _disclaimer_dict,
@@ -164,17 +169,11 @@ async def create_task(body: TaskCreateRequest) -> dict[str, Any]:
             machine_type=body.machine_type,
         )
     except Exception as e:
-        safe = safe_error_message(e, context="chatter_prediction.create_task")
-        logger.error(
-            "创建任务失败 source_cp_task_id=%s | error_id=%s | exc=%s",
-            body.source_cutting_parameters_task_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="chatter_prediction.create_task",
+            action="创建任务失败",
+            source_cp_task_id=body.source_cutting_parameters_task_id,
         )
 
     return success(
@@ -208,12 +207,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
     仅 PENDING / FAILED 状态可触发执行（FAILED 允许重试）。
     """
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status not in (
         ChatterPredictionTaskStatus.PENDING.value,
@@ -248,12 +244,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
 async def get_task_status(task_id: str) -> dict[str, Any]:
     """查询任务当前状态、审核进度、ChatterReport 路径、精度告知字段。"""
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     # 统计审核进度
     pending_count = sum(1 for r in task.feature_results if r.review_status == ChatterReviewStatus.PENDING.value)
@@ -296,8 +289,7 @@ async def get_task_status(task_id: str) -> dict[str, Any]:
 
 async def list_tasks(limit: int = 20) -> dict[str, Any]:
     """列出最近的颤振预测任务（按创建时间倒序）。"""
-    if limit < 1 or limit > 100:
-        limit = max(1, min(100, limit))
+    limit = clamp_limit(limit)
 
     store = get_task_store()
     tasks = store.list_tasks(limit=limit)
@@ -342,12 +334,9 @@ async def get_task_result(task_id: str) -> dict[str, Any]:
     - warnings（预测时生成的告警，如 HRC52 pending_calibration / 切深超极限）
     """
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     allowed_states = {
         ChatterPredictionTaskStatus.PREDICTED.value,
@@ -439,12 +428,9 @@ async def review_result(
     请求体中 ``feature_id`` 作为查询参数传入，便于 RESTful 路径表达。
     """
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status != ChatterPredictionTaskStatus.PREDICTED.value:
         return error(
@@ -453,25 +439,15 @@ async def review_result(
             suggestion="请等待流水线执行完成（状态变为 predicted）后再审核",
         )
 
-    # 校验 action
-    valid_actions = {
-        ChatterReviewStatus.CONFIRMED.value,
-        ChatterReviewStatus.REJECTED.value,
-        ChatterReviewStatus.EDITED.value,
-    }
-    if body.action not in valid_actions:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message=f"非法 action: {body.action}，应为 {sorted(valid_actions)}",
-        )
-
-    # edited 动作必须提供 edited_params
-    if body.action == ChatterReviewStatus.EDITED.value and not body.edited_params:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message="action=edited 时必须提供 edited_params",
-            suggestion=("请提供编辑后的参数（字段可为 limit_depth_mm / axial_depth_mm / stable（0/1）的子集）"),
-        )
+    # 校验 action（非法 action / edited 缺 edited_params）
+    action_error = validate_review_action(
+        body.action,
+        body.edited_params,
+        ChatterReviewStatus,
+        editable_hint="limit_depth_mm / axial_depth_mm / stable（0/1）",
+    )
+    if action_error is not None:
+        return action_error
 
     try:
         pipeline = _get_pipeline()
@@ -489,18 +465,12 @@ async def review_result(
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="chatter_prediction.review_result")
-        logger.error(
-            "审核特征失败 task_id=%s feature_id=%s | error_id=%s | exc=%s",
-            task_id,
-            feature_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="chatter_prediction.review_result",
+            action="审核特征失败",
+            task_id=task_id,
+            feature_id=feature_id,
         )
 
     # 重新查询任务状态（review_result 内部可能已将状态置为 REVIEWED）
@@ -552,12 +522,9 @@ async def export_chatter_report(task_id: str) -> dict[str, Any]:
     - cam_validation_required 始终 True（项目记忆硬约束，不可关闭）
     """
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status != ChatterPredictionTaskStatus.REVIEWED.value:
         return error(
@@ -575,17 +542,11 @@ async def export_chatter_report(task_id: str) -> dict[str, Any]:
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="chatter_prediction.export_chatter_report")
-        logger.error(
-            "导出 ChatterReport 失败 task_id=%s | error_id=%s | exc=%s",
-            task_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="chatter_prediction.export_chatter_report",
+            action="导出 ChatterReport 失败",
+            task_id=task_id,
         )
 
     # 重新查询任务获取最新状态
@@ -680,12 +641,9 @@ async def delete_task(task_id: str) -> dict[str, Any]:
     避免误删下游链路已引用的资源。
     """
     store = get_task_store()
-    task = store.get_task(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     # SUCCEEDED 状态的任务禁止删除（避免误删阶段 6 已引用的 ChatterReport）
     if task.status == ChatterPredictionTaskStatus.SUCCEEDED.value:
@@ -705,17 +663,11 @@ async def delete_task(task_id: str) -> dict[str, Any]:
         try:
             store.update_task(task)
         except Exception as e:
-            safe = safe_error_message(e, context="chatter_prediction.delete_task.cancel")
-            logger.error(
-                "取消任务失败 task_id=%s | error_id=%s | exc=%s",
-                task_id,
-                safe.get("error_id"),
+            return build_internal_error(
                 e,
-                exc_info=True,
-            )
-            return error(
-                code=ErrorCode.INTERNAL_ERROR,
-                message=safe["message"],
+                context="chatter_prediction.delete_task.cancel",
+                action="取消任务失败",
+                task_id=task_id,
             )
 
     # 删除任务
@@ -728,17 +680,11 @@ async def delete_task(task_id: str) -> dict[str, Any]:
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="chatter_prediction.delete_task")
-        logger.error(
-            "删除任务失败 task_id=%s | error_id=%s | exc=%s",
-            task_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="chatter_prediction.delete_task",
+            action="删除任务失败",
+            task_id=task_id,
         )
 
     if not deleted:
