@@ -520,7 +520,7 @@ async def review_feature(
         body.action,
         body.edited_params,
         CamReviewStatus,
-        editable_hint="safe_z / cam_backend / stock_top_z",
+        edited_suggestion="请提供编辑后的参数（字段可为 safe_z / cam_backend / stock_top_z 的子集）",
     )
     if action_error is not None:
         return action_error

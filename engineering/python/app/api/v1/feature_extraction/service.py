@@ -27,7 +27,13 @@ from app.feature_extraction import (
     MeshLoadError,
     get_feature_store,
 )
-from app.api.v1._shared.task_infra import spawn_background_task
+from app.api.v1._shared.task_infra import (
+    build_internal_error,
+    clamp_limit,
+    get_task_or_not_found,
+    spawn_background_task,
+    validate_review_action,
+)
 from app.api.v1.feature_extraction._helpers import (
     _get_pipeline,
     _disclaimer_dict,
@@ -155,16 +161,10 @@ async def create_task_from_path(
             suggestion="请检查 mesh 文件是否完整、格式是否正确",
         )
     except Exception as e:
-        safe = safe_error_message(e, context="feature_extraction.create_task_from_path")
-        logger.error(
-            "创建特征提取任务失败 | error_id=%s | exc=%s",
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="feature_extraction.create_task_from_path",
+            action="创建特征提取任务失败",
         )
 
     return success(
@@ -252,16 +252,10 @@ async def create_task_from_upload(
             mesh_calibrated=mesh_calibrated,
         )
     except Exception as e:
-        safe = safe_error_message(e, context="feature_extraction.create_task_from_upload")
-        logger.error(
-            "创建特征提取任务失败 | error_id=%s | exc=%s",
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="feature_extraction.create_task_from_upload",
+            action="创建特征提取任务失败",
         )
 
     return success(
@@ -294,12 +288,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
     客户端应轮询 GET /tasks/{task_id} 获取状态。
     """
     store = get_feature_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status not in (
         FeatureExtractionTaskStatus.PENDING.value,
@@ -333,12 +324,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
 async def get_task_status(task_id: str) -> dict[str, Any]:
     """查询任务当前状态、各阶段耗时、特征统计、精度告知字段。"""
     store = get_feature_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     # 查询 mesh_calibrated（软依赖上游 image_to_3d）
     mesh_calibrated, mesh_source = _resolve_upstream_calibrated(task.source_reconstruction_task_id)
@@ -381,8 +369,7 @@ async def get_task_status(task_id: str) -> dict[str, Any]:
 
 async def list_tasks(limit: int = 20) -> dict[str, Any]:
     """列出最近的特征提取任务（按创建时间倒序）。"""
-    if limit < 1 or limit > 100:
-        limit = max(1, min(100, limit))
+    limit = clamp_limit(limit)
 
     store = get_feature_store()
     tasks = store.list_all(limit=limit)
@@ -419,12 +406,9 @@ async def get_task_result(task_id: str) -> dict[str, Any]:
     - engineer_notes / edited_params（工程师审核后填充）
     """
     store = get_feature_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     allowed_states = {
         FeatureExtractionTaskStatus.FEATURES_EXTRACTED.value,
@@ -499,12 +483,9 @@ async def review_feature(
     请求体中 ``feature_id`` 作为查询参数传入，便于 RESTful 路径表达。
     """
     store = get_feature_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     if task.status != FeatureExtractionTaskStatus.FEATURES_EXTRACTED.value:
         return error(
@@ -516,25 +497,15 @@ async def review_feature(
             suggestion="请等待算法提取完成（状态变为 features_extracted）后再审核",
         )
 
-    # 校验 action
-    valid_actions = {
-        FeatureReviewStatus.CONFIRMED.value,
-        FeatureReviewStatus.REJECTED.value,
-        FeatureReviewStatus.EDITED.value,
-    }
-    if body.action not in valid_actions:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message=f"非法 action: {body.action}，应为 {sorted(valid_actions)}",
-        )
-
-    # edited 动作必须提供 edited_params
-    if body.action == FeatureReviewStatus.EDITED.value and not body.edited_params:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message="action=edited 时必须提供 edited_params",
-            suggestion="请提供编辑后的完整参数（字段结构需与原始 params 一致）",
-        )
+    # 校验 action（非法 action / edited 缺 edited_params）
+    action_error = validate_review_action(
+        body.action,
+        body.edited_params,
+        FeatureReviewStatus,
+        edited_suggestion="请提供编辑后的完整参数（字段结构需与原始 params 一致）",
+    )
+    if action_error is not None:
+        return action_error
 
     try:
         pipeline = _get_pipeline()
@@ -552,18 +523,12 @@ async def review_feature(
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="feature_extraction.review_feature")
-        logger.error(
-            "审核特征失败 task_id=%s feature_id=%s | error_id=%s | exc=%s",
-            task_id,
-            feature_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="feature_extraction.review_feature",
+            action="审核特征失败",
+            task_id=task_id,
+            feature_id=feature_id,
         )
 
     # 重新查询任务状态（review_feature 内部可能已将状态置为 REVIEWED）
@@ -635,12 +600,9 @@ async def export_confirmed_features(task_id: str) -> dict[str, Any]:
     ```
     """
     store = get_feature_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     allowed_states = {
         FeatureExtractionTaskStatus.FEATURES_EXTRACTED.value,
@@ -682,17 +644,11 @@ async def export_confirmed_features(task_id: str) -> dict[str, Any]:
                 message=str(e),
             )
         except Exception as e:
-            safe = safe_error_message(e, context="feature_extraction.export_confirmed_features")
-            logger.error(
-                "导出已确认特征失败 task_id=%s | error_id=%s | exc=%s",
-                task_id,
-                safe.get("error_id"),
+            return build_internal_error(
                 e,
-                exc_info=True,
-            )
-            return error(
-                code=ErrorCode.INTERNAL_ERROR,
-                message=safe["message"],
+                context="feature_extraction.export_confirmed_features",
+                action="导出已确认特征失败",
+                task_id=task_id,
             )
         # 重新查询（export_confirmed_features 内部已更新任务状态）
         task_after = store.get(task_id)
@@ -780,12 +736,9 @@ async def delete_task(task_id: str) -> dict[str, Any]:
     - 仅清理任务元信息（tasks/{task_id}.json）与内存状态。
     """
     store = get_feature_store()
-    task = store.get(task_id)
-    if task is None:
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message=f"任务不存在 task_id={task_id}",
-        )
+    task, not_found = get_task_or_not_found(store, task_id)
+    if not_found is not None:
+        return not_found
 
     # SUCCEEDED 状态的任务禁止删除（避免误删阶段 3 已引用的特征集来源）
     if task.status == FeatureExtractionTaskStatus.SUCCEEDED.value:
