@@ -5,7 +5,6 @@
 
 from __future__ import annotations
 
-import logging
 from pathlib import Path
 from typing import Any
 
@@ -13,8 +12,12 @@ from fastapi.responses import FileResponse, JSONResponse
 
 from app.api.v1._shared.task_infra import (
     build_file_download_response,
+    build_internal_error,
     build_not_found_response,
+    clamp_limit,
+    get_task_or_not_found,
     spawn_background_task as _spawn,
+    validate_review_action,
 )
 from app.api.v1.gcode_generation._helpers import (
     _disclaimer_dict,
@@ -28,7 +31,6 @@ from app.api.v1.gcode_generation.schemas import (
 )
 from app.config import config
 from app.core.response import ErrorCode, error, success
-from app.core.safe_errors import safe_error_message
 from app.gcode_generation import (
     GCodeGenerationError,
     GCodeGenerationPipelineError,
@@ -39,8 +41,6 @@ from app.gcode_generation import (
     get_file_extension,
     get_task_store,
 )
-
-logger = logging.getLogger(__name__)
 
 
 async def get_precision_info() -> dict[str, Any]:
@@ -198,18 +198,12 @@ async def create_task(body: TaskCreateRequest) -> dict[str, Any]:
             stock_top_z=body.stock_top_z,
         )
     except Exception as e:
-        safe = safe_error_message(e, context="gcode_generation.create_task")
-        logger.error(
-            "创建任务失败 chatter_report=%s op_plan=%s | error_id=%s | exc=%s",
-            chatter_report_path,
-            operation_plan_path,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="gcode_generation.create_task",
+            action="创建任务失败",
+            chatter_report=chatter_report_path,
+            op_plan=operation_plan_path,
         )
 
     return success(
@@ -244,14 +238,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
     仅 PENDING / FAILED 状态可触发执行（FAILED 允许重试）。
     """
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except GCodeGenerationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=GCodeGenerationError)
+    if not_found is not None:
+        return not_found
 
     if task.status not in (
         GCodeGenerationTaskStatus.PENDING.value,
@@ -289,14 +278,9 @@ async def run_task(task_id: str) -> dict[str, Any]:
 async def get_task_status(task_id: str) -> dict[str, Any]:
     """查询任务当前状态、审核进度、G 代码文件路径、精度告知字段。"""
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except GCodeGenerationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=GCodeGenerationError)
+    if not_found is not None:
+        return not_found
 
     # 统计审核进度
     pending_review_count = sum(
@@ -354,8 +338,7 @@ async def list_tasks(
         status_filter: 可选状态过滤（pending / running / generated / reviewed /
                        succeeded / failed / timeout / cancelled）
     """
-    if limit < 1 or limit > 100:
-        limit = max(1, min(100, limit))
+    limit = clamp_limit(limit)
 
     store = get_task_store()
     tasks = store.list_tasks(status_filter=status_filter or None)
@@ -401,14 +384,9 @@ async def get_task_result(task_id: str) -> dict[str, Any]:
     - edited_params / effective_params（合并 edited_params 后的生效参数）
     """
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except GCodeGenerationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=GCodeGenerationError)
+    if not_found is not None:
+        return not_found
 
     allowed_states = {
         GCodeGenerationTaskStatus.GENERATED.value,
@@ -494,14 +472,9 @@ async def review_feature(
         阶段 7 CAM 校验会读取 edited_params 作为工程师修改建议。
     """
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except GCodeGenerationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=GCodeGenerationError)
+    if not_found is not None:
+        return not_found
 
     if task.status != GCodeGenerationTaskStatus.GENERATED.value:
         return error(
@@ -510,25 +483,15 @@ async def review_feature(
             suggestion="请等待流水线执行完成（状态变为 generated）后再审核",
         )
 
-    # 校验 action
-    valid_actions = {
-        GCodeReviewStatus.CONFIRMED.value,
-        GCodeReviewStatus.REJECTED.value,
-        GCodeReviewStatus.EDITED.value,
-    }
-    if body.action not in valid_actions:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message=f"非法 action: {body.action}，应为 {sorted(valid_actions)}",
-        )
-
-    # edited 动作必须提供 edited_params
-    if body.action == GCodeReviewStatus.EDITED.value and not body.edited_params:
-        return error(
-            code=ErrorCode.INVALID_REQUEST,
-            message="action=edited 时必须提供 edited_params",
-            suggestion=("请提供编辑后的参数（字段可为 axial_depth_mm / limit_depth_mm / stable（bool）的子集）"),
-        )
+    # 校验 action（非法 action / edited 缺 edited_params）
+    action_error = validate_review_action(
+        body.action,
+        body.edited_params,
+        GCodeReviewStatus,
+        edited_suggestion="请提供编辑后的参数（字段可为 axial_depth_mm / limit_depth_mm / stable（bool）的子集）",
+    )
+    if action_error is not None:
+        return action_error
 
     try:
         pipeline = _get_pipeline()
@@ -546,18 +509,12 @@ async def review_feature(
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="gcode_generation.review_feature")
-        logger.error(
-            "审核特征失败 task_id=%s feature_id=%s | error_id=%s | exc=%s",
-            task_id,
-            feature_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="gcode_generation.review_feature",
+            action="审核特征失败",
+            task_id=task_id,
+            feature_id=feature_id,
         )
 
     # 重新查询任务状态（review_feature 内部可能已将状态置为 REVIEWED）
@@ -616,14 +573,9 @@ async def confirm_task(
     - SUCCEEDED 状态禁止删除（阶段 7 CAM 校验可能已引用 G 代码产物）
     """
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except GCodeGenerationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=GCodeGenerationError)
+    if not_found is not None:
+        return not_found
 
     if task.status != GCodeGenerationTaskStatus.REVIEWED.value:
         return error(
@@ -647,17 +599,11 @@ async def confirm_task(
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="gcode_generation.confirm_task")
-        logger.error(
-            "确认任务失败 task_id=%s | error_id=%s | exc=%s",
-            task_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="gcode_generation.confirm_task",
+            action="确认任务失败",
+            task_id=task_id,
         )
 
     # 重新查询任务获取最新状态
@@ -796,14 +742,9 @@ async def delete_task(task_id: str) -> dict[str, Any]:
     避免误删下游链路已引用的资源。
     """
     store = get_task_store()
-    try:
-        task = store.get_task(task_id)
-    except GCodeGenerationError:
-        # 安全约束：不回显 task_id 以防止枚举攻击
-        return error(
-            code=ErrorCode.NOT_FOUND,
-            message="任务不存在或已被删除",
-        )
+    task, not_found = get_task_or_not_found(store, task_id, not_found_exc=GCodeGenerationError)
+    if not_found is not None:
+        return not_found
 
     # SUCCEEDED 状态的任务禁止删除（避免误删阶段 7 已引用的 G 代码产物）
     if task.status == GCodeGenerationTaskStatus.SUCCEEDED.value:
@@ -824,17 +765,11 @@ async def delete_task(task_id: str) -> dict[str, Any]:
         try:
             store.update_task(task)
         except Exception as e:
-            safe = safe_error_message(e, context="gcode_generation.delete_task.cancel")
-            logger.error(
-                "取消任务失败 task_id=%s | error_id=%s | exc=%s",
-                task_id,
-                safe.get("error_id"),
+            return build_internal_error(
                 e,
-                exc_info=True,
-            )
-            return error(
-                code=ErrorCode.INTERNAL_ERROR,
-                message=safe["message"],
+                context="gcode_generation.delete_task.cancel",
+                action="取消任务失败",
+                task_id=task_id,
             )
 
     # 删除任务
@@ -847,17 +782,11 @@ async def delete_task(task_id: str) -> dict[str, Any]:
             message=str(e),
         )
     except Exception as e:
-        safe = safe_error_message(e, context="gcode_generation.delete_task")
-        logger.error(
-            "删除任务失败 task_id=%s | error_id=%s | exc=%s",
-            task_id,
-            safe.get("error_id"),
+        return build_internal_error(
             e,
-            exc_info=True,
-        )
-        return error(
-            code=ErrorCode.INTERNAL_ERROR,
-            message=safe["message"],
+            context="gcode_generation.delete_task",
+            action="删除任务失败",
+            task_id=task_id,
         )
 
     return success(
