@@ -199,16 +199,7 @@ def get_budget_enforcer() -> BudgetEnforcer:
     return BudgetEnforcer.get_instance()  # type: ignore[return-value]
 
 
-def init_budget_enforcer(db_path: str | None = None) -> BudgetEnforcer:
-    """初始化预算执行器，行为与重构前完全一致。
-
-    内部委托给 :meth:`BudgetEnforcer.init`：强制重新创建单例并指定 db_path。
-    """
-    return BudgetEnforcer.init(db_path)
-
-
 __all__ = [
     "BudgetEnforcer",
     "get_budget_enforcer",
-    "init_budget_enforcer",
 ]
