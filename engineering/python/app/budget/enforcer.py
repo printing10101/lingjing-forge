@@ -2,14 +2,10 @@
 
 从原 ``app/budget/budget_enforcer.py`` 拆分而来，聚焦于预算执行职责：
 预执行原子检查、级联预算状态处理、周期性自动重置、告警生成与执行日志。
-
-向后兼容：``app/budget/budget_enforcer.py`` 仍作为 re-export shim 暴露
-本模块的全部公开符号。
 """
 
 import logging
 import sqlite3
-import threading
 from pathlib import Path
 from typing import ClassVar, cast
 from collections.abc import Callable
@@ -186,32 +182,6 @@ class BudgetEnforcer(_BudgetPolicyMixin, _BudgetCoreMixin, _BudgetAlertMixin, _B
             cls._db_path = None
 
 
-class _BudgetEnforcerHolder:
-    """[Deprecated] 已被 :class:`BaseSingletonService` 单例机制取代.
-
-    本类仅作为占位符保留，避免破坏 ``app/budget/budget_enforcer.py`` re-export
-    shim 的导入。新代码应直接使用 :meth:`BudgetEnforcer.get_instance` /
-    :meth:`BudgetEnforcer.init` / :meth:`BudgetEnforcer.reset_instance`。
-    """
-
-    def __init__(self) -> None:
-        # 保留原属性名以兼容可能的外部反射访问
-        self._lock = threading.Lock()
-        self._instance: BudgetEnforcer | None = None
-
-    def get(self) -> BudgetEnforcer:
-        return BudgetEnforcer.get_instance()  # type: ignore[return-value]
-
-    def init(self, db_path: str | None = None) -> BudgetEnforcer:
-        return BudgetEnforcer.init(db_path)
-
-    def reset(self) -> None:
-        BudgetEnforcer.reset_instance()
-
-
-_budget_holder = _BudgetEnforcerHolder()
-
-
 def get_budget_enforcer() -> BudgetEnforcer:
     """获取共享的 :class:`BudgetEnforcer` 单例；首次访问时懒初始化。
 
@@ -239,8 +209,6 @@ def init_budget_enforcer(db_path: str | None = None) -> BudgetEnforcer:
 
 __all__ = [
     "BudgetEnforcer",
-    "_BudgetEnforcerHolder",
-    "_budget_holder",
     "get_budget_enforcer",
     "init_budget_enforcer",
 ]
