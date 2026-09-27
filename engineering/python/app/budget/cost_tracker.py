@@ -6,10 +6,11 @@ Supports precise measurement of GPU time, GPU memory, API calls, and data transf
 """
 
 import logging
-import threading
 
 from pathlib import Path
+from typing import ClassVar
 
+from app.services._shared.service_base import BaseSingletonService
 from app.utils.utils import get_output_dir
 from app.utils.sqlite_pool import get_sqlite_manager
 from app.budget._cost_price_mixin import _CostPriceMixin
@@ -44,12 +45,21 @@ __all__ = [
 logger = logging.getLogger(__name__)
 
 
-class MultiDimensionCostTracker(_CostPriceMixin, _CostRecordMixin, _CostQueryMixin, _CostBudgetMixin):
-    """多维度成本追踪器"""
+class MultiDimensionCostTracker(_CostPriceMixin, _CostRecordMixin, _CostQueryMixin, _CostBudgetMixin, BaseSingletonService):
+    """多维度成本追踪器.
+
+    单例管理由 ``BaseSingletonService`` 提供（``get_instance`` / ``reset_instance``）。
+    需要「强制重新创建并指定 db_path」时使用 :meth:`init` 类方法。
+    """
+
+    # 类变量：``init(db_path)`` 写入此变量，``__init__`` 在无显式参数时读取它。
+    # 与 BudgetEnforcer 相同的处理：兼容 ``get_instance()`` 无参构造，
+    # 又保留「指定路径强制重建」的能力。
+    _db_path: ClassVar[str | None] = None
 
     def __init__(self, db_path: str | None = None):
         if db_path is None:
-            db_path = str(get_output_dir("data") / "cost_tracking.db")
+            db_path = type(self)._db_path or str(get_output_dir("data") / "cost_tracking.db")
 
         db_dir = Path(db_path).parent
         db_dir.mkdir(parents=True, exist_ok=True)
@@ -154,45 +164,27 @@ class MultiDimensionCostTracker(_CostPriceMixin, _CostRecordMixin, _CostQueryMix
         self._closed = True
 
 
-class _CostTrackerHolder:
-    """Thread-safe lazy holder for the :class:`MultiDimensionCostTracker` singleton."""
+    # 单例生命周期扩展
 
-    def __init__(self) -> None:
-        self._lock = threading.Lock()
-        self._instance: MultiDimensionCostTracker | None = None
+    @classmethod
+    def init(cls, db_path: str | None = None) -> "MultiDimensionCostTracker":
+        """强制重新创建单例实例（用于启动时指定 db_path 的场景）。"""
+        with cls._service_lock:
+            cls._db_path = db_path
+            cls._service_singleton = cls()
+            return cls._service_singleton
 
-    def get(self) -> MultiDimensionCostTracker:
-        # 快速路径：已存在则直接返回，避免持锁开销
-        if self._instance is not None:
-            return self._instance
-        with self._lock:
-            if self._instance is None:
-                self._instance = MultiDimensionCostTracker()
-            return self._instance
-
-    def init(self, db_path: str | None = None) -> MultiDimensionCostTracker:
-        """强制重新创建实例（用于启动时指定 db_path 的场景）。"""
-        with self._lock:
-            self._instance = MultiDimensionCostTracker(db_path)
-            return self._instance
-
-    def reset(self) -> None:
-        """Reset the cached instance (mainly for tests)."""
-        with self._lock:
-            self._instance = None
-
-
-_holder = _CostTrackerHolder()
+    @classmethod
+    def reset_instance(cls) -> None:
+        """重置单例实例并清除缓存的 db_path。"""
+        with cls._service_lock:
+            cls._service_singleton = None
+            cls._db_path = None
 
 
 def get_cost_tracker() -> MultiDimensionCostTracker:
     """获取共享的 :class:`MultiDimensionCostTracker` 单例；首次访问时懒初始化。
 
-    .. deprecated:: V3.0 (2026-08-02)
+    同时是 FastAPI 依赖工厂，可直接用于 ``Depends(get_cost_tracker)``。
     """
-    return _holder.get()
-
-
-def init_cost_tracker(db_path: str | None = None) -> MultiDimensionCostTracker:
-    """初始化成本追踪器，行为与重构前完全一致。"""
-    return _holder.init(db_path)
+    return MultiDimensionCostTracker.get_instance()  # type: ignore[return-value]

@@ -248,16 +248,7 @@ def get_cost_optimizer() -> CostOptimizer:
     return CostOptimizer.get_instance()  # type: ignore[return-value]
 
 
-def init_cost_optimizer() -> CostOptimizer:
-    """初始化成本优化器，行为与重构前完全一致。
-
-    内部委托给 :meth:`CostOptimizer.init`：强制重新创建单例。
-    """
-    return CostOptimizer.init()
-
-
 __all__ = [
     "CostOptimizer",
     "get_cost_optimizer",
-    "init_cost_optimizer",
 ]
