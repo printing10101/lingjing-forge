@@ -1,0 +1,91 @@
+# ============================================================
+# 灵境制造 - 静态应用安全测试 (SAST)
+# ============================================================
+# 使用 GitHub 原生 CodeQL 对 Python 后端和 TypeScript 前端进行静态安全扫描，
+# 检测 SQL 注入、XSS、路径遍历、硬编码凭据等安全漏洞。
+#
+# 触发条件：
+#   - push 到 main/master 分支
+#   - 针对 main/master 的 Pull Request
+#   - 每周定期扫描（捕获新增 CVE 和查询更新）
+# ============================================================
+
+name: SAST 代码安全扫描
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      # V2.7 重构后代码位于 engineering/ 下；原 python/**、src/** 路径已失效
+      # （导致 CodeQL 在 push/PR 上静默跳过，仅剩每周 cron 兜底）。2026-08 修复。
+      - 'engineering/python/**'
+      - 'engineering/src/**'
+      - 'mcp_server/**'
+      - 'shared/**'
+      - 'scripts/**'
+      - '.github/workflows/sast.yml'
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - 'engineering/python/**'
+      - 'engineering/src/**'
+      - 'mcp_server/**'
+      - 'shared/**'
+      - 'scripts/**'
+      - '.github/workflows/sast.yml'
+  schedule:
+    # 每周一 02:00 UTC 定期扫描（捕获 CodeQL 查询库更新和新增 CVE）
+    - cron: '0 2 * * 1'
+
+# 最小权限原则：CodeQL 仅需读取代码和写入安全事件
+permissions:
+  contents: read
+  security-events: write
+
+# 同一分支的并发任务取消旧任务，节省资源
+concurrency:
+  group: sast-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: CodeQL 分析 (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # CodeQL 支持的语言：Python 后端 + TypeScript/JavaScript 前端
+        language:
+          - python
+          - javascript-typescript
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          # CodeQL 需要完整 git 历史以进行精确的数据流分析
+          fetch-depth: 0
+
+      - name: 初始化 CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          # 使用默认的 security-extended 查询套件，覆盖 OWASP Top 10 和 CWE 常见弱点
+          # 如需更严格扫描可改为 security-and-quality
+          queries: security-extended
+
+      - name: 自动构建（CodeQL）
+        # V2.7 修复：移除失效的 working-directory: python（该目录已不存在）。
+        # CodeQL autobuild 从仓库根自动发现 Python/TS 源（engineering/、mcp_server/、shared/）。
+        uses: github/codeql-action/autobuild@v3
+
+      - name: 执行 CodeQL 分析
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: '/language:${{ matrix.language }}'

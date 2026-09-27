@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-06-26T16:49:57.463573",
+  "feature_importance": {
+    "spindle_speed": {
+      "shap_mean": 0.00026591107714921233,
+      "shap_std": 9.318714089657857e-05,
+      "rank": 1
+    },
+    "axial_depth": {
+      "shap_mean": 0.0001740602442684273,
+      "shap_std": 7.415964223632523e-05,
+      "rank": 2
+    }
+  },
+  "depth_range_analysis": {
+    "low_depth_0_2mm": {
+      "spindle_speed_shap": 0.00026591107714921233,
+      "axial_depth_shap": 0.0001740602442684273,
+      "sample_count": 75
+    },
+    "medium_depth_2_4mm": {
+      "spindle_speed_shap": 0.0,
+      "axial_depth_shap": 0.0,
+      "sample_count": 0
+    },
+    "high_depth_4_5mm": {
+      "spindle_speed_shap": 0.0,
+      "axial_depth_shap": 0.0,
+      "sample_count": 0
+    }
+  }
+}

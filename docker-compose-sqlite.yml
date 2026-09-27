@@ -1,0 +1,84 @@
+# ============================================================
+# 灵境制造（上线版） Docker Compose 配置 - SQLite 单机部署版
+# ============================================================
+# 适用场景：
+#   - 工厂单机部署（无网络/内网环境）
+#   - 中小企业轻量级使用
+#   - 开发测试环境
+#
+# 特点：
+#   - 仅使用 SQLite（零配置、单文件、断电安全）
+#   - 无需 PostgreSQL、Redis、TDengine
+#   - 安装步骤 ≤ 3 步：解压 → 双击 → 使用
+#
+# 使用说明：
+#   1. 复制环境变量模板：cp .env.sqlite.example .env.sqlite
+#   2. 启动服务：docker compose -f docker-compose-sqlite.yml --env-file .env.sqlite up -d
+#   3. 访问：http://localhost:8765
+# ============================================================
+
+name: lnn-manufacturing-lite
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "50m"
+    max-file: "5"
+
+services:
+  lnn-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: lnn-api-lite
+    # 将 .env.sqlite 中的全部配置（含 LNN_JWT_SECRET 等安全密钥）注入容器。
+    # 注意：docker compose 的 --env-file 仅用于 compose 自身变量插值，
+    # 不会自动把变量透传到容器内，必须通过 env_file 显式注入。
+    env_file:
+      - .env.sqlite
+    ports:
+      # P1 安全修复：绑定到 127.0.0.1，避免端口直接暴露到 0.0.0.0 绕过 Nginx 防护。
+      # 外部访问应通过 Nginx 反向代理进入，容器端口仅在本地回环可见。
+      - "127.0.0.1:8765:8765"
+    environment:
+      - APP_ENV=${APP_ENV:-production}
+      - PORT=${PORT:-8765}
+      # 强制使用 SQLite
+      - DB_URL=sqlite+aiosqlite:///./data/app.db
+      # AI 模型配置
+      # 安全提示：CLOUD_API_KEY 为阿里云 DashScope API 密钥，生产环境建议使用 Docker Secret 或 K8s Secret
+      # 通过环境变量注入的密钥可通过 docker inspect 查看，请确保 .env.sqlite 不进入版本控制
+      - AI_MODE=${AI_MODE:-local}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-qwen2.5-coder:7b}
+      - CLOUD_API_KEY=${CLOUD_API_KEY:-}
+      - CLOUD_BASE_URL=${CLOUD_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}
+      - CLOUD_MODEL=${CLOUD_MODEL:-qwen-plus}
+    volumes:
+      # 持久化数据目录
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+    restart: unless-stopped
+    # 单机模式无需依赖其他服务
+    logging: *default-logging
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8765/api/health/ping || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2G
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+
+volumes:
+  data:
+  models:
+  logs:

@@ -1,0 +1,24 @@
+{
+  "branch_id": "8e0cca8d66f1",
+  "name": "main",
+  "base_branch": null,
+  "template_data": {
+    "name": "Main Template"
+  },
+  "metadata": {
+    "type": "main"
+  },
+  "created_at": 1786812663.9690485,
+  "updated_at": 1786812663.9690485,
+  "commit_log": [
+    {
+      "action": "create",
+      "branch_name": "main",
+      "timestamp": 1786812663.9690485,
+      "details": {
+        "base_branch": null,
+        "content_hash": "f352b382d04baad4"
+      }
+    }
+  ]
+}

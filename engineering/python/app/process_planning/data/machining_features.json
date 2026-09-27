@@ -1,0 +1,153 @@
+{
+  "features": [
+    {
+      "type": "end_face",
+      "name": "端面",
+      "geometric_type": "plane",
+      "tolerance_grade": "IT7",
+      "surface_roughness_ra": 3.2,
+      "is_datum_candidate": true,
+      "machining_method": "turning",
+      "priority": "high"
+    },
+    {
+      "type": "outer_cylinder",
+      "name": "外圆面",
+      "geometric_type": "cylinder",
+      "tolerance_grade": "IT7",
+      "surface_roughness_ra": 1.6,
+      "is_datum_candidate": true,
+      "machining_method": "turning",
+      "priority": "high"
+    },
+    {
+      "type": "inner_bore",
+      "name": "内孔",
+      "geometric_type": "cylinder",
+      "tolerance_grade": "IT7",
+      "surface_roughness_ra": 3.2,
+      "is_datum_candidate": true,
+      "machining_method": "boring",
+      "priority": "medium"
+    },
+    {
+      "type": "step",
+      "name": "台阶面",
+      "geometric_type": "plane",
+      "tolerance_grade": "IT8",
+      "surface_roughness_ra": 6.3,
+      "is_datum_candidate": false,
+      "machining_method": "turning",
+      "priority": "medium"
+    },
+    {
+      "type": "groove",
+      "name": "退刀槽",
+      "geometric_type": "groove",
+      "tolerance_grade": "IT9",
+      "surface_roughness_ra": 6.3,
+      "is_datum_candidate": false,
+      "machining_method": "turning",
+      "priority": "low"
+    },
+    {
+      "type": "chamfer",
+      "name": "倒角",
+      "geometric_type": "chamfer",
+      "tolerance_grade": "IT10",
+      "surface_roughness_ra": 12.5,
+      "is_datum_candidate": false,
+      "machining_method": "turning",
+      "priority": "low"
+    },
+    {
+      "type": "through_hole",
+      "name": "通孔",
+      "geometric_type": "cylinder",
+      "tolerance_grade": "IT7",
+      "surface_roughness_ra": 3.2,
+      "is_datum_candidate": false,
+      "machining_method": "drilling",
+      "priority": "medium"
+    },
+    {
+      "type": "counterbore",
+      "name": "沉头孔",
+      "geometric_type": "stepped_cylinder",
+      "tolerance_grade": "IT8",
+      "surface_roughness_ra": 6.3,
+      "is_datum_candidate": false,
+      "machining_method": "drilling",
+      "priority": "medium"
+    },
+    {
+      "type": "keyway",
+      "name": "键槽",
+      "geometric_type": "slot",
+      "tolerance_grade": "IT8",
+      "surface_roughness_ra": 3.2,
+      "is_datum_candidate": false,
+      "machining_method": "milling",
+      "priority": "medium"
+    },
+    {
+      "type": "plane_surface",
+      "name": "平面",
+      "geometric_type": "plane",
+      "tolerance_grade": "IT7",
+      "surface_roughness_ra": 3.2,
+      "is_datum_candidate": true,
+      "machining_method": "milling",
+      "priority": "high"
+    },
+    {
+      "type": "slot",
+      "name": "槽",
+      "geometric_type": "slot",
+      "tolerance_grade": "IT9",
+      "surface_roughness_ra": 6.3,
+      "is_datum_candidate": false,
+      "machining_method": "milling",
+      "priority": "low"
+    },
+    {
+      "type": "center_hole",
+      "name": "中心孔",
+      "geometric_type": "cone",
+      "tolerance_grade": "IT7",
+      "surface_roughness_ra": 3.2,
+      "is_datum_candidate": true,
+      "machining_method": "drilling",
+      "priority": "high"
+    }
+  ],
+  "dependency_rules": [
+    {
+      "rule": "face_before_hole",
+      "description": "先面后孔：平面加工优先于孔加工",
+      "predecessor_type": "plane_surface",
+      "successor_type": "through_hole"
+    },
+    {
+      "rule": "rough_before_finish",
+      "description": "先粗后精：粗加工优先于精加工",
+      "applies_to": "all"
+    },
+    {
+      "rule": "primary_before_secondary",
+      "description": "先主后次：大面/主特征优先于小特征",
+      "applies_to": "all"
+    },
+    {
+      "rule": "datum_first",
+      "description": "基准先行：作为定位基准的特征优先加工",
+      "applies_to": "datum_features"
+    },
+    {
+      "rule": "bore_after_drilling",
+      "description": "钻孔后镗孔：内孔精加工须在钻孔之后",
+      "predecessor_type": "through_hole",
+      "successor_type": "inner_bore"
+    }
+  ]
+}

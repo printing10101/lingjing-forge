@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Materials Knowledge Base Schema",
+  "description": "Schema for validating materials.json in the machining process planning system",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "category", "density_gcm3", "hardness_hb", "tensile_strength_mpa", "cutting_performance"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^material_[a-zA-Z0-9_]+$",
+        "description": "Unique identifier for the material"
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Material name"
+      },
+      "category": {
+        "type": "string",
+        "enum": ["carbon_steel", "alloy_steel", "stainless_steel", "aluminum", "titanium", "cast_iron", "copper", "other"],
+        "description": "Material category"
+      },
+      "density_gcm3": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Density in g/cm³"
+      },
+      "hardness_hb": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Hardness in HB (Brinell)"
+      },
+      "tensile_strength_mpa": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Tensile strength in MPa"
+      },
+      "cutting_performance": {
+        "type": "string",
+        "enum": ["excellent", "good", "fair", "poor", "good_after_treatment"],
+        "description": "Cutting performance rating"
+      },
+      "description": {
+        "type": "string",
+        "description": "Material description"
+      }
+    },
+    "additionalProperties": false
+  }
+}

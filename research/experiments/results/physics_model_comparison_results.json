@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-06-26T17:37:37.235613",
+  "physics_models": [
+    {
+      "model": "Tlusty",
+      "description": "基于再生颤振理论的解析模型",
+      "MAE": 672.763977,
+      "RMSE": 828.76693,
+      "R2": -450392.21875,
+      "PCC": -32.634361
+    },
+    {
+      "model": "Altintas",
+      "description": "基于实验数据的经验模型",
+      "MAE": 17.983858,
+      "RMSE": 18.031304,
+      "R2": -212.197098,
+      "PCC": 0.096971
+    }
+  ],
+  "data_models": [
+    {
+      "model": "DL-LNN",
+      "description": "连续时间LTC网络（本方法）",
+      "MAE": 0.967953,
+      "RMSE": 1.266139,
+      "R2": -0.05121,
+      "PCC": 0.989863
+    },
+    {
+      "model": "LSTM",
+      "description": "长短期记忆网络",
+      "MAE": 0.96538,
+      "RMSE": 1.247392,
+      "R2": -0.020312,
+      "PCC": 0.990466
+    },
+    {
+      "model": "PINN",
+      "description": "物理信息神经网络",
+      "MAE": 0.963925,
+      "RMSE": 1.236561,
+      "R2": -0.00267,
+      "PCC": 0.999472
+    }
+  ],
+  "hybrid_models": [
+    {
+      "model": "DL-LNN + Tlusty",
+      "description": "DL-LNN与Tlusty模型加权融合（α=0.3）",
+      "MAE": 202.024826,
+      "RMSE": 248.733723,
+      "R2": -40568.195312,
+      "PCC": -9.097405
+    },
+    {
+      "model": "DL-LNN + Altintas",
+      "description": "DL-LNN与Altintas模型加权融合（α=0.2）",
+      "MAE": 3.378057,
+      "RMSE": 3.594716,
+      "R2": -7.473369,
+      "PCC": 0.827504
+    }
+  ]
+}

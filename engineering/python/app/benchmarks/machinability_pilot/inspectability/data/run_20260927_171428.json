@@ -1,0 +1,132 @@
+{
+  "run_id": "run_20260927_171428",
+  "elapsed_s": 2.45,
+  "tolerance_band_mm": 0.2,
+  "criteria": {
+    "version": "1.1",
+    "frozen_at": "2026-09-27"
+  },
+  "reproduce": "python -m app.benchmarks.machinability_pilot.inspectability.run_inspectability --band 0.2",
+  "summary": {
+    "n_cases": 5,
+    "n_manufacturable_3axis": 5,
+    "n_mfg_but_uncertifiable": 0,
+    "share_of_all_cases": 0.0,
+    "m2_threshold_pass": false,
+    "m2_kill_line": true,
+    "per_family": {
+      "F06": {
+        "cases": 5,
+        "mfg_ok": 5,
+        "uncertifiable": 0
+      }
+    }
+  },
+  "cases": [
+    {
+      "label": "F06-d1",
+      "tolerance_band_mm": 0.2,
+      "guard_factor_k": 3.0,
+      "penalty_p99": 1.0256392769081273,
+      "penalty_max": 1.0288788034608871,
+      "uncertainty_budget_U95_over_T": 0.325000554130682,
+      "U95_required_mm": 0.06500011082613641,
+      "frac_no_optic_view": 0.0,
+      "frac_no_tactile_reach": 0.03933333333333333,
+      "surface_area_mm2": 8785.710282486409,
+      "n_samples": 1500,
+      "criteria_version": "1.1",
+      "s4": {
+        "upfacing_fraction": 0.3154,
+        "vertical_fraction": 0.3659,
+        "undercut_fraction": 0.0,
+        "needs_multiaxis": false
+      },
+      "faces": 164
+    },
+    {
+      "label": "F06-d2",
+      "tolerance_band_mm": 0.2,
+      "guard_factor_k": 3.0,
+      "penalty_p99": 1.0251259582998131,
+      "penalty_max": 1.0330685371596442,
+      "uncertainty_budget_U95_over_T": 0.3251632939684521,
+      "U95_required_mm": 0.06503265879369043,
+      "frac_no_optic_view": 0.0,
+      "frac_no_tactile_reach": 0.03866666666666667,
+      "surface_area_mm2": 8890.714558096295,
+      "n_samples": 1500,
+      "criteria_version": "1.1",
+      "s4": {
+        "upfacing_fraction": 0.31,
+        "vertical_fraction": 0.375,
+        "undercut_fraction": 0.0,
+        "needs_multiaxis": false
+      },
+      "faces": 164
+    },
+    {
+      "label": "F06-d3",
+      "tolerance_band_mm": 0.2,
+      "guard_factor_k": 3.0,
+      "penalty_p99": 1.0333900651437748,
+      "penalty_max": 1.1755705045849463,
+      "uncertainty_budget_U95_over_T": 0.3225629358909667,
+      "U95_required_mm": 0.06451258717819335,
+      "frac_no_optic_view": 0.0,
+      "frac_no_tactile_reach": 0.036,
+      "surface_area_mm2": 8996.014445526445,
+      "n_samples": 1500,
+      "criteria_version": "1.1",
+      "s4": {
+        "upfacing_fraction": 0.3055,
+        "vertical_fraction": 0.3833,
+        "undercut_fraction": 0.0,
+        "needs_multiaxis": false
+      },
+      "faces": 164
+    },
+    {
+      "label": "F06-d4",
+      "tolerance_band_mm": 0.2,
+      "guard_factor_k": 3.0,
+      "penalty_p99": 1.0414678446932966,
+      "penalty_max": 1.1755705045849463,
+      "uncertainty_budget_U95_over_T": 0.32006108977036846,
+      "U95_required_mm": 0.06401221795407369,
+      "frac_no_optic_view": 0.0,
+      "frac_no_tactile_reach": 0.036,
+      "surface_area_mm2": 9101.834914293468,
+      "n_samples": 1500,
+      "criteria_version": "1.1",
+      "s4": {
+        "upfacing_fraction": 0.3017,
+        "vertical_fraction": 0.3906,
+        "undercut_fraction": 0.0,
+        "needs_multiaxis": false
+      },
+      "faces": 164
+    },
+    {
+      "label": "F06-d5",
+      "tolerance_band_mm": 0.2,
+      "guard_factor_k": 3.0,
+      "penalty_p99": 1.041139767119711,
+      "penalty_max": 1.1755705045849463,
+      "uncertainty_budget_U95_over_T": 0.32016194545665305,
+      "U95_required_mm": 0.06403238909133062,
+      "frac_no_optic_view": 0.0,
+      "frac_no_tactile_reach": 0.035333333333333335,
+      "surface_area_mm2": 9207.673532822122,
+      "n_samples": 1500,
+      "criteria_version": "1.1",
+      "s4": {
+        "upfacing_fraction": 0.2986,
+        "vertical_fraction": 0.3973,
+        "undercut_fraction": 0.0,
+        "needs_multiaxis": false
+      },
+      "faces": 164
+    }
+  ]
+}

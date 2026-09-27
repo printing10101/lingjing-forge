@@ -1,0 +1,95 @@
+{
+  "timestamp": "20260508_123022",
+  "total_tests": 5,
+  "results": [
+    {
+      "test_name": "Model Inference Latency",
+      "total_time_ms": 323.018,
+      "avg_time_ms": 0.162,
+      "min_time_ms": 0.075,
+      "max_time_ms": 1.879,
+      "p50_time_ms": 0.148,
+      "p95_time_ms": 0.278,
+      "p99_time_ms": 0.555,
+      "throughput_per_sec": 6191.6,
+      "memory_peak_mb": 0.0,
+      "memory_current_mb": 0.0,
+      "iterations": 2000,
+      "metadata": {
+        "model_types": [
+          "cfc",
+          "ltc"
+        ]
+      }
+    },
+    {
+      "test_name": "Batch Throughput",
+      "total_time_ms": 84.255,
+      "avg_time_ms": 0.14,
+      "min_time_ms": 0.074,
+      "max_time_ms": 2.565,
+      "p50_time_ms": 0.121,
+      "p95_time_ms": 0.274,
+      "p99_time_ms": 0.537,
+      "throughput_per_sec": 295532.12,
+      "memory_peak_mb": 0.0,
+      "memory_current_mb": 0.0,
+      "iterations": 600,
+      "metadata": {
+        "batch_sizes": [
+          1,
+          8,
+          16,
+          32,
+          64,
+          128
+        ]
+      }
+    },
+    {
+      "test_name": "Memory Usage",
+      "total_time_ms": 618.461,
+      "avg_time_ms": 1.237,
+      "min_time_ms": 0.836,
+      "max_time_ms": 4.726,
+      "p50_time_ms": 1.146,
+      "p95_time_ms": 1.896,
+      "p99_time_ms": 2.288,
+      "throughput_per_sec": 808.46,
+      "memory_peak_mb": 0.05,
+      "memory_current_mb": 0.05,
+      "iterations": 500,
+      "metadata": {}
+    },
+    {
+      "test_name": "Task Router Performance",
+      "total_time_ms": 60.789,
+      "avg_time_ms": 0.061,
+      "min_time_ms": 0.034,
+      "max_time_ms": 0.525,
+      "p50_time_ms": 0.052,
+      "p95_time_ms": 0.105,
+      "p99_time_ms": 0.244,
+      "throughput_per_sec": 16450.48,
+      "memory_peak_mb": 0.0,
+      "memory_current_mb": 0.0,
+      "iterations": 1000,
+      "metadata": {}
+    },
+    {
+      "test_name": "Fusion Performance",
+      "total_time_ms": 77.562,
+      "avg_time_ms": 0.155,
+      "min_time_ms": 0.088,
+      "max_time_ms": 1.511,
+      "p50_time_ms": 0.144,
+      "p95_time_ms": 0.259,
+      "p99_time_ms": 0.576,
+      "throughput_per_sec": 6446.44,
+      "memory_peak_mb": 0.0,
+      "memory_current_mb": 0.0,
+      "iterations": 500,
+      "metadata": {}
+    }
+  ]
+}

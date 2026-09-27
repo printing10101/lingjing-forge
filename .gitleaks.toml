@@ -1,0 +1,27 @@
+# Gitleaks 扫描配置
+#
+# 本文件只做"定向豁免"，不放宽任何规则本身。每个条目必须写明理由，
+# 新增豁免前请先确认内容确为占位符/文档示例而非真实凭据。
+# 验证方式：gitleaks detect --source . --no-git --verbose
+
+[extend]
+# 使用内置默认规则集（gitleaks 8.x 默认行为，显式声明以便审阅）
+
+[allowlist]
+description = "文档示例与脱敏测试占位符（2026-09-05 复核，均非真实凭据）"
+paths = [
+  # TLS 配置文档中的示例私钥（密钥体为截断文本，base64 非法，非可用密钥）
+  '''^deploy/nginx/README_TLS\.md$''',
+  # API 文档的 JWT 请求示例（token 以 ... 截断）
+  '''^docs/api/examples\.md$''',
+  '''^docs-site/docs/api/examples\.md$''',
+  # 脱敏单测夹具：断言假 token 不出现在日志输出中
+  '''^engineering/python/tests/test_permissions\.py$''',
+  '''^engineering/python/tests/unit/test_logging_config\.py$''',
+  '''^engineering/python/app/core/logging_config\.py$''',
+]
+# 同时按内容兜底：明显占位符字面量
+regexes = [
+  '''tk_abc123def''',
+  '''sk-1234567890''',
+]

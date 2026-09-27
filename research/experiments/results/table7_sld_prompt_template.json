@@ -1,0 +1,38 @@
+{
+  "table_id": "table7",
+  "table_title": "SLD-as-Prompt 模板对话样例",
+  "metadata": {
+    "data_sources": [
+      "results/stability_lobes_results.json",
+      "results/main_comparison_results.json",
+      "results/cross_condition_results.json"
+    ],
+    "academic_integrity_note": "演示样例1/2/3 为人工设计的 prompt 模板示例，仅展示对话形式，不对应真实实验；真实查询行的数值从实验结果 JSON 自动派生。",
+    "demo_sample_disclaimer": "demo_samples 的 data_source = 'synthetic_template_example'，在论文中应明确标注为模板示例。"
+  },
+  "demo_samples": [
+    {
+      "scenario": "演示样例1：转速过高场景",
+      "user": "[模板示例] 用户描述：加工过程中出现明显振纹，当前主轴转速较高，希望诊断原因。",
+      "assistant": "[模板示例] SLD-as-Prompt 模板响应：根据输入工况，推断当前转速可能处于稳定性叶瓣峰值附近，建议调整至相邻叶瓣谷值转速并减小切深。",
+      "data_source": "synthetic_template_example"
+    },
+    {
+      "scenario": "演示样例2：切深过大场景",
+      "user": "[模板示例] 用户描述：固定转速下逐步加大轴向切深，出现颤振后减小切深即消失。",
+      "assistant": "[模板示例] SLD-as-Prompt 模板响应：当前切深可能已超过 SLD 预测的极限切深 a_lim，建议降至安全裕量内。",
+      "data_source": "synthetic_template_example"
+    },
+    {
+      "scenario": "演示样例3：模态参数失配场景",
+      "user": "[模板示例] 用户描述：缺少机床模态参数（k、m、ζ），需评估稳定性。",
+      "assistant": "[模板示例] SLD-as-Prompt 模板响应：缺少模态参数时模型退化为粗略 SLD；建议先通过锤击法测定模态参数后重新校核。",
+      "data_source": "synthetic_template_example"
+    }
+  ],
+  "real_query": {
+    "user": "n = 5,500 r/min（SLD 实验网格中点工况）；ap 待评估，请基于 DL-LNN 推理给出稳定性判定与极限切深。。",
+    "assistant": "根据 DL-LNN 在 SLD 网格上的预测，参考极限切深 a_lim ≈ 19.50 mm （模型与 Tlusty 理论 a_lim 的 MAE = 0.496 mm） 在 PHM2010 真实数据集上 DL-LNN 的 MAE = 0.793 mm，RMSE = 0.987 mm 跨工况平均 PCC = 0.9966（LOCO 评估） 建议：将 ap 控制在 16.58 mm 以内（保留 15% 安全裕量）。",
+    "data_source": "real_experiment_results"
+  }
+}

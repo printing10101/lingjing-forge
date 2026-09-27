@@ -1,0 +1,8 @@
+﻿source,doi,material,hardness_hb,n_rpm,feed_mm_per_tooth,ap_mm,ae_mm,tool_diameter_mm,num_teeth,stable,a_lim_measured_mm
+"Ji2024-SciRep Fig10-A (35mm,x-feed)",10.1038/s41598-024-76165-8,Al7075,150,10000,,3,1,6,3,1,
+"Ji2024-SciRep Fig10-B (35mm,x-feed)",10.1038/s41598-024-76165-8,Al7075,150,15000,,3,1,6,3,0,
+"Ji2024-SciRep Fig13-C (35mm,y-feed,lowfreq)",10.1038/s41598-024-76165-8,Al7075,150,3000,,3,1,6,3,0,
+"Ji2024-SciRep Fig15-D (65mm,x-feed)",10.1038/s41598-024-76165-8,Al7075,150,7000,,0.1,1,6,3,0,
+"Ji2024-SciRep Fig15-E (65mm,x-feed)",10.1038/s41598-024-76165-8,Al7075,150,12000,,0.4,1,6,3,0,
+"Ji2024-SciRep Fig18-F (65mm,y-feed)",10.1038/s41598-024-76165-8,Al7075,150,7000,,0.1,1,6,3,1,
+"Ji2024-SciRep Fig18-G (65mm,y-feed)",10.1038/s41598-024-76165-8,Al7075,150,7000,,1.2,1,6,3,0,

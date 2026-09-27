@@ -1,0 +1,198 @@
+{
+ "a_lim_fd_mm": 3.5000000132772753,
+ "valley_rpm": 3338.4487072560464,
+ "a_p_mm": 4.550000017260458,
+ "rpm_scan": [
+  {
+   "rpm": 2000.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 0.6021075969629335,
+   "cl_rms_um": 0.3551920343567091,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 2200.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 118.88484036457884,
+   "cl_rms_um": 0.4238741228418454,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": true,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 2400.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 0.22797446043654493,
+   "cl_rms_um": 0.22110735903180362,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 2600.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 85.0838435919487,
+   "cl_rms_um": 0.33691857789916707,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": true,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 2800.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 236.74059788932115,
+   "cl_rms_um": 0.23341810162090487,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": true,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 3000.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 0.1902767264678706,
+   "cl_rms_um": 0.17963653580737618,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 3200.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 0.17315074647365505,
+   "cl_rms_um": 0.16635504770352677,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 3400.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 0.4294363931857203,
+   "cl_rms_um": 0.2656570319170171,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 3600.0,
+   "none_chattered": true,
+   "cl_chattered": false,
+   "none_rms_um": 999.3130522216618,
+   "cl_rms_um": 0.1673230726325037,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": true,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 3800.0,
+   "none_chattered": true,
+   "cl_chattered": false,
+   "none_rms_um": 966.1742739512496,
+   "cl_rms_um": 0.3334312829133504,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": true,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 4000.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 0.2540508581003905,
+   "cl_rms_um": 0.17889175933428894,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 4200.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 0.25615729527880515,
+   "cl_rms_um": 0.22731923014495656,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 4400.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 0.18622438903008828,
+   "cl_rms_um": 0.18532246227754198,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 4600.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 0.18063599783702203,
+   "cl_rms_um": 0.18094072465694624,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 4800.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 0.21433831021001068,
+   "cl_rms_um": 0.21390622435798506,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 5000.0,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_rms_um": 0.2319403594476768,
+   "cl_rms_um": 0.22043968871196287,
+   "cl_peak_p_W": 651.041666666644,
+   "cl_peak_dT_C": 499.9999999999826,
+   "none_instable": false,
+   "cl_suppressed": false
+  }
+ ],
+ "stats": {
+  "n_points": 16,
+  "n_instability_none": 5,
+  "n_suppressed_cl": 5
+ },
+ "params": {
+  "xi_C_per_kW": 768.0,
+  "kappa_eff": 0.00046,
+  "tau_laser_s": 0.02,
+  "p_max_W": 1000.0,
+  "p_feedforward_W": 651.0416666666666,
+  "wn_hz": 159.15494309189535,
+  "zeta": 0.05,
+  "k_struct": 50000000.0
+ }
+}

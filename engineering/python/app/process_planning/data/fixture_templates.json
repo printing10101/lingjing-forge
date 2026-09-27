@@ -1,0 +1,98 @@
+{
+  "fixtures": [
+    {
+      "id": "vise",
+      "name": "虎钳装夹",
+      "type": "vise",
+      "applicable_parts": ["rectangular", "square", "plate", "block", "bracket"],
+      "locating_method": "固定钳口+活动钳口",
+      "degrees_constrained": 5,
+      "clamping_principle": {
+        "description": "固定钳口限制Y向移动和XZ平面旋转，底面支撑限制Z向移动和XY平面旋转，活动钳口施加夹紧力",
+        "constrained_dof": ["Y_translation", "X_rotation", "Z_rotation", "Z_translation", "X_rotation_xy"]
+      },
+      "clamping_force_estimation": {
+        "formula": "F = k * p * A",
+        "parameters": {"k": 2.5, "p": "0.5-2.0 MPa", "A": "钳口接触面积"},
+        "unit": "N"
+      },
+      "precautions": [
+        "工件伸出长度不超过工件高度的1.5倍",
+        "使用铜垫片保护已加工表面",
+        "确保夹紧力均匀分布，避免工件变形",
+        "粗加工时夹紧力应大于精加工",
+        "装夹前清除钳口铁屑"
+      ]
+    },
+    {
+      "id": "three_jaw_chuck",
+      "name": "三爪卡盘装夹",
+      "type": "three_jaw_chuck",
+      "applicable_parts": ["shaft", "disc", "cylinder", "stepped_shaft", "flange"],
+      "locating_method": "自动定心",
+      "degrees_constrained": 4,
+      "clamping_principle": {
+        "description": "三爪同步定心，限制径向移动和XY面转动，端面或顶尖限制轴向移动",
+        "constrained_dof": ["X_translation", "Y_translation", "X_rotation", "Y_rotation"]
+      },
+      "clamping_force_estimation": {
+        "formula": "F = T / (k * d)",
+        "parameters": {"T": "卡盘夹紧扭矩", "k": 0.2, "d": "工件直径"},
+        "unit": "N"
+      },
+      "precautions": [
+        "工件悬伸长度与转速关系: L/D < 3时可直接装夹, 3 < L/D < 6需用顶尖, L/D > 6需用跟刀架",
+        "确保工件动平衡，高速加工前需检查",
+        "夹紧力适中，避免薄壁件变形",
+        "定期检查卡爪磨损和定心精度"
+      ]
+    },
+    {
+      "id": "toe_clamp",
+      "name": "压板装夹",
+      "type": "toe_clamp",
+      "applicable_parts": ["large_plate", "irregular", "plate", "bracket"],
+      "locating_method": "底面支撑+侧面定位+顶部压板",
+      "degrees_constrained": 6,
+      "clamping_principle": {
+        "description": "底面3点支撑限制Z向移动和XY平面转动，侧面2点限制X向移动，端面1点限制Y向移动，压板施加夹紧力",
+        "constrained_dof": ["X_translation", "Y_translation", "Z_translation", "X_rotation", "Y_rotation", "Z_rotation"]
+      },
+      "clamping_force_estimation": {
+        "formula": "F = n * T / (k * d)",
+        "parameters": {"n": "螺栓数量", "T": "螺栓扭矩(Nm)", "k": 0.2, "d": "螺栓直径(m)"},
+        "unit": "N"
+      },
+      "precautions": [
+        "压板布局应均匀分布，间距不超过200mm",
+        "压板应压在工件刚性较强位置，避免中空区域",
+        "支撑点位置应与压板位置对应，防止悬空",
+        "预紧力分级加载，先轻后重逐步锁紧",
+        "使用等高垫块确保支撑面共面"
+      ]
+    },
+    {
+      "id": "v_block",
+      "name": "V型块装夹",
+      "type": "v_block",
+      "applicable_parts": ["shaft", "cylinder", "round_bar"],
+      "locating_method": "V型槽自动定心+端面限位",
+      "degrees_constrained": 5,
+      "clamping_principle": {
+        "description": "V型槽限制X和Y向移动，端面挡块限制Z向移动(Z轴为轴向)，压板限制旋转",
+        "constrained_dof": ["X_translation", "Y_translation", "Z_translation", "X_rotation", "Y_rotation"]
+      },
+      "clamping_force_estimation": {
+        "formula": "F = n * T / (k * d)",
+        "parameters": {"n": "压板数量", "T": "螺栓扭矩", "k": 0.15, "d": "工件直径"},
+        "unit": "N"
+      },
+      "precautions": [
+        "V型块开角通常为90或120",
+        "工件直径应与V型块规格匹配",
+        "长轴件需使用双V型块支撑",
+        "检查V型块磨损和定位精度"
+      ]
+    }
+  ]
+}

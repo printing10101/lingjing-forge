@@ -1,0 +1,23 @@
+{
+  "GP": {
+    "length_scale": 4.208905539045252,
+    "constant_value": 0.7391158974631252,
+    "alpha": 0.051120199939012116
+  },
+  "GP_search_mae": 0.3148,
+  "DL-LNN": {
+    "learning_rate": 0.004622589001020831,
+    "weight_decay": 2.6587543983272695e-05,
+    "dropout": 0.1545474901621302
+  },
+  "DL-LNN_search_mae": 0.37736740708351135,
+  "_meta": {
+    "search_dataset": "Synthetic",
+    "search_time_seconds": 1858.7516467571259,
+    "search_time_minutes": 30.98,
+    "gp_trials": "skipped(already_done)",
+    "dlnn_trials": 5,
+    "dlnn_search_epochs": "Stage1=10, Stage2=15",
+    "timestamp": "2026-07-11 22:00:30"
+  }
+}

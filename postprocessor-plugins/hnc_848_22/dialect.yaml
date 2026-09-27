@@ -1,0 +1,26 @@
+# =============================================================================
+# 方言声明：HNC-848/22（华中数控，Fanuc 0i 兼容方言）
+# =============================================================================
+# 声明式镜像：与内置 HNCPostProcessor 行为等价（黄金测试逐字符一致）。
+# 特色：G74 回零、I/J/K 圆弧、M99 独占一行。
+# =============================================================================
+
+id: hnc_848_22
+name: HNC-848/22 (Huazhong CNC)
+version: "1.0.0"
+extends: fanuc_0i
+target_controller: hnc_848_22
+
+templates:
+  format_header: templates/header.j2
+  format_tool_change: templates/tool_change.j2
+  format_arc: templates/arc.j2
+  format_cycle_drill: templates/cycle_drill.j2
+  format_cycle_tapping: templates/cycle_tapping.j2
+  format_subprogram_end: templates/subprogram_end.j2
+  format_footer: templates/footer.j2
+
+params: {}
+
+author: Lingjing Manufacturing Team
+description: 华中数控 HNC-848/22（Fanuc 0i 兼容方言，声明式镜像）

@@ -1,0 +1,59 @@
+# 自进化演化循环流水线（3 节点线性 DAG，自进化 M1）
+#
+# 典型场景：定期（心跳 cron 或 REST 手动）跑一轮「统计 → 提案 → 报告」，
+# 产出提示词补丁提案（proposed 状态入持久化存储）。提案制安全边界：
+# 本模板**不会自动发布**任何提示词改动——发布需人工调用
+# POST /api/v1/evolution/proposals/{id}/{version}/promote（含 replay
+# 回归门控，FAIL 自动回滚）。
+#
+# 节点拓扑（线性）：
+#   collect_stats → propose_patch → write_report
+#
+# 触发方式：
+#   - REST: POST /api/v1/workflows/run-template/evolution_loop（若已实现
+#     按模板运行），或标准 POST /workflows/run 传模板转出的 spec
+#   - 心跳 cron: LNN_HEARTBEAT_ENABLED=1 时每周一 03:00 自动触发
+#     （LNN_EVOLUTION_CRON 可调），等价 run_loop 动作
+name: 自进化演化循环
+version: "1.0.0"
+description: |
+  失败案例统计 → LLM 提示词补丁提案 → 进化报告。提案制：产出仅入
+  提案存储（proposed），人工审核后经门控发布（promote / reject）。
+
+inputs: {}
+
+outputs:
+  report: "${write_report.result}"
+
+edges:
+  - upstream: collect_stats
+    downstream: propose_patch
+  - upstream: propose_patch
+    downstream: write_report
+
+nodes:
+  - node_id: collect_stats
+    task_type: evolution_loop
+    params:
+      action: "stats"
+    timeout_seconds: 120
+
+  - node_id: propose_patch
+    task_type: evolution_loop
+    params:
+      action: "propose"
+      # target_prompt_id: "orchestrator.gcode_repair.system"  # 缺省用默认目标
+    retry: 1
+    timeout_seconds: 300
+
+  - node_id: write_report
+    task_type: evolution_loop
+    params:
+      action: "report"
+    timeout_seconds: 120
+
+metadata:
+  max_concurrent: 1
+  tags: ["evolution", "self-improvement", "prompt-iteration"]
+  author: "lingjing-team"
+  proposal_based: true

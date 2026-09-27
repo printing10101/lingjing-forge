@@ -1,0 +1,11 @@
+# 生成物：由 unplugin-vue-components 在 dev/build 时重写（双引号 + 其自身排序）。
+# 此前被 prettier 反复改写成单引号 → 每次生成后 diff 都是 235 增 235 删的纯噪音，
+# 且文件头虽带 /* prettier-ignore */，该注释只忽略「下一个节点」而非整个文件。
+src/components.d.ts
+
+# 构建产物与依赖
+node_modules/
+dist/
+coverage/
+*.min.js
+*.min.js.map

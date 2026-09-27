@@ -1,0 +1,211 @@
+{
+  "part_id": "stepped_shaft",
+  "part_name": "阶梯轴",
+  "part_type": "shaft",
+  "material": "45钢",
+  "material_grade": "GB/T 699-2015",
+  "overall_dimensions": {
+    "total_length": 200.0,
+    "max_diameter": 50.0,
+    "min_diameter": 25.0
+  },
+  "tolerance_grade": "IT7",
+  "features": [
+    {
+      "name": "shaft_body_1",
+      "feature_type": "cylinder",
+      "parameters": { "diameter": 50.0, "length": 40.0 },
+      "area": 7853.98,
+      "volume": 78539.82,
+      "bbox": [0, 80, 200, 360],
+      "bbox_3d": [0, 0, 0, 50, 50, 40]
+    },
+    {
+      "name": "shaft_body_2",
+      "feature_type": "cylinder",
+      "parameters": { "diameter": 40.0, "length": 50.0 },
+      "area": 6283.19,
+      "volume": 50265.48,
+      "bbox": [0, 80, 200, 360],
+      "bbox_3d": [0, 0, 40, 40, 40, 90]
+    },
+    {
+      "name": "shaft_body_3",
+      "feature_type": "cylinder",
+      "parameters": { "diameter": 30.0, "length": 60.0 },
+      "area": 5654.87,
+      "volume": 42411.50,
+      "bbox": [0, 80, 200, 360],
+      "bbox_3d": [0, 0, 90, 30, 30, 150]
+    },
+    {
+      "name": "shaft_body_4",
+      "feature_type": "cylinder",
+      "parameters": { "diameter": 25.0, "length": 50.0 },
+      "area": 3926.99,
+      "volume": 24543.69,
+      "bbox": [0, 80, 200, 360],
+      "bbox_3d": [0, 0, 150, 25, 25, 200]
+    },
+    {
+      "name": "relief_groove_1",
+      "feature_type": "groove",
+      "parameters": { "diameter": 38.0, "width": 4.0 },
+      "area": 477.52,
+      "volume": 4537.54,
+      "bbox": [130, 110, 350, 250],
+      "bbox_3d": [0, 38, 40, 38, 38, 44]
+    },
+    {
+      "name": "relief_groove_2",
+      "feature_type": "groove",
+      "parameters": { "diameter": 28.0, "width": 3.0 },
+      "area": 263.89,
+      "volume": 1847.26,
+      "bbox": [130, 110, 350, 250],
+      "bbox_3d": [0, 28, 90, 28, 28, 93]
+    },
+    {
+      "name": "chamfer_1",
+      "feature_type": "chamfer",
+      "parameters": { "angle": 45.0, "width": 2.0 },
+      "area": 12.57,
+      "volume": 8.37,
+      "bbox": [50, 50, 100, 100],
+      "bbox_3d": [48, 48, 0, 50, 50, 2]
+    },
+    {
+      "name": "chamfer_2",
+      "feature_type": "chamfer",
+      "parameters": { "angle": 45.0, "width": 1.5 },
+      "area": 7.07,
+      "volume": 3.53,
+      "bbox": [150, 50, 250, 100],
+      "bbox_3d": [38, 38, 88, 40, 40, 90]
+    },
+    {
+      "name": "center_hole_a",
+      "feature_type": "center_hole",
+      "parameters": { "diameter": 6.0, "depth": 8.0 },
+      "area": 150.80,
+      "volume": 226.19,
+      "bbox": [85, 170, 115, 200],
+      "bbox_3d": [0, 0, 0, 6, 6, 8]
+    },
+    {
+      "name": "center_hole_b",
+      "feature_type": "center_hole",
+      "parameters": { "diameter": 4.0, "depth": 5.0 },
+      "area": 75.40,
+      "volume": 62.83,
+      "bbox": [85, 170, 115, 200],
+      "bbox_3d": [0, 0, 192, 4, 4, 200]
+    }
+  ],
+  "dimensions": [
+    {
+      "name": "D1",
+      "nominal": 50.0,
+      "unit": "mm",
+      "tolerance_upper": 0.025,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "第1段外圆直径"
+    },
+    {
+      "name": "D2",
+      "nominal": 40.0,
+      "unit": "mm",
+      "tolerance_upper": 0.025,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "第2段外圆直径"
+    },
+    {
+      "name": "D3",
+      "nominal": 30.0,
+      "unit": "mm",
+      "tolerance_upper": 0.021,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "第3段外圆直径"
+    },
+    {
+      "name": "D4",
+      "nominal": 25.0,
+      "unit": "mm",
+      "tolerance_upper": 0.021,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "第4段外圆直径"
+    },
+    {
+      "name": "L1",
+      "nominal": 40.0,
+      "unit": "mm",
+      "tolerance_upper": 0.025,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "第1段长度"
+    },
+    {
+      "name": "L2",
+      "nominal": 50.0,
+      "unit": "mm",
+      "tolerance_upper": 0.025,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "第2段长度"
+    },
+    {
+      "name": "L3",
+      "nominal": 60.0,
+      "unit": "mm",
+      "tolerance_upper": 0.030,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "第3段长度"
+    },
+    {
+      "name": "L4",
+      "nominal": 50.0,
+      "unit": "mm",
+      "tolerance_upper": 0.025,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "第4段长度"
+    },
+    {
+      "name": "chamfer_width",
+      "nominal": 2.0,
+      "unit": "mm",
+      "tolerance_upper": 0.1,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT8",
+      "description": "倒角宽度"
+    },
+    {
+      "name": "center_hole_dia",
+      "nominal": 6.0,
+      "unit": "mm",
+      "tolerance_upper": 0.012,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "中心孔直径"
+    }
+  ],
+  "topology": [
+    { "feature_a": "shaft_body_1", "feature_b": "shaft_body_2", "relation": "adjacent_coaxial" },
+    { "feature_a": "shaft_body_1", "feature_b": "chamfer_1", "relation": "edge_transition" },
+    { "feature_a": "shaft_body_2", "feature_b": "relief_groove_1", "relation": "contains" },
+    { "feature_a": "shaft_body_2", "feature_b": "shaft_body_3", "relation": "adjacent_coaxial" },
+    { "feature_a": "shaft_body_3", "feature_b": "relief_groove_2", "relation": "contains" },
+    { "feature_a": "shaft_body_3", "feature_b": "shaft_body_4", "relation": "adjacent_coaxial" },
+    { "feature_a": "shaft_body_3", "feature_b": "chamfer_2", "relation": "edge_transition" },
+    { "feature_a": "shaft_body_1", "feature_b": "center_hole_a", "relation": "contains" },
+    { "feature_a": "shaft_body_4", "feature_b": "center_hole_b", "relation": "contains" }
+  ],
+  "version": "1.0.0",
+  "created": "2026-05-16T08:00:00Z",
+  "description": "标准阶梯轴零件，包含4段外圆、2个退刀槽、2个倒角和2个中心孔，用于检验轴类零件的3D重建精度"
+}

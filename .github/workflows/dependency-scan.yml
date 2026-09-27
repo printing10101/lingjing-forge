@@ -1,0 +1,98 @@
+# ============================================================
+# 灵境制造 - 依赖漏洞扫描 (SCA)
+# ============================================================
+# 对 Python (pip-audit) 与前端 (pnpm audit) 的直接依赖树进行已知漏洞扫描，
+# 并生成 CycloneDX SBOM 工件，覆盖 image-scan.yml（仅扫 Docker 镜像）未覆盖的
+# 源码级依赖漏洞（例如仅桌面运行时安装、不进镜像的依赖）。
+#
+# 触发条件：
+#   - 依赖清单变更（requirements.txt / pnpm-lock.yaml）
+#   - 每周一定时扫描（捕获新增 CVE）
+# ============================================================
+
+name: 依赖漏洞扫描
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'engineering/python/requirements.txt'
+      - 'engineering/package.json'
+      - 'engineering/pnpm-lock.yaml'
+      - '.github/workflows/dependency-scan.yml'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'engineering/python/requirements.txt'
+      - 'engineering/package.json'
+      - 'engineering/pnpm-lock.yaml'
+      - '.github/workflows/dependency-scan.yml'
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+concurrency:
+  group: dependency-scan-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python-sca:
+    name: Python 依赖漏洞扫描 (pip-audit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          # 2026-09-11 对齐 ci/release 等全线标准 3.12（此前漏改仍是 3.11）
+          python-version: '3.12'
+      - name: 安装扫描工具
+        run: python -m pip install --upgrade pip && pip install pip-audit
+      - name: 运行 pip-audit（非阻断，建立基线）
+        working-directory: engineering/python
+        run: |
+          pip-audit -r requirements.txt --format=json --output=pip-audit.json || true
+          python -c "import json; d=json.load(open('pip-audit.json')); deps=d.get('dependencies',[]); print('pip-audit: total vulns=', sum(len(x.get('vulns',[])) for x in deps))"
+      - name: 上传扫描结果
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: python-pip-audit
+          path: engineering/python/pip-audit.json
+          retention-days: 30
+
+  frontend-sca:
+    name: 前端依赖漏洞扫描 (pnpm audit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: engineering
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          # 2026-09-11 与其他工作流统一为 22（Node 18 已 EOL）
+          node-version: '22'
+      - name: 安装 pnpm
+        # 版本取自根 package.json 的 packageManager 字段（pnpm@9.15.9）
+        uses: pnpm/action-setup@v4
+      - name: 运行 pnpm audit（建基线，非阻断）
+        # 当前策略与上方 pip-audit 一致：非阻断建基线（audit 发现漏洞即非零退出，
+        # 由 || true 吞掉）。不再 2>&1，避免 stderr 混入污染 JSON 产物
+        run: pnpm audit --audit-level high --json > pnpm-audit.json || true
+      - name: 上传审计结果
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-pnpm-audit
+          path: engineering/pnpm-audit.json
+          retention-days: 30

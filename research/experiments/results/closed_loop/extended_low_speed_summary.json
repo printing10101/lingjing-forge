@@ -1,0 +1,262 @@
+{
+ "a_p_mm": 4.550000017260458,
+ "valley_rpm": 3338.4487072560464,
+ "rpm_scan": [
+  {
+   "rpm": 1000.0,
+   "none_rms_um": 0.7549496518107373,
+   "cl_rms_um": 0.241331312616414,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 1200.0,
+   "none_rms_um": 1.3377129443978297,
+   "cl_rms_um": 0.20444606798110773,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 1400.0,
+   "none_rms_um": 0.3341550582090706,
+   "cl_rms_um": 0.24186082434739933,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 1600.0,
+   "none_rms_um": 0.31222533126498275,
+   "cl_rms_um": 0.20316159452682164,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 1800.0,
+   "none_rms_um": 202.44078375001544,
+   "cl_rms_um": 0.38829136957836374,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": true,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 2000.0,
+   "none_rms_um": 0.6021075969629335,
+   "cl_rms_um": 0.3551920343567091,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 2200.0,
+   "none_rms_um": 118.88484036457884,
+   "cl_rms_um": 0.4238741228418454,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": true,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 2400.0,
+   "none_rms_um": 0.22797446043654496,
+   "cl_rms_um": 0.22110735903180362,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 2600.0,
+   "none_rms_um": 85.0838435919487,
+   "cl_rms_um": 0.33691857789916707,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": true,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 2800.0,
+   "none_rms_um": 236.74059788932115,
+   "cl_rms_um": 0.23341810162090487,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": true,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 3000.0,
+   "none_rms_um": 0.19027672646787064,
+   "cl_rms_um": 0.17963653580737618,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 3200.0,
+   "none_rms_um": 0.17315074647365505,
+   "cl_rms_um": 0.16635504770352677,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 3400.0,
+   "none_rms_um": 0.4294363931857203,
+   "cl_rms_um": 0.2656570319170171,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 3600.0,
+   "none_rms_um": 999.313052221662,
+   "cl_rms_um": 0.1673230726325037,
+   "none_chattered": true,
+   "cl_chattered": false,
+   "none_instable": true,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 3800.0,
+   "none_rms_um": 966.1742739512498,
+   "cl_rms_um": 0.3334312829133504,
+   "none_chattered": true,
+   "cl_chattered": false,
+   "none_instable": true,
+   "cl_suppressed": true
+  },
+  {
+   "rpm": 4000.0,
+   "none_rms_um": 0.2540508581003905,
+   "cl_rms_um": 0.17889175933428894,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 4200.0,
+   "none_rms_um": 0.2561572952788052,
+   "cl_rms_um": 0.22731923014495656,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 4400.0,
+   "none_rms_um": 0.18622438903008828,
+   "cl_rms_um": 0.185322462277542,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 4600.0,
+   "none_rms_um": 0.18063599783702203,
+   "cl_rms_um": 0.18094072465694624,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 4800.0,
+   "none_rms_um": 0.21433831021001068,
+   "cl_rms_um": 0.21390622435798506,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  },
+  {
+   "rpm": 5000.0,
+   "none_rms_um": 0.2319403594476768,
+   "cl_rms_um": 0.22043968871196287,
+   "none_chattered": false,
+   "cl_chattered": false,
+   "none_instable": false,
+   "cl_suppressed": false
+  }
+ ],
+ "stats": {
+  "n_points": 21,
+  "n_instability_none": 6,
+  "n_suppressed_cl": 6,
+  "low_speed_1000_2000": {
+   "n_points": 6,
+   "n_instability": 1,
+   "n_suppressed": 1
+  }
+ },
+ "tau_laser_sensitivity": [
+  {
+   "tau_laser_s": 0.02,
+   "rpm": 1400.0,
+   "cl_rms_um": 0.24186082434739933,
+   "chattered": false
+  },
+  {
+   "tau_laser_s": 0.02,
+   "rpm": 2000.0,
+   "cl_rms_um": 0.3551920343567091,
+   "chattered": false
+  },
+  {
+   "tau_laser_s": 0.02,
+   "rpm": 3600.0,
+   "cl_rms_um": 0.1673230726325037,
+   "chattered": false
+  },
+  {
+   "tau_laser_s": 0.2,
+   "rpm": 1400.0,
+   "cl_rms_um": 0.24189514364083312,
+   "chattered": false
+  },
+  {
+   "tau_laser_s": 0.2,
+   "rpm": 2000.0,
+   "cl_rms_um": 0.35574607236544803,
+   "chattered": false
+  },
+  {
+   "tau_laser_s": 0.2,
+   "rpm": 3600.0,
+   "cl_rms_um": 0.21152032487489375,
+   "chattered": false
+  },
+  {
+   "tau_laser_s": 2.0,
+   "rpm": 1400.0,
+   "cl_rms_um": 0.27247232342852207,
+   "chattered": false
+  },
+  {
+   "tau_laser_s": 2.0,
+   "rpm": 2000.0,
+   "cl_rms_um": 0.47208481519347095,
+   "chattered": false
+  },
+  {
+   "tau_laser_s": 2.0,
+   "rpm": 3600.0,
+   "cl_rms_um": 76.61794953356133,
+   "chattered": false
+  }
+ ],
+ "note": "低速区扩展 + τ_laser 敏感性（回应评审 F3：低速补位无验证、τ_laser 假设化）"
+}

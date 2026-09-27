@@ -1,0 +1,26 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: "lnn-api"
+    metrics_path: "/api/metrics"
+    static_configs:
+      - targets: ["lnn-api:8765"]
+        labels:
+          service: "lnn-api"
+          environment: "production"
+
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+rule_files:
+  - "alert_rules.yml"
+
+alerting:
+  # Alertmanager 告警路由 — 需在 docker-compose.yml 中添加 alertmanager 服务才能生效
+  # 当前配置下告警规则会触发但无通知渠道，添加服务后告警将自动路由
+  alertmanagers:
+    - static_configs:
+        - targets: ["alertmanager:9093"]

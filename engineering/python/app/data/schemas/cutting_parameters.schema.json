@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cutting Parameters Knowledge Base Schema",
+  "description": "Schema for validating cutting_parameters.json in the machining process planning system",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "id", "material_id", "material_name", "tool_series", "tool_material",
+      "cutting_speed_min_mpm", "cutting_speed_max_mpm", "feed_min_mmpr", "feed_max_mmpr", "feed_unit"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^param_[a-zA-Z0-9_]+$",
+        "description": "Unique identifier for the cutting parameter set"
+      },
+      "material_id": {
+        "type": "string",
+        "pattern": "^material_[a-zA-Z0-9_]+$",
+        "description": "Reference to material ID"
+      },
+      "material_name": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Material name"
+      },
+      "tool_series": {
+        "type": "string",
+        "enum": ["twist_drill", "endmill", "face_mill", "center_drill"],
+        "description": "Tool series type"
+      },
+      "tool_material": {
+        "type": "string",
+        "enum": ["HSS", "carbide", "ceramic", "cbn", "diamond"],
+        "description": "Tool material"
+      },
+      "cutting_speed_min_mpm": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Minimum cutting speed in m/min"
+      },
+      "cutting_speed_max_mpm": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Maximum cutting speed in m/min"
+      },
+      "feed_min_mmpr": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Minimum feed rate"
+      },
+      "feed_max_mmpr": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Maximum feed rate"
+      },
+      "feed_unit": {
+        "type": "string",
+        "enum": ["mm/r", "mm/齿"],
+        "description": "Feed rate unit"
+      },
+      "description": {
+        "type": "string",
+        "description": "Description of the cutting parameter set"
+      }
+    },
+    "additionalProperties": false,
+    "if": {
+      "properties": {
+        "cutting_speed_min_mpm": {},
+        "cutting_speed_max_mpm": {}
+      },
+      "required": ["cutting_speed_min_mpm", "cutting_speed_max_mpm"]
+    },
+    "then": {
+      "properties": {
+        "cutting_speed_max_mpm": {
+          "minimum": { "$data": "1/cutting_speed_min_mpm" }
+        }
+      }
+    }
+  }
+}

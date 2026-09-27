@@ -1,0 +1,312 @@
+{
+  "experiences": {
+    "exp-20260507184147-uniwear-": {
+      "experience_id": "exp-20260507184147-uniwear-",
+      "task_id": "uniwear-nuaa-W3",
+      "process": "NUAA正交切削",
+      "parameters": {
+        "material": "TC4",
+        "material_full": "Titanium TC4 (Ti-6Al-4V)",
+        "experiment": "W3",
+        "dataset": "nuaa",
+        "process": "NUAA正交切削"
+      },
+      "metrics": {
+        "initial_wear": 0.06,
+        "final_wear": 0.17,
+        "max_wear": 0.17,
+        "mean_wear_rate": 5.67e-06,
+        "total_wear_increment": 0.11,
+        "sample_count": 19408
+      },
+      "validation_result": {
+        "is_valid": true,
+        "source": "uniwear-nuaa",
+        "experiment": "W3"
+      },
+      "ground_truth_validation": {},
+      "metadata": {
+        "source": "uniwear-nuaa",
+        "material": "TC4",
+        "experiment": "W3",
+        "wear_curve_length": 19408
+      },
+      "created_at": "2026-05-07T18:41:47.898341",
+      "updated_at": "2026-05-07T18:41:47.898341"
+    },
+    "exp-20260507184148-uniwear-": {
+      "experience_id": "exp-20260507184148-uniwear-",
+      "task_id": "uniwear-phm2010-c4",
+      "process": "PHM2010全寿命切削",
+      "parameters": {
+        "material": "HRC52",
+        "material_full": "Stainless Steel HRC52",
+        "experiment": "c4",
+        "dataset": "phm2010",
+        "process": "PHM2010全寿命切削"
+      },
+      "metrics": {
+        "initial_wear": 0.031416,
+        "final_wear": 0.210919,
+        "max_wear": 0.210919,
+        "mean_wear_rate": 5.09e-06,
+        "total_wear_increment": 0.179503,
+        "sample_count": 35279
+      },
+      "validation_result": {
+        "is_valid": true,
+        "source": "uniwear-phm2010",
+        "experiment": "c4"
+      },
+      "ground_truth_validation": {},
+      "metadata": {
+        "source": "uniwear-phm2010",
+        "material": "HRC52",
+        "experiment": "c4",
+        "wear_curve_length": 35279
+      },
+      "created_at": "2026-05-07T18:41:48.959393",
+      "updated_at": "2026-05-07T18:41:48.959393"
+    },
+    "exp-20260507184149-uniwear-": {
+      "experience_id": "exp-20260507184149-uniwear-",
+      "task_id": "uniwear-phm2010-c6",
+      "process": "PHM2010全寿命切削",
+      "parameters": {
+        "material": "HRC52",
+        "material_full": "Stainless Steel HRC52",
+        "experiment": "c6",
+        "dataset": "phm2010",
+        "process": "PHM2010全寿命切削"
+      },
+      "metrics": {
+        "initial_wear": 0.062789,
+        "final_wear": 0.234716,
+        "max_wear": 0.234716,
+        "mean_wear_rate": 4.96e-06,
+        "total_wear_increment": 0.171927,
+        "sample_count": 34674
+      },
+      "validation_result": {
+        "is_valid": true,
+        "source": "uniwear-phm2010",
+        "experiment": "c6"
+      },
+      "ground_truth_validation": {},
+      "metadata": {
+        "source": "uniwear-phm2010",
+        "material": "HRC52",
+        "experiment": "c6",
+        "wear_curve_length": 34674
+      },
+      "created_at": "2026-05-07T18:41:49.008304",
+      "updated_at": "2026-05-07T18:41:49.008304"
+    },
+    "exp-20260507184217-uniwear-": {
+      "experience_id": "exp-20260507184217-uniwear-",
+      "task_id": "uniwear-nuaa-W8",
+      "process": "NUAA正交切削",
+      "parameters": {
+        "material": "TC4",
+        "material_full": "Titanium TC4 (Ti-6Al-4V)",
+        "experiment": "W8",
+        "dataset": "nuaa",
+        "process": "NUAA正交切削"
+      },
+      "metrics": {
+        "initial_wear": 0.067335,
+        "final_wear": 0.312748,
+        "max_wear": 0.312748,
+        "mean_wear_rate": 4.87e-06,
+        "total_wear_increment": 0.245413,
+        "sample_count": 50376
+      },
+      "validation_result": {
+        "is_valid": true,
+        "source": "uniwear-nuaa",
+        "experiment": "W8"
+      },
+      "ground_truth_validation": {},
+      "metadata": {
+        "source": "uniwear-nuaa",
+        "material": "TC4",
+        "experiment": "W8",
+        "wear_curve_length": 50376
+      },
+      "created_at": "2026-05-07T18:42:17.970649",
+      "updated_at": "2026-05-07T18:42:17.970649"
+    },
+    "exp-20260507184218-uniwear-": {
+      "experience_id": "exp-20260507184218-uniwear-",
+      "task_id": "uniwear-phm2010-c6",
+      "process": "PHM2010全寿命切削",
+      "parameters": {
+        "material": "HRC52",
+        "material_full": "Stainless Steel HRC52",
+        "experiment": "c6",
+        "dataset": "phm2010",
+        "process": "PHM2010全寿命切削"
+      },
+      "metrics": {
+        "initial_wear": 0.062789,
+        "final_wear": 0.234716,
+        "max_wear": 0.234716,
+        "mean_wear_rate": 4.96e-06,
+        "total_wear_increment": 0.171927,
+        "sample_count": 34674
+      },
+      "validation_result": {
+        "is_valid": true,
+        "source": "uniwear-phm2010",
+        "experiment": "c6"
+      },
+      "ground_truth_validation": {},
+      "metadata": {
+        "source": "uniwear-phm2010",
+        "material": "HRC52",
+        "experiment": "c6",
+        "wear_curve_length": 34674
+      },
+      "created_at": "2026-05-07T18:42:18.358687",
+      "updated_at": "2026-05-07T18:42:18.358687"
+    },
+    "exp-20260507184645-uniwear-": {
+      "experience_id": "exp-20260507184645-uniwear-",
+      "task_id": "uniwear-nuaa-W5",
+      "process": "NUAA正交切削",
+      "parameters": {
+        "material": "TC4",
+        "material_full": "Titanium TC4 (Ti-6Al-4V)",
+        "experiment": "W5",
+        "dataset": "nuaa",
+        "process": "NUAA正交切削"
+      },
+      "metrics": {
+        "initial_wear": 0.15,
+        "final_wear": 0.22,
+        "max_wear": 0.22,
+        "mean_wear_rate": 7.06e-06,
+        "total_wear_increment": 0.07,
+        "sample_count": 9917
+      },
+      "validation_result": {
+        "is_valid": true,
+        "source": "uniwear-nuaa",
+        "experiment": "W5"
+      },
+      "ground_truth_validation": {},
+      "metadata": {
+        "source": "uniwear-nuaa",
+        "material": "TC4",
+        "experiment": "W5",
+        "wear_curve_length": 9917
+      },
+      "created_at": "2026-05-07T18:46:45.905354",
+      "updated_at": "2026-05-07T18:46:45.905354"
+    },
+    "exp-20260507184646-uniwear-": {
+      "experience_id": "exp-20260507184646-uniwear-",
+      "task_id": "uniwear-phm2010-c6",
+      "process": "PHM2010全寿命切削",
+      "parameters": {
+        "material": "HRC52",
+        "material_full": "Stainless Steel HRC52",
+        "experiment": "c6",
+        "dataset": "phm2010",
+        "process": "PHM2010全寿命切削"
+      },
+      "metrics": {
+        "initial_wear": 0.062789,
+        "final_wear": 0.234716,
+        "max_wear": 0.234716,
+        "mean_wear_rate": 4.96e-06,
+        "total_wear_increment": 0.171927,
+        "sample_count": 34674
+      },
+      "validation_result": {
+        "is_valid": true,
+        "source": "uniwear-phm2010",
+        "experiment": "c6"
+      },
+      "ground_truth_validation": {},
+      "metadata": {
+        "source": "uniwear-phm2010",
+        "material": "HRC52",
+        "experiment": "c6",
+        "wear_curve_length": 34674
+      },
+      "created_at": "2026-05-07T18:46:46.718934",
+      "updated_at": "2026-05-07T18:46:46.718934"
+    },
+    "exp-20260507184735-uniwear-": {
+      "experience_id": "exp-20260507184735-uniwear-",
+      "task_id": "uniwear-nuaa-W4",
+      "process": "NUAA正交切削",
+      "parameters": {
+        "material": "TC4",
+        "material_full": "Titanium TC4 (Ti-6Al-4V)",
+        "experiment": "W4",
+        "dataset": "nuaa",
+        "process": "NUAA正交切削"
+      },
+      "metrics": {
+        "initial_wear": 0.076358,
+        "final_wear": 0.26223,
+        "max_wear": 0.26223,
+        "mean_wear_rate": 4.02e-06,
+        "total_wear_increment": 0.185872,
+        "sample_count": 46253
+      },
+      "validation_result": {
+        "is_valid": true,
+        "source": "uniwear-nuaa",
+        "experiment": "W4"
+      },
+      "ground_truth_validation": {},
+      "metadata": {
+        "source": "uniwear-nuaa",
+        "material": "TC4",
+        "experiment": "W4",
+        "wear_curve_length": 46253
+      },
+      "created_at": "2026-05-07T18:47:35.969554",
+      "updated_at": "2026-05-07T18:47:35.969554"
+    },
+    "exp-20260507184736-uniwear-": {
+      "experience_id": "exp-20260507184736-uniwear-",
+      "task_id": "uniwear-phm2010-c6",
+      "process": "PHM2010全寿命切削",
+      "parameters": {
+        "material": "HRC52",
+        "material_full": "Stainless Steel HRC52",
+        "experiment": "c6",
+        "dataset": "phm2010",
+        "process": "PHM2010全寿命切削"
+      },
+      "metrics": {
+        "initial_wear": 0.062789,
+        "final_wear": 0.234716,
+        "max_wear": 0.234716,
+        "mean_wear_rate": 4.96e-06,
+        "total_wear_increment": 0.171927,
+        "sample_count": 34674
+      },
+      "validation_result": {
+        "is_valid": true,
+        "source": "uniwear-phm2010",
+        "experiment": "c6"
+      },
+      "ground_truth_validation": {},
+      "metadata": {
+        "source": "uniwear-phm2010",
+        "material": "HRC52",
+        "experiment": "c6",
+        "wear_curve_length": 34674
+      },
+      "created_at": "2026-05-07T18:47:36.879756",
+      "updated_at": "2026-05-07T18:47:36.879756"
+    }
+  },
+  "validation_history": {},
+  "updated_at": "2026-05-07T18:47:36.879756"
+}

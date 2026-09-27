@@ -1,0 +1,141 @@
+name:  Bug 报告
+description: 报告系统缺陷或异常行为
+title: "[Bug] "
+labels: ["bug", "triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您花时间报告 Bug!请尽量完整填写以下信息,以便我们快速定位与修复。
+        提交前请先 [搜索已有 Issue](https://github.com/printing10101/Virtual-Realm-Manufacturing/issues?q=is%3Aissue+label%3Abug) 避免重复。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug 描述
+      description: 简要描述遇到的问题。发生了什么?与预期有什么不同?
+      placeholder: "例如:导入 DXF 图纸后,3D 模型重建出现坐标偏移"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: 最小可复现步骤,帮助我们重现问题
+      placeholder: |
+        1. 打开 '...'
+        2. 点击 '...'
+        3. 上传文件 '...'
+        4. 观察错误
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期行为
+      description: 应该发生什么
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际行为
+      description: 实际发生了什么
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 严重程度
+      description: Bug 对使用的影响程度
+      options:
+        -  轻微 — 不影响主流程,有 workaround
+        -  中等 — 影响部分功能,可继续使用
+        -  较严重 — 影响核心功能,有数据风险
+        -  严重 — 系统崩溃 / 数据丢失 / 安全漏洞
+    validations:
+      required: true
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: 受影响模块
+      description: Bug 出现在哪个模块(可多选请用 Other 说明)
+      options:
+        - 前端 (Vue 3 / TypeScript / Three.js)
+        - Tauri 桌面外壳 (Rust / IPC / sidecar)
+        - 后端 API (FastAPI)
+        - AI 内核 (LNN / LLM Gateway / RAG / 知识图谱)
+        - 工艺规划 (特征识别 / 工序排序)
+        - 后处理器 (Fanuc / Siemens / Heidenhain / …)
+        - DNC 集成 (MTConnect / OPC UA / MES)
+        - 仿真 (颤振 / 切削力 / 体素切削)
+        - 数据库 (SQLite / ChromaDB)
+        - 文档
+        - 其他(请在下方说明)
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: 操作系统
+      placeholder: "如 Windows 11 23H2 / macOS 14 / Ubuntu 22.04"
+    validations:
+      required: true
+
+  - type: input
+    id: app-version
+    attributes:
+      label: 应用版本
+      placeholder: "如 v2.7.0"
+    validations:
+      required: true
+
+  - type: input
+    id: python-version
+    attributes:
+      label: Python 版本(后端相关时填写)
+      placeholder: "如 3.11.0"
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js 版本(前端相关时填写)
+      placeholder: "如 20.12.0"
+
+  - type: input
+    id: ollama-version
+    attributes:
+      label: Ollama 版本(LLM 相关时填写)
+      placeholder: "如 0.3.0 / 未安装"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 错误日志
+      description: 粘贴相关错误日志(`logs/` 目录或浏览器控制台)。请用 ``` 包裹。
+      render: shell
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图 / 录屏
+      description: 若有 UI 异常,请附截图或录屏(直接拖拽到输入框即可上传)
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 确认
+      options:
+        - label: 我已搜索过现有 Issue,确认这不是重复报告
+          required: true
+        - label: 我已尝试使用最新版本复现,问题仍然存在
+          required: true
+        - label: 这不是安全漏洞(安全漏洞请通过 GitHub Security Advisory 私密报告)
+          required: true

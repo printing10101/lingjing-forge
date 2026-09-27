@@ -1,0 +1,59 @@
+{
+  "experiment": "exp48_mismatch_augmented_training",
+  "timestamp": "2026-08-05T13:00:12.867165",
+  "ltc_solver": "euler",
+  "torchdiffeq_available": false,
+  "deltas": [
+    0.0,
+    0.2
+  ],
+  "seeds": [
+    42
+  ],
+  "num_samples": 300,
+  "num_epochs": 8,
+  "gate_input": "concat(x, y_phys, |y_phys-y_ltc|) [exp47b v2]",
+  "training": "mismatch-augmented (per-batch random delta)",
+  "matrix": {
+    "aug": {
+      "0.0": {
+        "MAE_per_seed": [
+          0.6673799157142639
+        ],
+        "R2_per_seed": [
+          0.9887364506721497
+        ],
+        "gate_per_seed": [
+          0.1391935497522354
+        ],
+        "MAE_mean": 0.6673799157142639,
+        "MAE_std": 0.0,
+        "R2_mean": 0.9887364506721497,
+        "gate_mean": 0.1391935497522354,
+        "gate_std": 0.0,
+        "p_vs_tlusty": null,
+        "cohens_d": null,
+        "gain_vs_tlusty_pct": -257.84383370652756
+      },
+      "0.2": {
+        "MAE_per_seed": [
+          0.47405603528022766
+        ],
+        "R2_per_seed": [
+          0.9940109848976135
+        ],
+        "gate_per_seed": [
+          0.13684555888175964
+        ],
+        "MAE_mean": 0.47405603528022766,
+        "MAE_std": 0.0,
+        "R2_mean": 0.9940109848976135,
+        "gate_mean": 0.13684555888175964,
+        "gate_std": 0.0,
+        "p_vs_tlusty": null,
+        "cohens_d": null,
+        "gain_vs_tlusty_pct": 43.278096804517645
+      }
+    }
+  }
+}

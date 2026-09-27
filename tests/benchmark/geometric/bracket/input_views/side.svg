@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#ffffff"/>
+  <text x="400" y="280" text-anchor="middle" font-family="SimHei" font-size="24" fill="#333">支架 — 侧视图</text>
+  <text x="400" y="320" text-anchor="middle" font-family="SimHei" font-size="14" fill="#999">Bracket — Side View</text>
+  <rect x="100" y="350" width="80" height="50" rx="2" fill="#4a90d9" opacity="0.15"/>
+  <rect x="180" y="280" width="30" height="120" rx="2" fill="#4a90d9" opacity="0.15"/>
+  <text x="400" y="600" text-anchor="middle" font-family="SimHei" font-size="12" fill="#ccc">300 dpi · SVG Placeholder</text>
+</svg>

@@ -1,0 +1,28 @@
+[package]
+name = "compute-pyo3-bindings"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "PyO3 bindings for the voxel cutting simulation compute engine."
+
+[lib]
+name = "compute_pyo3_bindings"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[features]
+# 启用 extension-module 供 maturin 使用
+extension-module = ["pyo3/extension-module"]
+default = ["extension-module"]
+
+[dependencies]
+# 内部
+compute-core = { workspace = true }
+
+# 第三方
+pyo3 = { workspace = true }
+numpy = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }

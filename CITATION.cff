@@ -1,0 +1,53 @@
+cff-version: 1.2.0
+title: "Virtual Realm Manufacturing: AI-Driven Drawing-to-NC Pipeline with Liquid Neural Networks"
+message: "If you use this software or build upon the LNN-based chatter prediction methodology, please cite it as below."
+type: software
+authors:
+  - alias: printing10101
+    given-names: 灵境制造
+    name-suffix: "Virtual Realm Manufacturing Team"
+repository-code: "https://github.com/printing10101/Virtual-Realm-Manufacturing"
+url: "https://github.com/printing10101/Virtual-Realm-Manufacturing"
+abstract: >-
+  Virtual Realm Manufacturing (灵境制造) is an AI-driven desktop tool that
+  automates the entire pipeline from engineering drawing parsing, 3D model
+  reconstruction, process planning, tool-path simulation, to NC code generation,
+  with all data kept on local devices. The core AI innovation lies in applying
+  Liquid Time-Constant (LTC) neural networks to chatter prediction in machining,
+  supported by a local LLM gateway (Ollama / LM Studio / llama.cpp / vLLM),
+  hybrid RAG retrieval (BM25 + Vector + RRF + Cross-Encoder), a manufacturing
+  knowledge graph, 11 CNC post-processors (Fanuc / Siemens / Heidenhain /
+  Mitsubishi / Fagor / GSK / HNC / KND / xmachine), and DNC integration via
+  MTConnect / OPC UA / MES. The system runs fully offline—no cloud dependency
+  for any core function.
+keywords:
+  - liquid neural network
+  - LTC
+  - CFC
+  - chatter prediction
+  - tool wear prediction
+  - CNC machining
+  - NC code generation
+  - postprocessor
+  - RAG
+  - knowledge graph
+  - process planning
+  - MTConnect
+  - OPC UA
+  - digital manufacturing
+  - data sovereignty
+  - Tauri
+  - Vue 3
+  - FastAPI
+  - PyTorch
+  - manufacturing AI
+license: Apache-2.0
+version: "2.8.0"
+date-released: "2026-07-09"
+preferred-citation:
+  type: software
+  title: "Virtual Realm Manufacturing: AI-Driven Drawing-to-NC Pipeline with Liquid Neural Networks"
+  authors:
+    - name: "灵境制造团队"
+  year: 2026
+  url: "https://github.com/printing10101/Virtual-Realm-Manufacturing"

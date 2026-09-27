@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="灵境制造 - 智能制造平台" />
+    <title>灵境制造</title>
+    <!-- CSP 兜底：Tauri 2 在生产模式下会用 tauri.conf.json 的 csp 替换此 meta，
+         但若 Tauri CSP 注入失败，此 meta 作为兜底生效，确保 ipc: 和 http://ipc.localhost 可用。 -->
+    <!--
+      CSP 指令说明（P0 安全修复 / P1 收紧）：
+      - default-src 'self' data: blob:       : 默认仅允许同源 + data/blob URI，收紧兜底策略
+                                                （移除冗余的 https://*.aliyuncs.com https://*.taosdata.com
+                                                 通配符——前端无直接外部资源加载，且通配符过宽存在 C2 风险）
+      - script-src 'self' 'nonce-__CSP_NONCE__' 'unsafe-eval'   : 移除 'unsafe-inline'，使用构建期随机 nonce 替代
+                                                （Vite 插件自动为内联脚本注入 nonce，无需手动维护）
+      - connect-src 'self' ipc: http://ipc.localhost http://localhost:8765-8785 ws://localhost:8765-8785 http://127.0.0.1:8765-8785 ws://127.0.0.1:8765-8785
+                                             : 保留 ipc: 和 http://ipc.localhost（Tauri 2 IPC 通信硬约束）；
+                                               localhost/127.0.0.1 限于后端端口范围 8765-8785
+                                               （移除通配符 :*，与 SidecarManager 动态端口范围对齐）
+      - img-src 'self' data: blob: https:    : 允许同源、data URI、blob URL 和 HTTPS 图片
+      - font-src 'self' data:                : 允许同源和 data URI 字体
+      - style-src 'self' 'unsafe-inline'     : CSS 内联通过 nonce 注入（Element Plus 主题覆盖等），
+                                                保留 'unsafe-inline' 作为兜底（部分浏览器 nonce 兼容性不佳）
+    -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'nonce-__CSP_NONCE__' 'unsafe-eval'; connect-src 'self' ipc: http://ipc.localhost http://localhost:8765-8785 ws://localhost:8765-8785 http://127.0.0.1:8765-8785 ws://127.0.0.1:8765-8785; img-src 'self' data: blob: https:; font-src 'self' data:; style-src 'self' 'unsafe-inline';" />
+    <!-- DNS 预解析（Tauri 桌面环境下 localhost 走回环，无实际 DNS 解析，保留以兼容 Web 模式） -->
+    <link rel="dns-prefetch" href="//localhost" />
+    <!-- 预连接后端源（仅 Web 模式生效，Tauri 模式下走 IPC 不影响） -->
+    <link rel="preconnect" href="http://localhost:8765" />
+    <script>
+      // ====================================================================
+      // 诊断脚本（非 module，确保在 main.js 失败时也能执行）
+      // ====================================================================
+      // 此脚本必须为普通 script，不能用 type="module"。
+      // 原因：ES 模块的静态 import 会被提升到模块顶部执行，若任何 import 失败，
+      // 整个 main.ts 模块不会执行，错误捕获代码也不会注册 → 白屏无任何提示。
+      // 这里通过普通脚本注入占位符 + 超时检测，绕过该限制。
+      (function () {
+        // 防止重复执行
+        if (window.__DIAG_INSTALLED__) return;
+        window.__DIAG_INSTALLED__ = true;
+
+        var bootStart = Date.now();
+        var errors = [];
+        var loaded = false;
+
+        // 立即注入占位符（防止白屏）
+        function injectPlaceholder() {
+          // 竞态修复：module main.ts（defer）会在 DOMContentLoaded 之前执行并完成 Vue 挂载，
+          // 若此时 __VUE_MOUNTED__ 已为 true，再注入占位符会覆盖 Vue 渲染的内容，导致
+          // 界面永远停留在"启动中…"。Vue 已挂载时必须跳过注入。
+          if (window.__VUE_MOUNTED__) return;
+          var app = document.getElementById('app');
+          if (!app) return;
+          if (app.dataset.diag) return;
+          app.dataset.diag = '1';
+          app.innerHTML =
+            '<div style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#faf8f5;color:#48443e;font-family:system-ui,-apple-system,\'PingFang SC\',\'Microsoft YaHei\',sans-serif;flex-direction:column;gap:16px;">' +
+              '<div style="width:42px;height:42px;border:3px solid #e0dbd4;border-top-color:#007aff;border-radius:50%;animation:diag-spin 0.9s linear infinite;"></div>' +
+              '<div style="font-size:14px;letter-spacing:0.5px;">灵境制造 启动中…</div>' +
+              '<div id="diag-detail" style="font-size:11px;color:#8a847c;font-family:Consolas,monospace;"></div>' +
+            '</div>' +
+            '<style>@keyframes diag-spin{to{transform:rotate(360deg)}}</style>';
+        }
+
+        function showDiag(detail) {
+          var el = document.getElementById('diag-detail');
+          if (el) el.textContent = detail;
+        }
+
+        function renderFatalError(stage, err) {
+          if (loaded) return; // Vue 已挂载，不覆盖
+          var msg;
+          try {
+            if (err instanceof Error) {
+              msg = err.name + ': ' + err.message + '\n' + (err.stack || '');
+            } else if (typeof err === 'object' && err) {
+              msg = JSON.stringify(err);
+            } else {
+              msg = String(err);
+            }
+          } catch (e) {
+            msg = String(err);
+          }
+          var safeMsg = String(msg).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          // 读取运行时 head 中的 CSP meta（用于诊断 Tauri CSP 注入是否正确）
+          var headHtml = '';
+          try {
+            headHtml = (document.head && document.head.outerHTML) ? document.head.outerHTML : '';
+            headHtml = headHtml.substring(0, 1500);
+          } catch (e) { headHtml = '<read failed: ' + e + '>'; }
+          var safeHead = headHtml.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          // 检测 ipc.localhost 是否在 CSP 中
+          var hasIpcCsp = headHtml.indexOf('ipc.localhost') !== -1;
+          var cspStatus = hasIpcCsp ? 'OK (ipc.localhost present)' : 'MISSING (ipc.localhost NOT in CSP)';
+          var html =
+            '<div style="position:fixed;inset:0;background:#1e1e1e;color:#ff5555;font-family:Consolas,monospace;font-size:13px;padding:20px;z-index:2147483647;overflow:auto;white-space:pre-wrap;">' +
+              '<h2 style="color:#ff9900;margin:0 0 12px;">[致命错误] ' + stage + '</h2>' +
+              '<div style="color:#dddddd;">' + safeMsg + '</div>' +
+              '<hr style="border:0;border-top:1px solid #444;margin:16px 0;" />' +
+              '<div style="color:#888;">UA: ' + navigator.userAgent + '</div>' +
+              '<div style="color:#888;">URL: ' + location.href + '</div>' +
+              '<div style="color:#888;">Time: ' + new Date().toISOString() + '</div>' +
+              '<div style="color:#888;">Boot: ' + (Date.now() - bootStart) + 'ms</div>' +
+              '<div style="color:#888;">Errors: ' + errors.length + '</div>' +
+              '<div style="color:' + (hasIpcCsp ? '#00ff00' : '#ff5555') + ';">CSP: ' + cspStatus + '</div>' +
+              '<hr style="border:0;border-top:1px solid #444;margin:16px 0;" />' +
+              '<h3 style="color:#ff9900;margin:0 0 8px;">document.head outerHTML (前1500字符):</h3>' +
+              '<pre style="color:#9cdcfe;margin-top:0;font-size:11px;max-height:300px;overflow:auto;">' + safeHead + '</pre>' +
+              '<hr style="border:0;border-top:1px solid #444;margin:16px 0;" />' +
+              '<pre style="color:#aaa;margin-top:12px;font-size:11px;">' + errors.map(function (e) { return e.stage + ': ' + e.msg; }).join('\n') + '</pre>' +
+            '</div>';
+          var app = document.getElementById('app');
+          if (app) {
+            app.innerHTML = html;
+          } else {
+            document.body.insertAdjacentHTML('beforeend', html);
+          }
+        }
+
+        // 收集错误（不立即渲染，等超时或 Vue 挂载失败时再渲染）
+        function pushError(stage, err) {
+          var msg;
+          try {
+            if (err instanceof Error) msg = err.message;
+            else if (typeof err === 'object' && err) msg = JSON.stringify(err);
+            else msg = String(err);
+          } catch (e) { msg = String(err); }
+          errors.push({ stage: stage, msg: msg, t: Date.now() - bootStart });
+          console.error('[diag]', stage, err);
+        }
+
+        // 已知良性浏览器警告（不影响应用运行，不得当作致命错误）：
+        // - "ResizeObserver loop completed with undelivered notifications"：
+        //   布局震荡时由浏览器语义触发，Vue 应用照常运行，3s 挂载计时若因此
+        //   误报会把正常界面覆盖成"致命错误"诊断页。必须过滤。
+        var BENIGN_ERROR_PATTERNS = [
+          /ResizeObserver loop (completed|limit exceeded)/i,
+          /ResizeObserver had to recalc/i,
+        ];
+        function isBenignError(msg) {
+          if (!msg) return false;
+          for (var i = 0; i < BENIGN_ERROR_PATTERNS.length; i++) {
+            if (BENIGN_ERROR_PATTERNS[i].test(msg)) return true;
+          }
+          return false;
+        }
+
+        // 监听运行时错误
+        window.addEventListener('error', function (e) {
+          // 资源加载错误：e.target 为元素，message 为 ""
+          if (e.message || (e.error && e.error.message)) {
+            var m = e.error || (e.message + ' @ ' + e.filename + ':' + e.lineno + ':' + e.colno);
+            // 过滤良性警告：不写入 errors，避免启动超时误判为致命失败
+            var msgStr = (typeof m === 'string') ? m : (m && m.message ? m.message : String(m));
+            if (!isBenignError(msgStr)) {
+              pushError('window.error', m);
+            }
+          } else if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+            pushError('resource-load', 'Failed to load ' + e.target.tagName + ': ' + (e.target.src || e.target.href));
+          }
+        }, true); // 使用捕获阶段以捕获资源加载错误
+
+        window.addEventListener('unhandledrejection', function (e) {
+          pushError('unhandledrejection', e.reason);
+        });
+
+        // DOM 就绪后注入占位符
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', injectPlaceholder);
+        } else {
+          injectPlaceholder();
+        }
+
+        // 标记 Vue 已挂载（供 main.ts 调用）
+        window.__VUE_MOUNTED__ = false;
+        window.__markVueMounted__ = function () {
+          window.__VUE_MOUNTED__ = true;
+          loaded = true;
+          // 清除占位符（Vue 会替换 #app 内容）
+          var app = document.getElementById('app');
+          if (app) app.dataset.diag = '';
+        };
+
+        // 超时检测：3 秒后若 Vue 未挂载，显示诊断面板
+        setTimeout(function () {
+          if (window.__VUE_MOUNTED__) return;
+          if (errors.length > 0) {
+            renderFatalError('启动超时（有错误）', errors.map(function (e) {
+              return '[' + e.stage + ' @ ' + e.t + 'ms] ' + e.msg;
+            }).join('\n\n'));
+          } else {
+            renderFatalError('启动超时（无错误事件）', 'Vue 应用在 3 秒内未完成挂载。\n可能原因：\n1) main.js 加载失败（路径/CSP/网络）\n2) main.js 已加载但执行时静默失败\n3) 某个静态 import 抛出异常未被捕获\n\n请检查 DevTools Console 与 Network 面板。');
+          }
+        }, 3000);
+
+        // 5 秒后再检测一次（兜底）
+        setTimeout(function () {
+          if (window.__VUE_MOUNTED__) return;
+          if (!document.getElementById('app') || !document.getElementById('app').innerHTML || document.getElementById('app').dataset.diag === '1') {
+            renderFatalError('启动失败（5s 兜底）', errors.length > 0
+              ? errors.map(function (e) { return '[' + e.stage + ' @ ' + e.t + 'ms] ' + e.msg; }).join('\n\n')
+              : 'Vue 应用仍未挂载，且无错误事件触发。');
+          }
+        }, 5000);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

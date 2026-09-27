@@ -1,0 +1,9 @@
+{% set cfg = pp.get_cycle_config('tapping', 'G84') %}
+{% set rpm = pp.get_spindle_rpm(spindle_rpm) %}
+{% set spindle_dir = cfg.get('spindle_direction', 'M03') %}
+{% set feed_per_rev = cfg.get('feed_per_rev', True) %}
+{% set tap_feed = (pitch if feed_per_rev else pitch * rpm) | fmt %}
+{% set dwell_ms = (cfg.get('dwell_time', 0.0) * 1000) | int %}
+{% set z_out = '-' ~ (depth | abs | fmt) %}
+{{ spindle_dir }} S{{ rpm | int }}
+G99 G84 X{{ x | fmt }} Y{{ y | fmt }} Z{{ z_out }} R{{ pp.safe_z_height | fmt }} F{{ tap_feed }}{% if dwell_ms > 0 %} P{{ dwell_ms }}{% endif %}{{ "\n" }}G80

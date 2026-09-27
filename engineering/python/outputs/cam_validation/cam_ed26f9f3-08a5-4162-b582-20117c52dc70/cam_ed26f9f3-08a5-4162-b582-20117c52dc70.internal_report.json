@@ -1,0 +1,54 @@
+{
+  "task_id": "cam_ed26f9f3-08a5-4162-b582-20117c52dc70",
+  "exported_at": 1784038563.3803256,
+  "reviewer": "engineer_zhang",
+  "controller_type": "fanuc_0i",
+  "safe_z": 80.0,
+  "stock_top_z": 50.0,
+  "stock_dimensions": [
+    200.0,
+    150.0,
+    50.0
+  ],
+  "mode": "3axis",
+  "total_segments": 0,
+  "segments_checked": 0,
+  "unattributed_events": [],
+  "all_internal_events": [],
+  "feature_results": [
+    {
+      "feature_id": "face_A",
+      "feature_type": "plane",
+      "line_range": [
+        21,
+        39
+      ],
+      "internal_check_passed": true,
+      "internal_events": [],
+      "spindle_rpm": 3000.0,
+      "axial_depth_mm": 2.0,
+      "limit_depth_mm": 5.0,
+      "stable": true,
+      "safety_margin_ratio": 0.4,
+      "warning": ""
+    },
+    {
+      "feature_id": "hole_B",
+      "feature_type": "hole",
+      "line_range": [
+        40,
+        52
+      ],
+      "internal_check_passed": true,
+      "internal_events": [],
+      "spindle_rpm": 2500.0,
+      "axial_depth_mm": 4.5,
+      "limit_depth_mm": 5.0,
+      "stable": true,
+      "safety_margin_ratio": 0.9,
+      "warning": "安全裕度不足：实际切深 4.500mm > 极限切深 × 0.8 = 4.000mm"
+    }
+  ],
+  "warnings": [],
+  "debug_note": "本报告为阶段 7 内部预校验（CollisionDetector）的调试细节，供前端可视化碰撞事件 + 刀轨高亮。完整 CollisionReport 对象未持久化，total_segments / segments_checked / unattributed_events 字段为 0 / 空列表。如需完整 CollisionReport，请在 _execute_validation 中持久化。"
+}

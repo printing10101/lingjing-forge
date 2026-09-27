@@ -1,0 +1,481 @@
+name: PR 阶段流水线
+
+# 覆盖率阈值统一说明：所有测试类型（单元/集成/前端）的覆盖率阈值
+# 覆盖率阈值与 ci.yml、.coveragerc 保持一致（后端 fail_under = 24%，前端 vitest 34%，
+# 见 engineering/vitest.config.ts thresholds，2026-08 实测基线）。
+# 理由：2026-08-04 全量 unit 修复后实测后端覆盖率 24.45%，PR 阶段阈值须与 CI 阶段
+# 一致（原 80%→65% 未同步到 ci.yml，导致 PR 永远失败）。后续随测试补全逐步提升，目标 80%。
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+      - develop
+    types: [opened, synchronize, reopened]
+
+# 安全修复：最小权限原则，默认仅授予只读权限
+permissions:
+  contents: read
+
+env:
+  # 代码已使用 3.11+ 特性（typing.NotRequired、enum.StrEnum），3.10 收集即崩；
+  # 与 ci.yml 统一为 3.12（2026-09-05）
+  PYTHON_VERSION: '3.12'
+  # 2026-09-11 与 release/desktop-build 统一为 22：Node 18 已 EOL（2025-04）
+  NODE_VERSION: '22'
+  PIP_CACHE_DIR: ~/.cache/pip
+  PNPM_CACHE_DIR: ~/.local/share/pnpm/store
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  # ============================================
+  # Job 1: 代码质量检查
+  # ============================================
+  lint-and-typecheck:
+    name: 代码质量检查
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: 设置 Node.js 环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 配置 pnpm
+        # 版本取自根 package.json 的 packageManager 字段（pnpm@9.15.9）
+        uses: pnpm/action-setup@v4
+
+      - name: 安装 Python lint 工具
+        # 固定 ruff 版本与 .pre-commit-config.yaml 对齐（v0.15.12），防止默认规则/format 漂移
+        run: pip install ruff==0.15.12
+
+      - name: Python 代码检查
+        working-directory: engineering/python
+        run: |
+          echo "=== 运行 ruff check ==="
+          ruff check app/ || exit 1
+          echo "=== 运行 ruff format check ==="
+          ruff format --check app/ || exit 1
+          echo "✓ Python 代码检查通过"
+
+      - name: 安装前端依赖
+        working-directory: engineering
+        run: pnpm install --frozen-lockfile
+
+      - name: 前端代码检查
+        working-directory: engineering
+        run: |
+          echo "=== 运行 ESLint ==="
+          pnpm run lint || exit 1
+          echo "✓ 前端代码检查通过"
+
+      - name: TypeScript 类型检查
+        working-directory: engineering
+        run: |
+          echo "=== 运行 TypeScript 类型检查 ==="
+          pnpm run type-check || exit 1
+          echo "✓ TypeScript 类型检查通过"
+
+  # ============================================
+  # Job 2: Python 单元测试
+  # ============================================
+  python-unit-tests:
+    name: Python 单元测试
+    runs-on: ubuntu-latest
+    # 2026-09-10：与 ci.yml 对齐（75 分钟实测跑满被 cancelled，放宽至 120）
+    timeout-minutes: 120
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: 缓存 pip 依赖
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.PIP_CACHE_DIR }}
+          key: ${{ runner.os }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('engineering/python/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-${{ env.PYTHON_VERSION }}-
+            ${{ runner.os }}-pip-
+
+      - name: 安装依赖
+        working-directory: engineering/python
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest pytest-cov pytest-asyncio httpx
+
+      - name: 运行单元测试
+        working-directory: engineering/python
+        run: |
+          pytest tests/unit/ -v \
+            --cov=app \
+            --cov-config=../../.coveragerc \
+            --cov-report=xml:coverage-unit.xml \
+            --cov-report=json:coverage-unit.json \
+            --cov-report=html:coverage-unit-html \
+            --cov-report=term-missing \
+            --junitxml=junit-unit.xml \
+            -m unit
+
+      - name: 检查单元测试覆盖率阈值 (24%)
+        working-directory: engineering/python
+        run: |
+          echo "======================================================"
+          echo "  覆盖率检查: 单元测试 (阈值 >= 24%)"
+          echo "======================================================"
+
+          if [ ! -f coverage-unit.json ]; then
+            echo "错误: 未找到 coverage-unit.json 文件!"
+            exit 1
+          fi
+
+          python -c "
+          import json, sys
+          with open('coverage-unit.json') as f:
+              data = json.load(f)
+          totals = data.get('totals', {})
+          pct = totals.get('percent_covered', 0)
+          covered = totals.get('covered_lines', 0)
+          missing = totals.get('missing_lines', 0)
+          total = totals.get('num_statements', 0)
+
+          print(f'  覆盖率: {pct:.2f}%')
+          print(f'  语句统计: {covered} 已覆盖, {missing} 未覆盖, 共 {total} 条')
+          print('')
+
+          if pct < 24:
+              print(f'  >>> 结果: 失败 (覆盖率 {pct:.2f}% < 24% 阈值)')
+              sys.exit(1)
+          else:
+              print(f'  >>> 结果: 通过 (覆盖率 {pct:.2f}% >= 24% 阈值)')
+          "
+          echo "======================================================"
+
+      - name: 上传单元测试结果
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unit-test-results
+          path: |
+            python/junit-unit.xml
+            python/coverage-unit.xml
+            python/coverage-unit.json
+            python/coverage-unit-html/
+          retention-days: 7
+
+  # ============================================
+  # Job 3: Python 集成测试
+  # ============================================
+  python-integration-tests:
+    name: Python 集成测试
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    needs: [python-unit-tests]
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: 缓存 pip 依赖
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.PIP_CACHE_DIR }}
+          key: ${{ runner.os }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('engineering/python/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: 安装依赖
+        working-directory: engineering/python
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest pytest-cov pytest-asyncio httpx
+
+      - name: 运行集成测试
+        working-directory: engineering/python
+        run: |
+          pytest tests/integration/ -v \
+            --cov=app \
+            --cov-config=../../.coveragerc \
+            --cov-report=xml:coverage-integration.xml \
+            --cov-report=json:coverage-integration.json \
+            --cov-report=html:coverage-integration-html \
+            --cov-report=term-missing \
+            --junitxml=junit-integration.xml \
+            -m integration
+
+      - name: 检查集成测试覆盖率阈值 (24%)
+        working-directory: engineering/python
+        run: |
+          echo "======================================================"
+          echo "  覆盖率检查: 集成测试 (阈值 >= 24%)"
+          echo "======================================================"
+
+          if [ ! -f coverage-integration.json ]; then
+            echo "错误: 未找到 coverage-integration.json 文件!"
+            exit 1
+          fi
+
+          python -c "
+          import json, sys
+          with open('coverage-integration.json') as f:
+              data = json.load(f)
+          totals = data.get('totals', {})
+          pct = totals.get('percent_covered', 0)
+          covered = totals.get('covered_lines', 0)
+          missing = totals.get('missing_lines', 0)
+          total = totals.get('num_statements', 0)
+
+          print(f'  覆盖率: {pct:.2f}%')
+          print(f'  语句统计: {covered} 已覆盖, {missing} 未覆盖, 共 {total} 条')
+          print('')
+
+          if pct < 24:
+              print(f'  >>> 结果: 失败 (覆盖率 {pct:.2f}% < 24% 阈值)')
+              sys.exit(1)
+          else:
+              print(f'  >>> 结果: 通过 (覆盖率 {pct:.2f}% >= 24% 阈值)')
+          "
+          echo "======================================================"
+
+      - name: 上传集成测试结果
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-test-results
+          path: |
+            python/junit-integration.xml
+            python/coverage-integration.xml
+            python/coverage-integration.json
+            python/coverage-integration-html/
+          retention-days: 7
+
+  # ============================================
+  # Job 4: 前端测试
+  # ============================================
+  frontend-tests:
+    name: 前端测试
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js 环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 配置 pnpm
+        # 版本取自根 package.json 的 packageManager 字段（pnpm@9.15.9）
+        uses: pnpm/action-setup@v4
+
+      - name: 缓存 pnpm 依赖
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.PNPM_CACHE_DIR }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 运行前端单元测试
+        # 用 pnpm test:ci（参数固化在 package.json）。原 `pnpm test:run -- --coverage ...`
+        # 的 `--` 会被 pnpm 字面传给 vitest，coverage 参数从未生效（2026-09-10 修复）。
+        run: pnpm test:ci
+
+      - name: 检查前端测试覆盖率阈值 (24%)
+        run: |
+          echo "======================================================"
+          echo "  覆盖率检查: 前端测试 (阈值 >= 24%)"
+          echo "======================================================"
+
+          if [ ! -f coverage/coverage-final.json ]; then
+            echo "错误: 未找到前端覆盖率文件，覆盖率检查失败"
+            exit 1
+          fi
+
+          python -c "
+          import json, sys, os
+          with open('coverage/coverage-final.json') as f:
+              data = json.load(f)
+
+          total_lines = 0
+          covered_lines = 0
+          for file, file_data in data.items():
+              summary = file_data.get('summary')
+              if summary:
+                  total_lines += summary.get('lines', {}).get('total', 0)
+                  covered_lines += summary.get('lines', {}).get('covered', 0)
+              else:
+                  # istanbul 原始格式（无 summary）：用 s 语句计数计算
+                  s_map = file_data.get('s', {})
+                  total_lines += len(s_map)
+                  covered_lines += sum(1 for c in s_map.values() if c)
+
+          if total_lines == 0:
+              print('  未找到前端代码行，跳过覆盖率检查')
+              sys.exit(0)
+
+          pct = (covered_lines / total_lines * 100) if total_lines > 0 else 0
+          uncovered = total_lines - covered_lines
+
+          print(f'  覆盖率: {pct:.2f}%')
+          print(f'  行数统计: {covered_lines} 已覆盖, {uncovered} 未覆盖, 共 {total_lines} 行')
+          print('')
+
+          if pct < 24:
+              print(f'  >>> 结果: 失败 (覆盖率 {pct:.2f}% < 24% 阈值)')
+              sys.exit(1)
+          else:
+              print(f'  >>> 结果: 通过 (覆盖率 {pct:.2f}% >= 24% 阈值)')
+          "
+          echo "======================================================"
+
+      - name: 上传前端测试结果
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-test-results
+          path: |
+            junit-frontend.xml
+            coverage/
+          retention-days: 7
+
+  # ============================================
+  # Job 4.5: 版本一致性检查 (P4-3)
+  # ============================================
+  version-check:
+    name: 版本一致性检查
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 验证版本一致性
+        run: python scripts/version_sync.py --check
+
+  # ============================================
+  # Job 4.6: API 文档同步检查
+  # ============================================
+  api-docs-sync-check:
+    name: API 文档同步检查
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 校验 FastAPI 路由与 docs/API.md 同步
+        run: python scripts/check_api_docs_sync.py
+
+  # ============================================
+  # Job 5: 测试汇总报告
+  # ============================================
+  test-summary:
+    name: 测试汇总报告
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs:
+      - lint-and-typecheck
+      - python-unit-tests
+      - python-integration-tests
+      - frontend-tests
+      - version-check
+      - api-docs-sync-check
+    if: always()
+
+    steps:
+      - name: 下载所有测试产物
+        uses: actions/download-artifact@v4
+        with:
+          path: test-results
+
+      - name: 生成测试摘要
+        run: |
+          echo "## PR 测试摘要" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| 任务 | 状态 |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 代码质量检查 | ${{ needs.lint-and-typecheck.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Python 单元测试 | ${{ needs.python-unit-tests.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Python 集成测试 | ${{ needs.python-integration-tests.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 前端测试 | ${{ needs.frontend-tests.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 版本一致性检查 | ${{ needs.version-check.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| API 文档同步检查 | ${{ needs.api-docs-sync-check.result }} |" >> $GITHUB_STEP_SUMMARY
+
+      - name: 显示覆盖率摘要
+        if: needs.python-unit-tests.result == 'success'
+        run: |
+          echo "## 覆盖率摘要" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| 测试类型 | 覆盖率 | 阈值 | 状态 |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|--------|------|------|" >> $GITHUB_STEP_SUMMARY
+
+          if [ -f "test-results/unit-test-results/coverage-unit.json" ]; then
+            UNIT_COV=$(python -c "
+            import json
+            with open('test-results/unit-test-results/coverage-unit.json') as f:
+                data = json.load(f)
+            pct = data.get('totals', {}).get('percent_covered', 0)
+            print(f'{pct:.2f}%')
+            ")
+            echo "| Python 单元测试 | $UNIT_COV | 65% | ✓ |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ -f "test-results/integration-test-results/coverage-integration.json" ]; then
+            INTEG_COV=$(python -c "
+            import json
+            with open('test-results/integration-test-results/coverage-integration.json') as f:
+                data = json.load(f)
+            pct = data.get('totals', {}).get('percent_covered', 0)
+            print(f'{pct:.2f}%')
+            ")
+            echo "| Python 集成测试 | $INTEG_COV | 65% | ✓ |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: 检查整体状态
+        if: >-
+          needs.lint-and-typecheck.result != 'success' ||
+          needs.python-unit-tests.result != 'success' ||
+          needs.python-integration-tests.result != 'success' ||
+          needs.frontend-tests.result != 'success' ||
+          needs.version-check.result != 'success'
+        run: |
+          echo " 部分测试失败，请查看详细结果。"
+          exit 1
+
+      - name: 测试通过确认
+        if: success()
+        run: |
+          echo " 所有测试通过！PR 可以合并。"

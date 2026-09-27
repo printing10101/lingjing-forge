@@ -1,0 +1,158 @@
+{
+  "timestamp": "2026-06-27 01:35:38",
+  "experiment": "模型压缩与边缘部署实验",
+  "results": {
+    "original": {
+      "metrics": {
+        "mae": 0.6975,
+        "rmse": 0.7912,
+        "r2": -44655408.0,
+        "pcc": 0.0
+      },
+      "parameters": 27265,
+      "size_mb": 0.1
+    },
+    "quantization": {
+      "32bit": {
+        "metrics": {
+          "mae": 0.6975,
+          "rmse": 0.7912,
+          "r2": -44655408.0,
+          "pcc": 0.0
+        },
+        "parameters": 27265,
+        "size_mb": 0.1,
+        "mae_degradation_pct": 0.0,
+        "pcc_degradation_pct": 0.0
+      },
+      "16bit": {
+        "metrics": {
+          "mae": 9.2418,
+          "rmse": 9.2503,
+          "r2": -108208431104.0,
+          "pcc": 0.0
+        },
+        "parameters": 27265,
+        "size_mb": 0.1,
+        "mae_degradation_pct": 1224.99,
+        "pcc_degradation_pct": 0.0
+      },
+      "8bit": {
+        "metrics": {
+          "mae": 9.1699,
+          "rmse": 9.1784,
+          "r2": -99733872640.0,
+          "pcc": 0.0
+        },
+        "parameters": 27265,
+        "size_mb": 0.1,
+        "mae_degradation_pct": 1214.68,
+        "pcc_degradation_pct": 0.0
+      },
+      "4bit": {
+        "metrics": {
+          "mae": 8.1323,
+          "rmse": 8.1419,
+          "r2": -37619953664.0,
+          "pcc": 0.0
+        },
+        "parameters": 27265,
+        "size_mb": 0.1,
+        "mae_degradation_pct": 1065.92,
+        "pcc_degradation_pct": 0.0
+      }
+    },
+    "pruning": {
+      "prune_0": {
+        "metrics": {
+          "mae": 0.6975,
+          "rmse": 0.7912,
+          "r2": -44655408.0,
+          "pcc": 0.0
+        },
+        "parameters": 27265,
+        "non_zero_params": 27265,
+        "sparsity": 0.0,
+        "size_mb": 0.1,
+        "mae_degradation_pct": 0.0,
+        "pcc_degradation_pct": 0.0
+      },
+      "prune_10": {
+        "metrics": {
+          "mae": 0.6968,
+          "rmse": 0.7906,
+          "r2": -44648496.0,
+          "pcc": 0.0
+        },
+        "parameters": 27265,
+        "non_zero_params": 27044,
+        "sparsity": 0.0081,
+        "size_mb": 0.1,
+        "mae_degradation_pct": -0.1,
+        "pcc_degradation_pct": 0.0
+      },
+      "prune_30": {
+        "metrics": {
+          "mae": 0.7255,
+          "rmse": 0.8177,
+          "r2": -47200224.0,
+          "pcc": 0.0
+        },
+        "parameters": 27265,
+        "non_zero_params": 26603,
+        "sparsity": 0.0243,
+        "size_mb": 0.1,
+        "mae_degradation_pct": 4.01,
+        "pcc_degradation_pct": 0.0
+      },
+      "prune_50": {
+        "metrics": {
+          "mae": 2.7121,
+          "rmse": 2.7407,
+          "r2": -683476160.0,
+          "pcc": 0.0
+        },
+        "parameters": 27265,
+        "non_zero_params": 26161,
+        "sparsity": 0.0405,
+        "size_mb": 0.1,
+        "mae_degradation_pct": 288.83,
+        "pcc_degradation_pct": 0.0
+      },
+      "prune_70": {
+        "metrics": {
+          "mae": 9.6095,
+          "rmse": 9.6176,
+          "r2": -37318463488.0,
+          "pcc": 0.0
+        },
+        "parameters": 27265,
+        "non_zero_params": 25719,
+        "sparsity": 0.0567,
+        "size_mb": 0.1,
+        "mae_degradation_pct": 1277.71,
+        "pcc_degradation_pct": 0.0
+      }
+    },
+    "inference_latency": {
+      "original": {
+        "avg_latency_ms": 1.057,
+        "std_latency_ms": 0.269,
+        "p99_latency_ms": 2.106,
+        "throughput_sps": 946.42
+      },
+      "quantized_8bit": {
+        "avg_latency_ms": 0.994,
+        "std_latency_ms": 0.156,
+        "p99_latency_ms": 1.325,
+        "throughput_sps": 1006.4
+      },
+      "pruned_30": {
+        "avg_latency_ms": 1.056,
+        "std_latency_ms": 0.166,
+        "p99_latency_ms": 1.511,
+        "throughput_sps": 947.2
+      }
+    }
+  }
+}

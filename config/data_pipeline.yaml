@@ -1,0 +1,108 @@
+# =============================================================================
+# 混合架构数据管道系统配置文件
+# =============================================================================
+# 支持环境变量注入: 前缀 PIPELINE_ 开头的环境变量会覆盖对应配置
+# 示例: PIPELINE_IMAGE_SIZE=512 会覆盖 image.image_size 参数
+# =============================================================================
+
+# ─── 图像处理配置 ───────────────────────────────────────────────────────────
+image:
+  image_size: 256              # 图像标准化尺寸 (pixels), 取值范围: [64, 1024]
+  cnn_feature_dim: 512         # CNN特征提取维度, 取值范围: [128, 2048]
+  normalize_range: [0.0, 1.0]  # 像素归一化范围
+  supported_bit_depths: [8, 16] # 支持的位深度
+  pretrained_model: "resnet50" # 预训练CNN模型: resnet18 | resnet50 | efficientnet_b0
+  mean: [0.485, 0.456, 0.406] # ImageNet均值
+  std: [0.229, 0.224, 0.225]  # ImageNet标准差
+
+# ─── 时序传感器配置 ─────────────────────────────────────────────────────────
+time_series:
+  window_size: 256             # 滑动窗口大小 (固定值)
+  overlap_ratio: 0.5           # 窗口重叠比例, 取值范围: [0.0, 0.9]
+  sample_rate: 1000.0          # 基础采样率 (Hz), 取值范围: [100.0, 10000.0]
+  sample_rate_min: 100.0       # 最低采样率
+  sample_rate_max: 10000.0     # 最高采样率
+  denoising_algorithm: "butterworth"  # 降噪算法: butterworth | moving_average | median
+  ts_feature_count: 24         # 时域/频域特征总数
+  denoise_params:
+    order: 4                   # 滤波器阶数
+    cutoff_ratio: 0.1          # 截止频率比
+    btype: "low"               # 滤波器类型: low | high | band
+
+# ─── 工艺知识文本配置 ───────────────────────────────────────────────────────
+text:
+  bge_embedding_dim: 512       # BGE嵌入维度, 取值范围: [384, 768, 1024]
+  bge_model_name: "BAAI/bge-small-zh-v1.5"  # BGE模型名称
+  max_text_length: 512         # 最大文本长度
+  clean_special_chars: true    # 清洗特殊字符
+  normalize_whitespace: true   # 标准化空白字符
+  vector_db_type: "faiss"      # 向量数据库: faiss | milvus | chromadb
+
+# ─── 刀具状态配置 ───────────────────────────────────────────────────────────
+tool_state:
+  tool_state_dim: 32           # 状态特征向量维度
+  encoding_method: "one_hot"   # 编码方式: one_hot | label | binary
+  anomaly_detection_method: "iqr"  # 异常检测: iqr | z_score | isolation_forest
+  anomaly_threshold: 3.0       # 异常阈值
+  state_fields:                # 状态字段列表
+    - wear_level
+    - cutting_time
+    - tool_life_remaining
+    - spindle_load
+    - temperature
+    - vibration_amplitude
+    - cutting_force_x
+    - cutting_force_y
+    - cutting_force_z
+
+# ─── G代码处理配置 ──────────────────────────────────────────────────────────
+gcode:
+  gcode_embedding_dim: 256     # G代码嵌入维度
+  max_instructions_per_segment: 500  # 每段最大指令数
+  segment_by_operation: true   # 按工序语义分割
+  supported_controllers:       # 支持的控制器
+    - fanuc
+    - siemens
+    - heidenhain
+
+# ─── 批处理与并行配置 ───────────────────────────────────────────────────────
+batch:
+  image_inference: 32          # 推理阶段图像批次大小
+  image_training: 16           # 训练阶段图像批次大小
+  time_series_inference: 128   # 推理阶段时序批次大小
+  time_series_training: 64     # 训练阶段时序批次大小
+  num_worker_processes: 4      # 数据加载器工作进程数 (可动态调整)
+  prefetch_factor: 4           # 异步预取线程数
+  cache_memory_limit: "4GB"    # 内存缓存大小
+  pin_memory: true             # 是否锁页内存
+
+# ─── 融合配置 ───────────────────────────────────────────────────────────────
+fusion:
+  fusion_method: "cross_modal_attention"  # 融合方法: weighted | cross_modal_attention
+  target_dim: 512              # 目标融合维度
+  attention_heads: 8           # 注意力头数
+  dropout: 0.1                 # Dropout率
+  modality_weights:            # 各模态权重 (仅weighted方法)
+    image: 0.25
+    time_series: 0.25
+    text: 0.20
+    tool_state: 0.15
+    gcode: 0.15
+
+# ─── 监控配置 ───────────────────────────────────────────────────────────────
+monitoring:
+  enabled: true                # 启用监控
+  log_interval_seconds: 60     # 日志间隔
+  alert_threshold_latency_ms: 100.0   # 延迟告警阈值 (ms)
+  alert_threshold_memory_pct: 85.0    # 内存告警阈值 (%)
+  metrics_export: true         # 导出指标
+  metrics_export_path: "logs/pipeline_metrics"  # 指标导出路径
+
+# ─── 全局配置 ───────────────────────────────────────────────────────────────
+memory_limit: "8GB"            # 内存占用上限
+performance_test_env_spec: "CPU: 8-core, RAM: 16GB, GPU: NVIDIA T4"  # 性能测试环境规格
+test_data_path: "tests/data"   # 测试数据路径
+enable_async: true             # 启用异步处理
+enable_cache: true             # 启用缓存
+cache_ttl_seconds: 3600        # 缓存过期时间 (秒)
+log_level: "INFO"              # 日志级别: DEBUG | INFO | WARNING | ERROR

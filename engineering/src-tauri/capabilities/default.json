@@ -1,0 +1,20 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "灵境制造默认权限配置 - P0 安全修复：遵循最小权限原则，移除 shell:default/dialog:default 等宽泛权限。shell 仅在 Rust 侧管理 sidecar（tauri_plugin_shell::ShellExt），前端 JS 无需 shell 权限；dialog 插件前端未使用（UI 弹窗由 Element Plus el-dialog 实现）。自定义 Tauri 命令（close_splashscreen/get_version_info 等）通过 invoke_handler 注册后无需 capability 授权。",
+  "windows": ["main", "splashscreen"],
+  "permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:app:default",
+    "core:resources:default",
+    "core:webview:default",
+    "core:window:default",
+    "core:window:allow-close",
+    "core:window:allow-minimize",
+    "core:window:allow-maximize",
+    "core:window:allow-set-title",
+    "core:window:allow-show",
+    "core:window:allow-set-focus"
+  ]
+}

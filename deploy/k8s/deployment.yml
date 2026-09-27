@@ -1,0 +1,234 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lnn-api
+  labels:
+    app: lnn-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lnn-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: lnn-api
+    spec:
+      # P1-11 修复：私有镜像仓库需配置 imagePullSecrets。
+      # imagePullSecrets 需提前通过 kubectl create secret docker-registry regcred 创建：
+      #   kubectl create secret docker-registry regcred \
+      #     --docker-server=<registry> --docker-username=<user> \
+      #     --docker-password=<pass> --docker-email=<email>
+      # 如需自定义 Secret 名称，可通过 envsubst 替换 ${REGISTRY_SECRET_NAME}：
+      #   REGISTRY_SECRET_NAME=myregcred envsubst < deployment.yml | kubectl apply -f -
+      imagePullSecrets:
+        - name: ${REGISTRY_SECRET_NAME:-regcred}
+      # 安全修复：Pod 级 securityContext，强制非 root 运行
+      # 注意：UID/GID 1000 需与 Dockerfile 中创建的用户 ID 保持一致
+      # 若 Dockerfile 的 appuser 使用不同的 UID，需同步更新此值
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: lnn-api
+          # 安全修复：使用固定版本标签替代 latest，确保可追溯与可复现
+          # 注意：发布流程应通过 CI 自动同步此标签与 VERSION 文件
+          image: lnn-api:2.7.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8765
+              name: http
+          # 安全修复：容器级 securityContext，禁止特权与能力提升
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          env:
+            - name: APP_ENV
+              value: "production"
+            - name: PORT
+              value: "8765"
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: lnn-secrets
+                  key: redis-url
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: lnn-secrets
+                  key: db-url
+            # P1-10 修复：补全 TDengine 时序数据库连接配置（非敏感，来自 ConfigMap）
+            - name: TDENGINE_HOST
+              valueFrom:
+                configMapRef:
+                  name: lnn-config
+                  key: tdengine-host
+            - name: TDENGINE_PORT
+              valueFrom:
+                configMapRef:
+                  name: lnn-config
+                  key: tdengine-port
+            - name: TDENGINE_DATABASE
+              valueFrom:
+                configMapRef:
+                  name: lnn-config
+                  key: tdengine-database
+            - name: TDENGINE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: lnn-secrets
+                  key: tdengine-user
+            - name: TDENGINE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lnn-secrets
+                  key: tdengine-password
+            # P1-10 修复：JWT 密钥（敏感，来自 Secret）
+            - name: LNN_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: lnn-secrets
+                  key: jwt-secret
+            # P1-10 修复：gstack 工作目录（只读文件系统下需指向可写卷）
+            - name: LNN_GSTACK_DIR
+              value: "/app/python/data/gstack"
+            # P1-1 修复：K8s 生产环境可启用空闲自动关机以节省资源
+            - name: LNN_IDLE_AUTO_SHUTDOWN
+              value: "true"
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1Gi"
+            limits:
+              cpu: "4"
+              memory: "4Gi"
+          startupProbe:
+            httpGet:
+              path: /api/health/ping
+              port: 8765
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 18   # 最多等待 3 分钟启动
+          livenessProbe:
+            httpGet:
+              # DE-F1 修复：使用实际存在的轻量级探针端点。
+              # 后端 simple_health_router 注册的是 /api/health/ping（返回 {"ping": true}），
+              # 原路径 /api/v1/health 不存在（只有 /api/v1/health/system 和 /api/v1/health/quick），
+              # 会导致探针 404，Pod 被标记为不健康并不断重启。
+              path: /api/health/ping
+              port: 8765
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              # P1-14 修复：readinessProbe 必须指向带依赖检查的端点。
+              # 原 /api/health/ping 仅返回 {"ping": true}，不检查 DB 连通性，
+              # 导致 DB 不可达时 Pod 仍被标记为 Ready，流量被路由到无法
+              # 服务的实例。现改为 /api/health（P1-13 已添加轻量 DB ping），
+              # DB 不可达时返回 "degraded"，但因 HTTP 200 仍会被 K8s 视为
+              # Ready——此处依赖监控系统根据 response body 的 status 字段
+              # 告警。若需严格隔离，可改为检查 HTTP 状态码（503 = not ready）。
+              path: /api/health
+              port: 8765
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - name: tmp-volume
+              mountPath: /tmp
+            - name: models-volume
+              mountPath: /app/models/lnn
+            - name: logs-volume
+              mountPath: /app/logs
+            # P1-9 修复：SQLite 数据库与 gstack 工作目录挂载到可写卷。
+            # readOnlyRootFilesystem: true 下 /app/python/data 不可写会导致
+            # SQLite DB 创建失败、gstack 临时文件写入失败，Pod 无法启动。
+            - name: data-volume
+              mountPath: /app/python/data
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}
+        - name: models-volume
+          persistentVolumeClaim:
+            claimName: lnn-models-pvc
+        - name: logs-volume
+          persistentVolumeClaim:
+            claimName: lnn-logs-pvc
+        # P1-9 修复：SQLite 数据卷（使用 PVC 持久化，避免 Pod 重启数据丢失）
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: lnn-data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lnn-api-service
+spec:
+  type: ClusterIP
+  selector:
+    app: lnn-api
+  ports:
+    - port: 80
+      targetPort: 8765
+      protocol: TCP
+      name: http
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lnn-config
+data:
+  # 仅放非敏感配置；敏感信息（redis-url、db-url、jwt-secret、tdengine-password）改由 Secret 注入
+  app-env: "production"
+  # P1-10 修复：TDengine 连接配置（非敏感部分）
+  tdengine-host: "lnn-tdengine"
+  tdengine-port: "6030"
+  tdengine-database: "lingjing"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lnn-models-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lnn-logs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# P1-9 修复：SQLite 数据库与 gstack 工作目录持久化卷
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lnn-data-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

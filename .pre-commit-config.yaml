@@ -1,0 +1,44 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.12
+    hooks:
+      - id: ruff
+        name: Ruff Check
+        args: [--fix]
+        files: ^engineering/python/
+      - id: ruff-format
+        name: Ruff Format
+        files: ^engineering/python/
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.3.0
+    hooks:
+      - id: flake8
+        name: Flake8 Check
+        args: [--max-line-length=120]
+        files: ^engineering/python/
+        additional_dependencies: []
+  - repo: local
+    hooks:
+      - id: version-check
+        name: Version Consistency Check
+        entry: python scripts/version_sync.py --check
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+      # E-P0-1 防复发：新增 API 路由必须声明 response_model
+      # 使用基准对比模式，仅对新增遗漏路由失败，历史遗漏不阻塞开发
+      - id: response-model-check
+        name: Response Model Coverage Check (E-P0-1)
+        entry: python scripts/check_response_model.py --baseline .ci_baseline_response_model.json
+        language: system
+        pass_filenames: false
+        files: ^engineering/python/app/api/.*\.py$
+        stages: [pre-commit]
+      - id: pytest
+        name: Run Pytest
+        entry: python -m pytest engineering/python/tests/ --tb=short
+        language: system
+        pass_filenames: false
+        always_run: false
+        stages: [pre-push]

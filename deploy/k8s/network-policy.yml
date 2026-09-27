@@ -1,0 +1,88 @@
+# NetworkPolicy - 限制 Pod 网络访问
+# 默认拒绝所有入站/出站流量，仅放行白名单流量
+# 需要 Kubernetes 集群支持 NetworkPolicy（如 Calico、Cilium、Flannel+plug-in）
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lnn-api-network-policy
+  labels:
+    app: lnn-api
+spec:
+  podSelector:
+    matchLabels:
+      app: lnn-api
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # 仅放行来自 ingress-nginx 命名空间的流量（Ingress Controller）
+    # 同一命名空间内 Pod 间通信需显式声明标签选择器
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+    # 放行来自同一命名空间且标签为 app=lnn-frontend 的前端 Pod
+    - from:
+        - podSelector:
+            matchLabels:
+              app: lnn-frontend
+  egress:
+    # 放行 DNS 解析（kube-system 的 CoreDNS）
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # 放行 PostgreSQL（假定 svc: postgres:5432）
+    - to:
+        - podSelector:
+            matchLabels:
+              app: postgres
+      ports:
+        - protocol: TCP
+          port: 5432
+    # 放行 Redis（假定 svc: redis:6379）
+    - to:
+        - podSelector:
+            matchLabels:
+              app: redis
+      ports:
+        - protocol: TCP
+          port: 6379
+    # 放行 TDengine（假定 svc: tdengine:6030/6041）
+    - to:
+        - podSelector:
+            matchLabels:
+              app: tdengine
+      ports:
+        - protocol: TCP
+          port: 6030
+        - protocol: TCP
+          port: 6041
+    # 放行 HTTPS 出站（调用云端 LLM API、HuggingFace 模型下载）
+    # 仅放行外部互联网流量，使用 ipBlock 排除集群内部 CIDR
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8
+              - 172.16.0.0/12
+              - 192.168.0.0/16
+      ports:
+        - protocol: TCP
+          port: 443
+    # 放行 HTTP 出站（部分镜像站可能仅 HTTP，按需收紧）
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8
+              - 172.16.0.0/12
+              - 192.168.0.0/16
+      ports:
+        - protocol: TCP
+          port: 80

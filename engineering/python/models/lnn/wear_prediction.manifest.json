@@ -1,0 +1,93 @@
+{
+  "model_name": "wear_prediction",
+  "registry_version": "2.0.0",
+  "model_type": "LTC",
+  "feature_order": [
+    "force_z",
+    "vibration_x",
+    "vibration_y",
+    "time_s"
+  ],
+  "output_features": [
+    "predicted_wear"
+  ],
+  "npz_format_version": 2,
+  "source": {
+    "kind": "csv",
+    "path": "../../../../research/datasets/uniwear/uniwear/uniwear.csv",
+    "sha256": "abc5076751fd2729e901978ab9a61e47cbacc82f92258571082fc1f4ead0bde5",
+    "feature_columns": [
+      "force_z",
+      "vibration_x",
+      "vibration_y",
+      "time_s"
+    ],
+    "target_column": "tool_wear",
+    "rows_dropped_nan": 0
+  },
+  "data": {
+    "rows_total": 39903,
+    "rows_train": 27933,
+    "rows_val": 5985,
+    "rows_test": 5985,
+    "standardization": {
+      "x_mean": [
+        96.4257089034485,
+        1.1942370422081448,
+        1.6104424766405308,
+        1057.0524200207576
+      ],
+      "x_std": [
+        183.03033319964572,
+        4.520663884666494,
+        4.037591268321058,
+        831.5214173819459
+      ],
+      "y_mean": 0.16878680365221038,
+      "y_std": 0.07142549724380338,
+      "folded_into_weights": true
+    }
+  },
+  "training": {
+    "framework": "torch",
+    "torch_version": "2.13.0+cpu",
+    "architecture": "MirrorMLP [4, 64, 64, 1]（ReLU 隐层+线性输出，与 NumPy 服务前向同构）",
+    "seed": 42,
+    "epochs_requested": 500,
+    "epochs_completed": 277,
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "patience": 30,
+    "final_train_loss": 0.17394027791303043,
+    "best_val_loss": 0.18224340677261353
+  },
+  "parity": {
+    "torch_vs_numpy_mirror_max_abs": 1.966620731819191e-06,
+    "tolerance": 0.001
+  },
+  "metrics_numpy_path": {
+    "test": {
+      "r2": 0.8228866860316417,
+      "mae": 0.021242656630102996,
+      "mape_percent": 15.230792208293723,
+      "max_abs_error": 0.1532970909628189
+    },
+    "val": {
+      "r2": 0.817849965819117,
+      "mae": 0.021551071435508357,
+      "mape_percent": 15.274205024090321,
+      "max_abs_error": 0.16882125884591298
+    }
+  },
+  "notes": "LTC memory_weights 为结构占位（未参与本批量回归任务训练）；权重为标准化折叠后产物，服务端无需任何预处理；ONNX 工件因环境缺 onnx 包暂缓导出（onnxruntime 消费路径见 WP1 适配器）。source.path 相对 manifest 所在目录解析（2026-09-18 修复：原断裂相对路径与 16 位截断哈希，C1 数据血缘收尾）。",
+  "created_at": "2026-09-08T16:20:39.928012+00:00",
+  "artifacts": {
+    "npz": {
+      "path": "wear_prediction.npz",
+      "sha256": "6df99f01d521066c703b66c014e758b49094b1f81346a997e2ec443b44b5a455"
+    },
+    "manifest": {
+      "path": "wear_prediction.manifest.json"
+    }
+  }
+}

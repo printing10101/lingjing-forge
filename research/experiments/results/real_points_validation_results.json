@@ -1,0 +1,140 @@
+{
+  "experiment": "real_points_validation",
+  "n_points": 7,
+  "points": [
+    {
+      "source": "Ji2024-SciRep Fig10-A (35mm,x-feed)",
+      "n_rpm": 10000.0,
+      "ap_mm": 3.0,
+      "measured_stable": 1
+    },
+    {
+      "source": "Ji2024-SciRep Fig10-B (35mm,x-feed)",
+      "n_rpm": 15000.0,
+      "ap_mm": 3.0,
+      "measured_stable": 0
+    },
+    {
+      "source": "Ji2024-SciRep Fig13-C (35mm,y-feed,lowfreq)",
+      "n_rpm": 3000.0,
+      "ap_mm": 3.0,
+      "measured_stable": 0
+    },
+    {
+      "source": "Ji2024-SciRep Fig15-D (65mm,x-feed)",
+      "n_rpm": 7000.0,
+      "ap_mm": 0.1,
+      "measured_stable": 0
+    },
+    {
+      "source": "Ji2024-SciRep Fig15-E (65mm,x-feed)",
+      "n_rpm": 12000.0,
+      "ap_mm": 0.4,
+      "measured_stable": 0
+    },
+    {
+      "source": "Ji2024-SciRep Fig18-F (65mm,y-feed)",
+      "n_rpm": 7000.0,
+      "ap_mm": 0.1,
+      "measured_stable": 1
+    },
+    {
+      "source": "Ji2024-SciRep Fig18-G (65mm,y-feed)",
+      "n_rpm": 7000.0,
+      "ap_mm": 1.2,
+      "measured_stable": 0
+    }
+  ],
+  "models": {
+    "A_default_tlusty": {
+      "metrics": {
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.4,
+        "mcc": -0.2581988897471611,
+        "n": 7,
+        "n_stable": 2,
+        "n_unstable": 5
+      },
+      "predicted_stable": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "a_lim_mm": [
+        20.0,
+        20.0,
+        2.2786,
+        13.469,
+        20.0,
+        13.469,
+        13.469
+      ]
+    },
+    "B_real_modal_tlusty": {
+      "metrics": {
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.45,
+        "mcc": -0.09128709291752768,
+        "n": 7,
+        "n_stable": 2,
+        "n_unstable": 5
+      },
+      "predicted_stable": [
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "a_lim_mm": [
+        0.2706,
+        0.5132,
+        20.0,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    "C_dlnn": {
+      "metrics": {
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.4,
+        "mcc": -0.2581988897471611,
+        "n": 7,
+        "n_stable": 2,
+        "n_unstable": 5
+      },
+      "predicted_stable": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "a_lim_mm": [
+        20.8141,
+        20.9656,
+        1.0662,
+        18.8943,
+        20.9283,
+        18.8943,
+        18.8648
+      ]
+    }
+  },
+  "notes": [
+    "数据: Ji2024 SciRep DOI 10.1038/s41598-024-76165-8 正文报告的 A-G 点",
+    "B 模型用论文 40 行实测模态参数(mode-1)按悬伸+进向配置",
+    "C 模型在合成 7 维切削参数空间快速训练(6+8 epoch)",
+    "feed 未报告: A/B 用默认参数, C 用 0.25 mm/tooth 假设"
+  ]
+}

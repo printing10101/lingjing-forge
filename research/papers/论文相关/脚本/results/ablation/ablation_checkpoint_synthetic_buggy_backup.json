@@ -1,0 +1,303 @@
+{
+  "dataset": "synthetic",
+  "last_update": "2026-07-25 11:08:19",
+  "completed": {
+    "Full": {
+      "spec_name": "Full",
+      "description": "完整 DL-LNN（LTC + 物理分支 + 自适应门控 + 两阶段 + L_data + L_phys + L_pcc）",
+      "status": "completed",
+      "metrics": {
+        "mae": 0.3715936541557312,
+        "rmse": 0.44928928319081896,
+        "r2": 0.9965801239013672,
+        "mape": 20.14234811067581,
+        "pcc": 0.8057149201631546,
+        "phys_mae": 0.2311701625585556,
+        "phys_within_threshold": 0.29533333333333334
+      },
+      "train_history_summary": {
+        "total_epochs": 90,
+        "final_train_loss": 0.19041422774938688,
+        "final_val_loss": 0.04835000317147438,
+        "best_val_loss": 0.04766702208113163
+      },
+      "elapsed_sec": 24318.0,
+      "config_overrides": {
+        "lambda_phys": 0.5,
+        "lambda_pcc": 0.1,
+        "two_stage": true,
+        "model_variant": "default"
+      }
+    },
+    "A1": {
+      "spec_name": "A1",
+      "description": "去除 L_phys（λ₂=0，仅 L_data + L_pcc）",
+      "status": "completed",
+      "metrics": {
+        "mae": 0.38333478569984436,
+        "rmse": 0.4665914905685773,
+        "r2": 0.9963116645812988,
+        "mape": 18.783359229564667,
+        "pcc": 0.8187554478645325,
+        "phys_mae": 0.2540972828865051,
+        "phys_within_threshold": 0.10266666666666667
+      },
+      "train_history_summary": {
+        "total_epochs": 90,
+        "final_train_loss": 0.1846102661193778,
+        "final_val_loss": 0.049969371804531586,
+        "best_val_loss": 0.049969371804531586
+      },
+      "elapsed_sec": 21561.5,
+      "config_overrides": {
+        "lambda_phys": 0.0,
+        "lambda_pcc": 0.1,
+        "two_stage": true,
+        "model_variant": "default"
+      }
+    },
+    "A2": {
+      "spec_name": "A2",
+      "description": "去除 L_pcc（λ₃=0，等价于 PINN，L_data + L_phys）",
+      "status": "completed",
+      "metrics": {
+        "mae": 0.23969481885433197,
+        "rmse": 0.3163378724047062,
+        "r2": 0.9983046650886536,
+        "mape": 5.746492370963097,
+        "pcc": 0.9524038583040237,
+        "phys_mae": 0.07666346430778503,
+        "phys_within_threshold": 0.498
+      },
+      "train_history_summary": {
+        "total_epochs": 90,
+        "final_train_loss": 0.08164505965021103,
+        "final_val_loss": 0.031759167010796834,
+        "best_val_loss": 0.029593346997144374
+      },
+      "elapsed_sec": 19800.7,
+      "config_overrides": {
+        "lambda_phys": 0.5,
+        "lambda_pcc": 0.0,
+        "two_stage": true,
+        "model_variant": "default"
+      }
+    },
+    "A3": {
+      "spec_name": "A3",
+      "description": "去除两阶段训练（单阶段 300 epochs，从头用完整损失训练）",
+      "status": "completed",
+      "metrics": {
+        "mae": 0.3624831438064575,
+        "rmse": 0.44166012442739716,
+        "r2": 0.9966952800750732,
+        "mape": 15.498654544353485,
+        "pcc": 0.849989578127861,
+        "phys_mae": 0.2673814594745636,
+        "phys_within_threshold": 0.059333333333333335
+      },
+      "train_history_summary": {
+        "total_epochs": 90,
+        "final_train_loss": 0.19047313115504233,
+        "final_val_loss": 0.047728607391423365,
+        "best_val_loss": 0.046074786322548036
+      },
+      "elapsed_sec": 29043.9,
+      "config_overrides": {
+        "lambda_phys": 0.5,
+        "lambda_pcc": 0.1,
+        "two_stage": false,
+        "model_variant": "default"
+      }
+    },
+    "A4_lam0.01": {
+      "spec_name": "A4_lam0.01",
+      "description": "λ₃ 敏感性分析：λ₃=0.01（默认 0.1）",
+      "status": "completed",
+      "metrics": {
+        "mae": 0.24694274365901947,
+        "rmse": 0.3232641414320838,
+        "r2": 0.9982296228408813,
+        "mape": 8.74665305018425,
+        "pcc": 0.9219252914190292,
+        "phys_mae": 0.08512760698795319,
+        "phys_within_threshold": 0.506
+      },
+      "train_history_summary": {
+        "total_epochs": 90,
+        "final_train_loss": 0.08941347294882553,
+        "final_val_loss": 0.03287032222811212,
+        "best_val_loss": 0.0321276594904509
+      },
+      "elapsed_sec": 68305.9,
+      "config_overrides": {
+        "lambda_phys": 0.5,
+        "lambda_pcc": 0.01,
+        "two_stage": true,
+        "model_variant": "default"
+      }
+    },
+    "A4_lam0.05": {
+      "spec_name": "A4_lam0.05",
+      "description": "λ₃ 敏感性分析：λ₃=0.05（默认 0.1）",
+      "status": "completed",
+      "metrics": {
+        "mae": 0.3257119059562683,
+        "rmse": 0.3972366975137892,
+        "r2": 0.997326672077179,
+        "mape": 12.224406749010086,
+        "pcc": 0.8847291842103004,
+        "phys_mae": 0.19322142004966736,
+        "phys_within_threshold": 0.18266666666666667
+      },
+      "train_history_summary": {
+        "total_epochs": 90,
+        "final_train_loss": 0.14305013550879203,
+        "final_val_loss": 0.04307259088183971,
+        "best_val_loss": 0.04191922844248883
+      },
+      "elapsed_sec": 25810.2,
+      "config_overrides": {
+        "lambda_phys": 0.5,
+        "lambda_pcc": 0.05,
+        "two_stage": true,
+        "model_variant": "default"
+      }
+    },
+    "A4_lam0.1": {
+      "spec_name": "A4_lam0.1",
+      "description": "λ₃ 敏感性分析：λ₃=0.1（默认 0.1）",
+      "status": "completed",
+      "metrics": {
+        "mae": 0.3715936541557312,
+        "rmse": 0.44928928319081896,
+        "r2": 0.9965801239013672,
+        "mape": 20.14234811067581,
+        "pcc": 0.8057149201631546,
+        "phys_mae": 0.2311701625585556,
+        "phys_within_threshold": 0.29533333333333334
+      },
+      "train_history_summary": {
+        "total_epochs": 90,
+        "final_train_loss": 0.19041422774938688,
+        "final_val_loss": 0.04835000317147438,
+        "best_val_loss": 0.04766702208113163
+      },
+      "elapsed_sec": 20431.2,
+      "config_overrides": {
+        "lambda_phys": 0.5,
+        "lambda_pcc": 0.1,
+        "two_stage": true,
+        "model_variant": "default"
+      }
+    },
+    "A4_lam0.5": {
+      "spec_name": "A4_lam0.5",
+      "description": "λ₃ 敏感性分析：λ₃=0.5（默认 0.1）",
+      "status": "completed",
+      "metrics": {
+        "mae": 0.45828327536582947,
+        "rmse": 0.5839014919496485,
+        "r2": 0.9942238926887512,
+        "mape": 36.39642596244812,
+        "pcc": 0.642589271068573,
+        "phys_mae": 0.3283158838748932,
+        "phys_within_threshold": 0.18933333333333333
+      },
+      "train_history_summary": {
+        "total_epochs": 90,
+        "final_train_loss": 0.4841809973596982,
+        "final_val_loss": 0.05921131855946906,
+        "best_val_loss": 0.05906600259402965
+      },
+      "elapsed_sec": 18811.7,
+      "config_overrides": {
+        "lambda_phys": 0.5,
+        "lambda_pcc": 0.5,
+        "two_stage": true,
+        "model_variant": "default"
+      }
+    },
+    "A4_lam1.0": {
+      "spec_name": "A4_lam1.0",
+      "description": "λ₃ 敏感性分析：λ₃=1.0（默认 0.1）",
+      "status": "completed",
+      "metrics": {
+        "mae": 0.5082343816757202,
+        "rmse": 0.6515767962673479,
+        "r2": 0.9928073883056641,
+        "mape": 42.57771074771881,
+        "pcc": 0.5809792578220367,
+        "phys_mae": 0.3701915740966797,
+        "phys_within_threshold": 0.36666666666666664
+      },
+      "train_history_summary": {
+        "total_epochs": 90,
+        "final_train_loss": 0.9709883763637717,
+        "final_val_loss": 0.06414039639082361,
+        "best_val_loss": 0.06391865672900322
+      },
+      "elapsed_sec": 31400.2,
+      "config_overrides": {
+        "lambda_phys": 0.5,
+        "lambda_pcc": 1.0,
+        "two_stage": true,
+        "model_variant": "default"
+      }
+    },
+    "A6_fixed0.0": {
+      "spec_name": "A6_fixed0.0",
+      "description": "门控策略：固定 α=0.0（vs 自适应 α(x)）",
+      "status": "completed",
+      "metrics": {
+        "mae": 0.3536970317363739,
+        "rmse": 0.42959011014568915,
+        "r2": 0.9968734383583069,
+        "mape": 16.05798602104187,
+        "pcc": 0.8465041667222977,
+        "phys_mae": 0.21608223021030426,
+        "phys_within_threshold": 0.21733333333333332
+      },
+      "train_history_summary": {
+        "total_epochs": 90,
+        "final_train_loss": 0.18714160900818158,
+        "final_val_loss": 0.04613238985234119,
+        "best_val_loss": 0.04566747853730587
+      },
+      "elapsed_sec": 13362.0,
+      "config_overrides": {
+        "lambda_phys": 0.5,
+        "lambda_pcc": 0.1,
+        "two_stage": true,
+        "model_variant": "fixed_gate"
+      }
+    },
+    "A6_fixed0.25": {
+      "spec_name": "A6_fixed0.25",
+      "description": "门控策略：固定 α=0.25（vs 自适应 α(x)）",
+      "status": "completed",
+      "metrics": {
+        "mae": 0.3536970317363739,
+        "rmse": 0.42959011014568915,
+        "r2": 0.9968734383583069,
+        "mape": 16.05798602104187,
+        "pcc": 0.8465041667222977,
+        "phys_mae": 0.21608223021030426,
+        "phys_within_threshold": 0.21733333333333332
+      },
+      "train_history_summary": {
+        "total_epochs": 90,
+        "final_train_loss": 0.18714160900818158,
+        "final_val_loss": 0.04613238985234119,
+        "best_val_loss": 0.04566747853730587
+      },
+      "elapsed_sec": 13369.5,
+      "config_overrides": {
+        "lambda_phys": 0.5,
+        "lambda_pcc": 0.1,
+        "two_stage": true,
+        "model_variant": "fixed_gate"
+      }
+    }
+  }
+}

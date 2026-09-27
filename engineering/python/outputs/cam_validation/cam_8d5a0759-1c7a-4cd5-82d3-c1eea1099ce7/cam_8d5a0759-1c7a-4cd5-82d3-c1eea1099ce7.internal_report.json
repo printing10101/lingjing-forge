@@ -1,0 +1,54 @@
+{
+  "task_id": "cam_8d5a0759-1c7a-4cd5-82d3-c1eea1099ce7",
+  "exported_at": 1784016355.045756,
+  "reviewer": "engineer_zhang",
+  "controller_type": "fanuc_0i",
+  "safe_z": 80.0,
+  "stock_top_z": 50.0,
+  "stock_dimensions": [
+    200.0,
+    150.0,
+    50.0
+  ],
+  "mode": "3axis",
+  "total_segments": 0,
+  "segments_checked": 0,
+  "unattributed_events": [],
+  "all_internal_events": [],
+  "feature_results": [
+    {
+      "feature_id": "feat_001",
+      "feature_type": "plane",
+      "line_range": [
+        1,
+        2
+      ],
+      "internal_check_passed": true,
+      "internal_events": [],
+      "spindle_rpm": 3000.0,
+      "axial_depth_mm": 2.0,
+      "limit_depth_mm": 2.5,
+      "stable": true,
+      "safety_margin_ratio": 0.8,
+      "warning": ""
+    },
+    {
+      "feature_id": "feat_002",
+      "feature_type": "cylinder",
+      "line_range": [
+        3,
+        3
+      ],
+      "internal_check_passed": true,
+      "internal_events": [],
+      "spindle_rpm": 2500.0,
+      "axial_depth_mm": 1.5,
+      "limit_depth_mm": 2.0,
+      "stable": true,
+      "safety_margin_ratio": 0.75,
+      "warning": ""
+    }
+  ],
+  "warnings": [],
+  "debug_note": "本报告为阶段 7 内部预校验（CollisionDetector）的调试细节，供前端可视化碰撞事件 + 刀轨高亮。完整 CollisionReport 对象未持久化，total_segments / segments_checked / unattributed_events 字段为 0 / 空列表。如需完整 CollisionReport，请在 _execute_validation 中持久化。"
+}

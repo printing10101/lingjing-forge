@@ -1,0 +1,1086 @@
+# =============================================================================
+# 灵境制造 - CNC后处理器配置文件
+# =============================================================================
+# 采用分控制器配置模式：
+#   - base：所有控制器通用参数（可被控制器特定配置覆盖）
+#   - controllers.<name>：各控制器差异化配置（优先级高于 base）
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# 目标控制器选择
+# ---------------------------------------------------------------------------
+target_controller: fanuc_0i
+
+# =============================================================================
+# 基础配置段（所有控制器通用参数）
+# =============================================================================
+base:
+
+  # --- 输出精度控制 ---
+  decimal_places: 3
+
+  # --- 加工安全参数 ---
+  safe_z_height: 50.0
+
+  # --- 快速进给 ---
+  rapid_feed: 10000
+
+  # =========================================================================
+  # 主轴转速限制
+  # =========================================================================
+  spindle:
+    min_rpm: 50
+    max_rpm: 24000
+    default_rpm: 8000
+
+  # =========================================================================
+  # 进给速度限制
+  # =========================================================================
+  feed:
+    min_rate: 10.0
+    max_rate: 20000.0
+    default_rate: 1000.0
+
+  # =========================================================================
+  # 工件坐标系配置 (G54-G59)
+  # =========================================================================
+  work_coordinate:
+    G54:
+      x_offset: 0.0
+      y_offset: 0.0
+      z_offset: 0.0
+      enabled: true
+    G55:
+      x_offset: 0.0
+      y_offset: 0.0
+      z_offset: 0.0
+      enabled: false
+    G56:
+      x_offset: 0.0
+      y_offset: 0.0
+      z_offset: 0.0
+      enabled: false
+    G57:
+      x_offset: 0.0
+      y_offset: 0.0
+      z_offset: 0.0
+      enabled: false
+    G58:
+      x_offset: 0.0
+      y_offset: 0.0
+      z_offset: 0.0
+      enabled: false
+    G59:
+      x_offset: 0.0
+      y_offset: 0.0
+      z_offset: 0.0
+      enabled: false
+    default_coordinate_system: G54
+
+  # =========================================================================
+  # 刀具补偿寄存器配置
+  # =========================================================================
+  tool_offset:
+    length_registers:
+      start: 1
+      end: 400
+      default_offset: 0.0
+
+    radius_registers:
+      start: 1
+      end: 400
+      default_offset: 0.0
+
+      compensation_types:
+        G41:
+          description: "刀具半径左补偿"
+          register_range: [1, 199]
+        G42:
+          description: "刀具半径右补偿"
+          register_range: [200, 400]
+
+  # =========================================================================
+  # 固定循环配置
+  # =========================================================================
+  fixed_cycles:
+
+    # --- 钻孔循环 ---
+    drilling:
+      G81:
+        description: "简单钻孔循环（无暂停，快速退刀）"
+        retract_mode: "G98"       # G98: 退刀至初始平面, G99: 退刀至R平面
+        peck_depth: 2.0           # 每次啄钻深度 (mm)
+        retract_distance: 1.0     # 退刀距离 (mm)
+      G83:
+        description: "深孔啄钻循环（带暂停）"
+        retract_mode: "G98"
+        peck_depth: 5.0           # 每次啄钻深度 (mm)
+        retract_distance: 1.0     # 退刀距离 (mm)
+        dwell_time: 0.1           # 孔底暂停时间 (s)
+        decrement_type: "constant"  # constant / variable
+
+    # --- 攻丝循环 ---
+    tapping:
+      G84:
+        description: "右旋攻丝循环"
+        spindle_direction: "M03"  # M03: 正转, M04: 反转
+        feed_per_rev: true        # true: 每转进给, false: 每分钟进给
+        dwell_time: 0.0           # 孔底暂停时间 (s)
+        retract_spindle_direction: "M04"  # 退刀时主轴转向
+
+    # --- 镗孔循环 ---
+    boring:
+      G86:
+        description: "粗镗孔循环（主轴停止，快速退刀）"
+        retract_mode: "G98"
+        dwell_time: 0.5           # 孔底暂停时间 (s)
+        retract_type: "rapid"     # rapid / feed
+        orient_spindle: false     # 主轴定向停止
+        shift_axis: null          # 退刀偏移轴 (null/X/Y)
+        shift_distance: 0.0       # 退刀偏移距离 (mm)
+      G89:
+        description: "精镗孔循环（进给退刀）"
+        retract_mode: "G99"
+        dwell_time: 1.0           # 孔底暂停时间 (s)
+        retract_type: "feed"      # rapid / feed
+        orient_spindle: false
+        shift_axis: null
+        shift_distance: 0.0
+
+    # --- 螺纹加工循环 ---
+    threading:
+      G76:
+        description: "精镗孔/背镗循环（可配置为螺纹加工）"
+        retract_mode: "G99"
+        lead: 1.0                 # 螺纹导程 (mm)
+        passes: 5                 # 切削次数
+        depth_cut_first: 0.2      # 第一次切削深度 (mm)
+        depth_cut_last: 0.05      # 最后一次切削深度 (mm)
+        finishing_passes: 2       # 精加工次数
+        taper: 0.0                # 锥度角 (度)
+        tool_angle: 60.0          # 刀尖角度 (度)
+        retract_type: "oriented"  # oriented / rapid / feed
+        shift_axis: "X"           # 退刀偏移轴
+        shift_distance: 0.1       # 退刀偏移距离 (mm)
+        infeed_method: "compound"  # compound (复合进给) / radial (径向进给) / flank (单侧进给)
+
+  # =========================================================================
+  # 子程序/宏程序支持
+  # =========================================================================
+  subprogram:
+    call_format: "M98 P{program_num:04d} L{repeat}"
+    end_code: "M99"
+    program_number:
+      minimum: 1
+      maximum: 9999
+      format: "{:04d}"
+    repeat:
+      default: 1
+      minimum: 1
+      maximum: 9999
+
+    macro_variables:
+      local:
+        range: [1, 33]
+        description: "局部变量（调用时传递，调用后清除）"
+      common:
+        range: [100, 199]
+        description: "公共变量（模态保持，断电保护可选）"
+      system:
+        range: [1000, 1999]
+        description: "系统变量（只读，反映系统状态）"
+
+# =============================================================================
+# 控制器特定配置段
+# =============================================================================
+controllers:
+
+  # =========================================================================
+  # Fanuc 0i / 18i / 31i 系列控制器配置
+  # =========================================================================
+  fanuc:
+    target_controller: fanuc_0i
+    safe_z_height: 50.0
+
+    spindle:
+      max_rpm: 20000
+
+    feed:
+      max_rate: 15000.0
+
+    tool_offset:
+      length_registers:
+        start: 1
+        end: 200
+      radius_registers:
+        start: 1
+        end: 200
+        compensation_types:
+          G41:
+            register_range: [1, 199]
+          G42:
+            register_range: [1, 199]
+
+    fixed_cycles:
+      drilling:
+        G81:
+          retract_mode: "G98"
+          peck_depth: 2.0
+          retract_distance: 1.0
+        G83:
+          retract_mode: "G98"
+          peck_depth: 5.0
+          retract_distance: 1.0
+          dwell_time: 0.1
+          decrement_type: "constant"
+      tapping:
+        G84:
+          spindle_direction: "M03"
+          feed_per_rev: true
+          dwell_time: 0.0
+          retract_spindle_direction: "M04"
+      boring:
+        G86:
+          retract_mode: "G98"
+          dwell_time: 0.5
+          retract_type: "rapid"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+        G89:
+          retract_mode: "G99"
+          dwell_time: 1.0
+          retract_type: "feed"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+      threading:
+        G76:
+          retract_mode: "G99"
+          lead: 1.0
+          passes: 5
+          depth_cut_first: 0.2
+          depth_cut_last: 0.05
+          finishing_passes: 2
+          taper: 0.0
+          tool_angle: 60.0
+          retract_type: "oriented"
+          shift_axis: "X"
+          shift_distance: 0.1
+          infeed_method: "compound"
+
+    subprogram:
+      call_format: "M98 P{program_num:04d} L{repeat}"
+      end_code: "M99"
+      program_number:
+        minimum: 1
+        maximum: 9999
+        format: "{:04d}"
+      repeat:
+        default: 1
+        minimum: 1
+        maximum: 9999
+      macro_variables:
+        local:
+          range: [1, 33]
+        common:
+          range: [100, 199]
+        system:
+          range: [1000, 1999]
+
+  # =========================================================================
+  # Siemens 840D 系列控制器配置
+  # =========================================================================
+  siemens:
+    target_controller: siemens_840d
+    safe_z_height: 50.0
+
+    spindle:
+      max_rpm: 18000
+
+    feed:
+      max_rate: 12000.0
+
+    tool_offset:
+      length_registers:
+        start: 1
+        end: 32000
+      radius_registers:
+        start: 1
+        end: 32000
+        compensation_types:
+          G41:
+            register_range: [1, 99]
+          G42:
+            register_range: [1, 99]
+
+    fixed_cycles:
+      drilling:
+        G81:
+          retract_mode: "G98"
+          peck_depth: 2.0
+          retract_distance: 1.0
+        G83:
+          retract_mode: "G98"
+          peck_depth: 5.0
+          retract_distance: 1.0
+          dwell_time: 0.1
+          decrement_type: "variable"
+      tapping:
+        G84:
+          spindle_direction: "M03"
+          feed_per_rev: true
+          dwell_time: 0.0
+          retract_spindle_direction: "M04"
+      boring:
+        G86:
+          retract_mode: "G98"
+          dwell_time: 0.5
+          retract_type: "rapid"
+          orient_spindle: true
+          shift_axis: "X"
+          shift_distance: 0.2
+        G89:
+          retract_mode: "G99"
+          dwell_time: 1.0
+          retract_type: "feed"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+      threading:
+        G76:
+          retract_mode: "G99"
+          lead: 1.0
+          passes: 5
+          depth_cut_first: 0.2
+          depth_cut_last: 0.05
+          finishing_passes: 2
+          taper: 0.0
+          tool_angle: 60.0
+          retract_type: "oriented"
+          shift_axis: "X"
+          shift_distance: 0.1
+          infeed_method: "radial"
+
+    subprogram:
+      call_format: "CYCLE_CALL {program_name} L{repeat}"
+      end_code: "M17"
+      program_number:
+        minimum: 1
+        maximum: 9999
+        format: "{:04d}"
+      repeat:
+        default: 1
+        minimum: 1
+        maximum: 9999
+      macro_variables:
+        local:
+          range: [1, 32]
+        common:
+          range: [100, 199]
+        system:
+          range: [1000, 1999]
+
+  # =========================================================================
+  # Heidenhain TNC 系列控制器配置
+  # =========================================================================
+  heidenhain:
+    target_controller: heidenhain_tnc
+    safe_z_height: 50.0
+
+    spindle:
+      max_rpm: 15000
+
+    feed:
+      max_rate: 10000.0
+
+    tool_offset:
+      length_registers:
+        start: 1
+        end: 9999
+      radius_registers:
+        start: 1
+        end: 9999
+        compensation_types:
+          G41:
+            register_range: [1, 9999]
+          G42:
+            register_range: [1, 9999]
+
+    fixed_cycles:
+      drilling:
+        G81:
+          retract_mode: "G98"
+          peck_depth: 2.0
+          retract_distance: 1.0
+        G83:
+          retract_mode: "G98"
+          peck_depth: 5.0
+          retract_distance: 1.0
+          dwell_time: 0.1
+          decrement_type: "variable"
+      tapping:
+        G84:
+          spindle_direction: "M03"
+          feed_per_rev: true
+          dwell_time: 0.0
+          retract_spindle_direction: "M04"
+      boring:
+        G86:
+          retract_mode: "G98"
+          dwell_time: 0.5
+          retract_type: "rapid"
+          orient_spindle: true
+          shift_axis: "X"
+          shift_distance: 0.2
+        G89:
+          retract_mode: "G99"
+          dwell_time: 1.0
+          retract_type: "feed"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+      threading:
+        G76:
+          retract_mode: "G99"
+          lead: 1.0
+          passes: 5
+          depth_cut_first: 0.2
+          depth_cut_last: 0.05
+          finishing_passes: 2
+          taper: 0.0
+          tool_angle: 60.0
+          retract_type: "feed"
+          shift_axis: null
+          shift_distance: 0.0
+          infeed_method: "radial"
+
+    subprogram:
+      call_format: "LBL CALL {program_num:04d} REP{repeat}"
+      end_code: "LBL 0"
+      program_number:
+        minimum: 1
+        maximum: 9999
+        format: "{:04d}"
+      repeat:
+        default: 1
+        minimum: 1
+        maximum: 999
+      macro_variables:
+        local:
+          range: [1, 30]
+        common:
+          range: [100, 199]
+        system:
+          range: [1000, 1999]
+
+  # =========================================================================
+  # GSK 980/25i（广数）系列控制器配置（Fanuc 0i 兼容方言）
+  # =========================================================================
+  gsk:
+    target_controller: gsk_980_25i
+    safe_z_height: 50.0
+
+    spindle:
+      max_rpm: 8000
+
+    feed:
+      max_rate: 6000.0
+
+    tool_offset:
+      length_registers:
+        start: 1
+        end: 200
+      radius_registers:
+        start: 1
+        end: 200
+        compensation_types:
+          G41:
+            register_range: [1, 199]
+          G42:
+            register_range: [1, 199]
+
+    fixed_cycles:
+      drilling:
+        G81:
+          retract_mode: "G98"
+          peck_depth: 2.0
+          retract_distance: 1.0
+        G83:
+          retract_mode: "G98"
+          peck_depth: 5.0
+          retract_distance: 1.0
+          dwell_time: 0.1
+          decrement_type: "constant"
+      tapping:
+        G84:
+          spindle_direction: "M03"
+          feed_per_rev: true
+          dwell_time: 0.0
+          retract_spindle_direction: "M04"
+      boring:
+        G86:
+          retract_mode: "G98"
+          dwell_time: 0.5
+          retract_type: "rapid"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+        G89:
+          retract_mode: "G99"
+          dwell_time: 1.0
+          retract_type: "feed"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+      threading:
+        G76:
+          retract_mode: "G99"
+          lead: 1.0
+          passes: 5
+          depth_cut_first: 0.2
+          depth_cut_last: 0.05
+          finishing_passes: 2
+          taper: 0.0
+          tool_angle: 60.0
+          retract_type: "oriented"
+          shift_axis: "X"
+          shift_distance: 0.1
+          infeed_method: "compound"
+
+    subprogram:
+      call_format: "M98 P{program_num:04d} L{repeat}"
+      end_code: "M99"
+      program_number:
+        minimum: 1
+        maximum: 9999
+        format: "{:04d}"
+      repeat:
+        default: 1
+        minimum: 1
+        maximum: 9999
+      macro_variables:
+        local:
+          range: [1, 33]
+        common:
+          range: [100, 199]
+        system:
+          range: [1000, 1999]
+
+  # =========================================================================
+  # HNC 848/22（华中数控）系列控制器配置（Fanuc 0i 兼容方言）
+  # =========================================================================
+  hnc:
+    target_controller: hnc_848_22
+    safe_z_height: 50.0
+
+    spindle:
+      max_rpm: 10000
+
+    feed:
+      max_rate: 8000.0
+
+    tool_offset:
+      length_registers:
+        start: 1
+        end: 200
+      radius_registers:
+        start: 1
+        end: 200
+        compensation_types:
+          G41:
+            register_range: [1, 199]
+          G42:
+            register_range: [1, 199]
+
+    fixed_cycles:
+      drilling:
+        G81:
+          retract_mode: "G98"
+          peck_depth: 2.0
+          retract_distance: 1.0
+        G83:
+          retract_mode: "G98"
+          peck_depth: 5.0
+          retract_distance: 1.0
+          dwell_time: 0.1
+          decrement_type: "constant"
+      tapping:
+        G84:
+          spindle_direction: "M03"
+          feed_per_rev: true
+          dwell_time: 0.0
+          retract_spindle_direction: "M04"
+      boring:
+        G86:
+          retract_mode: "G98"
+          dwell_time: 0.5
+          retract_type: "rapid"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+        G89:
+          retract_mode: "G99"
+          dwell_time: 1.0
+          retract_type: "feed"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+      threading:
+        G76:
+          retract_mode: "G99"
+          lead: 1.0
+          passes: 5
+          depth_cut_first: 0.2
+          depth_cut_last: 0.05
+          finishing_passes: 2
+          taper: 0.0
+          tool_angle: 60.0
+          retract_type: "oriented"
+          shift_axis: "X"
+          shift_distance: 0.1
+          infeed_method: "compound"
+
+    subprogram:
+      call_format: "M98 P{program_num:04d} L{repeat}"
+      end_code: "M99"
+      program_number:
+        minimum: 1
+        maximum: 9999
+        format: "{:04d}"
+      repeat:
+        default: 1
+        minimum: 1
+        maximum: 9999
+      macro_variables:
+        local:
+          range: [1, 33]
+        common:
+          range: [100, 199]
+        system:
+          range: [1000, 1999]
+
+  # =========================================================================
+  # KND 1000/2000/3000（凯恩帝）系列控制器配置（Fanuc 0i 兼容方言）
+  # =========================================================================
+  knd:
+    target_controller: knd_1000_2000_3000
+    safe_z_height: 50.0
+
+    spindle:
+      max_rpm: 8000
+
+    feed:
+      max_rate: 6000.0
+
+    tool_offset:
+      length_registers:
+        start: 1
+        end: 200
+      radius_registers:
+        start: 1
+        end: 200
+        compensation_types:
+          G41:
+            register_range: [1, 199]
+          G42:
+            register_range: [1, 199]
+
+    fixed_cycles:
+      drilling:
+        G81:
+          retract_mode: "G98"
+          peck_depth: 2.0
+          retract_distance: 1.0
+        G83:
+          retract_mode: "G98"
+          peck_depth: 5.0
+          retract_distance: 1.0
+          dwell_time: 0.1
+          decrement_type: "constant"
+      tapping:
+        G84:
+          spindle_direction: "M03"
+          feed_per_rev: true
+          dwell_time: 0.0
+          retract_spindle_direction: "M04"
+      boring:
+        G86:
+          retract_mode: "G98"
+          dwell_time: 0.5
+          retract_type: "rapid"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+        G89:
+          retract_mode: "G99"
+          dwell_time: 1.0
+          retract_type: "feed"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+      threading:
+        G76:
+          retract_mode: "G99"
+          lead: 1.0
+          passes: 5
+          depth_cut_first: 0.2
+          depth_cut_last: 0.05
+          finishing_passes: 2
+          taper: 0.0
+          tool_angle: 60.0
+          retract_type: "oriented"
+          shift_axis: "X"
+          shift_distance: 0.1
+          infeed_method: "compound"
+
+    subprogram:
+      call_format: "M98 P{program_num:04d} L{repeat}"
+      end_code: "M99"
+      program_number:
+        minimum: 1
+        maximum: 9999
+        format: "{:04d}"
+      repeat:
+        default: 1
+        minimum: 1
+        maximum: 9999
+      macro_variables:
+        local:
+          range: [1, 33]
+        common:
+          range: [100, 199]
+        system:
+          range: [1000, 1999]
+
+  # =========================================================================
+  # Mitsubishi M70/M80（三菱）系列控制器配置
+  # =========================================================================
+  mitsubishi:
+    target_controller: mitsubishi_m70_m80
+    safe_z_height: 50.0
+
+    spindle:
+      max_rpm: 12000
+
+    feed:
+      max_rate: 10000.0
+
+    tool_offset:
+      length_registers:
+        start: 1
+        end: 200
+      radius_registers:
+        start: 1
+        end: 200
+        compensation_types:
+          G41:
+            register_range: [1, 199]
+          G42:
+            register_range: [1, 199]
+
+    fixed_cycles:
+      drilling:
+        G81:
+          retract_mode: "G98"
+          peck_depth: 2.0
+          retract_distance: 1.0
+        G83:
+          retract_mode: "G98"
+          peck_depth: 5.0
+          retract_distance: 1.0
+          dwell_time: 0.1
+          decrement_type: "constant"
+      tapping:
+        G84:
+          spindle_direction: "M03"
+          feed_per_rev: true
+          dwell_time: 0.0
+          retract_spindle_direction: "M04"
+      boring:
+        G86:
+          retract_mode: "G98"
+          dwell_time: 0.5
+          retract_type: "rapid"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+        G89:
+          retract_mode: "G99"
+          dwell_time: 1.0
+          retract_type: "feed"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+      threading:
+        G76:
+          retract_mode: "G99"
+          lead: 1.0
+          passes: 5
+          depth_cut_first: 0.2
+          depth_cut_last: 0.05
+          finishing_passes: 2
+          taper: 0.0
+          tool_angle: 60.0
+          retract_type: "oriented"
+          shift_axis: "X"
+          shift_distance: 0.1
+          infeed_method: "compound"
+
+    subprogram:
+      call_format: "M98 P{program_num:04d} L{repeat}"
+      end_code: "M99"
+      program_number:
+        minimum: 1
+        maximum: 9999
+        format: "{:04d}"
+      repeat:
+        default: 1
+        minimum: 1
+        maximum: 9999
+      macro_variables:
+        local:
+          range: [1, 33]
+        common:
+          range: [100, 199]
+        system:
+          range: [1000, 1999]
+
+  # =========================================================================
+  # Fagor 8055（法格）系列控制器配置
+  # =========================================================================
+  fagor:
+    target_controller: fagor_8055
+    safe_z_height: 50.0
+
+    spindle:
+      max_rpm: 12000
+
+    feed:
+      max_rate: 10000.0
+
+    tool_offset:
+      length_registers:
+        start: 1
+        end: 200
+      radius_registers:
+        start: 1
+        end: 200
+        compensation_types:
+          G41:
+            register_range: [1, 199]
+          G42:
+            register_range: [1, 199]
+
+    fixed_cycles:
+      drilling:
+        G81:
+          retract_mode: "G98"
+          peck_depth: 2.0
+          retract_distance: 1.0
+        G83:
+          retract_mode: "G98"
+          peck_depth: 5.0
+          retract_distance: 1.0
+          dwell_time: 0.1
+          decrement_type: "constant"
+      tapping:
+        G84:
+          spindle_direction: "M03"
+          feed_per_rev: true
+          dwell_time: 0.0
+          retract_spindle_direction: "M04"
+      boring:
+        # Fagor G86 = 镗削循环（带主轴停止），与 Fanuc 一致
+        G86:
+          retract_mode: "G98"
+          dwell_time: 0.5
+          retract_type: "rapid"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+        G89:
+          retract_mode: "G99"
+          dwell_time: 1.0
+          retract_type: "feed"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+      threading:
+        # Fagor 8055 螺纹循环用 G76（与 Fanuc 一致）
+        G76:
+          retract_mode: "G99"
+          lead: 1.0
+          passes: 5
+          depth_cut_first: 0.2
+          depth_cut_last: 0.05
+          finishing_passes: 2
+          taper: 0.0
+          tool_angle: 60.0
+          retract_type: "oriented"
+          shift_axis: "X"
+          shift_distance: 0.1
+          infeed_method: "compound"
+
+    subprogram:
+      call_format: "M98 P{program_num:04d} L{repeat}"
+      end_code: "M99"
+      program_number:
+        minimum: 1
+        maximum: 9999
+        format: "{:04d}"
+      repeat:
+        default: 1
+        minimum: 1
+        maximum: 9999
+      macro_variables:
+        local:
+          range: [1, 33]
+        common:
+          range: [100, 199]
+        system:
+          range: [1000, 1999]
+
+  # =========================================================================
+  # XMachine XM-100（数马电子桌面级五轴加工中心）配置
+  # =========================================================================
+  # 机床参数：
+  #   - 行程：X/Y/Z 100×100×100mm
+  #   - 旋转轴：A(-30°~110°) / C(0°~360°)
+  #   - 主轴：20000 RPM / 2.2kW ER20 水冷
+  #   - 进给：最大 3000 mm/min
+  #   - 控制器：Xmaker（Fanuc 0i 兼容方言）
+  # 特性：
+  #   - 支持 G43.4 RTCP / G43.5 TWP 五轴刀轴控制
+  #   - 桌面级刚性约束（低进给、小切深）
+  #   - 工作空间硬约束（100×100×100mm）
+  # =========================================================================
+  xmachine:
+    target_controller: xmachine_xm100
+    safe_z_height: 30.0              # XM-100 Z行程仅100mm，安全高度30mm
+    rapid_feed: 2000                 # 桌面级快速移动 2000mm/min
+
+    spindle:
+      min_rpm: 1000                  # XM-100 主轴下限
+      max_rpm: 20000                 # XM-100 主轴上限
+      default_rpm: 8000
+
+    feed:
+      min_rate: 10.0
+      max_rate: 3000.0               # XM-100 进给上限
+      default_rate: 500.0
+
+    work_coordinate:
+      G54:
+        x_offset: 0.0
+        y_offset: 0.0
+        z_offset: 0.0
+        enabled: true
+      G55:
+        x_offset: 0.0
+        y_offset: 0.0
+        z_offset: 0.0
+        enabled: false
+      G56:
+        x_offset: 0.0
+        y_offset: 0.0
+        z_offset: 0.0
+        enabled: false
+      G57:
+        x_offset: 0.0
+        y_offset: 0.0
+        z_offset: 0.0
+        enabled: false
+      G58:
+        x_offset: 0.0
+        y_offset: 0.0
+        z_offset: 0.0
+        enabled: false
+      G59:
+        x_offset: 0.0
+        y_offset: 0.0
+        z_offset: 0.0
+        enabled: false
+      default_coordinate_system: G54
+
+    tool_offset:
+      length_registers:
+        start: 1
+        end: 32                     # XM-100 刀位较少
+        default_offset: 0.0
+      radius_registers:
+        start: 1
+        end: 32
+        default_offset: 0.0
+        compensation_types:
+          G41:
+            register_range: [1, 32]
+          G42:
+            register_range: [1, 32]
+
+    fixed_cycles:
+      drilling:
+        G81:
+          retract_mode: "G98"
+          peck_depth: 2.0           # XM-100 小啄钻
+          retract_distance: 1.0
+        G83:
+          retract_mode: "G98"
+          peck_depth: 2.0           # 桌面级小切深
+          retract_distance: 1.0
+          dwell_time: 0.1
+          decrement_type: "constant"
+      tapping:
+        G84:
+          spindle_direction: "M03"
+          feed_per_rev: true
+          dwell_time: 0.0
+          retract_spindle_direction: "M04"
+      boring:
+        G86:
+          retract_mode: "G98"
+          dwell_time: 0.5
+          retract_type: "rapid"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+        G89:
+          retract_mode: "G99"
+          dwell_time: 1.0
+          retract_type: "feed"
+          orient_spindle: false
+          shift_axis: null
+          shift_distance: 0.0
+      threading:
+        G76:
+          retract_mode: "G99"
+          lead: 1.0
+          passes: 5
+          depth_cut_first: 0.2
+          depth_cut_last: 0.05
+          finishing_passes: 2
+          taper: 0.0
+          tool_angle: 60.0
+          retract_type: "oriented"
+          shift_axis: "X"
+          shift_distance: 0.1
+          infeed_method: "compound"
+
+    subprogram:
+      call_format: "M98 P{program_num:04d} L{repeat}"
+      end_code: "M99"
+      program_number:
+        minimum: 1
+        maximum: 9999
+        format: "{:04d}"
+      repeat:
+        default: 1
+        minimum: 1
+        maximum: 9999
+      macro_variables:
+        local:
+          range: [1, 33]
+        common:
+          range: [100, 199]
+        system:
+          range: [1000, 1999]

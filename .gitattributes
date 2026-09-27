@@ -1,0 +1,48 @@
+# 统一换行：文本文件一律 LF（仓库既有内容为 LF，消除 Windows autocrlf 警告）。
+# 注意：本块必须位于 LFS 规则之前——gitattributes 后行覆盖先行，
+# 底部 LFS 条目的 -text 依赖此顺序保持优先。
+* text=auto eol=lf
+
+# Windows 脚本保留 CRLF（cmd 批处理对 LF 兼容性差）
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# 二进制文件（禁止换行/编码转换；大模型文件见底部 LFS 规则）
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.icns binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.zip binary
+*.gz binary
+*.7z binary
+*.whl binary
+*.exe binary
+*.dll binary
+*.pyd binary
+*.db binary
+*.sqlite binary
+*.npz binary
+*.npy binary
+*.parquet binary
+*.stl binary
+*.step binary
+
+*.h5 filter=lfs diff=lfs merge=lfs -text
+*.hdf5 filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
+*.pth filter=lfs diff=lfs merge=lfs -text
+*.onnx filter=lfs diff=lfs merge=lfs -text
+*.pkl filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
+data/traces/** filter=lfs diff=lfs merge=lfs -text
+data/external/cnc_machining/** filter=lfs diff=lfs merge=lfs -text

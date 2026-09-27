@@ -1,0 +1,205 @@
+{
+  "part_id": "bracket",
+  "part_name": "支架",
+  "part_type": "bracket",
+  "material": "HT250",
+  "material_grade": "GB/T 9439-2010",
+  "overall_dimensions": {
+    "length": 150.0,
+    "width": 80.0,
+    "height": 100.0
+  },
+  "tolerance_grade": "IT7",
+  "features": [
+    {
+      "name": "base_plate",
+      "feature_type": "plate",
+      "parameters": { "length": 150.0, "width": 80.0, "thickness": 15.0 },
+      "area": 24000.0,
+      "volume": 180000.0,
+      "bbox": [0, 0, 600, 320],
+      "bbox_3d": [0, 0, 0, 150, 80, 15]
+    },
+    {
+      "name": "vertical_rib",
+      "feature_type": "rib",
+      "parameters": { "height": 85.0, "thickness": 12.0 },
+      "area": 10200.0,
+      "volume": 15300.0,
+      "bbox": [200, 0, 400, 320],
+      "bbox_3d": [40, 0, 15, 40, 80, 100]
+    },
+    {
+      "name": "mounting_hole_1",
+      "feature_type": "through_hole",
+      "parameters": { "diameter": 12.0 },
+      "area": 452.39,
+      "volume": 1696.46,
+      "bbox": [40, 40, 200, 200],
+      "bbox_3d": [20, 20, 0, 20, 20, 15]
+    },
+    {
+      "name": "mounting_hole_2",
+      "feature_type": "through_hole",
+      "parameters": { "diameter": 12.0 },
+      "area": 452.39,
+      "volume": 1696.46,
+      "bbox": [400, 40, 560, 200],
+      "bbox_3d": [130, 20, 0, 130, 20, 15]
+    },
+    {
+      "name": "mounting_hole_3",
+      "feature_type": "through_hole",
+      "parameters": { "diameter": 12.0 },
+      "area": 452.39,
+      "volume": 1696.46,
+      "bbox": [40, 160, 200, 320],
+      "bbox_3d": [20, 60, 0, 20, 60, 15]
+    },
+    {
+      "name": "mounting_hole_4",
+      "feature_type": "through_hole",
+      "parameters": { "diameter": 12.0 },
+      "area": 452.39,
+      "volume": 1696.46,
+      "bbox": [400, 160, 560, 320],
+      "bbox_3d": [130, 60, 0, 130, 60, 15]
+    },
+    {
+      "name": "bearing_seat",
+      "feature_type": "bore",
+      "parameters": { "diameter": 35.0, "depth": 30.0 },
+      "area": 3848.45,
+      "volume": 28863.40,
+      "bbox": [200, 120, 400, 200],
+      "bbox_3d": [60, 40, 55, 95, 40, 85]
+    },
+    {
+      "name": "keyway_slot",
+      "feature_type": "slot",
+      "parameters": { "width": 8.0, "length": 25.0, "depth": 4.0 },
+      "area": 400.0,
+      "volume": 800.0,
+      "bbox": [280, 140, 320, 180],
+      "bbox_3d": [70, 36, 70, 95, 44, 74]
+    },
+    {
+      "name": "step_surface",
+      "feature_type": "step",
+      "parameters": { "height": 5.0, "width": 60.0 },
+      "area": 3000.0,
+      "volume": 2250.0,
+      "bbox": [200, 0, 400, 320],
+      "bbox_3d": [40, 0, 15, 40, 60, 20]
+    }
+  ],
+  "dimensions": [
+    {
+      "name": "base_length",
+      "nominal": 150.0,
+      "unit": "mm",
+      "tolerance_upper": 0.040,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "底板长度"
+    },
+    {
+      "name": "base_width",
+      "nominal": 80.0,
+      "unit": "mm",
+      "tolerance_upper": 0.030,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "底板宽度"
+    },
+    {
+      "name": "base_thickness",
+      "nominal": 15.0,
+      "unit": "mm",
+      "tolerance_upper": 0.018,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "底板厚度"
+    },
+    {
+      "name": "rib_height",
+      "nominal": 85.0,
+      "unit": "mm",
+      "tolerance_upper": 0.035,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "筋板高度"
+    },
+    {
+      "name": "bearing_bore_dia",
+      "nominal": 35.0,
+      "unit": "mm",
+      "tolerance_upper": 0.025,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "轴承座孔径"
+    },
+    {
+      "name": "mounting_hole_dia",
+      "nominal": 12.0,
+      "unit": "mm",
+      "tolerance_upper": 0.018,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "安装孔直径"
+    },
+    {
+      "name": "hole_spacing_x",
+      "nominal": 110.0,
+      "unit": "mm",
+      "tolerance_upper": 0.035,
+      "tolerance_lower": -0.035,
+      "tolerance_grade": "IT7",
+      "description": "安装孔X向间距"
+    },
+    {
+      "name": "hole_spacing_y",
+      "nominal": 40.0,
+      "unit": "mm",
+      "tolerance_upper": 0.025,
+      "tolerance_lower": -0.025,
+      "tolerance_grade": "IT7",
+      "description": "安装孔Y向间距"
+    },
+    {
+      "name": "keyway_width",
+      "nominal": 8.0,
+      "unit": "mm",
+      "tolerance_upper": 0.022,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT8",
+      "description": "键槽宽度"
+    },
+    {
+      "name": "step_height",
+      "nominal": 5.0,
+      "unit": "mm",
+      "tolerance_upper": 0.012,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "台阶高度"
+    }
+  ],
+  "topology": [
+    { "feature_a": "base_plate", "feature_b": "vertical_rib", "relation": "perpendicular_fixed" },
+    { "feature_a": "base_plate", "feature_b": "mounting_hole_1", "relation": "contains" },
+    { "feature_a": "base_plate", "feature_b": "mounting_hole_2", "relation": "contains" },
+    { "feature_a": "base_plate", "feature_b": "mounting_hole_3", "relation": "contains" },
+    { "feature_a": "base_plate", "feature_b": "mounting_hole_4", "relation": "contains" },
+    { "feature_a": "base_plate", "feature_b": "step_surface", "relation": "contains" },
+    { "feature_a": "vertical_rib", "feature_b": "bearing_seat", "relation": "contains_concentric" },
+    { "feature_a": "bearing_seat", "feature_b": "keyway_slot", "relation": "intersects" },
+    { "feature_a": "mounting_hole_1", "feature_b": "mounting_hole_2", "relation": "parallel_spacing_110mm" },
+    { "feature_a": "mounting_hole_1", "feature_b": "mounting_hole_3", "relation": "parallel_spacing_40mm" },
+    { "feature_a": "mounting_hole_2", "feature_b": "mounting_hole_4", "relation": "parallel_spacing_40mm" },
+    { "feature_a": "mounting_hole_3", "feature_b": "mounting_hole_4", "relation": "parallel_spacing_110mm" }
+  ],
+  "version": "1.0.0",
+  "created": "2026-05-16T08:00:00Z",
+  "description": "标准支架零件，包含底板、筋板、轴承座、键槽、4个安装孔和台阶面，用于检验复杂结构件的3D重建精度"
+}

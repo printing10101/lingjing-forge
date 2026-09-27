@@ -1,0 +1,7 @@
+G75 Z0.
+G75 X0. Y0.
+T{{ "%02d" | format(tool_id) }} M06
+G00 G90 {{ pp._default_coordinate_system }} X0. Y0.
+G00 G43 Z{{ pp.safe_z_height | fmt }} H{{ "%02d" | format(tool_id) }}
+G01 Z{{ length_comp | fmt }} F{{ pp.get_feed_rate(pp.rapid_feed) | fmt }}
+{% if radius_comp != 0.0 %}M03 S{{ pp.get_spindle_rpm() | int }}{% endif %}

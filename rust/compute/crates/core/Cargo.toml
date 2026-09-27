@@ -1,0 +1,25 @@
+[package]
+name = "compute-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Voxel cutting simulation core algorithms (pure Rust, no Python deps)."
+
+[lib]
+name = "compute_core"
+path = "src/lib.rs"
+crate-type = ["rlib"]
+
+[dependencies]
+# 内部
+thiserror = { workspace = true }
+log = { workspace = true }
+
+[dev-dependencies]
+criterion = { workspace = true }
+
+[[bench]]
+name = "cutting_bench"
+harness = false

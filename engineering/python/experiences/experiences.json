@@ -1,0 +1,74 @@
+{
+  "experiences": {
+    "exp-20260507185655-uniwear-": {
+      "experience_id": "exp-20260507185655-uniwear-",
+      "task_id": "uniwear-nuaa-W3",
+      "process": "NUAA正交切削",
+      "parameters": {
+        "material": "TC4",
+        "material_full": "Titanium TC4 (Ti-6Al-4V)",
+        "experiment": "W3",
+        "dataset": "nuaa",
+        "process": "NUAA正交切削"
+      },
+      "metrics": {
+        "initial_wear": 0.06,
+        "final_wear": 0.17,
+        "max_wear": 0.17,
+        "mean_wear_rate": 5.67e-06,
+        "total_wear_increment": 0.11,
+        "sample_count": 19408
+      },
+      "validation_result": {
+        "is_valid": true,
+        "source": "uniwear-nuaa",
+        "experiment": "W3"
+      },
+      "ground_truth_validation": {},
+      "metadata": {
+        "source": "uniwear-nuaa",
+        "material": "TC4",
+        "experiment": "W3",
+        "wear_curve_length": 19408
+      },
+      "created_at": "2026-05-07T18:56:55.933272",
+      "updated_at": "2026-05-07T18:56:55.933272"
+    },
+    "exp-20260507185656-uniwear-": {
+      "experience_id": "exp-20260507185656-uniwear-",
+      "task_id": "uniwear-phm2010-c6",
+      "process": "PHM2010全寿命切削",
+      "parameters": {
+        "material": "HRC52",
+        "material_full": "Stainless Steel HRC52",
+        "experiment": "c6",
+        "dataset": "phm2010",
+        "process": "PHM2010全寿命切削"
+      },
+      "metrics": {
+        "initial_wear": 0.062789,
+        "final_wear": 0.234716,
+        "max_wear": 0.234716,
+        "mean_wear_rate": 4.96e-06,
+        "total_wear_increment": 0.171927,
+        "sample_count": 34674
+      },
+      "validation_result": {
+        "is_valid": true,
+        "source": "uniwear-phm2010",
+        "experiment": "c6"
+      },
+      "ground_truth_validation": {},
+      "metadata": {
+        "source": "uniwear-phm2010",
+        "material": "HRC52",
+        "experiment": "c6",
+        "wear_curve_length": 34674
+      },
+      "created_at": "2026-05-07T18:56:56.984854",
+      "updated_at": "2026-05-07T18:56:56.984854"
+    }
+  },
+  "validation_history": {},
+  "updated_at": "2026-05-07T18:56:56.985853"
+}

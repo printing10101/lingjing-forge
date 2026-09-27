@@ -1,0 +1,80 @@
+{
+  "schema": "inspectability-criteria",
+  "version": "1.1",
+  "frozen_at": "2026-09-27",
+  "frozen_before_first_run": true,
+  "note": "本文件在跑批之前冻结。改判据必须升 version 并留旧版，不得回写。",
+
+  "revisions": [
+    {
+      "version": "1.1",
+      "at": "2026-09-27",
+      "before_any_assessment_run": true,
+      "changes": [
+        "视线遮挡的射线方向符号写反：沿 -v 回射会在 eps 处命中采样点自身所在面片，导致开阔顶面 900 采样点 100% 判为不可见。实现改为沿 +v 前投，符号约定写进 access._occluded 文档。",
+        "触觉球干涉改为只考察切平面前侧采样点。原 exclusion_factor 帽半径 3mm 大于壳体壁厚 2mm，把顶盖内表面『自己的外壳』误当成撞球体，使局部可达性判据失效。新增 tangent_tolerance_mm / collision_tolerance_mm，废弃 collision_exclusion_radius_factor。"
+      ]
+    }
+  ],
+
+  "decision_rule": {
+    "kind": "guard_band_collapse",
+    "guard_factor_k": 3.0,
+    "derivation": "接受域宽度 = T - k*U95（双边带 T，护栏取 k 倍扩展不确定度）。k*U95 >= T 时接受域归零，任何一件都判不出合格。故『可认证』的几何必要条件是 U95 <= T/k，k=3。",
+    "reference": "闭式误判率一阶律 alpha ≈ 0.4*(U95/T)（本次会话推得，闭式与 2e6 网格积分互校）；判定规则框架见 JCGM 106:2012 / ISO 14253-1 谱系"
+  },
+
+  "primary_metric": {
+    "name": "uncertainty_budget",
+    "symbol": "U95_required / T",
+    "definition": "1 / (k * P)，P 取面积均匀采样的 sec(theta_min) 的 99 分位",
+    "free_parameters": 0,
+    "why_instrument_free": "结论只依赖几何惩罚 P 与公差带 T。量具指标表仅用于把 U95/T 翻译成『哪一档量具够用』，不进入结论，读者可替换自己的厂商值重算。"
+  },
+
+  "geometry_model": {
+    "surface_samples": 1500,
+    "area_weighted": true,
+    "view_direction_count": 42,
+    "optic_max_incidence_deg": 60.0,
+    "ray_epsilon_mm": 0.02,
+    "ray_length_mm": 40.0,
+    "density_samples_for_collision": 60000,
+    "ball_radius_mm": 1.497,
+    "holder_radius_mm": 2.5,
+    "holder_length_mm": 12.0,
+    "tangent_tolerance_mm": 0.75,
+    "collision_tolerance_mm": 0.05,
+    "seed": 20260927
+  },
+
+  "assumptions": [
+    "A1 光学惩罚取 sec(theta)：入射角使投影条纹/像素在法向尺度上拉伸，为一级近似；未用厂商标定曲线。[ASSUMPTION-未实测]",
+    "A2 视线遮挡用单工位固定装夹、42 向离散视线近似。若允许转台/多工位重定位，P 会下降，故本口径是保守上界；离散化带来的角度分辨率误差见敏感性测试。[ASSUMPTION]",
+    "A3 触觉可达性用球心-表面距离与柄部间隙近似（KDTree 面采样），未做三角形精确偏置面求交；离散误差量级 ~ 采样间距，故留 collision_tolerance_mm 余量。[ASSUMPTION]",
+    "A3b 摆杆模型为柄部沿接触法向（扫描/摆杆测头），且不建模摆杆进入封闭型腔所需的全局路径（那要求有开孔）。叶片是外露件，此项次要；评内腔件必须补。",
+    "A4 本模块只算几何决定的可达与入射惩罚，不含温度、夹具变形、标准器溯源链、操作员因素。",
+    "A5 公差带 T 作为显式输入（CLI --band）。主指标 U95/T 与 T 无关，翻译成绝对微米数时才用到 T，故结论对 T 的取值不敏感。"
+  ],
+
+  "instrument_ladder_for_translation_only": {
+    "provenance_warning": "以下 U95 是便于阅读的量级锚点，非本次核实值；投稿前必须换成厂商指标或 ISO 10360 验收值并逐条给出处。[UNVERIFIED]",
+    "cmm_tactile_mm": 0.003,
+    "structured_light_mm": 0.020,
+    "line_laser_mm": 0.040,
+    "photogrammetry_phone_repo_claim_mm": 0.100,
+    "photogrammetry_phone_repo_claim_source": "本仓 app/image_to_3d/precision_disclaimer.py（仓内自述，非计量验证值）"
+  },
+
+  "tolerance_reference": {
+    "blade_profile_band_mm": 0.20,
+    "provenance": "CMM Quarterly《Measuring Airfoil Blades on a CMM》报告的生产带宽 ±0.05~0.30 mm；行业文章，非国标。[需替换为一手图纸或标准]",
+    "default_band_for_other_families_mm": 0.20
+  },
+
+  "m2_acceptance": {
+    "pass": "在 S4 判为三轴可造的案例中，可检性闸门拦下的比例 >= 15%",
+    "fail_and_kill": "该比例 < 10% 则可检性只是可达性的复读，删除本节不投",
+    "control_group": "F02 螺旋输送族（真值 IoU≈1.0、undercut 0.34-0.40）"
+  }
+}

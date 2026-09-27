@@ -1,0 +1,177 @@
+# =============================================================================
+# 桌面端构建流水线（P2-4/P2-5 新增，2026-08-03）
+# 三平台构建「嵌入式 Python 运行时 + Tauri 桌面安装包」：
+#   - Windows  : msi / nsis（自包含运行时，目标机器无需 Python）
+#   - Linux    : appimage / deb
+#   - macOS    : dmg / app
+# 触发：main push（产物上传 Actions artifact）/ 发布 tag（附加到 GitHub Release）
+# =============================================================================
+name: 桌面端构建
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*.*.*']
+  workflow_dispatch:
+
+concurrency:
+  group: desktop-build-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PYTHON_VERSION: '3.12'
+  NODE_VERSION: '22'
+
+jobs:
+  desktop-build:
+    name: 桌面构建 ${{ matrix.name }}
+    runs-on: ${{ matrix.platform }}
+    # 2026-09-10：三平台构建（含嵌入式 Python 运行时 + Rust 全量编译）
+    # 实测超过 60 分钟（macOS 排队+构建共约 70 分钟即被 cancelled）
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows x64
+            platform: windows-latest
+            artifact: lingjing-desktop-windows
+          - name: Linux x64
+            platform: ubuntu-latest
+            artifact: lingjing-desktop-linux
+          - name: macOS arm64
+            platform: macos-latest
+            artifact: lingjing-desktop-macos
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: 安装 uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+        shell: bash
+
+      - name: 缓存 uv Python（python-build-standalone）
+        # 2026-09-17：命中缓存时跳过 ~200MB 解释器下载。
+        # 仅非 Windows：uv 的 python 目录含 minor-version 符号链接，
+        # actions/cache 在 Windows 上恢复后 uv 无法管理（os error 267，
+        # run 35271255004 实测），Windows 直接冷装（约 1 分钟）
+        if: runner.os != 'Windows'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/AppData/Roaming/uv/python
+            ~/.local/share/uv/python
+          key: uv-python-${{ runner.os }}-${{ env.PYTHON_VERSION }}
+
+      - name: 安装 Python ${{ env.PYTHON_VERSION }}（python-build-standalone）
+        # [2026-09-05 修复] Windows runner 默认 shell 是 pwsh，不识别 export，
+        # 原 step 未声明 bash 导致三平台矩阵在 Windows 上第一步即挂。
+        # UV_PYTHON_INSTALL_DIR 显式锚定 build_desktop_runtime.find_uv_python()
+        # 的探测路径（win32: ~/AppData/Roaming/uv/python，其余: ~/.local/share/uv/python），
+        # 避免 uv 版本默认值漂移导致"未找到完整版 Python"。
+        shell: bash
+        run: |
+          export PATH="$HOME/.local/bin:$PATH"
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            export UV_PYTHON_INSTALL_DIR="$HOME/AppData/Roaming/uv/python"
+          else
+            export UV_PYTHON_INSTALL_DIR="$HOME/.local/share/uv/python"
+          fi
+          uv python install ${{ env.PYTHON_VERSION }}
+
+      - name: 配置 pnpm
+        # 版本取自根 package.json 的 packageManager 字段（pnpm@9.15.9）
+        uses: pnpm/action-setup@v4
+
+      - name: 设置 Node.js ${{ env.NODE_VERSION }}
+        # setup-node 的 pnpm 缓存依赖 pnpm 先就位，故置于 pnpm/action-setup 之后
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+          cache-dependency-path: engineering/pnpm-lock.yaml
+
+      - name: 安装前端依赖
+        working-directory: engineering
+        run: pnpm install --frozen-lockfile
+
+      - name: 构建嵌入式 Python 运行时
+        # 探测 uv 安装的 python-build-standalone → 组装自包含运行时（含依赖与后端代码）
+        # 2026-09-18：pip 源改 pypi.org——runner 在境外，走 aliyun 镜像是跨洋
+        # 慢源（实测 nvidia 轮子单个拖 10 分钟）；torch 本身固定走 CPU 轮子
+        # 索引（见 build_desktop_runtime.py），不依赖本参数
+        shell: bash
+        run: |
+          export PATH="$HOME/.local/bin:$PATH"
+          python engineering/python/scripts/build_desktop_runtime.py --install-deps --pip-index https://pypi.org/simple
+
+      - name: 安装 Rust 工具链（Linux/macOS）
+        if: runner.os != 'Windows'
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: 安装 Tauri Linux 系统依赖
+        # [2026-09-10 修复] Tauri Linux 构建需要 GTK/WebKit 系统库，runner 默认没有，
+        # gobject-sys/glib-sys/gio-sys 的 build script 直接失败（实测）。
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libgtk-3-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            libxdo-dev \
+            libssl-dev \
+            build-essential \
+            libfuse2 \
+            curl wget file
+
+      - name: 缓存 Rust 编译产物
+        # 2026-09-17：三平台 cargo release 全量冷编译 10-25 分钟，缓存后增量
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: engineering/src-tauri
+
+      - name: 构建桌面安装包
+        working-directory: engineering
+        # NO_STRIP: linuxdeploy 自带旧版 strip 处理不了新版 binutils 编译的库
+        # （.relr.dyn 段报 "Unable to recognise the format"），tauri 只报
+        # "failed to run linuxdeploy"，官方 workaround 是 NO_STRIP=true。
+        # APPIMAGE_EXTRACT_AND_RUN: runner 无 /dev/fuse，linuxdeploy AppImage
+        # 以解包方式运行，绕开 FUSE 挂载。
+        env:
+          NO_STRIP: "1"
+          APPIMAGE_EXTRACT_AND_RUN: "1"
+        # --verbose：tauri 默认吞掉 linuxdeploy 子进程的 stderr，只报
+        # "failed to run linuxdeploy"；开 verbose 才能拿到真实报错
+        run: pnpm tauri build --verbose
+
+      - name: 上传桌面安装包
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: |
+            engineering/src-tauri/target/release/bundle/msi/*.msi
+            engineering/src-tauri/target/release/bundle/nsis/*.exe
+            engineering/src-tauri/target/release/bundle/appimage/*.AppImage
+            engineering/src-tauri/target/release/bundle/deb/*.deb
+            engineering/src-tauri/target/release/bundle/dmg/*.dmg
+            engineering/src-tauri/target/release/bundle/macos/*.app
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: 附加到 GitHub Release（仅 tag 触发）
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            engineering/src-tauri/target/release/bundle/msi/*.msi
+            engineering/src-tauri/target/release/bundle/nsis/*.exe
+            engineering/src-tauri/target/release/bundle/appimage/*.AppImage
+            engineering/src-tauri/target/release/bundle/deb/*.deb
+            engineering/src-tauri/target/release/bundle/dmg/*.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

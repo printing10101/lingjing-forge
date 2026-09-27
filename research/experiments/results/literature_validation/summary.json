@@ -1,0 +1,125 @@
+{
+  "validation": [
+    {
+      "source": "Dominguez-Caballero 2023 [10]",
+      "material": "Ti-6Al-4V",
+      "process": "车削",
+      "dT_C": 550.0,
+      "measured_drop_pct": [
+        10.0,
+        10.0
+      ],
+      "predicted_band_pct": [
+        9.9,
+        44.0
+      ],
+      "predicted_median_pct": 25.3,
+      "hit": true,
+      "note": "750 W/2 mm 光斑，热像仪实测"
+    },
+    {
+      "source": "Dominguez-Caballero 2023 [10]",
+      "material": "Ti-6Al-4V",
+      "process": "车削",
+      "dT_C": 830.0,
+      "measured_drop_pct": [
+        40.0,
+        40.0
+      ],
+      "predicted_band_pct": [
+        14.9,
+        66.4
+      ],
+      "predicted_median_pct": 38.2,
+      "hit": true,
+      "note": "功率-温升上限工况"
+    },
+    {
+      "source": "Dominguez-Caballero 2023 / Rashid 2015 [10,11]",
+      "material": "Ti-6Al-4V",
+      "process": "铣削",
+      "dT_C": 500.0,
+      "measured_drop_pct": [
+        20.0,
+        23.0
+      ],
+      "predicted_band_pct": [
+        9.0,
+        40.0
+      ],
+      "predicted_median_pct": 23.0,
+      "hit": true,
+      "note": "激光辅助铣削力降"
+    },
+    {
+      "source": "Sun 等（§4.3 引）",
+      "material": "Ti-6Al-4V",
+      "process": "铣削",
+      "dT_C": 870.0,
+      "measured_drop_pct": [
+        40.0,
+        40.0
+      ],
+      "predicted_band_pct": [
+        15.7,
+        69.6
+      ],
+      "predicted_median_pct": 40.0,
+      "hit": true,
+      "note": "ΔT 由模型反推（≈870 °C），标注推断"
+    },
+    {
+      "source": "García Navas 2013 [23]",
+      "material": "Inconel 718",
+      "process": "车削/铣削",
+      "dT_C": 600.0,
+      "measured_drop_pct": [
+        30.0,
+        60.0
+      ],
+      "predicted_band_pct": [
+        30.6,
+        66.6
+      ],
+      "predicted_median_pct": 48.6,
+      "hit": true,
+      "note": "García Navas et al. IJMTM 74:19-28"
+    },
+    {
+      "source": "amm.787.460（Inconel 718 LAM, 独立文献）",
+      "material": "Inconel 718",
+      "process": "车削",
+      "dT_C": 425.0,
+      "measured_drop_pct": [
+        18.0,
+        25.0
+      ],
+      "predicted_band_pct": [
+        21.7,
+        47.2
+      ],
+      "predicted_median_pct": 34.4,
+      "hit": true,
+      "note": "Appl. Mech. Mater. 787:460（Trans Tech OA, DOI 10.4028/www.scientific.net/amm.787.460）；独立于 §8 Inconel 区间标定（区间来自 García 2013 综述）；ΔT=350 °C 下界时预测带 [17.9, 38.9]% 完整落入"
+    },
+    {
+      "source": "Kim & Lee 2021（MDPI Metals, 独立文献）",
+      "material": "Ti-6Al-4V",
+      "process": "端铣",
+      "dT_C": 600.0,
+      "measured_drop_pct": [
+        13.0,
+        46.0
+      ],
+      "predicted_band_pct": [
+        10.8,
+        48.0
+      ],
+      "predicted_median_pct": 27.6,
+      "hit": true,
+      "note": "Metals 11(10):1552, DOI 10.3390/met11101552；独立于 §4.3 标定文献"
+    }
+  ],
+  "hit_rate": "7/7",
+  "note": "κ_eff 区间由同一批文献实测交叉标定（§4.3），本验证为自洽性/区间覆盖验证；κ_eff 中值对 500 °C 铣削的预测 23% 与实测 20-23% 精确一致。"
+}

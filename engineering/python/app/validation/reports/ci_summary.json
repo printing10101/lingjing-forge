@@ -1,0 +1,325 @@
+{
+  "bracket": {
+    "overall_pass": false,
+    "feature_recall": 1.0,
+    "feature_precision": 1.0,
+    "dimension_accuracy": {
+      "dimensions": [
+        {
+          "name": "base_length",
+          "nominal": 150.0,
+          "measured": 150.008,
+          "deviation_abs": 0.008000000000009777,
+          "deviation_rel": 5.3333333333398514e-05,
+          "tolerance_upper": 0.04,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        },
+        {
+          "name": "base_width",
+          "nominal": 80.0,
+          "measured": 79.972,
+          "deviation_abs": 0.028000000000005798,
+          "deviation_rel": 0.0003500000000000725,
+          "tolerance_upper": 0.03,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "base_thickness",
+          "nominal": 15.0,
+          "measured": 14.987,
+          "deviation_abs": 0.0129999999999999,
+          "deviation_rel": 0.00086666666666666,
+          "tolerance_upper": 0.018,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "rib_height",
+          "nominal": 85.0,
+          "measured": 84.983,
+          "deviation_abs": 0.016999999999995907,
+          "deviation_rel": 0.00019999999999995184,
+          "tolerance_upper": 0.035,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "bearing_bore_dia",
+          "nominal": 35.0,
+          "measured": 35.014,
+          "deviation_abs": 0.014000000000002899,
+          "deviation_rel": 0.00040000000000008285,
+          "tolerance_upper": 0.025,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        },
+        {
+          "name": "mounting_hole_dia",
+          "nominal": 12.0,
+          "measured": 12.011,
+          "deviation_abs": 0.010999999999999233,
+          "deviation_rel": 0.0009166666666666027,
+          "tolerance_upper": 0.018,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        },
+        {
+          "name": "hole_spacing_x",
+          "nominal": 110.0,
+          "measured": 110.024,
+          "deviation_abs": 0.02400000000000091,
+          "deviation_rel": 0.00021818181818182645,
+          "tolerance_upper": 0.035,
+          "tolerance_lower": -0.035,
+          "within_tolerance": true
+        },
+        {
+          "name": "hole_spacing_y",
+          "nominal": 40.0,
+          "measured": 39.975,
+          "deviation_abs": 0.02499999999999858,
+          "deviation_rel": 0.0006249999999999645,
+          "tolerance_upper": 0.025,
+          "tolerance_lower": -0.025,
+          "within_tolerance": true
+        },
+        {
+          "name": "keyway_width",
+          "nominal": 8.0,
+          "measured": 7.995,
+          "deviation_abs": 0.004999999999999893,
+          "deviation_rel": 0.0006249999999999867,
+          "tolerance_upper": 0.022,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "step_height",
+          "nominal": 5.0,
+          "measured": 4.972,
+          "deviation_abs": 0.02799999999999958,
+          "deviation_rel": 0.005599999999999916,
+          "tolerance_upper": 0.012,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        }
+      ],
+      "mean_absolute_deviation": 0.017,
+      "max_absolute_deviation": 0.028,
+      "mean_relative_deviation": 0.00099,
+      "max_relative_deviation": 0.0056,
+      "within_tolerance_count": 5,
+      "total_count": 10
+    },
+    "tolerance_compliance": 50.0,
+    "topology_correctness": 1.0,
+    "duration_seconds": 0.01,
+    "warnings": [
+      "公差符合度 50.0% 低于阈值 95.0%"
+    ]
+  },
+  "flange": {
+    "overall_pass": false,
+    "feature_recall": 1.0,
+    "feature_precision": 1.0,
+    "dimension_accuracy": {
+      "dimensions": [
+        {
+          "name": "OD",
+          "nominal": 120.0,
+          "measured": 120.008,
+          "deviation_abs": 0.007999999999995566,
+          "deviation_rel": 6.666666666662971e-05,
+          "tolerance_upper": 0.035,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        },
+        {
+          "name": "center_bore_dia",
+          "nominal": 40.0,
+          "measured": 39.972,
+          "deviation_abs": 0.027999999999998693,
+          "deviation_rel": 0.0006999999999999674,
+          "tolerance_upper": 0.025,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "thickness",
+          "nominal": 15.0,
+          "measured": 14.987,
+          "deviation_abs": 0.0129999999999999,
+          "deviation_rel": 0.00086666666666666,
+          "tolerance_upper": 0.018,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "bolt_hole_dia",
+          "nominal": 10.0,
+          "measured": 9.983,
+          "deviation_abs": 0.01699999999999946,
+          "deviation_rel": 0.001699999999999946,
+          "tolerance_upper": 0.015,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "pcd",
+          "nominal": 90.0,
+          "measured": 90.014,
+          "deviation_abs": 0.013999999999995794,
+          "deviation_rel": 0.0001555555555555088,
+          "tolerance_upper": 0.035,
+          "tolerance_lower": -0.035,
+          "within_tolerance": true
+        },
+        {
+          "name": "chamfer_width",
+          "nominal": 1.0,
+          "measured": 1.011,
+          "deviation_abs": 0.010999999999999899,
+          "deviation_rel": 0.010999999999999899,
+          "tolerance_upper": 0.1,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        }
+      ],
+      "mean_absolute_deviation": 0.015,
+      "max_absolute_deviation": 0.028,
+      "mean_relative_deviation": 0.00241,
+      "max_relative_deviation": 0.011,
+      "within_tolerance_count": 3,
+      "total_count": 6
+    },
+    "tolerance_compliance": 50.0,
+    "topology_correctness": 1.0,
+    "duration_seconds": 0.0,
+    "warnings": [
+      "公差符合度 50.0% 低于阈值 95.0%"
+    ]
+  },
+  "stepped_shaft": {
+    "overall_pass": false,
+    "feature_recall": 1.0,
+    "feature_precision": 1.0,
+    "dimension_accuracy": {
+      "dimensions": [
+        {
+          "name": "D1",
+          "nominal": 50.0,
+          "measured": 50.008,
+          "deviation_abs": 0.008000000000002672,
+          "deviation_rel": 0.00016000000000005344,
+          "tolerance_upper": 0.025,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        },
+        {
+          "name": "D2",
+          "nominal": 40.0,
+          "measured": 39.972,
+          "deviation_abs": 0.027999999999998693,
+          "deviation_rel": 0.0006999999999999674,
+          "tolerance_upper": 0.025,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "D3",
+          "nominal": 30.0,
+          "measured": 29.987,
+          "deviation_abs": 0.013000000000001677,
+          "deviation_rel": 0.0004333333333333892,
+          "tolerance_upper": 0.021,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "D4",
+          "nominal": 25.0,
+          "measured": 24.983,
+          "deviation_abs": 0.01699999999999946,
+          "deviation_rel": 0.0006799999999999784,
+          "tolerance_upper": 0.021,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "L1",
+          "nominal": 40.0,
+          "measured": 40.014,
+          "deviation_abs": 0.014000000000002899,
+          "deviation_rel": 0.0003500000000000725,
+          "tolerance_upper": 0.025,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        },
+        {
+          "name": "L2",
+          "nominal": 50.0,
+          "measured": 50.011,
+          "deviation_abs": 0.011000000000002785,
+          "deviation_rel": 0.0002200000000000557,
+          "tolerance_upper": 0.025,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        },
+        {
+          "name": "L3",
+          "nominal": 60.0,
+          "measured": 60.024,
+          "deviation_abs": 0.02400000000000091,
+          "deviation_rel": 0.00040000000000001514,
+          "tolerance_upper": 0.03,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        },
+        {
+          "name": "L4",
+          "nominal": 50.0,
+          "measured": 49.975,
+          "deviation_abs": 0.02499999999999858,
+          "deviation_rel": 0.0004999999999999716,
+          "tolerance_upper": 0.025,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "chamfer_width",
+          "nominal": 2.0,
+          "measured": 1.995,
+          "deviation_abs": 0.004999999999999893,
+          "deviation_rel": 0.0024999999999999467,
+          "tolerance_upper": 0.1,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "center_hole_dia",
+          "nominal": 6.0,
+          "measured": 5.972,
+          "deviation_abs": 0.02799999999999958,
+          "deviation_rel": 0.004666666666666597,
+          "tolerance_upper": 0.012,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        }
+      ],
+      "mean_absolute_deviation": 0.017,
+      "max_absolute_deviation": 0.028,
+      "mean_relative_deviation": 0.00106,
+      "max_relative_deviation": 0.00467,
+      "within_tolerance_count": 4,
+      "total_count": 10
+    },
+    "tolerance_compliance": 40.0,
+    "topology_correctness": 1.0,
+    "duration_seconds": 0.0,
+    "warnings": [
+      "公差符合度 40.0% 低于阈值 95.0%"
+    ]
+  }
+}

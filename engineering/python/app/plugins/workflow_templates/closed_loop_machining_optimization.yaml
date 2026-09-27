@@ -1,0 +1,320 @@
+# 闭环加工优化工作流模板（7 节点线性 DAG）
+#
+# 对应 ADR-017（世界模型与 RL 模块）第 3 节。
+#
+# 典型场景：感知传感器状态 → 世界模型预测未来状态轨迹 → RL agent 决策最优动作
+#           → 生成切削参数与 G-code → CAM 软件二次验证 → 派工执行（v1 停在 CAM 验证层）
+#           → 实际加工结果回写数据飞轮。
+#
+# 节点拓扑（7 节点线性 DAG）：
+#   perceive → predict → decide → generate_params → validate_cam → execute → collect_feedback
+#
+# 设计要点：
+#   1. task_type 为声明式标识，handler 由各插件通过 TaskHandler 协议注册：
+#      - data_ingest:        传感器数据采集插件（阶段 4 数据飞轮）
+#      - wm_predict_state:   世界模型插件（ADR-017 第 1 节，plugins/world_model/）
+#      - rl_act:             RL agent 插件（ADR-017 第 2 节，plugins/rl_agent/）
+#      - cam_generate:       G 代码生成模块（ADR-014）
+#      - cam_validate:       CAM 软件二次验证（NX/PowerMill/PyCAM）
+#      - job_dispatch:       派工模块（v1 仅模拟执行 / CAM 仿真，不接 CNC 控制器）
+#      - flywheel_collect:   飞轮反馈采集（阶段 4，plugins/data_flywheel/）
+#   2. inputs 引用格式统一为 "${node_id.output_name}"（与 WorkflowNode.inputs 契约对齐）
+#   3. v1 物理加工硬门控：execute 节点默认 dry_run=true（仅 CAM 仿真），
+#      物理执行需"持证操作员 + 导师签字 + 保险"硬门控（project_memory 已记录）
+#   4. 安全三层兜底：
+#      - RL agent 内置 SafetyShield 硬约束（剔除危险动作）
+#      - generate_params 调用 CuttingConstraintValidator 二次校验
+#      - validate_cam 调用现有 CAM 软件做最终验证
+#   5. max_concurrent=1：闭环严格顺序执行，避免并行节点状态错乱
+#
+# 使用方式：
+#   POST /api/v1/workflows/runs
+#   body.template_id = "closed_loop_machining_optimization"
+#   body.inputs 覆盖 sensor_source / candidate_actions / baseline_state
+id: closed_loop_machining_optimization
+name: 闭环加工优化工作流
+version: 1.0.0
+description: |
+  端到端闭环加工优化：传感器感知 → 世界模型预测未来状态轨迹 →
+  RL agent 决策最优切削参数 → CAM 参数与 G-code 生成 → CAM 软件二次验证 →
+  派工执行（v1 仅 CAM 仿真）→ 实际结果回写数据飞轮。
+  v1 物理加工硬门控：停在 CAM 验证层，物理机床执行需持证操作员 + 导师签字 + 保险。
+author: 灵境制造团队
+license: MIT
+category: iteration
+tags:
+  - closed_loop
+  - world_model
+  - rl
+  - machining
+  - chatter
+  - cam
+  - flywheel
+plugin_id: ""  # 独立模板，世界模型与 RL agent 各自作为插件贡献任务类型
+homepage: ""
+required_contracts:
+  - task@>=1.0
+  - dataset@>=1.0
+  - model@>=1.0
+required_capabilities:
+  - task:submit
+  - dataset:read
+  - model:read
+inputs_schema:
+  type: object
+  properties:
+    sensor_source:
+      type: object
+      description: 传感器数据源描述（振动/切削力/声发射/温度）
+      properties:
+        signal_type:
+          type: string
+          enum: [vibration, force, acoustic_emission, temperature]
+        sampling_rate_hz:
+          type: number
+          minimum: 1
+        duration_seconds:
+          type: number
+          minimum: 0.1
+      required: [signal_type, sampling_rate_hz, duration_seconds]
+    candidate_actions:
+      type: array
+      description: 候选动作集（离散动作空间，RL agent 从中决策）
+      items:
+        type: object
+        properties:
+          spindle_speed_delta:
+            type: number
+          feed_rate_delta:
+            type: number
+          depth_of_cut_delta:
+            type: number
+      minItems: 1
+    baseline_state:
+      type: object
+      description: 当前加工状态基线（spindle_speed / feed_rate / depth_of_cut / tool_wear 等）
+    horizon:
+      type: integer
+      description: 世界模型预测步数
+      default: 10
+      minimum: 1
+      maximum: 100
+  required: [sensor_source, candidate_actions, baseline_state]
+parameters:
+  dry_run:
+    type: boolean
+    description: v1 安全开关，true 表示仅 CAM 仿真不实际加工
+    default: true
+  safety_strict_mode:
+    type: boolean
+    description: SafetyShield 严格模式（true=回退安全动作，false=裁剪到边界）
+    default: true
+  mc_dropout_samples:
+    type: integer
+    description: 世界模型不确定性估计的 MC dropout 采样次数
+    default: 20
+  cam_validator_backend:
+    type: string
+    description: CAM 验证后端（NX / PowerMill / PyCAM）
+    default: PyCAM
+
+spec:
+  name: closed_loop_machining_optimization
+  version: 1.0.0
+
+  # 工作流级输入：可被 run 请求的 inputs 字段覆盖
+  inputs:
+    sensor_source:
+      type: file
+      uri: "file://sensors/default.json"
+      metadata:
+        description: "默认传感器数据源描述（振动 + 切削力多源融合）"
+        signal_types: ["vibration", "force"]
+        sampling_rate_hz: 50000
+        duration_seconds: 5
+    candidate_actions:
+      type: file
+      uri: "file://actions/default_candidates.json"
+      metadata:
+        description: "候选动作集（离散动作空间）"
+        action_count: 8
+        action_dimensions: ["spindle_speed_delta", "feed_rate_delta", "depth_of_cut_delta"]
+    baseline_state:
+      type: file
+      uri: "file://state/baseline.json"
+      metadata:
+        description: "当前加工状态基线"
+        state_keys: ["spindle_speed", "feed_rate", "depth_of_cut", "tool_wear", "vibration_rms", "temperature"]
+
+  # 工作流级输出：引用最终节点与中间节点的产物
+  outputs:
+    recommended_action: "${decide.recommended_action}"
+    gcode: "${generate_params.gcode_artifact}"
+    cam_validation_report: "${validate_cam.validation_report_artifact}"
+    execution_result: "${execute.result_artifact}"
+    feedback_record: "${collect_feedback.feedback_artifact}"
+
+  edges:
+    - upstream: perceive
+      downstream: predict
+    - upstream: predict
+      downstream: decide
+    - upstream: decide
+      downstream: generate_params
+    - upstream: generate_params
+      downstream: validate_cam
+    - upstream: validate_cam
+      downstream: execute
+    - upstream: execute
+      downstream: collect_feedback
+
+  nodes:
+    # 1. 感知节点：采集传感器数据并提取当前状态
+    - node_id: perceive
+      task_type: data_ingest
+      params:
+        signal_types: ["vibration", "force"]
+        sampling_rate_hz: 50000
+        duration_seconds: 5
+        feature_extraction:
+          - rms
+          - kurtosis
+          - fft_band_energy
+          - wavelet_packet
+        normalize: true
+      inputs:
+        sensor_source: "${sensor_source}"
+      timeout_seconds: 300
+
+    # 2. 世界模型预测节点：基于当前状态 + 候选动作预测未来 N 步状态轨迹
+    - node_id: predict
+      task_type: wm_predict_state
+      params:
+        model_uri: "model://world_model/v1.0.0"
+        horizon: 10
+        mc_dropout_samples: 20
+        uncertainty_quantile: 0.95
+        autoregressive: true
+        anchor_context: true  # 借鉴 streaming.py 的 anchor 修正，防止漂移
+      inputs:
+        current_state: "${perceive.state_artifact}"
+        candidate_actions: "${candidate_actions}"
+      retry: 1
+      timeout_seconds: 600
+
+    # 3. RL 决策节点：基于世界模型预测的轨迹选择最优动作
+    - node_id: decide
+      task_type: rl_act
+      params:
+        policy_uri: "model://rl_policy/v1.0.0"
+        safety_strict_mode: true  # SafetyShield 硬约束严格模式
+        safety_constraints:
+          max_spindle_speed_rpm: 12000
+          min_feed_rate_mm_per_min: 50
+          max_depth_of_cut_mm: 2.0
+          max_chatter_probability: 0.5
+          max_tool_wear_increment_mm: 0.05
+        reward_weights:
+          chatter_penalty: 5.0
+          wear_penalty: 100.0
+          quality_bonus: 0.5
+          material_removal: 0.001
+        exploration_epsilon: 0.0  # 推理阶段不探索
+      inputs:
+        current_state: "${perceive.state_artifact}"
+        candidate_actions: "${candidate_actions}"
+        predicted_trajectory: "${predict.trajectory_artifact}"
+      timeout_seconds: 300
+
+    # 4. CAM 参数生成节点：根据 RL 推荐动作生成切削参数 + G-code
+    - node_id: generate_params
+      task_type: cam_generate
+      params:
+        backend: "PyCAM"
+        generate_gcode: true
+        validate_with_constraint: true  # 调用 CuttingConstraintValidator 二次校验
+        tool_library_uri: "file://tools/default.json"
+        material_library_uri: "file://materials/6061-t6.json"
+      inputs:
+        recommended_action: "${decide.recommended_action}"
+        baseline_state: "${baseline_state}"
+      retry: 1
+      timeout_seconds: 600
+
+    # 5. CAM 软件二次验证节点：使用现有 CAM 软件做最终验证（v1 安全兜底）
+    - node_id: validate_cam
+      task_type: cam_validate
+      params:
+        backend: "PyCAM"
+        check_categories:
+          - collision
+          - gouge
+          - rapid_force
+          - chatter_stability
+          - tool_deflection
+        min_safety_margin_mm: 0.1
+        fail_on_warning: false
+      inputs:
+        gcode: "${generate_params.gcode_artifact}"
+        tool_library: "${generate_params.tool_artifact}"
+      timeout_seconds: 900
+
+    # 6. 派工执行节点：v1 默认 dry_run=true（仅 CAM 仿真，不接 CNC 控制器）
+    #    物理执行需"持证操作员 + 导师签字 + 保险"硬门控（project_memory 已记录）
+    - node_id: execute
+      task_type: job_dispatch
+      params:
+        dry_run: true  # v1 硬门控：默认仅 CAM 仿真
+        simulation_backend: "PyCAM"
+        physical_execution_required_approvals:
+          - "licensed_cnc_operator"
+          - "mentor_signoff"
+          - "insurance_coverage"
+        record_execution_log: true
+      inputs:
+        gcode: "${generate_params.gcode_artifact}"
+        cam_validation_report: "${validate_cam.validation_report_artifact}"
+      timeout_seconds: 1800
+
+    # 7. 反馈回写节点：将实际/仿真结果回写数据飞轮，供下一轮迭代训练
+    - node_id: collect_feedback
+      task_type: flywheel_collect
+      params:
+        feedback_types:
+          - actual_vs_predicted
+          - chatter_outcome
+          - tool_wear_progression
+          - surface_quality
+        write_to_dataset: "dataset://feedback_records/latest"
+        link_to_workflow_run: true
+      inputs:
+        actual_result: "${execute.result_artifact}"
+        predicted_trajectory: "${predict.trajectory_artifact}"
+        recommended_action: "${decide.recommended_action}"
+      timeout_seconds: 300
+
+  metadata:
+    max_concurrent: 1  # 闭环严格顺序执行，避免并行节点状态错乱
+    tags: ["closed_loop", "world_model", "rl", "machining", "chatter", "cam", "flywheel"]
+    author: "lingjing-team"
+    template_category: "iteration"
+    # 阶段 8 验收标记：完整闭环可手动触发跑通（v1 停在 CAM 验证层）
+    acceptance_test: true
+    # v1 物理加工硬门控标记
+    v1_hard_gate: "cam_validation"
+    physical_execution_requires:
+      - "licensed_cnc_operator"
+      - "mentor_signoff"
+      - "insurance_coverage"
+    # 安全三层兜底
+    safety_layers:
+      - "rl_agent.SafetyShield"
+      - "generate_params.CuttingConstraintValidator"
+      - "validate_cam.CAMSoftware"
+    # 依赖的插件配置 section（运行时由 PluginContext.config 注入）
+    required_config_sections:
+      - world_model
+      - rl_agent
+      - cam_generation
+      - cam_validation
+      - data_flywheel

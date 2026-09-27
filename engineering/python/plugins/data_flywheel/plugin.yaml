@@ -1,0 +1,139 @@
+# 数据飞轮插件 manifest
+# 对应 core-contracts-design.md 阶段 4 p4-1
+#
+# 这是灵境制造第一个 plugin.yaml 格式的业务插件，作为契约层落地样例。
+# 飞轮反馈闭环：用户反馈采集 → 写入 IDatasetStore → 模型迭代 Workflow
+#                → 评估 → 灰度热更新至模型市场
+#
+# 依赖契约：
+#   - task@>=1.0        提交反馈采集/模型训练任务
+#   - dataset@>=1.0     写入反馈数据集、读取训练数据
+#   - observability@>=1.0  记录实验快照、飞轮指标
+
+id: data_flywheel
+name: 数据飞轮
+version: 0.1.0
+description: >-
+  数据飞轮反馈闭环插件：采集用户标注/采纳/修正反馈，写入契约化 IDatasetStore，
+  触发模型迭代 Workflow，评估通过后灰度热更新至模型市场。飞轮指标全部来自
+  真实数据源（IDatasetStore / ISnapshotStore），从 0% 开始随使用增长。
+author: 灵境制造团队
+license: MIT
+entrypoint: plugins.data_flywheel.main:Plugin
+homepage: ""
+tags:
+  - flywheel
+  - feedback
+  - mlops
+  - auto-retrain
+
+# 契约依赖（必须满足才能加载）
+required_contracts:
+  - task@>=1.0
+  - dataset@>=1.0
+  - observability@>=1.0
+
+# 必须授权的能力（核心层 CapabilityGatekeeper 校验）
+required_capabilities:
+  - task:submit              # 提交反馈采集任务
+  - task:workflow:run        # 运行模型迭代 Workflow
+  - dataset:read             # 读取训练数据集
+  - observability:snapshot:create  # 创建实验快照
+
+# 期望但非必需的能力（不可用时降级）
+optional_capabilities:
+  - dataset:write            # 写入反馈数据集（缺失则降级为只读模式）
+  - dataset:version:create   # 创建数据集版本（缺失则不版本化）
+  - config:sweep             # 超参搜索（缺失则用默认超参）
+
+dependencies: []
+
+# 插件配置 schema（JSON Schema 形式）
+# 用户可在设置页调整这些参数，核心层通过 PluginContext.config 注入
+config_schema:
+  type: object
+  properties:
+    feedback_collection:
+      type: object
+      description: 反馈采集层配置
+      properties:
+        window_hours:
+          type: integer
+          default: 24
+          minimum: 1
+          description: 反馈采集时间窗口（小时），超过此窗口的未采纳建议视为隐式拒绝
+        min_samples_for_training:
+          type: integer
+          default: 50
+          minimum: 1
+          description: 触发模型再训练所需的最小新反馈样本数
+        batch_size:
+          type: integer
+          default: 100
+          minimum: 1
+          description: 单次写入 IDatasetStore 的批次大小
+      required: [window_hours, min_samples_for_training, batch_size]
+    model_iteration:
+      type: object
+      description: 模型迭代管线配置
+      properties:
+        auto_retrain:
+          type: boolean
+          default: false
+          description: 是否在样本数达标时自动触发再训练（false=需人工触发）
+        eval_metric:
+          type: string
+          default: f1
+          enum: [f1, accuracy, precision, recall, rmse]
+          description: 模型评估指标
+        min_improvement:
+          type: number
+          default: 0.02
+          minimum: 0
+          description: 新模型必须超过当前模型的最小提升幅度（小于此幅度不切换）
+        max_retrain_per_day:
+          type: integer
+          default: 1
+          minimum: 0
+          description: 每日最大自动再训练次数（防止过拟合训练循环）
+      required: [auto_retrain, eval_metric, min_improvement, max_retrain_per_day]
+    hot_update:
+      type: object
+      description: 模型热更新与灰度切换配置
+      properties:
+        canary_ratio:
+          type: number
+          default: 0.1
+          minimum: 0
+          maximum: 1
+          description: 灰度比例（0-1），新模型先以此比例流量验证
+        canary_observation_hours:
+          type: integer
+          default: 24
+          minimum: 1
+          description: 灰度观察期（小时），观察期结束后全量切换
+        rollback_on_failure:
+          type: boolean
+          default: true
+          description: 灰度期若指标退化是否自动回滚
+        rollback_metric_drop:
+          type: number
+          default: 0.05
+          minimum: 0
+          description: 指标下降超过此阈值触发回滚
+      required: [canary_ratio, canary_observation_hours, rollback_on_failure, rollback_metric_drop]
+    metrics:
+      type: object
+      description: 飞轮指标配置
+      properties:
+        history_retention_days:
+          type: integer
+          default: 90
+          minimum: 1
+          description: 飞轮指标历史保留天数
+        snapshot_on_retrain:
+          type: boolean
+          default: true
+          description: 再训练完成时是否自动创建 ISnapshotStore 快照
+      required: [history_retention_days, snapshot_on_retrain]
+  required: [feedback_collection, model_iteration, hot_update, metrics]

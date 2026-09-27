@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package plugin;
+
+service PluginWorker {
+  rpc Initialize(InitializeRequest) returns (InitializeResponse);
+  rpc Shutdown(ShutdownRequest) returns (ShutdownResponse);
+  rpc ExecuteCommand(CommandRequest) returns (CommandResponse);
+  rpc GetStatus(StatusRequest) returns (StatusResponse);
+  rpc StreamLogs(LogStreamRequest) returns (stream LogEntry);
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+message InitializeRequest {
+  string plugin_id = 1;
+  string plugin_path = 2;
+  map<string, string> config = 3;
+  map<string, string> context = 4;
+}
+
+message InitializeResponse {
+  bool success = 1;
+  string message = 2;
+  repeated string capabilities = 3;
+}
+
+message ShutdownRequest {
+  string plugin_id = 1;
+}
+
+message ShutdownResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message CommandRequest {
+  string plugin_id = 1;
+  string command = 2;
+  bytes payload = 3;
+  map<string, string> parameters = 4;
+}
+
+message CommandResponse {
+  bool success = 1;
+  bytes result = 2;
+  string error_message = 3;
+}
+
+message StatusRequest {
+  string plugin_id = 1;
+}
+
+message StatusResponse {
+  string plugin_id = 1;
+  string status = 2;
+  int64 uptime_seconds = 3;
+  double memory_usage_mb = 4;
+  double cpu_usage_percent = 5;
+}
+
+message LogStreamRequest {
+  string plugin_id = 1;
+  int32 log_level = 2;
+}
+
+message LogEntry {
+  string plugin_id = 1;
+  int64 timestamp = 2;
+  int32 level = 3;
+  string message = 4;
+  string source = 5;
+}
+
+message HealthCheckRequest {
+  string plugin_id = 1;
+}
+
+message HealthCheckResponse {
+  bool healthy = 1;
+  string message = 2;
+  repeated string checks = 3;
+}
+
+message PluginRegistration {
+  string plugin_id = 1;
+  string name = 2;
+  string version = 3;
+  repeated string capabilities = 4;
+  string worker_address = 5;
+  int32 worker_port = 6;
+}

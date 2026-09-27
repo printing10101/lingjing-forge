@@ -1,0 +1,158 @@
+{
+  "timestamp": "2026-06-26T16:41:42.857262",
+  "overall_metrics": {
+    "MAE": 0.9769,
+    "RMSE": 1.2776,
+    "R2": -0.0703,
+    "PCC": 0.9874,
+    "MAPE": 5.056
+  },
+  "failure_cases": {
+    "num_failures": 7,
+    "total_samples": 75,
+    "failure_rate": 0.1,
+    "avg_error": 2.8082289695739746,
+    "std_error": 0.5320681929588318,
+    "max_error": 3.806222915649414,
+    "min_error": 2.2694225311279297,
+    "input_distribution": {
+      "spindle_speed_mean": 5430.97216796875,
+      "spindle_speed_std": 1806.824951171875,
+      "spindle_speed_min": 2509.44775390625,
+      "spindle_speed_max": 7259.97509765625,
+      "axial_depth_mean": 2.664163112640381,
+      "axial_depth_std": 1.2730991840362549,
+      "axial_depth_min": 0.5750289559364319,
+      "axial_depth_max": 4.786096572875977
+    },
+    "comparison_with_success": {
+      "failure_speed_mean": 5430.97216796875,
+      "success_speed_mean": 4720.72412109375,
+      "failure_depth_mean": 2.664163112640381,
+      "success_depth_mean": 2.688957691192627,
+      "speed_diff": 710.248046875,
+      "depth_diff": -0.024794578552246094
+    },
+    "physics_consistency": {
+      "failure_pcc": 0.987329320050776,
+      "failure_pred_mean": 20.253414154052734,
+      "failure_target_mean": 18.193742752075195,
+      "failure_phys_mean": 20.0
+    }
+  },
+  "boundary_analysis": {
+    "speed_bins": [
+      {
+        "range": "2046-3225",
+        "avg_error": 1.0186,
+        "std_error": 0.898,
+        "count": 21
+      },
+      {
+        "range": "3225-4405",
+        "avg_error": 1.1591,
+        "std_error": 0.4817,
+        "count": 10
+      },
+      {
+        "range": "4405-5584",
+        "avg_error": 0.7345,
+        "std_error": 0.6689,
+        "count": 19
+      },
+      {
+        "range": "5584-6764",
+        "avg_error": 1.2074,
+        "std_error": 0.9526,
+        "count": 13
+      },
+      {
+        "range": "6764-7943",
+        "avg_error": 0.8863,
+        "std_error": 0.867,
+        "count": 12
+      }
+    ],
+    "depth_bins": [
+      {
+        "range": "0.51-1.38",
+        "avg_error": 1.0396,
+        "std_error": 0.6235,
+        "count": 11
+      },
+      {
+        "range": "1.38-2.25",
+        "avg_error": 0.9161,
+        "std_error": 0.7461,
+        "count": 21
+      },
+      {
+        "range": "2.25-3.12",
+        "avg_error": 1.2282,
+        "std_error": 1.2438,
+        "count": 13
+      },
+      {
+        "range": "3.12-3.99",
+        "avg_error": 0.9197,
+        "std_error": 0.6343,
+        "count": 18
+      },
+      {
+        "range": "3.99-4.86",
+        "avg_error": 0.8394,
+        "std_error": 0.7245,
+        "count": 12
+      }
+    ],
+    "stability_boundary": {
+      "threshold_ratio": 0.15,
+      "count": 0,
+      "avg_error": 0.0,
+      "std_error": 0.0,
+      "description": "切深在极限切深的85%-115%范围内"
+    }
+  },
+  "failure_patterns": {
+    "high_speed_low_depth": {
+      "count": 17,
+      "avg_error": 0.8911,
+      "speed_threshold": ">=4847 rpm",
+      "depth_threshold": "<2.56 mm"
+    },
+    "low_speed_high_depth": {
+      "count": 17,
+      "avg_error": 1.0934,
+      "speed_threshold": "<4847 rpm",
+      "depth_threshold": ">=2.56 mm"
+    },
+    "high_speed_high_depth": {
+      "count": 21,
+      "avg_error": 1.0028,
+      "speed_threshold": ">=4847 rpm",
+      "depth_threshold": ">=2.56 mm"
+    },
+    "low_speed_low_depth": {
+      "count": 20,
+      "avg_error": 0.9236,
+      "speed_threshold": "<4847 rpm",
+      "depth_threshold": "<2.56 mm"
+    },
+    "extreme_high_speed": {
+      "count": 8,
+      "avg_error": 0.8873,
+      "speed_threshold": ">=7226 rpm (P90)"
+    },
+    "extreme_high_depth": {
+      "count": 8,
+      "avg_error": 1.0044,
+      "depth_threshold": ">=4.26 mm (P90)"
+    },
+    "summary": {
+      "speed_median": 4847.16,
+      "depth_median": 2.56,
+      "worst_region": "low_speed_high_depth",
+      "analysis": "模型在low_speed_high_depth区域误差最大（1.0934），表明模型在该参数组合下的泛化能力较弱。"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tools Knowledge Base Schema",
+  "description": "Schema for validating tools.json in the machining process planning system",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "series", "name", "diameter_mm", "material", "application"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^tool_[a-zA-Z0-9_]+$",
+        "description": "Unique identifier for the tool"
+      },
+      "series": {
+        "type": "string",
+        "enum": ["twist_drill", "endmill", "face_mill", "center_drill"],
+        "description": "Tool series type"
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Tool name"
+      },
+      "diameter_mm": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Tool diameter in mm"
+      },
+      "material": {
+        "type": "string",
+        "enum": ["HSS", "carbide", "ceramic", "cbn", "diamond"],
+        "description": "Tool material"
+      },
+      "application": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Tool application description"
+      },
+      "description": {
+        "type": "string",
+        "description": "Tool description"
+      }
+    },
+    "additionalProperties": false
+  }
+}

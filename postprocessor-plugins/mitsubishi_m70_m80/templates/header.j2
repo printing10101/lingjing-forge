@@ -1,0 +1,12 @@
+%
+O{{ "%04d" | format(program_number) }} (PROGRAM {{ program_number }} - {{ pp._date_string() }})
+(POST: {{ controller_name }})
+G21 G17 G40 G49 G80 G90 G94
+G05.1 Q1
+G00 G91 G28 Z0.
+G00 G91 G28 X0. Y0.
+G00 G90 {{ pp._default_coordinate_system }} X0. Y0.
+G00 G43 Z{{ pp.safe_z_height | fmt }} H00
+M03 S{{ pp.get_spindle_rpm() | int }}
+M08
+

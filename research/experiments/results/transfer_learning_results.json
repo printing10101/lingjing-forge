@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-06-26T17:32:41.095918",
+  "source_dataset": "PHM2010",
+  "target_dataset": "6061-T6",
+  "experiments": [
+    {
+      "method": "Direct Training (Baseline)",
+      "description": "直接在目标数据集上训练",
+      "MAE": 0.967953,
+      "RMSE": 1.266139,
+      "R2": -0.05121,
+      "PCC": 0.989863
+    },
+    {
+      "method": "Transfer Learning (Full Fine-tuning)",
+      "description": "预训练 + 全参数微调",
+      "MAE": 0.987084,
+      "RMSE": 1.291665,
+      "R2": -0.094024,
+      "PCC": 0.984902,
+      "improvement_over_baseline": {
+        "MAE": -1.98,
+        "PCC": -0.5
+      }
+    },
+    {
+      "method": "Transfer Learning (Partial Fine-tuning)",
+      "description": "预训练 + 冻结LTC层，微调其他层",
+      "MAE": 0.975952,
+      "RMSE": 1.27655,
+      "R2": -0.068569,
+      "PCC": 0.987667,
+      "improvement_over_baseline": {
+        "MAE": -0.83,
+        "PCC": -0.22
+      }
+    },
+    {
+      "method": "LSTM Transfer Learning",
+      "description": "LSTM预训练 + 微调",
+      "MAE": 0.97122,
+      "RMSE": 1.261392,
+      "R2": -0.043343,
+      "PCC": 0.988325,
+      "improvement_over_baseline": {
+        "MAE": -0.6,
+        "PCC": -0.22
+      }
+    }
+  ]
+}

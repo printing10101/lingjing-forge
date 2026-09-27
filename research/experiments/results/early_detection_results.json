@@ -1,0 +1,147 @@
+{
+  "timestamp": "2026-06-26 23:13:14",
+  "experiment": "早期颤振检测时效性实验",
+  "sequence_length": 50,
+  "results": {
+    "warning_steps_5": {
+      "DL-LNN": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "accuracy": 0.687,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 34.35,
+        "max_lead_time_steps": 44,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      },
+      "LSTM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "accuracy": 0.687,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 34.35,
+        "max_lead_time_steps": 44,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      },
+      "GRU": {
+        "precision": 0.3324,
+        "recall": 0.0797,
+        "f1_score": 0.1286,
+        "accuracy": 0.6618,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 34.1,
+        "max_lead_time_steps": 44,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      }
+    },
+    "warning_steps_10": {
+      "DL-LNN": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "accuracy": 0.6428,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 32.14,
+        "max_lead_time_steps": 39,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      },
+      "LSTM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "accuracy": 0.6428,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 32.14,
+        "max_lead_time_steps": 39,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      },
+      "GRU": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "accuracy": 0.6428,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 32.14,
+        "max_lead_time_steps": 39,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      }
+    },
+    "warning_steps_15": {
+      "DL-LNN": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "accuracy": 0.5867,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 29.34,
+        "max_lead_time_steps": 34,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      },
+      "LSTM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "accuracy": 0.5867,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 29.34,
+        "max_lead_time_steps": 34,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      },
+      "GRU": {
+        "precision": 0.4364,
+        "recall": 0.0951,
+        "f1_score": 0.1562,
+        "accuracy": 0.5753,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 27.71,
+        "max_lead_time_steps": 34,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      }
+    },
+    "warning_steps_20": {
+      "DL-LNN": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "accuracy": 0.5411,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 27.06,
+        "max_lead_time_steps": 29,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      },
+      "LSTM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "accuracy": 0.5411,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 27.06,
+        "max_lead_time_steps": 29,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      },
+      "GRU": {
+        "precision": 0.5041,
+        "recall": 0.0797,
+        "f1_score": 0.1376,
+        "accuracy": 0.5417,
+        "early_detection_rate": 0.0,
+        "avg_lead_time_steps": 26.73,
+        "max_lead_time_steps": 29,
+        "total_samples": 400,
+        "early_detection_correct": 0
+      }
+    }
+  }
+}

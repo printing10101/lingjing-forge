@@ -1,0 +1,844 @@
+{
+  "videos": [
+    {
+      "video_id": "normal_000",
+      "video_path": "videos/normal/normal_000.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_001",
+      "video_path": "videos/normal/normal_001.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_002",
+      "video_path": "videos/normal/normal_002.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_003",
+      "video_path": "videos/normal/normal_003.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_004",
+      "video_path": "videos/normal/normal_004.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_005",
+      "video_path": "videos/normal/normal_005.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_006",
+      "video_path": "videos/normal/normal_006.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_007",
+      "video_path": "videos/normal/normal_007.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_008",
+      "video_path": "videos/normal/normal_008.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_009",
+      "video_path": "videos/normal/normal_009.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_010",
+      "video_path": "videos/normal/normal_010.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_011",
+      "video_path": "videos/normal/normal_011.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_012",
+      "video_path": "videos/normal/normal_012.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_013",
+      "video_path": "videos/normal/normal_013.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_014",
+      "video_path": "videos/normal/normal_014.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_015",
+      "video_path": "videos/normal/normal_015.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_016",
+      "video_path": "videos/normal/normal_016.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_017",
+      "video_path": "videos/normal/normal_017.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_018",
+      "video_path": "videos/normal/normal_018.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_019",
+      "video_path": "videos/normal/normal_019.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_020",
+      "video_path": "videos/normal/normal_020.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_021",
+      "video_path": "videos/normal/normal_021.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_022",
+      "video_path": "videos/normal/normal_022.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_023",
+      "video_path": "videos/normal/normal_023.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_024",
+      "video_path": "videos/normal/normal_024.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_025",
+      "video_path": "videos/normal/normal_025.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_026",
+      "video_path": "videos/normal/normal_026.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_027",
+      "video_path": "videos/normal/normal_027.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_028",
+      "video_path": "videos/normal/normal_028.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_029",
+      "video_path": "videos/normal/normal_029.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_030",
+      "video_path": "videos/normal/normal_030.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_031",
+      "video_path": "videos/normal/normal_031.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_032",
+      "video_path": "videos/normal/normal_032.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_033",
+      "video_path": "videos/normal/normal_033.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_034",
+      "video_path": "videos/normal/normal_034.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_035",
+      "video_path": "videos/normal/normal_035.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_036",
+      "video_path": "videos/normal/normal_036.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_037",
+      "video_path": "videos/normal/normal_037.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_038",
+      "video_path": "videos/normal/normal_038.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_039",
+      "video_path": "videos/normal/normal_039.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_040",
+      "video_path": "videos/normal/normal_040.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_041",
+      "video_path": "videos/normal/normal_041.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_042",
+      "video_path": "videos/normal/normal_042.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_043",
+      "video_path": "videos/normal/normal_043.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_044",
+      "video_path": "videos/normal/normal_044.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_045",
+      "video_path": "videos/normal/normal_045.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_046",
+      "video_path": "videos/normal/normal_046.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_047",
+      "video_path": "videos/normal/normal_047.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_048",
+      "video_path": "videos/normal/normal_048.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "normal_049",
+      "video_path": "videos/normal/normal_049.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 7200,
+      "fps": 30,
+      "is_anomaly": false,
+      "anomaly_intervals": []
+    },
+    {
+      "video_id": "anomaly_000",
+      "video_path": "videos/anomaly/anomaly_000.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "tool_breakage",
+          "severity": "severe"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_001",
+      "video_path": "videos/anomaly/anomaly_001.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "vibration_anomaly",
+          "severity": "moderate"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_002",
+      "video_path": "videos/anomaly/anomaly_002.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "overcut",
+          "severity": "severe"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_003",
+      "video_path": "videos/anomaly/anomaly_003.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "collision",
+          "severity": "danger"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_004",
+      "video_path": "videos/anomaly/anomaly_004.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "tool_breakage",
+          "severity": "severe"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_005",
+      "video_path": "videos/anomaly/anomaly_005.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "vibration_anomaly",
+          "severity": "moderate"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_006",
+      "video_path": "videos/anomaly/anomaly_006.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "overcut",
+          "severity": "severe"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_007",
+      "video_path": "videos/anomaly/anomaly_007.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "collision",
+          "severity": "danger"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_008",
+      "video_path": "videos/anomaly/anomaly_008.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "tool_breakage",
+          "severity": "severe"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_009",
+      "video_path": "videos/anomaly/anomaly_009.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "vibration_anomaly",
+          "severity": "moderate"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_010",
+      "video_path": "videos/anomaly/anomaly_010.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "overcut",
+          "severity": "severe"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_011",
+      "video_path": "videos/anomaly/anomaly_011.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "collision",
+          "severity": "danger"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_012",
+      "video_path": "videos/anomaly/anomaly_012.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "tool_breakage",
+          "severity": "severe"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_013",
+      "video_path": "videos/anomaly/anomaly_013.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "vibration_anomaly",
+          "severity": "moderate"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_014",
+      "video_path": "videos/anomaly/anomaly_014.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "overcut",
+          "severity": "severe"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_015",
+      "video_path": "videos/anomaly/anomaly_015.mp4",
+      "material": "aluminum",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "collision",
+          "severity": "danger"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_016",
+      "video_path": "videos/anomaly/anomaly_016.mp4",
+      "material": "steel",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "tool_breakage",
+          "severity": "severe"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_017",
+      "video_path": "videos/anomaly/anomaly_017.mp4",
+      "material": "titanium",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "vibration_anomaly",
+          "severity": "moderate"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_018",
+      "video_path": "videos/anomaly/anomaly_018.mp4",
+      "material": "plastic",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "overcut",
+          "severity": "severe"
+        }
+      ]
+    },
+    {
+      "video_id": "anomaly_019",
+      "video_path": "videos/anomaly/anomaly_019.mp4",
+      "material": "composite",
+      "process": "milling",
+      "duration_seconds": 180,
+      "fps": 30,
+      "is_anomaly": true,
+      "anomaly_intervals": [
+        {
+          "start_frame": 150,
+          "end_frame": 500,
+          "anomaly_type": "collision",
+          "severity": "danger"
+        }
+      ]
+    }
+  ]
+}

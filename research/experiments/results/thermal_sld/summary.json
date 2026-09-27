@@ -1,0 +1,78 @@
+{
+  "closed_form_max_rel_err_unsat": 3.996802888650563e-16,
+  "closed_form_unsat_fraction": 1.0,
+  "valley_mm": {
+    "baseline": 0.07018093709801433,
+    "rigid_dT400": 0.11696822849669056,
+    "rigid_dT500": 0.14036187419602866,
+    "thin_dT400": 0.09096349416668287
+  },
+  "phase_harmful_count": 15,
+  "phase_total": 63,
+  "phase_harmful_above_delta_gt_kappa": 15,
+  "control_margin_paper_baseline": {
+    "dT0": 0.07018093709801433,
+    "dT100": 0.0779788189977937,
+    "dT200": 0.08772617137251791,
+    "dT300": 0.10025848156859192,
+    "dT400": 0.11696822849669056,
+    "dT500": 0.14036187419602866
+  },
+  "control_margin_engineering": {
+    "dT0": 3.5000106947890326,
+    "dT100": 3.8889007719878137,
+    "dT200": 4.37501336848629,
+    "dT300": 5.0000152782700455,
+    "dT400": 5.833351157981721,
+    "dT500": 7.000021389578065
+  },
+  "eng_dT_for_1.5x": 330.00000000000006,
+  "eng_power_kW_1.5x": [
+    0.3,
+    0.45
+  ],
+  "eng_dT_for_2.0x": 500.0,
+  "eng_power_kW_2.0x": [
+    0.45,
+    0.68
+  ],
+  "calibration": {
+    "kappa_recommended": 0.000736,
+    "kappa_range": [
+      0.000527,
+      0.001267
+    ],
+    "delta": 0.000516692,
+    "net_effect": {
+      "r0.0": {
+        "kappa_eff": 0.000736,
+        "gain_500C": 1.582
+      },
+      "r0.1": {
+        "kappa_eff": 0.000684,
+        "gain_500C": 1.52
+      },
+      "r0.3": {
+        "kappa_eff": 0.000581,
+        "gain_500C": 1.409
+      },
+      "r0.5": {
+        "kappa_eff": 0.000478,
+        "gain_500C": 1.314
+      },
+      "r1.0": {
+        "kappa_eff": 0.000219,
+        "gain_500C": 1.123
+      }
+    },
+    "sources": {
+      "kappa": "J-C 9 sets: Karpat 2011 JMPT 10.1016/j.jmatprotec.2010.12.008 Table1 + Zhang 2015 Procedia CIRP 10.1016/j.procir.2015.03.052 Table2",
+      "delta": "E(T)=-57.7T+111672 MPa, Karpat 2009 (via Karpat 2011 p.743)"
+    }
+  },
+  "cross_check": {
+    "ok": false,
+    "reason": "原类不可用（ModuleNotFoundError: No module named 'torch'）",
+    "max_rel_err": null
+  }
+}

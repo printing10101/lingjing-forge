@@ -1,0 +1,188 @@
+# 模型迭代管线（6 节点线性 DAG）
+#
+# 对应 core-contracts-design.md 阶段 4 p4-3。
+#
+# 典型场景：数据飞轮闭环 —— 从 IDatasetStore 读取用户反馈（标注/采纳/修正），
+# 转换为训练样本，调用 LNNTrainer 训练新模型，与当前线上模型对比评估，
+# 评估通过后注册到 ModelRegistryService，最后通过灰度切换上线。
+#
+# 节点拓扑（6 节点线性 DAG）：
+#   collect_feedback → prepare_training_data → train_model
+#        → evaluate_model → register_model → canary_deploy
+#
+# 设计要点：
+#   1. task_type 为声明式标识，handler 在阶段 6 由各业务模块通过 TASK_HANDLER 注册
+#      - feedback_reader:    由 data_flywheel 插件提供（读取 feedback_records 数据集）
+#      - data_processor:     由数据预处理模块提供（反馈 → 训练样本）
+#      - ltc_trainer:        由 app.ai.lnn.training 模块提供（LNNTrainer.fit）
+#      - model_evaluator:    由评估模块提供（计算 mae/rmse/r2/pcc/f1）
+#      - model_registry:     由 ModelRegistryService 提供（register_model）
+#      - hot_update_manager: 由 p4-5 hot_update 模块提供（灰度切换）
+#   2. inputs 引用格式统一为 "${node_id.output_name}"
+#   3. 参数与 plugin.yaml config_schema 对齐（canary_ratio/observation_hours 等）
+#   4. 工作流级 inputs 可被 run 请求覆盖（如指定 base_model_uri/fallback_dataset_uri）
+#
+# 使用方式：
+#   POST /api/v1/workflows/run
+#   body.spec 直接使用本文件的 dict 形式，或在 body 中传 template_id 引用。
+name: 模型迭代管线
+version: "0.1.0"
+description: |
+  数据飞轮闭环管线：反馈采集 → 训练样本构造 → LTC 模型训练 →
+  指标评估对比 → 模型注册 → 灰度热更新。完整闭环可手动触发跑通，
+  评估通过的新模型以 canary_ratio 比例灰度上线，观察期结束后全量切换。
+
+# 工作流级输入：可被 run 请求的 inputs 字段覆盖
+inputs:
+  base_model_uri:
+    type: model
+    uri: "model://ltc-chatter-v2"
+    metadata:
+      description: "当前线上模型（评估基线 + 灰度对照）"
+      role: "baseline"
+  feedback_dataset_uri:
+    type: dataset
+    uri: "dataset://feedback_records/latest"
+    metadata:
+      description: "反馈数据集（由 FeedbackCollector 写入）"
+      feedback_types: ["annotation", "adoption", "correction"]
+  fallback_dataset_uri:
+    type: dataset
+    uri: "dataset://phm2010/c6"
+    metadata:
+      description: "回退训练数据集（反馈样本不足时合并使用）"
+      material: "6061-T6"
+
+# 工作流级输出：引用最终节点的产物
+outputs:
+  new_model_uri: "${register_model.model_artifact}"
+  eval_metrics: "${evaluate_model.metrics_artifact}"
+  canary_status: "${canary_deploy.deployment_artifact}"
+
+edges:
+  - upstream: collect_feedback
+    downstream: prepare_training_data
+  - upstream: prepare_training_data
+    downstream: train_model
+  - upstream: train_model
+    downstream: evaluate_model
+  - upstream: evaluate_model
+    downstream: register_model
+  - upstream: register_model
+    downstream: canary_deploy
+
+nodes:
+  # 1. 反馈采集节点：从 IDatasetStore 读取反馈记录
+  - node_id: collect_feedback
+    task_type: feedback_reader
+    params:
+      dataset_uri: "dataset://feedback_records/latest"
+      window_hours: 24
+      min_samples: 50
+      feedback_types: ["annotation", "adoption", "correction"]
+      include_implicit_rejection: true
+    inputs:
+      feedback_dataset: "${feedback_dataset_uri}"
+    timeout_seconds: 300
+
+  # 2. 训练样本构造节点：反馈记录 → 训练样本（合并回退数据集）
+  - node_id: prepare_training_data
+    task_type: data_processor
+    params:
+      processing_mode: "feedback_to_training"
+      split_ratio: [0.7, 0.15, 0.15]
+      normalize: true
+      augment: true
+      merge_fallback_when_insufficient: true
+      min_samples_for_standalone: 50
+    inputs:
+      feedback_records: "${collect_feedback.feedback_artifact}"
+      fallback_dataset: "${fallback_dataset_uri}"
+    retry: 1
+    timeout_seconds: 900
+
+  # 3. 模型训练节点：调用 LNNTrainer.fit 训练新模型
+  - node_id: train_model
+    task_type: ltc_trainer
+    params:
+      model_type: "ltc"
+      hidden_size: 64
+      epochs: 50
+      batch_size: 32
+      learning_rate: 0.001
+      seed: 42
+      use_pinn_loss: true
+      lambda_pcc: 0.1
+      early_stopping_patience: 5
+      gradient_clip_value: 1.0
+      track_experiment: true
+    inputs:
+      train_split: "${prepare_training_data.train_split}"
+      val_split: "${prepare_training_data.val_split}"
+    retry: 1
+    timeout_seconds: 7200
+
+  # 4. 模型评估节点：计算指标并对比当前线上模型
+  - node_id: evaluate_model
+    task_type: model_evaluator
+    params:
+      metrics: ["mae", "rmse", "r2", "pcc", "f1"]
+      eval_metric: "f1"
+      min_improvement: 0.02
+      save_predictions: true
+      compare_against_baseline: true
+    inputs:
+      test_split: "${prepare_training_data.test_split}"
+      trained_model: "${train_model.model_artifact}"
+      baseline_model: "${base_model_uri}"
+    timeout_seconds: 1800
+
+  # 5. 模型注册节点：评估通过后注册到 ModelRegistryService
+  - node_id: register_model
+    task_type: model_registry
+    params:
+      action: "register"
+      model_name: "ltc-chatter"
+      model_type: "ltc"
+      stage: "canary"
+      tags: ["flywheel", "auto-retrain", "feedback-driven"]
+      metadata:
+        source: "data_flywheel"
+        workflow_template: "model_iteration_pipeline"
+      validate_before_register: true
+    inputs:
+      model_artifact: "${train_model.model_artifact}"
+      eval_metrics: "${evaluate_model.metrics_artifact}"
+    retry: 2
+    timeout_seconds: 600
+
+  # 6. 灰度热更新节点：以 canary_ratio 比例灰度切换
+  - node_id: canary_deploy
+    task_type: hot_update_manager
+    params:
+      action: "canary_deploy"
+      canary_ratio: 0.1
+      observation_hours: 24
+      rollback_on_failure: true
+      rollback_metric_drop: 0.05
+      promote_on_success: true
+    inputs:
+      new_model: "${register_model.model_artifact}"
+      baseline_model: "${base_model_uri}"
+      eval_metrics: "${evaluate_model.metrics_artifact}"
+    timeout_seconds: 600
+
+metadata:
+  max_concurrent: 1
+  tags: ["flywheel", "auto-retrain", "feedback-driven", "canary"]
+  author: "lingjing-team"
+  plugin_id: "data_flywheel"
+  template_category: "iteration"
+  # 阶段 4 验收标记：完整飞轮闭环可手动触发跑通
+  acceptance_test: true
+  # 依赖的插件配置 section（运行时由 PluginContext.config 注入）
+  required_config_sections:
+    - feedback_collection
+    - model_iteration
+    - hot_update
+    - metrics
