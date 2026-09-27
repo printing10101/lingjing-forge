@@ -41,23 +41,32 @@ def build_not_found_response() -> JSONResponse:
     )
 
 
-def get_task_or_not_found(store: Any, task_id: str, *, not_found_exc: type[Exception]) -> tuple[Any, dict[str, Any] | None]:
+def get_task_or_not_found(
+    store: Any,
+    task_id: str,
+    *,
+    not_found_exc: type[Exception] | None = None,
+) -> tuple[Any, dict[str, Any] | None]:
     """按 id 取任务；不存在时返回 ``(None, NOT_FOUND 错误响应)``。
 
     安全约束：错误响应不回显 task_id，防止任务枚举攻击。
-    ``not_found_exc`` 传入各模块任务 store 的查询异常类型
-    （如 ``CamValidationError``）；store 亦可能以返回 None 表示不存在，
-    两种情况同样处理。
+    兼容两类任务 store：``get_task`` 返回 ``None`` 表示不存在（此时
+    ``not_found_exc`` 留空），或不存在时抛特定异常（传入该异常类型，
+    如 ``CamValidationError``）。
 
     Returns:
         ``(task, None)`` 或 ``(None, error 响应 dict)``。
     """
-    try:
+    not_found_response = error(code=ErrorCode.NOT_FOUND, message="任务不存在或已被删除")
+    if not_found_exc is not None:
+        try:
+            task = store.get_task(task_id)
+        except not_found_exc:
+            return None, not_found_response
+    else:
         task = store.get_task(task_id)
-    except not_found_exc:
-        return None, error(code=ErrorCode.NOT_FOUND, message="任务不存在或已被删除")
     if task is None:
-        return None, error(code=ErrorCode.NOT_FOUND, message="任务不存在或已被删除")
+        return None, not_found_response
     return task, None
 
 
