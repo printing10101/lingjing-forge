@@ -21,6 +21,8 @@ from fastapi.responses import FileResponse, JSONResponse
 from app.core.response import error, ErrorCode
 from app.core.safe_errors import safe_error_message
 
+logger = logging.getLogger(__name__)
+
 # 后台任务引用集合（防 GC）
 _background_tasks: set = set()
 
