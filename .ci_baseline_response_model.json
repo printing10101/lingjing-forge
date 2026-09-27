@@ -1,0 +1,3535 @@
+{
+  "total_routes": 605,
+  "with_response_model": 101,
+  "without_response_model": 504,
+  "findings_without": [
+    {
+      "file": "engineering/python/app/api/v1/admin.py",
+      "line": 13,
+      "method": "POST",
+      "path": "/shutdown",
+      "function_name": "admin_shutdown"
+    },
+    {
+      "file": "engineering/python/app/api/v1/collision_check.py",
+      "line": 156,
+      "method": "GET",
+      "path": "/collision-check/health",
+      "function_name": "collision_check_health"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 104,
+      "method": "GET",
+      "path": "/summary",
+      "function_name": "get_cost_summary"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 127,
+      "method": "GET",
+      "path": "/task/{task_id}",
+      "function_name": "get_task_costs"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 142,
+      "method": "GET",
+      "path": "/trend",
+      "function_name": "get_cost_trend"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 152,
+      "method": "GET",
+      "path": "/unit-prices",
+      "function_name": "get_unit_prices"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 158,
+      "method": "POST",
+      "path": "/unit-prices",
+      "function_name": "set_unit_price"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 179,
+      "method": "GET",
+      "path": "/policies",
+      "function_name": "get_budget_policies"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 192,
+      "method": "POST",
+      "path": "/policies",
+      "function_name": "set_budget_policy"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 217,
+      "method": "POST",
+      "path": "/adjust-budget",
+      "function_name": "adjust_budget"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 236,
+      "method": "GET",
+      "path": "/adjustment-history",
+      "function_name": "get_adjustment_history"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 243,
+      "method": "POST",
+      "path": "/check",
+      "function_name": "check_budget"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 260,
+      "method": "POST",
+      "path": "/check-cascade",
+      "function_name": "check_budget_cascade"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 279,
+      "method": "POST",
+      "path": "/enforce",
+      "function_name": "enforce_budget"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 304,
+      "method": "POST",
+      "path": "/reset",
+      "function_name": "reset_budget_period"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 323,
+      "method": "GET",
+      "path": "/alerts",
+      "function_name": "get_budget_alerts"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 335,
+      "method": "POST",
+      "path": "/alerts/{alert_id}/read",
+      "function_name": "mark_alert_read"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 342,
+      "method": "POST",
+      "path": "/alerts/read-all",
+      "function_name": "mark_all_alerts_read"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 349,
+      "method": "DELETE",
+      "path": "/alerts/{alert_id}",
+      "function_name": "delete_alert"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 356,
+      "method": "GET",
+      "path": "/suggestions",
+      "function_name": "get_optimization_suggestions"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 366,
+      "method": "GET",
+      "path": "/enforcement-log",
+      "function_name": "get_enforcement_log"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cost_budget.py",
+      "line": 373,
+      "method": "GET",
+      "path": "/reset-log",
+      "function_name": "get_reset_log"
+    },
+    {
+      "file": "engineering/python/app/api/v1/datasets.py",
+      "line": 161,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_datasets"
+    },
+    {
+      "file": "engineering/python/app/api/v1/datasets.py",
+      "line": 186,
+      "method": "GET",
+      "path": "/metrics",
+      "function_name": "get_metrics"
+    },
+    {
+      "file": "engineering/python/app/api/v1/datasets.py",
+      "line": 194,
+      "method": "POST",
+      "path": "<dynamic>",
+      "function_name": "create_dataset"
+    },
+    {
+      "file": "engineering/python/app/api/v1/datasets.py",
+      "line": 217,
+      "method": "GET",
+      "path": "/{dataset_id}",
+      "function_name": "get_dataset"
+    },
+    {
+      "file": "engineering/python/app/api/v1/datasets.py",
+      "line": 227,
+      "method": "GET",
+      "path": "/{dataset_id}/versions",
+      "function_name": "list_versions"
+    },
+    {
+      "file": "engineering/python/app/api/v1/datasets.py",
+      "line": 250,
+      "method": "GET",
+      "path": "/{dataset_id}/versions/{version}",
+      "function_name": "get_version_detail"
+    },
+    {
+      "file": "engineering/python/app/api/v1/datasets.py",
+      "line": 261,
+      "method": "POST",
+      "path": "/{dataset_id}/commit",
+      "function_name": "commit_version"
+    },
+    {
+      "file": "engineering/python/app/api/v1/datasets.py",
+      "line": 283,
+      "method": "GET",
+      "path": "/{dataset_id}/versions/{version}/read",
+      "function_name": "read_version"
+    },
+    {
+      "file": "engineering/python/app/api/v1/datasets.py",
+      "line": 303,
+      "method": "POST",
+      "path": "/{dataset_id}/deprecate",
+      "function_name": "deprecate_version"
+    },
+    {
+      "file": "engineering/python/app/api/v1/datasets.py",
+      "line": 314,
+      "method": "POST",
+      "path": "/lineage",
+      "function_name": "record_lineage"
+    },
+    {
+      "file": "engineering/python/app/api/v1/datasets.py",
+      "line": 334,
+      "method": "GET",
+      "path": "/lineage/{target_uri}",
+      "function_name": "query_lineage"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 88,
+      "method": "POST",
+      "path": "/machines",
+      "function_name": "connect_machine"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 108,
+      "method": "DELETE",
+      "path": "/machines/{machine_id}",
+      "function_name": "disconnect_machine"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 115,
+      "method": "GET",
+      "path": "/machines",
+      "function_name": "list_machines"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 122,
+      "method": "GET",
+      "path": "/machines/{machine_id}/status",
+      "function_name": "get_machine_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 131,
+      "method": "GET",
+      "path": "/status",
+      "function_name": "get_all_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 138,
+      "method": "POST",
+      "path": "/nc-program/send",
+      "function_name": "send_nc_program"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 182,
+      "method": "GET",
+      "path": "/machines/{machine_id}/alarms",
+      "function_name": "get_machine_alarms"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 239,
+      "method": "POST",
+      "path": "/unified/connect",
+      "function_name": "unified_auto_connect"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 270,
+      "method": "GET",
+      "path": "/unified/{machine_id}/status",
+      "function_name": "get_unified_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 286,
+      "method": "POST",
+      "path": "/unified/discover",
+      "function_name": "discover_network_machines"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 302,
+      "method": "GET",
+      "path": "/unified/{machine_id}/info",
+      "function_name": "get_adapter_info"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dnc.py",
+      "line": 324,
+      "method": "DELETE",
+      "path": "/unified/{machine_id}",
+      "function_name": "disconnect_unified"
+    },
+    {
+      "file": "engineering/python/app/api/v1/documents.py",
+      "line": 48,
+      "method": "GET",
+      "path": "/",
+      "function_name": "list_documents"
+    },
+    {
+      "file": "engineering/python/app/api/v1/documents.py",
+      "line": 71,
+      "method": "GET",
+      "path": "/categories/",
+      "function_name": "list_categories"
+    },
+    {
+      "file": "engineering/python/app/api/v1/documents.py",
+      "line": 82,
+      "method": "GET",
+      "path": "/{doc_id}",
+      "function_name": "get_document"
+    },
+    {
+      "file": "engineering/python/app/api/v1/documents.py",
+      "line": 96,
+      "method": "POST",
+      "path": "/",
+      "function_name": "create_document"
+    },
+    {
+      "file": "engineering/python/app/api/v1/documents.py",
+      "line": 115,
+      "method": "PUT",
+      "path": "/{doc_id}",
+      "function_name": "update_document"
+    },
+    {
+      "file": "engineering/python/app/api/v1/documents.py",
+      "line": 129,
+      "method": "DELETE",
+      "path": "/{doc_id}",
+      "function_name": "delete_document"
+    },
+    {
+      "file": "engineering/python/app/api/v1/documents.py",
+      "line": 143,
+      "method": "POST",
+      "path": "/seed",
+      "function_name": "seed_documents"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dreaming.py",
+      "line": 102,
+      "method": "POST",
+      "path": "/reflect",
+      "function_name": "trigger_reflection"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dreaming.py",
+      "line": 131,
+      "method": "GET",
+      "path": "/rules",
+      "function_name": "list_rules"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dreaming.py",
+      "line": 157,
+      "method": "POST",
+      "path": "/rules/{rule_id}/publish",
+      "function_name": "publish_rule"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dreaming.py",
+      "line": 172,
+      "method": "POST",
+      "path": "/rules/{rule_id}/promote",
+      "function_name": "promote_rule"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dreaming.py",
+      "line": 214,
+      "method": "POST",
+      "path": "/rules/{rule_id}/rollback",
+      "function_name": "rollback_rule"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dreaming.py",
+      "line": 231,
+      "method": "GET",
+      "path": "/status",
+      "function_name": "get_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dreaming.py",
+      "line": 254,
+      "method": "GET",
+      "path": "/learnings",
+      "function_name": "get_learnings"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dxf_pipeline.py",
+      "line": 165,
+      "method": "POST",
+      "path": "/process",
+      "function_name": "process_dxf"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dxf_pipeline.py",
+      "line": 180,
+      "method": "POST",
+      "path": "/batch",
+      "function_name": "process_batch"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dxf_pipeline.py",
+      "line": 253,
+      "method": "POST",
+      "path": "/batch-async",
+      "function_name": "process_batch_async"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dxf_pipeline.py",
+      "line": 286,
+      "method": "GET",
+      "path": "/batch-status/{job_id}",
+      "function_name": "batch_job_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dxf_pipeline.py",
+      "line": 295,
+      "method": "POST",
+      "path": "/e2e-fixture",
+      "function_name": "e2e_fixture"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dynamic_adjustment.py",
+      "line": 230,
+      "method": "POST",
+      "path": "/decide",
+      "function_name": "decide_adjustment"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dynamic_adjustment.py",
+      "line": 283,
+      "method": "POST",
+      "path": "/rewrite-nc",
+      "function_name": "rewrite_nc_code"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dynamic_adjustment.py",
+      "line": 335,
+      "method": "POST",
+      "path": "/closed-loop",
+      "function_name": "closed_loop_adjustment"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dynamic_adjustment.py",
+      "line": 392,
+      "method": "POST",
+      "path": "/calibrate-wear",
+      "function_name": "calibrate_wear"
+    },
+    {
+      "file": "engineering/python/app/api/v1/dynamic_adjustment.py",
+      "line": 416,
+      "method": "GET",
+      "path": "/health",
+      "function_name": "health"
+    },
+    {
+      "file": "engineering/python/app/api/v1/embedding_retrieval.py",
+      "line": 113,
+      "method": "POST",
+      "path": "/encode",
+      "function_name": "encode_embeddings"
+    },
+    {
+      "file": "engineering/python/app/api/v1/embedding_retrieval.py",
+      "line": 160,
+      "method": "POST",
+      "path": "/index",
+      "function_name": "build_embedding_index"
+    },
+    {
+      "file": "engineering/python/app/api/v1/embedding_retrieval.py",
+      "line": 189,
+      "method": "POST",
+      "path": "/query",
+      "function_name": "query_embeddings"
+    },
+    {
+      "file": "engineering/python/app/api/v1/embedding_retrieval.py",
+      "line": 212,
+      "method": "GET",
+      "path": "/status",
+      "function_name": "embedding_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/equipment.py",
+      "line": 84,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_equipment"
+    },
+    {
+      "file": "engineering/python/app/api/v1/equipment.py",
+      "line": 99,
+      "method": "GET",
+      "path": "/stats/",
+      "function_name": "get_equipment_stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/equipment.py",
+      "line": 110,
+      "method": "GET",
+      "path": "/{equipment_id}",
+      "function_name": "get_equipment"
+    },
+    {
+      "file": "engineering/python/app/api/v1/equipment.py",
+      "line": 124,
+      "method": "PUT",
+      "path": "/{equipment_id}",
+      "function_name": "update_equipment"
+    },
+    {
+      "file": "engineering/python/app/api/v1/equipment.py",
+      "line": 147,
+      "method": "GET",
+      "path": "/alarms/",
+      "function_name": "list_alarms"
+    },
+    {
+      "file": "engineering/python/app/api/v1/equipment.py",
+      "line": 170,
+      "method": "PUT",
+      "path": "/alarms/{alarm_id}/status",
+      "function_name": "update_alarm_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/equipment.py",
+      "line": 191,
+      "method": "GET",
+      "path": "/maintenance/",
+      "function_name": "list_maintenance_plans"
+    },
+    {
+      "file": "engineering/python/app/api/v1/equipment.py",
+      "line": 212,
+      "method": "PUT",
+      "path": "/maintenance/{plan_id}",
+      "function_name": "update_maintenance_plan"
+    },
+    {
+      "file": "engineering/python/app/api/v1/equipment.py",
+      "line": 235,
+      "method": "POST",
+      "path": "/seed",
+      "function_name": "seed_equipment_data"
+    },
+    {
+      "file": "engineering/python/app/api/v1/explainability.py",
+      "line": 192,
+      "method": "POST",
+      "path": "/hidden-state",
+      "function_name": "generate_hidden_state_explanation"
+    },
+    {
+      "file": "engineering/python/app/api/v1/explainability.py",
+      "line": 244,
+      "method": "POST",
+      "path": "/gate-dynamics",
+      "function_name": "generate_gate_dynamics_explanation"
+    },
+    {
+      "file": "engineering/python/app/api/v1/explainability.py",
+      "line": 279,
+      "method": "POST",
+      "path": "/counterfactual",
+      "function_name": "generate_counterfactual_explanation"
+    },
+    {
+      "file": "engineering/python/app/api/v1/explainability.py",
+      "line": 332,
+      "method": "POST",
+      "path": "/confidence",
+      "function_name": "generate_confidence_explanation"
+    },
+    {
+      "file": "engineering/python/app/api/v1/explainability.py",
+      "line": 373,
+      "method": "GET",
+      "path": "/",
+      "function_name": "list_explanations"
+    },
+    {
+      "file": "engineering/python/app/api/v1/explainability.py",
+      "line": 424,
+      "method": "GET",
+      "path": "/{explanation_id}",
+      "function_name": "get_explanation"
+    },
+    {
+      "file": "engineering/python/app/api/v1/explainability.py",
+      "line": 454,
+      "method": "DELETE",
+      "path": "/{explanation_id}",
+      "function_name": "delete_explanation"
+    },
+    {
+      "file": "engineering/python/app/api/v1/explainability.py",
+      "line": 475,
+      "method": "POST",
+      "path": "/compare",
+      "function_name": "compare_explanations"
+    },
+    {
+      "file": "engineering/python/app/api/v1/flywheel.py",
+      "line": 155,
+      "method": "GET",
+      "path": "/metrics",
+      "function_name": "get_flywheel_metrics"
+    },
+    {
+      "file": "engineering/python/app/api/v1/flywheel.py",
+      "line": 290,
+      "method": "GET",
+      "path": "/deployments",
+      "function_name": "get_flywheel_deployments"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 125,
+      "method": "GET",
+      "path": "/goals/tree",
+      "function_name": "get_goal_tree"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 132,
+      "method": "GET",
+      "path": "/goals",
+      "function_name": "list_goals"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 142,
+      "method": "GET",
+      "path": "/goals/{goal_id}",
+      "function_name": "get_goal"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 151,
+      "method": "GET",
+      "path": "/goals/{goal_id}/chain",
+      "function_name": "get_goal_chain"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 158,
+      "method": "GET",
+      "path": "/goals/{goal_id}/children",
+      "function_name": "get_goal_children"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 168,
+      "method": "GET",
+      "path": "/goals/{goal_id}/progress",
+      "function_name": "get_goal_progress"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 177,
+      "method": "GET",
+      "path": "/goals/{goal_id}/history",
+      "function_name": "get_goal_history"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 187,
+      "method": "POST",
+      "path": "/goals",
+      "function_name": "create_goal"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 237,
+      "method": "PUT",
+      "path": "/goals/{goal_id}",
+      "function_name": "update_goal"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 274,
+      "method": "DELETE",
+      "path": "/goals/{goal_id}",
+      "function_name": "delete_goal"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 287,
+      "method": "POST",
+      "path": "/tasks",
+      "function_name": "create_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 361,
+      "method": "POST",
+      "path": "/tasks/{task_id}/status",
+      "function_name": "update_task_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 402,
+      "method": "GET",
+      "path": "/tasks/{task_id}/context",
+      "function_name": "get_task_context"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 415,
+      "method": "GET",
+      "path": "/tasks/{task_id}/alignment",
+      "function_name": "check_task_alignment"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 444,
+      "method": "POST",
+      "path": "/scan",
+      "function_name": "run_alignment_scan"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 452,
+      "method": "GET",
+      "path": "/summary",
+      "function_name": "get_alignment_summary"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 460,
+      "method": "GET",
+      "path": "/progress/all",
+      "function_name": "get_all_progress"
+    },
+    {
+      "file": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 468,
+      "method": "POST",
+      "path": "/goals/{goal_id}/propagate",
+      "function_name": "propagate_goal_change"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 61,
+      "method": "GET",
+      "path": "/sovereignty",
+      "function_name": "get_sovereignty_settings"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 80,
+      "method": "PUT",
+      "path": "/sovereignty",
+      "function_name": "update_sovereignty_settings"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 99,
+      "method": "POST",
+      "path": "/sovereignty/reset",
+      "function_name": "reset_sovereignty_settings"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 109,
+      "method": "GET",
+      "path": "/approval-requests",
+      "function_name": "list_approval_requests"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 133,
+      "method": "GET",
+      "path": "/approval-requests/{request_id}",
+      "function_name": "get_approval_request"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 154,
+      "method": "POST",
+      "path": "/approval-requests",
+      "function_name": "create_approval_request"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 212,
+      "method": "POST",
+      "path": "/approval-requests/{request_id}/assign",
+      "function_name": "assign_approver"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 234,
+      "method": "POST",
+      "path": "/approval-requests/{request_id}/decide",
+      "function_name": "make_decision"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 268,
+      "method": "POST",
+      "path": "/approval-requests/{request_id}/escalate",
+      "function_name": "escalate_request"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 281,
+      "method": "POST",
+      "path": "/approval-timeout-handler",
+      "function_name": "handle_approval_timeout"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 288,
+      "method": "GET",
+      "path": "/approval-requests/my",
+      "function_name": "get_my_approval_requests"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 299,
+      "method": "GET",
+      "path": "/approval-dashboard",
+      "function_name": "get_approval_dashboard"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 344,
+      "method": "POST",
+      "path": "/risk-assess",
+      "function_name": "assess_operation_risk"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 371,
+      "method": "GET",
+      "path": "/risk-categories",
+      "function_name": "get_risk_categories"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 399,
+      "method": "POST",
+      "path": "/emergency-override",
+      "function_name": "emergency_override"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 426,
+      "method": "POST",
+      "path": "/emergency-retroactive-approval",
+      "function_name": "complete_retroactive_approval"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 440,
+      "method": "GET",
+      "path": "/delegations",
+      "function_name": "get_delegations"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 465,
+      "method": "POST",
+      "path": "/delegations",
+      "function_name": "create_delegation"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 492,
+      "method": "GET",
+      "path": "/reports/governance",
+      "function_name": "get_governance_report"
+    },
+    {
+      "file": "engineering/python/app/api/v1/governance.py",
+      "line": 504,
+      "method": "GET",
+      "path": "/audit-log/export",
+      "function_name": "export_audit_log"
+    },
+    {
+      "file": "engineering/python/app/api/v1/health.py",
+      "line": 155,
+      "method": "GET",
+      "path": "/system",
+      "function_name": "system_health"
+    },
+    {
+      "file": "engineering/python/app/api/v1/health.py",
+      "line": 357,
+      "method": "GET",
+      "path": "/quick",
+      "function_name": "quick_health"
+    },
+    {
+      "file": "engineering/python/app/api/v1/health.py",
+      "line": 377,
+      "method": "GET",
+      "path": "/api/health",
+      "function_name": "main_health"
+    },
+    {
+      "file": "engineering/python/app/api/v1/health.py",
+      "line": 426,
+      "method": "GET",
+      "path": "/api/health/ping",
+      "function_name": "ping"
+    },
+    {
+      "file": "engineering/python/app/api/v1/heartbeat.py",
+      "line": 177,
+      "method": "POST",
+      "path": "/tasks/{task_id}/trigger",
+      "function_name": "trigger_task_now"
+    },
+    {
+      "file": "engineering/python/app/api/v1/heartbeat.py",
+      "line": 192,
+      "method": "POST",
+      "path": "/tasks/{task_id}/pause",
+      "function_name": "pause_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/heartbeat.py",
+      "line": 206,
+      "method": "POST",
+      "path": "/tasks/{task_id}/resume",
+      "function_name": "resume_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/heartbeat.py",
+      "line": 221,
+      "method": "DELETE",
+      "path": "/tasks/{task_id}",
+      "function_name": "delete_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/heartbeat.py",
+      "line": 234,
+      "method": "GET",
+      "path": "/tasks/{task_id}/history",
+      "function_name": "get_task_history"
+    },
+    {
+      "file": "engineering/python/app/api/v1/heartbeat.py",
+      "line": 267,
+      "method": "GET",
+      "path": "/budget/notifications",
+      "function_name": "get_budget_notifications"
+    },
+    {
+      "file": "engineering/python/app/api/v1/heartbeat.py",
+      "line": 276,
+      "method": "GET",
+      "path": "/stats",
+      "function_name": "get_scheduler_stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/heartbeat.py",
+      "line": 290,
+      "method": "POST",
+      "path": "/recovery/orphaned",
+      "function_name": "recover_orphaned_tasks"
+    },
+    {
+      "file": "engineering/python/app/api/v1/jobs.py",
+      "line": 46,
+      "method": "POST",
+      "path": "<dynamic>",
+      "function_name": "create_job"
+    },
+    {
+      "file": "engineering/python/app/api/v1/jobs.py",
+      "line": 74,
+      "method": "GET",
+      "path": "/{job_id}",
+      "function_name": "get_job"
+    },
+    {
+      "file": "engineering/python/app/api/v1/jobs.py",
+      "line": 88,
+      "method": "GET",
+      "path": "/{job_id}/progress",
+      "function_name": "get_job_progress"
+    },
+    {
+      "file": "engineering/python/app/api/v1/jobs.py",
+      "line": 108,
+      "method": "GET",
+      "path": "/{job_id}/stream",
+      "function_name": "stream_job_events"
+    },
+    {
+      "file": "engineering/python/app/api/v1/jobs.py",
+      "line": 151,
+      "method": "POST",
+      "path": "/{job_id}/cancel",
+      "function_name": "cancel_job"
+    },
+    {
+      "file": "engineering/python/app/api/v1/jobs.py",
+      "line": 162,
+      "method": "DELETE",
+      "path": "/{job_id}",
+      "function_name": "delete_job"
+    },
+    {
+      "file": "engineering/python/app/api/v1/jobs.py",
+      "line": 170,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_jobs"
+    },
+    {
+      "file": "engineering/python/app/api/v1/jobs.py",
+      "line": 227,
+      "method": "GET",
+      "path": "/stats",
+      "function_name": "get_task_stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/knowledge_graph.py",
+      "line": 172,
+      "method": "GET",
+      "path": "/stats",
+      "function_name": "get_stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/knowledge_graph.py",
+      "line": 185,
+      "method": "GET",
+      "path": "/nodes/{node_id}",
+      "function_name": "get_node"
+    },
+    {
+      "file": "engineering/python/app/api/v1/knowledge_graph.py",
+      "line": 202,
+      "method": "GET",
+      "path": "/nodes",
+      "function_name": "list_nodes"
+    },
+    {
+      "file": "engineering/python/app/api/v1/knowledge_graph.py",
+      "line": 224,
+      "method": "GET",
+      "path": "/edges",
+      "function_name": "list_edges"
+    },
+    {
+      "file": "engineering/python/app/api/v1/knowledge_graph.py",
+      "line": 252,
+      "method": "GET",
+      "path": "/neighbors/{node_id}",
+      "function_name": "get_neighbors"
+    },
+    {
+      "file": "engineering/python/app/api/v1/knowledge_graph.py",
+      "line": 276,
+      "method": "POST",
+      "path": "/query",
+      "function_name": "post_query"
+    },
+    {
+      "file": "engineering/python/app/api/v1/knowledge_graph.py",
+      "line": 322,
+      "method": "GET",
+      "path": "/tools-for-material",
+      "function_name": "get_tools_for_material"
+    },
+    {
+      "file": "engineering/python/app/api/v1/knowledge_graph.py",
+      "line": 340,
+      "method": "GET",
+      "path": "/materials-for-tool",
+      "function_name": "get_materials_for_tool"
+    },
+    {
+      "file": "engineering/python/app/api/v1/knowledge_graph.py",
+      "line": 358,
+      "method": "GET",
+      "path": "/process-chain/{feature_id}",
+      "function_name": "get_process_chain"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 172,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_providers"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 185,
+      "method": "GET",
+      "path": "/status",
+      "function_name": "get_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 191,
+      "method": "GET",
+      "path": "/active",
+      "function_name": "get_active_provider"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 203,
+      "method": "GET",
+      "path": "/types",
+      "function_name": "list_provider_types"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 234,
+      "method": "GET",
+      "path": "/capabilities",
+      "function_name": "list_capabilities"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 242,
+      "method": "GET",
+      "path": "/detect/preview",
+      "function_name": "detect_preview"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 264,
+      "method": "POST",
+      "path": "/detect/import",
+      "function_name": "detect_and_import"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 295,
+      "method": "GET",
+      "path": "/router/status",
+      "function_name": "get_router_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 305,
+      "method": "GET",
+      "path": "/router/strategies",
+      "function_name": "list_routing_strategies"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 337,
+      "method": "GET",
+      "path": "/{provider_id}",
+      "function_name": "get_provider"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 347,
+      "method": "GET",
+      "path": "/{provider_id}/models",
+      "function_name": "list_provider_models"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 372,
+      "method": "GET",
+      "path": "/{provider_id}/health",
+      "function_name": "health_check_provider"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 410,
+      "method": "POST",
+      "path": "<dynamic>",
+      "function_name": "create_provider"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 429,
+      "method": "PUT",
+      "path": "/{provider_id}",
+      "function_name": "update_provider"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 447,
+      "method": "DELETE",
+      "path": "/{provider_id}",
+      "function_name": "delete_provider"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 461,
+      "method": "POST",
+      "path": "/{provider_id}/activate",
+      "function_name": "activate_provider"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 478,
+      "method": "POST",
+      "path": "/{provider_id}/enable",
+      "function_name": "enable_provider"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 495,
+      "method": "POST",
+      "path": "/{provider_id}/test",
+      "function_name": "test_provider"
+    },
+    {
+      "file": "engineering/python/app/api/v1/llm_stream.py",
+      "line": 130,
+      "method": "POST",
+      "path": "/chat/stream",
+      "function_name": "chat_stream"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn_uncertain.py",
+      "line": 53,
+      "method": "POST",
+      "path": "/predict-uncertain",
+      "function_name": "predict_uncertain"
+    },
+    {
+      "file": "engineering/python/app/api/v1/logs.py",
+      "line": 22,
+      "method": "GET",
+      "path": "/stats",
+      "function_name": "logs_stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/logs.py",
+      "line": 32,
+      "method": "GET",
+      "path": "/{buffer_type}",
+      "function_name": "logs_query"
+    },
+    {
+      "file": "engineering/python/app/api/v1/materials.py",
+      "line": 68,
+      "method": "GET",
+      "path": "/",
+      "function_name": "list_materials"
+    },
+    {
+      "file": "engineering/python/app/api/v1/materials.py",
+      "line": 87,
+      "method": "GET",
+      "path": "/stats/summary",
+      "function_name": "stats_summary"
+    },
+    {
+      "file": "engineering/python/app/api/v1/materials.py",
+      "line": 94,
+      "method": "GET",
+      "path": "/{material_id}",
+      "function_name": "get_material"
+    },
+    {
+      "file": "engineering/python/app/api/v1/materials.py",
+      "line": 103,
+      "method": "POST",
+      "path": "/",
+      "function_name": "create_material"
+    },
+    {
+      "file": "engineering/python/app/api/v1/materials.py",
+      "line": 110,
+      "method": "PUT",
+      "path": "/{material_id}",
+      "function_name": "update_material"
+    },
+    {
+      "file": "engineering/python/app/api/v1/materials.py",
+      "line": 119,
+      "method": "DELETE",
+      "path": "/{material_id}",
+      "function_name": "delete_material"
+    },
+    {
+      "file": "engineering/python/app/api/v1/materials.py",
+      "line": 128,
+      "method": "POST",
+      "path": "/{material_id}/stock-in",
+      "function_name": "stock_in_material"
+    },
+    {
+      "file": "engineering/python/app/api/v1/materials.py",
+      "line": 137,
+      "method": "POST",
+      "path": "/{material_id}/purchase",
+      "function_name": "purchase_material"
+    },
+    {
+      "file": "engineering/python/app/api/v1/materials.py",
+      "line": 149,
+      "method": "POST",
+      "path": "/seed",
+      "function_name": "seed_materials"
+    },
+    {
+      "file": "engineering/python/app/api/v1/notifications.py",
+      "line": 57,
+      "method": "GET",
+      "path": "/notifications",
+      "function_name": "get_notifications"
+    },
+    {
+      "file": "engineering/python/app/api/v1/notifications.py",
+      "line": 143,
+      "method": "GET",
+      "path": "/system/status",
+      "function_name": "get_system_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/notifications.py",
+      "line": 190,
+      "method": "GET",
+      "path": "/activity/brief",
+      "function_name": "get_activity_brief"
+    },
+    {
+      "file": "engineering/python/app/api/v1/optimizer_routes.py",
+      "line": 66,
+      "method": "POST",
+      "path": "/recommend",
+      "function_name": "recommend"
+    },
+    {
+      "file": "engineering/python/app/api/v1/optimizer_routes.py",
+      "line": 90,
+      "method": "POST",
+      "path": "/evaluate",
+      "function_name": "evaluate"
+    },
+    {
+      "file": "engineering/python/app/api/v1/optimizer_routes.py",
+      "line": 112,
+      "method": "POST",
+      "path": "/compare",
+      "function_name": "compare"
+    },
+    {
+      "file": "engineering/python/app/api/v1/optimizer_routes.py",
+      "line": 131,
+      "method": "GET",
+      "path": "/baselines",
+      "function_name": "list_baselines"
+    },
+    {
+      "file": "engineering/python/app/api/v1/pattern_engine_routes.py",
+      "line": 32,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_patterns"
+    },
+    {
+      "file": "engineering/python/app/api/v1/pattern_engine_routes.py",
+      "line": 42,
+      "method": "GET",
+      "path": "/anti_patterns",
+      "function_name": "list_anti_patterns"
+    },
+    {
+      "file": "engineering/python/app/api/v1/pattern_engine_routes.py",
+      "line": 50,
+      "method": "POST",
+      "path": "/record",
+      "function_name": "record_execution"
+    },
+    {
+      "file": "engineering/python/app/api/v1/pattern_engine_routes.py",
+      "line": 65,
+      "method": "POST",
+      "path": "/analyze",
+      "function_name": "analyze_patterns"
+    },
+    {
+      "file": "engineering/python/app/api/v1/pattern_engine_routes.py",
+      "line": 78,
+      "method": "GET",
+      "path": "/{pattern_id}",
+      "function_name": "get_pattern"
+    },
+    {
+      "file": "engineering/python/app/api/v1/pattern_engine_routes.py",
+      "line": 89,
+      "method": "GET",
+      "path": "/{pattern_id}/suggestions",
+      "function_name": "get_pattern_suggestions"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 102,
+      "method": "GET",
+      "path": "/marketplace",
+      "function_name": "list_marketplace_plugins"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 170,
+      "method": "POST",
+      "path": "/marketplace/{plugin_id}/install",
+      "function_name": "install_marketplace_plugin"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 205,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_installed_plugins"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 237,
+      "method": "GET",
+      "path": "/{plugin_id}",
+      "function_name": "get_plugin_detail"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 275,
+      "method": "POST",
+      "path": "/{plugin_id}/enable",
+      "function_name": "enable_plugin"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 293,
+      "method": "POST",
+      "path": "/{plugin_id}/disable",
+      "function_name": "disable_plugin"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 311,
+      "method": "POST",
+      "path": "/{plugin_id}/reload",
+      "function_name": "reload_plugin"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 329,
+      "method": "DELETE",
+      "path": "/{plugin_id}",
+      "function_name": "uninstall_plugin"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 347,
+      "method": "PUT",
+      "path": "/{plugin_id}/config",
+      "function_name": "update_plugin_config"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 372,
+      "method": "GET",
+      "path": "/{plugin_id}/dependencies",
+      "function_name": "get_plugin_dependencies"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 397,
+      "method": "GET",
+      "path": "/{plugin_id}/logs",
+      "function_name": "get_plugin_logs"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 412,
+      "method": "GET",
+      "path": "/{plugin_id}/capabilities",
+      "function_name": "get_plugin_capabilities"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 432,
+      "method": "PUT",
+      "path": "/{plugin_id}/capabilities/{capability}",
+      "function_name": "update_capability_grant"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 463,
+      "method": "GET",
+      "path": "/workers",
+      "function_name": "list_workers"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 478,
+      "method": "POST",
+      "path": "/workers/{plugin_id}/start",
+      "function_name": "start_worker"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 504,
+      "method": "POST",
+      "path": "/workers/{plugin_id}/stop",
+      "function_name": "stop_worker"
+    },
+    {
+      "file": "engineering/python/app/api/v1/plugins.py",
+      "line": 519,
+      "method": "GET",
+      "path": "/health",
+      "function_name": "health_check"
+    },
+    {
+      "file": "engineering/python/app/api/v1/postprocessor_dialects.py",
+      "line": 103,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_dialects"
+    },
+    {
+      "file": "engineering/python/app/api/v1/postprocessor_dialects.py",
+      "line": 134,
+      "method": "GET",
+      "path": "/{dialect_id}",
+      "function_name": "get_dialect_detail"
+    },
+    {
+      "file": "engineering/python/app/api/v1/postprocessor_dialects.py",
+      "line": 172,
+      "method": "POST",
+      "path": "/template",
+      "function_name": "read_template"
+    },
+    {
+      "file": "engineering/python/app/api/v1/postprocessor_dialects.py",
+      "line": 221,
+      "method": "POST",
+      "path": "/preview",
+      "function_name": "preview_dialect"
+    },
+    {
+      "file": "engineering/python/app/api/v1/postprocessor_dialects.py",
+      "line": 322,
+      "method": "POST",
+      "path": "<dynamic>",
+      "function_name": "create_dialect"
+    },
+    {
+      "file": "engineering/python/app/api/v1/postprocessor_dialects.py",
+      "line": 475,
+      "method": "PUT",
+      "path": "/{dialect_id}/template",
+      "function_name": "save_template"
+    },
+    {
+      "file": "engineering/python/app/api/v1/postprocessor_dialects.py",
+      "line": 529,
+      "method": "DELETE",
+      "path": "/{dialect_id}",
+      "function_name": "delete_dialect"
+    },
+    {
+      "file": "engineering/python/app/api/v1/postprocessor_dialects.py",
+      "line": 572,
+      "method": "GET",
+      "path": "/{dialect_id}/params",
+      "function_name": "get_dialect_params"
+    },
+    {
+      "file": "engineering/python/app/api/v1/postprocessor_dialects.py",
+      "line": 625,
+      "method": "PUT",
+      "path": "/{dialect_id}/params",
+      "function_name": "save_dialect_params"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_explainer.py",
+      "line": 77,
+      "method": "POST",
+      "path": "/explain-process",
+      "function_name": "explain_process"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_explainer.py",
+      "line": 101,
+      "method": "POST",
+      "path": "/explain-nc",
+      "function_name": "explain_nc"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_explainer.py",
+      "line": 123,
+      "method": "POST",
+      "path": "/chat",
+      "function_name": "chat"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_explainer.py",
+      "line": 141,
+      "method": "POST",
+      "path": "/sessions",
+      "function_name": "create_session"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_explainer.py",
+      "line": 157,
+      "method": "GET",
+      "path": "/sessions/{session_id}",
+      "function_name": "get_session"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_explainer.py",
+      "line": 179,
+      "method": "DELETE",
+      "path": "/sessions/{session_id}",
+      "function_name": "clear_session"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_explainer.py",
+      "line": 194,
+      "method": "POST",
+      "path": "/cleanup",
+      "function_name": "cleanup_expired"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_routes.py",
+      "line": 54,
+      "method": "GET",
+      "path": "/",
+      "function_name": "list_process_routes"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_routes.py",
+      "line": 72,
+      "method": "GET",
+      "path": "/{route_id}",
+      "function_name": "get_process_route"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_routes.py",
+      "line": 86,
+      "method": "POST",
+      "path": "/",
+      "function_name": "create_process_route"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_routes.py",
+      "line": 105,
+      "method": "PUT",
+      "path": "/{route_id}",
+      "function_name": "update_process_route"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_routes.py",
+      "line": 123,
+      "method": "DELETE",
+      "path": "/{route_id}",
+      "function_name": "delete_process_route"
+    },
+    {
+      "file": "engineering/python/app/api/v1/process_routes.py",
+      "line": 137,
+      "method": "POST",
+      "path": "/seed",
+      "function_name": "seed_process_routes"
+    },
+    {
+      "file": "engineering/python/app/api/v1/production.py",
+      "line": 41,
+      "method": "GET",
+      "path": "/dashboard/",
+      "function_name": "get_dashboard"
+    },
+    {
+      "file": "engineering/python/app/api/v1/production.py",
+      "line": 52,
+      "method": "GET",
+      "path": "/records/",
+      "function_name": "list_production_records"
+    },
+    {
+      "file": "engineering/python/app/api/v1/production.py",
+      "line": 77,
+      "method": "GET",
+      "path": "/work-orders/",
+      "function_name": "list_work_orders"
+    },
+    {
+      "file": "engineering/python/app/api/v1/production.py",
+      "line": 93,
+      "method": "GET",
+      "path": "/work-orders/{wo_id}",
+      "function_name": "get_work_order"
+    },
+    {
+      "file": "engineering/python/app/api/v1/production.py",
+      "line": 106,
+      "method": "PUT",
+      "path": "/work-orders/{wo_id}",
+      "function_name": "update_work_order"
+    },
+    {
+      "file": "engineering/python/app/api/v1/production.py",
+      "line": 120,
+      "method": "GET",
+      "path": "/lines/",
+      "function_name": "get_production_lines"
+    },
+    {
+      "file": "engineering/python/app/api/v1/production.py",
+      "line": 131,
+      "method": "GET",
+      "path": "/stats",
+      "function_name": "get_daily_stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/production.py",
+      "line": 144,
+      "method": "GET",
+      "path": "/stats/summary",
+      "function_name": "get_monthly_summary"
+    },
+    {
+      "file": "engineering/python/app/api/v1/production.py",
+      "line": 155,
+      "method": "POST",
+      "path": "/seed",
+      "function_name": "seed_production_data"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_packages.py",
+      "line": 268,
+      "method": "POST",
+      "path": "/export",
+      "function_name": "export_project"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_packages.py",
+      "line": 370,
+      "method": "POST",
+      "path": "/import",
+      "function_name": "import_project"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_packages.py",
+      "line": 475,
+      "method": "POST",
+      "path": "/validate",
+      "function_name": "validate_package"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_packages.py",
+      "line": 518,
+      "method": "POST",
+      "path": "/preview",
+      "function_name": "preview_import"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_packages.py",
+      "line": 558,
+      "method": "GET",
+      "path": "/exports",
+      "function_name": "list_exports"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_packages.py",
+      "line": 602,
+      "method": "GET",
+      "path": "/exports/{export_id}",
+      "function_name": "get_export"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_packages.py",
+      "line": 679,
+      "method": "DELETE",
+      "path": "/exports/{export_id}",
+      "function_name": "delete_export"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_packages.py",
+      "line": 705,
+      "method": "GET",
+      "path": "/imports",
+      "function_name": "list_imports"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 175,
+      "method": "POST",
+      "path": "/projects",
+      "function_name": "create_project"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 204,
+      "method": "GET",
+      "path": "/projects",
+      "function_name": "list_projects"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 228,
+      "method": "GET",
+      "path": "/projects/{project_id}",
+      "function_name": "get_project"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 251,
+      "method": "DELETE",
+      "path": "/projects/{project_id}",
+      "function_name": "delete_project"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 272,
+      "method": "GET",
+      "path": "/projects/{project_id}/status",
+      "function_name": "get_project_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 296,
+      "method": "POST",
+      "path": "/projects/{project_id}/commit",
+      "function_name": "commit_project"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 322,
+      "method": "POST",
+      "path": "/projects/{project_id}/push",
+      "function_name": "push_project"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 341,
+      "method": "POST",
+      "path": "/projects/{project_id}/pull",
+      "function_name": "pull_project"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 361,
+      "method": "POST",
+      "path": "/projects/{project_id}/resources",
+      "function_name": "add_resource_ref"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 411,
+      "method": "GET",
+      "path": "/projects/{project_id}/resources",
+      "function_name": "list_resource_refs"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 437,
+      "method": "DELETE",
+      "path": "/projects/{project_id}/resources",
+      "function_name": "remove_resource_ref"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 458,
+      "method": "GET",
+      "path": "/projects/{project_id}/records",
+      "function_name": "list_sync_records"
+    },
+    {
+      "file": "engineering/python/app/api/v1/project_sync.py",
+      "line": 487,
+      "method": "POST",
+      "path": "/clone",
+      "function_name": "clone_project"
+    },
+    {
+      "file": "engineering/python/app/api/v1/quality.py",
+      "line": 39,
+      "method": "GET",
+      "path": "/",
+      "function_name": "list_quality_records"
+    },
+    {
+      "file": "engineering/python/app/api/v1/quality.py",
+      "line": 83,
+      "method": "POST",
+      "path": "/",
+      "function_name": "create_quality_record"
+    },
+    {
+      "file": "engineering/python/app/api/v1/quality.py",
+      "line": 100,
+      "method": "GET",
+      "path": "/stats/",
+      "function_name": "get_quality_stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/quality.py",
+      "line": 111,
+      "method": "GET",
+      "path": "/anomalies/",
+      "function_name": "list_anomalies"
+    },
+    {
+      "file": "engineering/python/app/api/v1/quality.py",
+      "line": 132,
+      "method": "POST",
+      "path": "/seed",
+      "function_name": "seed_quality_data"
+    },
+    {
+      "file": "engineering/python/app/api/v1/quality.py",
+      "line": 154,
+      "method": "GET",
+      "path": "/{record_id}",
+      "function_name": "get_quality_record_detail"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 176,
+      "method": "GET",
+      "path": "/datasets/{dataset_id}",
+      "function_name": "get_dataset_card"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 209,
+      "method": "PUT",
+      "path": "/datasets/{dataset_id}/readme",
+      "function_name": "upsert_dataset_readme"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 238,
+      "method": "GET",
+      "path": "/datasets/{dataset_id}/lineage",
+      "function_name": "get_dataset_lineage"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 291,
+      "method": "GET",
+      "path": "/datasets/{dataset_id}/metrics",
+      "function_name": "get_dataset_metrics"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 339,
+      "method": "GET",
+      "path": "/models",
+      "function_name": "list_models"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 400,
+      "method": "POST",
+      "path": "/models",
+      "function_name": "register_model"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 446,
+      "method": "GET",
+      "path": "/models/{model_id}",
+      "function_name": "get_model_card"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 478,
+      "method": "PUT",
+      "path": "/models/{model_id}",
+      "function_name": "update_model"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 521,
+      "method": "DELETE",
+      "path": "/models/{model_id}",
+      "function_name": "delete_model"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 541,
+      "method": "GET",
+      "path": "/models/{model_id}/lineage",
+      "function_name": "get_model_lineage"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 567,
+      "method": "GET",
+      "path": "/models/{model_id}/metrics",
+      "function_name": "get_model_metrics"
+    },
+    {
+      "file": "engineering/python/app/api/v1/resource_cards.py",
+      "line": 598,
+      "method": "POST",
+      "path": "/models/{model_id}/metrics",
+      "function_name": "append_model_metrics"
+    },
+    {
+      "file": "engineering/python/app/api/v1/rl_agent.py",
+      "line": 220,
+      "method": "GET",
+      "path": "/versions",
+      "function_name": "list_versions"
+    },
+    {
+      "file": "engineering/python/app/api/v1/rl_agent.py",
+      "line": 271,
+      "method": "GET",
+      "path": "/versions/{version}",
+      "function_name": "get_version"
+    },
+    {
+      "file": "engineering/python/app/api/v1/rl_agent.py",
+      "line": 295,
+      "method": "POST",
+      "path": "/act",
+      "function_name": "act"
+    },
+    {
+      "file": "engineering/python/app/api/v1/rl_agent.py",
+      "line": 373,
+      "method": "GET",
+      "path": "/training/status",
+      "function_name": "get_training_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/rl_agent.py",
+      "line": 405,
+      "method": "POST",
+      "path": "/training/start",
+      "function_name": "start_training"
+    },
+    {
+      "file": "engineering/python/app/api/v1/rl_agent.py",
+      "line": 482,
+      "method": "POST",
+      "path": "/training/stop",
+      "function_name": "stop_training"
+    },
+    {
+      "file": "engineering/python/app/api/v1/sharp.py",
+      "line": 271,
+      "method": "DELETE",
+      "path": "/trajectory",
+      "function_name": "clear_trajectories"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 181,
+      "method": "POST",
+      "path": "/samples",
+      "function_name": "register_sample"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 198,
+      "method": "POST",
+      "path": "/samples/batch",
+      "function_name": "register_samples_batch"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 222,
+      "method": "GET",
+      "path": "/samples",
+      "function_name": "list_samples"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 251,
+      "method": "GET",
+      "path": "/samples/by-type/{signal_type}",
+      "function_name": "list_by_type"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 285,
+      "method": "POST",
+      "path": "/retrieve",
+      "function_name": "retrieve_similar"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 318,
+      "method": "POST",
+      "path": "/fuse",
+      "function_name": "fuse_signals"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 364,
+      "method": "POST",
+      "path": "/correlate/wear",
+      "function_name": "correlate_wear"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 399,
+      "method": "POST",
+      "path": "/correlate/chatter",
+      "function_name": "correlate_chatter"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 437,
+      "method": "GET",
+      "path": "/stats",
+      "function_name": "stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 453,
+      "method": "DELETE",
+      "path": "/samples/{sample_id}",
+      "function_name": "delete_sample"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 473,
+      "method": "DELETE",
+      "path": "/samples/by-type/{signal_type}",
+      "function_name": "delete_by_type"
+    },
+    {
+      "file": "engineering/python/app/api/v1/signal_fusion_kb.py",
+      "line": 499,
+      "method": "GET",
+      "path": "/health",
+      "function_name": "health"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 88,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_skills"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 140,
+      "method": "GET",
+      "path": "/stats",
+      "function_name": "get_skill_stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 156,
+      "method": "POST",
+      "path": "/create",
+      "function_name": "create_skill"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 181,
+      "method": "PUT",
+      "path": "/{skill_id}",
+      "function_name": "update_skill"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 205,
+      "method": "DELETE",
+      "path": "/{skill_id}",
+      "function_name": "delete_skill"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 228,
+      "method": "GET",
+      "path": "/{skill_id}",
+      "function_name": "get_skill"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 265,
+      "method": "POST",
+      "path": "/reload",
+      "function_name": "reload_skills"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 281,
+      "method": "GET",
+      "path": "/{skill_id}/versions",
+      "function_name": "get_skill_versions"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 305,
+      "method": "POST",
+      "path": "/export",
+      "function_name": "export_skill"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 321,
+      "method": "POST",
+      "path": "/import",
+      "function_name": "import_skill"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 350,
+      "method": "POST",
+      "path": "/rate",
+      "function_name": "rate_skill"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 373,
+      "method": "POST",
+      "path": "/inject",
+      "function_name": "inject_skills_endpoint"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 400,
+      "method": "GET",
+      "path": "/marketplace/list",
+      "function_name": "marketplace_list"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 414,
+      "method": "GET",
+      "path": "/marketplace/search",
+      "function_name": "marketplace_search"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 428,
+      "method": "POST",
+      "path": "/marketplace/publish",
+      "function_name": "marketplace_publish"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 445,
+      "method": "POST",
+      "path": "/marketplace/download",
+      "function_name": "marketplace_download"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 465,
+      "method": "POST",
+      "path": "/marketplace/rate",
+      "function_name": "marketplace_rate"
+    },
+    {
+      "file": "engineering/python/app/api/v1/skills.py",
+      "line": 488,
+      "method": "DELETE",
+      "path": "/marketplace/{skill_id}",
+      "function_name": "marketplace_unpublish"
+    },
+    {
+      "file": "engineering/python/app/api/v1/snapshots.py",
+      "line": 105,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_snapshots"
+    },
+    {
+      "file": "engineering/python/app/api/v1/snapshots.py",
+      "line": 137,
+      "method": "POST",
+      "path": "<dynamic>",
+      "function_name": "create_snapshot"
+    },
+    {
+      "file": "engineering/python/app/api/v1/snapshots.py",
+      "line": 162,
+      "method": "GET",
+      "path": "/{snapshot_id}",
+      "function_name": "get_snapshot"
+    },
+    {
+      "file": "engineering/python/app/api/v1/snapshots.py",
+      "line": 187,
+      "method": "POST",
+      "path": "/{snapshot_id}/reproduce",
+      "function_name": "reproduce_snapshot"
+    },
+    {
+      "file": "engineering/python/app/api/v1/status.py",
+      "line": 30,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "get_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/status.py",
+      "line": 106,
+      "method": "GET",
+      "path": "/postprocessors",
+      "function_name": "get_postprocessors"
+    },
+    {
+      "file": "engineering/python/app/api/v1/status.py",
+      "line": 122,
+      "method": "GET",
+      "path": "/research-bridge",
+      "function_name": "get_bridge"
+    },
+    {
+      "file": "engineering/python/app/api/v1/system.py",
+      "line": 21,
+      "method": "GET",
+      "path": "/version",
+      "function_name": "system_version"
+    },
+    {
+      "file": "engineering/python/app/api/v1/system.py",
+      "line": 26,
+      "method": "GET",
+      "path": "/update-check",
+      "function_name": "update_check"
+    },
+    {
+      "file": "engineering/python/app/api/v1/system.py",
+      "line": 38,
+      "method": "GET",
+      "path": "/version",
+      "function_name": "api_version"
+    },
+    {
+      "file": "engineering/python/app/api/v1/system.py",
+      "line": 44,
+      "method": "POST",
+      "path": "/backup",
+      "function_name": "create_backup"
+    },
+    {
+      "file": "engineering/python/app/api/v1/system.py",
+      "line": 53,
+      "method": "GET",
+      "path": "/backups",
+      "function_name": "list_backups"
+    },
+    {
+      "file": "engineering/python/app/api/v1/system.py",
+      "line": 59,
+      "method": "POST",
+      "path": "/backup/{backup_id}/restore",
+      "function_name": "restore_backup"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 111,
+      "method": "POST",
+      "path": "/tasks",
+      "function_name": "register_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 149,
+      "method": "POST",
+      "path": "/checkout",
+      "function_name": "checkout_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 202,
+      "method": "POST",
+      "path": "/tasks/{task_id}/heartbeat",
+      "function_name": "heartbeat"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 226,
+      "method": "POST",
+      "path": "/tasks/{task_id}/complete",
+      "function_name": "complete_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 246,
+      "method": "POST",
+      "path": "/tasks/{task_id}/fail",
+      "function_name": "fail_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 267,
+      "method": "POST",
+      "path": "/tasks/{task_id}/abandon",
+      "function_name": "abandon_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 287,
+      "method": "GET",
+      "path": "/board",
+      "function_name": "get_task_board"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 294,
+      "method": "GET",
+      "path": "/locks",
+      "function_name": "list_locks"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 301,
+      "method": "DELETE",
+      "path": "/locks/{task_id}",
+      "function_name": "force_release_lock"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 339,
+      "method": "GET",
+      "path": "/tasks/{task_id}/history",
+      "function_name": "get_checkout_history"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 350,
+      "method": "GET",
+      "path": "/agents/{agent_id}/status",
+      "function_name": "get_agent_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 357,
+      "method": "POST",
+      "path": "/queue/enqueue",
+      "function_name": "enqueue_checkout"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 403,
+      "method": "POST",
+      "path": "/queue/process",
+      "function_name": "process_queue"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 422,
+      "method": "GET",
+      "path": "/queue",
+      "function_name": "get_queue_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/task_checkout.py",
+      "line": 429,
+      "method": "POST",
+      "path": "/cleanup",
+      "function_name": "cleanup_expired"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_ab_testing_routes.py",
+      "line": 41,
+      "method": "POST",
+      "path": "<dynamic>",
+      "function_name": "create_experiment"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_ab_testing_routes.py",
+      "line": 54,
+      "method": "POST",
+      "path": "/record",
+      "function_name": "record_execution"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_ab_testing_routes.py",
+      "line": 70,
+      "method": "POST",
+      "path": "/assign",
+      "function_name": "assign_branch"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_ab_testing_routes.py",
+      "line": 81,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_experiments"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_ab_testing_routes.py",
+      "line": 89,
+      "method": "GET",
+      "path": "/{experiment_id}",
+      "function_name": "get_experiment"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_ab_testing_routes.py",
+      "line": 99,
+      "method": "POST",
+      "path": "/{experiment_id}/evaluate",
+      "function_name": "evaluate_experiment"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_ab_testing_routes.py",
+      "line": 109,
+      "method": "POST",
+      "path": "/{experiment_id}/conclude",
+      "function_name": "conclude_experiment"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_branching_routes.py",
+      "line": 47,
+      "method": "POST",
+      "path": "/",
+      "function_name": "create_branch"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_branching_routes.py",
+      "line": 61,
+      "method": "GET",
+      "path": "/",
+      "function_name": "list_branches"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_branching_routes.py",
+      "line": 70,
+      "method": "GET",
+      "path": "/{branch_id}",
+      "function_name": "get_branch"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_branching_routes.py",
+      "line": 82,
+      "method": "GET",
+      "path": "/{branch_id}/log",
+      "function_name": "get_commit_log"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_branching_routes.py",
+      "line": 94,
+      "method": "POST",
+      "path": "/merge",
+      "function_name": "merge_branch"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_branching_routes.py",
+      "line": 105,
+      "method": "PUT",
+      "path": "/{branch_id}",
+      "function_name": "update_branch"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_branching_routes.py",
+      "line": 118,
+      "method": "DELETE",
+      "path": "/{branch_id}",
+      "function_name": "delete_branch"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_evolution_routes.py",
+      "line": 38,
+      "method": "GET",
+      "path": "/suggestions",
+      "function_name": "list_suggestions"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_evolution_routes.py",
+      "line": 46,
+      "method": "POST",
+      "path": "/suggestions",
+      "function_name": "create_suggestion"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_evolution_routes.py",
+      "line": 58,
+      "method": "POST",
+      "path": "/suggestions/apply",
+      "function_name": "apply_suggestion"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_evolution_routes.py",
+      "line": 68,
+      "method": "POST",
+      "path": "/metrics",
+      "function_name": "update_metrics"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_evolution_routes.py",
+      "line": 76,
+      "method": "POST",
+      "path": "/triggers/evaluate",
+      "function_name": "evaluate_triggers"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_evolution_routes.py",
+      "line": 89,
+      "method": "GET",
+      "path": "/history",
+      "function_name": "get_history"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_market.py",
+      "line": 63,
+      "method": "GET",
+      "path": "/trending",
+      "function_name": "get_trending"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_market.py",
+      "line": 77,
+      "method": "GET",
+      "path": "/templates/{branch_id}/metrics",
+      "function_name": "get_template_metrics"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_market.py",
+      "line": 109,
+      "method": "POST",
+      "path": "/publish",
+      "function_name": "publish_template"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_market.py",
+      "line": 132,
+      "method": "POST",
+      "path": "/subscribe",
+      "function_name": "subscribe"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_market.py",
+      "line": 145,
+      "method": "GET",
+      "path": "/subscriptions/{project_id}",
+      "function_name": "get_subscriptions"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_market.py",
+      "line": 155,
+      "method": "POST",
+      "path": "/export/{branch_id}",
+      "function_name": "export_template"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_market.py",
+      "line": 194,
+      "method": "POST",
+      "path": "/import",
+      "function_name": "import_template"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_market.py",
+      "line": 215,
+      "method": "GET",
+      "path": "/sync/{branch_id}",
+      "function_name": "sync_changes"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_update_routes.py",
+      "line": 34,
+      "method": "GET",
+      "path": "/{project_id}",
+      "function_name": "get_notifications"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_update_routes.py",
+      "line": 45,
+      "method": "POST",
+      "path": "/scan",
+      "function_name": "scan_for_updates"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_update_routes.py",
+      "line": 58,
+      "method": "POST",
+      "path": "/apply/{notification_id}",
+      "function_name": "apply_update"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_update_routes.py",
+      "line": 68,
+      "method": "POST",
+      "path": "/dismiss/{notification_id}",
+      "function_name": "dismiss_notification"
+    },
+    {
+      "file": "engineering/python/app/api/v1/template_update_routes.py",
+      "line": 78,
+      "method": "GET",
+      "path": "/preview/{notification_id}",
+      "function_name": "preview_update"
+    },
+    {
+      "file": "engineering/python/app/api/v1/tools.py",
+      "line": 79,
+      "method": "GET",
+      "path": "/",
+      "function_name": "list_tools"
+    },
+    {
+      "file": "engineering/python/app/api/v1/tools.py",
+      "line": 94,
+      "method": "GET",
+      "path": "/stats/summary",
+      "function_name": "stats_summary"
+    },
+    {
+      "file": "engineering/python/app/api/v1/tools.py",
+      "line": 105,
+      "method": "GET",
+      "path": "/{tool_id}",
+      "function_name": "get_tool"
+    },
+    {
+      "file": "engineering/python/app/api/v1/tools.py",
+      "line": 118,
+      "method": "POST",
+      "path": "/",
+      "function_name": "create_tool"
+    },
+    {
+      "file": "engineering/python/app/api/v1/tools.py",
+      "line": 134,
+      "method": "PUT",
+      "path": "/{tool_id}",
+      "function_name": "update_tool"
+    },
+    {
+      "file": "engineering/python/app/api/v1/tools.py",
+      "line": 147,
+      "method": "DELETE",
+      "path": "/{tool_id}",
+      "function_name": "delete_tool"
+    },
+    {
+      "file": "engineering/python/app/api/v1/tools.py",
+      "line": 160,
+      "method": "POST",
+      "path": "/{tool_id}/wear",
+      "function_name": "update_tool_wear"
+    },
+    {
+      "file": "engineering/python/app/api/v1/tools.py",
+      "line": 181,
+      "method": "GET",
+      "path": "/{tool_id}/life-prediction",
+      "function_name": "tool_life_prediction"
+    },
+    {
+      "file": "engineering/python/app/api/v1/tools.py",
+      "line": 200,
+      "method": "POST",
+      "path": "/seed",
+      "function_name": "seed_tools"
+    },
+    {
+      "file": "engineering/python/app/api/v1/user_sovereignty.py",
+      "line": 53,
+      "method": "POST",
+      "path": "/predict",
+      "function_name": "predict_with_sovereignty"
+    },
+    {
+      "file": "engineering/python/app/api/v1/user_sovereignty.py",
+      "line": 304,
+      "method": "POST",
+      "path": "/audit-log/record",
+      "function_name": "record_user_decision"
+    },
+    {
+      "file": "engineering/python/app/api/v1/user_sovereignty.py",
+      "line": 387,
+      "method": "POST",
+      "path": "/audit-log/query",
+      "function_name": "query_audit_logs"
+    },
+    {
+      "file": "engineering/python/app/api/v1/user_sovereignty.py",
+      "line": 413,
+      "method": "POST",
+      "path": "/audit-log/search",
+      "function_name": "search_audit_logs"
+    },
+    {
+      "file": "engineering/python/app/api/v1/user_sovereignty.py",
+      "line": 435,
+      "method": "POST",
+      "path": "/audit-log/export",
+      "function_name": "export_audit_logs"
+    },
+    {
+      "file": "engineering/python/app/api/v1/user_sovereignty.py",
+      "line": 459,
+      "method": "GET",
+      "path": "/audit-log/statistics",
+      "function_name": "get_audit_log_statistics"
+    },
+    {
+      "file": "engineering/python/app/api/v1/user_sovereignty.py",
+      "line": 474,
+      "method": "DELETE",
+      "path": "/audit-log/clear",
+      "function_name": "clear_audit_logs"
+    },
+    {
+      "file": "engineering/python/app/api/v1/user_sovereignty.py",
+      "line": 501,
+      "method": "GET",
+      "path": "/settings",
+      "function_name": "get_user_sovereignty_settings"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 95,
+      "method": "POST",
+      "path": "/predict",
+      "function_name": "predict_wear"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 128,
+      "method": "POST",
+      "path": "/remaining-life",
+      "function_name": "predict_remaining_life"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 166,
+      "method": "POST",
+      "path": "/suggest",
+      "function_name": "suggest_adjustment"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 197,
+      "method": "GET",
+      "path": "/models",
+      "function_name": "get_supported_models"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 236,
+      "method": "POST",
+      "path": "/threshold",
+      "function_name": "get_threshold"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 261,
+      "method": "POST",
+      "path": "/calibrate",
+      "function_name": "calibrate_prediction"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 291,
+      "method": "POST",
+      "path": "/calibrate-realtime",
+      "function_name": "calibrate_with_real_time_data"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 326,
+      "method": "POST",
+      "path": "/compensation",
+      "function_name": "get_compensation_suggestions"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 361,
+      "method": "POST",
+      "path": "/train-uniwear",
+      "function_name": "train_uniwear_model"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 388,
+      "method": "POST",
+      "path": "/predict-from-signals",
+      "function_name": "predict_wear_from_signal_features"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 415,
+      "method": "GET",
+      "path": "/cross-dataset-analysis",
+      "function_name": "get_cross_dataset_analysis"
+    },
+    {
+      "file": "engineering/python/app/api/v1/wear_prediction.py",
+      "line": 437,
+      "method": "GET",
+      "path": "/uniwear-materials",
+      "function_name": "get_uniwear_materials"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflows.py",
+      "line": 159,
+      "method": "POST",
+      "path": "/validate",
+      "function_name": "validate_workflow"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflows.py",
+      "line": 186,
+      "method": "POST",
+      "path": "/run",
+      "function_name": "run_workflow"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflows.py",
+      "line": 219,
+      "method": "POST",
+      "path": "/{workflow_run_id}/resume",
+      "function_name": "resume_workflow"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflows.py",
+      "line": 253,
+      "method": "GET",
+      "path": "/{workflow_run_id}",
+      "function_name": "get_workflow"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflows.py",
+      "line": 269,
+      "method": "POST",
+      "path": "/{workflow_run_id}/cancel",
+      "function_name": "cancel_workflow"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflows.py",
+      "line": 285,
+      "method": "GET",
+      "path": "/{workflow_run_id}/stream",
+      "function_name": "stream_workflow_events"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflows.py",
+      "line": 337,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_workflows"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflows.py",
+      "line": 365,
+      "method": "DELETE",
+      "path": "/{workflow_run_id}",
+      "function_name": "delete_workflow"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflow_templates.py",
+      "line": 99,
+      "method": "POST",
+      "path": "/publish",
+      "function_name": "publish_template"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflow_templates.py",
+      "line": 143,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "list_templates"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflow_templates.py",
+      "line": 182,
+      "method": "GET",
+      "path": "/search",
+      "function_name": "search_templates"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflow_templates.py",
+      "line": 205,
+      "method": "GET",
+      "path": "/stats",
+      "function_name": "market_stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflow_templates.py",
+      "line": 229,
+      "method": "GET",
+      "path": "/{template_id}",
+      "function_name": "get_template"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflow_templates.py",
+      "line": 254,
+      "method": "GET",
+      "path": "/{template_id}/versions",
+      "function_name": "list_versions"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflow_templates.py",
+      "line": 276,
+      "method": "GET",
+      "path": "/{template_id}/download",
+      "function_name": "download_template"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflow_templates.py",
+      "line": 304,
+      "method": "POST",
+      "path": "/{template_id}/rate",
+      "function_name": "rate_template"
+    },
+    {
+      "file": "engineering/python/app/api/v1/workflow_templates.py",
+      "line": 331,
+      "method": "POST",
+      "path": "/{template_id}/unpublish",
+      "function_name": "unpublish_template"
+    },
+    {
+      "file": "engineering/python/app/api/v1/world_model.py",
+      "line": 153,
+      "method": "GET",
+      "path": "/versions",
+      "function_name": "list_versions"
+    },
+    {
+      "file": "engineering/python/app/api/v1/world_model.py",
+      "line": 192,
+      "method": "GET",
+      "path": "/versions/{version}",
+      "function_name": "get_version"
+    },
+    {
+      "file": "engineering/python/app/api/v1/world_model.py",
+      "line": 216,
+      "method": "POST",
+      "path": "/predict",
+      "function_name": "predict"
+    },
+    {
+      "file": "engineering/python/app/api/v1/world_model.py",
+      "line": 287,
+      "method": "POST",
+      "path": "/preview",
+      "function_name": "preview"
+    },
+    {
+      "file": "engineering/python/app/api/v1/agent_gateway/sse_stream.py",
+      "line": 49,
+      "method": "GET",
+      "path": "/train/{job_id}/stream",
+      "function_name": "stream_training"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cam_validation/routes.py",
+      "line": 92,
+      "method": "GET",
+      "path": "/precision_info",
+      "function_name": "get_precision_info"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cam_validation/routes.py",
+      "line": 134,
+      "method": "POST",
+      "path": "/tasks/{task_id}/run",
+      "function_name": "run_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cam_validation/routes.py",
+      "line": 165,
+      "method": "GET",
+      "path": "/tasks",
+      "function_name": "list_tasks"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cam_validation/routes.py",
+      "line": 328,
+      "method": "DELETE",
+      "path": "/tasks/{task_id}",
+      "function_name": "delete_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/chatter_prediction/routes.py",
+      "line": 57,
+      "method": "GET",
+      "path": "/precision_info",
+      "function_name": "get_precision_info"
+    },
+    {
+      "file": "engineering/python/app/api/v1/chatter_prediction/routes.py",
+      "line": 93,
+      "method": "POST",
+      "path": "/tasks/{task_id}/run",
+      "function_name": "run_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/chatter_prediction/routes.py",
+      "line": 123,
+      "method": "GET",
+      "path": "/tasks",
+      "function_name": "list_tasks"
+    },
+    {
+      "file": "engineering/python/app/api/v1/chatter_prediction/routes.py",
+      "line": 206,
+      "method": "GET",
+      "path": "/tasks/{task_id}/chatter_report/download",
+      "function_name": "download_chatter_report"
+    },
+    {
+      "file": "engineering/python/app/api/v1/chatter_prediction/routes.py",
+      "line": 228,
+      "method": "DELETE",
+      "path": "/tasks/{task_id}",
+      "function_name": "delete_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cutting_experience/routes.py",
+      "line": 84,
+      "method": "POST",
+      "path": "/capture",
+      "function_name": "capture_experience"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cutting_experience/routes.py",
+      "line": 99,
+      "method": "POST",
+      "path": "/batch",
+      "function_name": "batch_capture_experiences"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cutting_experience/routes.py",
+      "line": 123,
+      "method": "GET",
+      "path": "<dynamic>",
+      "function_name": "query_experiences"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cutting_experience/routes.py",
+      "line": 159,
+      "method": "GET",
+      "path": "/stats",
+      "function_name": "experience_stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cutting_experience/routes.py",
+      "line": 177,
+      "method": "GET",
+      "path": "/{record_id}",
+      "function_name": "experience_detail"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cutting_experience/routes.py",
+      "line": 199,
+      "method": "DELETE",
+      "path": "/{record_id}",
+      "function_name": "remove_experience"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cutting_parameters/routes.py",
+      "line": 57,
+      "method": "GET",
+      "path": "/precision_info",
+      "function_name": "get_precision_info"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cutting_parameters/routes.py",
+      "line": 98,
+      "method": "POST",
+      "path": "/tasks/{task_id}/run",
+      "function_name": "run_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cutting_parameters/routes.py",
+      "line": 126,
+      "method": "GET",
+      "path": "/tasks",
+      "function_name": "list_tasks"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cutting_parameters/routes.py",
+      "line": 208,
+      "method": "GET",
+      "path": "/tasks/{task_id}/chatter_params/download",
+      "function_name": "download_chatter_params"
+    },
+    {
+      "file": "engineering/python/app/api/v1/cutting_parameters/routes.py",
+      "line": 227,
+      "method": "DELETE",
+      "path": "/tasks/{task_id}",
+      "function_name": "delete_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/feature_extraction/routes.py",
+      "line": 44,
+      "method": "GET",
+      "path": "/precision_info",
+      "function_name": "get_precision_info"
+    },
+    {
+      "file": "engineering/python/app/api/v1/feature_extraction/routes.py",
+      "line": 110,
+      "method": "POST",
+      "path": "/tasks/{task_id}/run",
+      "function_name": "run_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/feature_extraction/routes.py",
+      "line": 140,
+      "method": "GET",
+      "path": "/tasks",
+      "function_name": "list_tasks"
+    },
+    {
+      "file": "engineering/python/app/api/v1/feature_extraction/routes.py",
+      "line": 235,
+      "method": "GET",
+      "path": "/tasks/{task_id}/export/download",
+      "function_name": "download_exported_features"
+    },
+    {
+      "file": "engineering/python/app/api/v1/feature_extraction/routes.py",
+      "line": 247,
+      "method": "DELETE",
+      "path": "/tasks/{task_id}",
+      "function_name": "delete_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/gcode_generation/routes.py",
+      "line": 71,
+      "method": "GET",
+      "path": "/precision_info",
+      "function_name": "get_precision_info"
+    },
+    {
+      "file": "engineering/python/app/api/v1/gcode_generation/routes.py",
+      "line": 112,
+      "method": "POST",
+      "path": "/tasks/{task_id}/run",
+      "function_name": "run_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/gcode_generation/routes.py",
+      "line": 142,
+      "method": "GET",
+      "path": "/tasks",
+      "function_name": "list_tasks"
+    },
+    {
+      "file": "engineering/python/app/api/v1/gcode_generation/routes.py",
+      "line": 289,
+      "method": "DELETE",
+      "path": "/tasks/{task_id}",
+      "function_name": "delete_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/image_to_3d/routes.py",
+      "line": 124,
+      "method": "GET",
+      "path": "/precision_info",
+      "function_name": "get_precision_info"
+    },
+    {
+      "file": "engineering/python/app/api/v1/image_to_3d/routes.py",
+      "line": 161,
+      "method": "POST",
+      "path": "/tasks",
+      "function_name": "create_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/image_to_3d/routes.py",
+      "line": 284,
+      "method": "POST",
+      "path": "/tasks/{task_id}/run",
+      "function_name": "run_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/image_to_3d/routes.py",
+      "line": 335,
+      "method": "GET",
+      "path": "/tasks/{task_id}",
+      "function_name": "get_task_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/image_to_3d/routes.py",
+      "line": 370,
+      "method": "GET",
+      "path": "/tasks",
+      "function_name": "list_tasks"
+    },
+    {
+      "file": "engineering/python/app/api/v1/image_to_3d/routes.py",
+      "line": 400,
+      "method": "GET",
+      "path": "/tasks/{task_id}/result",
+      "function_name": "download_result"
+    },
+    {
+      "file": "engineering/python/app/api/v1/image_to_3d/routes.py",
+      "line": 440,
+      "method": "GET",
+      "path": "/tasks/{task_id}/sparse",
+      "function_name": "download_sparse"
+    },
+    {
+      "file": "engineering/python/app/api/v1/image_to_3d/routes.py",
+      "line": 471,
+      "method": "DELETE",
+      "path": "/tasks/{task_id}",
+      "function_name": "delete_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_models.py",
+      "line": 36,
+      "method": "GET",
+      "path": "/models",
+      "function_name": "list_lnn_models"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_models.py",
+      "line": 59,
+      "method": "GET",
+      "path": "/models/{model_name}/info",
+      "function_name": "get_model_info"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_models.py",
+      "line": 92,
+      "method": "POST",
+      "path": "/models/{model_name}/validate",
+      "function_name": "validate_model"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_models.py",
+      "line": 143,
+      "method": "GET",
+      "path": "/models/{model_name}/size",
+      "function_name": "get_model_size"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_models.py",
+      "line": 196,
+      "method": "GET",
+      "path": "/cache/stats",
+      "function_name": "get_cache_stats"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_models.py",
+      "line": 218,
+      "method": "DELETE",
+      "path": "/cache/clear",
+      "function_name": "clear_cache"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_models.py",
+      "line": 234,
+      "method": "GET",
+      "path": "/performance",
+      "function_name": "get_performance"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_prediction.py",
+      "line": 237,
+      "method": "POST",
+      "path": "/predict",
+      "function_name": "predict_lnn"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_prediction.py",
+      "line": 304,
+      "method": "POST",
+      "path": "/batch-inference",
+      "function_name": "batch_inference"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_prediction.py",
+      "line": 493,
+      "method": "POST",
+      "path": "/predict_stream",
+      "function_name": "predict_stream"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_prediction.py",
+      "line": 604,
+      "method": "POST",
+      "path": "/predict_windowed",
+      "function_name": "predict_windowed"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_quantization.py",
+      "line": 45,
+      "method": "POST",
+      "path": "/models/{model_name}/quantize",
+      "function_name": "quantize_model"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_quantization.py",
+      "line": 114,
+      "method": "GET",
+      "path": "/quantize/{task_id}/status",
+      "function_name": "get_quantization_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_quantization.py",
+      "line": 137,
+      "method": "POST",
+      "path": "/quantize/{task_id}/cancel",
+      "function_name": "cancel_quantization_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_system.py",
+      "line": 66,
+      "method": "GET",
+      "path": "/health",
+      "function_name": "health_check"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_system.py",
+      "line": 95,
+      "method": "GET",
+      "path": "/tasks",
+      "function_name": "list_training_tasks"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_system.py",
+      "line": 122,
+      "method": "GET",
+      "path": "/device/info",
+      "function_name": "get_device_info"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_system.py",
+      "line": 168,
+      "method": "GET",
+      "path": "/device/status",
+      "function_name": "get_device_status_endpoint"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_system.py",
+      "line": 222,
+      "method": "POST",
+      "path": "/device/clear-cache",
+      "function_name": "clear_device_cache"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_training.py",
+      "line": 340,
+      "method": "POST",
+      "path": "/train/dry_run",
+      "function_name": "dry_run_training"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_training.py",
+      "line": 365,
+      "method": "POST",
+      "path": "/train",
+      "function_name": "train_lnn"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_training.py",
+      "line": 471,
+      "method": "GET",
+      "path": "/train/{task_id}/stream",
+      "function_name": "stream_training_status"
+    },
+    {
+      "file": "engineering/python/app/api/v1/lnn/routes_training.py",
+      "line": 495,
+      "method": "POST",
+      "path": "/train/{task_id}/cancel",
+      "function_name": "cancel_training_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/parametric_geometry/routes.py",
+      "line": 46,
+      "method": "GET",
+      "path": "/precision_info",
+      "function_name": "get_precision_info"
+    },
+    {
+      "file": "engineering/python/app/api/v1/parametric_geometry/routes.py",
+      "line": 86,
+      "method": "POST",
+      "path": "/tasks/{task_id}/run",
+      "function_name": "run_task"
+    },
+    {
+      "file": "engineering/python/app/api/v1/parametric_geometry/routes.py",
+      "line": 116,
+      "method": "GET",
+      "path": "/tasks",
+      "function_name": "list_tasks"
+    },
+    {
+      "file": "engineering/python/app/api/v1/parametric_geometry/routes.py",
+      "line": 196,
+      "method": "GET",
+      "path": "/tasks/{task_id}/step/download",
+      "function_name": "download_step_file"
+    },
+    {
+      "file": "engineering/python/app/api/v1/parametric_geometry/routes.py",
+      "line": 214,
+      "method": "DELETE",
+      "path": "/tasks/{task_id}",
+      "function_name": "delete_task"
+    }
+  ]
+}

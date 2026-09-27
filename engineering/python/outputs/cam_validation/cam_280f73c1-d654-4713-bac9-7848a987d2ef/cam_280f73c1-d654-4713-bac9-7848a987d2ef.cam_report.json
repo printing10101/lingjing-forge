@@ -1,0 +1,100 @@
+{
+  "task_id": "cam_280f73c1-d654-4713-bac9-7848a987d2ef",
+  "task_status": "succeeded",
+  "exported_at": 1784037739.5572858,
+  "reviewer": "engineer_zhang",
+  "source_gcode_report_path": "C:\\Users\\Lenovo\\Desktop\\灵境制造（上线版）\\python\\outputs\\gcode\\gc_625e7706-4909-4d55-b625-58ee25f32f5b\\gc_625e7706-4909-4d55-b625-58ee25f32f5b.report.json",
+  "source_gcode_file_path": "outputs\\gcode\\gc_625e7706-4909-4d55-b625-58ee25f32f5b\\gc_625e7706-4909-4d55-b625-58ee25f32f5b.nc",
+  "controller_type": "fanuc_0i",
+  "material_name": "45#钢",
+  "safe_z": 80.0,
+  "stock_top_z": 50.0,
+  "prediction_method": "analytical",
+  "pending_calibration": false,
+  "cam_validation_required": true,
+  "gcode_total_lines": 83,
+  "cam_backend_requested": "internal_only",
+  "cam_backend_used": "internal_only",
+  "cam_backend_fallback_reason": "",
+  "cam_software_report": {
+    "status": "skipped",
+    "backend_used": "internal_only",
+    "messages": [
+      "未执行 CAM 软件二次校验（internal_only 模式）。",
+      "G 代码仅经过 InternalValidator AABB 包围盒级快速预筛，不可直接上机加工。",
+      "上机前必须由工程师手动加载到 NX / PowerMill / PyCAM 完成完整刀轨仿真。"
+    ],
+    "collisions": [],
+    "degraded": false,
+    "degradation_reason": "",
+    "gcode_file_path": "outputs\\gcode\\gc_625e7706-4909-4d55-b625-58ee25f32f5b\\gc_625e7706-4909-4d55-b625-58ee25f32f5b.nc",
+    "controller_type": "fanuc_0i",
+    "validation_timestamp": "",
+    "subprocess_returncode": null,
+    "manual_checklist_path": ""
+  },
+  "total_features": 2,
+  "passed_features": 2,
+  "failed_features": 0,
+  "feature_validation_results": [
+    {
+      "feature_id": "face_A",
+      "feature_type": "plane",
+      "line_range": [
+        21,
+        39
+      ],
+      "internal_check_passed": true,
+      "internal_events": [],
+      "cam_check_passed": true,
+      "cam_messages": [
+        "未执行 CAM 软件二次校验（internal_only 模式）。",
+        "G 代码仅经过 InternalValidator AABB 包围盒级快速预筛，不可直接上机加工。",
+        "上机前必须由工程师手动加载到 NX / PowerMill / PyCAM 完成完整刀轨仿真。"
+      ],
+      "cam_backend_used": "internal_only",
+      "review_status": "confirmed",
+      "edited_params": {
+        "engineer_notes": "联调脚本自动确认特征 face_A"
+      },
+      "spindle_rpm": 3000.0,
+      "axial_depth_mm": 2.0,
+      "limit_depth_mm": 5.0,
+      "stable": true,
+      "safety_margin_ratio": 0.4,
+      "warning": ""
+    },
+    {
+      "feature_id": "hole_B",
+      "feature_type": "hole",
+      "line_range": [
+        40,
+        52
+      ],
+      "internal_check_passed": true,
+      "internal_events": [],
+      "cam_check_passed": true,
+      "cam_messages": [
+        "未执行 CAM 软件二次校验（internal_only 模式）。",
+        "G 代码仅经过 InternalValidator AABB 包围盒级快速预筛，不可直接上机加工。",
+        "上机前必须由工程师手动加载到 NX / PowerMill / PyCAM 完成完整刀轨仿真。"
+      ],
+      "cam_backend_used": "internal_only",
+      "review_status": "confirmed",
+      "edited_params": {
+        "engineer_notes": "联调脚本自动确认特征 hole_B"
+      },
+      "spindle_rpm": 2500.0,
+      "axial_depth_mm": 4.5,
+      "limit_depth_mm": 5.0,
+      "stable": true,
+      "safety_margin_ratio": 0.9,
+      "warning": "安全裕度不足：实际切深 4.500mm > 极限切深 × 0.8 = 4.000mm"
+    }
+  ],
+  "reviewed_by": "engineer_zhang",
+  "reviewed_at": 1784037739.5572617,
+  "warnings": [],
+  "errors": [],
+  "industrial_hard_gates_note": "本 CAM 校验报告是阶段 7 链路最终产物，供审计 / 合规 / 论文引用。内部预校验（CollisionDetector）是 AABB 包围盒级别快速预筛，不可替代 CAM 软件二次校验。G 代码必须经 CAM 软件（NX/PowerMill/PyCAM）二次校验后方可上机床，系统绝不直接接口 CNC 控制器，物理机床执行由人工 + 持证操作员完成。大一独立项目不触及物理机床，阶段 7 产物终止于本 JSON。"
+}

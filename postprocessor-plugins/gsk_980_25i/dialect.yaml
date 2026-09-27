@@ -1,0 +1,25 @@
+# =============================================================================
+# 方言声明：GSK 980/25i（广州数控，Fanuc 0i 兼容方言）
+# =============================================================================
+# 声明式镜像：与内置 GSKPostProcessor 行为等价（黄金测试逐字符一致）。
+# 演示完整方言差异的声明化表达：G30 回零、I/J/K 圆弧、-abs(depth) 循环等。
+# =============================================================================
+
+id: gsk_980_25i
+name: GSK 980/25i (Guangzhou CNC)
+version: "1.0.0"
+extends: fanuc_0i
+target_controller: gsk_980_25i
+
+templates:
+  format_header: templates/header.j2
+  format_tool_change: templates/tool_change.j2
+  format_arc: templates/arc.j2
+  format_cycle_drill: templates/cycle_drill.j2
+  format_cycle_tapping: templates/cycle_tapping.j2
+  format_footer: templates/footer.j2
+
+params: {}
+
+author: Lingjing Manufacturing Team
+description: 广州数控 GSK 980/25i（Fanuc 0i 兼容方言，声明式镜像）

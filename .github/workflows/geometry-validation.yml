@@ -1,0 +1,161 @@
+name: 3D重建几何精度验证
+
+on:
+  pull_request:
+    branches:
+      - main
+      - 'release/*'
+    paths:
+      - 'engineering/python/app/validation/**'
+      - 'engineering/python/app/cad/**'
+      - 'tests/benchmark/geometric/**'
+      - 'tests/validation/**'
+      - 'engineering/python/tests/validation/**'
+      - '.github/workflows/geometry-validation.yml'
+  push:
+    branches:
+      - main
+      - 'release/*'
+    paths:
+      - 'engineering/python/app/validation/**'
+      - 'engineering/python/app/cad/**'
+      - 'tests/benchmark/geometric/**'
+      - 'tests/validation/**'
+      - 'engineering/python/tests/validation/**'
+      - '.github/workflows/geometry-validation.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONUNBUFFERED: '1'
+  LNN_AUTH_ENABLED: 'false'
+  AGENT_AUTH_ENABLED: 'false'
+  # 修复：app 包位于 engineering/python/app/，需将 engineering/python/ 加入 PYTHONPATH，
+  # 否则步骤 7（运行3D重建）执行 `from app.validation import ...` 时
+  # 会因 ModuleNotFoundError 失败。
+  PYTHONPATH: ${{ github.workspace }}/engineering/python
+
+jobs:
+  geometry-validation:
+    name: 几何精度验证
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install and pull Git LFS files
+        run: |
+          git lfs install
+          git lfs pull
+
+      - name: 设置Python环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r requirements.txt
+          pip install pytest pytest-cov pytest-mock
+
+      - name: 校验基准数据集完整性
+        run: |
+          echo "验证基准数据集文件结构..."
+          missing=0
+          for part in stepped_shaft flange bracket; do
+            for view in front side top; do
+              if [ ! -f "tests/benchmark/geometric/$part/input_views/$view.svg" ]; then
+                echo "缺失: $part/input_views/$view.svg"
+                missing=1
+              fi
+            done
+            if [ ! -f "tests/benchmark/geometric/$part/metadata.json" ]; then
+              echo "缺失: $part/metadata.json"
+              missing=1
+            fi
+          done
+          if [ $missing -eq 1 ]; then
+            echo "基准数据集不完整，请检查"
+            exit 1
+          fi
+          echo "基准数据集完整性校验通过"
+
+      - name: 运行3D重建
+        run: |
+          echo "执行3D重建流程..."
+          python -c "
+          from app.validation import BenchmarkDataset, GeometricValidator
+          import json
+          ds = BenchmarkDataset()
+          parts = ds.list_parts()
+          print(f'发现 {len(parts)} 个基准零件: {parts}')
+          for p in parts:
+              md = ds.load_metadata(p)
+              print(f'  {p}: {len(md.features)}特征, {len(md.dimensions)}尺寸')
+          "
+
+      - name: 执行几何精度验证
+        id: validation
+        run: |
+          set -e
+          python tests/validation/run_ci_validation.py
+        continue-on-error: false
+
+      - name: 检查验证结果
+        run: |
+          echo "检查验证阈值..."
+          python -c "
+          import json, sys
+          with open('engineering/python/app/validation/reports/ci_summary.json', 'r') as f:
+              summary = json.load(f)
+          failed = False
+          for part_id, result in summary.items():
+              fr = result.get('feature_recall', 0)
+              da = result.get('dimension_accuracy', {}).get('mean_absolute_deviation', 999)
+              tc = result.get('tolerance_compliance', 0)
+              part_fail = False
+              if fr < 0.90:
+                  print(f'FAIL [{part_id}]: feature_recall={fr:.4f} < 0.90')
+                  part_fail = True
+              if da > 0.1:
+                  print(f'FAIL [{part_id}]: dimension_accuracy={da:.3f}mm > 0.1mm')
+                  part_fail = True
+              if tc < 95.0:
+                  print(f'FAIL [{part_id}]: tolerance_compliance={tc:.1f}% < 95.0%')
+                  part_fail = True
+              if part_fail:
+                  failed = True
+              else:
+                  print(f'PASS [{part_id}]: fr={fr:.4f}, da={da:.3f}mm, tc={tc:.1f}%')
+          if failed:
+              print('验证未通过: 存在未达到阈值的指标')
+              sys.exit(1)
+          print('所有零件验证通过')
+          "
+
+      - name: 存储验证报告
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: geometry-validation-reports
+          path: |
+            engineering/python/app/validation/reports/*.html
+            engineering/python/app/validation/reports/ci_summary.json
+          retention-days: 30
+
+      - name: 摘要输出
+        if: always()
+        run: |
+          echo "验证报告已生成并保存为CI artifacts（保留30天）"
+          echo "报告路径: engineering/python/app/validation/reports/"

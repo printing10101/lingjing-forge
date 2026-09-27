@@ -1,0 +1,386 @@
+{
+  "part_info": {
+    "name": "后端盖轴承钢套",
+    "drawing_no": "M0033",
+    "material": "45#钢",
+    "hardness": "调质 20-24HRC",
+    "quantity": 70000,
+    "blank": {
+      "diameter": 78.0,
+      "length_per_piece": 81.0,
+      "bar_length": 6000.0,
+      "bar_end_loss": 50.0,
+      "steel_density_kg_cm3": 0.00785,
+      "material_price_yuan_kg": 3.5
+    },
+    "dimensions": {
+      "outer_diameter": 76.0,
+      "total_length": 80.0,
+      "bores": [
+        {
+          "diameter": 46.0,
+          "length": 26.0,
+          "tolerance": "H8",
+          "ra": 3.2
+        },
+        {
+          "diameter": 26.0,
+          "length": 54.0,
+          "tolerance": "H8",
+          "ra": 3.2
+        }
+      ],
+      "chamfer": 0.5
+    },
+    "tolerance_general": "GB/T 1804-M",
+    "tolerance_special": "GB1004-B（建议按 GB/T 1804-m 级执行）",
+    "notes": [
+      "图纸中部分小尺寸标注（左侧 20.6 / 6.6 等）分辨率不足，已按套筒类零件常规结构假设为两段内孔：Ø46×26 与 Ø26×54。",
+      "如实际尺寸不同，可修改本脚本 PART_INFO 后重新生成。"
+    ]
+  },
+  "time_constants": {
+    "clamp_align_min": 2.0,
+    "part_swap_min": 1.0,
+    "tool_change_min": 0.5,
+    "shift_hours": 8.0,
+    "utilization": 0.85,
+    "setup_batch_min": 15.0,
+    "batch_size_for_setup": 1000
+  },
+  "operation_plan": {
+    "operations": [
+      {
+        "seq": 1,
+        "name": "OP01-端面粗车",
+        "feature_name": "端面粗车",
+        "machining_method": "粗车端面",
+        "surface": "A",
+        "tolerance_grade": "IT10",
+        "tool_type": "外圆车刀(粗)",
+        "cutting_params": {
+          "feed_rate_factor": 1.0,
+          "recommended_feed": "0.15-0.35 mm/rev",
+          "recommended_speed": "80-200 m/min"
+        },
+        "estimated_time_min": 4.8,
+        "notes": "定位基准面，确保加工精度; 留余量0.5-1.0mm"
+      },
+      {
+        "seq": 2,
+        "name": "OP02-端面精车",
+        "feature_name": "端面精车",
+        "machining_method": "精车端面",
+        "surface": "A",
+        "tolerance_grade": "IT7",
+        "tool_type": "外圆车刀(精)",
+        "cutting_params": {
+          "feed_rate_factor": 1.0,
+          "recommended_feed": "0.05-0.15 mm/rev",
+          "recommended_speed": "80-200 m/min"
+        },
+        "estimated_time_min": 3.6,
+        "notes": "定位基准面，确保加工精度; 精密加工，公差等级IT7; 最终尺寸，使用切削液"
+      },
+      {
+        "seq": 3,
+        "name": "OP03-外圆粗车",
+        "feature_name": "外圆粗车",
+        "machining_method": "粗车外圆",
+        "surface": "A",
+        "tolerance_grade": "IT10",
+        "tool_type": "外圆车刀(粗)",
+        "cutting_params": {
+          "feed_rate_factor": 1.0,
+          "recommended_feed": "0.15-0.35 mm/rev",
+          "recommended_speed": "80-200 m/min"
+        },
+        "estimated_time_min": 4.8,
+        "notes": "定位基准面，确保加工精度; 留余量0.5-1.0mm"
+      },
+      {
+        "seq": 4,
+        "name": "OP04-外圆精车",
+        "feature_name": "外圆精车",
+        "machining_method": "精车外圆",
+        "surface": "A",
+        "tolerance_grade": "IT7",
+        "tool_type": "外圆车刀(精)",
+        "cutting_params": {
+          "feed_rate_factor": 1.0,
+          "recommended_feed": "0.05-0.15 mm/rev",
+          "recommended_speed": "80-200 m/min"
+        },
+        "estimated_time_min": 3.6,
+        "notes": "定位基准面，确保加工精度; 精密加工，公差等级IT7; 最终尺寸，使用切削液"
+      },
+      {
+        "seq": 5,
+        "name": "OP05-内孔1-粗镗-Ø46",
+        "feature_name": "内孔1-粗镗-Ø46",
+        "machining_method": "粗镗内孔",
+        "surface": "A",
+        "tolerance_grade": "IT10",
+        "tool_type": "镗刀",
+        "cutting_params": {
+          "feed_rate_factor": 1.0,
+          "recommended_feed": "0.05-0.15 mm/rev",
+          "recommended_speed": "80-200 m/min"
+        },
+        "estimated_time_min": 4.0,
+        "notes": "留余量0.5-1.0mm; 使用中心钻定位后钻孔"
+      },
+      {
+        "seq": 6,
+        "name": "OP06-内孔1-精镗-Ø46",
+        "feature_name": "内孔1-精镗-Ø46",
+        "machining_method": "精镗内孔",
+        "surface": "A",
+        "tolerance_grade": "IT7",
+        "tool_type": "镗刀",
+        "cutting_params": {
+          "feed_rate_factor": 1.0,
+          "recommended_feed": "0.05-0.15 mm/rev",
+          "recommended_speed": "80-200 m/min"
+        },
+        "estimated_time_min": 3.0,
+        "notes": "精密加工，公差等级IT7; 最终尺寸，使用切削液; 使用中心钻定位后钻孔"
+      },
+      {
+        "seq": 7,
+        "name": "OP07-内孔2-粗镗-Ø26",
+        "feature_name": "内孔2-粗镗-Ø26",
+        "machining_method": "粗镗内孔",
+        "surface": "A",
+        "tolerance_grade": "IT10",
+        "tool_type": "镗刀",
+        "cutting_params": {
+          "feed_rate_factor": 1.0,
+          "recommended_feed": "0.05-0.15 mm/rev",
+          "recommended_speed": "80-200 m/min"
+        },
+        "estimated_time_min": 4.0,
+        "notes": "留余量0.5-1.0mm; 使用中心钻定位后钻孔"
+      },
+      {
+        "seq": 8,
+        "name": "OP08-内孔2-精镗-Ø26",
+        "feature_name": "内孔2-精镗-Ø26",
+        "machining_method": "精镗内孔",
+        "surface": "A",
+        "tolerance_grade": "IT7",
+        "tool_type": "镗刀",
+        "cutting_params": {
+          "feed_rate_factor": 1.0,
+          "recommended_feed": "0.05-0.15 mm/rev",
+          "recommended_speed": "80-200 m/min"
+        },
+        "estimated_time_min": 3.0,
+        "notes": "精密加工，公差等级IT7; 最终尺寸，使用切削液; 使用中心钻定位后钻孔"
+      },
+      {
+        "seq": 9,
+        "name": "OP09-倒角C0.5",
+        "feature_name": "倒角C0.5",
+        "machining_method": "倒角",
+        "surface": "A",
+        "tolerance_grade": "IT10",
+        "tool_type": "倒角刀",
+        "cutting_params": {
+          "feed_rate_factor": 1.0,
+          "recommended_feed": "0.10-0.25 mm/rev",
+          "recommended_speed": "80-200 m/min"
+        },
+        "estimated_time_min": 2.0,
+        "notes": "标准加工"
+      }
+    ],
+    "setups": [
+      {
+        "name": "装夹1-面A",
+        "surface": "A",
+        "fixture_type": "三爪卡盘装夹",
+        "datum_features": []
+      }
+    ],
+    "estimated_time_min": 32.8,
+    "face_change_count": 0,
+    "fixture_recommendations": [
+      {
+        "fixture_id": "three_jaw_chuck",
+        "fixture_name": "三爪卡盘装夹",
+        "fixture_type": "three_jaw_chuck",
+        "locating_method": "自动定心",
+        "clamping_points": [
+          {
+            "type": "三爪同步定心，限制径向移动和XY面转动，端面或顶尖限制轴向移动",
+            "constrained_dof": [
+              "X_translation",
+              "Y_translation",
+              "X_rotation",
+              "Y_rotation"
+            ]
+          }
+        ],
+        "clamping_force_n": 800,
+        "degrees_constrained": 4,
+        "precautions": [
+          "工件悬伸长度与转速关系: L/D < 3时可直接装夹, 3 < L/D < 6需用顶尖, L/D > 6需用跟刀架",
+          "确保工件动平衡，高速加工前需检查",
+          "夹紧力适中，避免薄壁件变形",
+          "定期检查卡爪磨损和定心精度"
+        ],
+        "suitability_score": 90,
+        "reasoning": [
+          "零件类型'shaft'匹配夹具类型'三爪卡盘装夹'",
+          "适用零件类型: shaft, disc, cylinder, stepped_shaft, flange",
+          "回转体零件首选三爪卡盘或V型块装夹"
+        ]
+      }
+    ]
+  },
+  "detailed_times": [
+    {
+      "name": "OP01-端面粗车",
+      "method": "粗车端面",
+      "diameter_mm": 76.0,
+      "length_mm": 39.0,
+      "spindle_rpm": 460,
+      "feed_mm_rev": 0.2,
+      "depth_of_cut_mm": 2.0,
+      "radial_stock_mm": 2.5,
+      "passes": 2,
+      "cutting_time_min": 0.85,
+      "tool_change_time_min": 0.5,
+      "notes": "粗车分多刀",
+      "metadata": {}
+    },
+    {
+      "name": "OP02-端面精车",
+      "method": "精车端面",
+      "diameter_mm": 76.0,
+      "length_mm": 39.0,
+      "spindle_rpm": 544,
+      "feed_mm_rev": 0.08,
+      "depth_of_cut_mm": 0.3,
+      "radial_stock_mm": 0.3,
+      "passes": 1,
+      "cutting_time_min": 0.9,
+      "tool_change_time_min": 0.5,
+      "notes": "精车一刀成形",
+      "metadata": {}
+    },
+    {
+      "name": "OP03-外圆粗车",
+      "method": "粗车外圆",
+      "diameter_mm": 76.0,
+      "length_mm": 80.0,
+      "spindle_rpm": 460,
+      "feed_mm_rev": 0.2,
+      "depth_of_cut_mm": 2.0,
+      "radial_stock_mm": 1.0,
+      "passes": 1,
+      "cutting_time_min": 0.87,
+      "tool_change_time_min": 0.5,
+      "notes": "粗车分多刀",
+      "metadata": {}
+    },
+    {
+      "name": "OP04-外圆精车",
+      "method": "精车外圆",
+      "diameter_mm": 76.0,
+      "length_mm": 80.0,
+      "spindle_rpm": 544,
+      "feed_mm_rev": 0.08,
+      "depth_of_cut_mm": 0.3,
+      "radial_stock_mm": 0.3,
+      "passes": 1,
+      "cutting_time_min": 1.84,
+      "tool_change_time_min": 0.5,
+      "notes": "精车一刀成形",
+      "metadata": {}
+    },
+    {
+      "name": "OP05-内孔1-粗镗-Ø46",
+      "method": "粗镗内孔",
+      "diameter_mm": 46.0,
+      "length_mm": 26.0,
+      "spindle_rpm": 761,
+      "feed_mm_rev": 0.2,
+      "depth_of_cut_mm": 2.0,
+      "radial_stock_mm": 13.0,
+      "passes": 7,
+      "cutting_time_min": 1.2,
+      "tool_change_time_min": 0.5,
+      "notes": "粗车分多刀",
+      "metadata": {}
+    },
+    {
+      "name": "OP06-内孔1-精镗-Ø46",
+      "method": "精镗内孔",
+      "diameter_mm": 46.0,
+      "length_mm": 26.0,
+      "spindle_rpm": 899,
+      "feed_mm_rev": 0.08,
+      "depth_of_cut_mm": 0.3,
+      "radial_stock_mm": 0.3,
+      "passes": 1,
+      "cutting_time_min": 0.36,
+      "tool_change_time_min": 0.0,
+      "notes": "精车一刀成形",
+      "metadata": {}
+    },
+    {
+      "name": "OP07-内孔2-粗镗-Ø26",
+      "method": "粗镗内孔",
+      "diameter_mm": 26.0,
+      "length_mm": 54.0,
+      "spindle_rpm": 1346,
+      "feed_mm_rev": 0.2,
+      "depth_of_cut_mm": 2.0,
+      "radial_stock_mm": 3.0,
+      "passes": 2,
+      "cutting_time_min": 0.4,
+      "tool_change_time_min": 0.0,
+      "notes": "粗车分多刀",
+      "metadata": {}
+    },
+    {
+      "name": "OP08-内孔2-精镗-Ø26",
+      "method": "精镗内孔",
+      "diameter_mm": 26.0,
+      "length_mm": 54.0,
+      "spindle_rpm": 1591,
+      "feed_mm_rev": 0.08,
+      "depth_of_cut_mm": 0.3,
+      "radial_stock_mm": 0.3,
+      "passes": 1,
+      "cutting_time_min": 0.42,
+      "tool_change_time_min": 0.0,
+      "notes": "精车一刀成形",
+      "metadata": {}
+    },
+    {
+      "name": "OP09-倒角C0.5",
+      "method": "倒角",
+      "diameter_mm": 76.0,
+      "length_mm": 0.5,
+      "spindle_rpm": 544,
+      "feed_mm_rev": 0.08,
+      "depth_of_cut_mm": 0.3,
+      "radial_stock_mm": 0.3,
+      "passes": 1,
+      "cutting_time_min": 0.01,
+      "tool_change_time_min": 0.5,
+      "notes": "精车一刀成形",
+      "metadata": {}
+    }
+  ],
+  "gcode_summary": {
+    "controller_type": "fanuc_0i",
+    "program_number": 1001,
+    "total_lines": 134,
+    "tool_count": 4,
+    "estimated_cycle_time_min": 38.8
+  }
+}

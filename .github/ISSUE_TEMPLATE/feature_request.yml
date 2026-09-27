@@ -1,0 +1,108 @@
+name:  功能建议
+description: 提议新功能或改进现有功能
+title: "[Feature] "
+labels: ["enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您为灵境制造提出功能建议!请清晰描述您的需求,便于我们评估与实现。
+        提交前请先 [搜索已有 Issue](https://github.com/printing10101/Virtual-Realm-Manufacturing/issues?q=is%3Aissue+label%3Aenhancement) 避免重复建议。
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: 功能概述
+      description: 用一两句话描述您想要的功能
+      placeholder: "例如:支持导入 STEP AP242 格式并自动识别 PMI 标注"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 功能类别
+      options:
+        -  AI / LNN / LLM 相关
+        -  CAD / 工艺规划
+        -  NC 代码 / 后处理器
+        -  DNC / 工业现场集成
+        -  数据管理 / RAG / 知识图谱
+        -  UI / 交互 / 桌面体验
+        -  性能 / 基准
+        -  安全 / 数据主权
+        -  测试 / 工具链 / CI
+        -  文档
+        - 其他(请在下方说明)
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 解决的问题
+      description: 这个功能解决什么痛点?当前是如何做的?
+      placeholder: "例如:目前导入 STEP 后需手动识别 PMI,工序规划无法利用标注信息"
+    validations:
+      required: true
+
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 使用场景
+      description: 描述这个功能会在什么场景下被使用,谁会使用
+      placeholder: "例如:CAM 工程师导入 STEP 图纸后,系统自动解析 PMI 并推荐加工策略"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议方案
+      description: 对实现方案的初步想法(可选,但有助我们理解您的意图)
+      placeholder: "例如:扩展 dxf_pipeline 增加 step_import 路由,集成 OpenCASCADE 解析 PMI"
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 替代方案
+      description: 是否考虑过其他实现方式?为什么当前方案更优?
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 期望优先级
+      options:
+        -  高 — 阻塞生产使用
+        -  中 — 显著改善体验
+        -  低 — 锦上添花
+    validations:
+      required: true
+
+  - type: dropdown
+    id: willing
+    attributes:
+      label: 是否愿意贡献 PR
+      options:
+        - 是,我愿意提交 PR
+        - 可能,需要先讨论方案
+        - 否,仅提出建议
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 补充信息
+      description: 其他参考资料、截图、链接等
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 确认
+      options:
+        - label: 我已搜索过现有 Issue,确认这不是重复建议
+          required: true
+        - label: 我了解这是一个开源项目,功能实现取决于维护者评估与社区贡献
+          required: true

@@ -1,0 +1,136 @@
+﻿# ============================================================
+# 灵境制造 - 容器镜像安全扫描
+# ============================================================
+# 使用 Trivy 对 Docker 镜像进行 CVE 漏洞扫描。
+# 发现 CRITICAL 级别漏洞时阻断流水线，防止带病镜像进入生产环境。
+#
+# 触发条件：
+#   - push 到 main/master 分支且 Dockerfile/依赖文件变更
+#   - 针对 main/master 的 Pull Request
+#   - 镜像推送到 ghcr.io 后（workflow_run 触发）
+# ============================================================
+
+name: 容器镜像扫描
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'Dockerfile'
+      - 'engineering/python/requirements.txt'
+      - 'engineering/pnpm-lock.yaml'
+      - '.github/workflows/image-scan.yml'
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - 'Dockerfile'
+      - 'engineering/python/requirements.txt'
+      - 'engineering/pnpm-lock.yaml'
+      - '.github/workflows/image-scan.yml'
+  # post-merge.yml / release.yml 镜像构建完成后触发扫描
+  workflow_run:
+    workflows:
+      - '合并后流水线'
+      - '正式发版流水线'
+    types:
+      - completed
+    branches:
+      - main
+      - master
+
+# 最小权限原则：仅需读取代码和写入安全事件
+permissions:
+  contents: read
+  security-events: write
+
+concurrency:
+  group: image-scan-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  IMAGE_TAG: scan-${{ github.sha }}
+
+jobs:
+  scan:
+    name: Trivy 镜像扫描
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # 仅在触发 workflow 成功完成时运行（workflow_run 场景）
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 构建待扫描镜像（不推送）
+        # 本地构建镜像用于扫描，避免污染镜像仓库
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          load: true
+          tags: lingjing-scan:${{ env.IMAGE_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Trivy 漏洞扫描
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          image-ref: lingjing-scan:${{ env.IMAGE_TAG }}
+          # 扫描 OS 包和语言依赖
+          scan-type: image
+          # 严重级别：CRITICAL 漏洞阻断部署，HIGH 漏洞仅报告
+          severity: 'CRITICAL,HIGH'
+          # 忽略未修复的漏洞（无补丁的漏洞无法修复，不阻断流水线）
+          ignore-unfixed: true
+          # 退出码：发现 CRITICAL 漏洞时返回 1（阻断流水线）
+          exit-code: '1'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: 上传 Trivy 扫描报告 (SARIF)
+        # 即使扫描失败（发现 CRITICAL 漏洞）也上传报告，便于在 GitHub Security 标签页查看详情
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results.sarif
+          category: trivy-image-scan
+
+      - name: 上传 Trivy 扫描报告 (HTML)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-scan-report
+          path: trivy-results.sarif
+          retention-days: 14
+
+      - name: 扫描结果摘要
+        if: always()
+        run: |
+          echo "## 容器镜像扫描结果" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f trivy-results.sarif ]; then
+            CRITICAL_COUNT=$(grep -o '"level":"critical"' trivy-results.sarif | wc -l || echo "0")
+            HIGH_COUNT=$(grep -o '"level":"high"' trivy-results.sarif | wc -l || echo "0")
+            echo "| 严重级别 | 数量 |" >> $GITHUB_STEP_SUMMARY
+            echo "|----------|------|" >> $GITHUB_STEP_SUMMARY
+            echo "| CRITICAL | ${CRITICAL_COUNT} |" >> $GITHUB_STEP_SUMMARY
+            echo "| HIGH | ${HIGH_COUNT} |" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            if [ "${CRITICAL_COUNT}" -gt 0 ]; then
+              echo " 发现 ${CRITICAL_COUNT} 个 CRITICAL 漏洞，部署已阻断" >> $GITHUB_STEP_SUMMARY
+              echo "请在 [Security 标签页](https://github.com/${{ github.repository }}/security/code-scanning) 查看详情" >> $GITHUB_STEP_SUMMARY
+            else
+              echo " 未发现 CRITICAL 漏洞，镜像可以安全部署" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "⚠ 扫描报告未生成" >> $GITHUB_STEP_SUMMARY
+          fi

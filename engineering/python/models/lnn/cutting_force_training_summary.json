@@ -1,0 +1,26 @@
+{
+  "total_epochs": 47,
+  "best_val_loss": 0.004805737153626978,
+  "final_train_loss": 0.0049015112559768256,
+  "final_val_loss": 0.005131426678970456,
+  "final_train_accuracy": 0.0,
+  "final_val_accuracy": 0.0,
+  "optimizer": "adam",
+  "loss_function": "mse",
+  "device": "cuda",
+  "training_time": 83.25912570001674,
+  "test_metrics": {
+    "accuracy": 0.4673956527537005,
+    "precision": 0.04995242626070409,
+    "recall": 1.0,
+    "f1": 0.09515178975985501,
+    "confusion_matrix": "[[3295 3994]\n [   0  210]]",
+    "avg_inference_time_ms": 0.3066084750186084,
+    "throughput_samples_per_sec": 207270.3549820994,
+    "p50_latency_ms": 0.2983499871334061,
+    "p95_latency_ms": 0.4015999933471902,
+    "p99_latency_ms": 0.45966000761836767,
+    "timestamp": "2026-05-08T18:01:35.144169",
+    "task_type": "classification"
+  }
+}

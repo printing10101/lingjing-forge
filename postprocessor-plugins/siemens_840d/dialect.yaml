@@ -1,0 +1,33 @@
+# =============================================================================
+# 方言声明：Siemens 840D（Phase E：hooks 模式声明化）
+# =============================================================================
+# Siemens 840D 是独立实现（非 Fanuc 兼容），钻孔/攻丝/镗孔用 CYCLE 系列
+# 参数化固定循环，模板难以表达 → 用 hooks 模块承载复杂逻辑。
+#
+# 设计说明：
+# - extends: siemens_840d（内置基类），hooks 覆盖 CYCLE 系列方法
+# - 模板方法：format_header 用 hooks 实现（MPF 文件名 + TRAFOF）
+# - 黄金测试：与内置 SiemensPostProcessor 逐字符比对（待补充 *_extended.nc）
+# =============================================================================
+
+id: siemens_840d_declared
+name: Siemens 840D (declared)
+version: "1.0.0"
+extends: siemens_840d
+target_controller: siemens_840d
+
+# hooks: 模块路径:类名（模块相对于 postprocessor-plugins 根解析）
+hooks:
+  - module: siemens_840d.hooks
+    class: Siemens840DHooks
+  - module: siemens_840d.hooks
+    class: Siemens840DHeaderHooks
+
+templates: {}
+
+params:
+  retract: 2.0
+  peck_depth: 5.0
+
+author: Lingjing Manufacturing Team
+description: Siemens 840D 固定循环声明化（CYCLE81/83/84/85 + T/D 换刀），hooks 模式示例

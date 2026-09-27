@@ -1,0 +1,5 @@
+{% set g_code = 'G02' if clockwise else 'G03' %}
+{% set i = center[0] - start[0] %}
+{% set j = center[1] - start[1] %}
+{% set feed = pp.get_feed_rate(pp.rapid_feed) | fmt %}
+{{ g_code }} X{{ end[0] | fmt }} Y{{ end[1] | fmt }} I{{ i | fmt }} J{{ j | fmt }} F{{ feed }}

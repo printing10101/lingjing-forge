@@ -1,0 +1,1 @@
+{% if repeat <= 1 %}CALL P{{ "%05d" | format(program_number) }}{% else %}CALL P{{ "%05d" | format(program_number) }}, R{{ repeat }}{% endif %}

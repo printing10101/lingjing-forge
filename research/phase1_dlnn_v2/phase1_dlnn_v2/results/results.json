@@ -1,0 +1,52 @@
+{
+  "config": {
+    "experiment_name": "phase1_h20_h64_l3",
+    "seed": 42,
+    "input_dim": 7,
+    "hidden_dim": 64,
+    "num_layers": 3,
+    "ltc_dt": 0.1,
+    "dropout": 0.2,
+    "tau_init": 0.1,
+    "tau_phys_enabled": true,
+    "lambda_tau_reg": 0.01,
+    "delay_buffer_size": 128,
+    "prediction_horizon": 20,
+    "prediction_stride": 1,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "num_epochs_stage1": 15,
+    "num_epochs_stage2": 15,
+    "num_epochs_stage3": 10,
+    "lambda_data": 1.0,
+    "lambda_phys": 0.5,
+    "lambda_pcc": 0.0,
+    "lambda_freq_start": 0.01,
+    "lambda_freq_end": 0.1,
+    "epsilon_phys": 0.1,
+    "lr_stage1": 0.001,
+    "lr_stage2": 0.0005,
+    "lr_stage3": 0.0001,
+    "dataset_name": "Synthetic",
+    "num_samples": 1000,
+    "train_ratio": 0.7,
+    "val_ratio": 0.15,
+    "device": "cpu",
+    "output_dir": "phase1_dlnn_v2/results",
+    "checkpoint_dir": "phase1_dlnn_v2/results/checkpoints"
+  },
+  "test_metrics": {
+    "MAE": 0.19489389657974243,
+    "RMSE": 0.2812435030937195,
+    "R²": 0.9985754660899413
+  },
+  "total_params": 46543,
+  "trainable_params": 46543,
+  "final_taus": [
+    0.0970022901892662,
+    0.0970022901892662,
+    0.0970022901892662
+  ],
+  "timestamp": "2026-07-31T01:54:44.543499"
+}

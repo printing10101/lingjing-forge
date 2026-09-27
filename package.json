@@ -1,0 +1,24 @@
+{
+  "name": "lingjing-manufacturing",
+  "version": "2.8.0",
+  "description": "AI 驱动的制造智能桌面应用 — 全栈 monorepo 根（git 门禁工具链宿主）",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "lint:commit": "commitlint --edit",
+    "lint:staged": "lint-staged",
+    "test": "pnpm --dir engineering test",
+    "lint": "pnpm --dir engineering lint",
+    "type-check": "pnpm --dir engineering type-check"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2"
+  }
+}

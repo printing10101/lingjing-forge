@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-06-26T16:40:37.458298",
+  "signal_analysis": {
+    "stable": {
+      "main_freq": 400.0,
+      "amplitude": 0.49967844928271615,
+      "entropy": 7.667415207257624
+    },
+    "chatter": {
+      "main_freq": 850.0,
+      "chatter_freq": 850.0,
+      "amplitude": 0.799839471225407,
+      "entropy": 7.684362754095383
+    }
+  },
+  "model_prediction_spectrum": {
+    "predicted_main_freq": 2133.333333333333,
+    "actual_main_freq": 2533.333333333333,
+    "frequency_error_hz": 400.0,
+    "spectral_similarity": 0.9998026881179867
+  }
+}

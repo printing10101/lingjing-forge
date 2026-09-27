@@ -1,0 +1,28 @@
+# Rust 国内镜像配置
+# 用于加速 crates.io 依赖下载（适用于中国工厂部署环境）
+
+# 直接使用官方 crates.io（镜像同步有延迟，导致版本不匹配）
+# [source.crates-io]
+# replace-with = 'tuna'
+
+# 备用：清华大学镜像
+# [source.tuna]
+# registry = "https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git"
+
+# 备用：上海交通大学镜像
+# [source.sjtu]
+# registry = "https://mirrors.sjtug.sjtu.edu.cn/git/crates.io-index/"
+
+# 备用：字节跳动镜像
+# [source.rsproxy]
+# registry = "https://rsproxy.cn/crates.io-index/"
+
+# 网络不稳定时的超时设置
+[net]
+retry = 3
+git-fetch-with-cli = true
+
+# 并行下载配置
+[http]
+multiplexing = true
+timeout = 60

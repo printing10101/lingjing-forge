@@ -1,0 +1,35 @@
+{
+  "branch_id": "62ba53821ed3",
+  "name": "target",
+  "base_branch": null,
+  "template_data": {
+    "skill": "v1"
+  },
+  "metadata": {
+    "type": "main"
+  },
+  "created_at": 1786812664.5387251,
+  "updated_at": 1786812664.550269,
+  "commit_log": [
+    {
+      "action": "create",
+      "branch_name": "target",
+      "timestamp": 1786812664.5387251,
+      "details": {
+        "base_branch": null,
+        "content_hash": "2dc177afe8c963b3"
+      }
+    },
+    {
+      "action": "merge",
+      "branch_name": "source→target",
+      "timestamp": 1786812664.550269,
+      "details": {
+        "source_id": "15995d51d343",
+        "target_id": "62ba53821ed3",
+        "strategy": "overwrite",
+        "content_hash": "cc88be1b3858b3bd"
+      }
+    }
+  ]
+}

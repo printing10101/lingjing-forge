@@ -1,0 +1,47 @@
+[
+  {
+    "id": "vmc_850",
+    "name": "立式加工中心 VMC850",
+    "type": "vertical_machining_center",
+    "spindle_power_kw": 7.5,
+    "spindle_speed_rpm": [50, 8000],
+    "feed_rapid_mmmin": 24000,
+    "feed_cutting_max_mmmin": 5000,
+    "max_cutting_force_n": 5000,
+    "table_size_mm": [1000, 500],
+    "travel_xyz_mm": [850, 500, 500],
+    "tool_changer_capacity": 24,
+    "coolant_pressure_mpa": 1.0,
+    "positioning_accuracy_mm": 0.01
+  },
+  {
+    "id": "cnc_lathe_ck6140",
+    "name": "数控车床 CK6140",
+    "type": "cnc_lathe",
+    "spindle_power_kw": 5.5,
+    "spindle_speed_rpm": [50, 4500],
+    "feed_rapid_mmmin": 15000,
+    "feed_cutting_max_mmmin": 3000,
+    "max_cutting_force_n": 4000,
+    "max_turning_diameter_mm": 400,
+    "max_turning_length_mm": 750,
+    "tool_changer_capacity": 8,
+    "coolant_pressure_mpa": 0.8,
+    "positioning_accuracy_mm": 0.008
+  },
+  {
+    "id": "small_vmc_640",
+    "name": "小型立式加工中心 VMC640",
+    "type": "vertical_machining_center",
+    "spindle_power_kw": 3.7,
+    "spindle_speed_rpm": [100, 6000],
+    "feed_rapid_mmmin": 16000,
+    "feed_cutting_max_mmmin": 3000,
+    "max_cutting_force_n": 3000,
+    "table_size_mm": [800, 400],
+    "travel_xyz_mm": [640, 400, 400],
+    "tool_changer_capacity": 16,
+    "coolant_pressure_mpa": 0.6,
+    "positioning_accuracy_mm": 0.012
+  }
+]

@@ -1,0 +1,150 @@
+{
+  "experiment": "Physics-guided UQ (Stage 2)",
+  "timestamp": "2026-07-30 00:20:38",
+  "config": {
+    "n_samples": 100,
+    "mc_dropout_prob": 0.1,
+    "seed": 42,
+    "device": "cuda",
+    "weights_path": "C:\\Users\\Lenovo\\Desktop\\灵境制造（上线版）\\research\\papers\\论文相关\\脚本\\bayesian_uq\\results\\full_weights.pt",
+    "id_materials": [
+      "45_Steel",
+      "304_SS"
+    ],
+    "ood_materials": [
+      "6061-T6"
+    ]
+  },
+  "parameters": {
+    "lambda": 1.527539842658658,
+    "T_mc": 92.63590490539353,
+    "T_pg": 1.0,
+    "id_ece_mc_only": 0.10827777777777776,
+    "id_ece_pg_raw": 0.10350000000000001,
+    "id_ece_pg_calibrated": 0.10350000000000001
+  },
+  "stage1_mc_dropout": {
+    "ece": {
+      "ece": 0.2847444444444444,
+      "mce": 0.5316666666666667
+    },
+    "coverage": {
+      "coverage_80": 0.344,
+      "coverage_80_gap": -0.45600000000000007,
+      "coverage_90": 0.38177777777777777,
+      "coverage_90_gap": -0.5182222222222223,
+      "coverage_95": 0.4132222222222222,
+      "coverage_95_gap": -0.5367777777777778,
+      "coverage_99": 0.4583333333333333,
+      "coverage_99_gap": -0.5316666666666667
+    },
+    "uq_error_correlation": {
+      "spearman_corr": -0.21313819812582868,
+      "spearman_p_value": 5.684727840596475e-93,
+      "pearson_corr": -0.0530807226896286,
+      "pearson_p_value": 4.691157187153294e-07,
+      "high_uq_mae": 3.5617809295654297,
+      "low_uq_mae": 4.298508167266846,
+      "uq_error_ratio": 0.8286086221001983
+    },
+    "ood_detection": {
+      "auc_roc": 0.615788811728395,
+      "id_std_mean": 1.0846333503723145,
+      "ood_std_mean": 1.8515936136245728,
+      "separation_ratio": 1.7071147710781613
+    }
+  },
+  "stage2_physics_guided": {
+    "ece": {
+      "ece": 0.1770888888888889,
+      "mce": 0.3205555555555555
+    },
+    "coverage": {
+      "coverage_80": 0.9463333333333334,
+      "coverage_80_gap": 0.14633333333333332,
+      "coverage_90": 0.9603333333333334,
+      "coverage_90_gap": 0.06033333333333335,
+      "coverage_95": 0.9663333333333334,
+      "coverage_95_gap": 0.016333333333333422,
+      "coverage_99": 0.9761111111111112,
+      "coverage_99_gap": -0.01388888888888884
+    },
+    "uq_error_correlation": {
+      "spearman_corr": 0.9887298246343391,
+      "spearman_p_value": 0.0,
+      "pearson_corr": 0.9987903833389282,
+      "pearson_p_value": 0.0,
+      "high_uq_mae": 7.124509811401367,
+      "low_uq_mae": 0.7357794046401978,
+      "uq_error_ratio": 9.682942695148299
+    },
+    "ood_detection": {
+      "auc_roc": 0.9745756172839507,
+      "id_std_mean": 1.0362982749938965,
+      "ood_std_mean": 17.27713394165039,
+      "separation_ratio": 16.671970183248785
+    }
+  },
+  "materials_summary": {
+    "6061-T6": {
+      "hardness": 95.0,
+      "n_samples": 1800,
+      "metrics": {
+        "mae": 11.309572219848633,
+        "ltc_mae": 21.41480827331543,
+        "residual_mean": 11.310050010681152,
+        "ltc_std_mean": 0.019987860694527626
+      },
+      "std_mean_s1": 1.8515936136245728,
+      "std_mean_s2": 17.27713394165039
+    },
+    "TC4": {
+      "hardness": 350.0,
+      "n_samples": 1800,
+      "metrics": {
+        "mae": 3.178922176361084,
+        "ltc_mae": 7.17225456237793,
+        "residual_mean": 3.175746440887451,
+        "ltc_std_mean": 0.010095945559442043
+      },
+      "std_mean_s1": 0.9352471232414246,
+      "std_mean_s2": 4.852275848388672
+    },
+    "HRC52": {
+      "hardness": 520.0,
+      "n_samples": 1800,
+      "metrics": {
+        "mae": 3.7305796146392822,
+        "ltc_mae": 5.816550254821777,
+        "residual_mean": 3.729747772216797,
+        "ltc_std_mean": 0.018717816099524498
+      },
+      "std_mean_s1": 1.7339417934417725,
+      "std_mean_s2": 5.703112602233887
+    },
+    "45_Steel": {
+      "hardness": 200.0,
+      "n_samples": 1800,
+      "metrics": {
+        "mae": 0.34940606355667114,
+        "ltc_mae": 9.139791488647461,
+        "residual_mean": 0.2778794765472412,
+        "ltc_std_mean": 0.01118182111531496
+      },
+      "std_mean_s1": 1.0358381271362305,
+      "std_mean_s2": 0.42503103613853455
+    },
+    "304_SS": {
+      "hardness": 180.0,
+      "n_samples": 1800,
+      "metrics": {
+        "mae": 1.08224356174469,
+        "ltc_mae": 9.933910369873047,
+        "residual_mean": 1.0781036615371704,
+        "ltc_std_mean": 0.012235304340720177
+      },
+      "std_mean_s1": 1.1334285736083984,
+      "std_mean_s2": 1.647565484046936
+    }
+  }
+}

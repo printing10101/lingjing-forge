@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D重建几何精度验证报告 - {part_name}</title>
+<style>
+{css_content}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>3D重建几何精度验证报告</h1>
+<div class="meta">
+零件: {part_name} ({part_id}) |
+验证时间: {timestamp} |
+耗时: {duration}s |
+报告版本: {report_version}
+</div>
+</div>
+
+<div class="overall{overall_class}">{overall_text}</div>
+{warnings_html}
+
+<div class="card">
+<h2>综合指标概览</h2>
+<div class="metrics-grid">
+<div class="metric">
+<div class="value" style="color:{dim_color}">{mean_dim_dev}</div>
+<div class="label">平均尺寸偏差 (mm)</div>
+</div>
+<div class="metric">
+<div class="value" style="color:{recall_color}">{feature_recall}</div>
+<div class="label">特征召回率</div>
+</div>
+<div class="metric">
+<div class="value">{feature_precision}</div>
+<div class="label">特征精确率</div>
+</div>
+<div class="metric">
+<div class="value">{topology_correctness}</div>
+<div class="label">拓扑正确性</div>
+</div>
+<div class="metric">
+<div class="value" style="color:{tol_color}">{tolerance_compliance}%</div>
+<div class="label">公差符合度</div>
+</div>
+<div class="metric">
+<div class="value">{max_dim_dev}</div>
+<div class="label">最大偏差 (mm)</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>特征交并比 (IoU)</h2>
+<table>
+<tr><th>特征名称</th><th>IoU</th></tr>
+{iou_rows_html}
+</table>
+</div>
+
+<div class="card">
+<h2>尺寸偏差详情</h2>
+<table>
+<tr><th>尺寸名称</th><th>标称值</th><th>实测值</th><th>偏差</th><th>公差范围</th><th>状态</th></tr>
+{dim_rows}
+</table>
+</div>
+
+<div class="card">
+<h2>特征识别结果</h2>
+<table>
+<tr><th>特征名称</th><th>类型</th><th>状态</th><th>置信度</th><th>IoU</th></tr>
+{feat_rows}
+</table>
+</div>
+
+<div class="card">
+<h2>拓扑关系验证</h2>
+<table>
+<tr><th>特征关系</th><th>关系类型</th><th>状态</th></tr>
+{topo_rows}
+</table>
+</div>
+
+<div class="footer">
+灵境制造 Virtual Realm Manufacturing &copy; {year} | 3D重建几何精度验证系统
+</div>
+</div>
+</body>
+</html>

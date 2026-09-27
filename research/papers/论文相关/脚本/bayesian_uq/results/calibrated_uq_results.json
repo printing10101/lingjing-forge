@@ -1,0 +1,140 @@
+{
+  "experiment": "Temperature Scaling Calibration for Bayesian DL-LNN UQ",
+  "timestamp": "2026-07-29 14:14:07",
+  "config": {
+    "n_samples": 100,
+    "mc_dropout_prob": 0.1,
+    "seed": 42,
+    "device": "cuda",
+    "weights_path": "C:\\Users\\Lenovo\\Desktop\\灵境制造（上线版）\\research\\papers\\论文相关\\脚本\\bayesian_uq\\results\\full_weights.pt",
+    "id_materials": [
+      "45_Steel",
+      "304_SS"
+    ],
+    "ood_materials": [
+      "6061-T6"
+    ]
+  },
+  "temperature": {
+    "T_analytic": 484196641.16871333,
+    "T_numerical": 1249.8473756095332,
+    "T_final": 1249.8473756095332,
+    "method": "numerical (min ECE)",
+    "id_ece_analytic": 0.4087777777777778,
+    "id_ece_numerical": 0.07191666666666666
+  },
+  "before_calibration": {
+    "ece": {
+      "ece": 0.544611111111111,
+      "mce": 0.989
+    },
+    "coverage": {
+      "coverage_80": 0.0005555555555555556,
+      "coverage_80_gap": -0.7994444444444445,
+      "coverage_90": 0.0007777777777777777,
+      "coverage_90_gap": -0.8992222222222223,
+      "coverage_95": 0.0007777777777777777,
+      "coverage_95_gap": -0.9492222222222222,
+      "coverage_99": 0.001,
+      "coverage_99_gap": -0.989
+    },
+    "uq_error_correlation": {
+      "spearman_corr": -0.05211149148413139,
+      "spearman_p_value": 7.559686409695192e-07,
+      "pearson_corr": 0.2284981608390808,
+      "pearson_p_value": 0.0,
+      "high_uq_mae": 4.486352920532227,
+      "low_uq_mae": 3.373936414718628,
+      "uq_error_ratio": 1.3297087938470735
+    },
+    "ood_detection": {
+      "auc_roc": 0.7763547067901235,
+      "id_std_mean": 0.0008535266970284283,
+      "ood_std_mean": 0.0024381133262068033,
+      "separation_ratio": 2.856516772931822
+    }
+  },
+  "after_calibration": {
+    "ece": {
+      "ece": 0.30679999999999996,
+      "mce": 0.5805555555555555
+    },
+    "coverage": {
+      "coverage_80": 0.3191111111111111,
+      "coverage_80_gap": -0.4808888888888889,
+      "coverage_90": 0.35155555555555557,
+      "coverage_90_gap": -0.5484444444444445,
+      "coverage_95": 0.3728888888888889,
+      "coverage_95_gap": -0.5771111111111111,
+      "coverage_99": 0.40955555555555556,
+      "coverage_99_gap": -0.5804444444444444
+    },
+    "uq_error_correlation": {
+      "spearman_corr": -0.05211149148413139,
+      "spearman_p_value": 7.559686409695192e-07,
+      "pearson_corr": 0.2284981906414032,
+      "pearson_p_value": 0.0,
+      "high_uq_mae": 4.486352920532227,
+      "low_uq_mae": 3.373936414718628,
+      "uq_error_ratio": 1.3297087938470735
+    },
+    "ood_detection": {
+      "auc_roc": 0.7763547067901235,
+      "id_std_mean": 1.0667781829833984,
+      "ood_std_mean": 3.047269344329834,
+      "separation_ratio": 2.856516371386325
+    }
+  },
+  "materials_summary": {
+    "6061-T6": {
+      "hardness": 95.0,
+      "n_samples": 1800,
+      "metrics": {
+        "mae": 11.309572219848633,
+        "rmse": 12.552023887634277,
+        "std_mean": 0.0024381133262068033
+      },
+      "std_mean_calibrated": 3.047269344329834
+    },
+    "TC4": {
+      "hardness": 350.0,
+      "n_samples": 1800,
+      "metrics": {
+        "mae": 3.178922176361084,
+        "rmse": 3.846355676651001,
+        "std_mean": 0.00023281054745893925
+      },
+      "std_mean_calibrated": 0.2909776568412781
+    },
+    "HRC52": {
+      "hardness": 520.0,
+      "n_samples": 1800,
+      "metrics": {
+        "mae": 3.7305796146392822,
+        "rmse": 4.756019592285156,
+        "std_mean": 0.00010872890561586246
+      },
+      "std_mean_calibrated": 0.1358945369720459
+    },
+    "45_Steel": {
+      "hardness": 200.0,
+      "n_samples": 1800,
+      "metrics": {
+        "mae": 0.34940606355667114,
+        "rmse": 0.4370904564857483,
+        "std_mean": 0.0007532407180406153
+      },
+      "std_mean_calibrated": 0.9414359331130981
+    },
+    "304_SS": {
+      "hardness": 180.0,
+      "n_samples": 1800,
+      "metrics": {
+        "mae": 1.08224356174469,
+        "rmse": 1.2681834697723389,
+        "std_mean": 0.0009538127924315631
+      },
+      "std_mean_calibrated": 1.1921205520629883
+    }
+  }
+}

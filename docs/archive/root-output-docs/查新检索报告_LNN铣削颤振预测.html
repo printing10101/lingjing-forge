@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>查新检索报告 — 基于液态神经网络的铣削颤振预测方法</title>
+<style>
+  :root{ --ink:#1a2332; --sub:#5a6678; --line:#e2e8f0; --accent:#1f5fbf; --bg:#ffffff; --soft:#f6f8fc; --warn:#b4471a; --ok:#1d7a46; }
+  body{ font-family:"Segoe UI","Microsoft YaHei",sans-serif; color:var(--ink); max-width:980px; margin:32px auto; padding:0 24px; line-height:1.75; background:var(--bg); }
+  h1{ font-size:25px; border-bottom:3px solid var(--accent); padding-bottom:10px; }
+  h2{ font-size:19px; color:var(--accent); margin-top:32px; border-left:4px solid var(--accent); padding-left:10px; }
+  h3{ font-size:16px; color:var(--ink); margin-top:20px; }
+  table{ border-collapse:collapse; width:100%; margin:14px 0; font-size:13.5px; }
+  th,td{ border:1px solid var(--line); padding:8px 10px; vertical-align:top; }
+  th{ background:var(--soft); text-align:left; }
+  .meta{ color:var(--sub); font-size:13px; }
+  .box{ background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:14px 18px; margin:14px 0; }
+  .warn{ border-left:5px solid var(--warn); background:#fdf3ee; padding:12px 16px; margin:14px 0; }
+  .ok{ border-left:5px solid var(--ok); background:#eefaf2; padding:12px 16px; margin:14px 0; }
+  code{ background:#eef1f6; padding:1px 5px; border-radius:4px; font-size:12.5px; }
+  .tag{ display:inline-block; background:var(--accent); color:#fff; font-size:11px; padding:1px 7px; border-radius:10px; margin-right:4px; }
+  ul{ margin:8px 0; } li{ margin:4px 0; }
+  .footer{ margin-top:40px; border-top:1px solid var(--line); padding-top:12px; color:var(--sub); font-size:12px; }
+</style>
+</head>
+<body>
+
+<h1>查新检索报告</h1>
+<p class="meta">
+<strong>课题名称：</strong>基于液态神经网络（LNN/LTC/CfC）的铣削颤振在线预测方法<br>
+<strong>检索类型：</strong>专利新颖性 / 创造性初步查新（申请前摸底）<br>
+<strong>检索日期：</strong>2026-08-15　<strong>检索人：</strong>WorkBuddy（灵境制造项目组）<br>
+<strong>结论等级：</strong><span class="tag">具备新颖性窗口</span><span class="tag">自身公开为首要风险</span>
+</p>
+
+<h2>一、检索目的与范围</h2>
+<p>评估「将液态神经网络（Liquid Neural Network / Liquid Time-Constant Network / Closed-form Continuous-time，以下简称 LNN/LTC/CfC）用于铣削颤振（chatter）在线预测」这一技术方案，在专利与公开文献层面是否已存在相同或实质性相同的现有技术，并判断其新颖性、创造性空间及与申请人自身已公开代码的冲突程度，为专利申请策略提供依据。</p>
+<p><strong>检索对象：</strong>①中国发明专利/申请；②英文专利（Google Patents / PatSnap / Dimensions）；③中英文期刊与会议论文（知网、维普、IEEE Xplore、ScienceDirect、ASME、IJAMT）；④LNN 基础模型文献。</p>
+
+<h2>二、检索策略</h2>
+<table>
+<tr><th>维度</th><th>中文关键词</th><th>英文关键词</th></tr>
+<tr><td>颤振</td><td>铣削颤振、颤振预测、颤振检测、稳定性叶瓣图</td><td>milling chatter, chatter prediction, chatter detection, stability lobe</td></tr>
+<tr><td>液态神经网络</td><td>液态神经网络、LNN、液体时间常数、CfC、连续时间神经网络</td><td>liquid neural network, LTC, CfC, closed-form continuous-time, neural circuit policy</td></tr>
+<tr><td>制造应用</td><td>刀具磨损、机床振动、故障诊断、切削</td><td>tool wear, machining vibration, fault diagnosis, CNC, cutting</td></tr>
+<tr><td>组合</td><td>LNN 铣削颤振</td><td>LNN milling chatter / LTC chatter prediction</td></tr>
+</table>
+
+<h2>三、现有技术全景</h2>
+
+<h3>3.1 铣削颤振预测（神经网络类）——高度拥挤，但均非 LNN</h3>
+<table>
+<tr><th>编号</th><th>公开号 / 出处</th><th>方法</th><th>申请人 / 年份</th></tr>
+<tr><td>P1</td><td>CN118219054A</td><td>数字孪生 + CWT/WSST/VMD 时频图 + 迁移学习（CNN）</td><td>薄壁件铣削</td></tr>
+<tr><td>P2</td><td>CN120382182A</td><td>机器人铣削颤振早期监测（波内调制效应）</td><td>山东大学 / 2025</td></tr>
+<tr><td>P3</td><td>CN122165241A</td><td>薄壁件时变颤振预测（有限元时变刚度矩阵）</td><td>中国兵器科学研究院宁波分院 / 2026</td></tr>
+<tr><td>P4</td><td>CN105808950A</td><td>微铣削颤振在线预测（多通道奇异谱 + GHMM）</td><td>常州信息职业技术学院</td></tr>
+<tr><td>P5</td><td>CN120595714A/B</td><td>铣刀自动控制（三轴振动 + 1D-CNN-<b>LSTM</b> 混合）</td><td>上海杉田刀具 / 2025 授权</td></tr>
+<tr><td>P6</td><td>CN202010435329 / EP2916187</td><td>ANN + 稳定性模型闭环调权</td><td>德 / 机床颤振预测</td></tr>
+<tr><td>L1</td><td>IJAMT 2020</td><td>ON-<b>LSTM</b> + PBT 高速铣颤振检测</td><td>西安交大</td></tr>
+<tr><td>L2</td><td>ASME 2021</td><td><b>LSTM</b> + 滚珠丝杠电机电流 在线颤振检测</td><td>—</td></tr>
+<tr><td>L3</td><td>ASME 2025</td><td>LSTM-FCN / GRU-FCN / <b>TCN</b> 颤振量化</td><td>NSF 项目</td></tr>
+<tr><td>L4</td><td>ScienceDirect 2025</td><td>CNN 微铣薄壁钛合金稳定性估计</td><td>—</td></tr>
+</table>
+<p><strong>小结：</strong>颤振预测的神经网络路线已被 LSTM、GRU、CNN、TCN、ON-LSTM、GHMM、迁移学习、数字孪生占据，<u>未检索到任何使用液态神经网络（LTC/CfC）的方案</u>。</p>
+
+<h3>3.2 LNN 在制造领域的应用——存在但避开「铣削颤振」</h3>
+<table>
+<tr><th>编号</th><th>出处</th><th>任务</th><th>与本案关系</th></tr>
+<tr><td>L5</td><td>IEEE 11389141 (2025)</td><td><b>物理信息液态神经网络（PILNN）刀具磨损预测</b></td><td>同属切削制造，但任务是「磨损」非「颤振」；采用 LTC 神经元 + 物理约束</td></tr>
+<tr><td>L6</td><td>维普期刊 (2024)</td><td>LNN-Transformer 蜗杆砂轮<b>磨齿机主轴振动</b>预测</td><td>振动预测，非颤振分类；磨齿非铣削</td></tr>
+<tr><td>L7</td><td>ScienceDirect (2026)</td><td>LTTSNet：LNN 首次引入机械故障诊断（伺服机构少样本类增量）</td><td>故障诊断，非颤振</td></tr>
+<tr><td>L8</td><td>《信息与控制》(2025)</td><td>E-LNN 励磁系统故障检测</td><td>电力系统，无关</td></tr>
+</table>
+<p><strong>小结：</strong>LNN 进入机械制造尚属前沿（2024–2026 集中出现），但全部落在「刀具磨损 / 振动 / 故障诊断」，**无一触及铣削颤振预测**。这构成本案最直接的新颖性空白。</p>
+
+<h3>3.3 LNN 基础模型（技术底座，非本案新颖点）</h3>
+<ul>
+<li>CfC（Closed-form Continuous-time）闭式连续时间模型：Hasani et al., 2022（arXiv:2106.13898），以闭式解取代 ODE 数值求解，训练/推理提速 1–5 个数量级，保留连续时间、输入依赖时间常数、抗噪、因果特性。</li>
+<li>LTC / 神经电路策略（Neural Circuit Policies）：原始 LNN 形态，神经元状态由微分方程驱动，时间常数随输入自适应。</li>
+</ul>
+
+<h2>四、新颖性对比矩阵（本案 vs 最接近现有技术）</h2>
+<table>
+<tr><th>技术特征</th><th>本案（LNN 颤振预测）</th><th>最接近现有技术 P5 / L1 / L5</th><th>是否已被公开</th></tr>
+<tr><td>核心模型</td><td>LTC/CfC 连续时间液态神经元</td><td>LSTM / CNN / GRU / TCN；或 PILNN（仅磨损）</td><td><b>否</b>（颤振领域未见）</td></tr>
+<tr><td>时间建模</td><td>连续时间、输入依赖的自适应时间常数 τ(t)</td><td>离散固定步长（LSTM/TCN 需 padding/截断）</td><td><b>否</b></td></tr>
+<tr><<td>非均匀采样</td><td>原生支持变间隔采样（变速铣削、断续切削），无需插值</td><td>需重采样/填充</td><td><b>否</b></td></tr>
+<tr><td>物理信息耦合</td><td>可耦合稳定性叶瓣图 / 循环平稳能量比等物理指标（建议）</td><td>P5 未耦合；L5 仅磨损物理约束</td><td><b>否</b>（颤振方向）</td></tr>
+<tr><td>任务</td><td>铣削颤振在线预警（早预警、边缘部署）</td><td>颤振检测（L1/L2/L3/L4）或磨损（L5）</td><td>任务有重叠，但模型+时间机制不同</td></tr>
+</table>
+<div class="ok"><strong>新颖性初步结论：</strong>在第三方专利与公开文献范围内，<strong>「液态神经网络 + 铣削颤振预测」的组合具备新颖性</strong>。最接近现有技术（LSTM/CNN 类颤振检测、LNN 类刀具磨损）均未公开本案的「连续时间液态神经元用于铣削颤振」这一技术特征组合。</div>
+
+<h2>五、创造性（非显而易见性）分析</h2>
+<p>以 LSTM/1D-CNN-LSTM 颤振检测（P5、L1–L3）为最接近现有技术，本案若欲具备创造性，需论证 LNN 替代离散 RNN 并非「等效替换」，而是带来可证的技术效果：</p>
+<ul>
+<li><strong>早预警能力：</strong>LNN 连续时间建模可在颤振谐波初现时（无需凑满固定窗口）即响应，相较 LSTM 的窗口切片延迟具技术优势（需实验对比预警提前量）。</li>
+<li><strong>非均匀采样鲁棒性：</strong>变速铣削、断续切削下 LNN 无需插值/填充，避免虚假谐波，提升复杂工况泛化（需对比准确率/误报率）。</li>
+<li><strong>边缘部署低开销：</strong>CfC 闭式解去 ODE 求解器，参数量与算力显著低于 LSTM，利于 Tauri 桌面端 / 嵌入式实时推理（需对比时延与功耗）。</li>
+<li><strong>物理信息增强（建议加入）：</strong>将稳定性叶瓣图或循环平稳能量比作为物理先验耦合进 LNN，既强化技术属性（符合审查指南「算法+自然规律」），又提升小样本泛化，构成区别于 L5（仅磨损）的明确界碑。</li>
+</ul>
+<div class="box"><strong>创造性成立的前提是实验数据。</strong>审查阶段需提供本案 LNN 方案与 LSTM/CNN 基线的对比实验（准确率、预警提前量、跨工况泛化、边缘时延）。请在申请前整理 2–3 组对比实验作为说明书「有益效果」证据。</div>
+
+<h2>六、与自身已公开代码的冲突评估（最高优先级风险）</h2>
+<div class="warn">
+<p><strong>核心风险：</strong>据项目记录，源代码已推送至公开 GitHub 仓库，且公开不足 6 个月。中国《专利法》第二十四条的 6 个月宽限期<strong>仅限</strong>国际展览会、规定的学术/技术会议、他人未经同意泄露三种情形，<strong>不包括申请人自行在 GitHub 公开</strong>。因此公开日即构成潜在现有技术日，对之后提交的申请有新颖性对抗风险。</p>
+<p><strong>但仍有可操作空间，理由有二：</strong></p>
+<ul>
+<li>新颖性按权利要求逐项比对。GitHub 公开的是「软件/代码与功能」，未必披露权利要求所界定的<strong>具体方法步骤与发明点</strong>（如 LTC 的具体连续时间构造、输入依赖时间常数的计算式、物理指标耦合方式、非均匀采样处理流程）。只要权利要求覆盖的内容在仓库中未充分对应，该部分仍具新颖性。</li>
+<li>审查员通常不主动爬 GitHub，自公开被检索到的概率偏低；主要风险在授权后的无效宣告环节。</li>
+</ul>
+<p><strong>缓解措施（务必执行）：</strong></p>
+<ul>
+<li><strong>立即停更一切公开发布</strong>（论文、演示、新功能介绍），直至申请提交。</li>
+<li>精确记录首次 push 日期与提交内容，作为「公开边界」抗辩依据。</li>
+<li>权利要求刻意覆盖<strong>仓库未披露的方法细节</strong>，而非泛泛的「一个 AI 预测系统」。</li>
+<li>核心权重、专有训练数据、调参诀窍以<strong>商业秘密</strong>锁死，代码同步做<strong>软著登记</strong>补强。</li>
+</ul>
+</div>
+
+<h2>七、查新结论</h2>
+<table>
+<tr><th>评估项</th><th>结论</th></tr>
+<tr><td>第三方新颖性</td><td><span class="ok" style="padding:2px 8px;border-radius:4px;">具备窗口</span> LNN+铣削颤振组合未见于专利与文献</td></tr>
+<tr><td>创造性</td><td>具基础，但依赖与 LSTM/CNN 基线的对比实验数据</td></tr>
+<tr><td>自身公开冲突</td><td><span class="warn" style="padding:2px 8px;border-radius:4px;color:#b4471a;">高风险</span> 需靠权利要求差异化 + 尽快申请化解</td></tr>
+<tr><td>建议申请类型</td><td>发明专利（方法+系统+存储介质+程序产品四合一权利要求）</td></tr>
+</table>
+
+<h2>八、申请策略与权利要求差异化要点</h2>
+<ol>
+<li><strong>保护主题：</strong>同时撰写「方法、系统/装置、计算机可读存储介质、计算机程序产品」四类权利要求（审查指南 2024 已明确允许程序产品主题）。</li>
+<li><strong>独立权利要求核心特征（建议，且尽量避开已公开代码）：</strong>
+  <ul>
+    <li>获取铣削过程多源时序信号（加速度/声发射/主轴电流），<strong>保留原始采样时间间隔</strong>作为连续时间输入；</li>
+    <li>以 LTC/CfC 液态神经元构建连续时间动态系统，时间常数 τ 由输入依赖门控自适应生成；</li>
+    <li>将<strong>物理颤振指标</strong>（循环平稳能量比 / 每转 RMS / 稳定性叶瓣临界参数）作为监督或物理约束耦合进训练；</li>
+    <li>输出颤振发生概率与<strong>提前量预警</strong>，并在边缘端实时推理。</li>
+  </ul>
+</li>
+<li><strong>说明书充分公开：</strong>清楚记载 LTC/CfC 具体算式、τ(t) 计算、物理指标定义、训练流程，并附对比实验数据。</li>
+<li><strong>权属与费减：</strong>个人名义申请 + 学生证办费减（85%）；但需先确认大创经费是否构成职务发明，避免学校后续主张权利。</li>
+<li><strong>加快通道：</strong>高端装备制造多属保护中心预审领域，可走预审加快（最快约 3 个月授权）。</li>
+</ol>
+
+<h2>九、主要参考文献</h2>
+<ol class="meta">
+<li>CN118219054A — 基于数字孪生的薄壁件铣削颤振预测方法</li>
+<li>CN120382182A — 考虑波内调制效应的机器人铣削颤振早期监测（山东大学, 2025）</li>
+<li>CN122165241A — 薄壁件铣削时变颤振预测方法（中国兵器科学研究院宁波分院, 2026）</li>
+<li>CN120595714A/B — 铣刀加工自动控制方法（1D-CNN-LSTM, 上海杉田刀具, 2025）</li>
+<li>CN105808950A — 微铣削颤振在线预测（GHMM）</li>
+<li>EP2916187 / CN202010435329 — 机床颤振预测（ANN+稳定性模型）</li>
+<li>Shi et al., IJAMT 2020 — Chatter detection based on ON-LSTM and PBT</li>
+<li>ASME J. Manuf. Sci. Eng. 2021 — Online Chatter Detection using LSTM + motor current</li>
+<li>IEEE TII 2025 (11389141) — Physics-Informed Liquid Neural Networks for Tool Wear Prediction</li>
+<li>维普 2024 — 基于LNN-Transformer的蜗杆砂轮磨齿机主轴振动预测方法</li>
+<li>ScienceDirect 2026 (S02632241) — LTTSNet: LNN for servo mechanism fault diagnosis</li>
+<li>Hasani et al., 2022 — Closed-form Continuous-time Neural Models (arXiv:2106.13898)</li>
+</ol>
+
+<div class="footer">
+本报告为申请前初步查新，基于公开网络检索（2026-08-15），不替代国家知识产权局官方检索；正式申请前建议在专利检索系统（pss-system.cponline.cnipa.gov.cn）做完整检索并委托代理撰写。报告仅供申请人内部决策使用。
+</div>
+
+</body>
+</html>

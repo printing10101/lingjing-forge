@@ -1,0 +1,32 @@
+# =============================================================================
+# 方言声明：Heidenhain TNC640（Phase E：hooks 模式声明化）
+# =============================================================================
+# Heidenhain TNC640 是独立实现（对话式编程），与 Fanuc/Siemens 完全不同：
+# - 换刀：TOOL CALL（非 T 指令）
+# - 钻孔：CYCL DEF 200 DRILLING / 241 DEEP HOLE
+# - 攻丝：CYCL DEF 240 TAPPING
+# - 程序头尾：BEGIN PGM / END PGM
+# 全部复杂逻辑经 hooks 模块承载（模板仅剩 header/footer 用 hooks 实现）。
+# =============================================================================
+
+id: heidenhain_tnc640_declared
+name: Heidenhain TNC640 (declared)
+version: "1.0.0"
+extends: heidenhain_tnc
+target_controller: heidenhain_tnc
+
+# hooks: 模块路径:类名（模块相对于 postprocessor-plugins 根解析）
+hooks:
+  - module: heidenhain_tnc640.hooks
+    class: HeidenhainTNC640Hooks
+  - module: heidenhain_tnc640.hooks
+    class: HeidenhainHeaderHooks
+
+templates: {}
+
+params:
+  retract: 2.0
+  peck_depth: 5.0
+
+author: Lingjing Manufacturing Team
+description: Heidenhain TNC640 对话式编程声明化（CYCL DEF + TOOL CALL + BEGIN/END PGM），hooks 模式示例

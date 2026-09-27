@@ -1,0 +1,404 @@
+{
+  "part_id": "bracket",
+  "part_name": "支架",
+  "timestamp": "2026-05-16T09:34:17.564176+00:00",
+  "metrics": {
+    "dimension_accuracy": {
+      "dimensions": [
+        {
+          "name": "base_length",
+          "nominal": 150.0,
+          "measured": 150.008,
+          "deviation_abs": 0.008000000000009777,
+          "deviation_rel": 5.3333333333398514e-05,
+          "tolerance_upper": 0.04,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        },
+        {
+          "name": "base_width",
+          "nominal": 80.0,
+          "measured": 79.972,
+          "deviation_abs": 0.028000000000005798,
+          "deviation_rel": 0.0003500000000000725,
+          "tolerance_upper": 0.03,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "base_thickness",
+          "nominal": 15.0,
+          "measured": 14.987,
+          "deviation_abs": 0.0129999999999999,
+          "deviation_rel": 0.00086666666666666,
+          "tolerance_upper": 0.018,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "rib_height",
+          "nominal": 85.0,
+          "measured": 84.983,
+          "deviation_abs": 0.016999999999995907,
+          "deviation_rel": 0.00019999999999995184,
+          "tolerance_upper": 0.035,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "bearing_bore_dia",
+          "nominal": 35.0,
+          "measured": 35.014,
+          "deviation_abs": 0.014000000000002899,
+          "deviation_rel": 0.00040000000000008285,
+          "tolerance_upper": 0.025,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        },
+        {
+          "name": "mounting_hole_dia",
+          "nominal": 12.0,
+          "measured": 12.011,
+          "deviation_abs": 0.010999999999999233,
+          "deviation_rel": 0.0009166666666666027,
+          "tolerance_upper": 0.018,
+          "tolerance_lower": 0.0,
+          "within_tolerance": true
+        },
+        {
+          "name": "hole_spacing_x",
+          "nominal": 110.0,
+          "measured": 110.024,
+          "deviation_abs": 0.02400000000000091,
+          "deviation_rel": 0.00021818181818182645,
+          "tolerance_upper": 0.035,
+          "tolerance_lower": -0.035,
+          "within_tolerance": true
+        },
+        {
+          "name": "hole_spacing_y",
+          "nominal": 40.0,
+          "measured": 39.975,
+          "deviation_abs": 0.02499999999999858,
+          "deviation_rel": 0.0006249999999999645,
+          "tolerance_upper": 0.025,
+          "tolerance_lower": -0.025,
+          "within_tolerance": true
+        },
+        {
+          "name": "keyway_width",
+          "nominal": 8.0,
+          "measured": 7.995,
+          "deviation_abs": 0.004999999999999893,
+          "deviation_rel": 0.0006249999999999867,
+          "tolerance_upper": 0.022,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        },
+        {
+          "name": "step_height",
+          "nominal": 5.0,
+          "measured": 4.972,
+          "deviation_abs": 0.02799999999999958,
+          "deviation_rel": 0.005599999999999916,
+          "tolerance_upper": 0.012,
+          "tolerance_lower": 0.0,
+          "within_tolerance": false
+        }
+      ],
+      "mean_absolute_deviation": 0.017,
+      "max_absolute_deviation": 0.028,
+      "mean_relative_deviation": 0.00099,
+      "max_relative_deviation": 0.0056,
+      "within_tolerance_count": 5,
+      "total_count": 10
+    },
+    "feature_iou": {
+      "base_plate": 0.9603,
+      "vertical_rib": 0.9419,
+      "mounting_hole_1": 0.9627,
+      "mounting_hole_2": 0.9654,
+      "mounting_hole_3": 0.9304,
+      "mounting_hole_4": 0.9719,
+      "bearing_seat": 0.9393,
+      "keyway_slot": 0.9502,
+      "step_surface": 0.9358
+    },
+    "feature_recall": 1.0,
+    "feature_precision": 1.0,
+    "topology_correctness": 1.0,
+    "tolerance_compliance": 50.0
+  },
+  "dimension_checks": [
+    {
+      "dimension_name": "base_length",
+      "nominal": 150.0,
+      "measured": 150.008,
+      "deviation": 0.008,
+      "tolerance_upper": 0.04,
+      "tolerance_lower": 0.0,
+      "within_tolerance": true,
+      "deviation_percent": 0.005
+    },
+    {
+      "dimension_name": "base_width",
+      "nominal": 80.0,
+      "measured": 79.972,
+      "deviation": -0.028,
+      "tolerance_upper": 0.03,
+      "tolerance_lower": 0.0,
+      "within_tolerance": false,
+      "deviation_percent": -0.035
+    },
+    {
+      "dimension_name": "base_thickness",
+      "nominal": 15.0,
+      "measured": 14.987,
+      "deviation": -0.013,
+      "tolerance_upper": 0.018,
+      "tolerance_lower": 0.0,
+      "within_tolerance": false,
+      "deviation_percent": -0.087
+    },
+    {
+      "dimension_name": "rib_height",
+      "nominal": 85.0,
+      "measured": 84.983,
+      "deviation": -0.017,
+      "tolerance_upper": 0.035,
+      "tolerance_lower": 0.0,
+      "within_tolerance": false,
+      "deviation_percent": -0.02
+    },
+    {
+      "dimension_name": "bearing_bore_dia",
+      "nominal": 35.0,
+      "measured": 35.014,
+      "deviation": 0.014,
+      "tolerance_upper": 0.025,
+      "tolerance_lower": 0.0,
+      "within_tolerance": true,
+      "deviation_percent": 0.04
+    },
+    {
+      "dimension_name": "mounting_hole_dia",
+      "nominal": 12.0,
+      "measured": 12.011,
+      "deviation": 0.011,
+      "tolerance_upper": 0.018,
+      "tolerance_lower": 0.0,
+      "within_tolerance": true,
+      "deviation_percent": 0.092
+    },
+    {
+      "dimension_name": "hole_spacing_x",
+      "nominal": 110.0,
+      "measured": 110.024,
+      "deviation": 0.024,
+      "tolerance_upper": 0.035,
+      "tolerance_lower": -0.035,
+      "within_tolerance": true,
+      "deviation_percent": 0.022
+    },
+    {
+      "dimension_name": "hole_spacing_y",
+      "nominal": 40.0,
+      "measured": 39.975,
+      "deviation": -0.025,
+      "tolerance_upper": 0.025,
+      "tolerance_lower": -0.025,
+      "within_tolerance": true,
+      "deviation_percent": -0.062
+    },
+    {
+      "dimension_name": "keyway_width",
+      "nominal": 8.0,
+      "measured": 7.995,
+      "deviation": -0.005,
+      "tolerance_upper": 0.022,
+      "tolerance_lower": 0.0,
+      "within_tolerance": false,
+      "deviation_percent": -0.062
+    },
+    {
+      "dimension_name": "step_height",
+      "nominal": 5.0,
+      "measured": 4.972,
+      "deviation": -0.028,
+      "tolerance_upper": 0.012,
+      "tolerance_lower": 0.0,
+      "within_tolerance": false,
+      "deviation_percent": -0.56
+    }
+  ],
+  "feature_checks": [
+    {
+      "feature_name": "base_plate",
+      "detected": true,
+      "confidence": 0.9275,
+      "iou": 0.9603,
+      "feature_type": "plate"
+    },
+    {
+      "feature_name": "vertical_rib",
+      "detected": true,
+      "confidence": 0.9121,
+      "iou": 0.9419,
+      "feature_type": "rib"
+    },
+    {
+      "feature_name": "mounting_hole_1",
+      "detected": true,
+      "confidence": 0.962,
+      "iou": 0.9627,
+      "feature_type": "through_hole"
+    },
+    {
+      "feature_name": "mounting_hole_2",
+      "detected": true,
+      "confidence": 0.9276,
+      "iou": 0.9654,
+      "feature_type": "through_hole"
+    },
+    {
+      "feature_name": "mounting_hole_3",
+      "detected": true,
+      "confidence": 0.9748,
+      "iou": 0.9304,
+      "feature_type": "through_hole"
+    },
+    {
+      "feature_name": "mounting_hole_4",
+      "detected": true,
+      "confidence": 0.9745,
+      "iou": 0.9719,
+      "feature_type": "through_hole"
+    },
+    {
+      "feature_name": "bearing_seat",
+      "detected": true,
+      "confidence": 0.9372,
+      "iou": 0.9393,
+      "feature_type": "bore"
+    },
+    {
+      "feature_name": "keyway_slot",
+      "detected": true,
+      "confidence": 0.9866,
+      "iou": 0.9502,
+      "feature_type": "slot"
+    },
+    {
+      "feature_name": "step_surface",
+      "detected": true,
+      "confidence": 0.9174,
+      "iou": 0.9358,
+      "feature_type": "step"
+    }
+  ],
+  "topology_checks": [
+    {
+      "edge": [
+        "base_plate",
+        "vertical_rib"
+      ],
+      "relation": "perpendicular_fixed",
+      "matched": true
+    },
+    {
+      "edge": [
+        "base_plate",
+        "mounting_hole_1"
+      ],
+      "relation": "contains",
+      "matched": true
+    },
+    {
+      "edge": [
+        "base_plate",
+        "mounting_hole_2"
+      ],
+      "relation": "contains",
+      "matched": true
+    },
+    {
+      "edge": [
+        "base_plate",
+        "mounting_hole_3"
+      ],
+      "relation": "contains",
+      "matched": true
+    },
+    {
+      "edge": [
+        "base_plate",
+        "mounting_hole_4"
+      ],
+      "relation": "contains",
+      "matched": true
+    },
+    {
+      "edge": [
+        "base_plate",
+        "step_surface"
+      ],
+      "relation": "contains",
+      "matched": true
+    },
+    {
+      "edge": [
+        "vertical_rib",
+        "bearing_seat"
+      ],
+      "relation": "contains_concentric",
+      "matched": true
+    },
+    {
+      "edge": [
+        "bearing_seat",
+        "keyway_slot"
+      ],
+      "relation": "intersects",
+      "matched": true
+    },
+    {
+      "edge": [
+        "mounting_hole_1",
+        "mounting_hole_2"
+      ],
+      "relation": "parallel_spacing_110mm",
+      "matched": true
+    },
+    {
+      "edge": [
+        "mounting_hole_1",
+        "mounting_hole_3"
+      ],
+      "relation": "parallel_spacing_40mm",
+      "matched": true
+    },
+    {
+      "edge": [
+        "mounting_hole_2",
+        "mounting_hole_4"
+      ],
+      "relation": "parallel_spacing_40mm",
+      "matched": true
+    },
+    {
+      "edge": [
+        "mounting_hole_3",
+        "mounting_hole_4"
+      ],
+      "relation": "parallel_spacing_110mm",
+      "matched": true
+    }
+  ],
+  "overall_pass": false,
+  "validation_duration_seconds": 0.01,
+  "warnings": [
+    "公差符合度 50.0% 低于阈值 95.0%"
+  ],
+  "errors": [],
+  "report_version": "1.0.0"
+}

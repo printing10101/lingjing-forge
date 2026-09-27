@@ -1,0 +1,686 @@
+{
+  "ran_at": "2026-07-28T14:39:08",
+  "python_version": "3.10.11",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "tests": [
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestDatabaseConnectionPoolPerformance::test_connection_pool_creation_time",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestDatabaseConnectionPoolPerformance",
+      "test_name": "test_connection_pool_creation_time",
+      "status": "PASSED",
+      "output_lines": [
+        "连接池创建时间: 0.001ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestDatabaseConnectionPoolPerformance::test_concurrent_engine_access",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestDatabaseConnectionPoolPerformance",
+      "test_name": "test_concurrent_engine_access",
+      "status": "PASSED",
+      "output_lines": [
+        "并发引擎访问性能 (20线程):",
+        "总时间: 11.326ms",
+        "平均时间: 0.374ms",
+        "P95时间: 1.131ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestExceptionHandlerPerformance::test_exception_creation_performance",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestExceptionHandlerPerformance",
+      "test_name": "test_exception_creation_performance",
+      "status": "PASSED",
+      "output_lines": [
+        "异常创建性能 (30000次):",
+        "总时间: 18.41ms",
+        "每次: 0.0006ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestExceptionHandlerPerformance::test_exception_handler_response_time",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestExceptionHandlerPerformance",
+      "test_name": "test_exception_handler_response_time",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestAuthenticationPerformance::test_jwt_token_creation_performance",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestAuthenticationPerformance",
+      "test_name": "test_jwt_token_creation_performance",
+      "status": "PASSED",
+      "output_lines": [
+        "JWT令牌创建性能 (1000次):",
+        "总时间: 16.74ms",
+        "每次: 0.017ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestAuthenticationPerformance::test_jwt_token_verification_performance",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestAuthenticationPerformance",
+      "test_name": "test_jwt_token_verification_performance",
+      "status": "PASSED",
+      "output_lines": [
+        "JWT令牌验证性能 (1000次):",
+        "总时间: 17.57ms",
+        "每次: 0.018ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestAPIRoutePerformance::test_health_check_endpoint_performance",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestAPIRoutePerformance",
+      "test_name": "test_health_check_endpoint_performance",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestAPIRoutePerformance::test_api_response_serialization_performance",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestAPIRoutePerformance",
+      "test_name": "test_api_response_serialization_performance",
+      "status": "PASSED",
+      "output_lines": [
+        "API响应序列化性能 (10000次):",
+        "总时间: 1.88ms",
+        "每次: 0.0002ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestDataPipelinePerformance::test_data_validation_performance",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestDataPipelinePerformance",
+      "test_name": "test_data_validation_performance",
+      "status": "PASSED",
+      "output_lines": [
+        "数据校验性能 (10000次):",
+        "总时间: 10.94ms",
+        "每次: 0.0011ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestDataPipelinePerformance::test_json_serialization_performance",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestDataPipelinePerformance",
+      "test_name": "test_json_serialization_performance",
+      "status": "PASSED",
+      "output_lines": [
+        "JSON序列化性能 (10000次):",
+        "总时间: 37.73ms",
+        "每次: 0.0038ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestMemoryPerformance::test_connection_pool_memory_footprint",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestMemoryPerformance",
+      "test_name": "test_connection_pool_memory_footprint",
+      "status": "PASSED",
+      "output_lines": [
+        "连接池内存占用:",
+        "对象增长: 28"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestResourceShutdownPerformance::test_budget_manager_close_latency",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestResourceShutdownPerformance",
+      "test_name": "test_budget_manager_close_latency",
+      "status": "PASSED",
+      "output_lines": [
+        "BudgetManager.close() 性能:",
+        "首次关闭: 0.066ms",
+        "幂等关闭: 0.000300ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestResourceShutdownPerformance::test_cost_tracker_close_latency",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestResourceShutdownPerformance",
+      "test_name": "test_cost_tracker_close_latency",
+      "status": "PASSED",
+      "output_lines": [
+        "CostTracker.close() 性能:",
+        "首次关闭: 0.042ms",
+        "幂等关闭: 0.000300ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestResourceShutdownPerformance::test_rule_database_close_latency",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestResourceShutdownPerformance",
+      "test_name": "test_rule_database_close_latency",
+      "status": "PASSED",
+      "output_lines": [
+        "RuleDatabase.close() 性能:",
+        "首次关闭: 7.632ms",
+        "幂等关闭: 0.000700ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestResourceShutdownPerformance::test_wakeup_queue_close_latency",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestResourceShutdownPerformance",
+      "test_name": "test_wakeup_queue_close_latency",
+      "status": "PASSED",
+      "output_lines": [
+        "WakeupQueue.close() 性能:",
+        "首次关闭: 0.052ms",
+        "幂等关闭: 0.000300ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestResourceShutdownPerformance::test_vector_store_close_latency_without_client",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestResourceShutdownPerformance",
+      "test_name": "test_vector_store_close_latency_without_client",
+      "status": "PASSED",
+      "output_lines": [
+        "VectorStore.close() 性能（无客户端）:",
+        "首次关闭: 0.001900ms",
+        "幂等关闭: 0.000400ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestResourceShutdownPerformance::test_concurrent_close_safety",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestResourceShutdownPerformance",
+      "test_name": "test_concurrent_close_safety",
+      "status": "PASSED",
+      "output_lines": [
+        "并发 close 性能 (5线程 × 20次):",
+        "总时间: 1.041ms",
+        "错误数: 0"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestMiddlewareStackPerformance::test_request_id_middleware_latency",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestMiddlewareStackPerformance",
+      "test_name": "test_request_id_middleware_latency",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestMiddlewareStackPerformance::test_security_headers_middleware_latency",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestMiddlewareStackPerformance",
+      "test_name": "test_security_headers_middleware_latency",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestMiddlewareStackPerformance::test_full_middleware_stack_assembly_time",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestMiddlewareStackPerformance",
+      "test_name": "test_full_middleware_stack_assembly_time",
+      "status": "PASSED",
+      "output_lines": [
+        "中间件栈装配时间: 1.424ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestBudgetTrackerThroughput::test_check_budget_throughput",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestBudgetTrackerThroughput",
+      "test_name": "test_check_budget_throughput",
+      "status": "PASSED",
+      "output_lines": [
+        "check_budget 吞吐量 (100次):",
+        "总时间: 1987.64ms",
+        "每次: 19.876ms",
+        "QPS: 50.3"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestBudgetTrackerThroughput::test_record_cost_throughput",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestBudgetTrackerThroughput",
+      "test_name": "test_record_cost_throughput",
+      "status": "PASSED",
+      "output_lines": [
+        "record_cost 吞吐量 (1000次):",
+        "总时间: 3540.80ms",
+        "每次: 3.541ms",
+        "QPS: 282.4"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestBudgetTrackerThroughput::test_concurrent_record_cost_safety",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestBudgetTrackerThroughput",
+      "test_name": "test_concurrent_record_cost_safety",
+      "status": "XFAIL",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestAuditLogHashChainPerformance::test_single_log_latency",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestAuditLogHashChainPerformance",
+      "test_name": "test_single_log_latency",
+      "status": "PASSED",
+      "output_lines": [
+        "AgentAuditLog.log() 性能 (100次):",
+        "总时间: 14.26ms",
+        "每次: 0.143ms",
+        "QPS: 7012.8"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestAuditLogHashChainPerformance::test_hash_chain_overhead",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestAuditLogHashChainPerformance",
+      "test_name": "test_hash_chain_overhead",
+      "status": "PASSED",
+      "output_lines": [
+        "哈希链 overhead 对比 (1000次):",
+        "无哈希链: 0.0240ms/条",
+        "哈希链:   0.0235ms/条",
+        "Overhead: -2.2%"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestAuditLogHashChainPerformance::test_verify_integrity_scan_performance",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestAuditLogHashChainPerformance",
+      "test_name": "test_verify_integrity_scan_performance",
+      "status": "PASSED",
+      "output_lines": [
+        "verify_integrity() 扫描性能 (500条):",
+        "总时间: 13.481ms",
+        "每条: 0.0270ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestHeartbeatSchedulerPerformance::test_add_task_throughput",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestHeartbeatSchedulerPerformance",
+      "test_name": "test_add_task_throughput",
+      "status": "PASSED",
+      "output_lines": [
+        "WakeupQueue.add_task 吞吐量 (200次):",
+        "总时间: 44.10ms",
+        "每次: 0.220ms",
+        "QPS: 4535.6"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestHeartbeatSchedulerPerformance::test_get_due_tasks_latency",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestHeartbeatSchedulerPerformance",
+      "test_name": "test_get_due_tasks_latency",
+      "status": "PASSED",
+      "output_lines": [
+        "get_due_tasks 查询性能 (50次, 100条到期):",
+        "P50: 0.978ms",
+        "P95: 1.175ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_critical_modules_performance.py::TestHeartbeatSchedulerPerformance::test_update_task_status_latency",
+      "file": "test_critical_modules_performance.py",
+      "class_name": "TestHeartbeatSchedulerPerformance",
+      "test_name": "test_update_task_status_latency",
+      "status": "PASSED",
+      "output_lines": [
+        "update_task_status 性能 (50次):",
+        "总时间: 3.16ms",
+        "每次: 0.063ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_cron_parser_cache_hit_rate.py::TestColdVsWarmStartup::test_cold_start_slower_than_warm",
+      "file": "test_cron_parser_cache_hit_rate.py",
+      "class_name": "TestColdVsWarmStartup",
+      "test_name": "test_cold_start_slower_than_warm",
+      "status": "PASSED",
+      "output_lines": [
+        "冷启动 vs 热启动:",
+        "冷启动: 0.7289ms",
+        "热启动: 0.001900ms",
+        "差距:   383.6x"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_cron_parser_cache_hit_rate.py::TestColdVsWarmStartup::test_warm_latency_under_threshold",
+      "file": "test_cron_parser_cache_hit_rate.py",
+      "class_name": "TestColdVsWarmStartup",
+      "test_name": "test_warm_latency_under_threshold",
+      "status": "PASSED",
+      "output_lines": [
+        "热启动延迟 (1000 次采样):",
+        "P50: 0.000700ms",
+        "P95: 0.000800ms"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_cron_parser_cache_hit_rate.py::TestBatchInsertHitRate::test_uniform_cron_high_hit_rate",
+      "file": "test_cron_parser_cache_hit_rate.py",
+      "class_name": "TestBatchInsertHitRate",
+      "test_name": "test_uniform_cron_high_hit_rate",
+      "status": "PASSED",
+      "output_lines": [
+        "统一 cron_expr 批量插入 (200次):",
+        "命中率: 99.5000%",
+        "compute 调用: 1",
+        "cache 命中: 199"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_cron_parser_cache_hit_rate.py::TestBatchInsertHitRate::test_diverse_cron_hit_rate_decay",
+      "file": "test_cron_parser_cache_hit_rate.py",
+      "class_name": "TestBatchInsertHitRate",
+      "test_name": "test_diverse_cron_hit_rate_decay",
+      "status": "PASSED",
+      "output_lines": [
+        "多样化 cron_expr 批量插入 (200次, 10种 expr):",
+        "命中率: 95.0000%",
+        "compute 调用: 10",
+        "cache 命中: 190"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_cron_parser_cache_hit_rate.py::TestBatchInsertHitRate::test_hit_rate_curve_with_scale",
+      "file": "test_cron_parser_cache_hit_rate.py",
+      "class_name": "TestBatchInsertHitRate",
+      "test_name": "test_hit_rate_curve_with_scale",
+      "status": "PASSED",
+      "output_lines": [
+        "命中率随规模变化曲线:",
+        "scale=  10: 90.0000%",
+        "scale=  50: 98.0000%",
+        "scale= 100: 99.0000%",
+        "scale= 500: 99.8000%",
+        "scale=1000: 99.9000%"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_cron_parser_cache_hit_rate.py::TestThroughputImprovement::test_cached_throughput_vs_cold",
+      "file": "test_cron_parser_cache_hit_rate.py",
+      "class_name": "TestThroughputImprovement",
+      "test_name": "test_cached_throughput_vs_cold",
+      "status": "PASSED",
+      "output_lines": [
+        "吞吐量提升对比:",
+        "冷启动: 0.6976ms/次 (QPS=1433)",
+        "热启动: 0.000655ms/次 (QPS=1527300)",
+        "加速比: 1065.5x"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_cron_parser_cache_hit_rate.py::TestEvictionPerformanceImpact::test_capacity_eviction_no_perf_cliff",
+      "file": "test_cron_parser_cache_hit_rate.py",
+      "class_name": "TestEvictionPerformanceImpact",
+      "test_name": "test_capacity_eviction_no_perf_cliff",
+      "status": "PASSED",
+      "output_lines": [
+        "容量淘汰性能影响:",
+        "淘汰 + 写入延迟: 0.0275ms",
+        "缓存大小: 10"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_cron_parser_cache_hit_rate.py::TestEvictionPerformanceImpact::test_ttl_eviction_amortized_cost",
+      "file": "test_cron_parser_cache_hit_rate.py",
+      "class_name": "TestEvictionPerformanceImpact",
+      "test_name": "test_ttl_eviction_amortized_cost",
+      "status": "PASSED",
+      "output_lines": [
+        "TTL 淘汰摊销开销:",
+        "命中路径平均延迟: 0.000645ms",
+        "过期条目数: 20"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_cron_parser_cache_hit_rate.py::TestFieldPrecompilePerformance::test_compile_field_faster_than_matches_field",
+      "file": "test_cron_parser_cache_hit_rate.py",
+      "class_name": "TestFieldPrecompilePerformance",
+      "test_name": "test_compile_field_faster_than_matches_field",
+      "status": "PASSED",
+      "output_lines": [
+        "字段预编译 vs 逐次匹配:",
+        "旧路径 (1000×60 _matches_field): 53.1688ms",
+        "新路径 (1000× compile+in):       5.4313ms",
+        "加速比: 9.79x"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_memory_footprint.py::TestModuleMemoryFootprint::test_budget_manager_memory",
+      "file": "test_memory_footprint.py",
+      "class_name": "TestModuleMemoryFootprint",
+      "test_name": "test_budget_manager_memory",
+      "status": "PASSED",
+      "output_lines": [
+        "BudgetManager 内存占用:",
+        "当前: 0.024 MB",
+        "峰值: 0.029 MB",
+        "内存块: 98"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_memory_footprint.py::TestModuleMemoryFootprint::test_cost_tracker_memory",
+      "file": "test_memory_footprint.py",
+      "class_name": "TestModuleMemoryFootprint",
+      "test_name": "test_cost_tracker_memory",
+      "status": "PASSED",
+      "output_lines": [
+        "CostTracker 内存占用:",
+        "当前: 0.016 MB",
+        "峰值: 0.019 MB",
+        "内存块: 90"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_memory_footprint.py::TestModuleMemoryFootprint::test_wakeup_queue_memory",
+      "file": "test_memory_footprint.py",
+      "class_name": "TestModuleMemoryFootprint",
+      "test_name": "test_wakeup_queue_memory",
+      "status": "PASSED",
+      "output_lines": [
+        "WakeupQueue 内存占用:",
+        "当前: 0.014 MB",
+        "峰值: 0.017 MB",
+        "内存块: 77"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_memory_footprint.py::TestModuleMemoryFootprint::test_rule_database_memory",
+      "file": "test_memory_footprint.py",
+      "class_name": "TestModuleMemoryFootprint",
+      "test_name": "test_rule_database_memory",
+      "status": "PASSED",
+      "output_lines": [
+        "RuleDatabase 内存占用:",
+        "当前: 0.016 MB",
+        "峰值: 0.019 MB",
+        "内存块: 90"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_memory_footprint.py::TestResourceReleaseMemory::test_budget_manager_release_after_close",
+      "file": "test_memory_footprint.py",
+      "class_name": "TestResourceReleaseMemory",
+      "test_name": "test_budget_manager_release_after_close",
+      "status": "PASSED",
+      "output_lines": [
+        "BudgetManager 资源释放:",
+        "分配: 6.61 KB",
+        "释放: 1.34 KB",
+        "释放率: 20.2%",
+        "判定: 小对象场景 (< 50.0KB), 泄漏 5.28KB 在容忍范围内"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_memory_footprint.py::TestResourceReleaseMemory::test_wakeup_queue_release_after_close",
+      "file": "test_memory_footprint.py",
+      "class_name": "TestResourceReleaseMemory",
+      "test_name": "test_wakeup_queue_release_after_close",
+      "status": "PASSED",
+      "output_lines": [
+        "WakeupQueue 资源释放:",
+        "分配: 5.35 KB",
+        "释放: 0.71 KB",
+        "释放率: 13.3%",
+        "判定: 小对象场景 (< 50.0KB), 泄漏 4.64KB 在容忍范围内"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_memory_footprint.py::TestBatchOperationMemoryGrowth::test_add_task_memory_growth",
+      "file": "test_memory_footprint.py",
+      "class_name": "TestBatchOperationMemoryGrowth",
+      "test_name": "test_add_task_memory_growth",
+      "status": "PASSED",
+      "output_lines": [
+        "批量添加 1000 个任务内存增长:",
+        "初始化后: 5.34 KB",
+        "批量后增长: 68.15 KB (0.067 MB)",
+        "每任务增长: 0.068 KB"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_memory_footprint.py::TestBatchOperationMemoryGrowth::test_audit_log_memory_growth",
+      "file": "test_memory_footprint.py",
+      "class_name": "TestBatchOperationMemoryGrowth",
+      "test_name": "test_audit_log_memory_growth",
+      "status": "PASSED",
+      "output_lines": [
+        "批量写入 1000 条审计日志内存增长:",
+        "初始化后: 12.59 KB",
+        "批量后增长: 40.81 KB (0.040 MB)",
+        "每条增长: 0.041 KB"
+      ],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_end_to_end_performance.py::TestEndToEndLatencyBaseline::test_health_endpoint_e2e",
+      "file": "test_end_to_end_performance.py",
+      "class_name": "TestEndToEndLatencyBaseline",
+      "test_name": "test_health_endpoint_e2e",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_end_to_end_performance.py::TestEndToEndLatencyBaseline::test_echo_with_path_param_e2e",
+      "file": "test_end_to_end_performance.py",
+      "class_name": "TestEndToEndLatencyBaseline",
+      "test_name": "test_echo_with_path_param_e2e",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_end_to_end_performance.py::TestEndToEndLatencyBaseline::test_compute_endpoint_e2e",
+      "file": "test_end_to_end_performance.py",
+      "class_name": "TestEndToEndLatencyBaseline",
+      "test_name": "test_compute_endpoint_e2e",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_end_to_end_performance.py::TestEndToEndLatencyBaseline::test_error_path_e2e",
+      "file": "test_end_to_end_performance.py",
+      "class_name": "TestEndToEndLatencyBaseline",
+      "test_name": "test_error_path_e2e",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_end_to_end_performance.py::TestEndToEndLatencyBaseline::test_post_data_e2e",
+      "file": "test_end_to_end_performance.py",
+      "class_name": "TestEndToEndLatencyBaseline",
+      "test_name": "test_post_data_e2e",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_end_to_end_performance.py::TestTailLatency::test_p99_under_threshold",
+      "file": "test_end_to_end_performance.py",
+      "class_name": "TestTailLatency",
+      "test_name": "test_p99_under_threshold",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_end_to_end_performance.py::TestLongRunStability::test_no_perf_drift_over_500_requests",
+      "file": "test_end_to_end_performance.py",
+      "class_name": "TestLongRunStability",
+      "test_name": "test_no_perf_drift_over_500_requests",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    },
+    {
+      "node_id": "tests\\performance\\test_end_to_end_performance.py::TestAsyncConcurrencyPerformance::test_async_event_loop_throughput",
+      "file": "test_end_to_end_performance.py",
+      "class_name": "TestAsyncConcurrencyPerformance",
+      "test_name": "test_async_event_loop_throughput",
+      "status": "SKIPPED",
+      "output_lines": [],
+      "failure_excerpt": ""
+    }
+  ],
+  "summary": {
+    "passed": 41,
+    "failed": 0,
+    "skipped": 12,
+    "xfail": 1,
+    "error": 0
+  },
+  "total_duration_sec": 14.04,
+  "return_code": 0,
+  "raw_output_tail": "eue_release_after_close \nWakeupQueue 资源释放:\n  分配: 5.35 KB\n  释放: 0.71 KB\n  释放率: 13.3%\n  判定: 小对象场景 (< 50.0KB), 泄漏 4.64KB 在容忍范围内\nPASSED\ntests\\performance\\test_memory_footprint.py::TestBatchOperationMemoryGrowth::test_add_task_memory_growth \n批量添加 1000 个任务内存增长:\n  初始化后: 5.34 KB\n  批量后增长: 68.15 KB (0.067 MB)\n  每任务增长: 0.068 KB\nPASSED\ntests\\performance\\test_memory_footprint.py::TestBatchOperationMemoryGrowth::test_audit_log_memory_growth \n批量写入 1000 条审计日志内存增长:\n  初始化后: 12.59 KB\n  批量后增长: 40.81 KB (0.040 MB)\n  每条增长: 0.041 KB\nPASSED\ntests\\performance\\test_end_to_end_performance.py::TestEndToEndLatencyBaseline::test_health_endpoint_e2e SKIPPED\ntests\\performance\\test_end_to_end_performance.py::TestEndToEndLatencyBaseline::test_echo_with_path_param_e2e SKIPPED\ntests\\performance\\test_end_to_end_performance.py::TestEndToEndLatencyBaseline::test_compute_endpoint_e2e SKIPPED\ntests\\performance\\test_end_to_end_performance.py::TestEndToEndLatencyBaseline::test_error_path_e2e SKIPPED\ntests\\performance\\test_end_to_end_performance.py::TestEndToEndLatencyBaseline::test_post_data_e2e SKIPPED\ntests\\performance\\test_end_to_end_performance.py::TestTailLatency::test_p99_under_threshold SKIPPED\ntests\\performance\\test_end_to_end_performance.py::TestLongRunStability::test_no_perf_drift_over_500_requests SKIPPED\ntests\\performance\\test_end_to_end_performance.py::TestAsyncConcurrencyPerformance::test_async_event_loop_throughput SKIPPED\n\n============================== warnings summary ===============================\n..\\..\\..\\..\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\vm\\tools\\python\\lib\\site-packages\\_pytest\\assertion\\rewrite.py:188\n  C:\\Users\\Lenovo\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\vm\\tools\\python\\lib\\site-packages\\_pytest\\assertion\\rewrite.py:188: UserWarning: [S7] 真实 torch 不可用。依赖 torch 的测试将通过 pytest.importorskip('torch') 跳过，而非通过桩模块伪装通过。如需运行完整测试套件，请安装 PyTorch。\n    exec(co, module.__dict__)\n\nengineering/python/tests/performance/test_critical_modules_performance.py::TestDatabaseConnectionPoolPerformance::test_connection_pool_creation_time\n  C:\\Users\\Lenovo\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\vm\\tools\\python\\lib\\site-packages\\_pytest\\unraisableexception.py:67: PytestUnraisableExceptionWarning: Exception ignored in: <function BaseEventLoop.__del__ at 0x00000214778E0670>\n  \n  Traceback (most recent call last):\n    File \"asyncio\\base_events.py\", line 690, in __del__\n    File \"asyncio\\selector_events.py\", line 87, in close\n    File \"asyncio\\selector_events.py\", line 94, in _close_self_pipe\n  AttributeError: '_WindowsSelectorEventLoop' object has no attribute '_ssock'\n  \n  Enable tracemalloc to get traceback where the object was allocated.\n  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.\n    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========== 41 passed, 12 skipped, 1 xfailed, 2 warnings in 11.23s ============\n"
+}

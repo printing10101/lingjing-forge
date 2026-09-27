@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#ffffff"/>
+  <text x="400" y="280" text-anchor="middle" font-family="SimHei" font-size="24" fill="#333">阶梯轴 — 俯视图</text>
+  <text x="400" y="320" text-anchor="middle" font-family="SimHei" font-size="14" fill="#999">Stepped Shaft — Top View</text>
+  <rect x="100" y="370" width="600" height="20" rx="2" fill="#4a90d9" opacity="0.15"/>
+  <text x="400" y="600" text-anchor="middle" font-family="SimHei" font-size="12" fill="#ccc">300 dpi · SVG Placeholder</text>
+</svg>

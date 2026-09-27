@@ -1,0 +1,89 @@
+{
+  "model_name": "cutting_force",
+  "registry_version": "2.0.0",
+  "model_type": "CFC",
+  "feature_order": [
+    "spindle_rpm",
+    "feed_rate",
+    "depth_of_cut",
+    "material_encoded"
+  ],
+  "output_features": [
+    "predicted_cutting_force"
+  ],
+  "npz_format_version": 2,
+  "source": {
+    "kind": "dataset_store",
+    "dataset_id": "9103e754-6ccb-4d88-a581-90eafb895b83",
+    "dataset_name": "synthetic_machining_params_v1",
+    "version": "0.0.1",
+    "content_hash": "20b270bd629c4c1bcdf1795575e1b7be20da4cf100968da7a960f38c5477879e",
+    "source_row_count": 100,
+    "lineage": "lineage_dc3680474100"
+  },
+  "data": {
+    "rows_total": 100,
+    "rows_train": 70,
+    "rows_val": 15,
+    "rows_test": 15,
+    "standardization": {
+      "x_mean": [
+        4578.571428571428,
+        558.5714285714286,
+        1.295714285714285,
+        0.0
+      ],
+      "x_std": [
+        2317.072836708472,
+        345.8913360096355,
+        0.827118183693188,
+        1.0
+      ],
+      "y_mean": 793.1994672603487,
+      "y_std": 749.3405798670229,
+      "folded_into_weights": true
+    }
+  },
+  "training": {
+    "framework": "torch",
+    "torch_version": "2.13.0+cpu",
+    "architecture": "MirrorMLP [4, 64, 64, 1]（ReLU 隐层+线性输出，与 NumPy 服务前向同构）",
+    "seed": 42,
+    "epochs_requested": 500,
+    "epochs_completed": 161,
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "patience": 30,
+    "final_train_loss": 0.00021639507051856655,
+    "best_val_loss": 0.0032662521116435528
+  },
+  "parity": {
+    "torch_vs_numpy_mirror_max_abs": 7.756978392947644e-08,
+    "tolerance": 0.001
+  },
+  "metrics_numpy_path": {
+    "test": {
+      "r2": 0.998040190300895,
+      "mae": 22.82409000923676,
+      "mape_percent": 13.833739775323384,
+      "max_abs_error": 70.7559532099533
+    },
+    "val": {
+      "r2": 0.9969133742082976,
+      "mae": 26.58858743574167,
+      "mape_percent": 10.444413114443803,
+      "max_abs_error": 115.45186336698657
+    }
+  },
+  "notes": "权重为标准化折叠后产物，服务端无需任何预处理；ONNX 工件因环境缺 onnx 包暂缓导出（onnxruntime 消费路径见 WP1 适配器）。",
+  "created_at": "2026-09-08T16:16:42.461143+00:00",
+  "artifacts": {
+    "npz": {
+      "path": "cutting_force.npz",
+      "sha256": "b5a02eba8269b4048d6a2e8afe56f349db0249fdc3a86befd2399c1e9d918684"
+    },
+    "manifest": {
+      "path": "cutting_force.manifest.json"
+    }
+  }
+}

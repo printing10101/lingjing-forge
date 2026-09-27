@@ -1,0 +1,1386 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "灵境制造 核心架构契约 API",
+    "description": "八大核心契约（Task/Workflow、Dataset/Version/Lineage、Plugin/ExtensionPoint、ConfigSpec、Observability、WorldModel、RLAgent、Explainability）的 OpenAPI schema。本 schema 由 app/contracts/openapi_gen.py 自动生成，请勿手动修改。",
+    "version": "2.8.0",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "TaskStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "queued",
+          "running",
+          "completed",
+          "failed",
+          "cancelled",
+          "skipped"
+        ]
+      },
+      "LogLevel": {
+        "type": "string",
+        "enum": [
+          "debug",
+          "info",
+          "warning",
+          "error",
+          "critical"
+        ]
+      },
+      "StateField": {
+        "type": "string",
+        "enum": [
+          "spindle_speed",
+          "feed_rate",
+          "depth_of_cut",
+          "width_of_cut",
+          "tool_wear",
+          "vibration_rms",
+          "temperature",
+          "chatter_probability"
+        ]
+      },
+      "ActionField": {
+        "type": "string",
+        "enum": [
+          "spindle_speed_delta",
+          "feed_rate_delta",
+          "depth_of_cut_delta",
+          "width_of_cut_delta"
+        ]
+      },
+      "OptimizationTarget": {
+        "type": "string",
+        "enum": [
+          "minimize_chatter",
+          "maximize_material_removal",
+          "balance"
+        ]
+      },
+      "PolicyAlgorithm": {
+        "type": "string",
+        "enum": [
+          "ppo",
+          "dqn",
+          "sac"
+        ]
+      },
+      "TrainingStatus": {
+        "type": "string",
+        "enum": [
+          "idle",
+          "running",
+          "paused",
+          "completed",
+          "failed",
+          "stopping"
+        ]
+      },
+      "ExplanationType": {
+        "type": "string",
+        "enum": [
+          "hidden_state",
+          "gate_dynamics",
+          "counterfactual",
+          "confidence"
+        ]
+      },
+      "ProjectionMethod": {
+        "type": "string",
+        "enum": [
+          "pca",
+          "tsne",
+          "umap"
+        ]
+      },
+      "ComparisonType": {
+        "type": "string",
+        "enum": [
+          "same_model_diff_input",
+          "diff_model_same_input",
+          "diff_model_diff_input"
+        ]
+      },
+      "Artifact": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskContext": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string"
+          },
+          "workflow_run_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "inputs": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "config": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "retry_count": {
+            "type": "integer"
+          },
+          "deadline_ts": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskResult": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "queued",
+              "running",
+              "completed",
+              "failed",
+              "cancelled",
+              "skipped"
+            ]
+          },
+          "outputs": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "metrics": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "error": {
+            "type": "string",
+            "nullable": true
+          },
+          "error_code": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskProgress": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "queued",
+              "running",
+              "completed",
+              "failed",
+              "cancelled",
+              "skipped"
+            ]
+          },
+          "progress": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkflowNode": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "type": "string"
+          },
+          "task_type": {
+            "type": "string"
+          },
+          "params": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "inputs": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "retry": {
+            "type": "integer"
+          },
+          "timeout_seconds": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkflowEdge": {
+        "type": "object",
+        "properties": {
+          "upstream": {
+            "type": "string"
+          },
+          "downstream": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkflowSpec": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowNode"
+            }
+          },
+          "edges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowEdge"
+            }
+          },
+          "inputs": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "outputs": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkflowEvent": {
+        "type": "object",
+        "properties": {
+          "workflow_run_id": {
+            "type": "string"
+          },
+          "event_type": {
+            "type": "string"
+          },
+          "node_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": true,
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DatasetSchema": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "primary_key": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DatasetVersion": {
+        "type": "object",
+        "properties": {
+          "dataset_id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "published",
+              "deprecated",
+              "archived"
+            ]
+          },
+          "schema": {
+            "$ref": "#/components/schemas/DatasetSchema"
+          },
+          "content_hash": {
+            "type": "string"
+          },
+          "row_count": {
+            "type": "integer"
+          },
+          "size_bytes": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "storage_uri": {
+            "type": "string"
+          },
+          "lineage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LineageRecord": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "source_type": {
+            "type": "string"
+          },
+          "source_ref": {
+            "type": "string"
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "operation": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PluginManifest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "license": {
+            "type": "string"
+          },
+          "entrypoint": {
+            "type": "string"
+          },
+          "required_contracts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required_capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "optional_capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "config_schema": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "homepage": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "workflow_templates": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExtensionPointContribution": {
+        "type": "object",
+        "properties": {
+          "extension_point": {
+            "type": "string"
+          },
+          "plugin_id": {
+            "type": "string"
+          },
+          "handler": {
+            "nullable": true
+          },
+          "component_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "props": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConfigField": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "default": {},
+          "description": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "choices": {
+            "type": "array",
+            "items": {}
+          },
+          "min": {
+            "type": "number",
+            "nullable": true
+          },
+          "max": {
+            "type": "number",
+            "nullable": true
+          },
+          "sweep": {
+            "type": "object",
+            "additionalProperties": true,
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConfigSpec": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConfigField"
+            }
+          },
+          "parent": {
+            "type": "string",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TraceSpan": {
+        "type": "object",
+        "properties": {
+          "span_id": {
+            "type": "string"
+          },
+          "trace_id": {
+            "type": "string"
+          },
+          "parent_span_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "start_ts": {
+            "type": "number"
+          },
+          "end_ts": {
+            "type": "number",
+            "nullable": true
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Metric": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "number"
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "unit": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LogEntry": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "number"
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "debug",
+              "info",
+              "warning",
+              "error",
+              "critical"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "logger": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "trace_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "span_id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExperimentSnapshot": {
+        "type": "object",
+        "properties": {
+          "snapshot_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "git_sha": {
+            "type": "string"
+          },
+          "code_dirty": {
+            "type": "boolean"
+          },
+          "config": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "dataset_versions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "model_uri": {
+            "type": "string"
+          },
+          "metrics": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "environment": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "lineage_record_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "mlflow_run_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorldModelPredictRequest": {
+        "type": "object",
+        "properties": {
+          "current_state": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "candidate_action": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "horizon": {
+            "type": "integer"
+          },
+          "model_uri": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TrajectoryStep": {
+        "type": "object",
+        "properties": {
+          "step": {
+            "type": "integer"
+          },
+          "predicted_state": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "chatter_probability": {
+            "type": "number"
+          },
+          "tool_wear_increment": {
+            "type": "number"
+          },
+          "surface_roughness": {
+            "type": "number"
+          },
+          "confidence": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TrajectoryMetrics": {
+        "type": "object",
+        "properties": {
+          "mean_chatter_probability": {
+            "type": "number"
+          },
+          "max_chatter_probability": {
+            "type": "number"
+          },
+          "cumulative_tool_wear": {
+            "type": "number"
+          },
+          "final_surface_roughness": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorldModelInfo": {
+        "type": "object",
+        "properties": {
+          "world_model_version": {
+            "type": "string"
+          },
+          "training_data_size": {
+            "type": "integer"
+          },
+          "prediction_horizon": {
+            "type": "integer"
+          },
+          "uncertainty_estimate": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorldModelPredictResponse": {
+        "type": "object",
+        "properties": {
+          "predicted_trajectory": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrajectoryStep"
+            }
+          },
+          "trajectory_metrics": {
+            "$ref": "#/components/schemas/TrajectoryMetrics"
+          },
+          "model_info": {
+            "$ref": "#/components/schemas/WorldModelInfo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorldModelVersion": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string"
+          },
+          "model_uri": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "training_data_size": {
+            "type": "integer"
+          },
+          "prediction_horizon": {
+            "type": "integer"
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SafetyConstraintsSpec": {
+        "type": "object",
+        "properties": {
+          "max_chatter_probability": {
+            "type": "number"
+          },
+          "max_tool_wear_increment": {
+            "type": "number"
+          },
+          "min_surface_quality": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RLActRequest": {
+        "type": "object",
+        "properties": {
+          "current_state": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "candidate_actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "optimization_target": {
+            "type": "string"
+          },
+          "safety_constraints": {
+            "$ref": "#/components/schemas/SafetyConstraintsSpec"
+          },
+          "model_uri": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ActionEvaluation": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "expected_return": {
+            "type": "number"
+          },
+          "predicted_chatter_prob": {
+            "type": "number"
+          },
+          "predicted_tool_wear": {
+            "type": "number"
+          },
+          "safety_violation": {
+            "type": "boolean"
+          },
+          "q_value": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PolicyInfo": {
+        "type": "object",
+        "properties": {
+          "algorithm": {
+            "type": "string"
+          },
+          "policy_version": {
+            "type": "string"
+          },
+          "training_episodes": {
+            "type": "integer"
+          },
+          "exploration_rate": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RecommendedAction": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "reasoning": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RLActResponse": {
+        "type": "object",
+        "properties": {
+          "recommended_action": {
+            "$ref": "#/components/schemas/RecommendedAction"
+          },
+          "action_evaluation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActionEvaluation"
+            }
+          },
+          "policy_info": {
+            "$ref": "#/components/schemas/PolicyInfo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PolicyVersion": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string"
+          },
+          "model_uri": {
+            "type": "string"
+          },
+          "algorithm": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "training_episodes": {
+            "type": "integer"
+          },
+          "training_steps": {
+            "type": "integer"
+          },
+          "mean_reward": {
+            "type": "number"
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TrainingMetricsSnapshot": {
+        "type": "object",
+        "properties": {
+          "step": {
+            "type": "integer"
+          },
+          "episode": {
+            "type": "integer"
+          },
+          "policy_loss": {
+            "type": "number"
+          },
+          "value_loss": {
+            "type": "number"
+          },
+          "entropy": {
+            "type": "number"
+          },
+          "approx_kl": {
+            "type": "number"
+          },
+          "clip_fraction": {
+            "type": "number"
+          },
+          "mean_reward": {
+            "type": "number"
+          },
+          "mean_value": {
+            "type": "number"
+          },
+          "epsilon": {
+            "type": "number"
+          },
+          "elapsed_seconds": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TrainingStatusInfo": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "current_step": {
+            "type": "integer"
+          },
+          "max_steps": {
+            "type": "integer"
+          },
+          "current_episode": {
+            "type": "integer"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/TrainingMetricsSnapshot",
+            "nullable": true
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "finished_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "error_message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TrainingStartRequest": {
+        "type": "object",
+        "properties": {
+          "max_steps": {
+            "type": "integer"
+          },
+          "seed": {
+            "type": "integer",
+            "nullable": true
+          },
+          "algorithm": {
+            "type": "string"
+          },
+          "optimization_target": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HiddenStateExplanation": {
+        "type": "object",
+        "properties": {
+          "frame_ids": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "projections": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "energies": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "keyframe_flags": {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            }
+          },
+          "projection_method": {
+            "type": "string"
+          },
+          "projection_dim": {
+            "type": "integer"
+          },
+          "hidden_dim": {
+            "type": "integer"
+          },
+          "sample_count": {
+            "type": "integer"
+          },
+          "model_uri": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GateDynamicsExplanation": {
+        "type": "object",
+        "properties": {
+          "frame_ids": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "gate_values": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "time_constants": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "mean_gate_per_feature": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "anomaly_frames": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "model_uri": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CounterfactualExplanation": {
+        "type": "object",
+        "properties": {
+          "base_input": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "perturbed_feature": {
+            "type": "string"
+          },
+          "perturbation_range": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "sensitivity": {
+            "type": "number"
+          },
+          "critical_points": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "model_uri": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConfidenceExplanation": {
+        "type": "object",
+        "properties": {
+          "sample_count": {
+            "type": "integer"
+          },
+          "mean": {
+            "type": "number"
+          },
+          "std": {
+            "type": "number"
+          },
+          "percentiles": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "histogram": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "epistemic": {
+            "type": "number"
+          },
+          "aleatoric": {
+            "type": "number"
+          },
+          "anomaly_score": {
+            "type": "number"
+          },
+          "model_uri": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExplanationRequest": {
+        "type": "object",
+        "properties": {
+          "explanation_type": {
+            "type": "string"
+          },
+          "model_uri": {
+            "type": "string"
+          },
+          "source_snapshot_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "input_data": {
+            "type": "object",
+            "additionalProperties": true,
+            "nullable": true
+          },
+          "options": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "created_by": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExplanationRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "explanation_type": {
+            "type": "string"
+          },
+          "model_uri": {
+            "type": "string"
+          },
+          "source_snapshot_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "input_signature": {
+            "type": "string"
+          },
+          "payload_path": {
+            "type": "string"
+          },
+          "payload_size_bytes": {
+            "type": "integer"
+          },
+          "metadata_json": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "created_by": {
+            "type": "string",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExplanationComparison": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "base_explanation_id": {
+            "type": "string"
+          },
+          "compared_explanation_id": {
+            "type": "string"
+          },
+          "comparison_type": {
+            "type": "string"
+          },
+          "diff_payload_path": {
+            "type": "string"
+          },
+          "created_by": {
+            "type": "string",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "x-generated-by": "app.contracts.openapi_gen",
+  "x-contracts-version": "1.0.0"
+}

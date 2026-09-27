@@ -1,0 +1,23 @@
+# =============================================================================
+# 方言声明：KND1000/2000/3000（凯恩帝，Fanuc 0i 兼容方言）
+# =============================================================================
+# 示例：演示「工艺员零代码加方言」——声明 extends + 覆盖 header 模板即可。
+# 本方言与内置 KNDPostProcessor 行为等价（黄金测试逐字符一致）。
+# =============================================================================
+
+id: knd_1000_2000_3000
+name: KND1000/2000/3000 (Kainde CNC)
+version: "1.0.0"
+extends: fanuc_0i
+target_controller: knd_1000_2000_3000
+
+templates:
+  format_header: templates/header.j2
+  format_tool_change: templates/tool_change.j2
+  format_cycle_drill: templates/cycle_drill.j2
+  format_cycle_tapping: templates/cycle_tapping.j2
+
+params: {}
+
+author: Lingjing Manufacturing Team
+description: 北京凯恩帝 KND1000/2000/3000（Fanuc 0i 兼容方言，声明式示例）

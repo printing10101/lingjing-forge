@@ -1,0 +1,572 @@
+{
+  "timestamp": "2026-06-27 03:09:23",
+  "experiment": "特征交互作用分析实验",
+  "num_samples": 1500,
+  "sequence_length": 20,
+  "feature_names": [
+    "vibration",
+    "cutting_force",
+    "velocity",
+    "acceleration",
+    "energy",
+    "envelope",
+    "spindle_current",
+    "temperature"
+  ],
+  "single_feature_analysis": {
+    "vibration": {
+      "mae": 0.944292426109314,
+      "rmse": 1.137007474899292,
+      "r2": 0.07234626446572534,
+      "pcc": 0.5559273218678183
+    },
+    "cutting_force": {
+      "mae": 0.947344958782196,
+      "rmse": 1.1415657997131348,
+      "r2": 0.06489312270233838,
+      "pcc": 0.4884336882068088
+    },
+    "velocity": {
+      "mae": 0.9753586649894714,
+      "rmse": 1.1765799522399902,
+      "r2": 0.006650206020580307,
+      "pcc": 0.44718475943721275
+    },
+    "acceleration": {
+      "mae": 0.9777630567550659,
+      "rmse": 1.1793147325515747,
+      "r2": 0.002027120858257736,
+      "pcc": 0.35190749397563886
+    },
+    "energy": {
+      "mae": 0.9684986472129822,
+      "rmse": 1.1633111238479614,
+      "r2": 0.028928753780783745,
+      "pcc": 0.3476994371938608
+    },
+    "envelope": {
+      "mae": 0.9782366156578064,
+      "rmse": 1.1748604774475098,
+      "r2": 0.009551577916562026,
+      "pcc": 0.4021841050693264
+    },
+    "spindle_current": {
+      "mae": 0.995274543762207,
+      "rmse": 1.200940489768982,
+      "r2": -0.03490923830599835,
+      "pcc": 0.09745915170904781
+    },
+    "temperature": {
+      "mae": 1.000449538230896,
+      "rmse": 1.209356665611267,
+      "r2": -0.049465441838479896,
+      "pcc": 0.14969495114262388
+    }
+  },
+  "pairwise_interaction_analysis": {
+    "vibration+cutting_force": {
+      "mae": 0.947616457939148,
+      "rmse": 1.141289234161377,
+      "r2": 0.06534627045141395,
+      "pcc": 0.4724358593599147
+    },
+    "vibration+velocity": {
+      "mae": 0.9514231085777283,
+      "rmse": 1.147773027420044,
+      "r2": 0.0546962764298905,
+      "pcc": 0.45372843519591294
+    },
+    "vibration+acceleration": {
+      "mae": 0.9630486965179443,
+      "rmse": 1.1616721153259277,
+      "r2": 0.031663188031447076,
+      "pcc": 0.3830927871267828
+    },
+    "vibration+energy": {
+      "mae": 0.982226550579071,
+      "rmse": 1.1805651187896729,
+      "r2": -9.022075859688172e-05,
+      "pcc": 0.23578433848499586
+    },
+    "vibration+envelope": {
+      "mae": 0.9873206615447998,
+      "rmse": 1.1903619766235352,
+      "r2": -0.016757561404281196,
+      "pcc": 0.45953410533302597
+    },
+    "vibration+spindle_current": {
+      "mae": 0.9803565740585327,
+      "rmse": 1.1825175285339355,
+      "r2": -0.0034009439072872905,
+      "pcc": 0.5472245596870592
+    },
+    "vibration+temperature": {
+      "mae": 0.9582419991493225,
+      "rmse": 1.155892014503479,
+      "r2": 0.04127549706571909,
+      "pcc": 0.46921414414172996
+    },
+    "cutting_force+velocity": {
+      "mae": 0.975905179977417,
+      "rmse": 1.1773408651351929,
+      "r2": 0.005364851846374363,
+      "pcc": 0.5272594719021585
+    },
+    "cutting_force+acceleration": {
+      "mae": 0.934561550617218,
+      "rmse": 1.127274751663208,
+      "r2": 0.08815942744393512,
+      "pcc": 0.44900842411294895
+    },
+    "cutting_force+energy": {
+      "mae": 0.9761181473731995,
+      "rmse": 1.171820878982544,
+      "r2": 0.014669855464472303,
+      "pcc": 0.31272270335448515
+    },
+    "cutting_force+envelope": {
+      "mae": 0.9774330854415894,
+      "rmse": 1.1753133535385132,
+      "r2": 0.008787767019924342,
+      "pcc": 0.4942510440146448
+    },
+    "cutting_force+spindle_current": {
+      "mae": 0.9929370284080505,
+      "rmse": 1.2011932134628296,
+      "r2": -0.03534479446236638,
+      "pcc": 0.5566843502627906
+    },
+    "cutting_force+temperature": {
+      "mae": 0.9151460528373718,
+      "rmse": 1.1051077842712402,
+      "r2": 0.12366816681495352,
+      "pcc": 0.5842654061720759
+    },
+    "velocity+acceleration": {
+      "mae": 0.9897937178611755,
+      "rmse": 1.1951992511749268,
+      "r2": -0.02503787299571658,
+      "pcc": 0.37363644814158337
+    },
+    "velocity+energy": {
+      "mae": 0.9764068722724915,
+      "rmse": 1.1722615957260132,
+      "r2": 0.013928599763463612,
+      "pcc": 0.33761848883891854
+    },
+    "velocity+envelope": {
+      "mae": 0.9661001563072205,
+      "rmse": 1.1607252359390259,
+      "r2": 0.03324110280138359,
+      "pcc": 0.3991305779375042
+    },
+    "velocity+spindle_current": {
+      "mae": 0.9866082668304443,
+      "rmse": 1.1912614107131958,
+      "r2": -0.018294672438436077,
+      "pcc": 0.46327288034882735
+    },
+    "velocity+temperature": {
+      "mae": 0.9413755536079407,
+      "rmse": 1.1291242837905884,
+      "r2": 0.08516491499901335,
+      "pcc": 0.42170567142656146
+    },
+    "acceleration+energy": {
+      "mae": 0.9717947244644165,
+      "rmse": 1.1669466495513916,
+      "r2": 0.02284987307922748,
+      "pcc": 0.36635652059295815
+    },
+    "acceleration+envelope": {
+      "mae": 0.9773012399673462,
+      "rmse": 1.1737438440322876,
+      "r2": 0.011433367377123749,
+      "pcc": 0.34044737301406996
+    },
+    "acceleration+spindle_current": {
+      "mae": 0.9835046529769897,
+      "rmse": 1.1844754219055176,
+      "r2": -0.006726338882260485,
+      "pcc": 0.4372190920731931
+    },
+    "acceleration+temperature": {
+      "mae": 0.9469821453094482,
+      "rmse": 1.1389141082763672,
+      "r2": 0.06923247956236456,
+      "pcc": 0.42630522645247715
+    },
+    "energy+envelope": {
+      "mae": 0.9893027544021606,
+      "rmse": 1.1910431385040283,
+      "r2": -0.017921453295229872,
+      "pcc": 0.2273680794755947
+    },
+    "energy+spindle_current": {
+      "mae": 0.9685090184211731,
+      "rmse": 1.1632524728775024,
+      "r2": 0.029026784938484762,
+      "pcc": 0.3756330273856925
+    },
+    "energy+temperature": {
+      "mae": 0.980315625667572,
+      "rmse": 1.1768832206726074,
+      "r2": 0.006138005995570239,
+      "pcc": 0.26321430022126296
+    },
+    "envelope+spindle_current": {
+      "mae": 0.9573895335197449,
+      "rmse": 1.1514334678649902,
+      "r2": 0.04865732353418861,
+      "pcc": 0.4711527646160457
+    },
+    "envelope+temperature": {
+      "mae": 0.9327051043510437,
+      "rmse": 1.1301605701446533,
+      "r2": 0.08348495439254211,
+      "pcc": 0.43185796120102915
+    },
+    "spindle_current+temperature": {
+      "mae": 0.997516393661499,
+      "rmse": 1.204779028892517,
+      "r2": -0.04153557521214002,
+      "pcc": 0.10489651317125195
+    }
+  },
+  "synergy_analysis": {
+    "vibration+cutting_force": {
+      "synergy_score": 0.9440209269523621,
+      "normalized_synergy": 0.49904962203736936,
+      "single_mae_sum": 1.89163738489151,
+      "pair_mae": 0.947616457939148,
+      "interpretation": "协同"
+    },
+    "vibration+velocity": {
+      "synergy_score": 0.9682279825210571,
+      "normalized_synergy": 0.5043770620436469,
+      "single_mae_sum": 1.9196510910987854,
+      "pair_mae": 0.9514231085777283,
+      "interpretation": "协同"
+    },
+    "vibration+acceleration": {
+      "synergy_score": 0.9590067863464355,
+      "normalized_synergy": 0.498948542280253,
+      "single_mae_sum": 1.9220554828643799,
+      "pair_mae": 0.9630486965179443,
+      "interpretation": "协同"
+    },
+    "vibration+energy": {
+      "synergy_score": 0.9305645227432251,
+      "normalized_synergy": 0.48649564024887787,
+      "single_mae_sum": 1.9127910733222961,
+      "pair_mae": 0.982226550579071,
+      "interpretation": "协同"
+    },
+    "vibration+envelope": {
+      "synergy_score": 0.9352083802223206,
+      "normalized_synergy": 0.4864469430840123,
+      "single_mae_sum": 1.9225290417671204,
+      "pair_mae": 0.9873206615447998,
+      "interpretation": "协同"
+    },
+    "vibration+spindle_current": {
+      "synergy_score": 0.9592103958129883,
+      "normalized_synergy": 0.4945487347266179,
+      "single_mae_sum": 1.939566969871521,
+      "pair_mae": 0.9803565740585327,
+      "interpretation": "协同"
+    },
+    "vibration+temperature": {
+      "synergy_score": 0.9864999651908875,
+      "normalized_synergy": 0.5072652198632037,
+      "single_mae_sum": 1.94474196434021,
+      "pair_mae": 0.9582419991493225,
+      "interpretation": "协同"
+    },
+    "cutting_force+velocity": {
+      "synergy_score": 0.9467984437942505,
+      "normalized_synergy": 0.4924307767271264,
+      "single_mae_sum": 1.9227036237716675,
+      "pair_mae": 0.975905179977417,
+      "interpretation": "协同"
+    },
+    "cutting_force+acceleration": {
+      "synergy_score": 0.990546464920044,
+      "normalized_synergy": 0.5145407176013412,
+      "single_mae_sum": 1.925108015537262,
+      "pair_mae": 0.934561550617218,
+      "interpretation": "协同"
+    },
+    "cutting_force+energy": {
+      "synergy_score": 0.9397254586219788,
+      "normalized_synergy": 0.49050217396467494,
+      "single_mae_sum": 1.9158436059951782,
+      "pair_mae": 0.9761181473731995,
+      "interpretation": "协同"
+    },
+    "cutting_force+envelope": {
+      "synergy_score": 0.9481484889984131,
+      "normalized_synergy": 0.4923959060785023,
+      "single_mae_sum": 1.9255815744400024,
+      "pair_mae": 0.9774330854415894,
+      "interpretation": "协同"
+    },
+    "cutting_force+spindle_current": {
+      "synergy_score": 0.9496824741363525,
+      "normalized_synergy": 0.48886694898502175,
+      "single_mae_sum": 1.942619502544403,
+      "pair_mae": 0.9929370284080505,
+      "interpretation": "协同"
+    },
+    "cutting_force+temperature": {
+      "synergy_score": 1.0326484441757202,
+      "normalized_synergy": 0.5301629306672951,
+      "single_mae_sum": 1.947794497013092,
+      "pair_mae": 0.9151460528373718,
+      "interpretation": "协同"
+    },
+    "velocity+acceleration": {
+      "synergy_score": 0.9633280038833618,
+      "normalized_synergy": 0.4932247633243591,
+      "single_mae_sum": 1.9531217217445374,
+      "pair_mae": 0.9897937178611755,
+      "interpretation": "协同"
+    },
+    "velocity+energy": {
+      "synergy_score": 0.9674504399299622,
+      "normalized_synergy": 0.4976962192028628,
+      "single_mae_sum": 1.9438573122024536,
+      "pair_mae": 0.9764068722724915,
+      "interpretation": "协同"
+    },
+    "velocity+envelope": {
+      "synergy_score": 0.9874951243400574,
+      "normalized_synergy": 0.5054757907472607,
+      "single_mae_sum": 1.9535952806472778,
+      "pair_mae": 0.9661001563072205,
+      "interpretation": "协同"
+    },
+    "velocity+spindle_current": {
+      "synergy_score": 0.9840249419212341,
+      "normalized_synergy": 0.49934454192575556,
+      "single_mae_sum": 1.9706332087516785,
+      "pair_mae": 0.9866082668304443,
+      "interpretation": "协同"
+    },
+    "velocity+temperature": {
+      "synergy_score": 1.0344326496124268,
+      "normalized_synergy": 0.52354911913561,
+      "single_mae_sum": 1.9758082032203674,
+      "pair_mae": 0.9413755536079407,
+      "interpretation": "协同"
+    },
+    "acceleration+energy": {
+      "synergy_score": 0.9744669795036316,
+      "normalized_synergy": 0.5006865071177315,
+      "single_mae_sum": 1.946261703968048,
+      "pair_mae": 0.9717947244644165,
+      "interpretation": "协同"
+    },
+    "acceleration+envelope": {
+      "synergy_score": 0.9786984324455261,
+      "normalized_synergy": 0.5003571530432092,
+      "single_mae_sum": 1.9559996724128723,
+      "pair_mae": 0.9773012399673462,
+      "interpretation": "协同"
+    },
+    "acceleration+spindle_current": {
+      "synergy_score": 0.9895329475402832,
+      "normalized_synergy": 0.5015276659023528,
+      "single_mae_sum": 1.973037600517273,
+      "pair_mae": 0.9835046529769897,
+      "interpretation": "协同"
+    },
+    "acceleration+temperature": {
+      "synergy_score": 1.0312304496765137,
+      "normalized_synergy": 0.5212940444709337,
+      "single_mae_sum": 1.978212594985962,
+      "pair_mae": 0.9469821453094482,
+      "interpretation": "协同"
+    },
+    "energy+envelope": {
+      "synergy_score": 0.9574325084686279,
+      "normalized_synergy": 0.49181443507556766,
+      "single_mae_sum": 1.9467352628707886,
+      "pair_mae": 0.9893027544021606,
+      "interpretation": "协同"
+    },
+    "energy+spindle_current": {
+      "synergy_score": 0.9952641725540161,
+      "normalized_synergy": 0.5068121777299834,
+      "single_mae_sum": 1.9637731909751892,
+      "pair_mae": 0.9685090184211731,
+      "interpretation": "协同"
+    },
+    "energy+temperature": {
+      "synergy_score": 0.9886325597763062,
+      "normalized_synergy": 0.5021120220755374,
+      "single_mae_sum": 1.9689481854438782,
+      "pair_mae": 0.980315625667572,
+      "interpretation": "协同"
+    },
+    "envelope+spindle_current": {
+      "synergy_score": 1.0161216259002686,
+      "normalized_synergy": 0.5148800988032372,
+      "single_mae_sum": 1.9735111594200134,
+      "pair_mae": 0.9573895335197449,
+      "interpretation": "协同"
+    },
+    "envelope+temperature": {
+      "synergy_score": 1.0459810495376587,
+      "normalized_synergy": 0.5286240277144291,
+      "single_mae_sum": 1.9786861538887024,
+      "pair_mae": 0.9327051043510437,
+      "interpretation": "协同"
+    },
+    "spindle_current+temperature": {
+      "synergy_score": 0.998207688331604,
+      "normalized_synergy": 0.5001731914428649,
+      "single_mae_sum": 1.995724081993103,
+      "pair_mae": 0.997516393661499,
+      "interpretation": "协同"
+    }
+  },
+  "redundancy_analysis": {
+    "redundancy_matrix": [
+      [
+        1.0,
+        NaN,
+        0.0040564408565448885,
+        0.004509348025380921,
+        0.0034393710218647714,
+        0.010365338680370345,
+        0.02243034330324383,
+        0.01669690333273192
+      ],
+      [
+        NaN,
+        1.0,
+        NaN,
+        NaN,
+        NaN,
+        NaN,
+        NaN,
+        NaN
+      ],
+      [
+        0.0040564408565448885,
+        NaN,
+        1.0,
+        0.9213503705065311,
+        0.060375154107169836,
+        0.06191257989884985,
+        0.5357459715486127,
+        0.0004082925164538593
+      ],
+      [
+        0.004509348025380921,
+        NaN,
+        0.9213503705065312,
+        1.0,
+        0.06432920229314561,
+        0.06427992932957165,
+        0.38134149898205816,
+        0.005056956532255426
+      ],
+      [
+        0.0034393710218647714,
+        NaN,
+        0.060375154107169836,
+        0.06432920229314561,
+        1.0,
+        0.9317391086350464,
+        0.0486752252307233,
+        0.021430274115068725
+      ],
+      [
+        0.010365338680370345,
+        NaN,
+        0.061912579898849844,
+        0.06427992932957165,
+        0.9317391086350465,
+        1.0,
+        0.05214345328721972,
+        0.00654833481700044
+      ],
+      [
+        0.02243034330324383,
+        NaN,
+        0.5357459715486126,
+        0.38134149898205816,
+        0.04867522523072329,
+        0.05214345328721972,
+        1.0,
+        0.020160364366056997
+      ],
+      [
+        0.01669690333273192,
+        NaN,
+        0.0004082925164538593,
+        0.005056956532255426,
+        0.021430274115068725,
+        0.006548334817000439,
+        0.020160364366056997,
+        1.0
+      ]
+    ],
+    "high_redundancy_pairs": [
+      {
+        "feature_i": "velocity",
+        "feature_j": "acceleration",
+        "correlation": 0.9213503705065311
+      },
+      {
+        "feature_i": "energy",
+        "feature_j": "envelope",
+        "correlation": 0.9317391086350464
+      }
+    ],
+    "feature_names": [
+      "vibration",
+      "cutting_force",
+      "velocity",
+      "acceleration",
+      "energy",
+      "envelope",
+      "spindle_current",
+      "temperature"
+    ]
+  },
+  "optimal_subset_selection": {
+    "feature_importance": {
+      "cutting_force": 0.4889704064072821,
+      "vibration": 0.4719927854563161,
+      "velocity": 0.417657153735521,
+      "acceleration": 0.39602563144515684,
+      "temperature": 0.1497744957279878,
+      "envelope": 0.14793948866045006,
+      "energy": 0.12058345590010014,
+      "spindle_current": 0.09716831117012147
+    },
+    "top_features": [
+      "cutting_force",
+      "vibration",
+      "velocity",
+      "acceleration",
+      "temperature"
+    ],
+    "top_k_metrics": {
+      "mae": 0.9856876730918884,
+      "rmse": 1.1898819208145142,
+      "r2": -0.01593769099229414,
+      "pcc": 0.4101783313404883
+    },
+    "all_features_metrics": {
+      "mae": 0.9738584160804749,
+      "rmse": 1.1692456007003784,
+      "r2": 0.01899600038142779,
+      "pcc": 0.3575869152411703
+    },
+    "performance_ratio": 1.0121467830380881
+  }
+}

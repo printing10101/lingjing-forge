@@ -1,0 +1,608 @@
+# ============================================================
+# 大型数据文件（由 Git LFS 管理，不要直接提交）
+# 配合 Git LFS 迁移计划（缺陷#5），确保大文件通过 LFS 跟踪
+# ============================================================
+*.h5
+*.hdf5
+*.pt
+*.pth
+*.onnx
+*.pkl
+*.bin
+# .gitattributes 必须保持跟踪，不得忽略
+!.gitattributes
+
+# ============================================================
+# Python
+# ============================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+*.pyc
+
+# ============================================================
+# Node.js
+# ============================================================
+node_modules/
+dist/
+build/
+.vite/
+.cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# ============================================================
+# Rust / Tauri
+# ============================================================
+# P1-E4 修复：路径前缀对齐实际目录结构（engineering/src-tauri/）
+engineering/src-tauri/target/
+**/target/
+**/*.rs.bk
+*.pdb
+# 注：Cargo.lock.lock 为原笔误（无此文件类型）；Cargo.lock 本身是二进制
+# 应用的依赖锁文件，必须提交以保证可复现构建，故不忽略。
+
+# ============================================================
+# 测试和报告
+# ============================================================
+pytest_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+coverage-unit.json
+coverage-unit.xml
+coverage-unit-html/
+noxfile.py
+htmlcov/
+.hypothesis/
+test-results/
+playwright-report/
+coverage/
+coverage-reports/
+benchmarks/results/
+benchmarks/performance/history/
+
+# SHARP 调试探针（开发期临时文件，不应入库）
+# P1-E4 修复：路径前缀对齐 engineering/python/
+engineering/python/_sharp_*.py
+engineering/python/_sharp_*.log
+engineering/python/_sharp_*.json
+
+# Playwright E2E 套件已在 v2.5 移除，相关产物不再入库
+# 例外：engineering/python/tests/e2e/ 是 pytest 飞轮端到端测试（CI Torch Integrity
+# job 依赖），2026-09-13 起入库——否则 CI checkout 缺该目录直接失败
+e2e/
+!engineering/python/tests/e2e/
+playwright.config.ts
+tests/screenshots/
+
+# 测试生成的临时目录
+engineering/python/test_chroma_db/
+engineering/python/test_chroma_db_e2e/
+engineering/python/tests/_test_output/
+engineering/python/_test_output/
+engineering/python/_test_output*.txt
+
+# 临时调试输出文件（pytest 输出/异常 pass 统计）
+engineering/python/coverage_output.txt
+engineering/python/coverage-full-report.txt
+engineering/python/ep_full.txt
+engineering/python/ep_remaining.txt
+engineering/python/_test_full.txt
+
+# 运行时生成的输出目录（模型/项目/规则/仿真/演示等）
+# P1-E4 修复：合并重复规则，统一使用 engineering/python/output/ 前缀
+engineering/python/output/
+!engineering/python/output/.gitkeep
+
+# E2E 测试输出目录（由 /e2e-fixture 端点自动生成）
+data/outputs/e2e/
+
+# 测试追踪与日志
+test_traces/
+# 前端 vitest junit 报告（pnpm test:ci 产物）
+junit-frontend.xml
+
+# ============================================================
+# 日志
+# ============================================================
+logs/
+*.log
+test_logs/
+
+# 散落日志（构建/运行时产生的根目录 .txt 日志，已被 logs/ 规范收纳）
+/build-log*.txt
+/lingjing-log*.txt
+
+# 第三方资源（仅本地参考，不入库）
+# awesome-design-md-main：73 个品牌 DESIGN.md 集合，仅在 frontend-design-master skill 被调用时使用
+# 用户可按需从 https://github.com/arthuroiang/awesome-design-md 克隆到 skills/ 目录
+skills/awesome-design-md-main/
+
+
+# ============================================================
+# 环境和配置（敏感信息，禁止提交）
+# ============================================================
+# 忽略所有 .env 文件（含实际密码/密钥），仅保留 .env.example 模板
+.env
+.env.*
+!.env.example
+!.env.sqlite.example
+!.env.ai-cn.example
+.env.local
+.env.*.local
+.env.development
+.env.staging
+.env.production
+.env.test
+
+# Docker / Compose 相关的本地环境文件
+docker.env
+compose.env
+
+# 凭据与密钥文件
+*.pem
+*.key
+*.crt
+secrets/
+
+
+# 认证令牌文件（每个部署环境独立生成）
+.lnn_token
+.lnn_token_meta.json
+.lnn_banned_tokens.json
+# P1-E4 修复：路径前缀对齐 engineering/python/
+engineering/python/.lnn_banned_tokens.json
+
+# Sidecar 运行时状态文件（由 sidecar_main.py 自动写入/读取）
+# P1-E4 修复：路径前缀对齐 engineering/python/
+engineering/python/sidecar.json
+engineering/python/sidecar.pid
+engineering/python/sidecar_test_pid.txt
+
+# ============================================================
+# 虚拟环境
+# ============================================================
+.venv/
+venv/
+env/
+ENV/
+
+# ============================================================
+# 数据库文件（如包含敏感数据）
+# ============================================================
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# ============================================================
+# 系统文件
+# ============================================================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ============================================================
+# 临时文件
+# ============================================================
+*.tmp
+*.temp
+*.bak
+*.bak.*
+*.orig
+
+# ============================================================
+# 临时调试/诊断脚本（项目根目录）
+# 测试脚本应放在 tests/ 或 python/tests/ 目录下
+# ============================================================
+/check_*.py
+/launch_*.py
+/run_agent_*.py
+/test_*.py
+/test_*.bat
+/test_*.sh
+
+# ============================================================
+# 临时调试/诊断脚本（engineering/python/ 根目录）
+# 测试脚本应放在 engineering/python/tests/ 目录下
+# P1-E4 修复：路径前缀对齐实际目录结构（原 /python/ 不存在顶层 python/ 目录）
+# ============================================================
+/engineering/python/_test_*.py
+/engineering/python/test_*.py
+/engineering/python/debug_*.py
+/engineering/python/diagnose*.py
+/engineering/python/diagnose_*.py
+/engineering/python/diagnose2*.py
+/engineering/python/diagnose3*.py
+/engineering/python/deep_diag*.py
+/engineering/python/quick_*.py
+/engineering/python/quick_diag*.py
+/engineering/python/run_*step*.py
+/engineering/python/run_test*.bat
+/engineering/python/run_via_*.py
+/engineering/python/verify_and_test*.py
+/engineering/python/debug_train*.py
+/engineering/python/_check.py
+/engineering/python/_refresh_files.py
+/engineering/python/_smoke_import.py
+/engineering/python/_tiny_test.py
+/engineering/python/check_cov.py
+/engineering/python/check_coverage.py
+/engineering/python/detail_except_pass.py
+/engineering/python/e2e_run.py
+/engineering/python/fix_step_parser.py
+/engineering/python/minimal_flush*.py
+/engineering/python/minimal_load.py
+/engineering/python/scan_exceptions.py
+/engineering/python/scan_leaks_round2.py
+/engineering/python/scan_unused_full.py
+/engineering/python/scan_unused_imports.py
+/engineering/python/update_imports.ps1
+/engineering/python/verify_security_fix.py
+/engineering/python/test_output.txt
+/engineering/python/test_train_request.json
+/engineering/python/test_env.ps1
+/engineering/python/test_powershell.ps1
+/engineering/python/test_sse.ps1
+
+# 阶段性验证脚本（开发阶段产物，已被 pytest 用例取代）
+/engineering/python/_verify_*.py
+/engineering/python/_tmp_*.py
+/engineering/python/standalone_verify_*.py
+/engineering/python/standalone_integration_*.py
+/engineering/python/verify_*_standalone.py
+/engineering/python/tests/standalone_verify_*.py
+
+# 数据库备份文件（运行时产物）
+/engineering/python/data/*_backup_*.db
+
+# 项目根目录的一次性测试/诊断脚本
+/quick_test.bat
+/run_agent_tests.bat
+/run_pytest_prog.py
+/run_test_runner.bat
+
+# ============================================================
+# IDE
+# ============================================================
+.idea/
+.vscode/
+*.code-workspace
+
+# ============================================================
+# 包管理器锁文件（通常应提交）
+# ============================================================
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ============================================================
+# 运行时生成的图表 / 截图（P1-E5 修复）
+# matplotlib / seaborn 训练过程生成的性能图、混淆矩阵等产物，
+# 不应入库（应通过 MLflow / checkpoint 跟踪，而非二进制 PNG）。
+# Tauri 应用图标、文档配图等需保留跟踪的 PNG 通过白名单放行。
+# ============================================================
+*.png
+# 白名单：Tauri 应用图标（构建资源，必须入库）
+!engineering/src-tauri/icons/*.png
+!engineering/src-tauri/icons/**.png
+# 白名单：文档与 README 中的配图（按需放行）
+!docs/**/*.png
+!docs-site/docs/**/*.png
+!README.md.d/**/*.png
+
+# ============================================================
+# E2E 测试输出的二进制 CAD 文件（P1-E5 修复）
+# STL/BREP/STEP 等网格/几何交换文件由测试运行时生成，体积大且
+# 可由 fixture 重新生成，不应入库。.gitignore 中已有 data/outputs/e2e/
+# 规则，但历史跟踪的文件需通过 `git rm --cached` 显式移除后此规则才生效。
+# ============================================================
+data/outputs/e2e/**/*.stl
+data/outputs/e2e/**/*.brep
+data/outputs/e2e/**/*.step
+data/outputs/e2e_v2/**/*.stl
+data/outputs/e2e_v2/**/*.brep
+data/outputs/e2e_v2/**/*.step
+data/outputs/test_shadow/**/*.stl
+data/outputs/test_shadow/
+
+# === P2 整改补充规则（2026-07-29）===
+# 根目录临时诊断脚本
+/_[a-z]*.py
+/_[a-z]*.ps1
+/check_status*.ps1
+/diag_*.py
+# 测试输出残留
+/pytest_*.txt
+/engineering/python/perf_*.txt
+# 研究实验运行时产物
+research/experiments/results/*.pid
+research/experiments/results/*.pid.txt
+research/experiments/results/*_pid.txt
+research/papers/**/*.pid
+research/papers/**/*.pid.txt
+# 论文 docx 备份
+*.backup_*.docx
+# data/ 下的测试残留 jsonl（如有 fixtures 需要保留，请反向白名单）
+data/bridge/error_samples/*.jsonl
+data/bridge/usage_logs/*.jsonl
+data/budget/*.jsonl
+data/traces/*.jsonl
+
+# 临时与运行残留
+/.disk_test
+/scan_out.txt
+/scan_stubs.py
+/output/*.log
+/output/data/
+# output/ 一次性分析/批处理脚本（成果报告与论文保留）
+/output/_*.py
+/output/d1_*.py
+/output/check_*.py
+
+# ============================================================
+# 诊断输出 / mypy 缓存（可重新生成，不入库）
+# ============================================================
+engineering/output/
+.mypy_gg_cache/
+mypy_gg*.txt
+
+# ============================================================
+# 嵌入式 Python 运行时构建目录（desktop_runtime，可重新生成）
+# ============================================================
+# 修复：必须用 /python/ 仅匹配仓库根目录（裸 python/ 会误伤 engineering/python 全部新增文件）
+/python/
+/python/desktop_runtime/
+
+/engineering/python/desktop_runtime/
+/engineering/python/desktop_runtime_new/
+
+# 后端运行产物（数据库/令牌/探测脚本，不入库）
+/engineering/python/data/*.db
+/engineering/python/data/chroma_db/
+/engineering/python/.lnn_*
+/engineering/python/_probe_*.py
+/engineering/python/_e2e_*.py
+
+# 运行时桥接数据（usage_logs/error_samples 等动态产物，不入库）
+/engineering/python/data/bridge/
+
+# mypy 缓存异常膨胀目录（2026-08-18 清理：Temp/ 曾达 25.5GB、Temp2/ 221MB；
+# 由 MYPY_CACHE_DIR 指向该处生成，应统一改用 .mypy_cache）
+/engineering/python/Temp/
+/engineering/python/Temp2/
+
+# 测试运行动态产物（时间戳漂移，不入库）
+engineering/output/cutting_parameters_tasks/
+engineering/output/chatter_tasks/
+engineering/output/gcode_generation_tasks/
+
+# 桌面嵌入式 Python 运行时构建产物（可重新生成）
+/engineering/python/desktop_runtime/
+/engineering/python/desktop_runtime_new/
+
+# 构建前的 git 备份目录（build 脚本自动生成，可重新生成）
+output/_git_backup_*/
+
+# 本地凭据/账号数据与个人工作记忆（不入库）
+.lnn_users.json
+
+# 安装测试与临时诊断产物
+output/_nsis_install_test/
+output/mem-check.txt
+
+# output/ 运行时产物目录（防膨胀：测试生成的 NC/STL/报告等）
+/output/chatter_prediction/
+/output/chatter_prediction_tasks/
+/output/gcode_generation/
+/output/simulation/
+/output/cam_validation/
+/output/dxf_import/
+/output/image_to_3d/
+/output/projects/
+/output/rules/
+/output/step_import/
+/output/data/
+
+# ============================================================
+# 2026-08-16 全量同步前清理：调试探针/缓存/第三方二进制
+# ============================================================
+# AI 协作记忆/私密数据（不入库，已从历史清除）
+/.dsh-memory.md
+/.dsh-memory/
+/.workbuddy/
+/.hermes-memory.md
+/.trae/
+/.lnn_banned_tokens.json
+# 损坏的前端构建产物
+/engineering/dist_broken_*/
+# PowerShell 重定向残留
+/$null
+# docx 解压临时目录
+/.tmp_lam_extract*/
+# 根目录调试探针（_mirror/_official/_pip/_pytest/_torch/_test 等）
+/_*.txt
+/_*.patch
+# engineering/ 根下的临时调试脚本（已覆盖 python/ 子目录变体）
+/engineering/_tmp_*
+# app/ 下的写探针调试文件
+/engineering/python/app/_write_probe*.py
+# output/ 探针目录与文件
+/output/_probe_dir/
+/output/_write_probe*
+# research 探针脚本
+/research/experiments/real_validation/_probe*.ps1
+# mypy 缓存（任意层级）
+**/.mypy_cache/
+# coverage 变体（coverage.json / coverage-unit*.json）
+/engineering/python/coverage*.json
+# FEA 验证：第三方 CalculiX 发行版/二进制/运行输出不入库（仅保留 .py/.md/.inp 源码与算例定义）
+/scripts/fea_verify/*.zip
+/scripts/fea_verify/*.conda
+/scripts/fea_verify/*.tar.bz2
+/scripts/fea_verify/CalculiX/
+/scripts/fea_verify/calculix_2.23_4win/
+/scripts/fea_verify/ccx_htm/
+/scripts/fea_verify/ccx_win/
+/scripts/fea_verify/ccx_lnx/
+/scripts/fea_verify/ccx_lnx222/
+/scripts/fea_verify/ccx_conda/
+/scripts/fea_verify/ccx_conda222/
+/scripts/fea_verify/*.exe
+/scripts/fea_verify/*.dll
+/scripts/fea_verify/*.out
+/scripts/fea_verify/*.dat
+/scripts/fea_verify/*.frd
+/scripts/fea_verify/*.sta
+/scripts/fea_verify/*.cvg
+/scripts/fea_verify/*.12d
+/scripts/fea_verify/*.nam
+/scripts/fea_verify/*.txt
+/scripts/fea_verify/__pycache__/
+/scripts/fea_verify/ccx_2.23_htm.tar.bz2
+data/traces/
+
+# ============================================================
+# 仓库卫生（2026-08-28 清理）：会话产物与一次性工件不入库
+# ============================================================
+# 提交信息草稿（写完即提交，草稿不留仓库）
+/commit_msg*.txt
+# YOLO/Ultralytics 训练验证输出（runs/detect/...）
+/runs/
+# Playwright 测试报告产物
+/playwright-report/
+/test-results/
+# CI 本地产物
+/coverage-unit*.json
+/coverage-unit*.xml
+/coverage-unit-html/
+
+# 大数据集不入库（2026-08-30 仓库整理）：按原始来源获取
+research/datasets/uniwear/uniwear/nuaa_orthogonal_bundle_high_resolution.csv
+
+# 期刊论文全文 PDF（作者自存档合法获取，但公开仓再分发有版权风险）：
+# 本地保留用于图形数字化，入库的只有数字化数据与来源记录
+# （literature_pdfs/README_获取记录.md 注明每篇的自存档 URL）
+research/datasets/measured_stability/literature_pdfs/*.pdf
+research/datasets/uniwear/uniwear/phm2010_bundle_high_resolution.csv
+
+# 天才少年计划申请材料（个人材料不入库）
+/application_unitree/
+
+# ============================================================
+# 仓库卫生（2026-09-05 优化批次）
+# ============================================================
+# 损坏的 Python 3.11 venv（pydantic_core 损坏已废弃，仅 .venv 系列除外皆不入库）
+.venv*/
+# 运行时用户存储（服务首次启动自动创建，含用户凭据不入库）
+.lnn_users.json
+# 会话/本地工具产物
+/.mimosa/
+/conversation_modes/
+# research 公开数据集：uniwear.csv 已于 2026-09-13 入库（wear_prediction.manifest
+# 声明该文件为训练数据源，2.9MB 在库以保证数据血缘可复现——评委克隆仓库即可验证）。
+# 其余大数据集仍延续"不入库、按原始来源获取"策略。
+# !research/datasets/uniwear/uniwear/uniwear.csv
+!research/datasets/uniwear/uniwear/uniwear.csv
+
+# 模板 A/B 测试与分支的运行时状态（ab_testing.db / branches.db / branches/*.json）
+engineering/python/data/templates/
+# LNN 推理 trace 运行时目录
+engineering/python/data/traces/
+
+# 软著申请材料（个人材料不入库，与 application_unitree/ 同策略）
+/output/软著材料/
+
+# engineering 子目录的本地扫描缓存
+engineering/.mimosa/
+
+# Mimosa 安全扫描缓存（任意深度）
+.mimosa/
+
+# 性能基准历史产物（每次运行生成，白皮书为准）
+engineering/python/app/benchmarks/performance/history/
+
+# 会话调试临时产物（CI 查询草稿、OpenAPI 冒烟导出等，用完即弃）
+.tmp_*
+*_smoke_*.json
+engineering/python/_smoke_*
+
+
+# === 公开仓安全边界（2026-09 审计后加固）===
+# 本机绝对路径
+C:\Users\Lenovo/**
+D:\扫描检测软件/**
+D:\灵境制造/**
+D:\铸型工坊/**
+# 高校/第三方官方全文（版权）
+backend/app/syllabus/handbooks/
+# 无关攻防技能包与爬虫
+.trae/
+github可用skill/
+_zip_inspect/
+**/crawl_judgments.py
+# 真实案件/密钥
+data/real_judgments/
+*.pem
+*.key
+!**/*.example
+# ---- 会话产物与一次性输出（2026-09-10）----
+# output/ 已有 29 个文件被追踪（文档图等），本规则仅阻止新的会话产物（如 output/paper-writer/）入库
+output/
+outputs/
+*.bak-*
+# ---- 本地备份与恢复现场（2026-09-11）----
+.git.corrupt-20260910/
+_local-backup/
+engineering/python/_wheels/
+
+# ---- 科研 pilot 真值数据（2026-09-18，F 系列 Paper A）----
+# machinability_pilot 生成的 STL/STEP 真值可由生成器复现，不入库；manifest 记录再生成命令
+pilot/
+# 手动试跑产生的草稿 CAD（engineering/python 根目录散落的 .step 均为调参产物）
+engineering/python/*.step
+# 本地 AI 助手工作状态
+.workbuddy-ai/
+
+# ---- workbuddy 找回文档与本地工具状态（2026-09-27）----
+# 专利选题/文献查新等科研文档按 INSTINCTS 约定不进公开仓（远程是公开
+# GitHub 仓库），本地留存即可；其中两份属兄弟项目「灵境工厂」
+/_recovered_from_workbuddy/
+# ZCode/Mimosa 本地工具生成的排除配置（上半部从 .gitignore 同步而来，派生物不入库）
+/.zcodeignore
+# 测试运行产物（2026-09-27）：benchmark 报告由 test_model_benchmark 生成，
+# research/data/mlruns 是 MLflow tracking 输出，均可重新生成
+/reports/
+/research/data/

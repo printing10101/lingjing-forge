@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-06-27 00:45:51",
+  "experiment": "与传统稳定性叶瓣图对比实验",
+  "grid_size": {
+    "num_speed_points": 50,
+    "num_depth_points": 30
+  },
+  "metrics": {
+    "mae_a_lim": 0.4961,
+    "rmse_a_lim": 0.4961,
+    "stability_accuracy": 1.0,
+    "boundary_accuracy": NaN,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0
+  },
+  "confusion_matrix": {
+    "tp": 0,
+    "tn": 1500,
+    "fp": 0,
+    "fn": 0
+  },
+  "interval_analysis": {
+    "低速区": {
+      "mae": 0.4961,
+      "accuracy": 1.0,
+      "num_points": 330
+    },
+    "中速区": {
+      "mae": 0.4961,
+      "accuracy": 1.0,
+      "num_points": 510
+    },
+    "高速区": {
+      "mae": 0.4961,
+      "accuracy": 1.0,
+      "num_points": 630
+    }
+  },
+  "lobe_data_summary": {
+    "speed_range": [
+      1000.0,
+      10000.0
+    ],
+    "depth_range": [
+      0.1,
+      10.0
+    ],
+    "a_lim_theory_range": [
+      20.0,
+      20.0
+    ],
+    "a_lim_predicted_range": [
+      19.503856658935547,
+      19.503887176513672
+    ]
+  }
+}

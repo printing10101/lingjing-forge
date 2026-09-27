@@ -1,0 +1,2 @@
+Model,MAE_mean,MAE_std,RMSE_mean,RMSE_std,R2_mean,R2_std,PCC_mean,PCC_std
+A2,0.8709,0.9359,1.3597,1.3788,0.9220,0.1267,0.8924,0.0971

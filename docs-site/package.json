@@ -1,0 +1,32 @@
+{
+  "name": "virtual-realm-manufacturing-docs",
+  "version": "2.8.0",
+  "description": "灵境制造文档站 - 桌面级制造物理 AI",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "api:generate": "node scripts/generate-api-docs.js"
+  },
+  "keywords": [
+    "manufacturing",
+    "digital-twin",
+    "ai",
+    "lnn",
+    "documentation"
+  ],
+  "author": "灵境制造团队",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "vitepress": "^1.5.0",
+    "vue": "^3.5.13"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0",
+    "gray-matter": "^4.0.3"
+  }
+}

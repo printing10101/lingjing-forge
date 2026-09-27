@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灵境制造 · 架构债务清单与处理方案</title>
+<style>
+  :root{--bg:#0f1117;--card:#171a24;--card2:#1d212e;--line:#2a2f3d;
+    --tx:#e8ebf2;--mut:#9aa3b2;--acc:#5b9dff;--acc2:#7ee0c0;
+    --red:#ff6b6b;--orange:#ffb454;--yellow:#ffe066;--green:#5bd98a;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--tx);
+    font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    line-height:1.65;font-size:15px;}
+  .wrap{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
+  h1{font-size:27px;margin:0 0 6px;}
+  h2{font-size:21px;margin:46px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);}
+  h3{font-size:16px;margin:20px 0 8px;color:var(--acc2);}
+  .sub{color:var(--mut);font-size:14px;margin-bottom:8px;}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{color:var(--mut);font-weight:600;background:var(--card2);}
+  .badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:600;margin-right:4px;white-space:nowrap;}
+  .b-p0{background:rgba(255,107,107,.16);color:var(--red);border:1px solid rgba(255,107,107,.4);}
+  .b-p1{background:rgba(255,180,84,.16);color:var(--orange);border:1px solid rgba(255,180,84,.4);}
+  .b-p2{background:rgba(255,224,102,.14);color:var(--yellow);border:1px solid rgba(255,224,102,.35);}
+  .b-p3{background:rgba(91,157,255,.14);color:var(--acc);border:1px solid rgba(91,157,255,.35);}
+  .b-ok{background:rgba(91,217,138,.14);color:var(--green);border:1px solid rgba(91,217,138,.35);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0;}
+  .num{font-variant-numeric:tabular-nums;font-weight:600;color:var(--acc2);}
+  .step{margin:6px 0 6px 0;padding-left:4px;}
+  .tag{display:inline-block;font-size:11.5px;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:1px 8px;margin:2px 4px 2px 0;}
+  code{background:var(--card2);padding:1px 5px;border-radius:4px;font-size:12.5px;}
+  .phase{background:linear-gradient(135deg,#1a1f2e,#141824);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin:18px 0;}
+  .phase h3{margin-top:0;font-size:17px;color:var(--acc2);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  ul{margin:6px 0 10px;padding-left:20px;}li{margin:4px 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>灵境制造（上线版）· 架构债务清单与处理方案</h1>
+<div class="sub">基于 2026-08-02/03 两轮全量实测（AST 扫描、依赖分析、前端 vue-tsc 状态）制定。目标架构：后端 Clean Architecture，前端 Feature-Sliced Design。</div>
+
+<h2>一、债务全景（按严重度）</h2>
+<table>
+<tr><th>#</th><th>债务</th><th>实测现状</th><th>影响</th><th>级别</th></tr>
+<tr><td>D1</td><td>全局单例 <code>get_*</code> 泛滥，消费方直连模块</td><td>416 个模块级定义；注册中心仅 ~40 个；消费方仍 <code>from app.xxx import get_xxx</code></td><td>隐式耦合、测试需 mock、并发初始化竞态</td><td><span class="badge b-p1">P1</span></td></tr>
+<tr><td>D2</td><td>前端三层 API 访问并行，抽象层 0 使用</td><td><code>features/</code> 22 模块但 0 视图使用；<code>api/</code> 部分使用；19 视图直连 <code>http</code>；features 每模块仅封 2-3 端点，视图需 5-8 个</td><td>抽象层是"样子货"，改后端接口要改 19 处</td><td><span class="badge b-p1">P1</span></td></tr>
+<tr><td>D3</td><td>API 层直连 DB/ORM（绕过服务层）</td><td>9 个生产文件直接 import <code>app.database</code>/<code>app.models</code></td><td>业务规则散落、难以复用</td><td><span class="badge b-p2">P2</span></td></tr>
+<tr><td>D4</td><td>路由注册分散（<code>main.py</code> 直注册 + 非 API 包自带 router）</td><td><code>main.py</code> 6 条 <code>@app.get</code> 绕过 <code>api/v1</code>；11+ 非 API 包定义 <code>APIRouter</code></td><td>路由无法统一审计/鉴权/版本化</td><td><span class="badge b-p2">P2</span></td></tr>
+<tr><td>D5</td><td>God 模块（&gt;1000 行）</td><td>8+ 个：simulation/api.py(1369)、gcode_generator.py(1289)、cam_validation/routes.py(1257)、gcode_generation/routes.py(1255)、dxf_parser.py(1242)、rag_retrieval.py(1165)、rag/evaluation.py(1132)、rl_agent_service.py(1098)</td><td>冲突率↑、难以测试、上下文窗口爆炸</td><td><span class="badge b-p2">P2</span></td></tr>
+<tr><td>D6</td><td>372 处类型/lint 抑制</td><td><code>type:ignore</code> 119 + <code>noqa</code> 253</td><td>静态检查失真，重构时静默失效</td><td><span class="badge b-p2">P2</span></td></tr>
+<tr><td>D7</td><td>前端巨型组件 + 无统一日志</td><td>Simulation.vue(1884)、TaskBoard.vue(1100+)、Workspace.vue(1087)；<code>console.*</code> 122 处散落</td><td>单文件膨胀、排障靠控制台</td><td><span class="badge b-p2">P2</span></td></tr>
+<tr><td>D8</td><td>测试结构性盲区</td><td>500+ 测试函数但集中在 postprocessor(259)/sdk_client(148)/契约层，核心 API 路由与端到端主链稀疏</td><td>重构无安全网，回归靠手工</td><td><span class="badge b-p1">P1</span></td></tr>
+<tr><td>D9</td><td>契约层"无根"（历史遗留）</td><td><code>shared/</code> 僵尸层已删（2026-08-03），但尚未形成"契约定义于被消费领域包"的显式约定</td><td>新代码可能再造僵尸层</td><td><span class="badge b-p3">P3</span></td></tr>
+</table>
+
+<div class="note card" style="background:rgba(91,157,255,.07);border-left:3px solid var(--acc);">
+<b>已清除（不复存在）</b>：<code>service/</code>↔<code>services/</code> 并行目录、<code>shared/</code> 僵尸契约层、MCP 无入站鉴权、OPC UA 缺省匿名、路由层外 exec 沙箱缺口。以上不计入新债务。
+</div>
+
+<h2>二、目标架构（收敛方向）</h2>
+<div class="grid2">
+<div class="card">
+<h3>后端 Clean Architecture</h3>
+<pre style="font-size:12.5px;color:var(--mut);background:var(--card2);padding:12px;border-radius:8px;border:1px solid var(--line);overflow-x:auto;">
+api/           路由 + 参数校验 + 编排
+  └─ Depends(get_xxx)   ← 依赖注入（唯一入口）
+application/   用例（服务编排，无 FastAPI）
+domain/        领域模型 + 契约（定义于被消费包）
+infrastructure/ DB / Redis / TDengine / Rust 桥
+</pre>
+<p>关键约束：API 不得 import <code>app.database</code>/<code>app.models</code>；<code>get_*</code> 只允许从 <code>app.dependencies</code> 导入。</p>
+</div>
+<div class="card">
+<h3>前端 Feature-Sliced Design</h3>
+<pre style="font-size:12.5px;color:var(--mut);background:var(--card2);padding:12px;border-radius:8px;border:1px solid var(--line);overflow-x:auto;">
+views/       页面（只 import @/features，禁止 http）
+features/    API 服务层（每模块覆盖该域全部端点）
+shared/      通用（http 客户端 / 组件 / 工具）
+</pre>
+<p>关键约束：视图文件禁止 <code>import http</code>；<code>features/*/api.ts</code> 必须覆盖对应视图的全部调用端点。</p>
+</div>
+</div>
+
+<h2>三、分阶段处理方案</h2>
+
+<div class="phase">
+<h3>阶段 1 · 后端依赖治理（约 2 周）— 消 D1/D3/D4</h3>
+<div class="sub">目标：依赖注入成为唯一入口，API 层与数据层隔离，路由可统一审计。</div>
+<div class="grid2">
+<div>
+<b>① D1 单例消费方迁移</b>
+<div class="step">1. 以 <code>docs/singleton_to_di_migration.md</code> 为清单，按模块批量改 <code>from app.xxx import get_xxx</code> → <code>from app.dependencies import get_xxx</code>（行为一致，纯改导入）。</div>
+<div class="step">2. FastAPI 端点改为 <code>Depends(get_xxx)</code> 参数注入；CLI/worker 保留函数调用（依赖工厂本身已单例）。</div>
+<div class="step">3. 原模块 <code>get_xxx</code> 加 <code>@deprecated</code> 标记，跑全量 pytest 回归。</div>
+<span class="tag">涉及：~60 文件</span><span class="tag">风险：中（导入路径）</span><span class="tag">验证：pytest 全量</span>
+</div>
+<div>
+<b>② D3 API 直连 DB → Repository</b>
+<div class="step">1. 为 9 个直连点（agent_state/auth/cost_budget/goal_alignment/governance/users 等）各建 <code>app/infrastructure/repositories/&lt;域&gt;_repo.py</code>，封装 ORM 访问。</div>
+<div class="step">2. API 改为 <code>Depends(get_&lt;域&gt;_repo)</code> 调用 Repository 方法。</div>
+<div class="step">3. 单测覆盖 Repository（替代 API 内联 SQL 断言）。</div>
+<span class="tag">涉及：9 文件 + 新 repo 层</span><span class="tag">风险：中</span><span class="tag">验证：pytest + 接口测试</span>
+</div>
+</div>
+<div class="grid2">
+<div>
+<b>③ D4 路由归位</b>
+<div class="step">1. <code>main.py</code> 的 6 条 <code>@app.get</code> 迁入 <code>api/v1/</code> 对应 router。</div>
+<div class="step">2. 非 API 包 router（11 处）全部经 <code>app/router_registry.py</code> 统一挂载，删除散落 include_router。</div>
+<div class="step">3. 导出 OpenAPI 契约对比前后端点集（diff 保证零回归）。</div>
+<span class="tag">涉及：~15 文件</span><span class="tag">风险：低-中</span><span class="tag">验证：OpenAPI diff</span>
+</div>
+<div>
+<b>④ D8 测试安全网（与 ①②并行）</b>
+<div class="step">1. 先为核心主链补 5 条端到端测试：认证→3D 导入→工艺→NC→仿真→DNC。</div>
+<div class="step">2. 再为已迁移的 Repository/依赖工厂补单测（每迁移一个补一层）。</div>
+<span class="tag">涉及：tests/ 新增</span><span class="tag">风险：低</span><span class="tag">验证：pytest + 覆盖率对比</span>
+</div>
+</div>
+</div>
+
+<div class="phase">
+<h3>阶段 2 · 前端激活（约 3 周）— 消 D2/D5/D7</h3>
+<div class="sub">目标：<code>features/</code> 成为唯一 API 入口，巨型组件拆分，统一日志。</div>
+<div class="grid2">
+<div>
+<b>① D2 features/ 补齐 + 19 视图迁移</b>
+<div class="step">1. 逐视图审计 http 调用（已定位 19 处 import + 各 5-8 个调用点）。</div>
+<div class="step">2. 按域补全 <code>features/*/api.ts</code> 端点（含类型定义），直到覆盖视图全部调用。</div>
+<div class="step">3. 视图逐个替换为 <code>import {...} from '@/features'</code>，删 <code>import http</code>。</div>
+<div class="step">4. 每迁移 3-5 个视图跑一次 <code>vue-tsc --noEmit</code> + 相关测试。</div>
+<span class="tag">涉及：19 视图 + 15 features 模块</span><span class="tag">风险：中（端点覆盖是难点）</span><span class="tag">验证：vue-tsc + Vitest</span>
+</div>
+<div>
+<b>② D5/D7 God 模块拆分</b>
+<div class="step">1. 后端按已示范模式拆分：<code>simulation/api.py</code> → <code>simulation/</code> 子包（routes/services/stages）；<code>gcode_generator.py</code> 按输出控制器分组。</div>
+<div class="step">2. 前端拆分 Simulation.vue(1884)/TaskBoard.vue/Workspace.vue → 子组件 + composable（复用 08-01 已完成的拆分模式）。</div>
+<div class="step">3. 引入统一日志：<code>utils/logger.ts</code> 封装，逐步替换 122 处 <code>console.*</code>。</div>
+<span class="tag">涉及：8 后端文件 + 3 前端组件</span><span class="tag">风险：中</span><span class="tag">验证：py_compile + vue-tsc + 冒烟</span>
+</div>
+</div>
+</div>
+
+<div class="phase">
+<h3>阶段 3 · 工程化收口（持续，约 2 周集中 + 常态化）— 消 D6/D9</h3>
+<div class="grid2">
+<div>
+<b>① D6 类型抑制清理</b>
+<div class="step">1. 引入 mypy（<code>--ignore-missing-imports</code>）+ pyright 建立基线，将现有 119 <code>type:ignore</code> 写入允许清单。</div>
+<div class="step">2. 每 PR 限制新增抑制数（CI 门槛），存量按"先易后难"分批消除：先清纯导入类、再清可收敛为具体类型的。</div>
+<span class="tag">涉及：~80 文件</span><span class="tag">风险：低（有基线兜底）</span><span class="tag">验证：mypy/pyright CI</span>
+</div>
+<div>
+<b>② D9 契约落地约定</b>
+<div class="step">1. 以 <code>chatter_prediction/_types.py</code> 为范式，确立约定：<b>契约定义于被消费的领域包</b>，禁止新建顶层共享目录。</div>
+<div class="step">2. 在 <code>CONTRIBUTING.md</code> 写入架构规则 + <code>tests/architecture/</code> 已有 import 方向测试强化为 CI 强制。</div>
+<span class="tag">涉及：CONTRIBUTING + architecture 测试</span><span class="tag">风险：低</span><span class="tag">验证：architecture pytest</span>
+</div>
+</div>
+</div>
+
+<h2>四、依赖关系与建议顺序</h2>
+<ul>
+<li><b>阶段 1 先行</b>：D8 测试安全网是后续一切重构的前提——先补主链 E2E，再动单例/路由，回归才有保障。</li>
+<li><b>D1→D3→D4 有依赖</b>：先把 <code>get_*</code> 消费方统一到 dependencies，Repository 才能通过 Depends 注入。</li>
+<li><b>D2 独立可并行</b>：前端迁移不依赖后端阶段 1（接口契约不变，只改前端导入），可由第二人并行。</li>
+<li><b>D6 持续化</b>：类型基线建立后可随每个 PR 增量清理，不必集中冲刺。</li>
+</ul>
+
+<div class="card" style="background:rgba(255,224,102,.06);border-left:3px solid var(--yellow);">
+<b>量化目标</b>：阶段 1 完成后——<code>get_*</code> 消费方 100% 走 dependencies；API 直连 DB 归零；OpenAPI 端点 diff 为零；主链 E2E ≥5 条。阶段 2 完成后——视图 <code>import http</code> 归零；无 &gt;1000 行生产文件。届时复评预估：架构清晰度 52→70+、可维护性 52→68+、测试有效性 60→72+，综合可升至 ~70（B-）。
+</div>
+
+<footer style="margin-top:40px;color:var(--mut);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px;">
+制定日期：2026-08-03 · 数据基于 2026-08-02/03 实测扫描。各阶段工作量按单人全职估算，可与现有迭代并行穿插。
+</footer>
+</div>
+</body>
+</html>

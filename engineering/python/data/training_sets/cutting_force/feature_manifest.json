@@ -1,0 +1,36 @@
+{
+  "manifest_schema_version": 1,
+  "model_name": "cutting_force",
+  "registry_version": "2.0.0",
+  "feature_order": [
+    "spindle_rpm",
+    "feed_rate",
+    "depth_of_cut",
+    "material_encoded"
+  ],
+  "target": "resultant_cutting_force",
+  "target_formula": "sqrt(force_Fx^2 + force_Fy^2 + force_Fz^2)",
+  "dtype": "float64",
+  "row_count": 100,
+  "input_dim": 4,
+  "skipped_unknown_material": 0,
+  "material_encoding": {
+    "45steel": 0,
+    "6061-T6": 1,
+    "40Cr": 2,
+    "HT200": 3,
+    "HRC52": 4,
+    "304ss": 5,
+    "ti6al4v": 6
+  },
+  "source": {
+    "kind": "dataset_store",
+    "dataset_id": "9103e754-6ccb-4d88-a581-90eafb895b83",
+    "dataset_name": "synthetic_machining_params_v1",
+    "version": "0.0.1",
+    "content_hash": "20b270bd629c4c1bcdf1795575e1b7be20da4cf100968da7a960f38c5477879e",
+    "source_row_count": 100,
+    "lineage": "lineage_dc3680474100"
+  },
+  "created_at": "2026-09-08T16:16:30.946633+00:00"
+}

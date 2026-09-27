@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灵境制造 — 分阶段优化执行方案（实测校准版）</title>
+<style>
+  :root{
+    --bg:#0f1419; --panel:#1a222c; --panel2:#212b37; --border:#2e3a48;
+    --fg:#e6edf3; --muted:#9aa7b4; --accent:#4f8cff; --good:#3fb950; --warn:#d29922; --bad:#f85149;
+    --mono:ui-monospace,SFMono-Regular,Consolas,"Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--fg);font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.65;padding:32px 20px}
+  .wrap{max-width:980px;margin:0 auto}
+  header{border-bottom:2px solid var(--border);padding-bottom:20px;margin-bottom:28px}
+  h1{font-size:26px;letter-spacing:.5px}
+  h1 .cn{color:var(--accent)}
+  .sub{color:var(--muted);margin-top:8px;font-size:14px}
+  h2{font-size:19px;margin:34px 0 14px;padding-left:10px;border-left:4px solid var(--accent)}
+  h3{font-size:15px;margin:18px 0 8px;color:var(--fg)}
+  p{margin:8px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+  th,td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:var(--fg);font-weight:600;white-space:nowrap}
+  td.num{font-family:var(--mono);text-align:right;white-space:nowrap}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11.5px;font-weight:600;white-space:nowrap}
+  .t-ok{background:rgba(63,185,80,.15);color:var(--good);border:1px solid rgba(63,185,80,.4)}
+  .t-warn{background:rgba(210,153,34,.15);color:var(--warn);border:1px solid rgba(210,153,34,.4)}
+  .t-bad{background:rgba(248,81,73,.15);color:var(--bad);border:1px solid rgba(248,81,73,.4)}
+  .t-info{background:rgba(79,140,255,.15);color:var(--accent);border:1px solid rgba(79,140,255,.4)}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin:14px 0}
+  .card h3{margin-top:0}
+  code,pre{font-family:var(--mono);font-size:12.5px;background:var(--panel2);border:1px solid var(--border);border-radius:6px;padding:1px 6px}
+  pre{padding:12px 14px;overflow-x:auto;line-height:1.5;margin:10px 0}
+  ul,ol{margin:8px 0 8px 22px}
+  li{margin:4px 0}
+  .kpi{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0}
+  .kpi div{flex:1;min-width:150px;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-align:center}
+  .kpi b{display:block;font-size:24px;font-family:var(--mono)}
+  .kpi span{font-size:12px;color:var(--muted)}
+  .good{color:var(--good)} .bad{color:var(--bad)} .warn{color:var(--warn)}
+  .foot{margin-top:36px;padding-top:16px;border-top:1px solid var(--border);color:var(--muted);font-size:12.5px}
+  .phase{display:flex;align-items:center;gap:10px;margin:10px 0}
+  .phase .pn{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+  .phase .pn.done{background:var(--good)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1><span class="cn">灵境制造</span> · 分阶段优化执行方案 <span class="tag t-info">实测校准版 v2.0</span></h1>
+  <div class="sub">生成时间：2026-08-03 ｜ 数据来源：本次自动扫描 + mypy + pytest 实测（<b>非</b> 08-02 旧报告）｜ 覆盖：后端 Python / 前端 Vue / Tauri Rust / 测试 / 性能</div>
+</header>
+
+<!-- ============ 一、基线修正 ============ -->
+<h2>一、基线修正：旧报告 vs 本次实测</h2>
+<p>本次对代码库做了独立实测（AST 扫描 + mypy 1.17 + pytest 运行），发现 <b>08-02 质量报告的关键数字已严重漂移</b>。优化工作必须以实测为准。</p>
+<table>
+  <tr><th>指标</th><th>08-02 报告</th><th>本次实测</th><th>判定</th></tr>
+  <tr><td>God 模块（&gt;1000 行）</td><td>8 个</td><td><b>14 个</b></td><td><span class="tag t-warn">报告低估</span></td></tr>
+  <tr><td>type:ignore</td><td>119 条</td><td><b>134 条（59 文件）→ 已清 74</b></td><td><span class="tag t-warn">报告低估；清理中</span></td></tr>
+  <tr><td>裸 print()</td><td>58–60 处</td><td><b>48 处</b></td><td><span class="tag t-info">相近</span></td></tr>
+  <tr><td>前端 http 直连</td><td>19 视图直连</td><td><b>0 处</b></td><td><span class="tag t-ok">已迁移完成</span></td></tr>
+  <tr><td>测试总量</td><td>“500+，核心路由稀疏”</td><td><b>5209 个</b>；tests/api 专项 127 个</td><td><span class="tag t-ok">远强于报告</span></td></tr>
+  <tr><td>P0：sidecar.rs 硬编码路径</td><td>待修</td><td><b>已修复</b>（LOCALAPPDATA 动态解析）</td><td><span class="tag t-ok">报告滞后</span></td></tr>
+  <tr><td>P0：state/manager 静默丢数据</td><td>待修</td><td><b>已修复</b>（失败计数器 + critical 告警 + finally 关 session）</td><td><span class="tag t-ok">报告滞后</span></td></tr>
+</table>
+
+<div class="card">
+  <h3>元教训（本方案第一条纪律）</h3>
+  <p>旧报告声称“14 对循环依赖 / 覆盖率 2.4% / 500+ 测试”，本次实测为循环依赖 1 处、测试 5209 个。同样，我首轮扫描也因口径错误（只扫 app/ 漏扫 tests/）一度误判“API 测试为 0”。<b>任何优化决策前，必须重新扫描实测；任何评审数字，默认可疑。</b></p>
+</div>
+
+<!-- ============ 二、本会话已落地 ============ -->
+<h2>二、本会话已落地（含验证证据）</h2>
+
+<div class="kpi">
+  <div><b class="good">1473→1317</b><span>cam_validation/routes.py 拆分</span></div>
+  <div><b class="good">48/48</b><span>cam_validation 测试通过</span></div>
+  <div><b class="good">6→0</b><span>cam_validation 真实类型错误</span></div>
+  <div><b class="good">1</b><span>预存测试缺陷修复（T45）</span></div>
+</div>
+
+<h3>1. God 模块拆分范式落地（第 1/14 个）</h3>
+<ul>
+  <li>新建 <code>app/api/v1/cam_validation/_helpers.py</code>：迁入 3 个纯逻辑 helper（pipeline 单例、精度告知构造、上游精度继承追溯），依赖重建成模块内 import。</li>
+  <li><code>routes.py</code> 删除 157 行（1473→1317），插入 <code>from ._helpers import ...</code>；<b>Pydantic 模型与 11 个端点原位不动</b>。</li>
+  <li>安全前提：3 个 helper 经 grep 确认无任何外部 import 引用，移动后行为零变更。</li>
+  <li>验证：<code>py_compile</code> 通过 → 运行既有测试套件 <b>48/48 通过</b>（回归护栏有效）。</li>
+</ul>
+
+<h3>2. mypy 类型安全基线（Task 阶段5 起点）</h3>
+<ul>
+  <li>新建 <code>engineering/python/mypy.ini</code>：<code>ignore_missing_imports + warn_unused_ignores + warn_redundant_casts + show_error_codes</code>，为 8 个重型三方库（torch/onnxruntime/chromadb/tdengine/redis/cadquery 等）配置静默跳过。</li>
+  <li>cam_validation 包实测 6 个真实 <code>[return-value]</code> 错误（下载端点返回注解与实现不符）→ 修复为 <code>FileResponse | JSONResponse</code> → <b>mypy 全绿</b>。</li>
+  <li>注意：<b>mypy 缓存目录会被本机安全删除守卫拦截</b>，必须加 <code>--no-incremental</code> 运行（已实测确认）。</li>
+</ul>
+
+<h3>3. 预存测试缺陷修复（T45）</h3>
+<ul>
+  <li>根因：pytest 默认 <code>tmp_path</code> 位于系统 Temp，被 <code>GCodeLoader</code> 的路径遍历安全策略（合法且必须保留）拒绝。</li>
+  <li>修复：测试显式 <code>GCodeLoader(project_root=str(tmp_path))</code> —— <b>保留安全策略，仅修正测试口径</b>，48/48 通过。</li>
+</ul>
+
+<h3>4. 核验类结论（无需改动）</h3>
+<ul>
+  <li><b>P0 两项已修复</b>：sidecar.rs 硬编码路径 → LOCALAPPDATA 动态解析；state/manager.py → 失败计数器 + 阈值 critical 告警 + 全路径 finally 关闭 session（无任何 except:pass）。</li>
+  <li><b>前端 http 直连 = 0</b>：19 视图→features/ 迁移已完成，本任务无需再做。</li>
+  <li><b>测试体量 5209</b>：tests/api 专项 127 个（auth/gateway/jobs/lnn/rag/wear），测试安全网实际健全；“先筑测试网再重构”的前提已自然满足。</li>
+</ul>
+
+<h3>5. 任务 B：type:ignore 结构化清理（下午场）</h3>
+<ul>
+  <li><b>unused-ignore 74 条已删除</b>（37 文件，134→60）：mypy <code>warn_unused_ignores</code> 标出，删后零副作用（不改变任何运行行为）。</li>
+  <li><b>9 个文件 name-defined 清零（342 条）</b>，其中 3 处是真实缺陷：auth.py（鉴权路径缺 token/密码工具导入）、simulation/schemas.py（缺 pydantic 导入的僵尸文件）、plugins.py（缺骨架 + 8 处 <code>error(msg, code=404)</code> 位置参数误传 bug）；6 处是"缺骨架死路由文件"（project_packages/workflow_templates/rl_agent/project_sync/explainability/world_model）——补 router/logger/域符号导入，保持未接入。</li>
+  <li><b>mypy 全量基线：1894 → 1425 错误 / 314 → 283 文件</b>（−469 错误、−31 文件清零）；name-defined 478 → 88。</li>
+  <li><b>决策：rules/api.py 为残缺死路由</b>（4 个 Pydantic 请求类 + 辅助函数全仓不存在），在 mypy.ini exclude 并记录，待产品决策补全/删除。</li>
+  <li><b>重大教训：Edit 工具偶发写入丢失</b>（auth.py/project_packages.py 的 Edit 修改被还原）。已确立纪律：关键修改一律用 Python 脚本执行，改后立即验证落盘。</li>
+</ul>
+
+<!-- ============ 三、剩余分阶段任务 ============ -->
+<h2>三、剩余分阶段任务（按杠杆排序）</h2>
+
+<div class="phase"><div class="pn">A</div><b>God 模块拆分 — 剩余 13 个</b><span class="tag t-warn">最高架构杠杆</span></div>
+<div class="card">
+  <p>清单（当前行数）：gcode_generator(1289) / gcode_generation/routes(1255) / rl_agent_service(1098) / dreaming/closed_loop(1085) / resource_card_service(1084) / chatter_prediction/routes(1064) / contracts/project_package(1063) / project_package_service(1061) / tasks/task_checkout(1053) / tasks/execution(1041) / cutting_parameters/routes(1038) / cad/cadquery_gen(1020) / feature_extraction/routes(1005)</p>
+  <p><b>范式</b>（已用 cam_validation 验证）：</p>
+  <pre>1. 列顶层 def/class → 识别内聚单元（纯逻辑 / Pydantic 模型 / 端点）
+2. grep 确认候选无外部 import 引用（有引用则保留原位置或建 re-export）
+3. 抽到新模块（_helpers.py / _schemas.py）→ 原文件 import
+4. py_compile + 跑受影响测试套件（回归护栏）
+5. 目标：每文件 &lt; 1000 行，全部 14 个完成</pre>
+  <p><b>验收</b>：14 个文件全部 &lt;1000 行；对应测试套件全绿。</p>
+</div>
+
+<div class="phase"><div class="pn">B</div><b>type:ignore 清理 — 已完成 74/134，真实错误 1425 条待修</b><span class="tag t-warn">进行中</span></div>
+<div class="card">
+  <p>已删 unused-ignore 74 条（134→60）；9 文件 name-defined 清零。剩余真实错误（attr-defined 371 / arg-type 253 / union-attr 163 等，283 文件）按包分批执行：</p>
+  <pre>cd engineering/python
+python -m mypy app/api/v1/&lt;pkg&gt; --config-file mypy.ini --no-incremental
+# 修复方向（按错误码）：
+#  [unused-ignore] → 直接删注释（warn_unused_ignores 已标出）
+#  [return-value]  → 修正返回注解（cam_validation 已示范）
+#  [attr-defined]  → 补类型 / 修正真实属性名
+#  [arg-type]      → 修正实参类型 / 补 Protocol
+# 严禁"为删而删"：type:ignore 是真实错误的遮罩，先修错误再删遮罩</pre>
+  <p><b>验收</b>：type:ignore ≤ 30 条（仅保留三方库 stub 缺失等合理场景）；mypy 全局无 <code>unused-ignore</code>。</p>
+</div>
+
+<div class="phase"><div class="pn">C</div><b>前端：死页面导航 + 巨型组件 + 统一日志</b><span class="tag t-warn">可观测性与可达性</span></div>
+<div class="card">
+  <p>（08-02 UI 审计项，需先扫描复核现状）</p>
+  <ul>
+    <li>死页面：18 个功能完整但无导航入口的视图（如 AgentDetail.vue）→ 补路由/菜单；4 个 WIP 占位关键操作 → 补全或明确标注。</li>
+    <li>巨型组件：Simulation.vue 等 &gt;1000 行 .vue → 按功能拆子组件（RLAgent/Explainability 已有成功先例）。</li>
+    <li>console.* 122 处 → <code>utils/logger.ts</code> 统一封装（等级过滤 + 可开关）。</li>
+  </ul>
+  <p><b>验收</b>：无功能完整但无入口的页面；无 &gt;1000 行 .vue；console 直呼归零。</p>
+</div>
+
+<div class="phase"><div class="pn">D</div><b>后端统一日志：48 处裸 print 收敛</b><span class="tag t-info">低风险</span></div>
+<div class="card">
+  <ul>
+    <li>生产路径 <code>print()</code> → <code>app/core/logging.py</code>（或既有 logger）统一出口；CLI/脚本保留 print 属合法。</li>
+    <li>优先处理 services/、tasks/、api/ 中的裸 print（可观测性敏感路径）。</li>
+  </ul>
+  <p><b>验收</b>：生产模块裸 print ≤ 5 处（仅合法 CLI 入口）。</p>
+</div>
+
+<div class="phase"><div class="pn">E</div><b>性能 profiling：先建基线再量化</b><span class="tag t-warn">需先说明：当前无任何运行时基线</span></div>
+<div class="card">
+  <p>全部旧报告均为静态分析，<b>不含运行时性能数据</b>。任何"提速 X%"都是无验证结论，先采样：</p>
+  <pre>后端：py-spy record --duration 30 -o profile.svg -- python -m app.main
+      （重点：LNN 推理 / 颤振预测主链 / exec() 沙箱 / 数据加载）
+前端：Chrome DevTools Performance 采样 Simulation 渲染与 STL 加载
+产出：P50/P99 延迟、内存峰值、热点函数火焰图 → 写入 output/perf_baseline.md</pre>
+  <p><b>验收</b>：output/perf_baseline.md（量化基线）；热点有据可依后再谈优化。</p>
+</div>
+
+<div class="phase"><div class="pn">F</div><b>安全残留核验（来自旧报告，需复核）</b><span class="tag t-info">待核验</span></div>
+<div class="card">
+  <ul>
+    <li>4 处 <code>exec()</code> 动态执行：已沙箱硬化，需核验是否统一入口（防绕过）。</li>
+    <li>旧报告其余项（循环依赖、覆盖率、OPC UA 等）均以本次实测口径复核后再排期。</li>
+  </ul>
+</div>
+
+<!-- ============ 四、执行纪律 ============ -->
+<h2>四、执行纪律（防再漂移）</h2>
+<ol>
+  <li><b>扫描优先于信任</b>：任何改造前先跑 <code>output/_scan_current.py</code> 拿当下基线；评审数字默认可疑。</li>
+  <li><b>改动必跑测试</b>：受影响模块的既有套件全绿才算完成（cam_validation 已验证此闭环）。</li>
+  <li><b>先修错误再删 ignore</b>：type:ignore 是遮罩不是问题本身。</li>
+  <li><b>安全策略不可因测试而弱化</b>：T45 修的是测试口径，不是放宽路径校验。</li>
+  <li><b>性能无基线不下结论</b>：先 profiling 再谈优化。</li>
+</ol>
+
+<!-- ============ 五、量化目标 ============ -->
+<h2>五、量化目标（验收口径）</h2>
+<table>
+  <tr><th>指标</th><th>当前（实测）</th><th>目标</th></tr>
+  <tr><td>God 模块 &gt;1000 行</td><td>14</td><td>0</td></tr>
+  <tr><td>type:ignore</td><td>60（已删 74）</td><td>≤30（仅合理场景）</td></tr>
+  <tr><td>mypy 真实错误</td><td>按包推进（cam_validation 已清零）</td><td>app 全包无真实错误</td></tr>
+  <tr><td>裸 print（生产）</td><td>48</td><td>≤5</td></tr>
+  <tr><td>前端死页面 / 巨型 .vue</td><td>待复核</td><td>0 / 0</td></tr>
+  <tr><td>性能基线</td><td>无</td><td>output/perf_baseline.md 建立</td></tr>
+</table>
+
+<div class="foot">
+  本方案所有数字均来自 2026-08-03 实测（output/_scan_current.py + mypy 1.17 + pytest 运行记录）。
+  已落地改动文件：engineering/python/app/api/v1/cam_validation/_helpers.py（新增）、routes.py（拆分+类型修复）、mypy.ini（新增）、tests/test_cam_validation.py（T45 修复）。
+</div>
+
+</div>
+</body>
+</html>

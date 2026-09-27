@@ -1,0 +1,334 @@
+# ============================================================================
+# 制造安全约束规则库
+# ============================================================================
+# 规则分类: 机床(M) / 刀具(T) / 工艺(P) / 安全(S) [F-P0-3 新增 S]
+# 优先级: P0(人员安全) > P1(设备安全) > P2(产品质量) > P3(效率优化)
+# ============================================================================
+
+version: "1.0"
+description: "灵境制造 - 制造安全约束规则库"
+
+# ============================================================================
+# 动作类型枚举声明（文档化用途，需与 safety_constraint_rules.py 中
+# VALID_ACTION_TYPES / ActionType 枚举保持同步）[F-P0-3]
+# ============================================================================
+action_types:
+  - override              # 覆盖参数值
+  - alert_and_override    # 告警并覆盖
+  - stop                  # 停止运动
+  - force_change          # 强制换刀
+  - pause_and_alert       # 暂停并告警
+  - e_stop                # 急停（物理安全回路联锁）[F-P0-3 新增]
+  - hold                  # 保持当前状态等待人工干预 [F-P0-3 新增]
+
+# ============================================================================
+# 已知字段声明（文档化用途，需与 safety_constraint_rules.py 中
+# _check_field_existence 的 known_fields 保持同步）[F-P0-3]
+# ============================================================================
+known_fields:
+  # 机床状态
+  - spindle_speed
+  - spindle_temperature
+  - vibration_rms
+  - feed_rate
+  - max_feed_rate
+  - max_spindle_speed
+  # 刀具状态
+  - tool_wear
+  - acoustic_emission
+  - tool_life_used
+  - tool_rated_life
+  # 工艺参数
+  - cutting_force
+  - material_force_limit
+  - dimension_deviation
+  - tolerance_band
+  - overcut_detected
+  # 物理安全信号 [F-P0-3 新增] - IEC 62443 / ISO 10218 要求
+  - emergency_stop_active    # 急停按钮按下状态（True=按下）
+  - guard_door_open          # 防护门状态（True=打开）
+  - light_curtain_broken     # 光幕被遮挡（True=遮挡）
+  - operator_present         # 操作员在场检测（True=在场）
+  - two_hand_button_engaged  # 双手操作按钮按下状态（True=按下）
+  - safety_mat_occupied      # 安全垫有人站立（True=有人）
+
+rules:
+  # ============================================================================
+  # 1. 机床安全约束 (M-001 ~ M-004)
+  # ============================================================================
+
+  - rule_id: M-001
+    name: 主轴速度超限保护
+    priority: P0
+    category: M
+    condition:
+      type: threshold
+      field: spindle_speed
+      operator: ">"
+      value: max_spindle_speed
+    action:
+      type: override
+      target: spindle_speed
+      value: max_spindle_speed * 0.9
+      duration: until_condition_cleared
+    audit: true
+
+  - rule_id: M-002
+    name: 主轴温度超限保护
+    priority: P1
+    category: M
+    condition:
+      type: threshold
+      field: spindle_temperature
+      operator: ">"
+      value: 80
+    action:
+      type: alert_and_override
+      target: spindle_speed
+      value: 0.5
+      duration: until_condition_cleared
+    audit: true
+
+  - rule_id: M-003
+    name: 振动异常保护
+    priority: P1
+    category: M
+    condition:
+      type: threshold
+      field: vibration_rms
+      operator: ">"
+      value: vibration_threshold
+    action:
+      type: stop
+      target: spindle_speed
+      value: 0
+      duration: until_manual_reset
+    audit: true
+
+  - rule_id: M-004
+    name: 进给速率限制
+    priority: P1
+    category: M
+    condition:
+      type: threshold
+      field: feed_rate
+      operator: ">"
+      value: max_feed_rate
+    action:
+      type: override
+      target: feed_rate
+      value: max_feed_rate
+      duration: until_condition_cleared
+    audit: true
+
+  # ============================================================================
+  # 2. 刀具安全约束 (T-001 ~ T-003)
+  # ============================================================================
+
+  - rule_id: T-001
+    name: 刀具磨损超限保护
+    priority: P1
+    category: T
+    condition:
+      type: threshold
+      field: tool_wear
+      operator: ">"
+      value: tool_wear_limit
+    action:
+      type: force_change
+      target: tool_life_used
+      value: 0
+      duration: until_tool_changed
+    audit: true
+
+  - rule_id: T-002
+    name: 断刀检测保护
+    priority: P0
+    category: T
+    condition:
+      type: composite
+      field: acoustic_emission
+      operator: ">"
+      value: acoustic_emission_threshold
+    action:
+      type: stop
+      target: spindle_speed
+      value: 0
+      duration: until_manual_reset
+    audit: true
+
+  - rule_id: T-003
+    name: 刀具寿命到期保护
+    priority: P1
+    category: T
+    condition:
+      type: threshold
+      field: tool_life_used
+      operator: ">"
+      value: tool_rated_life
+    action:
+      type: force_change
+      target: tool_life_used
+      value: 0
+      duration: until_tool_changed
+    audit: true
+
+  # ============================================================================
+  # 3. 工艺约束 (P-001 ~ P-003)
+  # ============================================================================
+
+  - rule_id: P-001
+    name: 切削力超限保护
+    priority: P2
+    category: P
+    condition:
+      type: threshold
+      field: cutting_force
+      operator: ">"
+      value: material_force_limit
+    action:
+      type: alert_and_override
+      target: spindle_speed
+      value: 0.7
+      duration: until_condition_cleared
+    audit: true
+
+  - rule_id: P-002
+    name: 尺寸公差超限检测
+    priority: P2
+    category: P
+    condition:
+      type: threshold
+      field: dimension_deviation
+      operator: ">"
+      value: tolerance_band
+    action:
+      type: pause_and_alert
+      target: dimension_deviation
+      value: 0
+      duration: until_manual_inspection
+    audit: true
+
+  - rule_id: P-003
+    name: 过切检测保护
+    priority: P0
+    category: P
+    condition:
+      type: threshold
+      field: overcut_detected
+      operator: "=="
+      value: 1
+    action:
+      type: stop
+      target: spindle_speed
+      value: 0
+      duration: until_manual_reset
+    audit: true
+
+  # ============================================================================
+  # 4. 物理安全约束 (S-001 ~ S-006) [F-P0-3 新增]
+  # ============================================================================
+  # 依据：
+  #   - IEC 62443-3-3 SR 7.2（可用性 / 安全功能完整性）
+  #   - ISO 10218（工业机器人安全要求）
+  #   - ISO 13849-1（机械安全控制系统相关部件）
+  # 约束：
+  #   - 所有 S 系列规则 priority 必须为 P0，不可由 AI 优化降级
+  #   - e_stop / hold 动作必须由人工复位，不可自动恢复
+  # ============================================================================
+
+  - rule_id: S-001
+    name: 急停按钮触发保护
+    priority: P0
+    category: S
+    condition:
+      type: threshold
+      field: emergency_stop_active
+      operator: "=="
+      value: 1
+    action:
+      type: e_stop
+      target: spindle_speed
+      value: 0
+      duration: until_manual_reset
+    audit: true
+
+  - rule_id: S-002
+    name: 防护门打开保护（机床运行中）
+    priority: P0
+    category: S
+    condition:
+      type: threshold
+      field: guard_door_open
+      operator: "=="
+      value: 1
+    action:
+      type: hold
+      target: spindle_speed
+      value: 0
+      duration: until_guard_closed
+    audit: true
+
+  - rule_id: S-003
+    name: 光幕遮挡保护（机床运行中）
+    priority: P0
+    category: S
+    condition:
+      type: threshold
+      field: light_curtain_broken
+      operator: "=="
+      value: 1
+    action:
+      type: stop
+      target: spindle_speed
+      value: 0
+      duration: until_light_curtain_clear
+    audit: true
+
+  - rule_id: S-004
+    name: 操作员不在场保护（自动模式）
+    priority: P0
+    category: S
+    condition:
+      type: threshold
+      field: operator_present
+      operator: "=="
+      value: 0
+    action:
+      type: hold
+      target: feed_rate
+      value: 0
+      duration: until_operator_present
+    audit: true
+
+  - rule_id: S-005
+    name: 双手按钮未按下保护（双手操作模式）
+    priority: P0
+    category: S
+    condition:
+      type: threshold
+      field: two_hand_button_engaged
+      operator: "=="
+      value: 0
+    action:
+      type: hold
+      target: spindle_speed
+      value: 0
+      duration: until_two_hand_engaged
+    audit: true
+
+  - rule_id: S-006
+    name: 安全垫被占用保护（危险区域）
+    priority: P0
+    category: S
+    condition:
+      type: threshold
+      field: safety_mat_occupied
+      operator: "=="
+      value: 1
+    action:
+      type: stop
+      target: spindle_speed
+      value: 0
+      duration: until_area_clear
+    audit: true

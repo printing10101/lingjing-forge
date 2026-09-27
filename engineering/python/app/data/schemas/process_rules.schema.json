@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Process Rules Knowledge Base Schema",
+  "description": "Schema for validating process_rules.json in the machining process planning system",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "category", "description", "details"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^rule_[a-zA-Z0-9_]+$",
+        "description": "Unique identifier for the process rule"
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Rule name"
+      },
+      "category": {
+        "type": "string",
+        "enum": ["sequence", "parameter", "quality", "safety", "efficiency"],
+        "description": "Rule category"
+      },
+      "description": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Brief description of the rule"
+      },
+      "details": {
+        "type": "object",
+        "description": "Detailed rule information",
+        "properties": {
+          "rationale": {
+            "type": "string",
+            "description": "Rationale behind the rule"
+          },
+          "roughing_allowance_mm": {
+            "type": "object",
+            "properties": {
+              "min": { "type": "number", "minimum": 0 },
+              "max": { "type": "number", "minimum": 0 }
+            },
+            "required": ["min", "max"]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "additionalProperties": false
+  }
+}

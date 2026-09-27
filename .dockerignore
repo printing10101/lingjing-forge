@@ -1,0 +1,166 @@
+# =============================================================================
+# .dockerignore - Exclude unnecessary files from Docker build context
+# =============================================================================
+
+# --- Version Control ---
+.git
+.gitignore
+.gitattributes
+
+# --- IDE & Editor ---
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.project
+.settings
+*.sublime-project
+*.sublime-workspace
+
+# --- OS Files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Logs & Runtime Data ---
+logs/
+*.log
+*.jsonl
+data/traces/
+
+# --- Test Files & Reports ---
+tests/
+python/tests/
+python/test_*.py
+python/debug_*.py
+python/diagnose*.py
+python/quick_*.py
+python/verify*.py
+python/run_*.py
+python/run_*.bat
+python/start_server.bat
+python/start_server.py
+python/test_output.txt
+reports/
+pytest-report.html
+playwright-report/
+test-results/
+
+# --- Scripts & Build Tools ---
+scripts/
+build.ps1
+check-env.ps1
+health_check.ps1
+execute_tests.bat
+quick_test.bat
+run_tests.bat
+run_full_tests.py
+run_integration_tests_standalone.py
+run_pytest_prog.py
+run_tests_direct.py
+run_tests_via_subprocess.py
+run_verify.bat
+run_agent_test.py
+run_agent_tests.bat
+# E-19: 手动运行脚本已迁移到 scripts/，排除整个目录避免进入镜像
+python/scripts/run_agent_test.py
+python/scripts/run_integration_tests.py
+python/scripts/verify_*.py
+python/scripts/integration_test.py
+python/scripts/vrm_save_restore_test.py
+python/scripts/project_api_integration.py
+python/scripts/frontend_proxy_test.py
+python/scripts/api_test_runner.py
+python/scripts/curl_cors_tests.py
+launch_test.py
+
+# --- E2E & Testing ---
+# [P1-fix] e2e/ 与 playwright.config.ts 已在 P0 清理中删除，移除死规则
+.eslintrc.cjs
+commitlint.config.cjs
+
+# --- Documentation ---
+docs/
+*.md
+!VERSION
+# [P1-fix] 保留 LICENSE 进入镜像，符合开源协议分发要求
+
+# --- Frontend Build Files ---
+node_modules/
+dist/
+pnpm-lock.yaml
+package.json
+package-lock.json
+auto-imports.d.ts
+components.d.ts
+env.d.ts
+index.html
+*.cjs
+*.ts
+!Dockerfile
+!docker-compose.yml
+
+# --- Other Sub-projects ---
+data/external/cnc_machining/
+uniwear-dataset-main/
+mcp_server/
+skills/
+
+# --- Docker ---
+docker-compose.yml
+Dockerfile.backup
+Dockerfile.*
+
+# --- Environment & Secrets ---
+.env
+.env.*
+*.env
+!.env.example
+!.env.sqlite.example
+
+# --- Python Cache & Build Artifacts ---
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.eggs
+*.egg-info
+build
+.pytest_cache
+.mypy_cache
+
+# --- Misc ---
+*.bak
+*.tmp
+*.temp
+*.cache
+*.sqlite
+*.db
+
+# --- Rust build artifacts (engineering/src-tauri/target, *.rlib/.rmeta/.d) ---
+# 这些产物体积巨大（target/ 可达数 GB，数千个 .rlib/.rmeta/.d），
+# 不属于生产镜像，必须排除以缩小 build context。
+engineering/src-tauri/target/
+*.rlib
+*.rmeta
+*.d
+
+# --- Runtime-mounted / non-image data dirs (被 compose volumes 覆盖) ---
+data/
+coverage-reports/
+output/
+experiments/
+models/
+logs/
+
+# --- Research side (训练栈，生产镜像不需要) ---
+research/
+
+# --- Python virtual environments (根目录 .venv 可达数 GB，必须排除) ---
+.venv/
+venv/
+env/

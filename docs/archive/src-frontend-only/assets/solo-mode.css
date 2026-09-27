@@ -1,0 +1,217 @@
+/**
+ * assets/solo-mode.css
+ * Solo 设计模式主题样式
+ * 参考 Trae Solo UI 设计，极简主义配色
+ */
+
+/* ========== CSS Variables ========== */
+:root {
+  /* Trae Solo 风格配色 */
+  --solo-primary: #0e639c;
+  --solo-primary-dark: #0b4d7c;
+  --solo-primary-light: #1177bb;
+  --solo-accent: #4ec9b0;
+  --solo-accent-dark: #3fa892;
+  --solo-accent-light: #6dd9be;
+  
+  /* 编辑器主题色 */
+  --solo-bg-primary: #1e1e1e;
+  --solo-bg-secondary: #252526;
+  --solo-bg-tertiary: #2d2d2e;
+  --solo-bg-active: #37373d;
+  
+  /* 文本颜色 */
+  --solo-text-primary: #d4d4d4;
+  --solo-text-secondary: #888;
+  --solo-text-muted: #666;
+  --solo-text-inverse: #ffffff;
+  
+  /* 边框颜色 */
+  --solo-border: #333;
+  --solo-border-light: #3e3e42;
+  --solo-border-active: #0e639c;
+  
+  /* 状态颜色 */
+  --solo-success: #25a356;
+  --solo-warning: #cca700;
+  --solo-error: #f14c4c;
+  --solo-info: #2ea1ff;
+  
+  /* 间距 */
+  --solo-space-xs: 4px;
+  --solo-space-sm: 8px;
+  --solo-space-md: 16px;
+  --solo-space-lg: 24px;
+  --solo-space-xl: 32px;
+  
+  /* 圆角 */
+  --solo-radius-sm: 4px;
+  --solo-radius-md: 6px;
+  --solo-radius-lg: 8px;
+  --solo-radius-xl: 12px;
+  
+  /* 阴影 */
+  --solo-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --solo-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --solo-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  
+  /* 过渡 */
+  --solo-transition-fast: 0.2s ease;
+  --solo-transition-normal: 0.3s ease;
+  --solo-transition-slow: 0.5s ease;
+}
+
+/* ========== Base Solo Mode Styles ========== */
+
+body.solo-mode {
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace !important;
+  background: var(--solo-bg-primary) !important;
+  color: var(--solo-text-primary) !important;
+}
+
+/* Solo 工作台容器 */
+.solo-workspace {
+  font-family: inherit;
+}
+
+/* 编辑器区域 */
+.editor-container {
+  background: var(--solo-bg-primary) !important;
+}
+
+/* AI 对话面板背景 */
+.ai-panel {
+  background: var(--solo-bg-secondary) !important;
+}
+
+/* ========== 导航与按钮 ========== */
+
+.solo-topbar {
+  background: var(--solo-bg-secondary) !important;
+  border-bottom: 1px solid var(--solo-border);
+}
+
+/* 模式切换按钮 */
+.btn-mode-switch {
+  transition: all var(--solo-transition-fast);
+}
+
+.btn-mode-switch:hover,
+.btn-mode-switch.active {
+  background: var(--solo-primary) !important;
+  border-color: var(--solo-primary) !important;
+  color: var(--solo-text-inverse) !important;
+}
+
+/* 工具按钮悬停 */
+.btn-tool:hover {
+  background: var(--solo-bg-tertiary);
+  color: var(--solo-text-primary);
+}
+
+/* ========== 输入框与表单 ========== */
+
+.solo-topbar input[type="text"]::placeholder,
+.ai-panel textarea::placeholder {
+  color: var(--solo-text-muted) !important;
+}
+
+.ai-panel textarea:focus {
+  border-color: var(--solo-primary) !important;
+  box-shadow: 0 0 0 2px rgba(14, 99, 156, 0.2);
+}
+
+/* ========== 预览组件 ========== */
+
+.preview-toolbar,
+.preview-statusbar {
+  background: var(--solo-bg-secondary) !important;
+  border-color: var(--solo-border) !important;
+}
+
+.btn-device:hover {
+  background: var(--solo-primary) !important;
+  border-color: var(--solo-primary) !important;
+  color: var(--solo-text-inverse) !important;
+}
+
+.btn-device.active {
+  background: var(--solo-primary) !important;
+  border-color: var(--solo-primary) !important;
+  color: var(--solo-text-inverse) !important;
+}
+
+/* ========== 代码块样式 ========== */
+
+.code-block {
+  background: var(--solo-bg-primary) !important;
+  color: var(--solo-text-primary) !important;
+}
+
+.code-block-header {
+  background: var(--solo-bg-primary) !important;
+  border-bottom-color: var(--solo-border) !important;
+}
+
+/* ========== 状态指示器 ========== */
+
+.status-indicator.connected {
+  color: var(--solo-success) !important;
+}
+
+.status-indicator.connecting {
+  color: var(--solo-warning) !important;
+}
+
+.status-indicator.disconnected {
+  color: var(--solo-error) !important;
+}
+
+#app {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif) !important;
+}
+
+/* ========== 暗色主题适配 ========== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --solo-bg-primary: #1e1e1e;
+    --solo-bg-secondary: #252526;
+    --solo-bg-tertiary: #2d2d2e;
+    --solo-bg-active: #37373d;
+    --solo-text-primary: #d4d4d4;
+    --solo-text-secondary: #888;
+    --solo-text-muted: #666;
+    --solo-border: #333;
+    --solo-border-light: #3e3e42;
+  }
+}
+
+/* ========== 亮色主题（未来扩展） ========== */
+
+.theme-light {
+  --solo-bg-primary: #ffffff;
+  --solo-bg-secondary: #f3f3f3;
+  --solo-bg-tertiary: #e8e8e8;
+  --solo-bg-active: #dcdcdc;
+  --solo-text-primary: #1e1e1e;
+  --solo-text-secondary: #666;
+  --solo-text-muted: #999;
+  --solo-border: #e0e0e0;
+  --solo-border-light: #d0d0d0;
+}
+
+/* ========== 打印样式 ========== */
+
+@media print {
+  .ai-panel,
+  .topbar-right {
+    display: none !important;
+  }
+  
+  .editor-container {
+    flex: 1 !important;
+  }
+}

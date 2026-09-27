@@ -1,0 +1,42 @@
+root = true
+
+# 默认规则适用于所有文件
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Python 文件特殊配置
+[*.py]
+indent_size = 4
+
+# Rust 文件特殊配置
+[*.rs]
+indent_size = 4
+
+# Markdown 文件特殊配置（保留行尾空格用于控制段落）
+[*.md]
+trim_trailing_whitespace = false
+
+# YAML 文件配置
+[*.{yml,yaml}]
+indent_size = 2
+
+# JSON 文件配置
+[*.json]
+indent_size = 2
+
+# Makefile 文件使用 Tab 缩进
+[Makefile]
+indent_style = tab
+
+# Shell 脚本配置
+[*.sh]
+indent_size = 2
+
+# BAT 脚本使用 Windows 换行符
+[*.bat]
+end_of_line = crlf

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "灵境制造",
+  "version": "2.8.0",
+  "identifier": "com.lingjing.manufacturing",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "灵境制造 - 启动中",
+        "width": 560,
+        "height": 360,
+        "resizable": false,
+        "fullscreen": false,
+        "center": true,
+        "decorations": false,
+        "transparent": false,
+        "alwaysOnTop": true,
+        "visible": true,
+        "label": "splashscreen",
+        "url": "splashscreen.html"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' ipc: http://ipc.localhost http://localhost:8765-8785 http://127.0.0.1:8765-8785 ws://localhost:8765-8785 ws://127.0.0.1:8765-8785; img-src 'self' data: blob: https:; font-src 'self' data:; style-src 'self' 'unsafe-inline';",
+      "assetProtocol": {
+        "enable": true,
+        "scope": [
+          "$RESOURCE/**",
+          "$APPDATA/com.lingjing.manufacturing/logs/**",
+          "$APPDATA/com.lingjing.manufacturing/data/**"
+        ]
+      }
+    }
+  },
+  "plugins": {
+    "shell": {
+      "open": false
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "nsis",
+      "dmg",
+      "appimage",
+      "deb"
+    ],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.ico",
+      "icons/icon.icns"
+    ],
+    "resources": {
+      "../python/desktop_runtime": "desktop_runtime"
+    },
+    "category": "DeveloperTool",
+    "copyright": "Copyright © 2026 灵境制造团队",
+    "shortDescription": "AI驱动的3D建模与工艺规划系统",
+    "longDescription": "灵境制造 V4 - 一体化部署的AI驱动3D建模与工艺规划系统，内置Python后端服务，开箱即用。",
+    "windows": {
+      "wix": {
+        "language": "zh-CN"
+      },
+      "nsis": {
+        "languages": [
+          "SimpChinese",
+          "English"
+        ],
+        "displayLanguageSelector": true,
+        "installerIcon": "icons/icon.ico",
+        "installMode": "perMachine",
+        "compression": "zlib"
+      },
+      "webviewInstallMode": {
+        "type": "embedBootstrapper"
+      }
+    },
+    "macOS": {
+      "minimumSystemVersion": "10.15",
+      "signingIdentity": null
+    },
+    "linux": {
+      "deb": {
+        "depends": [
+          "libwebkit2gtk-4.1-0",
+          "libgtk-3-0",
+          "libssl3"
+        ],
+        "section": "devel"
+      }
+    }
+  }
+}

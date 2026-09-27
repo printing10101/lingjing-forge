@@ -1,0 +1,244 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "灵境制造 LNN AI API",
+    "description": "基于液态神经网络(LNN)的智能制造AI推理与训练API服务，支持切削力预测、磨损预测等工业场景",
+    "version": "2.5.0",
+    "contact": {
+      "name": "灵境制造团队"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8765",
+      "description": "本地开发服务器"
+    },
+    {
+      "url": "https://api.lingjing-mfg.com",
+      "description": "生产环境API"
+    }
+  ],
+  "paths": {
+    "/api/v1/lnn/predict": {
+      "post": {
+        "summary": "执行LNN模型推理",
+        "description": "使用指定LNN模型进行单次预测推理",
+        "tags": ["LNN Models"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LNNPredictRequest"
+              },
+              "example": {
+                "model_name": "cutting_force",
+                "input_data": [[1.2, 0.8, 0.5, 1.0, 0.3]],
+                "return_confidence": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "推理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LNNPredictResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "模型不存在"
+          },
+          "500": {
+            "description": "推理失败"
+          }
+        }
+      }
+    },
+    "/api/v1/lnn/train": {
+      "post": {
+        "summary": "启动LNN模型训练任务",
+        "description": "在后台启动指定模型的训练任务",
+        "tags": ["LNN Models"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LNNTrainRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "训练任务已启动"
+          },
+          "500": {
+            "description": "训练启动失败"
+          }
+        }
+      }
+    },
+    "/api/v1/lnn/models": {
+      "get": {
+        "summary": "列出所有LNN模型",
+        "description": "获取系统中所有已注册的LNN模型列表",
+        "tags": ["LNN Models"],
+        "responses": {
+          "200": {
+            "description": "成功获取模型列表"
+          }
+        }
+      }
+    },
+    "/api/v1/lnn/models/{model_name}/info": {
+      "get": {
+        "summary": "获取模型详情",
+        "description": "获取指定模型的详细信息和验证状态",
+        "tags": ["LNN Models"],
+        "parameters": [
+          {
+            "name": "model_name",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "模型信息获取成功"
+          },
+          "404": {
+            "description": "模型不存在"
+          }
+        }
+      }
+    },
+    "/api/v1/lnn/models/{model_name}/validate": {
+      "post": {
+        "summary": "验证模型",
+        "description": "对指定模型进行验证检查",
+        "tags": ["LNN Models"],
+        "parameters": [
+          {
+            "name": "model_name",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "模型验证完成"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LNNPredictRequest": {
+        "type": "object",
+        "required": ["model_name", "input_data"],
+        "properties": {
+          "model_name": {
+            "type": "string",
+            "description": "模型名称",
+            "example": "cutting_force"
+          },
+          "input_data": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": { "type": "number" }
+            },
+            "description": "输入数据（支持单样本或批量）",
+            "example": [[1.2, 0.8, 0.5, 1.0, 0.3]]
+          },
+          "return_confidence": {
+            "type": "boolean",
+            "description": "是否返回置信度",
+            "default": false
+          }
+        }
+      },
+      "LNNTrainRequest": {
+        "type": "object",
+        "required": ["model_name", "data_path", "hyperparameters"],
+        "properties": {
+          "model_name": {
+            "type": "string",
+            "description": "模型名称",
+            "example": "cutting_force"
+          },
+          "data_path": {
+            "type": "string",
+            "description": "训练数据文件路径",
+            "example": "/data/bosch_cutting_force.csv"
+          },
+          "hyperparameters": {
+            "$ref": "#/components/schemas/TrainingHyperparameters"
+          }
+        }
+      },
+      "TrainingHyperparameters": {
+        "type": "object",
+        "properties": {
+          "learning_rate": { "type": "number", "default": 0.001 },
+          "epochs": { "type": "integer", "default": 100 },
+          "batch_size": { "type": "integer", "default": 32 },
+          "optimizer": { "type": "string", "default": "adam" }
+        }
+      },
+      "LNNPredictResponse": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [{ "type": "number" }, { "type": "array", "items": { "type": "number" } }],
+            "description": "预测值"
+          },
+          "confidence": {
+            "type": "number",
+            "description": "预测置信度（0-1）"
+          },
+          "inference_time": {
+            "type": "number",
+            "description": "推理耗时（毫秒）"
+          },
+          "model_info": {
+            "$ref": "#/components/schemas/ModelInfo"
+          }
+        }
+      },
+      "ModelInfo": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "version": { "type": "string" },
+          "last_updated": { "type": "string", "format": "date-time" }
+        }
+      },
+      "LNNTrainResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "enum": ["in_progress", "success", "failed"] },
+          "message": { "type": "string" },
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "accuracy": { "type": "number" },
+              "loss": { "type": "number" },
+              "training_time": { "type": "number" },
+              "epochs_completed": { "type": "integer" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

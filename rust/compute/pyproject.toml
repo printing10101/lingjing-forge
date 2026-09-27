@@ -1,0 +1,27 @@
+[build-system]
+requires = ["maturin>=1.5,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "compute"
+version = "2.8.0"
+description = "Voxel cutting simulation compute engine (Rust + PyO3)."
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Lingjing Manufacturing Team" }]
+
+[tool.maturin]
+# 计算 crate 路径（相对 pyproject.toml）
+manifest-path = "crates/pyo3_bindings/Cargo.toml"
+# 产出 Python 包名：compute
+module-name = "compute._native"
+# 包含两个子包: compute (Python 适配层) 和 _native (Rust 扩展)
+python-packages = ["compute"]
+# 同时构建 extension 子模块 voxel_cutter
+features = ["pyo3/extension-module"]
+
+[tool.maturin.target]
+# 链接到 3.8 稳定 ABI
+x86_64-pc-windows-msvc = { abi3 = true }
+x86_64-unknown-linux-gnu = { abi3 = true }
+aarch64-apple-darwin = { abi3 = true }

@@ -1,0 +1,24 @@
+{
+  "branch_id": "d71cd790a3d6",
+  "name": "single",
+  "base_branch": null,
+  "template_data": {
+    "name": "Single"
+  },
+  "metadata": {
+    "type": "main"
+  },
+  "created_at": 1786812664.3424804,
+  "updated_at": 1786812664.3424804,
+  "commit_log": [
+    {
+      "action": "create",
+      "branch_name": "single",
+      "timestamp": 1786812664.3424804,
+      "details": {
+        "base_branch": null,
+        "content_hash": "2ce3a2b69f2f13ad"
+      }
+    }
+  ]
+}

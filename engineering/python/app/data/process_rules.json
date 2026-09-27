@@ -1,0 +1,116 @@
+[
+  {
+    "id": "rule_rough_finish",
+    "name": "先粗后精规则",
+    "category": "sequence",
+    "description": "粗加工留0.3-0.5mm余量给精加工",
+    "details": {
+      "roughing_allowance_mm": {
+        "min": 0.3,
+        "max": 0.5
+      },
+      "rationale": "粗加工去除大部分余量，精加工保证尺寸精度和表面质量"
+    }
+  },
+  {
+    "id": "rule_face_before_hole",
+    "name": "先面后孔规则",
+    "category": "sequence",
+    "description": "先加工定位平面，再加工孔",
+    "details": {
+      "rationale": "平面为孔加工提供稳定定位基准，保证孔的位置精度"
+    }
+  },
+  {
+    "id": "rule_datum_first",
+    "name": "基准先行规则",
+    "category": "sequence",
+    "description": "先加工定位基准面",
+    "details": {
+      "rationale": "基准面是后续加工的定位依据，优先加工保证后续工序的定位精度"
+    }
+  },
+  {
+    "id": "rule_same_direction_concentration",
+    "name": "同向集中规则",
+    "category": "sequence",
+    "description": "同一方向的加工特征尽量集中加工",
+    "details": {
+      "rationale": "减少刀具更换和机床调整次数，提高加工效率和一致性"
+    }
+  },
+  {
+    "id": "rule_5axis_rtcp_priority",
+    "name": "五轴RTCP优先规则",
+    "category": "five_axis",
+    "description": "五轴联动加工优先启用RTCP(G43.4)功能",
+    "details": {
+      "gcode": "G43.4",
+      "rationale": "RTCP自动补偿旋转轴运动,保证刀具中心点轨迹精度,避免手动计算复杂"
+    }
+  },
+  {
+    "id": "rule_5axis_twp_orientation",
+    "name": "五轴TWP定向规则",
+    "category": "five_axis",
+    "description": "3+2定位加工使用TWP(G43.5)设定工作平面",
+    "details": {
+      "gcode": "G43.5",
+      "rationale": "TWP将刀具定向到指定角度后锁定旋转轴,进行三轴加工,适合平面和孔系加工"
+    }
+  },
+  {
+    "id": "rule_5axis_avoid_singularity",
+    "name": "五轴奇异点规避规则",
+    "category": "five_axis",
+    "description": "避免A轴接近0度位置,防止C轴急剧旋转",
+    "details": {
+      "a_axis_min_angle": 5.0,
+      "rationale": "A轴接近0度时,C轴需要急剧旋转以保持刀具方向,导致加工不稳定和表面质量下降"
+    }
+  },
+  {
+    "id": "rule_5axis_tool_orientation",
+    "name": "五轴刀具倾斜规则",
+    "category": "five_axis",
+    "description": "五轴加工时刀具倾斜角(A轴)推荐5-15度",
+    "details": {
+      "tilt_angle_range": {
+        "min": 5.0,
+        "max": 15.0,
+        "optimal": 10.0
+      },
+      "rationale": "适当倾斜可避免球头刀中心点切削,提高表面质量,同时减少切削阻力"
+    }
+  },
+  {
+    "id": "rule_5axis_collision_avoidance",
+    "name": "五轴碰撞避免规则",
+    "category": "five_axis",
+    "description": "五轴加工必须进行刀柄和机床碰撞检测",
+    "details": {
+      "check_items": [
+        "tool_holder_collision",
+        "spindle_collision",
+        "table_limit_exceeded",
+        "axis_soft_limit"
+      ],
+      "rationale": "五轴联动时旋转轴运动可能导致刀柄与工件或机床碰撞,必须提前检测"
+    }
+  },
+  {
+    "id": "rule_5axis_feedrate_optimization",
+    "name": "五轴进给优化规则",
+    "category": "five_axis",
+    "description": "五轴加工根据刀具方向调整进给速度",
+    "details": {
+      "feedrate_factor_by_tilt": {
+        "0_5_deg": 1.0,
+        "5_15_deg": 0.9,
+        "15_30_deg": 0.8,
+        "30_45_deg": 0.7
+      },
+      "rationale": "刀具倾斜角越大,实际切削速度越低,需要适当降低进给以保证表面质量"
+    }
+  }
+]

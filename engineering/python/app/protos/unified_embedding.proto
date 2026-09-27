@@ -1,0 +1,371 @@
+syntax = "proto3";
+
+package unified_embedding;
+
+option go_package = "github.com/lingjing/manufacturing/proto";
+option java_package = "io.github.lingjing.manufacturing";
+option java_multiple_files = true;
+
+/*
+Unified Manufacturing Semantic Embedding Space
+512-dimensional cross-modal embedding with three-layer architecture:
+  - Cognitive Layer (LLM): Knowledge understanding and NLP interaction
+  - Perception Layer (JEPA): Visual understanding and world modeling
+  - Execution Layer (LNN): Time-series prediction and real-time control
+*/
+
+// 512-dimensional embedding vector
+message ManufacturingEmbedding {
+  string embedding_id = 1;
+  repeated float values = 2;
+  string layer_source = 3;
+  string modality = 4;
+  double timestamp = 5;
+  map<string, double> semantic_weights = 6;
+  string knowledge_id = 7;
+}
+
+// Material properties sub-embedding (64 dimensions)
+message MaterialEmbedding {
+  string material_id = 1;
+  string material_name = 2;
+  repeated float hardness = 3;
+  repeated float thermal_conductivity = 4;
+  repeated float ductility = 5;
+  repeated float tensile_strength = 6;
+  repeated float density = 7;
+  repeated float elastic_modulus = 8;
+}
+
+// Process methods sub-embedding (128 dimensions)
+message ProcessEmbedding {
+  string process_type = 1;
+  repeated float parameter_ranges = 2;
+  repeated float operation_sequence = 3;
+  repeated float tool_geometry = 4;
+}
+
+// Precision tolerance sub-embedding (32 dimensions)
+message PrecisionEmbedding {
+  string it_grade = 1;
+  repeated float dimensional_tolerance = 2;
+  repeated float surface_roughness = 3;
+  repeated float geometric_tolerance = 4;
+  repeated float positional_tolerance = 5;
+}
+
+// Equipment state sub-embedding (128 dimensions)
+message StateEmbedding {
+  repeated float vibration = 1;
+  repeated float temperature = 2;
+  repeated float tool_wear = 3;
+  repeated float operating_state = 4;
+}
+
+// Risk assessment sub-embedding (32 dimensions)
+message RiskEmbedding {
+  repeated float collision_risk = 1;
+  repeated float tool_breakage_risk = 2;
+  repeated float thermal_risk = 3;
+  repeated float quality_risk = 4;
+}
+
+// Cognitive Layer → Perception Layer Request (REST → gRPC)
+message CognitiveToPerceptionRequest {
+  string request_id = 1;
+  string process_intent = 2;
+  QualityRequirements quality_requirements = 3;
+  map<string, string> material_spec = 4;
+  int32 max_tokens = 5;
+  double timestamp = 6;
+}
+
+message QualityRequirements {
+  repeated DimensionalTolerance dimensional_tolerances = 1;
+  optional SurfaceRoughnessSpec surface_roughness = 2;
+  map<string, double> geometric_tolerances_mm = 3;
+  double max_burr_height_mm = 4;
+  string target_quality_level = 5;
+}
+
+message DimensionalTolerance {
+  double nominal_mm = 1;
+  double upper_deviation_mm = 2;
+  double lower_deviation_mm = 3;
+  string it_grade = 4;
+}
+
+message SurfaceRoughnessSpec {
+  double ra_um = 1;
+  optional double rz_um = 2;
+  optional double rmax_um = 3;
+  string grade = 4;
+}
+
+message CognitiveToPerceptionResponse {
+  string request_id = 1;
+  repeated SensorConfig sensor_configs = 2;
+  string feature_algorithm = 3;
+  double sampling_frequency_hz = 4;
+  map<string, double> region_of_interest = 5;
+  repeated string preprocessing_pipeline = 6;
+  double estimated_processing_time_ms = 7;
+  optional ManufacturingEmbedding embedding_projection = 8;
+}
+
+message SensorConfig {
+  string sensor_type = 1;
+  string installation_position = 2;
+  double sampling_frequency_hz = 3;
+  double measurement_range_min = 4;
+  double measurement_range_max = 5;
+  double resolution = 6;
+  string axis = 7;
+}
+
+// Perception Layer → Execution Layer Request
+message PerceptionToExecutionRequest {
+  string request_id = 1;
+  GeometryInput geometry = 2;
+  CuttingParameters cutting_parameters = 3;
+  map<string, string> material_spec = 4;
+  map<string, string> tool_spec = 5;
+  double timestamp = 6;
+}
+
+message GeometryInput {
+  oneof geometry_data {
+    PointCloudData point_cloud = 1;
+    string stl_path = 2;
+    string step_path = 3;
+  }
+  repeated double stock_dimensions_mm = 4;
+  string material = 5;
+}
+
+message PointCloudData {
+  bytes points = 1;
+  int32 point_count = 2;
+  optional bytes normals = 3;
+  optional bytes colors = 4;
+  double bounding_box_xmin = 5;
+  double bounding_box_xmax = 6;
+  double bounding_box_ymin = 7;
+  double bounding_box_ymax = 8;
+  double bounding_box_zmin = 9;
+  double bounding_box_zmax = 10;
+}
+
+message CuttingParameters {
+  double feed_rate_mm_min = 1;
+  double depth_of_cut_mm = 2;
+  double spindle_speed_rpm = 3;
+  double step_over_mm = 4;
+  double cutting_speed_m_min = 5;
+  bool coolant_on = 6;
+  double approach_distance_mm = 7;
+  double retract_distance_mm = 8;
+}
+
+message PerceptionToExecutionResponse {
+  string request_id = 1;
+  repeated MonitoringPointConfig monitoring_points = 2;
+  optional PredictionBaseline prediction_baseline = 3;
+  int32 toolpath_segments = 4;
+  double estimated_cycle_time_s = 5;
+  optional ManufacturingEmbedding embedding_projection = 6;
+}
+
+message MonitoringPointConfig {
+  string sensor_type = 1;
+  string installation_position = 2;
+  double sampling_frequency_hz = 3;
+  string data_format = 4;
+  int32 channel_count = 5;
+}
+
+message PredictionBaseline {
+  double expected_surface_roughness_ra = 1;
+  double expected_tool_wear_rate_um_per_min = 2;
+  double expected_cutting_force_n = 3;
+  double expected_power_consumption_kw = 4;
+  map<string, RangePair> tolerance_range = 5;
+  map<string, double> control_thresholds = 6;
+  double confidence = 7;
+}
+
+message RangePair {
+  double min = 1;
+  double max = 2;
+}
+
+// Execution Layer → Cognitive Layer (WebSocket streaming)
+message ExecutionToCognitiveRequest {
+  string stream_id = 1;
+  RealTimeState real_time_state = 2;
+  repeated AnomalyEvent anomaly_events = 3;
+  string session_id = 4;
+  int64 batch_sequence = 5;
+  double timestamp = 6;
+}
+
+message RealTimeState {
+  double spindle_speed_rpm = 1;
+  double spindle_load_pct = 2;
+  double feed_rate_mm_min = 3;
+  double vibration_x = 4;
+  double vibration_y = 5;
+  double vibration_z = 6;
+  double spindle_temp_c = 7;
+  double tool_temp_c = 8;
+  double coolant_temp_c = 9;
+  double cutting_force_x_n = 10;
+  double cutting_force_y_n = 11;
+  double cutting_force_z_n = 12;
+  double tool_wear_mm = 13;
+  double acoustic_emission_rms = 14;
+  double position_x_mm = 15;
+  double position_y_mm = 16;
+  double position_z_mm = 17;
+  double duty_cycle_pct = 18;
+}
+
+message AnomalyEvent {
+  string event_id = 1;
+  string event_type = 2;
+  string severity = 3;
+  double timestamp = 4;
+  string description = 5;
+  optional string source_sensor = 6;
+  double measured_value = 7;
+  double threshold_value = 8;
+  double duration_ms = 9;
+}
+
+message ExecutionToCognitiveResponse {
+  string stream_id = 1;
+  FeedbackSignal feedback = 2;
+  double timestamp = 3;
+}
+
+message FeedbackSignal {
+  repeated AdjustmentSuggestion suggestions = 1;
+  double overall_confidence = 2;
+  string execution_priority = 3;
+  string estimated_impact = 4;
+  bool requires_halt = 5;
+}
+
+message AdjustmentSuggestion {
+  string suggestion_id = 1;
+  string description = 2;
+  map<string, double> suggested_parameters = 3;
+  double confidence = 4;
+  string priority = 5;
+  string reasoning = 6;
+  map<string, double> expected_improvement = 7;
+}
+
+// Cross-layer retrieval service
+message RetrieveRequest {
+  string query_id = 1;
+  string source_layer = 2;
+  string target_layer = 3;
+  ManufacturingEmbedding query_embedding = 4;
+  int32 top_k = 5;
+  map<string, double> axis_weights = 6;
+  optional string modality_filter = 7;
+}
+
+message RetrieveResponse {
+  string query_id = 1;
+  repeated RetrievalResult results = 2;
+  double query_time_ms = 3;
+  int32 total_candidates = 4;
+}
+
+message RetrievalResult {
+  int32 index = 1;
+  double similarity = 2;
+  double confidence = 3;
+  ManufacturingEmbedding embedding = 4;
+  map<string, string> metadata = 5;
+}
+
+message BatchRetrieveRequest {
+  repeated RetrieveRequest requests = 1;
+}
+
+message BatchRetrieveResponse {
+  repeated RetrieveResponse responses = 1;
+  double total_query_time_ms = 2;
+  double mean_recall_at_5 = 3;
+  double mean_similarity = 4;
+}
+
+// Embedding alignment training service
+message AlignRequest {
+  string source_modality = 1;
+  string target_modality = 2;
+  repeated ManufacturingEmbedding source_embeddings = 3;
+  repeated ManufacturingEmbedding target_embeddings = 4;
+  optional double learning_rate = 5;
+}
+
+message AlignResponse {
+  double total_loss = 1;
+  double alignment_score = 2;
+  double compatibility = 3;
+  double temperature = 4;
+  map<string, double> metrics = 5;
+}
+
+message BuildIndexRequest {
+  string target_layer = 1;
+  repeated ManufacturingEmbedding embeddings = 2;
+  repeated map<string, string> metadata = 3;
+}
+
+message BuildIndexResponse {
+  string target_layer = 1;
+  int32 num_embeddings = 2;
+  bool success = 3;
+  string message = 4;
+  double build_time_ms = 5;
+}
+
+message AddToIndexRequest {
+  string target_layer = 1;
+  repeated ManufacturingEmbedding embeddings = 2;
+  repeated map<string, string> metadata = 3;
+}
+
+message AddToIndexResponse {
+  bool success = 1;
+  int32 added_count = 2;
+  int32 total_size = 3;
+  double update_time_ms = 4;
+}
+
+// Unified embedding service definition
+service UnifiedEmbeddingService {
+  // Cognitive → Perception
+  rpc CognitiveToPerception(CognitiveToPerceptionRequest) returns (CognitiveToPerceptionResponse);
+
+  // Perception → Execution
+  rpc PerceptionToExecution(PerceptionToExecutionRequest) returns (PerceptionToExecutionResponse);
+
+  // Execution → Cognitive (streaming)
+  rpc ExecutionToCognitive(stream ExecutionToCognitiveRequest) returns (stream ExecutionToCognitiveResponse);
+
+  // Cross-layer retrieval
+  rpc Retrieve(RetrieveRequest) returns (RetrieveResponse);
+  rpc BatchRetrieve(BatchRetrieveRequest) returns (BatchRetrieveResponse);
+
+  // Embedding alignment
+  rpc AlignCrossModal(AlignRequest) returns (AlignResponse);
+
+  // Index management
+  rpc BuildIndex(BuildIndexRequest) returns (BuildIndexResponse);
+  rpc AddToIndex(AddToIndexRequest) returns (AddToIndexResponse);
+}

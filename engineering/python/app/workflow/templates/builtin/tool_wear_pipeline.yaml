@@ -1,0 +1,93 @@
+# 刀具磨损预测流水线（4 节点线性 DAG）
+#
+# 典型场景：基于 PHM2010 / 自采 6061-T6 数据训练 LTC 磨损预测模型，
+# 评估后在指定数据集上生成 R²/MAE/PCC 指标报告。
+#
+# 节点拓扑：
+#   load_dataset → train_model → evaluate_model → generate_report
+#
+# 使用方式：
+#   POST /api/v1/workflows/run
+#   body.spec 直接使用本文件的 dict 形式，或在 body 中传 template_id 引用。
+name: 刀具磨损预测流水线
+version: "1.0.0"
+description: |
+  端到端刀具磨损预测：数据加载 → LTC 模型训练 → 指标评估 → 报告生成。
+  覆盖 6061-T6 / TC4 / HRC52 / 45_Steel / 304_SS 五种材料，输出 R²/MAE/PCC 三项指标。
+
+# 工作流级输入：可被 run 请求的 inputs 字段覆盖
+inputs:
+  dataset:
+    type: dataset
+    uri: "dataset://phm2010/c6"
+    metadata:
+      material: "6061-T6"
+      sampling_rate_hz: 50000
+      cuts: 315
+
+# 工作流级输出：引用最终节点的产物
+outputs:
+  wear_report: "${generate_report.report_artifact}"
+  best_metrics: "${evaluate_model.metrics_artifact}"
+
+edges:
+  - upstream: load_dataset
+    downstream: train_model
+  - upstream: train_model
+    downstream: evaluate_model
+  - upstream: evaluate_model
+    downstream: generate_report
+
+nodes:
+  - node_id: load_dataset
+    task_type: dataset_loader
+    params:
+      loader_type: "phm2010"
+      material_filter: "6061-T6"
+      normalize: true
+      split_ratio: [0.7, 0.15, 0.15]
+    timeout_seconds: 600
+
+  - node_id: train_model
+    task_type: ltc_trainer
+    params:
+      model_type: "ltc"
+      hidden_size: 64
+      epochs: 50
+      batch_size: 32
+      learning_rate: 0.001
+      seed: 42
+      use_pinn_loss: true
+      lambda_pcc: 0.1
+    inputs:
+      train_split: "${load_dataset.train_split}"
+      val_split: "${load_dataset.val_split}"
+    retry: 1
+    timeout_seconds: 7200
+
+  - node_id: evaluate_model
+    task_type: model_evaluator
+    params:
+      metrics: ["mae", "rmse", "r2", "pcc"]
+      save_predictions: true
+    inputs:
+      test_split: "${load_dataset.test_split}"
+      trained_model: "${train_model.model_artifact}"
+    timeout_seconds: 1800
+
+  - node_id: generate_report
+    task_type: report_generator
+    params:
+      template: "tool_wear_evaluation.md"
+      include_plots: true
+      language: "zh-CN"
+    inputs:
+      metrics: "${evaluate_model.metrics_artifact}"
+      predictions: "${evaluate_model.predictions_artifact}"
+    timeout_seconds: 600
+
+metadata:
+  max_concurrent: 2
+  tags: ["tool_wear", "ltc", "training"]
+  author: "lingjing-team"
+  minimum_dataset_version: "v1.0.0"

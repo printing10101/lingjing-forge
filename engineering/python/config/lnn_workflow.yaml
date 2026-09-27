@@ -1,0 +1,75 @@
+# LNN Workflow Configuration
+# 混合工作流与LNN引擎配置文件
+
+lnn:
+  enabled: true
+  models_dir: "models/lnn"
+  default_device: "cuda"  # cpu | cuda | mps | auto
+  cache_size: 10
+  enable_amp: true
+  max_retry_count: 3
+
+  models:
+    cfc_fast:
+      type: "cfc"
+      path: "cfc_fast_v1.pt"
+      enabled: true
+      input_dim: 128
+      output_dim: 10
+      hidden_dim: 256
+      num_layers: 2
+      dropout_rate: 0.1
+    ltc_timeseries:
+      type: "ltc"
+      path: "ltc_timeseries_v1.pt"
+      enabled: true
+      input_dim: 64
+      output_dim: 32
+      hidden_dim: 128
+      temporal_horizon: 1000
+    hybrid_multimodal:
+      type: "hybrid_lnn"
+      path: "hybrid_multimodal_v1.pt"
+      enabled: true
+      input_dim: 256
+      output_dim: 10
+      hidden_dim: 512
+      num_layers: 3
+    cutting_force:
+      type: "cfc"
+      path: "cutting_force_v1.pt"
+      enabled: true
+    wear_prediction:
+      # LNN 神经网络磨损预测模型（基于 LTC）
+      # 注意：此处的 type: "ltc" 是 LNN 模型类型，与 app/services/tool_wear_predictor.py
+      # 中基于 sklearn 的传统 ML 磨损预测服务（model_type: random_forest/xgboost/svm 等）
+      # 是两套独立的系统，命名空间互不相关，不应混淆。
+      type: "ltc"
+      path: "wear_prediction_v1.pt"
+      enabled: true
+    surface_roughness:
+      type: "hybrid_lnn"
+      path: "surface_roughness_v1.pt"
+      enabled: false
+
+  thresholds:
+    quick: 0.85      # 快速路径置信度阈值
+    hybrid: 0.60     # 混合路径置信度阈值
+    complexity: 3    # 复杂度阈值
+    fallback: 0.50   # 降级触发阈值
+    confidence: 0.70 # 路由置信度阈值
+
+workflow:
+  enabled: true
+  max_steps: 10
+  timeout_seconds: 300
+  enable_fallback: true
+  fallback_engine: "Rule"
+  log_enabled: true
+  log_dir: "logs/workflows"
+
+environment:
+  name: "development"  # development | staging | production | testing
+  debug: true
+  # device_override: "cpu"    # 覆盖默认设备
+  # models_path_override: ""  # 覆盖模型路径

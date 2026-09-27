@@ -1,0 +1,24 @@
+{
+  "branch_id": "1801ad833a35",
+  "name": "test-branch",
+  "base_branch": null,
+  "template_data": {
+    "name": "Test"
+  },
+  "metadata": {
+    "type": "main"
+  },
+  "created_at": 1786812664.1623592,
+  "updated_at": 1786812664.1623592,
+  "commit_log": [
+    {
+      "action": "create",
+      "branch_name": "test-branch",
+      "timestamp": 1786812664.1623592,
+      "details": {
+        "base_branch": null,
+        "content_hash": "d2fd98c0bac0f47e"
+      }
+    }
+  ]
+}

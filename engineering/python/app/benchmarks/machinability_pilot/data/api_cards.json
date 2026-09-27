@@ -1,0 +1,552 @@
+[
+ {
+  "name": "Workplane.add",
+  "signature": "Workplane.add(self, obj)",
+  "doc": "Adds an object or a list of objects to the stack"
+ },
+ {
+  "name": "Workplane.all",
+  "signature": "Workplane.all(self: ~T) -> List[~T]",
+  "doc": "Return a list of all CQ objects on the stack."
+ },
+ {
+  "name": "Workplane.ancestors",
+  "signature": "Workplane.ancestors(self: ~T, kind: Literal['Vertex', 'Edge', 'Wire', 'Face', 'Shell', 'Solid', 'CompSolid', 'Compound'], tag: str | None = None) -> ~T",
+  "doc": "Select topological ancestors."
+ },
+ {
+  "name": "Workplane.apply",
+  "signature": "Workplane.apply(self: ~T, f: Callable[[Iterable[cadquery.occ_impl.geom.Vector | cadquery.occ_impl.geom.Location | cadquery.occ_impl.shapes.Shape | cadquery.sketch.Sketch]], Iterable[cadquery.occ_impl.geom.Vector | cadquery.occ_impl.geom.Location | cadquery.occ_impl.shapes.Shape | cadquery.sketch.Sketch]]) -> ~T",
+  "doc": "Apply a callable to all items at once."
+ },
+ {
+  "name": "Workplane.bezier",
+  "signature": "Workplane.bezier(self: ~T, listOfXYTuple: Iterable[Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector], forConstruction: bool = False, includeCurrent: bool = False, makeWire: bool = False) -> ~T",
+  "doc": "Make a cubic Bézier curve by the provided points (2D or 3D)."
+ },
+ {
+  "name": "Workplane.box",
+  "signature": "Workplane.box(self: ~T, length: float, width: float, height: float, centered: bool | Tuple[bool, bool, bool] = True, combine: bool | Literal['cut', 'a', 's'] = True, clean: bool = True) -> ~T",
+  "doc": "Return a 3d box with specified dimensions for each object on the stack."
+ },
+ {
+  "name": "Workplane.cboreHole",
+  "signature": "Workplane.cboreHole(self: ~T, diameter: float, cboreDiameter: float, cboreDepth: float, depth: float | None = None, clean: bool = True) -> ~T",
+  "doc": "Makes a counterbored hole for each item on the stack."
+ },
+ {
+  "name": "Workplane.center",
+  "signature": "Workplane.center(self: ~T, x: float, y: float) -> ~T",
+  "doc": "Shift local coordinates to the specified location."
+ },
+ {
+  "name": "Workplane.chamfer",
+  "signature": "Workplane.chamfer(self: ~T, length: float, length2: float | None = None) -> ~T",
+  "doc": "Chamfers a solid on the selected edges."
+ },
+ {
+  "name": "Workplane.circle",
+  "signature": "Workplane.circle(self: ~T, radius: float, forConstruction: bool = False) -> ~T",
+  "doc": "Make a circle for each item on the stack."
+ },
+ {
+  "name": "Workplane.clean",
+  "signature": "Workplane.clean(self: ~T) -> ~T",
+  "doc": "Cleans the current solid by removing unwanted edges from the\nfaces."
+ },
+ {
+  "name": "Workplane.close",
+  "signature": "Workplane.close(self: ~T) -> ~T",
+  "doc": "End construction, and attempt to build a closed wire."
+ },
+ {
+  "name": "Workplane.combine",
+  "signature": "Workplane.combine(self: ~T, clean: bool = True, glue: bool = False, tol: float | None = None) -> ~T",
+  "doc": "Attempts to combine all of the items on the stack into a single item."
+ },
+ {
+  "name": "Workplane.compounds",
+  "signature": "Workplane.compounds(self: ~T, selector: cadquery.selectors.Selector | str | None = None, tag: str | None = None) -> ~T",
+  "doc": "Select compounds on the stack, optionally filtering the selection. If there are multiple\nobjects on the stack, they are collected and a list of all the distinct compounds\nis returned."
+ },
+ {
+  "name": "Workplane.consolidateWires",
+  "signature": "Workplane.consolidateWires(self: ~T) -> ~T",
+  "doc": "Attempt to consolidate wires on the stack into a single.\nIf possible, a new object with the results are returned.\nif not possible, the wires remain separated"
+ },
+ {
+  "name": "Workplane.copyWorkplane",
+  "signature": "Workplane.copyWorkplane(self, obj: ~T) -> ~T",
+  "doc": "Copies the workplane from obj."
+ },
+ {
+  "name": "Workplane.cskHole",
+  "signature": "Workplane.cskHole(self: ~T, diameter: float, cskDiameter: float, cskAngle: float, depth: float | None = None, clean: bool = True) -> ~T",
+  "doc": "Makes a countersunk hole for each item on the stack."
+ },
+ {
+  "name": "Workplane.cut",
+  "signature": "Workplane.cut(self: ~T, toCut: ForwardRef('Workplane') | cadquery.occ_impl.shapes.Solid | cadquery.occ_impl.shapes.Compound, clean: bool = True, tol: float | None = None) -> ~T",
+  "doc": "Cuts the provided solid from the current solid, IE, perform a solid subtraction."
+ },
+ {
+  "name": "Workplane.cutBlind",
+  "signature": "Workplane.cutBlind(self: ~T, until: float | Literal['next', 'last'] | cadquery.occ_impl.shapes.Face, clean: bool = True, both: bool = False, taper: float | None = None) -> ~T",
+  "doc": "Use all un-extruded wires in the parent chain to create a prismatic cut from existing solid."
+ },
+ {
+  "name": "Workplane.cutEach",
+  "signature": "Workplane.cutEach(self: ~T, fcn: Callable[[cadquery.occ_impl.geom.Location], cadquery.occ_impl.shapes.Shape], useLocalCoords: bool = False, clean: bool = True) -> ~T",
+  "doc": "Evaluates the provided function at each point on the stack (ie, eachpoint)\nand then cuts the result from the context solid."
+ },
+ {
+  "name": "Workplane.cutThruAll",
+  "signature": "Workplane.cutThruAll(self: ~T, clean: bool = True, taper: float = 0) -> ~T",
+  "doc": "Use all un-extruded wires in the parent chain to create a prismatic cut from existing solid.\nCuts through all material in both normal directions of workplane."
+ },
+ {
+  "name": "Workplane.cylinder",
+  "signature": "Workplane.cylinder(self: ~T, height: float, radius: float, direct: Tuple[float, float, float] | cadquery.occ_impl.geom.Vector = Vector: (0.0, 0.0, 1.0), angle: float = 360, centered: bool | Tuple[bool, bool, bool] = True, combine: bool | Literal['cut', 'a', 's'] = True, clean: bool = True) -> ~T",
+  "doc": "Returns a cylinder with the specified radius and height for each point on the stack"
+ },
+ {
+  "name": "Workplane.each",
+  "signature": "Workplane.each(self: ~T, callback: Callable[[cadquery.occ_impl.geom.Vector | cadquery.occ_impl.geom.Location | cadquery.occ_impl.shapes.Shape | cadquery.sketch.Sketch], cadquery.occ_impl.shapes.Shape], useLocalCoordinates: bool = False, combine: bool | Literal['cut', 'a', 's'] = True, clean: bool = True) -> ~T",
+  "doc": "Runs the provided function on each value in the stack, and collects the return values into\na new CQ object."
+ },
+ {
+  "name": "Workplane.eachpoint",
+  "signature": "Workplane.eachpoint(self: ~T, arg: cadquery.occ_impl.shapes.Shape | ForwardRef('Workplane') | Callable[[cadquery.occ_impl.geom.Location], cadquery.occ_impl.shapes.Shape], useLocalCoordinates: bool = False, combine: bool | Literal['cut', 'a', 's'] = False, clean: bool = True) -> ~T",
+  "doc": "Same as each(), except arg is translated by the positions on the stack. If arg is a callback function, then the function is called for each point on the stack, and the resulting shape is used.\n:return: CadQuery object which contains a list of  vectors (points ) on its stack."
+ },
+ {
+  "name": "Workplane.edges",
+  "signature": "Workplane.edges(self: ~T, selector: cadquery.selectors.Selector | str | None = None, tag: str | None = None) -> ~T",
+  "doc": "Select the edges of objects on the stack, optionally filtering the selection. If there are\nmultiple objects on the stack, the edges of all objects are collected and a list of all the\ndistinct edges is returned."
+ },
+ {
+  "name": "Workplane.ellipse",
+  "signature": "Workplane.ellipse(self: ~T, x_radius: float, y_radius: float, rotation_angle: float = 0.0, forConstruction: bool = False) -> ~T",
+  "doc": "Make an ellipse for each item on the stack."
+ },
+ {
+  "name": "Workplane.ellipseArc",
+  "signature": "Workplane.ellipseArc(self: ~T, x_radius: float, y_radius: float, angle1: float = 360, angle2: float = 360, rotation_angle: float = 0.0, sense: Literal[-1, 1] = 1, forConstruction: bool = False, startAtCurrent: bool = True, makeWire: bool = False) -> ~T",
+  "doc": "Draw an elliptical arc with x and y radiuses either with start point at current point or\nor current point being the center of the arc"
+ },
+ {
+  "name": "Workplane.end",
+  "signature": "Workplane.end(self, n: int = 1) -> 'Workplane'",
+  "doc": "Return the nth parent of this CQ element"
+ },
+ {
+  "name": "Workplane.export",
+  "signature": "Workplane.export(self: ~T, fname: str, tolerance: float = 0.1, angularTolerance: float = 0.1, unit: Literal['MM', 'CM', 'M', 'KM', 'INCH', 'FT', 'MI', 'UM', 'NM'] = 'MM', outputUnit: Literal['MM', 'CM', 'M', 'KM', 'INCH', 'FT', 'MI', 'UM', 'NM'] | None = None, opt: Dict[str, Any] | None = None) -> ~T",
+  "doc": "Export Workplane to file."
+ },
+ {
+  "name": "Workplane.exportSvg",
+  "signature": "Workplane.exportSvg(self, fileName: str) -> None",
+  "doc": "Exports the first item on the stack as an SVG file"
+ },
+ {
+  "name": "Workplane.extrude",
+  "signature": "Workplane.extrude(self: ~T, until: float | Literal['next', 'last'] | cadquery.occ_impl.shapes.Face, combine: bool | Literal['cut', 'a', 's'] = True, clean: bool = True, both: bool = False, taper: float | None = None) -> ~T",
+  "doc": "Use all un-extruded wires in the parent chain to create a prismatic solid."
+ },
+ {
+  "name": "Workplane.faces",
+  "signature": "Workplane.faces(self: ~T, selector: cadquery.selectors.Selector | str | None = None, tag: str | None = None) -> ~T",
+  "doc": "Select the faces of objects on the stack, optionally filtering the selection. If there are\nmultiple objects on the stack, the faces of all objects are collected and a list of all the\ndistinct faces is returned."
+ },
+ {
+  "name": "Workplane.fillet",
+  "signature": "Workplane.fillet(self: ~T, radius: float) -> ~T",
+  "doc": "Fillets a solid on the selected edges."
+ },
+ {
+  "name": "Workplane.filter",
+  "signature": "Workplane.filter(self: ~T, f: Callable[[cadquery.occ_impl.geom.Vector | cadquery.occ_impl.geom.Location | cadquery.occ_impl.shapes.Shape | cadquery.sketch.Sketch], bool]) -> ~T",
+  "doc": "Filter items using a boolean predicate."
+ },
+ {
+  "name": "Workplane.findSolid",
+  "signature": "Workplane.findSolid(self, searchStack: bool = True, searchParents: bool = True) -> cadquery.occ_impl.shapes.Solid | cadquery.occ_impl.shapes.Compound",
+  "doc": "Finds the first solid object in the chain, searching from the current node\nbackwards through parents until one is found."
+ },
+ {
+  "name": "Workplane.first",
+  "signature": "Workplane.first(self: ~T) -> ~T",
+  "doc": "Return the first item on the stack"
+ },
+ {
+  "name": "Workplane.hLine",
+  "signature": "Workplane.hLine(self: ~T, distance: float, forConstruction: bool = False) -> ~T",
+  "doc": "Make a horizontal line from the current point the provided distance"
+ },
+ {
+  "name": "Workplane.hLineTo",
+  "signature": "Workplane.hLineTo(self: ~T, xCoord: float, forConstruction: bool = False) -> ~T",
+  "doc": "Make a horizontal line from the current point to the provided x coordinate."
+ },
+ {
+  "name": "Workplane.hole",
+  "signature": "Workplane.hole(self: ~T, diameter: float, depth: float | None = None, clean: bool = True) -> ~T",
+  "doc": "Makes a hole for each item on the stack."
+ },
+ {
+  "name": "Workplane.interpPlate",
+  "signature": "Workplane.interpPlate(self: ~T, surf_edges: Sequence[Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector] | Sequence[cadquery.occ_impl.shapes.Edge | cadquery.occ_impl.shapes.Wire] | ForwardRef('Workplane'), surf_pts: Sequence[Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector] = [], thickness: float = 0, combine: bool | Literal['cut', 'a', 's'] = False, clean: bool = True, degree: int = 3, nbPtsOnCur: int = 15, nbIter: int = 2, anisotropy: bool = False, tol2d: float = 1e-05, tol3d: float = 0.0001, tolAng: float = 0.01, tolCurv: float = 0.1, maxDeg: int = 8, maxSegments: int = 9) -> ~T",
+  "doc": "Returns a plate surface that is 'thickness' thick, enclosed by 'surf_edge_pts' points, and going\nthrough 'surf_pts' points.  Using pushPoints directly with interpPlate and combine=True, can be\nvery resource intensive depending on the complexity of the shape. In this case set combine=False."
+ },
+ {
+  "name": "Workplane.intersect",
+  "signature": "Workplane.intersect(self: ~T, toIntersect: ForwardRef('Workplane') | cadquery.occ_impl.shapes.Solid | cadquery.occ_impl.shapes.Compound, clean: bool = True, tol: float | None = None) -> ~T",
+  "doc": "Intersects the provided solid from the current solid."
+ },
+ {
+  "name": "Workplane.invoke",
+  "signature": "Workplane.invoke(self: ~T, f: Callable[[~T], ~T] | Callable[[~T], NoneType] | Callable[[], NoneType]) -> ~T",
+  "doc": "Invoke a callable mapping Workplane to Workplane or None. Supports also\ncallables that take no arguments such as breakpoint. Returns self if callable\nreturns None."
+ },
+ {
+  "name": "Workplane.item",
+  "signature": "Workplane.item(self: ~T, i: int) -> ~T",
+  "doc": "Return the ith item on the stack."
+ },
+ {
+  "name": "Workplane.largestDimension",
+  "signature": "Workplane.largestDimension(self) -> float",
+  "doc": "Finds the largest dimension in the stack."
+ },
+ {
+  "name": "Workplane.last",
+  "signature": "Workplane.last(self: ~T) -> ~T",
+  "doc": "Return the last item on the stack."
+ },
+ {
+  "name": "Workplane.line",
+  "signature": "Workplane.line(self: ~T, xDist: float, yDist: float, forConstruction: bool = False) -> ~T",
+  "doc": "Make a line from the current point to the provided point, using\ndimensions relative to the current point"
+ },
+ {
+  "name": "Workplane.lineTo",
+  "signature": "Workplane.lineTo(self: ~T, x: float, y: float, forConstruction: bool = False) -> ~T",
+  "doc": "Make a line from the current point to the provided point"
+ },
+ {
+  "name": "Workplane.loft",
+  "signature": "Workplane.loft(self: ~T, ruled: bool = False, combine: bool | Literal['cut', 'a', 's'] = True, clean: bool = True) -> ~T",
+  "doc": "Make a lofted solid, through the set of wires. NOTE: loft() has NO `sections`/`profiles` keyword: first stack ≥2 wires via chained .workplane(offset=h) + 2D shapes, then call .loft(ruled=False). Calling loft with <2 pending wires raises 'Nothing to loft'."
+ },
+ {
+  "name": "Workplane.map",
+  "signature": "Workplane.map(self: ~T, f: Callable[[cadquery.occ_impl.geom.Vector | cadquery.occ_impl.geom.Location | cadquery.occ_impl.shapes.Shape | cadquery.sketch.Sketch], cadquery.occ_impl.geom.Vector | cadquery.occ_impl.geom.Location | cadquery.occ_impl.shapes.Shape | cadquery.sketch.Sketch]) -> ~T",
+  "doc": "Apply a callable to every item separately."
+ },
+ {
+  "name": "Workplane.mirror",
+  "signature": "Workplane.mirror(self: ~T, mirrorPlane: Literal['XY', 'YX', 'XZ', 'ZX', 'YZ', 'ZY'] | Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector | cadquery.occ_impl.shapes.Face | ForwardRef('Workplane') = 'XY', basePointVector: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector | None = None, union: bool = False) -> ~T",
+  "doc": "Mirror a single CQ object."
+ },
+ {
+  "name": "Workplane.mirrorX",
+  "signature": "Workplane.mirrorX(self: ~T) -> ~T",
+  "doc": "Mirror entities around the x axis of the workplane plane."
+ },
+ {
+  "name": "Workplane.mirrorY",
+  "signature": "Workplane.mirrorY(self: ~T) -> ~T",
+  "doc": "Mirror entities around the y axis of the workplane plane."
+ },
+ {
+  "name": "Workplane.move",
+  "signature": "Workplane.move(self: ~T, xDist: float = 0, yDist: float = 0) -> ~T",
+  "doc": "Move the specified distance from the current point, without drawing."
+ },
+ {
+  "name": "Workplane.moveTo",
+  "signature": "Workplane.moveTo(self: ~T, x: float = 0, y: float = 0) -> ~T",
+  "doc": "Move to the specified point, without drawing."
+ },
+ {
+  "name": "Workplane.newObject",
+  "signature": "Workplane.newObject(self: ~T, objlist: Iterable[cadquery.occ_impl.geom.Vector | cadquery.occ_impl.geom.Location | cadquery.occ_impl.shapes.Shape | cadquery.sketch.Sketch]) -> ~T",
+  "doc": "Create a new workplane object from this one."
+ },
+ {
+  "name": "Workplane.offset2D",
+  "signature": "Workplane.offset2D(self: ~T, d: float, kind: Literal['arc', 'intersection', 'tangent'] = 'arc', forConstruction: bool = False) -> ~T",
+  "doc": "Creates a 2D offset wire."
+ },
+ {
+  "name": "Workplane.parametricCurve",
+  "signature": "Workplane.parametricCurve(self: ~T, func: Callable[[float], Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector], N: int = 400, start: float = 0, stop: float = 1, tol: float = 1e-06, minDeg: int = 1, maxDeg: int = 6, smoothing: Tuple[float, float, float] | None = (1, 1, 1), makeWire: bool = True) -> ~T",
+  "doc": "Create a spline curve approximating the provided function. NOTE: parametricCurve(func, N=400, start=0, stop=1, ...) — there is no `step`/`startParam`/`end` keyword; func maps t∈[start,stop] to (x,y) or (x,y,z)."
+ },
+ {
+  "name": "Workplane.parametricSurface",
+  "signature": "Workplane.parametricSurface(self: ~T, func: Callable[[float, float], Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector], N: int = 20, start: float = 0, stop: float = 1, tol: float = 0.01, minDeg: int = 1, maxDeg: int = 6, smoothing: Tuple[float, float, float] | None = (1, 1, 1)) -> ~T",
+  "doc": "Create a spline surface approximating the provided function."
+ },
+ {
+  "name": "Workplane.placeSketch",
+  "signature": "Workplane.placeSketch(self: ~T, *sketches: cadquery.sketch.Sketch) -> ~T",
+  "doc": "Place the provided sketch(es) based on the current items on the stack."
+ },
+ {
+  "name": "Workplane.polarArray",
+  "signature": "Workplane.polarArray(self: ~T, radius: float, startAngle: float, angle: float, count: int, fill: bool = True, rotate: bool = True) -> ~T",
+  "doc": "Creates a polar array of points and pushes them onto the stack.\nThe zero degree reference angle is located along the local X-axis."
+ },
+ {
+  "name": "Workplane.polarLine",
+  "signature": "Workplane.polarLine(self: ~T, distance: float, angle: float, forConstruction: bool = False) -> ~T",
+  "doc": "Make a line of the given length, at the given angle from the current point"
+ },
+ {
+  "name": "Workplane.polarLineTo",
+  "signature": "Workplane.polarLineTo(self: ~T, distance: float, angle: float, forConstruction: bool = False) -> ~T",
+  "doc": "Make a line from the current point to the given polar coordinates"
+ },
+ {
+  "name": "Workplane.polygon",
+  "signature": "Workplane.polygon(self: ~T, nSides: int, diameter: float, forConstruction: bool = False, circumscribed: bool = False) -> ~T",
+  "doc": "Make a polygon for each item on the stack."
+ },
+ {
+  "name": "Workplane.polyline",
+  "signature": "Workplane.polyline(self: ~T, listOfXYTuple: Sequence[Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector], forConstruction: bool = False, includeCurrent: bool = False) -> ~T",
+  "doc": "Create a polyline from a list of points"
+ },
+ {
+  "name": "Workplane.pushPoints",
+  "signature": "Workplane.pushPoints(self: ~T, pntList: Iterable[Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector | cadquery.occ_impl.geom.Location]) -> ~T",
+  "doc": "Pushes a list of points onto the stack as vertices.\nThe points are in the 2D coordinate space of the workplane face"
+ },
+ {
+  "name": "Workplane.radiusArc",
+  "signature": "Workplane.radiusArc(self: ~T, endPoint: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector, radius: float, forConstruction: bool = False) -> ~T",
+  "doc": "Draw an arc from the current point to endPoint with an arc defined by the radius."
+ },
+ {
+  "name": "Workplane.rarray",
+  "signature": "Workplane.rarray(self: ~T, xSpacing: float, ySpacing: float, xCount: int, yCount: int, center: bool | Tuple[bool, bool] = True) -> ~T",
+  "doc": "Creates an array of points and pushes them onto the stack.\nIf you want to position the array at another point, create another workplane\nthat is shifted to the position you would like to use as a reference"
+ },
+ {
+  "name": "Workplane.rect",
+  "signature": "Workplane.rect(self: ~T, xLen: float, yLen: float, centered: bool | Tuple[bool, bool] = True, forConstruction: bool = False) -> ~T",
+  "doc": "Make a rectangle for each item on the stack."
+ },
+ {
+  "name": "Workplane.revolve",
+  "signature": "Workplane.revolve(self: ~T, angleDegrees: float = 360.0, axisStart: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector | None = None, axisEnd: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector | None = None, combine: bool | Literal['cut', 'a', 's'] = True, clean: bool = True) -> ~T",
+  "doc": "Use all un-revolved wires in the parent chain to create a solid."
+ },
+ {
+  "name": "Workplane.rotate",
+  "signature": "Workplane.rotate(self: ~T, axisStartPoint: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector, axisEndPoint: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector, angleDegrees: float) -> ~T",
+  "doc": "Returns a copy of all of the items on the stack rotated through and angle around the axis\nof rotation."
+ },
+ {
+  "name": "Workplane.rotateAboutCenter",
+  "signature": "Workplane.rotateAboutCenter(self: ~T, axisEndPoint: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector, angleDegrees: float) -> ~T",
+  "doc": "Rotates all items on the stack by the specified angle, about the specified axis"
+ },
+ {
+  "name": "Workplane.sagittaArc",
+  "signature": "Workplane.sagittaArc(self: ~T, endPoint: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector, sag: float, forConstruction: bool = False) -> ~T",
+  "doc": "Draw an arc from the current point to endPoint with an arc defined by the sag (sagitta)."
+ },
+ {
+  "name": "Workplane.section",
+  "signature": "Workplane.section(self: ~T, height: float = 0.0) -> ~T",
+  "doc": "Slices current solid at the given height."
+ },
+ {
+  "name": "Workplane.shell",
+  "signature": "Workplane.shell(self: ~T, thickness: float, kind: Literal['arc', 'intersection'] = 'arc') -> ~T",
+  "doc": "Remove the selected faces to create a shell of the specified thickness."
+ },
+ {
+  "name": "Workplane.shells",
+  "signature": "Workplane.shells(self: ~T, selector: cadquery.selectors.Selector | str | None = None, tag: str | None = None) -> ~T",
+  "doc": "Select the shells of objects on the stack, optionally filtering the selection. If there are\nmultiple objects on the stack, the shells of all objects are collected and a list of all the\ndistinct shells is returned."
+ },
+ {
+  "name": "Workplane.siblings",
+  "signature": "Workplane.siblings(self: ~T, kind: Literal['Vertex', 'Edge', 'Wire', 'Face', 'Shell', 'Solid', 'CompSolid', 'Compound'], level: int = 1, tag: str | None = None) -> ~T",
+  "doc": "Select topological siblings."
+ },
+ {
+  "name": "Workplane.size",
+  "signature": "Workplane.size(self) -> int",
+  "doc": "Return the number of objects currently on the stack"
+ },
+ {
+  "name": "Workplane.sketch",
+  "signature": "Workplane.sketch(self: ~T) -> cadquery.sketch.Sketch",
+  "doc": "Initialize and return a sketch"
+ },
+ {
+  "name": "Workplane.slot2D",
+  "signature": "Workplane.slot2D(self: ~T, length: float, diameter: float, angle: float = 0) -> ~T",
+  "doc": "Creates a rounded slot for each point on the stack."
+ },
+ {
+  "name": "Workplane.solids",
+  "signature": "Workplane.solids(self: ~T, selector: cadquery.selectors.Selector | str | None = None, tag: str | None = None) -> ~T",
+  "doc": "Select the solids of objects on the stack, optionally filtering the selection. If there are\nmultiple objects on the stack, the solids of all objects are collected and a list of all the\ndistinct solids is returned."
+ },
+ {
+  "name": "Workplane.sort",
+  "signature": "Workplane.sort(self: ~T, key: Callable[[cadquery.occ_impl.geom.Vector | cadquery.occ_impl.geom.Location | cadquery.occ_impl.shapes.Shape | cadquery.sketch.Sketch], Any]) -> ~T",
+  "doc": "Sort items using a callable."
+ },
+ {
+  "name": "Workplane.sphere",
+  "signature": "Workplane.sphere(self: ~T, radius: float, direct: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector = (0, 0, 1), angle1: float = -90, angle2: float = 90, angle3: float = 360, centered: bool | Tuple[bool, bool, bool] = True, combine: bool | Literal['cut', 'a', 's'] = True, clean: bool = True) -> ~T",
+  "doc": "Returns a 3D sphere with the specified radius for each point on the stack."
+ },
+ {
+  "name": "Workplane.spline",
+  "signature": "Workplane.spline(self: ~T, listOfXYTuple: Iterable[Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector], tangents: Sequence[Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector] | None = None, periodic: bool = False, parameters: Sequence[float] | None = None, scale: bool = True, tol: float | None = None, forConstruction: bool = False, includeCurrent: bool = False, makeWire: bool = False) -> ~T",
+  "doc": "Create a spline interpolated through the provided points (2D or 3D)."
+ },
+ {
+  "name": "Workplane.splineApprox",
+  "signature": "Workplane.splineApprox(self: ~T, points: Iterable[Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector], tol: float | None = 1e-06, minDeg: int = 1, maxDeg: int = 6, smoothing: Tuple[float, float, float] | None = (1, 1, 1), forConstruction: bool = False, includeCurrent: bool = False, makeWire: bool = False) -> ~T",
+  "doc": "Create a spline interpolated through the provided points (2D or 3D)."
+ },
+ {
+  "name": "Workplane.split",
+  "signature": "Workplane.split(self: ~T, *args, **kwargs) -> ~T",
+  "doc": "Splits a solid on the stack into two parts, optionally keeping the separate parts."
+ },
+ {
+  "name": "Workplane.sweep",
+  "signature": "Workplane.sweep(self: ~T, path: ForwardRef('Workplane') | cadquery.occ_impl.shapes.Wire | cadquery.occ_impl.shapes.Edge, multisection: bool = False, sweepAlongWires: bool | None = None, makeSolid: bool = True, isFrenet: bool = False, combine: bool | Literal['cut', 'a', 's'] = True, clean: bool = True, transition: Literal['right', 'round', 'transformed'] = 'right', normal: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector | None = None, auxSpine: ForwardRef('Workplane') | None = None) -> ~T",
+  "doc": "Use all un-extruded wires in the parent chain to create a swept solid."
+ },
+ {
+  "name": "Workplane.tag",
+  "signature": "Workplane.tag(self: ~T, name: str) -> ~T",
+  "doc": "Tags the current CQ object for later reference."
+ },
+ {
+  "name": "Workplane.tangentArcPoint",
+  "signature": "Workplane.tangentArcPoint(self: ~T, endpoint: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector, forConstruction: bool = False, relative: bool = True) -> ~T",
+  "doc": "Draw an arc as a tangent from the end of the current edge to endpoint."
+ },
+ {
+  "name": "Workplane.text",
+  "signature": "Workplane.text(self: ~T, txt: str, fontsize: float, distance: float, combine: bool | Literal['cut', 'a', 's'] = 'cut', clean: bool = True, font: str = 'Arial', fontPath: str | None = None, kind: Literal['regular', 'bold', 'italic'] = 'regular', halign: Literal['center', 'left', 'right'] = 'center', valign: Literal['center', 'top', 'bottom'] = 'center') -> ~T",
+  "doc": "Returns a 3D text."
+ },
+ {
+  "name": "Workplane.threePointArc",
+  "signature": "Workplane.threePointArc(self: ~T, point1: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector, point2: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector, forConstruction: bool = False) -> ~T",
+  "doc": "Draw an arc from the current point, through point1, and ending at point2"
+ },
+ {
+  "name": "Workplane.toOCC",
+  "signature": "Workplane.toOCC(self) -> Any",
+  "doc": "Directly returns the wrapped OCCT object."
+ },
+ {
+  "name": "Workplane.toPending",
+  "signature": "Workplane.toPending(self: ~T) -> ~T",
+  "doc": "Adds wires/edges to pendingWires/pendingEdges."
+ },
+ {
+  "name": "Workplane.toSvg",
+  "signature": "Workplane.toSvg(self, opts: Any = None) -> str",
+  "doc": "Returns svg text that represents the first item on the stack."
+ },
+ {
+  "name": "Workplane.transformed",
+  "signature": "Workplane.transformed(self: ~T, rotate: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector = (0, 0, 0), offset: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector = (0, 0, 0)) -> ~T",
+  "doc": "Create a new workplane based on the current one.\nThe origin of the new plane is located at the existing origin+offset vector, where offset is\ngiven in coordinates local to the current plane\nThe new plane is rotated through the angles specified by the components of the rotation\nvector."
+ },
+ {
+  "name": "Workplane.translate",
+  "signature": "Workplane.translate(self: ~T, vec: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector) -> ~T",
+  "doc": "Returns a copy of all of the items on the stack moved by the specified translation vector."
+ },
+ {
+  "name": "Workplane.twistExtrude",
+  "signature": "Workplane.twistExtrude(self: ~T, distance: float, angleDegrees: float, combine: bool | Literal['cut', 'a', 's'] = True, clean: bool = True) -> ~T",
+  "doc": "Extrudes a wire in the direction normal to the plane, but also twists by the specified\nangle over the length of the extrusion. NOTE: twistExtrude(distance: float, angleDegrees: float) — positional args only; there is no `twistAngle` keyword."
+ },
+ {
+  "name": "Workplane.union",
+  "signature": "Workplane.union(self: ~T, toUnion: ForwardRef('Workplane') | cadquery.occ_impl.shapes.Solid | cadquery.occ_impl.shapes.Compound | None = None, clean: bool = True, glue: bool = False, tol: float | None = None) -> ~T",
+  "doc": "Unions all of the items on the stack of toUnion with the current solid.\nIf there is no current solid, the items in toUnion are unioned together."
+ },
+ {
+  "name": "Workplane.vLine",
+  "signature": "Workplane.vLine(self: ~T, distance: float, forConstruction: bool = False) -> ~T",
+  "doc": "Make a vertical line from the current point the provided distance"
+ },
+ {
+  "name": "Workplane.vLineTo",
+  "signature": "Workplane.vLineTo(self: ~T, yCoord: float, forConstruction: bool = False) -> ~T",
+  "doc": "Make a vertical line from the current point to the provided y coordinate."
+ },
+ {
+  "name": "Workplane.val",
+  "signature": "Workplane.val(self) -> cadquery.occ_impl.geom.Vector | cadquery.occ_impl.geom.Location | cadquery.occ_impl.shapes.Shape | cadquery.sketch.Sketch",
+  "doc": "Return the first value on the stack. If no value is present, current plane origin is returned."
+ },
+ {
+  "name": "Workplane.vals",
+  "signature": "Workplane.vals(self) -> List[cadquery.occ_impl.geom.Vector | cadquery.occ_impl.geom.Location | cadquery.occ_impl.shapes.Shape | cadquery.sketch.Sketch]",
+  "doc": "get the values in the current list"
+ },
+ {
+  "name": "Workplane.vertices",
+  "signature": "Workplane.vertices(self: ~T, selector: cadquery.selectors.Selector | str | None = None, tag: str | None = None) -> ~T",
+  "doc": "Select the vertices of objects on the stack, optionally filtering the selection. If there\nare multiple objects on the stack, the vertices of all objects are collected and a list of\nall the distinct vertices is returned."
+ },
+ {
+  "name": "Workplane.wedge",
+  "signature": "Workplane.wedge(self: ~T, dx: float, dy: float, dz: float, xmin: float, zmin: float, xmax: float, zmax: float, pnt: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector = Vector: (0.0, 0.0, 0.0), dir: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector = Vector: (0.0, 0.0, 1.0), centered: bool | Tuple[bool, bool, bool] = True, combine: bool | Literal['cut', 'a', 's'] = True, clean: bool = True) -> ~T",
+  "doc": "Returns a 3D wedge with the specified dimensions for each point on the stack."
+ },
+ {
+  "name": "Workplane.wire",
+  "signature": "Workplane.wire(self: ~T, forConstruction: bool = False) -> ~T",
+  "doc": "Returns a CQ object with all pending edges connected into a wire."
+ },
+ {
+  "name": "Workplane.wires",
+  "signature": "Workplane.wires(self: ~T, selector: cadquery.selectors.Selector | str | None = None, tag: str | None = None) -> ~T",
+  "doc": "Select the wires of objects on the stack, optionally filtering the selection. If there are\nmultiple objects on the stack, the wires of all objects are collected and a list of all the\ndistinct wires is returned."
+ },
+ {
+  "name": "Workplane.workplane",
+  "signature": "Workplane.workplane(self: ~T, offset: float = 0.0, invert: bool = False, centerOption: Literal['CenterOfMass', 'ProjectedOrigin', 'CenterOfBoundBox'] = 'ProjectedOrigin', origin: Tuple[float, float] | Tuple[float, float, float] | cadquery.occ_impl.geom.Vector | None = None) -> ~T",
+  "doc": "Creates a new 2D workplane, located relative to the first face on the stack."
+ },
+ {
+  "name": "Workplane.workplaneFromTagged",
+  "signature": "Workplane.workplaneFromTagged(self, name: str) -> 'Workplane'",
+  "doc": "Copies the workplane from a tagged parent."
+ },
+ {
+  "name": "Wire.makeHelix",
+  "signature": "cq.Wire.makeHelix(pitch: float, height: float, radius: float, center=Vector(0,0,0), dir=Vector(0,0,1), angle=360.0, lefthand=False) -> Wire",
+  "doc": "Create a helical wire. Sweep a profile along it with Workplane.sweep(path, isFrenet=True). The profile must lie on a plane whose normal matches the helix start tangent (+X at angle 0), e.g. cq.Workplane('XZ', origin=(radius, 0, 0))."
+ },
+ {
+  "name": "exporters.export",
+  "signature": "cq.exporters.export(w: Workplane | Shape, fname: str, exportType=None, tolerance=0.1, angularTolerance=0.1) -> None",
+  "doc": "Export to STEP/STL/OBJ/GLTF; format inferred from file suffix when exportType is None."
+ },
+ {
+  "name": "importers.importStep",
+  "signature": "cq.importers.importStep(fname: str) -> Workplane",
+  "doc": "Import a STEP file as a Workplane."
+ }
+]

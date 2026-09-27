@@ -1,0 +1,300 @@
+{
+  "timestamp": "2026-06-26 22:34:21",
+  "device": "cuda",
+  "input_dim": 2,
+  "experiments": {
+    "latency_statistics": {
+      "DL-LNN": {
+        "mean_ms": 1.0048,
+        "std_ms": 0.307,
+        "min_ms": 0.7679,
+        "max_ms": 2.898,
+        "p50_ms": 0.8947,
+        "p95_ms": 1.4894,
+        "p99_ms": 2.6539,
+        "num_runs": 500
+      },
+      "LSTM": {
+        "mean_ms": 0.4618,
+        "std_ms": 0.1187,
+        "min_ms": 0.3282,
+        "max_ms": 1.0675,
+        "p50_ms": 0.4108,
+        "p95_ms": 0.7037,
+        "p99_ms": 0.7815,
+        "num_runs": 500
+      },
+      "Transformer": {
+        "mean_ms": 1.4422,
+        "std_ms": 0.2738,
+        "min_ms": 1.0513,
+        "max_ms": 2.5111,
+        "p50_ms": 1.3894,
+        "p95_ms": 1.9657,
+        "p99_ms": 2.2144,
+        "num_runs": 500
+      },
+      "PINN": {
+        "mean_ms": 0.2593,
+        "std_ms": 0.0557,
+        "min_ms": 0.2129,
+        "max_ms": 0.5068,
+        "p50_ms": 0.2353,
+        "p95_ms": 0.3847,
+        "p99_ms": 0.4688,
+        "num_runs": 500
+      },
+      "BPNN": {
+        "mean_ms": 0.286,
+        "std_ms": 0.0681,
+        "min_ms": 0.2374,
+        "max_ms": 0.9892,
+        "p50_ms": 0.2614,
+        "p95_ms": 0.4198,
+        "p99_ms": 0.5263,
+        "num_runs": 500
+      }
+    },
+    "batch_throughput": {
+      "DL-LNN": {
+        "1": {
+          "throughput_samples_per_sec": 1079.92,
+          "avg_latency_per_sample_ms": 0.926,
+          "total_time_sec": 0.0926,
+          "num_batches": 100
+        },
+        "8": {
+          "throughput_samples_per_sec": 6901.33,
+          "avg_latency_per_sample_ms": 0.1449,
+          "total_time_sec": 0.1159,
+          "num_batches": 100
+        },
+        "16": {
+          "throughput_samples_per_sec": 17415.95,
+          "avg_latency_per_sample_ms": 0.0574,
+          "total_time_sec": 0.0919,
+          "num_batches": 100
+        },
+        "32": {
+          "throughput_samples_per_sec": 34005.18,
+          "avg_latency_per_sample_ms": 0.0294,
+          "total_time_sec": 0.0941,
+          "num_batches": 100
+        },
+        "64": {
+          "throughput_samples_per_sec": 72029.81,
+          "avg_latency_per_sample_ms": 0.0139,
+          "total_time_sec": 0.0889,
+          "num_batches": 100
+        },
+        "128": {
+          "throughput_samples_per_sec": 111543.54,
+          "avg_latency_per_sample_ms": 0.009,
+          "total_time_sec": 0.1148,
+          "num_batches": 100
+        }
+      },
+      "LSTM": {
+        "1": {
+          "throughput_samples_per_sec": 2518.06,
+          "avg_latency_per_sample_ms": 0.3971,
+          "total_time_sec": 0.0397,
+          "num_batches": 100
+        },
+        "8": {
+          "throughput_samples_per_sec": 22634.87,
+          "avg_latency_per_sample_ms": 0.0442,
+          "total_time_sec": 0.0353,
+          "num_batches": 100
+        },
+        "16": {
+          "throughput_samples_per_sec": 42271.46,
+          "avg_latency_per_sample_ms": 0.0237,
+          "total_time_sec": 0.0379,
+          "num_batches": 100
+        },
+        "32": {
+          "throughput_samples_per_sec": 89283.97,
+          "avg_latency_per_sample_ms": 0.0112,
+          "total_time_sec": 0.0358,
+          "num_batches": 100
+        },
+        "64": {
+          "throughput_samples_per_sec": 154946.8,
+          "avg_latency_per_sample_ms": 0.0065,
+          "total_time_sec": 0.0413,
+          "num_batches": 100
+        },
+        "128": {
+          "throughput_samples_per_sec": 228969.26,
+          "avg_latency_per_sample_ms": 0.0044,
+          "total_time_sec": 0.0559,
+          "num_batches": 100
+        }
+      },
+      "Transformer": {
+        "1": {
+          "throughput_samples_per_sec": 701.05,
+          "avg_latency_per_sample_ms": 1.4264,
+          "total_time_sec": 0.1426,
+          "num_batches": 100
+        },
+        "8": {
+          "throughput_samples_per_sec": 5949.47,
+          "avg_latency_per_sample_ms": 0.1681,
+          "total_time_sec": 0.1345,
+          "num_batches": 100
+        },
+        "16": {
+          "throughput_samples_per_sec": 10844.39,
+          "avg_latency_per_sample_ms": 0.0922,
+          "total_time_sec": 0.1475,
+          "num_batches": 100
+        },
+        "32": {
+          "throughput_samples_per_sec": 22397.75,
+          "avg_latency_per_sample_ms": 0.0446,
+          "total_time_sec": 0.1429,
+          "num_batches": 100
+        },
+        "64": {
+          "throughput_samples_per_sec": 48392.28,
+          "avg_latency_per_sample_ms": 0.0207,
+          "total_time_sec": 0.1323,
+          "num_batches": 100
+        },
+        "128": {
+          "throughput_samples_per_sec": 99117.47,
+          "avg_latency_per_sample_ms": 0.0101,
+          "total_time_sec": 0.1291,
+          "num_batches": 100
+        }
+      },
+      "PINN": {
+        "1": {
+          "throughput_samples_per_sec": 4640.61,
+          "avg_latency_per_sample_ms": 0.2155,
+          "total_time_sec": 0.0215,
+          "num_batches": 100
+        },
+        "8": {
+          "throughput_samples_per_sec": 34210.26,
+          "avg_latency_per_sample_ms": 0.0292,
+          "total_time_sec": 0.0234,
+          "num_batches": 100
+        },
+        "16": {
+          "throughput_samples_per_sec": 69725.89,
+          "avg_latency_per_sample_ms": 0.0143,
+          "total_time_sec": 0.0229,
+          "num_batches": 100
+        },
+        "32": {
+          "throughput_samples_per_sec": 129650.71,
+          "avg_latency_per_sample_ms": 0.0077,
+          "total_time_sec": 0.0247,
+          "num_batches": 100
+        },
+        "64": {
+          "throughput_samples_per_sec": 253496.47,
+          "avg_latency_per_sample_ms": 0.0039,
+          "total_time_sec": 0.0252,
+          "num_batches": 100
+        },
+        "128": {
+          "throughput_samples_per_sec": 581598.76,
+          "avg_latency_per_sample_ms": 0.0017,
+          "total_time_sec": 0.022,
+          "num_batches": 100
+        }
+      },
+      "BPNN": {
+        "1": {
+          "throughput_samples_per_sec": 4177.77,
+          "avg_latency_per_sample_ms": 0.2394,
+          "total_time_sec": 0.0239,
+          "num_batches": 100
+        },
+        "8": {
+          "throughput_samples_per_sec": 32386.3,
+          "avg_latency_per_sample_ms": 0.0309,
+          "total_time_sec": 0.0247,
+          "num_batches": 100
+        },
+        "16": {
+          "throughput_samples_per_sec": 64695.08,
+          "avg_latency_per_sample_ms": 0.0155,
+          "total_time_sec": 0.0247,
+          "num_batches": 100
+        },
+        "32": {
+          "throughput_samples_per_sec": 117310.22,
+          "avg_latency_per_sample_ms": 0.0085,
+          "total_time_sec": 0.0273,
+          "num_batches": 100
+        },
+        "64": {
+          "throughput_samples_per_sec": 238649.25,
+          "avg_latency_per_sample_ms": 0.0042,
+          "total_time_sec": 0.0268,
+          "num_batches": 100
+        },
+        "128": {
+          "throughput_samples_per_sec": 528231.5,
+          "avg_latency_per_sample_ms": 0.0019,
+          "total_time_sec": 0.0242,
+          "num_batches": 100
+        }
+      }
+    },
+    "continuous_inference": {
+      "DL-LNN": {
+        "total_inferences": 10612,
+        "actual_duration_sec": 10.0,
+        "inferences_per_second": 1061.2,
+        "avg_interval_ms": 0.9423,
+        "batch_size": 1,
+        "target_duration_sec": 10.0
+      },
+      "LSTM": {
+        "total_inferences": 24794,
+        "actual_duration_sec": 10.0001,
+        "inferences_per_second": 2479.37,
+        "avg_interval_ms": 0.4033,
+        "batch_size": 1,
+        "target_duration_sec": 10.0
+      },
+      "Transformer": {
+        "total_inferences": 7208,
+        "actual_duration_sec": 10.0001,
+        "inferences_per_second": 720.79,
+        "avg_interval_ms": 1.3874,
+        "batch_size": 1,
+        "target_duration_sec": 10.0
+      },
+      "PINN": {
+        "total_inferences": 40015,
+        "actual_duration_sec": 10.0002,
+        "inferences_per_second": 4001.42,
+        "avg_interval_ms": 0.2499,
+        "batch_size": 1,
+        "target_duration_sec": 10.0
+      },
+      "BPNN": {
+        "total_inferences": 35529,
+        "actual_duration_sec": 10.0001,
+        "inferences_per_second": 3552.86,
+        "avg_interval_ms": 0.2815,
+        "batch_size": 1,
+        "target_duration_sec": 10.0
+      }
+    },
+    "realtime_score": {
+      "DL-LNN": 1227.37,
+      "LSTM": 10780.04,
+      "Transformer": 1649.34,
+      "PINN": 38296.33,
+      "BPNN": 27900.98
+    }
+  }
+}

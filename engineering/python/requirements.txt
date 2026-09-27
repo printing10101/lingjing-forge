@@ -1,0 +1,159 @@
+# =============================================================================
+# 灵境制造 - Python 子目录运行时依赖
+# =============================================================================
+# 说明：
+#   注意：本文件为项目唯一的生产依赖清单，部署时直接使用 python/requirements.txt
+#   本文件保证运行时不会因缺失关键依赖（chromadb / slowapi / cryptography 等）
+#   而启动失败。
+# =============================================================================
+
+# 国内镜像加速：默认使用 PyPI 官方源。
+# 国内部署可通过 pip config 或 PIP_INDEX_URL 环境变量配置镜像源，例如：
+#   pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+#   export PIP_INDEX_URL=https://mirrors.aliyun.com/pypi/simple/
+
+# Core Framework
+fastapi==0.115.9         # Web 框架：API 服务与依赖注入；放宽至 0.115.9 以兼容 chromadb 1.0.0 的约束
+uvicorn[standard]==0.32.0  # ASGI 服务器（与根目录保持一致）
+pydantic==2.9.2          # 数据模型与配置解析
+pydantic-settings==2.5.2  # 配置管理（Settings 模型依赖）
+
+# 3D Geometry & Simulation
+trimesh==4.6.0           # 三角网格处理与体素化
+rtree==1.4.0             # 空间索引加速（trimesh 依赖）
+cadquery==2.5.2          # 参数化 CAD 几何生成
+Pillow==11.1.0           # 图像处理与 CV 几何参数提取
+ezdxf==1.3.5             # DXF 工程图文件解析（dxf_parser 依赖）
+
+# AI & Deep Learning
+# -----------------------------------------------------------------------------
+# 运行时依赖说明（实测校准 2026-08-03）：
+#   - LNN 模型推理：onnxruntime（工程侧消费训练好的 ONNX 模型，不依赖 torch）。
+#   - RAG 语义嵌入：sentence-transformers + transformers 在运行时硬依赖
+#     CPU-only torch（≈476MB）。torch 必须随桌面运行时分发，不可裁剪。
+#   - 重型传递依赖（实测均被 cadquery 顶层 import 拉起，不可裁剪）：
+#       * casadi（≈201MB）：cadquery/occ_impl/solver.py 顶层 import。
+#       * vtk / vtkmodules（≈117MB）：cadquery vis/assembly/shapes/exporters 顶层 import。
+#     cadquery 是 NL2CAD / CAD 几何生成的硬核心依赖，裁剪 casadi/vtk 会致
+#     `import cadquery` 失败、破坏核心功能。
+#   - torch 完整 CUDA 版（≈2GB）仅用于 research/ 训练环境，工程侧用 CPU-only 版。
+#   - 若需 GPU 推理加速，在 research/ 环境安装：
+#     pip install torch==2.5.1+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
+#   - ⚠ torch/numpy 按环境配对，禁止跨环境混装（2026-09-27 复核口径）：
+#     * 工程侧/桌面运行时：CPU torch 2.7.x + 本清单的 numpy>=2.1,<2.3
+#       （torch 2.7 的 from_numpy ABI 要求 numpy 2.x）
+#     * research/ 训练环境：torch==2.5.1+cpu/cu121 + numpy==1.26.4
+#       （torch 2.5.1 与 numpy 2.x 不兼容，research/requirements.txt 已 pin）
+onnxruntime==1.20.1      # ONNX 推理引擎（替代 torch，工程侧 LNN 模型推理）
+numpy>=2.1,<2.3          # torch 2.7.x 要求 numpy 2.x（from_numpy ABI）；chromadb 1.0 已兼容
+pandas==2.2.3            # 数据处理（PHM2010 数据集分析依赖）
+scikit-learn==1.6.1      # 传统 ML 模型（tool_wear_predictor 依赖）
+xgboost==2.1.3           # 梯度提升树（tool_wear_predictor 依赖；benchmarks/xgboost_baseline 已迁移到 research/）
+
+# Data & Config
+pyyaml==6.0.2            # YAML 配置文件解析（lnn_workflow.yaml 等）
+python-dotenv==1.0.1     # 环境变量管理
+packaging==24.2          # 版本解析（plugin_system, tool_wear_predictor 依赖）
+matplotlib==3.10.0       # 数据可视化
+seaborn==0.13.2          # 统计可视化
+networkx==3.4.2          # DAG 工作流编排（app/workflow/runner.py 依赖，ADR-005 阶段 1）
+
+# Database & Cache
+sqlalchemy==2.0.36       # ORM 框架
+psycopg2-binary==2.9.10  # PostgreSQL 同步驱动（迁移/管理脚本依赖）
+asyncpg==0.30.0          # PostgreSQL 异步驱动（生产部署 PostgreSQL 时必需）
+aiosqlite==0.20.0        # SQLite 异步驱动（桌面版 fallback）
+alembic==1.13.3           # 数据库迁移（启动钩子 _run_alembic_upgrade 依赖）
+greenlet==3.1.1           # SQLAlchemy 2.0 async 协程桥接依赖
+redis==5.2.1             # 任务进度/取消标志缓存
+taospy==2.7.0            # TDengine 时序数据库驱动
+
+# HTTP & Networking
+httpx==0.28.1            # 异步 HTTP 客户端（Provider Gateway 依赖 + lomo SDK）
+requests==2.32.3         # MTConnect Agent HTTP 客户端
+urllib3==2.3.0           # URL 处理库
+python-multipart==0.0.20  # 表单数据处理（FastAPI 文件上传）
+
+# CLI（阶段 5：lomo SDK CLI 入口，基于 typer + rich）
+typer==0.15.1            # CLI 框架（lomo 命令行工具依赖）
+rich==13.9.4             # 终端彩色输出与表格（typer[all] 依赖，lomo CLI 输出渲染）
+
+# XML Parsing（MTConnect Adapter - M0.3 任务依赖）
+lxml==5.3.0              # 高速 XML 解析
+
+# OPC UA Protocol（OPC UA Adapter 依赖）
+asyncua==1.1.5           # OPC UA 客户端库（异步实现）
+
+# Security
+cryptography==44.0.0     # 加密库（JWT 签名/验签依赖）
+PyJWT==2.9.0             # JWT 处理（替代已废弃的 python-jose，严格固定版本避免安全关键路径 API 漂移）
+bcrypt==4.2.1            # 密码哈希（4.x 原生 API）
+RestrictedPython==8.0    # 安全沙箱执行（Skill 动态代码编译，生产强制依赖）
+
+# LangChain Ecosystem
+langchain>=0.3.14,<0.4        # LangChain 核心（RAG / Agent 依赖）；放宽以兼容 numpy>=2
+langchain-core>=0.3.29,<0.4   # LangChain 核心库；放宽以兼容 numpy>=2
+
+# Protocol Buffers
+protobuf==5.29.3         # Protocol Buffers（gRPC / 模型序列化依赖）
+
+# PDF Processing
+pdfminer.six==20231228   # PDF 文本解析
+pdfplumber==0.11.4       # PDF 表格/版面处理
+
+# Spreadsheet Processing
+openpyxl==3.1.5          # Excel 解析（rag/excel_parser.py 依赖，P1-8 修复：原隐式依赖未声明）
+
+# Monitoring & Utils
+psutil==6.1.1            # 系统监控（predictor 性能采样依赖）
+h5py==3.12.1             # HDF5 文件处理（PHM2010 数据集依赖）
+
+# Document Generation
+python-docx==1.1.2       # Word 文档生成（实验报告）
+
+# Vector DB & Embedding（RAG 语义检索）
+chromadb==1.0.0          # 向量数据库引擎（0.6.3 依赖 np.float_，numpy 2.x 已移除，须 1.0+）
+sentence-transformers==3.3.1  # 嵌入模型（修复 CVE-2026-1839）
+transformers==4.48.0     # Hugging Face Transformers（4.46+ 修复 CVE-2026-1839）
+rank_bm25==0.2.2         # BM25 关键词检索（hybrid_search.py & reranker.py fallback）
+jieba==0.42.1            # 中文分词（检索质量关键依赖）
+
+# Rate Limiting
+slowapi==0.1.9           # 速率限制（内存存储，无需 Redis）
+
+# -----------------------------------------------------------------------------
+# CAM 软件二次校验（阶段 7 cam_validation）可选依赖
+# -----------------------------------------------------------------------------
+# 说明：cam_validation 模块通过 subprocess + JSON 协议解耦外部 CAM 软件，
+#       以下依赖均为「按车间实际部署的 CAM 软件选择性安装」，不强制要求。
+#       CamAdapter 内置自动降级到 manual 后端（永不阻塞任务）。
+#
+# 1. PyCAM（开源，default_cam_backend=pycam 时使用）
+#    调用方式：python <LNN_CAM_PYCAM_EXECUTABLE> <gcode_path> <controller_type>
+#    包装器脚本：python/scripts/cam_adapters/pycam/autorun_gcode_check.py
+#    安装命令：pip install pycam==0.6.4
+#    项目跟踪：https://github.com/VatFalk/PyCAM
+#    注意：PyCAM 0.6.x 是刀轨生成器（DXF/STL → G 代码），非完整 G 代码仿真器；
+#          无 __main__.py（python -m pycam 不可用），Importers/ 不支持 G 代码导入。
+#          包装器脚本自实现轻量 G 代码解析器，执行 4 项基础检查
+#          （工作空间边界 / 安全 Z / G0 材料内 / 刀轨连续性）。
+#          生产环境推荐优先使用 nx_open / powermill 后端。
+# pycam==0.6.4            # 可选：解开注释安装（仅在 default_cam_backend=pycam 时需要）
+#
+# 2. NX Open（Siemens，default_cam_backend=nx_open 时使用）
+#    无需 pip 安装，NX 安装目录自带 Python 解释器与 NXOpen 模块。
+#    配置方式：将 LNN_CAM_NX_OPEN_EXECUTABLE 指向 python/scripts/cam_adapters/
+#              nx_open/autorun_gcode_check.py，由 NX 自带 Python 执行。
+#    前置条件：车间机器已安装 NX（含 NX Open 授权）+ 控制器后处理配置。
+#
+# 3. PowerMill（Autodesk，default_cam_backend=powermill 时使用）
+#    无需 pip 安装，PowerMill 安装目录自带 pmill.exe 可执行文件。
+#    配置方式：将 LNN_CAM_POWERMILL_EXECUTABLE 指向 pmill.exe 路径，
+#              cam_adapter 通过 /run=autorun_gcode_check.mac 调用宏文件。
+#    前置条件：车间机器已安装 PowerMill（含刀具路径仿真授权）。
+#
+# 4. manual（默认兜底后端，无需任何外部依赖）
+#    生成 markdown 校验清单，工程师在前端回填校验结果。
+#    当上述 CAM 软件均不可用时，CamAdapter 自动降级到此后端。
+
+# 开发与测试依赖见 requirements-dev.txt（避免污染生产镜像）

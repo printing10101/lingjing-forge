@@ -1,0 +1,14 @@
+# PodDisruptionBudget - 保证自愿中断期间最小可用副本数
+# 确保滚动更新、节点维护、集群缩容等操作时至少保持 2 个副本可用
+# 避免全部 Pod 同时被驱逐导致服务不可用
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: lnn-api-pdb
+  labels:
+    app: lnn-api
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: lnn-api

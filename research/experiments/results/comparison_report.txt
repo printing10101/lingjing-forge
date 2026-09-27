@@ -1,0 +1,79 @@
+================================================================================
+论文与实验结果对比检查报告
+================================================================================
+
+一、实验完成情况
+--------------------------------------------------------------------------------
+✓ 主对比实验: 已完成
+  - 数据集数量: 5
+  - 数据集: PHM2010, NUAA, NIST, Benchmark-1, 自采6061-T6
+  - 模型数量: 9
+  - 模型: DL-LNN, LSTM, GRU, Transformer, CNN, PINN, gPINN, PeRCNN, BPNN
+  - 评估指标: MAE, RMSE, R2, MAPE, PCC
+
+✓ 跨条件泛化实验: 已完成
+  - LOMO (Leave-One-Material-Out):
+    · 材料数量: 6
+    · 材料: 6061-T6, 7075-T6, 2024-T3, 304SS, Ti6Al4V...
+    · 模型: DL-LNN, LSTM, GRU, Transformer
+  - LOCO (Leave-One-Condition-Out):
+    · 条件数量: 7
+    · 模型: DL-LNN, LSTM, GRU, Transformer
+
+✓ 消融实验: 已完成
+  - 配置数量: 5
+  - 配置: Full Model, w/o PCC Loss, w/o Pre-train, LTC → LSTM, w/o Gate
+
+✓ 时间常数分析: 已完成
+  - 网络层数: 3
+  - 全局统计: τ_mean=0.0794, τ_std=0.0163
+
+✓ 主动学习实验: 已完成
+  - 数据比例点: 10
+  - 包含随机基线对比: 是
+
+二、图表生成情况
+--------------------------------------------------------------------------------
+可视化图表:
+  ✓ main_results_synthetic.png
+  ✓ main_results_industrial.png
+  ✓ lomo_heatmap.png
+  ✓ loco_heatmap.png
+  ✓ ablation_study.png
+
+表格数据文件:
+  table1:
+    ✓ table1_synthetic_results.csv
+    ✓ table1_synthetic_results.tex
+  table2:
+    ✓ table2_industrial_results.csv
+    ✓ table2_industrial_results.tex
+  table3:
+    ✓ table3_lomo_average.csv
+  table4:
+    ✓ table4_loco_average.csv
+  table5:
+    ✓ table5_ablation_results.csv
+
+三、数据一致性检查
+--------------------------------------------------------------------------------
+主对比实验数据检查:
+  ✓ PHM2010: 9个模型, 5个指标
+  ✓ NUAA: 9个模型, 5个指标
+  ✓ NIST: 9个模型, 5个指标
+  ✓ Benchmark-1: 9个模型, 5个指标
+  ✓ 自采6061-T6: 9个模型, 5个指标
+
+时间常数数据检查:
+  ✓ Layer 1: τ_mean=0.0889, 128个τ值
+  ✓ Layer 2: τ_mean=0.0794, 128个τ值
+  ✓ Layer 3: τ_mean=0.0698, 128个τ值
+  ✓ Global: τ_mean=0.0794
+
+四、问题与建议
+--------------------------------------------------------------------------------
+✓ 未发现明显问题
+
+================================================================================
+报告生成完成
+================================================================================

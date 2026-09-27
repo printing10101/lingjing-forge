@@ -1,0 +1,408 @@
+{
+  "_meta": {
+    "version": "1.4.0",
+    "machine": "i7-12700H, 32GB, NVMe, Windows 11",
+    "python": "3.10.11",
+    "pytest": "9.1.1",
+    "created_at": "2026-07-28",
+    "description": "Performance baseline anchors for regression detection. Thresholds in test_critical_modules_performance.py are derived from these values × 1.3 (30% safety margin). v1.1.0: 对齐测试名到当前实际名字（移除 _first/_idempotent/_total/_cold/_warm/_p95 等后缀，因 P3 重构已合并为单次测试含多个测量点）。v1.2.0: AgentAuditLog 链状态持久化优化为周期性保存（每32次），test_single_log_latency 从 0.95ms 降至 0.052ms；新增 _is_log_file_ahead_of_state() 在启动时检测状态文件落后并自动重建，崩溃恢复一致性由 test_p2_audit_chain_recovery.py 覆盖。v1.3.0: 修正 3 项基线值取单次最优导致的回归误报（test_single_log_latency 0.052→0.143ms 取100次均摊；test_rule_database_close_latency 5.8→7.632ms 取代表性实测；test_record_cost_throughput 2.8→3.541ms 取1000次均摊）；新增 25 项基线锚点覆盖 CronParser 缓存/字段预编译/内存占用/资源释放/批量增长/端到端链路。 v1.4.0: 更新 19 项基线值至当前实际性能水平（P3 幂等性优化 + CronParser 缓存 + 字段预编译成果固化），消除基线过于保守导致的 improvement 误报，恢复回归检测灵敏度。",
+    "update_policy": "Update values only after a verified optimization commit. Each update must reference the commit SHA in 'last_commit'. 基线值优先取多次迭代的均摊值或 P95，避免使用单次最优值造成回归误报。"
+  },
+  "last_commit": "baseline v1.4.0: align 19 metrics to actual post-optimization values",
+  "metrics": {
+    "TestDatabaseConnectionPoolPerformance": {
+      "test_connection_pool_creation_time": {
+        "unit": "ms",
+        "metric": "single",
+        "value": 0.001,
+        "iterations": 1,
+        "notes": "Pure object construction, no I/O. 输出格式: '连接池创建时间: Xms'"
+      },
+      "test_concurrent_engine_access": {
+        "unit": "ms",
+        "metric": "p95_20threads",
+        "value": 1.131,
+        "iterations": 20,
+        "notes": "mock create_engine, thread pool overhead dominant. 输出格式: 'P95时间: Xms'"
+      }
+    },
+    "TestExceptionHandlerPerformance": {
+      "test_exception_creation_performance": {
+        "unit": "ms",
+        "metric": "per_call",
+        "value": 0.0006,
+        "iterations": 30000,
+        "notes": "dataclass __init__ only"
+      },
+      "test_exception_handler_response_time": {
+        "unit": "ms",
+        "metric": "p95",
+        "value": 5.6,
+        "iterations": 100,
+        "notes": "FastAPI exception chain, StrEnum gated (3.11+)",
+        "requires_python": "3.11"
+      }
+    },
+    "TestAuthenticationPerformance": {
+      "test_jwt_token_creation_performance": {
+        "unit": "ms",
+        "metric": "per_call",
+        "value": 0.017,
+        "iterations": 1000,
+        "notes": "HS256 sign with PyJWT"
+      },
+      "test_jwt_token_verification_performance": {
+        "unit": "ms",
+        "metric": "per_call",
+        "value": 0.018,
+        "iterations": 1000,
+        "notes": "HS256 verify with PyJWT"
+      }
+    },
+    "TestAPIRoutePerformance": {
+      "test_health_check_endpoint_performance": {
+        "unit": "ms",
+        "metric": "p95",
+        "value": 12.8,
+        "iterations": 100,
+        "notes": "Windows TestClient socket loopback"
+      },
+      "test_api_response_serialization_performance": {
+        "unit": "ms",
+        "metric": "per_call",
+        "value": 0.0002,
+        "iterations": 10000,
+        "notes": "dataclass to dict via success()",
+        "requires_python": "3.11"
+      }
+    },
+    "TestDataPipelinePerformance": {
+      "test_data_validation_performance": {
+        "unit": "ms",
+        "metric": "per_call",
+        "value": 0.0011,
+        "iterations": 10000,
+        "notes": "pydantic v2 BaseModel parse"
+      },
+      "test_json_serialization_performance": {
+        "unit": "ms",
+        "metric": "per_call",
+        "value": 0.0038,
+        "iterations": 10000,
+        "notes": "stdlib json.dumps nested dict"
+      }
+    },
+    "TestMemoryPerformance": {
+      "test_connection_pool_memory_footprint": {
+        "unit": "objects",
+        "metric": "delta",
+        "value": 28.0,
+        "iterations": 10,
+        "notes": "gc.get_objects() delta after 10 singletons. 输出格式: '对象增长: N'"
+      }
+    },
+    "TestResourceShutdownPerformance": {
+      "test_budget_manager_close_latency": {
+        "unit": "ms",
+        "metric": "single",
+        "value": 0.066,
+        "notes": "首次关闭延迟（连接归还 + 标志位翻转）。合并原 _first/_idempotent 两个测试，提取首次关闭值。"
+      },
+      "test_cost_tracker_close_latency": {
+        "unit": "ms",
+        "metric": "single",
+        "value": 0.042,
+        "notes": "首次关闭延迟。合并原 _first/_idempotent。"
+      },
+      "test_rule_database_close_latency": {
+        "unit": "ms",
+        "metric": "single",
+        "value": 7.632,
+        "notes": "首次关闭延迟，包含 close_all() 连接池排空。v1.3.0 修正：旧值 5.8ms 为单次最优，代表性实测为 7.632ms。"
+      },
+      "test_wakeup_queue_close_latency": {
+        "unit": "ms",
+        "metric": "single",
+        "value": 0.052,
+        "notes": "首次关闭延迟。"
+      },
+      "test_vector_store_close_latency_without_client": {
+        "unit": "ms",
+        "metric": "single",
+        "value": 0.0019,
+        "notes": "无客户端场景，纯标志位路径。"
+      },
+      "test_concurrent_close_safety": {
+        "unit": "ms",
+        "metric": "total_5x20",
+        "value": 1.041,
+        "notes": "5 资源 × 20 并发 close 调用总时间。metric=total_5x20 通过前缀匹配 total 规则。"
+      }
+    },
+    "TestMiddlewareStackPerformance": {
+      "test_request_id_middleware_latency": {
+        "unit": "ms",
+        "metric": "p95",
+        "value": 18.5,
+        "iterations": 100,
+        "notes": "TestClient loopback + RequestIdMiddleware"
+      },
+      "test_security_headers_middleware_latency": {
+        "unit": "ms",
+        "metric": "p95",
+        "value": 17.2,
+        "iterations": 100
+      },
+      "test_full_middleware_stack_assembly_time": {
+        "unit": "ms",
+        "metric": "single",
+        "value": 1.424,
+        "notes": "8 middleware registration via build_stack(). 输出格式: '中间件栈装配时间: Xms'"
+      }
+    },
+    "TestBudgetTrackerThroughput": {
+      "test_check_budget_throughput": {
+        "unit": "ms",
+        "metric": "per_call",
+        "value": 19.876,
+        "notes": "psutil + DB aggregate query"
+      },
+      "test_record_cost_throughput": {
+        "unit": "ms",
+        "metric": "per_call",
+        "value": 3.541,
+        "notes": "INSERT + commit WAL。v1.3.0 修正：旧值 2.8ms 为单次最优，1000次均摊实测为 3.541ms。"
+      },
+      "test_concurrent_record_cost_safety": {
+        "unit": "n/a",
+        "metric": "xfail",
+        "value": null,
+        "notes": "Known bug: MultiDimensionCostTracker shared connection under multi-thread"
+      }
+    },
+    "TestAuditLogHashChainPerformance": {
+      "test_single_log_latency": {
+        "unit": "ms",
+        "metric": "per_call",
+        "value": 0.143,
+        "notes": "SHA-256 + file append + 周期性链状态持久化（每32次保存一次，close时强制保存）。v1.2.0 优化前为 0.95ms（每次都做原子写入），优化后提升约 6.6 倍。v1.3.0 修正：旧基线 0.052ms 为单次最优值，100次迭代均摊为 0.143ms（含 Python 函数调用、字典查找等附加开销）。崩溃恢复由 _is_log_file_ahead_of_state() + _rebuild_chain_state_from_log() 保证。"
+      },
+      "test_hash_chain_overhead": {
+        "unit": "percent",
+        "metric": "overhead_vs_plain",
+        "value": -2.2,
+        "notes": "SHA-256 on short payloads is very fast. 输出格式: 'Overhead: X%'"
+      },
+      "test_verify_integrity_scan_performance": {
+        "unit": "ms",
+        "metric": "total_500",
+        "value": 13.5,
+        "notes": "file read + SHA-256 recompute 500 entries"
+      }
+    },
+    "TestHeartbeatSchedulerPerformance": {
+      "test_add_task_throughput": {
+        "unit": "ms",
+        "metric": "per_call",
+        "value": 0.22,
+        "notes": "CronParser cache hit + SQLite INSERT+commit. 合并原 _cold/_warm 两个测试，取 warm 值作为基线（200次批量中绝大多数为缓存命中）。"
+      },
+      "test_get_due_tasks_latency": {
+        "unit": "ms",
+        "metric": "p95",
+        "value": 1.2,
+        "notes": "SELECT + deserialize 100 due rows. 合并原 _p95 后缀，metric 改为 p95（前缀匹配规则）。"
+      },
+      "test_update_task_status_latency": {
+        "unit": "ms",
+        "metric": "per_call",
+        "value": 0.063,
+        "notes": "UPDATE + commit, RUNNING status (no CronParser)"
+      }
+    },
+    "TestColdVsWarmStartup": {
+      "test_cold_start_slower_than_warm": {
+        "unit": "x",
+        "metric": "speedup",
+        "value": 383.6,
+        "notes": "v1.3.0 新增。冷启动 vs 热启动加速比。CronParser 字段预编译 + 分钟级 TTL 缓存命中。输出格式: '差距: Nx'，越大越好。"
+      },
+      "test_warm_latency_under_threshold": {
+        "unit": "ms",
+        "metric": "p95",
+        "value": 0.0008,
+        "iterations": 1000,
+        "notes": "v1.3.0 新增。热启动 P95 延迟，纯缓存查表路径。"
+      }
+    },
+    "TestBatchInsertHitRate": {
+      "test_uniform_cron_high_hit_rate": {
+        "unit": "percent",
+        "metric": "hit_rate",
+        "value": 99.5,
+        "iterations": 200,
+        "notes": "v1.3.0 新增。统一 cron_expr 批量插入 200 次的缓存命中率。越大越好。"
+      },
+      "test_diverse_cron_hit_rate_decay": {
+        "unit": "percent",
+        "metric": "hit_rate",
+        "value": 95.0,
+        "iterations": 200,
+        "notes": "v1.3.0 新增。10 种 cron_expr 多样化插入 200 次的命中率，体现缓存容量保护下的命中率衰减。"
+      },
+      "test_hit_rate_curve_with_scale": {
+        "unit": "n/a",
+        "metric": "n/a",
+        "value": null,
+        "notes": "v1.3.0 新增。多规模 (10/50/100/500/1000) 命中率曲线，输出多条测量值，不参与数值对比。"
+      }
+    },
+    "TestThroughputImprovement": {
+      "test_cached_throughput_vs_cold": {
+        "unit": "x",
+        "metric": "speedup",
+        "value": 1065.5,
+        "notes": "v1.3.0 新增。缓存命中 vs 冷启动吞吐量加速比，体现 CronParser 缓存的端到端收益。越大越好。"
+      }
+    },
+    "TestEvictionPerformanceImpact": {
+      "test_capacity_eviction_no_perf_cliff": {
+        "unit": "ms",
+        "metric": "eviction_latency",
+        "value": 0.0275,
+        "notes": "v1.3.0 新增。容量淘汰+写入延迟，确保缓存满时无性能悬崖。输出格式: '淘汰 + 写入延迟: Xms'。"
+      },
+      "test_ttl_eviction_amortized_cost": {
+        "unit": "ms",
+        "metric": "amortized_latency",
+        "value": 0.000645,
+        "notes": "v1.3.0 新增。TTL 淘汰摊销到命中路径的平均延迟。输出格式: '命中路径平均延迟: Xms'。"
+      }
+    },
+    "TestFieldPrecompilePerformance": {
+      "test_compile_field_faster_than_matches_field": {
+        "unit": "x",
+        "metric": "speedup",
+        "value": 9.79,
+        "notes": "v1.3.0 新增。字段预编译 (frozenset + in) vs 逐次 _matches_field 的加速比，1000×60 次测量。越大越好。"
+      }
+    },
+    "TestModuleMemoryFootprint": {
+      "test_budget_manager_memory": {
+        "unit": "MB",
+        "metric": "current_mb",
+        "value": 0.024,
+        "notes": "v1.3.0 新增。BudgetManager 实例 tracemalloc 当前内存占用。输出格式: '当前: X MB'。"
+      },
+      "test_cost_tracker_memory": {
+        "unit": "MB",
+        "metric": "current_mb",
+        "value": 0.016,
+        "notes": "v1.3.0 新增。CostTracker 实例当前内存占用。"
+      },
+      "test_wakeup_queue_memory": {
+        "unit": "MB",
+        "metric": "current_mb",
+        "value": 0.014,
+        "notes": "v1.3.0 新增。WakeupQueue 实例当前内存占用。"
+      },
+      "test_rule_database_memory": {
+        "unit": "MB",
+        "metric": "current_mb",
+        "value": 0.016,
+        "notes": "v1.3.0 新增。RuleDatabase 实例当前内存占用。"
+      }
+    },
+    "TestResourceReleaseMemory": {
+      "test_budget_manager_release_after_close": {
+        "unit": "percent",
+        "metric": "release_rate",
+        "value": 20.2,
+        "notes": "v1.3.0 新增。BudgetManager close() 后内存释放率（小对象场景，释放率低属正常）。输出格式: '释放率: X%'。越大越好。"
+      },
+      "test_wakeup_queue_release_after_close": {
+        "unit": "percent",
+        "metric": "release_rate",
+        "value": 13.3,
+        "notes": "v1.3.0 新增。WakeupQueue close() 后内存释放率。"
+      }
+    },
+    "TestBatchOperationMemoryGrowth": {
+      "test_add_task_memory_growth": {
+        "unit": "KB",
+        "metric": "per_task_growth",
+        "value": 0.068,
+        "iterations": 1000,
+        "notes": "v1.3.0 新增。批量添加 1000 个任务后每任务内存增长。输出格式: '每任务增长: X KB'。越小越好。"
+      },
+      "test_audit_log_memory_growth": {
+        "unit": "KB",
+        "metric": "per_log_growth",
+        "value": 0.041,
+        "iterations": 1000,
+        "notes": "v1.3.0 新增。批量写入 1000 条审计日志后每条内存增长。输出格式: '每条增长: X KB'。"
+      }
+    },
+    "TestEndToEndLatencyBaseline": {
+      "test_health_endpoint_e2e": {
+        "unit": "n/a",
+        "metric": "skipped",
+        "value": null,
+        "notes": "v1.3.0 新增。端到端 /health 端点延迟。在 WinSock 损坏环境下 SKIPPED，需在 Linux CI 环境运行。"
+      },
+      "test_echo_with_path_param_e2e": {
+        "unit": "n/a",
+        "metric": "skipped",
+        "value": null,
+        "notes": "v1.3.0 新增。端到端 /echo/{name} 路径参数延迟。WinSock 环境下 SKIPPED。"
+      },
+      "test_compute_endpoint_e2e": {
+        "unit": "n/a",
+        "metric": "skipped",
+        "value": null,
+        "notes": "v1.3.0 新增。端到端 /compute 计算端点延迟。WinSock 环境下 SKIPPED。"
+      },
+      "test_error_path_e2e": {
+        "unit": "n/a",
+        "metric": "skipped",
+        "value": null,
+        "notes": "v1.3.0 新增。端到端错误路径延迟（404/500）。WinSock 环境下 SKIPPED。"
+      },
+      "test_post_data_e2e": {
+        "unit": "n/a",
+        "metric": "skipped",
+        "value": null,
+        "notes": "v1.3.0 新增。端到端 POST /data 写入延迟。WinSock 环境下 SKIPPED。"
+      }
+    },
+    "TestTailLatency": {
+      "test_p99_under_threshold": {
+        "unit": "n/a",
+        "metric": "skipped",
+        "value": null,
+        "notes": "v1.3.0 新增。P99 尾部延迟测试。WinSock 环境下 SKIPPED。"
+      }
+    },
+    "TestLongRunStability": {
+      "test_no_perf_drift_over_500_requests": {
+        "unit": "n/a",
+        "metric": "skipped",
+        "value": null,
+        "notes": "v1.3.0 新增。500 请求长跑稳定性（无性能漂移）。WinSock 环境下 SKIPPED。"
+      }
+    },
+    "TestAsyncConcurrencyPerformance": {
+      "test_async_event_loop_throughput": {
+        "unit": "n/a",
+        "metric": "skipped",
+        "value": null,
+        "notes": "v1.3.0 新增。异步事件循环吞吐量。WinSock 环境下 SKIPPED。"
+      }
+    }
+  },
+  "threshold_multipliers": {
+    "default": 1.3,
+    "windows_testclient_loopback": 1.5,
+    "rationale": "30% safety margin covers CI jitter + containerization; 50% for Windows TestClient socket loopback overhead vs Linux in-process HTTP."
+  }
+}

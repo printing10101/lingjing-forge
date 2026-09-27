@@ -1,0 +1,65 @@
+﻿name: API Docs Sync Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'engineering/python/app/api/v1/**/*.py'
+      - 'engineering/python/app/models/**/*.py'
+      - 'docs/api-reference.md'
+      - 'docs/api-reference.md.tmpl'
+      - 'scripts/gen-api-docs.py'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-api-docs:
+    name: Check API Documentation Sync
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install and pull Git LFS files
+        run: |
+          git lfs install
+          git lfs pull
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run API documentation dry-run
+        run: python scripts/gen-api-docs.py --dry-run
+
+      - name: Generate temporary documentation
+        run: |
+          python scripts/gen-api-docs.py --output /tmp/api-reference-temp.md
+
+      - name: Compare documentation
+        run: |
+          if ! diff -q docs/api-reference.md /tmp/api-reference-temp.md > /dev/null 2>&1; then
+            echo "::error::API文档已过时，请运行scripts/gen-api-docs.py更新文档"
+            echo ""
+            echo "=== 差异摘要 ==="
+            diff --unified=3 docs/api-reference.md /tmp/api-reference-temp.md | head -50
+            echo ""
+            echo "=== 修复指引 ==="
+            echo "1. 在本地运行以下命令更新文档："
+            echo "   python scripts/gen-api-docs.py"
+            echo "2. 提交生成的 api-reference.md 文件："
+            echo "   git add docs/api-reference.md"
+            echo "   git commit -m 'chore: 更新 API 文档'"
+            echo "3. 推送更改以更新此 Pull Request"
+            exit 1
+          else
+            echo "API 文档已与代码保持同步"
+          fi

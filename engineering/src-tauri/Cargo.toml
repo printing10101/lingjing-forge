@@ -1,0 +1,48 @@
+[package]
+name = "lingjing-v4"
+version = "2.8.0"
+description = "灵境制造 V4 - AI驱动的3D建模与工艺规划系统"
+authors = ["灵境制造团队"]
+license = "Apache-2.0"
+edition = "2021"
+rust-version = "1.77.2"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "lingjing_v4_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+
+[dependencies]
+tauri = { version = "2.1", features = ["protocol-asset"] }
+tauri-plugin-shell = "2.0"
+tauri-plugin-dialog = "2.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["full"] }
+chrono = { version = "0.4", features = ["serde"] }
+log = "0.4"
+env_logger = "0.11"
+reqwest = { version = "0.12", features = ["json"], default-features = false }
+parking_lot = "0.12"
+
+[features]
+# this feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]
+# P0 安全修复：devtools 不再默认启用，release 构建不含 devtools，避免用户右键审查应用内部。
+# 开发时通过 `cargo tauri dev --features devtools` 启用。
+default = []
+devtools = ["tauri/devtools"]
+
+[profile.release]
+# panic = "abort"：合理的二进制体积优化，避免保留 unwind 符号表。
+# 副作用：panic 时不会 unwind 栈、不调用 Drop 析构函数；本项目将 panic 视为致命错误，影响可接受。
+panic = "abort"
+codegen-units = 1
+lto = true
+incremental = false
+opt-level = "s"
+strip = true

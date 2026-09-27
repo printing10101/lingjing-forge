@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灵境制造 — UI/数据/交互全面审计报告</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1f2330; --border:#2a2f3a;
+    --text:#e6e8ec; --muted:#9aa3b2; --accent:#4f8cff; --accent2:#22c55e;
+    --warn:#f59e0b; --danger:#ef4444; --purple:#a78bfa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;}
+  .wrap{max-width:1180px;margin:0 auto;padding:32px 24px 80px;}
+  h1{font-size:26px;margin:0 0 4px;font-weight:700;}
+  h2{font-size:20px;margin:40px 0 14px;padding-left:12px;border-left:4px solid var(--accent);}
+  h3{font-size:16px;margin:24px 0 10px;color:var(--accent);}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:20px 0 8px;}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+  .card .num{font-size:30px;font-weight:800;line-height:1.1;}
+  .card .lbl{color:var(--muted);font-size:13px;margin-top:6px;}
+  .card.good .num{color:var(--accent2);}
+  .card.warn .num{color:var(--warn);}
+  .card.bad .num{color:var(--danger);}
+  .card.info .num{color:var(--accent);}
+  .verdict{background:var(--panel2);border:1px solid var(--border);border-left:4px solid var(--accent2);border-radius:10px;padding:16px 20px;margin:14px 0;}
+  .verdict.warn{border-left-color:var(--warn);}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0 8px;background:var(--panel);border-radius:10px;overflow:hidden;}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+  th{background:var(--panel2);color:var(--muted);font-weight:600;}
+  tr:last-child td{border-bottom:none;}
+  code{background:#0b0d12;color:#cdd6f4;padding:1px 6px;border-radius:5px;font-size:12.5px;font-family:"JetBrains Mono",Consolas,monospace;}
+  .tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11.5px;font-weight:700;white-space:nowrap;}
+  .t-high{background:rgba(239,68,68,.16);color:#fca5a5;}
+  .t-mid{background:rgba(245,158,11,.16);color:#fcd34d;}
+  .t-low{background:rgba(74,140,255,.16);color:#93b4ff;}
+  .t-ok{background:rgba(34,197,94,.16);color:#86efac;}
+  .t-info{background:rgba(167,139,250,.18);color:#c4b5fd;}
+  ul{margin:8px 0;padding-left:22px;}
+  li{margin:5px 0;}
+  .sec-note{color:var(--muted);font-size:13px;margin:6px 0 0;}
+  .divider{height:1px;background:var(--border);margin:36px 0;}
+  .pill{font-size:12px;color:var(--muted);}
+  .em{color:var(--warn);font-weight:600;}
+  .em2{color:var(--danger);font-weight:600;}
+  .grp{margin:18px 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>灵境制造（上线版）— UI / 数据 / 交互全面审计报告</h1>
+  <div class="sub">审计日期：2026-08-02 ｜ 范围：<code>engineering/</code> 前端（Vue3+TS+Tauri）＋ <code>engineering/python/app</code> 后端 FastAPI ｜ 方式：只读静态审计（未修改任何文件）</div>
+
+  <h2>一、核心结论速览</h2>
+  <div class="cards">
+    <div class="card good"><div class="num">0</div><div class="lbl">问题性假数据（业务数据已写死冒充后端）</div></div>
+    <div class="card warn"><div class="num">4</div><div class="lbl">本该可操作却只读的业务页面</div></div>
+    <div class="card bad"><div class="num">15</div><div class="lbl">无效 / 占位交互（按钮点了没反应）</div></div>
+    <div class="card info"><div class="num">18</div><div class="lbl">已定义路由但无导航入口的「死页面」</div></div>
+    <div class="card warn"><div class="num">20%</div><div class="lbl">前端接口 404 率（42/209 个调用缺失或路径不匹配）</div></div>
+  </div>
+
+  <div class="verdict">
+    <strong>总体判断：</strong> 该软件的<strong>数据真实性非常好</strong>——前端所有业务实体数据（设备、物料、成本、生产、Agent、工作流、飞轮、世界模型、RL 等）均通过统一的 <code>http</code> 客户端从本地 FastAPI 后端获取，<strong>未发现任何「本应来自后端却被写死」的假数据</strong>。后端已挂载的路由处理函数体<strong>全部为真实逻辑，零空实现/stub</strong>。
+    <br><br>
+    真正的问题集中在三处：① <strong>4 个业务页的关键操作被 WIP 占位</strong>（点了只弹 toast）；② <strong>15 处按钮/交互无效或占位</strong>；③ <strong>约 42 个前端接口因「路径前缀不一致 / 常量未定义」而 404</strong>（其中 28 个后端逻辑已实现，仅前缀对不上，属一键级修复）。此外有 <strong>18 个功能完整却无入口的「死页面」</strong>（如 Agent 详情页），需补导航。
+  </div>
+
+  <h2>二、假数据 / 写死数据检查</h2>
+  <div class="verdict">
+    <strong>结论：问题性假数据 <span class="t-ok tag">0 处</span></strong>。前端数据访问架构规范（<code>config/api.ts</code> 集中管理端点 → <code>utils/http.ts</code> 统一请求 → <code>api/*.ts</code> 服务层 → Pinia store），所有业务数据来自真实接口，无被注释掉的真实 API 调用被替换成本地数组。
+  </div>
+  <h3>写死内容清单（全部判定为「合理默认数据」，非问题）</h3>
+  <table>
+    <thead><tr><th>编号</th><th>位置</th><th>内容</th><th>判定</th><th>严重度</th></tr></thead>
+    <tbody>
+      <tr><td>F1</td><td><code>src/examples/data.ts</code> (8–1003)</td><td>13 个示例工程库（含完整 TS 代码示例、标签、下载数）+ 分类/难度/标签辅助函数</td><td>示例画廊设计内的演示数据，非伪装真实业务数据</td><td><span class="t-low tag">低</span></td></tr>
+      <tr><td>F2</td><td><code>src/locales/*.ts</code>、各组件 <code>placeholder=</code></td><td>i18n 文案、表单占位提示</td><td>正常 UI 文本</td><td><span class="t-ok tag">无</span></td></tr>
+      <tr><td>F3</td><td><code>src/views/UXDemo.vue</code> (119–225)</td><td>新手引导 <code>tourSteps[]</code>、<code>demoCommands[]</code></td><td>演示/帮助页写死的是「动作」非「实体数据」</td><td><span class="t-low tag">低</span></td></tr>
+      <tr><td>F4</td><td><code>src/views/EquipmentMonitor.vue</code> (271–291)</td><td>设备状态→UI 标签类型映射对象</td><td>展示层映射（真实列表仍来自接口）</td><td><span class="t-ok tag">无</span></td></tr>
+      <tr><td>F5</td><td><code>src/components/simulation/SimulationViewer.vue</code> (340,476)</td><td>仿真查看器空状态占位 UI</td><td>加载占位，实际数据经 Three.js/STL 加载</td><td><span class="t-ok tag">无</span></td></tr>
+      <tr><td>F6</td><td><code>src/api/llmProviders.ts</code> (164–170)</td><td>LLM Provider 默认 Base URL 常量</td><td>本地默认配置，运行时可覆盖</td><td><span class="t-ok tag">无</span></td></tr>
+    </tbody>
+  </table>
+  <p class="sec-note">兜底证据：全仓库 <code>return [...]</code> 字面量数组仅出现在示例数据、路径拼接与<strong>错误兜底</strong>（接口失败时返回空数组，非用空数组替换真实接口）；图表库（CostDashboard 三图）数据源已逐行核验均来自真实接口。生产代码零实体列表写死。</p>
+
+  <h2>三、只读展示界面与按钮交互有效性</h2>
+
+  <h3>3.1 只读展示界面</h3>
+  <p><strong>正常只读（符合预期）：</strong></p>
+  <ul>
+    <li><code>views/About.vue</code> — 关于/版本页，纯文本展示，正常</li>
+    <li><code>views/TemplateDetail.vue</code> — 模板详情，并行请求 4 个接口渲染，正常</li>
+    <li><code>views/NotFound.vue</code> — 系统未找到页，仅「返回首页」按钮有效，正常</li>
+  </ul>
+  <div class="verdict warn">
+    <strong>问题性只读（本该可操作却只弹 toast）：4 个</strong>
+    <table style="margin-top:10px">
+      <thead><tr><th>页面</th><th>被占位的操作</th><th>当前行为</th></tr></thead>
+      <tbody>
+        <tr><td><code>views/MaterialManagement.vue</code></td><td>入库 / 详情 / 采购</td><td>3 个 handler 仅 <code>ElMessage.info/warning</code> 占位，无真实业务</td></tr>
+        <tr><td><code>views/EquipmentMonitor.vue</code></td><td>设置 / 详情 / 停止 / 维修</td><td>4 个 handler 仅 toast 占位</td></tr>
+        <tr><td><code>views/QualityInspection.vue</code></td><td>新建检测 / 详情</td><td>2 个 handler 仅 toast 占位</td></tr>
+        <tr><td><code>views/PluginMarket.vue</code></td><td>安装 / 详情</td><td>「安装」仅提示已开始，未调安装接口；「详情」无详情页</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.2 无效 / 占位交互（共 15 处）</h3>
+  <table>
+    <thead><tr><th>#</th><th>文件:行</th><th>交互</th><th>问题</th><th>严重度</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><code>views/Home.vue</code> ~218–227</td><td>生产进度表「详情」按钮</td><td><span class="em2">死按钮，完全无 @click</span></td><td><span class="t-high tag">高</span></td></tr>
+      <tr><td>2</td><td><code>views/Home.vue</code> 112/489</td><td>时间范围筛选 <code>activeRange</code></td><td>绑定了 <code>activeRange=range.key</code> 但该变量从未用于任何过滤/请求</td><td><span class="t-mid tag">中</span></td></tr>
+      <tr><td>3</td><td><code>views/ProductionReport.vue</code> 88–115</td><td>图表区域</td><td><span class="em2">占位 div（<code>&lt;!-- 图表区域（占位） --&gt;</code>）</span>，核心图表未实现</td><td><span class="t-high tag">高</span></td></tr>
+      <tr><td>4</td><td><code>views/ProductionReport.vue</code> 562–564</td><td>导出 <code>handleExport</code></td><td>仅弹 toast，不导出任何数据</td><td><span class="t-mid tag">中</span></td></tr>
+      <tr><td>5</td><td><code>views/EquipmentMonitor.vue</code> 364–378</td><td>设置/详情/停止/维修</td><td>4 个 handler 仅 toast（同 3.1）</td><td><span class="t-mid tag">中</span></td></tr>
+      <tr><td>6</td><td><code>views/MaterialManagement.vue</code> 300–314</td><td>入库/详情/采购</td><td>3 个 handler 仅 toast（同 3.1）</td><td><span class="t-mid tag">中</span></td></tr>
+      <tr><td>7</td><td><code>views/QualityInspection.vue</code> 241–247</td><td>新建检测/详情</td><td>2 个 handler 仅 toast（同 3.1）</td><td><span class="t-mid tag">中</span></td></tr>
+      <tr><td>8</td><td><code>views/AgentDashboard.vue</code> 529–537</td><td>部署 <code>handleDeploy</code></td><td>占位实现，部署 API 未实现，仅 <code>console.warn</code> + toast</td><td><span class="t-mid tag">中</span></td></tr>
+      <tr><td>9</td><td><code>views/PluginMarket.vue</code> 114–120</td><td>安装/详情</td><td>仅 toast，无真实安装/详情（同 3.1）</td><td><span class="t-mid tag">中</span></td></tr>
+      <tr><td>10</td><td><code>views/Simulation.vue</code> 1299–1301</td><td>FEM 求解 <code>handleStartSolve</code></td><td>仅 <code>ElMessage.info('...WIP')</code></td><td><span class="t-mid tag">中</span></td></tr>
+      <tr><td>11</td><td><code>views/Simulation.vue</code> 1318–1324</td><td>导出 GIF/MP4</td><td><code>handleExportGif/Mp4</code> 仅 toast，FEM 结果区也为 placeholder</td><td><span class="t-mid tag">中</span></td></tr>
+      <tr><td>12</td><td><code>views/TaskBoard.vue</code> 710–712</td><td>创建任务 <code>handleCreate</code></td><td>仅 <code>ElMessage.info('...WIP')</code>，未实现创建</td><td><span class="t-mid tag">中</span></td></tr>
+      <tr><td>13</td><td><code>views/NLModeling.vue</code> 206–208</td><td><code>handleResetView</code></td><td>空函数体，仅注释，无实际操作</td><td><span class="t-low tag">低</span></td></tr>
+      <tr><td>14</td><td><code>views/NLModeling.vue</code> 188–190</td><td><code>handleStartSimulation</code></td><td>仅 <code>ElMessage.info</code>，无仿真启动逻辑</td><td><span class="t-low tag">低</span></td></tr>
+      <tr><td>15</td><td><code>views/Simulation.vue</code> 1219–1225</td><td>碰撞 dismiss 回调</td><td>空函数体 no-op（碰撞弹窗回调）</td><td><span class="t-low tag">低</span></td></tr>
+    </tbody>
+  </table>
+  <p class="sec-note">次要（未计入上表）：<code>views/Workspace.vue</code> 中 <code>handlePredict</code> 等 5 个函数已定义但模板未引用，疑似迁移遗留冗余代码，非断裂交互。</p>
+
+  <h3>3.3 路由与占位页面</h3>
+  <div class="verdict">
+    <strong>占位/未实现组件：<span class="t-ok tag">0 个</span></strong> — 全部 35 个业务路由均指向有实质内容的组件（含 ToolpathEditor、FlywheelDashboard 交互完整），<strong>无空 stub 页面</strong>。
+  </div>
+  <div class="verdict warn">
+    <strong>「死页面」：18 个已定义路由在侧边栏与跳转代码中均无入口</strong> — 侧边栏 <code>navGroups.ts</code> 仅 13 项，其余 22 个业务路由中仅 5 个有应用内入口。下为无入口的 18 个（功能可能完整但用户无法到达）：
+    <table style="margin-top:10px">
+      <thead><tr><th>路由</th><th>组件</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td><code>/about</code></td><td>About.vue</td><td>正常只读，无入口</td></tr>
+        <tr><td><code>/task-history</code></td><td>TaskHistory.vue</td><td>功能完整，无入口</td></tr>
+        <tr><td><code>/rule-editor</code></td><td>RuleEditor.vue</td><td>admin，无入口</td></tr>
+        <tr><td><code>/toolpath-editor</code></td><td>ToolpathEditor.vue</td><td>admin，无入口</td></tr>
+        <tr><td><code>/ux-demo</code></td><td>UXDemo.vue</td><td>演示页，可能刻意隐藏</td></tr>
+        <tr><td><code>/agent-detail/:id</code></td><td>AgentDetail.vue</td><td class="em2">高价值孤儿页：含保存检查点/回滚/克隆完整交互，但 AgentDashboard 用弹窗替代了路由跳转，永远无法到达</td></tr>
+        <tr><td><code>/template-market</code></td><td>TemplateMarket.vue</td><td>无入口</td></tr>
+        <tr><td><code>/plugin-market</code></td><td>PluginMarket.vue</td><td>无入口（且安装/详情为 WIP）</td></tr>
+        <tr><td><code>/plugin-manager</code></td><td>PluginManager.vue</td><td>admin，无入口</td></tr>
+        <tr><td><code>/plugin-logs</code></td><td>PluginLogs.vue</td><td>admin，无入口</td></tr>
+        <tr><td><code>/flywheel-dashboard</code></td><td>FlywheelDashboard.vue</td><td>auth，无入口</td></tr>
+        <tr><td><code>/cost-dashboard</code></td><td>CostDashboard.vue</td><td>admin，无入口</td></tr>
+        <tr><td><code>/approval-dashboard</code></td><td>ApprovalDashboard.vue</td><td>admin，无入口</td></tr>
+        <tr><td><code>/goals</code></td><td>Goals.vue</td><td>无入口</td></tr>
+        <tr><td><code>/nl-modeling</code></td><td>NLModeling.vue</td><td>无入口</td></tr>
+        <tr><td><code>/world-model</code></td><td>WorldModel.vue</td><td>auth，无入口</td></tr>
+        <tr><td><code>/rl-agent</code></td><td>RLAgent.vue</td><td>auth，无入口</td></tr>
+        <tr><td><code>/explainability</code></td><td>Explainability.vue</td><td>auth，无入口</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>四、后端 API 真实性对照</h2>
+  <div class="verdict">
+    <strong>前端调用接口总量 ≈ 209 个</strong> ｜ <strong class="t-ok">真实实现 167 个（≈80%）</strong> ｜ <strong class="em2">缺失/404 共 42 个（≈20%）</strong>。后端已挂载路由处理函数体<strong>零空实现/stub/TODO</strong>——问题全在「路由未挂载或挂在错误基础路径」，而非「挂了没写」。
+  </div>
+
+  <h3>4.1 系统性前缀不匹配（28 个，后端已实现，仅路径对不上 → 一键修复）</h3>
+  <table>
+    <thead><tr><th>API 家族</th><th>前端前缀</th><th>后端实际前缀</th><th>数量</th></tr></thead>
+    <tbody>
+      <tr><td>projects</td><td><code>/api/v1/projects/*</code></td><td><code>/api/projects/*</code>（无 v1）</td><td>5</td></tr>
+      <tr><td>rules</td><td><code>/api/v1/rules/*</code></td><td><code>/api/rules/*</code>（无 v1）</td><td>13</td></tr>
+      <tr><td>agents</td><td><code>/api/v1/agents/*</code></td><td><code>/agents/*</code>（无 api/v1）</td><td>7</td></tr>
+      <tr><td>import/step</td><td><code>/api/v1/import/step/*</code></td><td><code>/api/import/step/*</code>（无 v1）</td><td>2</td></tr>
+      <tr><td>tasks</td><td><code>/api/v1/tasks/*</code></td><td>应为 <code>/api/v1/jobs</code></td><td>1</td></tr>
+    </tbody>
+  </table>
+  <p class="sec-note">涉及文件：<code>stores/project.ts</code>、<code>stores/rules.ts</code>、<code>stores/agents.ts</code>、<code>stores/stepImport.ts</code>、<code>stores/flywheel.ts:329</code>。修复方式：后端路由前缀统一加 <code>/api/v1</code>，或前端 <code>config/api.ts</code> 常量对齐后端。</p>
+
+  <h3>4.2 真正缺失 / 常量未定义（14 个）</h3>
+  <table>
+    <thead><tr><th>路径</th><th>前端调用位置</th><th>问题</th></tr></thead>
+    <tbody>
+      <tr><td><code>/api/v1/notifications</code></td><td><code>AppLayout.vue:248</code></td><td>后端无此路由（仅权限键）</td></tr>
+      <tr><td><code>/api/v1/system/status</code></td><td><code>features/home/api.ts:9</code></td><td>后端无此路径（仅有 <code>/status</code>、<code>/api/v1/health/system</code>）</td></tr>
+      <tr><td><code>/api/v1/activity/brief</code></td><td><code>features/home/api.ts:13</code></td><td>后端完全无对应路由</td></tr>
+      <tr><td><code>/api/v1/production/stats</code></td><td><code>ProductionReport.vue:487</code></td><td>后端只有 <code>/production/stats/summary</code></td></tr>
+      <tr><td><code>/api/v1/quality/stats/summary</code></td><td><code>QualityInspection.vue:205</code></td><td>后端只有 <code>/quality/stats/</code></td></tr>
+      <tr><td><code>/api/v1/quality/inspections</code></td><td><code>QualityInspection.vue:226</code></td><td>quality 路由无 <code>/inspections</code> 子路径</td></tr>
+      <tr><td><code>/api/v1/goals/*</code> (4)</td><td><code>features/goals/api.ts</code></td><td><span class="em">前端 <code>API_CONFIG.GOALS</code> 常量未定义</span>，请求 URL 变 <code>undefined/...</code> → 404（应为 <code>GOAL_ALIGNMENT</code>）</td></tr>
+      <tr><td><code>/api/v1/template_market/*</code> (4)</td><td><code>features/template-market/api.ts</code></td><td><span class="em">前端 <code>API_CONFIG.TEMPLATES</code> 常量未定义</span>，URL 变 <code>undefined</code> → 404（注：<code>views/TemplateMarket.vue</code> 用字面量路径可达）</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.3 后端空实现 / stub / TODO 端点</h3>
+  <div class="verdict">
+    <strong class="t-ok">路由处理函数级空实现：0 个</strong>。663 条已注册路由处理函数体均非空，无 <code>pass</code>/<code>return None</code>/<code>raise NotImplementedError</code> 占据整函数体。扫描到的 <code>NotImplementedError</code> 全部位于抽象基类/契约默认方法（设计预期），不影响前端匹配路由。
+  </div>
+
+  <div class="divider"></div>
+  <h2>五、优先级整改建议</h2>
+
+  <div class="grp">
+    <h3><span class="t-high tag">P0</span> 立即可修（配置级，零逻辑改动）</h3>
+    <ul>
+      <li><strong>统一 API 基础路径前缀</strong>：将 <code>projects/rules/agents/import-step</code> 后端路由前缀改为 <code>/api/v1/...</code>，恢复 <strong>28 个</strong> 本已实现却 404 的端点。</li>
+      <li><strong>补全前端常量</strong>：在 <code>config/api.ts</code> 增加 <code>GOALS = '/api/v1/goal-alignment'</code> 与 <code>TEMPLATES = '/api/v1/template_market'</code>，恢复 <strong>8 个</strong> 端点；将 <code>flywheel.ts:329</code> 的 <code>API_CONFIG.TASKS</code> 改为 <code>API_CONFIG.JOBS</code>。</li>
+    </ul>
+  </div>
+
+  <div class="grp">
+    <h3><span class="t-mid tag">P1</span> 高可见度交互修复</h3>
+    <ul>
+      <li><strong>Home 生产进度「详情」死按钮</strong>（#1）与 <strong>时间筛选 activeRange 失效</strong>（#2）——首页核心交互，用户最先碰到。</li>
+      <li><strong>ProductionReport 图表占位 div</strong>（#3）+ 导出占位（#4）——报表页核心功能缺失。</li>
+      <li><strong>4 个业务页操作占位</strong>：物料/设备/质检/插件市场的入库·详情·采购·停止·维修·安装等，让页面从「只读」变「可操作」。</li>
+      <li><strong>AgentDashboard.handleDeploy 占位</strong>（#8）——部署能力未打通。</li>
+    </ul>
+  </div>
+
+  <div class="grp">
+    <h3><span class="t-low tag">P2</span> 补全与清理</h3>
+    <ul>
+      <li><strong>18 个死页面补入口</strong>：优先修复 <code>/agent-detail/:id</code>（将 AgentDashboard 的弹窗改为 <code>router.push</code> 跳转，或保留弹窗并删该路由）；其余按需加入侧边栏或命令面板。</li>
+      <li><strong>Simulation FEM 求解/导出</strong>（#10/#11）、<strong>TaskBoard 创建任务</strong>（#12）、<strong>NLModeling 仿真/重置</strong>（#13/#14）等 WIP 功能按路线图充实。</li>
+      <li><strong>真正缺失的端点</strong>：<code>/notifications</code>、<code>/system/status</code>、<code>/activity/brief</code>，以及修正 <code>quality</code>/<code>production</code> 子路径。</li>
+      <li><strong>清理</strong>：<code>Workspace.vue</code> 中 5 个未引用的冗余函数；空函数 no-op（碰撞 dismiss）。</li>
+      <li><strong>可选</strong>：若产品要求「示例也由后端下发」，将 <code>examples/data.ts</code> 改为接口获取（当前为前端策展，合理）。</li>
+    </ul>
+  </div>
+
+  <div class="verdict" style="border-left-color:var(--accent2)">
+    <strong>一句话总结：</strong> 软件<strong>没有假数据、后端没有空壳接口</strong>，数据链路是真实可信的；主要「水份」在<strong>前端交互层</strong>——15 处按钮点了没反应、4 个业务页实质只读、18 个页面进不去、约 20% 的前端接口因路径前缀/常量问题而 404（多数后端已写好，改前缀即通）。修复性价比最高的是 P0 的路径对齐，可一次性复活 36+ 个端点。
+  </div>
+
+  <p class="pill">本报告由只读静态审计生成，未修改任何源文件。临时扫描脚本（extract_routes.py / scan_stubs.py）位于工程根目录，可随时删除。</p>
+</div>
+</body>
+</html>

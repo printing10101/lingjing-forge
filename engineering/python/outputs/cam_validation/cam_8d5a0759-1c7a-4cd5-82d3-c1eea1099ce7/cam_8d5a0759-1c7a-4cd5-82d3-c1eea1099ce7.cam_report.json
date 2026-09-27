@@ -1,0 +1,92 @@
+{
+  "task_id": "cam_8d5a0759-1c7a-4cd5-82d3-c1eea1099ce7",
+  "task_status": "succeeded",
+  "exported_at": 1784016355.044621,
+  "reviewer": "engineer_zhang",
+  "source_gcode_report_path": "/tmp/stage6_report.json",
+  "source_gcode_file_path": "/tmp/test_gcode.nc",
+  "controller_type": "fanuc_0i",
+  "material_name": "45#钢",
+  "safe_z": 80.0,
+  "stock_top_z": 50.0,
+  "prediction_method": "analytical",
+  "pending_calibration": false,
+  "cam_validation_required": true,
+  "gcode_total_lines": 3,
+  "cam_backend_requested": "internal_only",
+  "cam_backend_used": "internal_only",
+  "cam_backend_fallback_reason": "",
+  "cam_software_report": {
+    "status": "skipped",
+    "backend_used": "internal_only",
+    "messages": [
+      "[mock] CAM 软件二次校验已完成"
+    ],
+    "collisions": [],
+    "degraded": false,
+    "degradation_reason": "",
+    "gcode_file_path": "/tmp/test_gcode.nc",
+    "controller_type": "fanuc_0i",
+    "validation_timestamp": "",
+    "subprocess_returncode": null,
+    "manual_checklist_path": ""
+  },
+  "total_features": 2,
+  "passed_features": 2,
+  "failed_features": 0,
+  "feature_validation_results": [
+    {
+      "feature_id": "feat_001",
+      "feature_type": "plane",
+      "line_range": [
+        1,
+        2
+      ],
+      "internal_check_passed": true,
+      "internal_events": [],
+      "cam_check_passed": true,
+      "cam_messages": [
+        "[mock] CAM 软件二次校验已完成"
+      ],
+      "cam_backend_used": "internal_only",
+      "review_status": "confirmed",
+      "edited_params": {
+        "engineer_notes": "ok"
+      },
+      "spindle_rpm": 3000.0,
+      "axial_depth_mm": 2.0,
+      "limit_depth_mm": 2.5,
+      "stable": true,
+      "safety_margin_ratio": 0.8,
+      "warning": ""
+    },
+    {
+      "feature_id": "feat_002",
+      "feature_type": "cylinder",
+      "line_range": [
+        3,
+        3
+      ],
+      "internal_check_passed": true,
+      "internal_events": [],
+      "cam_check_passed": true,
+      "cam_messages": [
+        "[mock] CAM 软件二次校验已完成"
+      ],
+      "cam_backend_used": "internal_only",
+      "review_status": "confirmed",
+      "edited_params": {},
+      "spindle_rpm": 2500.0,
+      "axial_depth_mm": 1.5,
+      "limit_depth_mm": 2.0,
+      "stable": true,
+      "safety_margin_ratio": 0.75,
+      "warning": ""
+    }
+  ],
+  "reviewed_by": "engineer_zhang",
+  "reviewed_at": 1784016355.0444908,
+  "warnings": [],
+  "errors": [],
+  "industrial_hard_gates_note": "本 CAM 校验报告是阶段 7 链路最终产物，供审计 / 合规 / 论文引用。内部预校验（CollisionDetector）是 AABB 包围盒级别快速预筛，不可替代 CAM 软件二次校验。G 代码必须经 CAM 软件（NX/PowerMill/PyCAM）二次校验后方可上机床，系统绝不直接接口 CNC 控制器，物理机床执行由人工 + 持证操作员完成。大一独立项目不触及物理机床，阶段 7 产物终止于本 JSON。"
+}

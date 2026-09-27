@@ -1,0 +1,109 @@
+# 颤振检测多源融合流水线（5 节点带并行分支 DAG）
+#
+# 典型场景：同步采集振动与切削力信号，并行预处理后融合特征，
+# 经 LTC 网络推理给出颤振判定结果，最终生成可视化报告。
+#
+# 节点拓扑（5 节点，验收阶段 1 的最小 DAG）：
+#                  ┌── collect_vibration ──┐
+#   start_trigger ─┤                       ├─→ feature_fusion → ltc_inference → chatter_report
+#                  └── collect_force ──────┘
+#
+# 该模板用于阶段 1 验收：
+#   - 5 节点 DAG 一键跑通
+#   - 节点失败时下游自动 SKIPPED（如 feature_fusion 失败 → ltc_inference / chatter_report 跳过）
+#   - 断点续跑：修复失败节点后从失败点继续，不重跑已完成的并行分支
+name: 颤振检测多源融合流水线
+version: "1.0.0"
+description: |
+  多源信号融合的颤振检测：振动 + 切削力并行采集 → 特征融合 →
+  LTC 时序推理 → 颤振判定报告。用于阶段 1 DAG 编排验收。
+
+inputs:
+  trigger_signal:
+    type: file
+    uri: "file://triggers/experiment_001.json"
+    metadata:
+      experiment_id: "EXP-001"
+      spindle_speed_rpm: 3000
+      feed_rate_mm_per_rev: 0.1
+
+outputs:
+  chatter_report: "${chatter_report.report_artifact}"
+  chatter_label: "${ltc_inference.label_artifact}"
+
+edges:
+  - upstream: collect_vibration
+    downstream: feature_fusion
+  - upstream: collect_force
+    downstream: feature_fusion
+  - upstream: feature_fusion
+    downstream: ltc_inference
+  - upstream: ltc_inference
+    downstream: chatter_report
+
+nodes:
+  - node_id: collect_vibration
+    task_type: signal_collector
+    params:
+      signal_type: "vibration"
+      channels: ["x", "y", "z"]
+      sampling_rate_hz: 50000
+      duration_seconds: 5
+      buffer_size: 250000
+    timeout_seconds: 300
+
+  - node_id: collect_force
+    task_type: signal_collector
+    params:
+      signal_type: "force"
+      channels: ["fx", "fy", "fz"]
+      sampling_rate_hz: 10000
+      duration_seconds: 5
+      buffer_size: 50000
+    timeout_seconds: 300
+
+  - node_id: feature_fusion
+    task_type: feature_extractor
+    params:
+      fusion_strategy: "concat"
+      features:
+        - "rms"
+        - "kurtosis"
+        - "fft_band_energy"
+        - "wavelet_packet"
+      normalize: true
+    inputs:
+      vibration_stream: "${collect_vibration.signal_artifact}"
+      force_stream: "${collect_force.signal_artifact}"
+    retry: 1
+    timeout_seconds: 900
+
+  - node_id: ltc_inference
+    task_type: ltc_predictor
+    params:
+      model_uri: "model://ltc-chatter-v2"
+      threshold: 0.5
+      mc_dropout_samples: 20
+      uncertainty_quantile: 0.95
+    inputs:
+      fused_features: "${feature_fusion.feature_artifact}"
+    timeout_seconds: 600
+
+  - node_id: chatter_report
+    task_type: report_generator
+    params:
+      template: "chatter_detection.md"
+      include_spectrogram: true
+      include_phase_plot: true
+      language: "zh-CN"
+    inputs:
+      label: "${ltc_inference.label_artifact}"
+      uncertainty: "${ltc_inference.uncertainty_artifact}"
+    timeout_seconds: 600
+
+metadata:
+  max_concurrent: 4
+  tags: ["chatter", "ltc", "multi_signal", "fusion"]
+  author: "lingjing-team"
+  # 阶段 1 验收标记：该模板用于 DAG 编排功能验证
+  acceptance_test: true

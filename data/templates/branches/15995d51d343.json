@@ -1,0 +1,24 @@
+{
+  "branch_id": "15995d51d343",
+  "name": "source",
+  "base_branch": null,
+  "template_data": {
+    "skill": "v1"
+  },
+  "metadata": {
+    "type": "experiment"
+  },
+  "created_at": 1786812664.5275135,
+  "updated_at": 1786812664.5275135,
+  "commit_log": [
+    {
+      "action": "create",
+      "branch_name": "source",
+      "timestamp": 1786812664.5275135,
+      "details": {
+        "base_branch": null,
+        "content_hash": "cc88be1b3858b3bd"
+      }
+    }
+  ]
+}

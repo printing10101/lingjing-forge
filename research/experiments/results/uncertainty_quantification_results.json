@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-06-26T16:41:20.614806",
+  "mc_dropout_runs": 100,
+  "overall_metrics": {
+    "MAE": 1.0212602066040037,
+    "RMSE": 1.3471264890095862,
+    "R2": -0.18999140864863717
+  },
+  "uncertainty_analysis": {
+    "mean_uncertainty": 2.075565005342921,
+    "median_uncertainty": 2.0870846866642636,
+    "uncertainty_error_correlation": -0.07869228988546607,
+    "high_uncertainty_samples": 19,
+    "low_uncertainty_samples": 19
+  },
+  "calibration": {
+    "uncertainty_bins": [
+      {
+        "bin": "low",
+        "avg_uncertainty": 1.9117993196434266,
+        "avg_error": 1.1010494400024415,
+        "count": 25
+      },
+      {
+        "bin": "medium",
+        "avg_uncertainty": 2.0833543363594407,
+        "avg_error": 1.0278926944732667,
+        "count": 25
+      },
+      {
+        "bin": "high",
+        "avg_uncertainty": 2.2315413600258953,
+        "avg_error": 0.9348384853363035,
+        "count": 25
+      }
+    ]
+  }
+}

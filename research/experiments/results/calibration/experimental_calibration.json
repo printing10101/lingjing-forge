@@ -1,0 +1,93 @@
+{
+ "xi": {
+  "points": [
+   {
+    "cond": "low-speed 20 m/min",
+    "P_W": 750.0,
+    "dT_C": 830.0,
+    "xi_C_per_kW": 1106.7,
+    "src": "Dominguez-Caballero 2023 IJAMT"
+   },
+   {
+    "cond": "high-speed 70 m/min",
+    "P_W": 750.0,
+    "dT_C": 576.0,
+    "xi_C_per_kW": 768.0,
+    "src": "Dominguez-Caballero 2023 IJAMT"
+   },
+   {
+    "cond": "cutting-edge 12mm lead",
+    "P_W": 750.0,
+    "dT_C": 550.0,
+    "xi_C_per_kW": 733.3,
+    "src": "Dominguez-Caballero 2023 IJAMT"
+   }
+  ],
+  "xi_range_C_per_kW": [
+   733.3,
+   1106.7
+  ],
+  "xi_median_C_per_kW": 768.0
+ },
+ "kappa_eff_measured": {
+  "points": [
+   {
+    "cond": "车削 Ti-6Al-4V",
+    "force_drop_frac": 0.1,
+    "dT_C": 550.0,
+    "kappa_eff": 0.0001818,
+    "src": "Dominguez-Caballero 2023 IJAMT"
+   },
+   {
+    "cond": "铣削 Ti-6Al-4V ELI",
+    "force_drop_frac": 0.2,
+    "dT_C": 500.0,
+    "kappa_eff": 0.0004,
+    "src": "Rashid 2015 LMMP"
+   },
+   {
+    "cond": "铣削 Ti-6Al-4V ELI (y向)",
+    "force_drop_frac": 0.23,
+    "dT_C": 500.0,
+    "kappa_eff": 0.00046,
+    "src": "Rashid 2015 LMMP"
+   },
+   {
+    "cond": "铣削 Ti-6Al-4V",
+    "force_drop_frac": 0.4,
+    "dT_C": 500.0,
+    "kappa_eff": 0.0008,
+    "src": "Sun et al. (via Rashid 2015)"
+   }
+  ],
+  "kappa_eff_range": [
+   0.0001818,
+   0.0008
+  ],
+  "kappa_eff_median": 0.00046
+ },
+ "kappa_jc_calibrated": 0.000736,
+ "delta_et_calibrated": 0.000516692,
+ "power_for_2x_gain_kW": [
+  0.45,
+  0.68
+ ],
+ "power_old_estimate_kW": [
+  1.67,
+  5.0
+ ],
+ "temperature_limits": {
+  "phase_change_2023": 880.0,
+  "phase_change_2015_model": 800.0,
+  "oxidation_2015": 1100.0,
+  "max_avg_safe_2015": 500.0
+ },
+ "absorptivity": {
+  "below_90W": 0.35,
+  "above_90W_oxidized": 0.5
+ },
+ "sources": {
+  "hybrid2023": "Dominguez-Caballero et al. 2023, IJAMT 125:1903-1916, DOI 10.1007/s00170-022-10764-5 (OA, thermal camera)",
+  "rashid2015": "Rashid et al. 2015, Lasers Manuf. Mater. Process. 2:164-185, DOI 10.1007/s40516-015-0013-4 (OA)"
+ }
+}

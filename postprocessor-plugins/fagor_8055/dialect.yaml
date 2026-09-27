@@ -1,0 +1,27 @@
+# =============================================================================
+# 方言声明：Fagor 8055（法格，Fanuc 0i 兼容方言）
+# =============================================================================
+# 声明式镜像：与内置 FagorPostProcessor 行为等价（黄金测试逐字符一致）。
+# 特色：%xxxxx 程序号、G75 回零、CALL P/RET 子程序、pecking 决定 G83/G81。
+# =============================================================================
+
+id: fagor_8055
+name: Fagor 8055 (Fagor Automation)
+version: "1.0.0"
+extends: fanuc_0i
+target_controller: fagor_8055
+
+templates:
+  format_header: templates/header.j2
+  format_tool_change: templates/tool_change.j2
+  format_arc: templates/arc.j2
+  format_cycle_drill: templates/cycle_drill.j2
+  format_cycle_tapping: templates/cycle_tapping.j2
+  format_subprogram_call: templates/subprogram_call.j2
+  format_subprogram_end: templates/subprogram_end.j2
+  format_footer: templates/footer.j2
+
+params: {}
+
+author: Lingjing Manufacturing Team
+description: 法格 Fagor 8055（Fanuc 0i 兼容方言，声明式镜像）

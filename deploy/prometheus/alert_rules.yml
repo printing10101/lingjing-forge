@@ -1,0 +1,114 @@
+groups:
+  - name: lnn-alerts
+    rules:
+      - alert: BackendDown
+        expr: up{job="lnn-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          category: availability
+        annotations:
+          summary: "LNN Backend is DOWN"
+          description: "The LNN API backend has been unreachable for more than 1 minute. Immediate action required."
+
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+          category: performance
+        annotations:
+          summary: "High HTTP response time (P95 > 2s)"
+          description: "P95 HTTP response time is {{ $value }}s, exceeding 2s threshold."
+
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          category: errors
+        annotations:
+          summary: "High HTTP 5xx error rate (> 5%)"
+          description: "HTTP 5xx error rate is {{ $value | humanizePercentage }}, exceeding 5% threshold."
+
+      - alert: HighMemoryUsage
+        # 容器内存限制（默认 4G），与 docker-compose.yml / K8s limits.memory 保持同步
+        # 修改内存限制时，须同步更新此表达式中的除数
+        expr: process_resident_memory_bytes / (4 * 1024 * 1024 * 1024) > 0.80
+        for: 5m
+        labels:
+          severity: warning
+          category: resources
+        annotations:
+          summary: "Memory usage exceeds 80% of 4G limit"
+          description: "Process RSS is {{ $value | humanizePercentage }} of the 4G container memory limit."
+
+      - alert: LNNInferenceLatency
+        expr: histogram_quantile(0.95, rate(lnn_inference_duration_seconds_bucket[5m])) > 1.0
+        for: 3m
+        labels:
+          severity: warning
+          category: lnn-performance
+        annotations:
+          summary: "LNN inference P95 > 1s"
+          description: "P95 LNN inference latency is {{ $value }}s for model {{ $labels.model }}, exceeding 1s threshold."
+
+      - alert: LNNInferenceLatencyCritical
+        expr: histogram_quantile(0.95, rate(lnn_inference_duration_seconds_bucket[5m])) > 2.5
+        for: 2m
+        labels:
+          severity: critical
+          category: lnn-performance
+        annotations:
+          summary: "LNN inference P95 > 2.5s (CRITICAL)"
+          description: "P95 LNN inference latency is {{ $value }}s for model {{ $labels.model }}, severely degraded."
+
+      - alert: HighLNNErrorRate
+        expr: rate(lnn_prediction_count{status="error"}[5m]) / rate(lnn_prediction_count[5m]) > 0.10
+        for: 5m
+        labels:
+          severity: critical
+          category: lnn-errors
+        annotations:
+          summary: "High LNN prediction error rate (> 10%)"
+          description: "LNN prediction error rate is {{ $value | humanizePercentage }} for model {{ $labels.model }}."
+
+      - alert: HighCPUUsage
+        expr: process_cpu_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+          category: resources
+        annotations:
+          summary: "High CPU usage"
+          description: "Process CPU usage is {{ $value }}%, exceeding 80% threshold."
+
+      - alert: AgentSecurityAlert
+        expr: rate(agent_requests_total{status="unauthorized"}[5m]) + rate(agent_requests_total{status="forbidden"}[5m]) > 100
+        for: 1m
+        labels:
+          severity: critical
+          category: security
+        annotations:
+          summary: "Agent token security alert - high auth failure rate"
+          description: "More than 100 agent auth failures per minute detected. Possible brute force or token leak attempt."
+
+      - alert: AgentSecurityWarning
+        expr: rate(agent_requests_total{status="unauthorized"}[5m]) + rate(agent_requests_total{status="forbidden"}[5m]) > 20
+        for: 3m
+        labels:
+          severity: warning
+          category: security
+        annotations:
+          summary: "Elevated agent auth failure rate"
+          description: "Agent auth failures rate is elevated at {{ $value }}/min. Monitor for potential abuse."
+
+      - alert: HighRingBufferDropRate
+        expr: rate(ring_buffer_dropped_total[5m]) > 100
+        for: 5m
+        labels:
+          severity: warning
+          category: logging
+        annotations:
+          summary: "Ring buffer log drop rate exceeds 100/min"
+          description: "Ring buffer is dropping {{ $value }} log entries per minute. Consider increasing capacity or flush frequency."

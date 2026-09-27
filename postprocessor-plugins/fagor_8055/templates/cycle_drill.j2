@@ -1,0 +1,12 @@
+{% set cycle_code = 'G83' if pecking else 'G81' %}
+{% set cfg = pp.get_cycle_config('drilling', cycle_code) %}
+{% set retract_mode = cfg.get('retract_mode', 'G98') %}
+{% set peck_depth = cfg.get('peck_depth', 5.0) %}
+{% set drill_feed = pp.get_feed_rate(pp.rapid_feed * 0.3) | fmt %}
+{% set z_out = '-' ~ (depth | abs | fmt) %}
+{% if dwell > 0 %}
+{{ retract_mode }} {{ cycle_code }} X{{ x | fmt }} Y{{ y | fmt }} Z{{ z_out }} R{{ pp.safe_z_height | fmt }} Q{{ peck_depth | fmt }} P{{ (dwell * 1000) | int }} F{{ drill_feed }}
+{% else %}
+{{ retract_mode }} {{ cycle_code }} X{{ x | fmt }} Y{{ y | fmt }} Z{{ z_out }} R{{ pp.safe_z_height | fmt }} Q{{ peck_depth | fmt }} F{{ drill_feed }}
+{% endif %}
+G80

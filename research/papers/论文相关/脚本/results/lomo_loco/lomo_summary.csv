@@ -1,0 +1,2 @@
+Model,MAE_mean,MAE_std,RMSE_mean,RMSE_std,R2_mean,R2_std,PCC_mean,PCC_std
+DL-LNN,1.6937,2.3007,1.9669,2.5017,0.7153,0.5369,-0.1586,1.9829

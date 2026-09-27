@@ -1,0 +1,45 @@
+# =============================================================================
+# 灵境制造 - Python 子目录开发与测试依赖
+# =============================================================================
+# 用途：开发、测试、CI 流水线使用。生产镜像构建请勿使用本文件。
+# 安装：在 python/ 目录下 pip install -r requirements-dev.txt
+# =============================================================================
+
+-r requirements.txt
+
+# 测试框架与运行器
+pytest==8.3.4            # 测试运行器
+pytest-asyncio==0.25.2   # 异步测试支持
+
+# 测试框架扩展
+pytest-cov>=4.1.0        # 覆盖率插件（CI --cov 必需）
+pytest-xdist>=3.3.0      # 并行测试加速（-n auto）
+pytest-timeout>=2.1.0    # 测试超时控制（防止 hang 死）
+pytest-benchmark>=4.0.0  # 性能基准测试（CI perf-benchmark 依赖）
+pytest-mock>=3.14.0      # mocker fixture，简化 mock 注入（CI geometry-validation 依赖）
+httpx>=0.24.0            # FastAPI TestClient 依赖（与 requirements.txt 一致）
+
+# 测试辅助
+respx>=0.21.1            # httpx mock（测试外部 API 调用）
+freezegun>=1.5.1         # 时间冻结（测试时间相关逻辑）
+
+# 代码质量
+black==24.10.0           # 代码格式化
+flake8==7.1.1            # 代码检查
+ruff>=0.1.0              # 快速 linter（CI pr.yml/ci.yml 必需）
+mypy>=1.5.0              # 静态类型检查（CI pr.yml/ci.yml 必需）
+types-requests>=2.31.0   # requests 类型存根（mypy 检查依赖）
+types-PyYAML>=6.0.12     # PyYAML 类型存根（mypy 检查依赖）
+
+# 调试工具
+ipdb>=0.13.13            # 交互式调试器
+
+# Benchmark 工具
+aiohttp>=3.9.0           # 异步 HTTP 基准测试客户端（benchmarks/performance/api_bench.py 依赖，P1-9 修复：原隐式依赖未声明）
+
+# MCP SDK —— mcp_server/ 与 device_tools 依赖 v1 API（mcp.server.fastmcp.FastMCP）；
+# 2026-09-13 实测 mcp 2.x 已将 FastMCP 更名为 MCPServer 导致导入失败，显式上界防漂移
+mcp>=1.0.0,<2
+# 3.14 标准测试环境补装记录（2026-09-13）：系统 Python 3.14.4 缺 pytest-xdist 已补；
+# 注意 pytest 大版本（3.14 环境为 9.1.1，本文件锁定 8.3.4）跨版本行为差异需在统一口径时评估
+

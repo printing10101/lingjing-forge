@@ -1,0 +1,105 @@
+# =============================================================================
+# 顶层 pyproject.toml（阶段2 解耦后 monorepo workspace 配置）
+# =============================================================================
+# 说明：
+#   阶段2 物理分层后项目分为三层：
+#     - shared/         零依赖契约层（仅 stdlib + typing_extensions）
+#     - engineering/    工程侧（生产部署，依赖 onnxruntime 而非 torch）
+#     - research/       科研侧（训练栈，依赖 torch / mlflow / optuna）
+#   workspace 声明用于：
+#     - 工程侧 venv 通过 .pth 引入 shared/ 后，IDE/工具能识别三层关系
+#     - 后续若引入 uv / hatch workspace，可直接复用此声明
+# =============================================================================
+
+[tool.ruff]
+# 与项目 .flake8 配置保持一致（仅保留 ruff 支持的规则）
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+# 显式 select（2026-08-18 修复门禁漂移）：
+#   此前未配置 select，依赖 ruff 默认规则集。ruff 0.16 起默认 select 变化，
+#   同一仓库在不同版本下检查结果差异巨大（0.16.3 全量默认 6587 处 vs 保守子集 0 处），
+#   CI 每次 `pip install ruff` 最新版跑 `ruff check app/` 存在隐式升级翻车风险。
+#   此处固定为已全绿的保守子集；2026-08-20 完成 UP 现代化（4330 处）后启用
+#   UP006/UP045/UP035 固化成果（PEP 585/604 现代化），防止回归。
+select = [
+    "E4",   # pycodestyle 逻辑错误子集（与 flake8 默认对齐）
+    "E7",   # pycodestyle 语句子集
+    "E9",   # pycodestyle 运行时错误子集
+    "F",    # pyflakes（未使用导入/未定义名称等，核心质量门禁）
+    "UP006",  # non-pep585-annotation（Dict/List/Tuple → dict/list/tuple）
+    "UP045",  # non-pep604-annotation-optional（Optional[X] → X | None）
+    "UP035",  # deprecated-import（typing 废弃导入迁移 collections.abc）
+]
+# ruff 不支持 flake8 的 E203/W503（已通过 line-length 覆盖）
+ignore = [
+    "E501",  # 行长度（由 line-length 控制）
+]
+
+[tool.ruff.lint.per-file-ignores]
+# 与 .flake8 per-file-ignores 对齐
+# P2-7 修复：修正引用失效的文件路径
+#   - audit_log.py 实际路径为 engineering/python/app/audit/audit_log.py
+#   - verify_cache_performance.py 已删除，移除对应规则
+# 阶段2 解耦改造：
+#   - quantization/quantizer.py 已迁移到 research/quantization/quantizer.py
+#     （工程侧不再持有训练相关代码，E203 规则由科研侧配置继承）
+"engineering/python/app/ai/lnn/engine.py" = ["E203"]
+"engineering/python/app/cad/cadquery_gen.py" = ["E203", "E402"]
+"engineering/python/app/audit/audit_log.py" = ["E203"]
+"engineering/python/alembic/versions/be7e8d82d196_initial_schema.py" = ["E501", "W291"]
+"research/quantization/quantizer.py" = ["E203"]
+
+# F401 清理（2026-08-04）：__init__.py 聚合 re-export 是包导出惯例，显式列入而非全局忽略
+"**/__init__.py" = ["F401"]
+
+# E402 已知债务登记（2026-08-04 全量清理时逐项复核）：
+#   - sys.path 引导类（legacy 直跑入口/测试）：main.py、run_perf_benchmark.py、
+#     dreaming/cli.py（sys.platform 切换 hack）、4 个内嵌 tests/
+#   - D5 拆分残留类（logger/常量夹在导入块中间，运行时正常）：
+#     lnn/services.py、lnn/dependencies.py、lnn/routes_training.py、lnn/routes_system.py、
+#     cam_validation/routes.py、gcode_generator.py、simulation/api.py、
+#     cutting_parameters/routes.py、gcode_generation/routes.py、chatter_prediction/routes.py、
+#     dependencies.py、dxf_parser.py、rag/evaluation.py、rag_retrieval.py、
+#     tdengine_client.py、tasks/execution.py、fusion_trainer.py、chatter_store.py
+"engineering/python/app/main.py" = ["E402"]
+"engineering/python/app/benchmarks/performance/run_perf_benchmark.py" = ["E402"]
+"engineering/python/app/dreaming/cli.py" = ["E402"]
+"engineering/python/app/api/v1/lnn/services.py" = ["E402"]
+"engineering/python/app/api/v1/lnn/dependencies.py" = ["E402"]
+"engineering/python/app/api/v1/lnn/routes_training.py" = ["E402"]
+"engineering/python/app/api/v1/lnn/routes_system.py" = ["E402"]
+"engineering/python/app/api/v1/cam_validation/routes.py" = ["E402"]
+"engineering/python/app/process_planning/gcode_generator.py" = ["E402"]
+"engineering/python/app/simulation/api.py" = ["E402"]
+"engineering/python/app/api/v1/cutting_parameters/routes.py" = ["E402"]
+"engineering/python/app/api/v1/gcode_generation/routes.py" = ["E402"]
+"engineering/python/app/api/v1/chatter_prediction/routes.py" = ["E402"]
+"engineering/python/app/dependencies.py" = ["E402"]
+"engineering/python/app/dxf/dxf_parser.py" = ["E402"]
+"engineering/python/app/rag/evaluation.py" = ["E402"]
+"engineering/python/app/rag/rag_retrieval.py" = ["E402"]
+"engineering/python/app/services/tdengine_client.py" = ["E402"]
+"engineering/python/app/tasks/execution.py" = ["E402"]
+"engineering/python/app/plugins/world_model/training/fusion_trainer.py" = ["E402"]
+"engineering/python/app/chatter_prediction/chatter_store.py" = ["E402"]
+# E402 追加登记（2026-08-17）：scripts/demo_* 与工具脚本的 sys.path 引导模式
+#   （脚本先 insert 仓库根/engineering/python 再导入 app 包，运行时语义正确）
+"engineering/python/scripts/demo_kg_experience.py" = ["E402"]
+"engineering/python/scripts/demo_kinematics_rtcp.py" = ["E402"]
+"engineering/python/scripts/demo_lnn_optimization.py" = ["E402"]
+"engineering/python/scripts/demo_pinn_force_prediction.py" = ["E402"]
+"engineering/python/scripts/generate_comparison_report.py" = ["E402"]
+"engineering/python/scripts/generate_xm100_demo_gcode.py" = ["E402"]
+"engineering/python/tools/test_generator/__main__.py" = ["E402"]
+"engineering/python/app/integrations/mtconnect/tests/test_adapter.py" = ["E402"]
+"engineering/python/app/pipelines/tests/test_collector.py" = ["E402"]
+"engineering/python/app/simulation/chatter/tests/test_predictor.py" = ["E402"]
+"engineering/python/app/services/tests/test_tdengine_client.py" = ["E402"]
+# E402 追加登记（2026-08-23）：
+#   - routers/__init__.py：底部聚合导入 _route_registry，刻意置于 register 函数之后，
+#     避免模块级循环导入（_route_registry 依赖本模块已注册的域）
+#   - contracts/__init__.py：模块底部聚合 re-export 契约模型（包导出惯例，同 __init__ 一览）
+"engineering/python/app/api/routers/__init__.py" = ["E402"]
+"engineering/python/app/contracts/__init__.py" = ["E402"]

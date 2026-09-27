@@ -1,0 +1,367 @@
+{
+  "part_id": "flange",
+  "part_name": "法兰盘",
+  "part_type": "flange",
+  "material": "Q235-B",
+  "material_grade": "GB/T 700-2006",
+  "overall_dimensions": {
+    "outer_diameter": 120.0,
+    "inner_diameter": 40.0,
+    "thickness": 15.0
+  },
+  "tolerance_grade": "IT7",
+  "features": [
+    {
+      "name": "flange_disc",
+      "feature_type": "disc",
+      "parameters": {
+        "outer_diameter": 120.0,
+        "thickness": 15.0
+      },
+      "area": 22619.47,
+      "volume": 169646.02,
+      "bbox": [
+        0,
+        0,
+        480,
+        480
+      ],
+      "bbox_3d": [
+        0,
+        0,
+        0,
+        120,
+        120,
+        15
+      ]
+    },
+    {
+      "name": "center_bore",
+      "feature_type": "through_hole",
+      "parameters": {
+        "diameter": 40.0
+      },
+      "area": 5026.55,
+      "volume": 18849.56,
+      "bbox": [
+        160,
+        160,
+        320,
+        320
+      ],
+      "bbox_3d": [
+        40,
+        40,
+        0,
+        40,
+        40,
+        15
+      ]
+    },
+    {
+      "name": "bolt_hole_1",
+      "feature_type": "through_hole",
+      "parameters": {
+        "diameter": 10.0,
+        "pcd": 90.0,
+        "angle": 0.0
+      },
+      "area": 314.16,
+      "volume": 1178.1,
+      "bbox": [
+        200,
+        140,
+        280,
+        220
+      ],
+      "bbox_3d": [
+        85,
+        0,
+        0,
+        85,
+        0,
+        15
+      ]
+    },
+    {
+      "name": "bolt_hole_2",
+      "feature_type": "through_hole",
+      "parameters": {
+        "diameter": 10.0,
+        "pcd": 90.0,
+        "angle": 60.0
+      },
+      "area": 314.16,
+      "volume": 1178.1,
+      "bbox": [
+        200,
+        270,
+        280,
+        350
+      ],
+      "bbox_3d": [
+        42.5,
+        73.6,
+        0,
+        42.5,
+        73.6,
+        15
+      ]
+    },
+    {
+      "name": "bolt_hole_3",
+      "feature_type": "through_hole",
+      "parameters": {
+        "diameter": 10.0,
+        "pcd": 90.0,
+        "angle": 120.0
+      },
+      "area": 314.16,
+      "volume": 1178.1,
+      "bbox": [
+        120,
+        270,
+        200,
+        350
+      ],
+      "bbox_3d": [
+        -42.5,
+        73.6,
+        0,
+        -42.5,
+        73.6,
+        15
+      ]
+    },
+    {
+      "name": "bolt_hole_4",
+      "feature_type": "through_hole",
+      "parameters": {
+        "diameter": 10.0,
+        "pcd": 90.0,
+        "angle": 180.0
+      },
+      "area": 314.16,
+      "volume": 1178.1,
+      "bbox": [
+        120,
+        140,
+        200,
+        220
+      ],
+      "bbox_3d": [
+        -85,
+        0,
+        0,
+        -85,
+        0,
+        15
+      ]
+    },
+    {
+      "name": "bolt_hole_5",
+      "feature_type": "through_hole",
+      "parameters": {
+        "diameter": 10.0,
+        "pcd": 90.0,
+        "angle": 240.0
+      },
+      "area": 314.16,
+      "volume": 1178.1,
+      "bbox": [
+        120,
+        10,
+        200,
+        90
+      ],
+      "bbox_3d": [
+        -42.5,
+        -73.6,
+        0,
+        -42.5,
+        -73.6,
+        15
+      ]
+    },
+    {
+      "name": "bolt_hole_6",
+      "feature_type": "through_hole",
+      "parameters": {
+        "diameter": 10.0,
+        "pcd": 90.0,
+        "angle": 300.0
+      },
+      "area": 314.16,
+      "volume": 1178.1,
+      "bbox": [
+        200,
+        10,
+        280,
+        90
+      ],
+      "bbox_3d": [
+        42.5,
+        -73.6,
+        0,
+        42.5,
+        -73.6,
+        15
+      ]
+    },
+    {
+      "name": "outer_chamfer",
+      "feature_type": "chamfer",
+      "parameters": {
+        "angle": 45.0,
+        "width": 1.0
+      },
+      "area": 376.99,
+      "volume": 282.74,
+      "bbox": [
+        0,
+        0,
+        480,
+        480
+      ],
+      "bbox_3d": [
+        119,
+        0,
+        0,
+        120,
+        120,
+        15
+      ]
+    }
+  ],
+  "dimensions": [
+    {
+      "name": "OD",
+      "nominal": 120.0,
+      "unit": "mm",
+      "tolerance_upper": 0.035,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "法兰外径"
+    },
+    {
+      "name": "center_bore_dia",
+      "nominal": 40.0,
+      "unit": "mm",
+      "tolerance_upper": 0.025,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "中心孔径"
+    },
+    {
+      "name": "thickness",
+      "nominal": 15.0,
+      "unit": "mm",
+      "tolerance_upper": 0.018,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "法兰厚度"
+    },
+    {
+      "name": "bolt_hole_dia",
+      "nominal": 10.0,
+      "unit": "mm",
+      "tolerance_upper": 0.015,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT7",
+      "description": "螺栓孔直径"
+    },
+    {
+      "name": "pcd",
+      "nominal": 90.0,
+      "unit": "mm",
+      "tolerance_upper": 0.035,
+      "tolerance_lower": -0.035,
+      "tolerance_grade": "IT7",
+      "description": "螺栓孔分布圆直径"
+    },
+    {
+      "name": "chamfer_width",
+      "nominal": 1.0,
+      "unit": "mm",
+      "tolerance_upper": 0.1,
+      "tolerance_lower": 0.0,
+      "tolerance_grade": "IT8",
+      "description": "倒角宽度"
+    }
+  ],
+  "topology": [
+    {
+      "feature_a": "flange_disc",
+      "feature_b": "center_bore",
+      "relation": "contains_concentric"
+    },
+    {
+      "feature_a": "flange_disc",
+      "feature_b": "bolt_hole_1",
+      "relation": "contains"
+    },
+    {
+      "feature_a": "flange_disc",
+      "feature_b": "bolt_hole_2",
+      "relation": "contains"
+    },
+    {
+      "feature_a": "flange_disc",
+      "feature_b": "bolt_hole_3",
+      "relation": "contains"
+    },
+    {
+      "feature_a": "flange_disc",
+      "feature_b": "bolt_hole_4",
+      "relation": "contains"
+    },
+    {
+      "feature_a": "flange_disc",
+      "feature_b": "bolt_hole_5",
+      "relation": "contains"
+    },
+    {
+      "feature_a": "flange_disc",
+      "feature_b": "bolt_hole_6",
+      "relation": "contains"
+    },
+    {
+      "feature_a": "flange_disc",
+      "feature_b": "outer_chamfer",
+      "relation": "edge_transition"
+    },
+    {
+      "feature_a": "bolt_hole_1",
+      "feature_b": "bolt_hole_2",
+      "relation": "angular_spacing_60deg"
+    },
+    {
+      "feature_a": "bolt_hole_2",
+      "feature_b": "bolt_hole_3",
+      "relation": "angular_spacing_60deg"
+    },
+    {
+      "feature_a": "bolt_hole_3",
+      "feature_b": "bolt_hole_4",
+      "relation": "angular_spacing_60deg"
+    },
+    {
+      "feature_a": "bolt_hole_4",
+      "feature_b": "bolt_hole_5",
+      "relation": "angular_spacing_60deg"
+    },
+    {
+      "feature_a": "bolt_hole_5",
+      "feature_b": "bolt_hole_6",
+      "relation": "angular_spacing_60deg"
+    },
+    {
+      "feature_a": "bolt_hole_6",
+      "feature_b": "bolt_hole_1",
+      "relation": "angular_spacing_60deg"
+    }
+  ],
+  "version": "1.0.0",
+  "created": "2026-05-16T08:00:00Z",
+  "description": "标准法兰盘零件，包含6个均布螺栓孔和1个中心孔，用于检验盘类零件的3D重建精度"
+}

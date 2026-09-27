@@ -1,0 +1,117 @@
+{
+  "kappa": {
+    "kappa_min": 0.000527,
+    "kappa_max": 0.001267,
+    "kappa_recommended": 0.000736,
+    "window_degC": [
+      300.0,
+      500.0
+    ],
+    "per_set": [
+      {
+        "src": "Umbrello 2008 [1]",
+        "m": 1.0,
+        "kappa_avg_300C": 0.000623,
+        "kappa_avg_500C": 0.000623,
+        "kappa_diff_300C": 0.000623,
+        "kappa_diff_500C": 0.000623
+      },
+      {
+        "src": "Lee & Lin 1998 [1]",
+        "m": 1.0,
+        "kappa_avg_300C": 0.000623,
+        "kappa_avg_500C": 0.000623,
+        "kappa_diff_300C": 0.000623,
+        "kappa_diff_500C": 0.000623
+      },
+      {
+        "src": "Li & He 2006 [1]",
+        "m": 0.577,
+        "kappa_avg_300C": 0.001267,
+        "kappa_avg_500C": 0.00102,
+        "kappa_diff_300C": 0.000731,
+        "kappa_diff_500C": 0.000589
+      },
+      {
+        "src": "Ozel & Zeren 2004 [1]",
+        "m": 1.1,
+        "kappa_avg_300C": 0.000527,
+        "kappa_avg_500C": 0.000554,
+        "kappa_diff_300C": 0.00058,
+        "kappa_diff_500C": 0.00061
+      },
+      {
+        "src": "Meyer & Kleponis 2001 [1]",
+        "m": 0.8,
+        "kappa_avg_300C": 0.000871,
+        "kappa_avg_500C": 0.000787,
+        "kappa_diff_300C": 0.000697,
+        "kappa_diff_500C": 0.000629
+      },
+      {
+        "src": "Chen et al. 2004 [1]",
+        "m": 1.1,
+        "kappa_avg_300C": 0.000527,
+        "kappa_avg_500C": 0.000554,
+        "kappa_diff_300C": 0.00058,
+        "kappa_diff_500C": 0.00061
+      },
+      {
+        "src": "Seo et al. 2005 [1]",
+        "m": 0.7,
+        "kappa_avg_300C": 0.00103,
+        "kappa_avg_500C": 0.000884,
+        "kappa_diff_300C": 0.000721,
+        "kappa_diff_500C": 0.000619
+      },
+      {
+        "src": "Meyer & Kleponis 2001 [2] Set1",
+        "m": 0.8,
+        "kappa_avg_300C": 0.000871,
+        "kappa_avg_500C": 0.000787,
+        "kappa_diff_300C": 0.000697,
+        "kappa_diff_500C": 0.000629
+      },
+      {
+        "src": "Chen et al. 2004 [2] Set2",
+        "m": 1.1,
+        "kappa_avg_300C": 0.000527,
+        "kappa_avg_500C": 0.000554,
+        "kappa_diff_300C": 0.00058,
+        "kappa_diff_500C": 0.00061
+      }
+    ],
+    "sources": [
+      "Karpat 2011 JMPT 10.1016/j.jmatprotec.2010.12.008 Table 1 (7 JC sets)",
+      "Zhang 2015 Procedia CIRP 10.1016/j.procir.2015.03.052 Table 2 (2 JC sets)"
+    ]
+  },
+  "delta": {
+    "value": 0.000517,
+    "formula": "E(T) = -57.7T + 111672 MPa (Karpat 2009)",
+    "E_GPa": {
+      "25": 110.23,
+      "100": 105.9,
+      "200": 100.13,
+      "300": 94.36,
+      "400": 88.59,
+      "500": 82.82,
+      "600": 77.05,
+      "800": 65.51
+    },
+    "source": "Karpat 2011 JMPT 10.1016/j.jmatprotec.2010.12.008 p.743"
+  },
+  "net_effect": {
+    "formula": "kappa_eff = kappa - delta*r",
+    "kappa_recommended": 0.000736,
+    "delta": 0.000517,
+    "examples": {
+      "0.0": 0.000736,
+      "0.1": 0.000684,
+      "0.3": 0.000581,
+      "0.5": 0.000478,
+      "1.0": 0.000219
+    }
+  },
+  "note": "DRX 流动软化起始于 350-500°C (Karpat 2011), 该窗口以上 κ 额外增大"
+}
