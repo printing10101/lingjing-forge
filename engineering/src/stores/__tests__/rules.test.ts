@@ -146,13 +146,13 @@ describe('useRuleStore', () => {
       expect(store.loading).toBe(false)
     })
 
-    it('网络异常时显示错误提示', async () => {
+    it('网络异常时不重复弹提示（拦截器统一提示），仅收敛状态', async () => {
       (http.get as ReturnType<typeof vi.fn>).mockRejectedValue({
         response: { data: { message: '服务不可用' } },
       })
       const store = useRuleStore()
       await store.fetchRules()
-      expect(elMessageMock.error).toHaveBeenCalledWith('服务不可用')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
       expect(store.loading).toBe(false)
     })
   })
@@ -171,11 +171,11 @@ describe('useRuleStore', () => {
       expect(store.groups).toHaveLength(2)
     })
 
-    it('网络异常时显示错误提示', async () => {
+    it('网络异常时不重复弹提示（拦截器统一提示）', async () => {
       (http.get as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('网络错误'))
       const store = useRuleStore()
       await store.fetchGroups()
-      expect(elMessageMock.error).toHaveBeenCalledWith('网络错误')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 
@@ -225,13 +225,13 @@ describe('useRuleStore', () => {
       expect(elMessageMock.success).toHaveBeenCalledWith('规则创建成功')
     })
 
-    it('网络异常时显示错误提示并抛出', async () => {
+    it('失败时抛出且不重复弹提示（拦截器统一提示）', async () => {
       (http.post as ReturnType<typeof vi.fn>).mockRejectedValue({
         response: { data: { message: '权限不足' } },
       })
       const store = useRuleStore()
       await expect(store.createRule({ name: 'x' } as never)).rejects.toBeDefined()
-      expect(elMessageMock.error).toHaveBeenCalledWith('权限不足')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 
@@ -249,11 +249,11 @@ describe('useRuleStore', () => {
       expect(result).toEqual({ id: 1 })
     })
 
-    it('网络异常时显示错误提示并抛出', async () => {
+    it('失败时抛出且不重复弹提示', async () => {
       (http.put as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('timeout'))
       const store = useRuleStore()
       await expect(store.updateRule(1, {} as never)).rejects.toBeDefined()
-      expect(elMessageMock.error).toHaveBeenCalledWith('timeout')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 
@@ -270,13 +270,13 @@ describe('useRuleStore', () => {
       expect(elMessageMock.success).toHaveBeenCalledWith('删除成功')
     })
 
-    it('网络异常时显示错误提示并抛出', async () => {
+    it('失败时抛出且不重复弹提示', async () => {
       (http.delete as ReturnType<typeof vi.fn>).mockRejectedValue({
         response: { data: { message: '规则不存在' } },
       })
       const store = useRuleStore()
       await expect(store.deleteRule(1)).rejects.toBeDefined()
-      expect(elMessageMock.error).toHaveBeenCalledWith('规则不存在')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 
@@ -291,11 +291,11 @@ describe('useRuleStore', () => {
       expect(result).toEqual({ id: 1, name: 'detail' })
     })
 
-    it('网络异常时显示错误提示并抛出', async () => {
+    it('失败时抛出且不重复弹提示', async () => {
       (http.get as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('network'))
       const store = useRuleStore()
       await expect(store.getRule(1)).rejects.toBeDefined()
-      expect(elMessageMock.error).toHaveBeenCalledWith('network')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 
@@ -313,11 +313,11 @@ describe('useRuleStore', () => {
       expect(result).toEqual({ id: 1 })
     })
 
-    it('网络异常时显示错误提示并抛出', async () => {
+    it('失败时抛出且不重复弹提示', async () => {
       (http.post as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('网络错误'))
       const store = useRuleStore()
       await expect(store.createGroup({ name: 'x' } as never)).rejects.toBeDefined()
-      expect(elMessageMock.error).toHaveBeenCalledWith('网络错误')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 
@@ -335,11 +335,11 @@ describe('useRuleStore', () => {
       expect(result).toEqual({ id: 1, name: 'updated' })
     })
 
-    it('网络异常时显示错误提示并抛出', async () => {
+    it('失败时抛出且不重复弹提示', async () => {
       (http.put as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('失败'))
       const store = useRuleStore()
       await expect(store.updateGroup(1, {} as never)).rejects.toBeDefined()
-      expect(elMessageMock.error).toHaveBeenCalledWith('失败')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 
@@ -356,11 +356,11 @@ describe('useRuleStore', () => {
       expect(elMessageMock.success).toHaveBeenCalledWith('分组删除成功')
     })
 
-    it('网络异常时显示错误提示并抛出', async () => {
+    it('失败时抛出且不重复弹提示', async () => {
       (http.delete as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('失败'))
       const store = useRuleStore()
       await expect(store.deleteGroup(1)).rejects.toBeDefined()
-      expect(elMessageMock.error).toHaveBeenCalledWith('失败')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 
@@ -396,11 +396,11 @@ describe('useRuleStore', () => {
       expect(triggerFileDownloadMock).toHaveBeenCalledWith(expect.any(Blob), 'custom.json')
     })
 
-    it('导出失败时显示错误提示并抛出', async () => {
+    it('导出失败时抛出且不重复弹提示', async () => {
       (http.get as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('导出失败'))
       const store = useRuleStore()
       await expect(store.exportRules()).rejects.toBeDefined()
-      expect(elMessageMock.error).toHaveBeenCalledWith('导出失败')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 
@@ -435,12 +435,12 @@ describe('useRuleStore', () => {
       expect(elMessageMock.success).toHaveBeenCalledWith('导入成功: 3 条规则, 1 个分组')
     })
 
-    it('导入失败时显示错误提示并抛出', async () => {
+    it('导入失败时抛出且不重复弹提示', async () => {
       (http.post as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('文件格式错误'))
       const store = useRuleStore()
       const file = new File(['{}'], 'rules.json', { type: 'application/json' })
       await expect(store.importRules(file)).rejects.toBeDefined()
-      expect(elMessageMock.error).toHaveBeenCalledWith('文件格式错误')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 
@@ -464,11 +464,11 @@ describe('useRuleStore', () => {
       expect(elMessageMock.success).toHaveBeenCalledWith('数据库备份成功')
     })
 
-    it('备份失败时显示错误提示并抛出', async () => {
+    it('备份失败时抛出且不重复弹提示', async () => {
       (http.post as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('磁盘满'))
       const store = useRuleStore()
       await expect(store.backupDatabase()).rejects.toBeDefined()
-      expect(elMessageMock.error).toHaveBeenCalledWith('磁盘满')
+      expect(elMessageMock.error).not.toHaveBeenCalled()
     })
   })
 

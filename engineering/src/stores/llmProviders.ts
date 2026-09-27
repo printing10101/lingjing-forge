@@ -252,9 +252,8 @@ export const useLLMProvidersStore = defineStore('llmProviders', () => {
 // Helpers
 
   function handleError(e: unknown, fallback: string): void {
-    const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail
-    ElMessage.error(msg || fallback)
-    console.error('[LLMProviders]', e)
+    // 错误提示由 utils/http 响应拦截器统一弹出，这里只记录日志便于排查
+    console.error(`[LLMProviders] ${fallback}:`, e)
   }
 
   function getCategoryLabel(type: ProviderType): string {
