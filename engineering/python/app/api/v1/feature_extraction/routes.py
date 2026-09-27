@@ -23,9 +23,6 @@ from app.utils.utils import get_upload_dir
 
 logger = logging.getLogger(__name__)
 
-# 后台任务引用集合（C5 修复：asyncio.create_task 不保存引用会被 GC 回收）
-_background_tasks: set = set()
-
 # mesh 上传校验常量（F821 修复：历史实现引用但从未定义，端点运行期会 NameError）
 ALLOWED_MESH_EXTENSIONS: set[str] = {".stl", ".obj", ".step", ".stp", ".iges", ".igs"}
 MAX_MESH_SIZE: int = 200 * 1024 * 1024  # 200 MB（单位：字节，见 validate_upload）

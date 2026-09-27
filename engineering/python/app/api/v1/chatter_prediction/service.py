@@ -26,8 +26,8 @@ from app.chatter_prediction import (
     check_ltc_model_available,
     get_task_store,
 )
+from app.api.v1._shared.task_infra import spawn_background_task
 from app.api.v1.chatter_prediction._helpers import (
-    _spawn,
     _get_pipeline,
     _disclaimer_dict,
     _resolve_upstream_calibrated,
@@ -230,7 +230,7 @@ async def run_task(task_id: str) -> dict[str, Any]:
         store.update_task(task)
 
     pipeline = _get_pipeline()
-    _spawn(pipeline.run_pipeline(task_id))
+    spawn_background_task(pipeline.run_pipeline(task_id))
 
     return success(
         data={

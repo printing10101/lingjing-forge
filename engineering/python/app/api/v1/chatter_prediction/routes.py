@@ -40,10 +40,6 @@ from app.auth.permissions import require_permission
 
 logger = logging.getLogger(__name__)
 
-# 后台任务引用集合（C5 修复：asyncio.create_task 不保存引用会被 GC 回收）
-_background_tasks: set = set()
-
-
 router = APIRouter(
     prefix="/api/v1/chatter_prediction",
     tags=["Chatter Prediction (Engineer-Assisted LTC Integration)"],

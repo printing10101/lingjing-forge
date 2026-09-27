@@ -27,8 +27,8 @@ from app.feature_extraction import (
     MeshLoadError,
     get_feature_store,
 )
+from app.api.v1._shared.task_infra import spawn_background_task
 from app.api.v1.feature_extraction._helpers import (
-    _spawn,
     _get_pipeline,
     _disclaimer_dict,
     _resolve_upstream_calibrated,
@@ -315,7 +315,7 @@ async def run_task(task_id: str) -> dict[str, Any]:
         store.update(task_id, error_message="")
 
     pipeline = _get_pipeline()
-    _spawn(pipeline.run_task(task_id))
+    spawn_background_task(pipeline.run_task(task_id))
 
     return success(
         data={
