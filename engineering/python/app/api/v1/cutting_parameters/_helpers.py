@@ -1,16 +1,14 @@
 """切削参数路由辅助函数（从 routes.py 抽取，D5 God 模块拆分）。
 
 承接与 HTTP 无关的纯逻辑：
-- _spawn: 后台任务引用保存
 - _get_pipeline: pipeline 单例懒加载
 - _disclaimer_dict: 精度告知字段构造
 - _resolve_upstream_calibrated: 上游精度继承链追溯
-抽取后 routes.py 仅保留端点，行为零变更。
+后台任务启动统一使用 app.api.v1._shared.task_infra.spawn_background_task。
 """
 
 from __future__ import annotations
 
-import asyncio
 import logging
 from typing import Any
 
@@ -26,18 +24,6 @@ from app.cutting_parameters import (
 )
 
 logger = logging.getLogger(__name__)
-
-# 后台任务引用集合（asyncio.create_task 不保存引用会被 GC 回收）
-_background_tasks: set = set()
-
-
-def _spawn(coro):
-    """启动后台任务并保存引用，避免被 Python GC 回收。"""
-    t = asyncio.create_task(coro)
-    _background_tasks.add(t)
-    t.add_done_callback(_background_tasks.discard)
-    return t
-
 
 _pipeline: CuttingParametersPipeline | None = None
 
