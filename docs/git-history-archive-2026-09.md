@@ -373,3 +373,13 @@ e3994501 feat: add tests, deployment config, and project infrastructure files
 71d22b7f feat: add LNN model caching, quantization, GPU training, SSE streaming, and LOD optimization
 0d970d80 docs: 添加Git协作开发指南文档
 89c74406 feat: 初始化灵境制造项目 - 首次提交
+
+## Tag 位置（2026-09-27 删除前记录）
+
+- V1.4.0 → f726017d chore: bump version to V1.4.0
+- backup/frontend-pre-refactor → 8e59165c fix(research): 实测稳定性数据集 NaN 治理与稳定性判定方向修复
+- v1.10.0 → 6d5258e1 feat: V1.10.0 企业级制造全流程自动化里程碑版本
+- v1.7.0 → 48e98a07 docs: rename CHANGELOG to Chinese filename for consistency
+- v1.8.0 → becda71a feat: NC仿真系统、错误分类体系、性能基准框架、工艺规划引擎、多CNC后处理器、几何验证系统及开源基础设施完善 (V1.8.0)
+- v2.7.0 → 447b9297 feat(ci): Stage 4 质量护栏 - shell-lint/install-smoke/version-check
+- v2.8.0 → 068327cc chore(cleanup): 忽略模板 A/B 测试与推理 trace 运行时目录
