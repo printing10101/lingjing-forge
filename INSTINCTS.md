@@ -1,5 +1,17 @@
 # INSTINCTS
 
+## Nexent×灵境 本地栈启动与鉴权链（2026-09-28 实测）
+
+- **触发**：MCP 工具调用 401；Nexent 控制台点不动（弹窗按钮无反应）；后端 8765 起不来。
+- **正确做法**：完整链 = Nexent(3000) → 网关 :8088/sse（Bearer=`mcp-token.txt`）→ 后端 :8765（Bearer=`agent-token.txt`）。四个坑：
+  1. `desktop_runtime` 是裸 Python 3.12（只有 pip），后端和 mcp_server 都要用**系统 Python 3.14** 起（uvicorn/fastapi/mcp 都在）。
+  2. 后端启动要 `LNN_TOKEN=$(agent-token.txt)`——否则它读 `engineering/python/.lnn_token`（值不同 → 网关→后端全 401）。
+  3. `/api/agent/v1/*` 校验的是 `~/.lingjing/agent_tokens.json`（sha256 表），**不是** LNN_TOKEN；空表时全 401。登记脚本 `D:\nexent-deploy\register_agent_token.py`。
+  4. agent token 通过中间件后，`require_permission` 路由依赖仍 401（code 1003）：agent 分支不写 `state.username`——**集成缺口**。dev 开关 `LNN_PERMISSION_ENFORCED=false`（代码自带，仅 dev）。
+- **Nexent 控制台**：首载可能水合失败（SSR 静态页、按钮全死），**刷新一次**即恢复；UI 点击（Playwright force/dom_cua/坐标）在这站上普遍卡死，用页内 `evaluate` 调 `.click()` 或直接同源 fetch API（cookie 鉴权）。登录接口 `POST /api/user/signin`。
+- **凭据现状**：`svc-lingjing@nexent.com` 密码已重置为 `svc-account.txt` 记录值（旧哈希备份在 `D:\nexent-deploy\svc-password-backup-20260928.txt`）；`invite-code.txt` 已过时（真码在 nexent-config 容器 env `INVITE_CODE=nexent2025`，且 admin 账号早已存在，无需注册）。
+- **证据**：26 工具 list_tools + healthcheck healthy + `gcode_get_failure_stats` 返回 219/75/144（一次通过率 65.75%），与 sqlite 直查一致；E2E 脚本 `D:\nexent-deploy\mcp_e2e_test.py`。
+
 ## 本机镜像源选型地图（2026-09-28 实测）
 
 - **触发**：docker pull 走默认源失败（Docker Hub registry-1.docker.io 直连被墙；quay.io 匿名 token 握手 401）。
