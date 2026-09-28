@@ -392,6 +392,7 @@ mypy_gg*.txt
 # 后端运行产物（数据库/令牌/探测脚本，不入库）
 /engineering/python/data/*.db
 /engineering/python/data/chroma_db/
+/engineering/python/data/batch_evo_v1/
 /engineering/python/.lnn_*
 /engineering/python/_probe_*.py
 /engineering/python/_e2e_*.py
