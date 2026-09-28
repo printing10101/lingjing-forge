@@ -1,5 +1,26 @@
 # INSTINCTS
 
+## 本机镜像源选型地图（2026-09-28 实测）
+
+- **触发**：docker pull 走默认源失败（Docker Hub registry-1.docker.io 直连被墙；quay.io 匿名 token 握手 401）。
+- **正确做法**：nexent 系 → `ccr.ccs.tencentyun.com/nexent-hub`（tag 带 **v** 前缀，如 `nexent:v2.5.1`）；
+  Docker Hub library 官方镜像（postgres/redis 等）→ `public.ecr.aws/docker/library/*`（manifest 稳定、blob 偶发 RST，重试即可）；
+  quay 系 → `quay.m.daocloud.io/*`（`docker.m.daocloud.io` 只代理 docker.io，不要用）；
+  `docker.elastic.co` 直连可达。批量拉取带重试脚本见 `D:\nexent\pull_images.sh`。
+
+## Nexent 部署现状与启动（2026-09-28）
+
+- **触发**：`docker ps` 无容器、compose 端口（3000/5010-5015/5434 等）无人监听时。
+- **正确做法**：Nexent v2.5.1 栈（13 容器，compose 项目名 `nexent`）真实部署目录在
+  **`D:\nexent-deploy\nexent`**（不在灵境制造仓库，`D:\nexent` 只是源码克隆）。
+  Docker Desktop 装在用户目录 `AppData\Local\Programs\DockerDesktop\`（沙箱里 cmd start 会被拒，
+  用 PowerShell `Start-Process`）；引擎起后 restart:always 自动恢复全部容器，web 控制台 `http://localhost:3000`。
+
+## 灵境 MCP SSE 网关启动（2026-09-28）
+
+- **触发**：Nexent 需要注册灵境 26 个 MCP 工具，或要验证 Bearer 鉴权 SSE。
+- **正确做法**：仓库根执行 `PYTHONPATH=engineering/python LINGJING_AGENT_TOKEN=<≥32字符> LINGJING_MCP_INGRESS_TOKEN=<≥32字符> LNN_MCP_ALLOW_REMOTE=1 python -m mcp_server.server --transport sse --host 0.0.0.0 --port 8080`（系统 Python 3.14 有 mcp 包；desktop_runtime 没有）。容器内经 `host.docker.internal:8080/sse` 可达。
+
 ## Mimosa 门禁调参（2026-09-27）
 
 - **触发**：要调整 L3 commit 门禁（如排除 research/ 误报）时。
