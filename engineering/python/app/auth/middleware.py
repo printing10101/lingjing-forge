@@ -368,12 +368,13 @@ class UnifiedAuthMiddleware:
                 return
 
             start = time.perf_counter()
-            auth_result = await self._check_agent_auth(method, path, auth_header, start, raw_headers)
+            auth_result = await self._check_agent_auth(method, path, auth_header, start, raw_headers, scope)
             if auth_result is not None:
                 await auth_result(send)
                 return
 
-            # Store agent info in scope for downstream use
+            # Store agent info in scope for downstream use（agent 信息由
+            # _check_agent_auth 写入 scope.state，见 permissions._agent_scope_verdict）
             scope["state"] = scope.get("state", {})
             await self.app(scope, receive, _send_wrapper)
             _log_access(
@@ -652,6 +653,7 @@ class UnifiedAuthMiddleware:
         auth_header: str,
         start_time: float,
         headers: list,
+        scope: dict,
     ):
         """Check Agent API authentication.
 
@@ -706,6 +708,13 @@ class UnifiedAuthMiddleware:
 
         agent_id = agent_token.agent_id
         scopes = agent_token.scopes
+
+        # 权限集成修复（2026-09-28）：路由级 require_permission 依赖读取
+        # agent_scopes 判定权限（见 permissions._agent_scope_verdict），
+        # 不再依赖只有 JWT 分支才写入的 state.username。
+        scope["state"] = scope.get("state", {})
+        scope["state"]["agent_id"] = agent_id
+        scope["state"]["agent_scopes"] = list(scopes)
 
         # Check rate limit
         if not agent_rate_limiter.check_rate_limit(agent_id):

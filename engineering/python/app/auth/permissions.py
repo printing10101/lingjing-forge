@@ -295,6 +295,20 @@ async def check_user_has_all_permissions(username: str, required: list[str]) -> 
     return all(p in perms for p in required)
 
 
+def _agent_scope_verdict(request: Request) -> bool | None:
+    """Agent token 请求的权限判定；非 agent 请求返回 None，交回用户逻辑。
+
+    AgentAuthMiddleware 校验通过后会把 ``agent_scopes`` 写入 request.state；
+    此处复用中间件对 method+path 的权限类模型（_get_permission_class）做
+    层级比对，避免维护第二套「路由功能名 → scope」映射。
+    """
+    scopes = getattr(request.state, "agent_scopes", None)
+    if scopes is None:
+        return None
+    required = _get_permission_class(request.method, request.url.path)
+    return _check_scope(list(scopes), required)
+
+
 def require_permission(permission: str):
     """
     FastAPI dependency: check single permission.
@@ -307,6 +321,14 @@ def require_permission(permission: str):
 
         if _os.environ.get("LNN_PERMISSION_ENFORCED", "true").strip().lower() in ("0", "false", "no", "off"):
             return
+        agent_verdict = _agent_scope_verdict(request)
+        if agent_verdict is not None:
+            if agent_verdict:
+                return
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Insufficient permission: {permission}",
+            )
         if not hasattr(request.state, "username") or not request.state.username:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
 
@@ -332,6 +354,14 @@ def require_any_permission(*permissions: str):
 
         if _os.environ.get("LNN_PERMISSION_ENFORCED", "true").strip().lower() in ("0", "false", "no", "off"):
             return
+        agent_verdict = _agent_scope_verdict(request)
+        if agent_verdict is not None:
+            if agent_verdict:
+                return
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Insufficient permission: need any of {permissions}",
+            )
         if not hasattr(request.state, "username") or not request.state.username:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
 
@@ -357,6 +387,14 @@ def require_all_permissions(*permissions: str):
 
         if _os.environ.get("LNN_PERMISSION_ENFORCED", "true").strip().lower() in ("0", "false", "no", "off"):
             return
+        agent_verdict = _agent_scope_verdict(request)
+        if agent_verdict is not None:
+            if agent_verdict:
+                return
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Insufficient permission: need all of {permissions}",
+            )
         if not hasattr(request.state, "username") or not request.state.username:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
 
