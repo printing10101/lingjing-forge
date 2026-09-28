@@ -9,6 +9,8 @@
   3. `/api/agent/v1/*` 校验的是 `~/.lingjing/agent_tokens.json`（sha256 表），**不是** LNN_TOKEN；空表时全 401。登记脚本 `D:\nexent-deploy\register_agent_token.py`。
   4. agent token 与 `require_permission` 的集成缺口**已正式修复**（2026-09-28：中间件写 `state.agent_scopes` + checker 识别，回归测试 `test_agent_permission_scopes.py`）；修复前的临时口径 `LNN_PERMISSION_ENFORCED=false` 不再需要，start-stack.ps1 已同步。
 - **Nexent 控制台**：首载可能水合失败（SSR 静态页、按钮全死），**刷新一次**即恢复；UI 点击（Playwright force/dom_cua/坐标）在这站上普遍卡死，用页内 `evaluate` 调 `.click()` 或直接同源 fetch API（cookie 鉴权）。登录接口 `POST /api/user/signin`。
+- **知识库 API 灌入**（B4 实测）：流程 = `POST /api/indices/{name}`（建库，embedding_model_id 见 `/api/model/list`）→ `POST /api/file/upload`（multipart，index_name 用**租户前缀化索引名**如 `2-<uuid>`，建库响应的 `id` 字段）→ `POST /api/file/process`（chunking_strategy: basic/by_title/none）→ 状态查 `GET /api/indices/{索引名}/files`；检索 `POST /api/indices/search/hybrid`，字段是 **`index_names` 数组**。中文 JSON 体勿走 GBK 控制台 curl，用 httpx。`GET /api/indices/{name}` 是 405。
+- **embedding 服务**：Qwen3-Embedding-0.6B 已配置在 Nexent（base_url 含 `/v1/embeddings`，B6 口径正确）；llama-server.exe 实际在 `E:\llama-cpp\bin`（start-stack.ps1 已修正），启动后探活用 ASCII 输入。
 - **凭据现状**：`svc-lingjing@nexent.com` 密码已重置为 `svc-account.txt` 记录值（旧哈希备份在 `D:\nexent-deploy\svc-password-backup-20260928.txt`）；`invite-code.txt` 已过时（真码在 nexent-config 容器 env `INVITE_CODE=nexent2025`，且 admin 账号早已存在，无需注册）。
 - **证据**：26 工具 list_tools + healthcheck healthy + `gcode_get_failure_stats` 返回 219/75/144（一次通过率 65.75%），与 sqlite 直查一致；E2E 脚本 `D:\nexent-deploy\mcp_e2e_test.py`。
 
