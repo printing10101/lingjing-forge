@@ -201,12 +201,16 @@ jobs:
           COSIGN_EXPERIMENTAL: '1'
         run: |
           # keyless 签名（使用 OIDC token，无需管理私钥）
+          # meta.tags 是多行输出：必须逐行取 tag。直接内联展开会把第二个
+          # 及之后的 tag 行当成 bash 命令执行（exit 127，2026-09-28 实测）。
           # 与 release.yml 保持一致：签名失败应阻断流水线以确保供应链完整性
-          cosign sign --yes ${{ steps.meta.outputs.tags }} || {
-            echo "::error::cosign 签名失败! 镜像未签名，供应链完整性无法保证。"
-            exit 1
-          }
-        # 注释：如果 OIDC 权限未正确配置，签名必定失败，此时应修复权限而非静默跳过。
+          while IFS= read -r tag; do
+            [ -z "$tag" ] && continue
+            cosign sign --yes "$tag" || {
+              echo "::error::cosign 签名失败! 镜像未签名，供应链完整性无法保证。($tag)"
+              exit 1
+            }
+          done <<< "${{ steps.meta.outputs.tags }}"
 
       - name: 镜像构建完成确认
         run: |
@@ -470,8 +474,16 @@ jobs:
           echo "URL: ${{ needs.deploy-staging.outputs.staging_url }}"
 
       - name: 部署失败通知
-        if: needs.deploy-staging.result != 'success' || needs.post-deploy-verification.result != 'success'
+        # 只在部署真正失败时拦截。未配置 staging 凭据时 deploy-staging 是
+        # skipped，此前 `!= 'success'` 的写法会让汇总永远 exit 1——这是
+        # 本流水线历史上 0 成功的最后一环（2026-09-28 修正）。
+        if: needs.deploy-staging.result == 'failure' || needs.post-deploy-verification.result == 'failure'
         run: |
           echo " Staging 环境部署失败！"
           echo "请检查日志以获取详细信息。"
           exit 1
+
+      - name: 部署跳过说明
+        if: needs.deploy-staging.result == 'skipped'
+        run: |
+          echo " Staging 部署已跳过：未配置 KUBE_CONFIG_STAGING / SSH_HOST_STAGING 凭据。"
