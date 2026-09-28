@@ -180,12 +180,14 @@ jobs:
           build-args: |
             BUILD_VERSION=${{ needs.build.outputs.version }}
             BUILD_TIMESTAMP=${{ needs.build.outputs.build_timestamp }}
-            # CI runner 在海外。docker.io 匿名拉取受共享 IP 限流，python:3.12-slim
-            # 反复报 blob not found（2026-09-10 两次实测相隔数小时）；
-            # mirror.gcr.io 是 Google 维护的 Docker Hub 只读镜像，CI 可靠。
+            # CI runner 在海外。基础镜像源选型（按实测时间序）：
+            # docker.io 匿名拉取受共享 IP 限流，反复报 blob not found（2026-09-10）；
+            # mirror.gcr.io 自 2026-09 下旬起连接超时/blob not found（09-27 实测）；
+            # public.ecr.aws 是 AWS 维护的 Docker Hub 官方镜像只读副本，
+            # 免认证、无速率限制，manifest 实测可达（2026-09-28）。
             # 华为云 SWR 公共库没有 python:3.12-slim（2026-09-05 实测 not found）。
             # 国内本地构建保持 Dockerfile 默认的华为云源，无需改动。
-            BASE_REGISTRY=mirror.gcr.io/library
+            BASE_REGISTRY=public.ecr.aws/docker/library
             PIP_INDEX_URL=https://pypi.org/simple/
 
       # P2-DEV-2 修复：镜像签名 - 使用 Sigstore cosign 对推送的镜像进行签名，保证供应链完整性
