@@ -36,6 +36,17 @@
 - **触发**：Nexent 需要注册灵境 26 个 MCP 工具，或要验证 Bearer 鉴权 SSE。
 - **正确做法**：仓库根执行 `PYTHONPATH=engineering/python LINGJING_AGENT_TOKEN=<≥32字符> LINGJING_MCP_INGRESS_TOKEN=<≥32字符> LNN_MCP_ALLOW_REMOTE=1 python -m mcp_server.server --transport sse --host 0.0.0.0 --port 8080`（系统 Python 3.14 有 mcp 包；desktop_runtime 没有）。容器内经 `host.docker.internal:8080/sse` 可达。
 
+## 本机栈稳定性与显存预算（2026-09-29）
+
+- **触发**：Docker Desktop 引擎死亡（13 容器全没）、原生进程（后端/网关/转发器/embedding）被会话回收、embedding 起不来。
+- **正确做法**：
+  1. Docker 引擎死亡 → PowerShell 起 `DockerDesktop\Docker Desktop.exe`，容器全是 restart:always 自动恢复；
+  2. 原生服务掉了直接重跑 `start-stack.ps1`（忙端口自动跳过）——但**脚本不会自愈僵尸**：监听还在但服务半死的（转发器 9080 监听不转发、8080 双绑定）要先 `Stop-Process` 再重跑；
+  3. **显存预算铁律**：30B KV 量化后仍占 15.7/16.4GB，embedding `-ngl 99` 会 CUDA OOM 静默退出——embedding 固定 `-ngl 0` 走 CPU（0.6B 够用）；
+  4. 单容器重建用 `MSYS_NO_PATHCONV=1 docker run ...`（Git Bash 路径转换会毁掉 `/var/run/...` 参数）。
+- **调优实测**：`/no_think` 软开关首轮有效（76→27 分钟）但多轮对话中不稳定回退；KV q8 + 16k ctx 已固化进 start-stack.ps1。**30B 笔记本推理达不到 ≤3 分钟演示线，云推理（B7）是正解**。
+- **证据**：agent_run_2（27 分钟完整决策）/ agent_run_3（31 秒跳过工具——不可信）/ agent_run_4（/no_think 回退长思考）；9080 僵尸转发器杀掉重启后 200。
+
 ## Mimosa 门禁调参（2026-09-27）
 
 - **触发**：要调整 L3 commit 门禁（如排除 research/ 误报）时。
