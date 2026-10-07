@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import math
 from typing import Any
 
 from app.process_planning.boss_recognizer import BossFeature
@@ -16,6 +17,42 @@ from app.process_planning.tool_param_matcher import HoleProcessPlan
 from app.process_planning._stages import PipelineResult, PipelineStage
 
 logger = logging.getLogger(__name__)
+
+# 识别件（型腔/凸台/平面）统一转 MachiningFeature 字典的口径：
+# 三类对象都有 to_machining_feature()；上游（如 DXF 轮廓桥）也可直接传字典。
+_HAS_TO_MF = (CavityFeature, BossFeature, PlaneFeature)
+
+
+def _as_feature_dict(item: Any) -> dict[str, Any] | None:
+    """把识别件对象或特征字典归一为 MachiningFeature 构造入参字典。"""
+    if isinstance(item, dict):
+        return item
+    if isinstance(item, _HAS_TO_MF):
+        return item.to_machining_feature()
+    logger.warning("[特征构建跳过] 无法识别的特征类型: %s。建议操作：传 dict 或识别件对象", type(item).__name__)
+    return None
+
+
+def _build_machining_feature(d: dict[str, Any]) -> MachiningFeature:
+    """按统一口径构造 MachiningFeature（缺字段用保守默认，不抛 KeyError）。
+
+    历史实现用 d["name"]/d["type"]… 硬取，上游少给一个键就整条流水线炸；
+    这里改为带默认值读取，并把真实轮廓顶点 contour 一并带上。
+    """
+    return MachiningFeature(
+        name=str(d.get("name", "")),
+        type=str(d.get("type", "")),
+        geometric_type=str(d.get("geometric_type", "")),
+        tolerance_grade=str(d.get("tolerance_grade", "IT8")),
+        surface_roughness_ra=float(d.get("surface_roughness_ra", 6.3)),
+        is_datum_candidate=bool(d.get("is_datum_candidate", False)),
+        priority=str(d.get("priority", "medium")),
+        surface=str(d.get("surface", "A")),
+        dimensions=dict(d.get("dimensions") or {}),
+        parent_feature=str(d.get("parent_feature", "")),
+        tolerances=dict(d.get("tolerances") or {}),
+        contour=d.get("contour"),
+    )
 
 
 class _StagesMixin:
@@ -104,6 +141,31 @@ class _StagesMixin:
     ) -> list[MachiningFeature]:
         features: list[MachiningFeature] = []
 
+        # 基准面（毛坯上表面）尺寸必须来自零件实际包络，不能写死。
+        # 此前硬编码 length=200 / width=100，导致 face_raster 对任何零件都
+        # 扫同一个 200×100 区域：小件扫到工件外、大件扫不到边界，
+        # 且让「刀轨由真实几何生成」这句对外口径失真。
+        # 缺 overall_dimensions 时回退旧值（保持既有调用方与测试的兼容口径）。
+        overall = part_description.get("overall_dimensions") or {}
+        try:
+            blank_length = float(overall.get("length") or 0.0)
+            blank_width = float(overall.get("width") or 0.0)
+        except (TypeError, ValueError):
+            blank_length = blank_width = 0.0
+        if blank_length <= 0 or blank_width <= 0 or not (math.isfinite(blank_length) and math.isfinite(blank_width)):
+            blank_length, blank_width = 200.0, 100.0
+        try:
+            blank_x0 = float(overall.get("min_x") or 0.0)
+            blank_y0 = float(overall.get("min_y") or 0.0)
+        except (TypeError, ValueError):
+            blank_x0 = blank_y0 = 0.0
+        if not (math.isfinite(blank_x0) and math.isfinite(blank_y0)):
+            blank_x0 = blank_y0 = 0.0
+
+        # 下游 `_extract_feature_geometry` 用 center_x/center_y 判定 anchor="center"，
+        # 而刀轨引擎的 raster rect = 中心 ± length/2、width/2。所以这里必须传**中心**，
+        # 传角点会把整张面铣往 −L/2,−W/2 方向平移半个零件（实测 case6 因此有 83%
+        # 运动点跑到毛坯网格外，阶段 7 的碰撞检查对这样的程序几乎是在空转）。
         features.append(
             MachiningFeature(
                 name="基准面A-上表面",
@@ -114,7 +176,13 @@ class _StagesMixin:
                 is_datum_candidate=True,
                 priority="high",
                 surface="A",
-                dimensions={"area": 20000, "length": 200, "width": 100},
+                dimensions={
+                    "area": round(blank_length * blank_width, 3),
+                    "length": blank_length,
+                    "width": blank_width,
+                    "center_x": blank_x0 + blank_length / 2.0,
+                    "center_y": blank_y0 + blank_width / 2.0,
+                },
             )
         )
 
@@ -141,75 +209,33 @@ class _StagesMixin:
 
         cavity_features = part_description.get("cavities", [])
         for cav in cavity_features:
-            if isinstance(cav, CavityFeature):
-                d = cav.to_machining_feature()
-            elif isinstance(cav, dict):
-                d = cav
-            else:
+            d = _as_feature_dict(cav)
+            if d is None:
                 continue
-            features.append(
-                MachiningFeature(
-                    name=d["name"],
-                    type=d["type"],
-                    geometric_type=d["geometric_type"],
-                    tolerance_grade=d["tolerance_grade"],
-                    surface_roughness_ra=d["surface_roughness_ra"],
-                    is_datum_candidate=d["is_datum_candidate"],
-                    priority=d["priority"],
-                    surface=d["surface"],
-                    dimensions=d["dimensions"],
-                    parent_feature=d["parent_feature"],
-                    tolerances=d["tolerances"],
-                )
-            )
+            features.append(_build_machining_feature(d))
 
         boss_features = part_description.get("bosses", [])
         for boss in boss_features:
-            if isinstance(boss, BossFeature):
-                d = boss.to_machining_feature()
-            elif isinstance(boss, dict):
-                d = boss
-            else:
+            d = _as_feature_dict(boss)
+            if d is None:
                 continue
-            features.append(
-                MachiningFeature(
-                    name=d["name"],
-                    type=d["type"],
-                    geometric_type=d["geometric_type"],
-                    tolerance_grade=d["tolerance_grade"],
-                    surface_roughness_ra=d["surface_roughness_ra"],
-                    is_datum_candidate=d["is_datum_candidate"],
-                    priority=d["priority"],
-                    surface=d["surface"],
-                    dimensions=d["dimensions"],
-                    parent_feature=d["parent_feature"],
-                    tolerances=d["tolerances"],
-                )
-            )
+            features.append(_build_machining_feature(d))
+
+        # 零件外轮廓（DXF 最大闭合环）：把零件从板上切下来。与凸台同走刀族
+        # （外轮廓偏置），但语义与工序命名分开，便于工序表/审计区分。
+        outline_features = part_description.get("outlines", [])
+        for outline in outline_features:
+            d = _as_feature_dict(outline)
+            if d is None:
+                continue
+            features.append(_build_machining_feature(d))
 
         plane_features = part_description.get("planes", [])
         for plane in plane_features:
-            if isinstance(plane, PlaneFeature):
-                d = plane.to_machining_feature()
-            elif isinstance(plane, dict):
-                d = plane
-            else:
+            d = _as_feature_dict(plane)
+            if d is None:
                 continue
-            features.append(
-                MachiningFeature(
-                    name=d["name"],
-                    type=d["type"],
-                    geometric_type=d["geometric_type"],
-                    tolerance_grade=d["tolerance_grade"],
-                    surface_roughness_ra=d["surface_roughness_ra"],
-                    is_datum_candidate=d["is_datum_candidate"],
-                    priority=d["priority"],
-                    surface=d["surface"],
-                    dimensions=d["dimensions"],
-                    parent_feature=d["parent_feature"],
-                    tolerances=d["tolerances"],
-                )
-            )
+            features.append(_build_machining_feature(d))
 
         return features
 

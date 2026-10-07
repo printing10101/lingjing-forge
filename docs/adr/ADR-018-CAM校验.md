@@ -649,6 +649,49 @@ s7-12 独立验证脚本（`_verify_s7_12.py`）3/3 通过：
 的输入，在导出处拦截会造成流水线死锁；阶段 6 的响应与 disclaimer 已声明产物
 仅供校验参考。闭环的强制点在「下发」（唯一通向物理机床的动作）。
 
+## 补记（2026-10-07）：体素仿真口径修正（刀体方向 + 时序判碰）
+
+全库定级实跑时发现两处会让闸门给出**错误结论**的仿真缺陷，均已修正并补测试。
+两处都不是"精度不够"，而是判定方向错：一处误拦合格程序，一处放过真撞刀。
+
+1. **刀体占据方向错（`app/simulation/voxel_cutter/mesher.py` `ToolModel.voxel_mask`）**。
+   模块 docstring 写的是「刀尖在原点，+Z 向上」，实现却把刀体画在刀尖**之下**
+   （`within_z = (z_effective <= 0) & (>= -active_length)`），且 Z 方向半extent
+   沿用半径（数组成立方体）。后果：切深以上的侧刃带永远留在体素网格裡，
+   「分层铣削后原位垂直抬刀」被判 critical 碰撞——**闸门误拦真实工艺程序**。
+   实测影响：20 个 fixture 的刀轨修正后主路径产出外形/型腔走刀，其中 2 例
+   （链轮、带内槽方块）会被这条误报拦死；修正后 20/20 通过。
+   现在：刀体占据刀尖之上（`z_effective = -(Z + z_offset)`），Z 半extent 按刃长展开
+   （上限 `Z_EXTENT_CAP_MM = 80mm`，超出写 warning 提示分层校验）。
+   掩码数组因此不再是立方体（XY 按半径、Z 按刃长），
+   `tests/unit/test_voxel_cutter.py` 与 `tests/test_voxel_simulation.py` 中
+   断言 `shape[0]==shape[1]==shape[2]` 的两处用例已改为断言新不变量
+   （径向对称 + Z 按刃长 + 占据区全在数组中心以上）。
+
+2. **判碰顺序错（`voxel_validator.py` 第 5 步 + `voxel_cutter/cutter.py` `run_simulation`）**。
+   旧实现先把所有切削段一次性刻完，再统一检查所有快移段。方向修正后这会
+   **漏检一类真撞刀**：`G00` 直接扎进实心材料，紧随其后的 `G01` 下刀把该柱材料
+   抹掉，快移检查看到的是空柱。现在两处仿真都改为**按程序顺序**推进：
+   切削段即时刻材料，快移段按"当时"的材料状态判碰（首段模态虚拟起点豁免保持）。
+   分级口径不变：过切 >3 点为 critical；快移沿用 `_check_rapid_collisions` 自身判级。
+
+3. **刀体建模长度改为按实际吃深**（`voxel_validator`）：由固定
+   `stock_height + 4·voxel`（≈54mm，D10 刀掩码膨胀到 13×13×111≈1.9 万格/切触点）
+   改为「毛坯顶面 − 最低切削 Z + 2 个体素」，快移段不计入吃深。
+   实测 20 个 fixture 全量阶段 7 校验耗时从分钟级降到约 3.4s。
+
+4. **新增回归测试（把这次的缝钉死）**：
+   - `tests/unit/test_dnc_voxel_gate_closed_loop.py`：真实仿真结果 → 落盘 →
+     `get_dispatch_block_reason` 的**接缝**闭环（此前 `test_cam_voxel_pipeline.py`
+     只跑到 validated，`test_dnc_nc_gate.py` 用手写注入的 `voxel_check_passed=False`，
+     两边各自绿但缝上没测试）；含变异验证（过切 / 快速下扎 / 安全高度下横移
+     三处单点变异必须从放行翻转为拦截）、抬刀不误拦、时序红线
+     （先切空一处不得掩盖另一处扎刀）。其中「校验通过后原地改坏 .nc 仍被放行」
+     一条以 `xfail` 落档（闸门只按 `source_gcode_file_path` 追溯，
+     `CamValidationTask` 无内容指纹），修复前不阻塞 CI。
+   - `tests/unit/test_dxf_contour_extractor.py` + `test_dxf_profile_toolpath.py`：
+     主路径必须产出外形/型腔刀轨（详见 ADR-016 / 工艺规划相关文档的 2026-10 补记）。
+
 ## 后续工作
 
 1. **CAM 软件实际接入**：当 NX Open / PowerMill SDK 可用时，完善 `_NxOpenBackend` /

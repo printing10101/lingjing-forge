@@ -23,6 +23,11 @@ except ImportError:
 
 logger = logging.getLogger(__name__)
 
+# 刀具掩码 Z 方向半extent 的上限（mm）。刃长再大也只按此长度建模：
+# 掩码体积按 半径²×刃长 增长，不设上限会让粗体素大刀的掩码爆内存。
+# 超过此长度的加工需要分层/分段刀轨（校验层会按实际切深给出警告）。
+Z_EXTENT_CAP_MM = 80.0
+
 
 @dataclass
 class ToolModel:
@@ -169,23 +174,37 @@ class ToolModel:
         """
         r = self.diameter / 2.0
         grid_half = int(np.ceil(r / voxel_size)) + 1
-        grid_range = np.arange(-grid_half, grid_half + 1) * voxel_size
 
         active_length = self.length
         if self.tool_type == "drill":
             active_length = min(self.length, r * 0.3)
+        # Z 轴半extent 必须按**刃长**展开，不能沿用 XY 的半径半extent：
+        # 否则 D10 立铣刀的刀体在掩码里只有 ±6mm，切深 5mm 以上的侧刃带
+        # 永远不会被切除（见下方 z_effective 取号的说明）。
+        z_extent = min(max(active_length, r), Z_EXTENT_CAP_MM)
+        z_half = int(np.ceil(z_extent / voxel_size)) + 1
+
+        grid_range_xy = np.arange(-grid_half, grid_half + 1) * voxel_size
+        grid_range_z = np.arange(-z_half, z_half + 1) * voxel_size
 
         X, Y, Z = np.meshgrid(
-            grid_range,
-            grid_range,
-            grid_range,
+            grid_range_xy,
+            grid_range_xy,
+            grid_range_z,
             indexing="ij",
             sparse=False,
         )
 
         radial_sq = X * X + Y * Y
         radial_dist = np.sqrt(radial_sq)
-        z_effective = Z + z_offset
+        # 刀体占据刀尖**之上**（+Z 方向）的空间：世界 Z 向上、毛坯顶面在 +Z 侧，
+        # 刀具从上方进刀，刀尖在 Z_tip，被刀具占据并切掉的材料是
+        # Z_tip → Z_tip+刃长 这一段。此前这里用 Z 原号（刀体画在刀尖之下），
+        # 后果是「切深处以上的侧刃带永远留在网格裡」：分层铣削后垂直抬刀
+        # 会被体素碰撞检查判成 critical 碰撞（真实的抬刀穿的是已清空槽），
+        # 阶段 7 因此误拦合格程序。取负号后下方各类型判据的几何含义不变
+        # （flat/ball/drill 的角部与球头公式都是相对刀尖向 +Z 展开）。
+        z_effective = -(Z + z_offset)
 
         within_radius = radial_sq <= r * r + 1e-9
         within_z = (z_effective <= 0) & (z_effective >= -active_length)

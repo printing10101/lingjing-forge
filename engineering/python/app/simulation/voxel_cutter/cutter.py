@@ -635,52 +635,58 @@ class VoxelCutter:
         voxel_grid = voxelize_mesh(stock_mesh, bbox_min, bbox_max, self._voxel_size)
         total_voxels = int(voxel_grid.sum())
 
-        cutting_segments = [s for s in segments if s.type in ("linear", "arc")]
         tool_mask = tool.voxel_mask(self._voxel_size)
 
         collision_info = CollisionInfo()
 
         padding = self._voxel_size * 2
 
-        all_cut_points: list[np.ndarray] = []
-        for seg in cutting_segments:
-            seg_points = _discretize_segment(seg, self._voxel_size * 0.5, self._voxel_size)
-            for pt in seg_points:
-                x, y, z = float(pt[0]), float(pt[1]), float(pt[2])
-
-                if z < bbox_min[2] - 0.01:
-                    collision_info.collided = True
-                    collision_info.collision_positions.append([x, y, z])
-                    collision_info.collision_segment_indices.append(seg.block_number)
-                    continue
-
-                all_cut_points.append(np.array([x, y, z]))
-
+        # 按**程序顺序**仿真：切削段即时刻材料，快移段按"当时"的材料状态判碰。
+        # 不能先把所有切削段一次性刻完再统一查快移——那样「G00 扎进实心材料」
+        # 这类真撞刀会被紧随其后的下刀段抹平而漏检（与 cam_validation.voxel_validator
+        # 第 5 步同一口径，两处仿真必须给一致的结论，否则闸门与可视化互相打脸）。
         removed_count = 0
-        if all_cut_points:
-            points_array = np.array(all_cut_points, dtype=np.float64)
-            removed_count = _apply_tool_mask_batch(
-                voxel_grid,
-                tool_mask,
-                points_array,
-                bbox_min,
-                self._voxel_size,
-                padding,
-            )
+        rapid_critical = False
+        for seg in segments:
+            if seg.type in ("linear", "arc"):
+                seg_points = _discretize_segment(seg, self._voxel_size * 0.5, self._voxel_size)
+                keep: list[np.ndarray] = []
+                for pt in seg_points:
+                    x, y, z = float(pt[0]), float(pt[1]), float(pt[2])
 
-        if collision_info.collided:
+                    if z < bbox_min[2] - 0.01:
+                        collision_info.collided = True
+                        collision_info.collision_positions.append([x, y, z])
+                        collision_info.collision_segment_indices.append(seg.block_number)
+                        continue
+
+                    keep.append(np.array([x, y, z]))
+
+                if keep:
+                    removed_count += _apply_tool_mask_batch(
+                        voxel_grid,
+                        tool_mask,
+                        np.array(keep, dtype=np.float64),
+                        bbox_min,
+                        self._voxel_size,
+                        padding,
+                    )
+            elif seg.type == "rapid":
+                rapid_check = _check_rapid_collisions([seg], voxel_grid, bbox_min, safe_z_height, self._voxel_size)
+                if rapid_check.collided:
+                    collision_info.collided = True
+                    collision_info.collision_positions.extend(rapid_check.collision_positions)
+                    collision_info.collision_segment_indices.extend(rapid_check.collision_segment_indices)
+                    if rapid_check.collision_severity == "critical":
+                        rapid_critical = True
+                    elif collision_info.collision_severity == "none":
+                        collision_info.collision_severity = rapid_check.collision_severity
+
+        if collision_info.collided and not rapid_critical:
             severity = "critical" if len(collision_info.collision_positions) > 3 else "warning"
             collision_info.collision_severity = severity
-
-        rapid_check = _check_rapid_collisions(segments, voxel_grid, bbox_min, safe_z_height, self._voxel_size)
-        if rapid_check.collided:
-            collision_info.collided = True
-            collision_info.collision_positions.extend(rapid_check.collision_positions)
-            collision_info.collision_segment_indices.extend(rapid_check.collision_segment_indices)
-            if rapid_check.collision_severity == "critical":
-                collision_info.collision_severity = "critical"
-            elif collision_info.collision_severity == "none":
-                collision_info.collision_severity = rapid_check.collision_severity
+        elif rapid_critical:
+            collision_info.collision_severity = "critical"
 
         if collision_info.collision_positions:
             unique_positions = []

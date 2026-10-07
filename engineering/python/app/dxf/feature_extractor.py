@@ -17,6 +17,7 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
+from app.dxf._entities import DxfParseResult
 from app.dxf.exceptions import DxfFeatureError
 from app.dxf._dxf_feature_models import (  # noqa: F401
     PROXIMITY_THRESHOLD,
@@ -90,25 +91,44 @@ class FeatureExtractor(_DimensionMixin, _PlaneMixin):
             self._extract_overall_dimensions(parse_result, result)
             self._extract_plane_features(parse_result, result)
             self._extract_hole_features(parse_result, result)
+            self._extract_contour_features(parse_result, result)
         except (AttributeError, TypeError, ValueError, IndexError, KeyError) as e:
             # 防御性兜底：特征提取涉及几何运算/属性访问，异常类型多源
             # 任何阶段失败都通过 errors 字段暴露给上层，特征提取整体标记为失败
             result.errors.append(f"特征提取过程中发生异常: {e}")
             logger.error("特征提取异常: %s", e, exc_info=True)
 
-        if not result.holes and not result.planes:
+        if not result.holes and not result.planes and not result.contours:
             result.warnings.append(
-                "未识别到任何孔特征或平面特征。可能原因："
+                "未识别到任何孔特征、平面特征或闭合轮廓。可能原因："
                 "1) DXF中无可识别的圆或矩形轮廓；"
-                "2) 几何实体过于分散或尺寸标注缺失"
+                "2) 几何实体过于分散或尺寸标注缺失；"
+                "3) 轮廓线段端点未严格闭合（请在 CAD 中 JOIN/BOUNDARY 后重新导出）"
             )
 
         logger.info(
-            "特征提取完成: 孔=%d, 平面=%d, 外形=%.1fx%.1fx%.1f",
+            "特征提取完成: 孔=%d, 平面=%d, 轮廓环=%d, 外形=%.1fx%.1fx%.1f",
             result.hole_count,
             result.plane_count,
+            result.contour_count,
             result.overall_length,
             result.overall_width,
             result.overall_height,
         )
         return result
+
+    def _extract_contour_features(
+        self,
+        parse_result: DxfParseResult,
+        result: FeatureExtractionResult,
+    ) -> None:
+        """提取闭合轮廓环（外轮廓 + 内环），供真实多边形刀轨使用。
+
+        没有轮廓时不报错：纯孔图/标注图是合法输入，由上层决定是否降级为
+        包络矩形走刀（并在 G 代码注释里如实标注为包络近似）。
+        """
+        from app.dxf.contour_extractor import ContourExtractor
+
+        rings, warns = ContourExtractor().extract(parse_result)
+        result.contours = rings
+        result.warnings.extend(warns)

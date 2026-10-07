@@ -1,5 +1,6 @@
 {
-  "started_at": "2026-06-18T18:36:26",
+  "generated_at": "2026-10-07T22:15:42",
+  "generator": "scripts/regenerate_e2e_nc_corpus.py",
   "fixture_count": 20,
   "postprocessor_count": 8,
   "postprocessors": [
@@ -12,9 +13,8 @@
     "mitsubishi_m70_m80",
     "fagor_8055"
   ],
-  "fixtures": [
-    {
-      "name": "case10_i_shape.dxf",
+  "fixtures": {
+    "case10_i_shape.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -22,7 +22,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 76.04
+          "total_latency_ms": 432.18,
+          "lines": 285,
+          "cutting_moves": 156,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -30,7 +37,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 72.34
+          "total_latency_ms": 53.71,
+          "lines": 277,
+          "cutting_moves": 155,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -38,7 +52,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 59.49
+          "total_latency_ms": 53.63,
+          "lines": 279,
+          "cutting_moves": 155,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -46,7 +67,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 57.5
+          "total_latency_ms": 53.82,
+          "lines": 284,
+          "cutting_moves": 156,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -54,7 +82,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 56.84
+          "total_latency_ms": 54.16,
+          "lines": 283,
+          "cutting_moves": 156,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -62,7 +97,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 59.67
+          "total_latency_ms": 52.32,
+          "lines": 282,
+          "cutting_moves": 156,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -70,7 +112,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 54.42
+          "total_latency_ms": 53.12,
+          "lines": 285,
+          "cutting_moves": 156,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -78,12 +127,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 68.06
+          "total_latency_ms": 52.34,
+          "lines": 282,
+          "cutting_moves": 156,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case11_perforated_plate.dxf",
+    "case11_perforated_plate.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -91,7 +146,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 51.71
+          "total_latency_ms": 48.48,
+          "lines": 628,
+          "cutting_moves": 107,
+          "drill_cycles": 25,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -99,7 +161,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 66.33
+          "total_latency_ms": 47.76,
+          "lines": 644,
+          "cutting_moves": 105,
+          "drill_cycles": 50,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -107,7 +176,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 58.09
+          "total_latency_ms": 61.82,
+          "lines": 818,
+          "cutting_moves": 105,
+          "drill_cycles": 25,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -115,7 +191,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 57.23
+          "total_latency_ms": 61.0,
+          "lines": 628,
+          "cutting_moves": 107,
+          "drill_cycles": 25,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -123,7 +206,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 53.32
+          "total_latency_ms": 49.32,
+          "lines": 626,
+          "cutting_moves": 107,
+          "drill_cycles": 25,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -131,7 +221,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 53.33
+          "total_latency_ms": 48.96,
+          "lines": 625,
+          "cutting_moves": 107,
+          "drill_cycles": 25,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -139,7 +236,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 57.17
+          "total_latency_ms": 49.16,
+          "lines": 628,
+          "cutting_moves": 107,
+          "drill_cycles": 25,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -147,12 +251,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 53.3
+          "total_latency_ms": 50.44,
+          "lines": 625,
+          "cutting_moves": 107,
+          "drill_cycles": 25,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case12_triangle_support.dxf",
+    "case12_triangle_support.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -160,7 +270,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 46.44
+          "total_latency_ms": 41.68,
+          "lines": 306,
+          "cutting_moves": 97,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -168,7 +285,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 47.67
+          "total_latency_ms": 40.06,
+          "lines": 298,
+          "cutting_moves": 95,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -176,7 +300,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 51.46
+          "total_latency_ms": 121.76,
+          "lines": 304,
+          "cutting_moves": 95,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -184,7 +315,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 45.41
+          "total_latency_ms": 44.08,
+          "lines": 306,
+          "cutting_moves": 97,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -192,7 +330,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 44.81
+          "total_latency_ms": 41.75,
+          "lines": 304,
+          "cutting_moves": 97,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -200,7 +345,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 46.33
+          "total_latency_ms": 39.94,
+          "lines": 303,
+          "cutting_moves": 97,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -208,7 +360,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 53.99
+          "total_latency_ms": 40.89,
+          "lines": 306,
+          "cutting_moves": 97,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -216,12 +375,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 44.5
+          "total_latency_ms": 40.25,
+          "lines": 303,
+          "cutting_moves": 97,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case13_rounded_rect.dxf",
+    "case13_rounded_rect.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -229,7 +394,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 50.35
+          "total_latency_ms": 48.88,
+          "lines": 335,
+          "cutting_moves": 146,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -237,7 +409,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 60.2
+          "total_latency_ms": 48.05,
+          "lines": 327,
+          "cutting_moves": 145,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -245,7 +424,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 64.51
+          "total_latency_ms": 47.17,
+          "lines": 329,
+          "cutting_moves": 145,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -253,7 +439,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 52.07
+          "total_latency_ms": 47.8,
+          "lines": 334,
+          "cutting_moves": 146,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -261,7 +454,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 52.44
+          "total_latency_ms": 77.51,
+          "lines": 333,
+          "cutting_moves": 146,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -269,7 +469,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 49.6
+          "total_latency_ms": 48.93,
+          "lines": 332,
+          "cutting_moves": 146,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -277,7 +484,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 50.26
+          "total_latency_ms": 49.46,
+          "lines": 335,
+          "cutting_moves": 146,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -285,12 +499,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 52.41
+          "total_latency_ms": 55.51,
+          "lines": 332,
+          "cutting_moves": 146,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case14_round_disk.dxf",
+    "case14_round_disk.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -298,7 +518,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 80.54
+          "total_latency_ms": 118.28,
+          "lines": 792,
+          "cutting_moves": 559,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -306,7 +533,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 81.51
+          "total_latency_ms": 115.47,
+          "lines": 784,
+          "cutting_moves": 557,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -314,7 +548,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 90.21
+          "total_latency_ms": 114.51,
+          "lines": 790,
+          "cutting_moves": 557,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -322,7 +563,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 80.33
+          "total_latency_ms": 115.1,
+          "lines": 792,
+          "cutting_moves": 559,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -330,7 +578,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 91.67
+          "total_latency_ms": 114.53,
+          "lines": 790,
+          "cutting_moves": 559,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -338,7 +593,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 88.52
+          "total_latency_ms": 113.76,
+          "lines": 789,
+          "cutting_moves": 559,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -346,7 +608,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 80.37
+          "total_latency_ms": 113.84,
+          "lines": 792,
+          "cutting_moves": 559,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -354,12 +623,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 85.69
+          "total_latency_ms": 116.4,
+          "lines": 789,
+          "cutting_moves": 559,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case15_ellipse_outline.dxf",
+    "case15_ellipse_outline.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -367,7 +642,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 81.01
+          "total_latency_ms": 157.13,
+          "lines": 615,
+          "cutting_moves": 426,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -375,7 +657,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 87.29
+          "total_latency_ms": 103.88,
+          "lines": 607,
+          "cutting_moves": 425,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -383,7 +672,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 80.48
+          "total_latency_ms": 103.81,
+          "lines": 609,
+          "cutting_moves": 425,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -391,7 +687,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 81.34
+          "total_latency_ms": 104.67,
+          "lines": 614,
+          "cutting_moves": 426,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -399,7 +702,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 87.7
+          "total_latency_ms": 107.03,
+          "lines": 613,
+          "cutting_moves": 426,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -407,7 +717,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 94.1
+          "total_latency_ms": 102.82,
+          "lines": 612,
+          "cutting_moves": 426,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -415,7 +732,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 78.55
+          "total_latency_ms": 106.37,
+          "lines": 615,
+          "cutting_moves": 426,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -423,12 +747,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 79.7
+          "total_latency_ms": 105.96,
+          "lines": 612,
+          "cutting_moves": 426,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case16_irregular.dxf",
+    "case16_irregular.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -436,7 +766,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 51.3
+          "total_latency_ms": 46.39,
+          "lines": 310,
+          "cutting_moves": 125,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -444,7 +781,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 49.32
+          "total_latency_ms": 46.79,
+          "lines": 302,
+          "cutting_moves": 123,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -452,7 +796,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 55.88
+          "total_latency_ms": 46.8,
+          "lines": 308,
+          "cutting_moves": 123,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -460,7 +811,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 65.09
+          "total_latency_ms": 51.5,
+          "lines": 310,
+          "cutting_moves": 125,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -468,7 +826,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 52.04
+          "total_latency_ms": 44.78,
+          "lines": 308,
+          "cutting_moves": 125,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -476,7 +841,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 47.42
+          "total_latency_ms": 45.15,
+          "lines": 307,
+          "cutting_moves": 125,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -484,7 +856,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 48.93
+          "total_latency_ms": 45.32,
+          "lines": 310,
+          "cutting_moves": 125,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -492,12 +871,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 59.46
+          "total_latency_ms": 46.13,
+          "lines": 307,
+          "cutting_moves": 125,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case17_arc_profile.dxf",
+    "case17_arc_profile.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -505,7 +890,13 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 75.67
+          "total_latency_ms": 44.36,
+          "lines": 265,
+          "cutting_moves": 73,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -513,7 +904,13 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 75.71
+          "total_latency_ms": 41.67,
+          "lines": 257,
+          "cutting_moves": 72,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -521,7 +918,13 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 65.48
+          "total_latency_ms": 41.33,
+          "lines": 259,
+          "cutting_moves": 72,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -529,7 +932,13 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 56.5
+          "total_latency_ms": 40.95,
+          "lines": 264,
+          "cutting_moves": 73,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -537,7 +946,13 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 61.99
+          "total_latency_ms": 41.33,
+          "lines": 263,
+          "cutting_moves": 73,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -545,7 +960,13 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 62.26
+          "total_latency_ms": 40.89,
+          "lines": 262,
+          "cutting_moves": 73,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -553,7 +974,13 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 67.34
+          "total_latency_ms": 40.03,
+          "lines": 265,
+          "cutting_moves": 73,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -561,12 +988,17 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 63.57
+          "total_latency_ms": 40.28,
+          "lines": 262,
+          "cutting_moves": 73,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster"
+          ]
         }
       }
     },
-    {
-      "name": "case18_sprocket.dxf",
+    "case18_sprocket.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -574,7 +1006,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 185.81
+          "total_latency_ms": 221.07,
+          "lines": 1004,
+          "cutting_moves": 595,
+          "drill_cycles": 9,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -582,7 +1021,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 197.6
+          "total_latency_ms": 225.98,
+          "lines": 1004,
+          "cutting_moves": 593,
+          "drill_cycles": 18,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -590,7 +1036,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 200.33
+          "total_latency_ms": 219.81,
+          "lines": 1064,
+          "cutting_moves": 593,
+          "drill_cycles": 9,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -598,7 +1051,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 211.65
+          "total_latency_ms": 225.67,
+          "lines": 1004,
+          "cutting_moves": 595,
+          "drill_cycles": 9,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -606,7 +1066,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 189.24
+          "total_latency_ms": 219.8,
+          "lines": 1002,
+          "cutting_moves": 595,
+          "drill_cycles": 9,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -614,7 +1081,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 188.23
+          "total_latency_ms": 218.84,
+          "lines": 1001,
+          "cutting_moves": 595,
+          "drill_cycles": 9,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -622,7 +1096,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 193.85
+          "total_latency_ms": 221.94,
+          "lines": 1004,
+          "cutting_moves": 595,
+          "drill_cycles": 9,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -630,12 +1111,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 207.76
+          "total_latency_ms": 223.19,
+          "lines": 1001,
+          "cutting_moves": 595,
+          "drill_cycles": 9,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case19_coupling.dxf",
+    "case19_coupling.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -643,7 +1130,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 173.18
+          "total_latency_ms": 194.99,
+          "lines": 834,
+          "cutting_moves": 547,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -651,7 +1145,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 159.64
+          "total_latency_ms": 192.8,
+          "lines": 832,
+          "cutting_moves": 545,
+          "drill_cycles": 14,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -659,7 +1160,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 166.44
+          "total_latency_ms": 198.04,
+          "lines": 878,
+          "cutting_moves": 545,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -667,7 +1175,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 162.05
+          "total_latency_ms": 192.52,
+          "lines": 834,
+          "cutting_moves": 547,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -675,7 +1190,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 196.49
+          "total_latency_ms": 197.68,
+          "lines": 832,
+          "cutting_moves": 547,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -683,7 +1205,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 158.66
+          "total_latency_ms": 194.97,
+          "lines": 831,
+          "cutting_moves": 547,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -691,7 +1220,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 165.11
+          "total_latency_ms": 195.83,
+          "lines": 834,
+          "cutting_moves": 547,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -699,12 +1235,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 172.7
+          "total_latency_ms": 204.4,
+          "lines": 831,
+          "cutting_moves": 547,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case1_simple_box.dxf",
+    "case1_simple_box.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -712,7 +1254,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 68.82
+          "total_latency_ms": 41.96,
+          "lines": 223,
+          "cutting_moves": 82,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -720,7 +1269,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 67.63
+          "total_latency_ms": 216.85,
+          "lines": 215,
+          "cutting_moves": 81,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -728,7 +1284,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 68.07
+          "total_latency_ms": 42.18,
+          "lines": 217,
+          "cutting_moves": 81,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -736,7 +1299,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 59.33
+          "total_latency_ms": 43.37,
+          "lines": 222,
+          "cutting_moves": 82,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -744,7 +1314,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 62.51
+          "total_latency_ms": 43.84,
+          "lines": 221,
+          "cutting_moves": 82,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -752,7 +1329,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 59.42
+          "total_latency_ms": 45.2,
+          "lines": 220,
+          "cutting_moves": 82,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -760,7 +1344,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 64.81
+          "total_latency_ms": 48.77,
+          "lines": 223,
+          "cutting_moves": 82,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -768,12 +1359,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 66.47
+          "total_latency_ms": 41.95,
+          "lines": 220,
+          "cutting_moves": 82,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case20_special_keyway.dxf",
+    "case20_special_keyway.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -781,7 +1378,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 47.21
+          "total_latency_ms": 99.1,
+          "lines": 740,
+          "cutting_moves": 539,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -789,7 +1393,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 48.03
+          "total_latency_ms": 104.19,
+          "lines": 732,
+          "cutting_moves": 537,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -797,7 +1408,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 53.91
+          "total_latency_ms": 98.85,
+          "lines": 736,
+          "cutting_moves": 536,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -805,7 +1423,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 56.97
+          "total_latency_ms": 96.74,
+          "lines": 740,
+          "cutting_moves": 539,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -813,7 +1438,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 228.45
+          "total_latency_ms": 96.84,
+          "lines": 738,
+          "cutting_moves": 539,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -821,7 +1453,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 50.41
+          "total_latency_ms": 97.61,
+          "lines": 737,
+          "cutting_moves": 539,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -829,7 +1468,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 48.43
+          "total_latency_ms": 139.45,
+          "lines": 740,
+          "cutting_moves": 539,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -837,12 +1483,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 71.6
+          "total_latency_ms": 98.15,
+          "lines": 737,
+          "cutting_moves": 539,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case2_box_4holes.dxf",
+    "case2_box_4holes.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -850,7 +1502,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 99.19
+          "total_latency_ms": 78.43,
+          "lines": 355,
+          "cutting_moves": 107,
+          "drill_cycles": 4,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -858,7 +1517,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 109.04
+          "total_latency_ms": 82.16,
+          "lines": 350,
+          "cutting_moves": 105,
+          "drill_cycles": 8,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -866,7 +1532,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 99.87
+          "total_latency_ms": 78.25,
+          "lines": 377,
+          "cutting_moves": 105,
+          "drill_cycles": 4,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -874,7 +1547,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 99.42
+          "total_latency_ms": 82.04,
+          "lines": 355,
+          "cutting_moves": 107,
+          "drill_cycles": 4,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -882,7 +1562,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 99.44
+          "total_latency_ms": 80.32,
+          "lines": 353,
+          "cutting_moves": 107,
+          "drill_cycles": 4,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -890,7 +1577,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 123.0
+          "total_latency_ms": 77.23,
+          "lines": 352,
+          "cutting_moves": 107,
+          "drill_cycles": 4,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -898,7 +1592,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 120.16
+          "total_latency_ms": 77.24,
+          "lines": 355,
+          "cutting_moves": 107,
+          "drill_cycles": 4,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -906,12 +1607,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 104.18
+          "total_latency_ms": 82.43,
+          "lines": 352,
+          "cutting_moves": 107,
+          "drill_cycles": 4,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case3_polyline_outer.dxf",
+    "case3_polyline_outer.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -919,7 +1626,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 45.52
+          "total_latency_ms": 44.06,
+          "lines": 206,
+          "cutting_moves": 77,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -927,7 +1641,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 53.7
+          "total_latency_ms": 43.81,
+          "lines": 198,
+          "cutting_moves": 76,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -935,7 +1656,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 47.71
+          "total_latency_ms": 43.81,
+          "lines": 200,
+          "cutting_moves": 76,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -943,7 +1671,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 48.71
+          "total_latency_ms": 42.94,
+          "lines": 205,
+          "cutting_moves": 77,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -951,7 +1686,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 48.57
+          "total_latency_ms": 43.16,
+          "lines": 204,
+          "cutting_moves": 77,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -959,7 +1701,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 51.08
+          "total_latency_ms": 46.8,
+          "lines": 203,
+          "cutting_moves": 77,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -967,7 +1716,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 73.94
+          "total_latency_ms": 43.52,
+          "lines": 206,
+          "cutting_moves": 77,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -975,12 +1731,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 46.3
+          "total_latency_ms": 43.93,
+          "lines": 203,
+          "cutting_moves": 77,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case4_polyline_outer_with_hole.dxf",
+    "case4_polyline_outer_with_hole.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -988,7 +1750,15 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 77.23
+          "total_latency_ms": 93.89,
+          "lines": 557,
+          "cutting_moves": 361,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "pocket_contour_parallel",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -996,7 +1766,15 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 77.61
+          "total_latency_ms": 134.14,
+          "lines": 549,
+          "cutting_moves": 360,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "pocket_contour_parallel",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -1004,7 +1782,15 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 76.94
+          "total_latency_ms": 86.41,
+          "lines": 551,
+          "cutting_moves": 360,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "pocket_contour_parallel",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -1012,7 +1798,15 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 76.48
+          "total_latency_ms": 86.85,
+          "lines": 556,
+          "cutting_moves": 361,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "pocket_contour_parallel",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -1020,7 +1814,15 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 84.82
+          "total_latency_ms": 86.44,
+          "lines": 555,
+          "cutting_moves": 361,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "pocket_contour_parallel",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -1028,7 +1830,15 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 84.57
+          "total_latency_ms": 86.82,
+          "lines": 554,
+          "cutting_moves": 361,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "pocket_contour_parallel",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -1036,7 +1846,15 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 73.02
+          "total_latency_ms": 87.33,
+          "lines": 557,
+          "cutting_moves": 361,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "pocket_contour_parallel",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -1044,12 +1862,19 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 85.13
+          "total_latency_ms": 85.36,
+          "lines": 554,
+          "cutting_moves": 361,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "pocket_contour_parallel",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case5_complex_panel.dxf",
+    "case5_complex_panel.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -1057,7 +1882,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 113.22
+          "total_latency_ms": 84.2,
+          "lines": 368,
+          "cutting_moves": 107,
+          "drill_cycles": 5,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -1065,7 +1897,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 112.61
+          "total_latency_ms": 85.22,
+          "lines": 364,
+          "cutting_moves": 105,
+          "drill_cycles": 10,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -1073,7 +1912,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 112.49
+          "total_latency_ms": 93.56,
+          "lines": 398,
+          "cutting_moves": 105,
+          "drill_cycles": 5,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -1081,7 +1927,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 110.86
+          "total_latency_ms": 85.85,
+          "lines": 368,
+          "cutting_moves": 107,
+          "drill_cycles": 5,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -1089,7 +1942,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 106.41
+          "total_latency_ms": 87.02,
+          "lines": 366,
+          "cutting_moves": 107,
+          "drill_cycles": 5,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -1097,7 +1957,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 109.05
+          "total_latency_ms": 86.39,
+          "lines": 365,
+          "cutting_moves": 107,
+          "drill_cycles": 5,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -1105,7 +1972,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 111.03
+          "total_latency_ms": 83.79,
+          "lines": 368,
+          "cutting_moves": 107,
+          "drill_cycles": 5,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -1113,12 +1987,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 110.04
+          "total_latency_ms": 85.48,
+          "lines": 365,
+          "cutting_moves": 107,
+          "drill_cycles": 5,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case6_flange.dxf",
+    "case6_flange.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -1126,7 +2006,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 171.61
+          "total_latency_ms": 196.51,
+          "lines": 1014,
+          "cutting_moves": 607,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -1134,7 +2021,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 166.11
+          "total_latency_ms": 208.87,
+          "lines": 1012,
+          "cutting_moves": 605,
+          "drill_cycles": 14,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -1142,7 +2036,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 183.64
+          "total_latency_ms": 198.1,
+          "lines": 1058,
+          "cutting_moves": 605,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -1150,7 +2051,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 162.47
+          "total_latency_ms": 199.44,
+          "lines": 1014,
+          "cutting_moves": 607,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -1158,7 +2066,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 168.65
+          "total_latency_ms": 195.58,
+          "lines": 1012,
+          "cutting_moves": 607,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -1166,7 +2081,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 172.68
+          "total_latency_ms": 196.34,
+          "lines": 1011,
+          "cutting_moves": 607,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -1174,7 +2096,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 175.55
+          "total_latency_ms": 197.48,
+          "lines": 1014,
+          "cutting_moves": 607,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -1182,12 +2111,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 182.77
+          "total_latency_ms": 196.43,
+          "lines": 1011,
+          "cutting_moves": 607,
+          "drill_cycles": 7,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case7_bracket.dxf",
+    "case7_bracket.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -1195,7 +2130,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 84.59
+          "total_latency_ms": 114.99,
+          "lines": 781,
+          "cutting_moves": 583,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -1203,7 +2145,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 87.27
+          "total_latency_ms": 114.46,
+          "lines": 774,
+          "cutting_moves": 581,
+          "drill_cycles": 4,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -1211,7 +2160,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 84.61
+          "total_latency_ms": 114.78,
+          "lines": 787,
+          "cutting_moves": 581,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -1219,7 +2175,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 93.51
+          "total_latency_ms": 120.31,
+          "lines": 781,
+          "cutting_moves": 583,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -1227,7 +2190,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 91.32
+          "total_latency_ms": 114.14,
+          "lines": 779,
+          "cutting_moves": 583,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -1235,7 +2205,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 237.3
+          "total_latency_ms": 113.01,
+          "lines": 778,
+          "cutting_moves": 583,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -1243,7 +2220,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 91.68
+          "total_latency_ms": 113.97,
+          "lines": 781,
+          "cutting_moves": 583,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -1251,12 +2235,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 90.66
+          "total_latency_ms": 113.35,
+          "lines": 778,
+          "cutting_moves": 583,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case8_gear_blank.dxf",
+    "case8_gear_blank.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -1264,7 +2254,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 101.18
+          "total_latency_ms": 123.82,
+          "lines": 883,
+          "cutting_moves": 586,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -1272,7 +2269,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 106.5
+          "total_latency_ms": 127.32,
+          "lines": 875,
+          "cutting_moves": 584,
+          "drill_cycles": 2,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -1280,7 +2284,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 90.13
+          "total_latency_ms": 125.73,
+          "lines": 879,
+          "cutting_moves": 583,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -1288,7 +2299,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 96.3
+          "total_latency_ms": 125.25,
+          "lines": 883,
+          "cutting_moves": 586,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -1296,7 +2314,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 94.68
+          "total_latency_ms": 126.52,
+          "lines": 881,
+          "cutting_moves": 586,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -1304,7 +2329,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 101.17
+          "total_latency_ms": 125.31,
+          "lines": 880,
+          "cutting_moves": 586,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -1312,7 +2344,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 103.41
+          "total_latency_ms": 124.64,
+          "lines": 883,
+          "cutting_moves": 586,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -1320,12 +2359,18 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 98.16
+          "total_latency_ms": 123.72,
+          "lines": 880,
+          "cutting_moves": 586,
+          "drill_cycles": 1,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     },
-    {
-      "name": "case9_rect_block.dxf",
+    "case9_rect_block.dxf": {
       "results_by_controller": {
         "fanuc_0i": {
           "success": true,
@@ -1333,7 +2378,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 114.75
+          "total_latency_ms": 315.4,
+          "lines": 298,
+          "cutting_moves": 101,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "siemens_840d": {
           "success": true,
@@ -1341,7 +2393,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 121.54
+          "total_latency_ms": 103.03,
+          "lines": 290,
+          "cutting_moves": 100,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "heidenhain_tnc": {
           "success": true,
@@ -1349,7 +2408,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 114.08
+          "total_latency_ms": 107.23,
+          "lines": 292,
+          "cutting_moves": 98,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "gsk_980_25i": {
           "success": true,
@@ -1357,7 +2423,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 108.02
+          "total_latency_ms": 104.76,
+          "lines": 297,
+          "cutting_moves": 101,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "hnc_848_22": {
           "success": true,
@@ -1365,7 +2438,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 114.88
+          "total_latency_ms": 104.45,
+          "lines": 296,
+          "cutting_moves": 101,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "knd_1000_2000_3000": {
           "success": true,
@@ -1373,7 +2453,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 114.9
+          "total_latency_ms": 107.45,
+          "lines": 295,
+          "cutting_moves": 101,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "mitsubishi_m70_m80": {
           "success": true,
@@ -1381,7 +2468,14 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 137.93
+          "total_latency_ms": 109.56,
+          "lines": 298,
+          "cutting_moves": 101,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         },
         "fagor_8055": {
           "success": true,
@@ -1389,56 +2483,16 @@
           "features_ok": true,
           "model3d_ok": true,
           "gcode_ok": true,
-          "total_latency_ms": 113.56
+          "total_latency_ms": 109.72,
+          "lines": 295,
+          "cutting_moves": 101,
+          "drill_cycles": 0,
+          "strategies": [
+            "face_raster",
+            "profile_offset"
+          ]
         }
       }
     }
-  ],
-  "totals": {
-    "total": 160,
-    "success": 160,
-    "parse_ok": 20,
-    "features_ok": 20,
-    "model3d_ok": 20,
-    "gcode_ok": 160,
-    "gcode_ok_fanuc_0i": 20,
-    "latency_ms_fanuc_0i_sum": 1795.3598499298096,
-    "gcode_ok_siemens_840d": 20,
-    "latency_ms_siemens_840d_sum": 1847.6591110229492,
-    "gcode_ok_heidenhain_tnc": 20,
-    "latency_ms_heidenhain_tnc_sum": 1823.8475322723389,
-    "gcode_ok_gsk_980_25i": 20,
-    "latency_ms_gsk_980_25i_sum": 1781.224250793457,
-    "gcode_ok_hnc_848_22": 20,
-    "latency_ms_hnc_848_22_sum": 1986.2549304962158,
-    "gcode_ok_knd_1000_2000_3000": 20,
-    "latency_ms_knd_1000_2000_3000_sum": 1951.711654663086,
-    "gcode_ok_mitsubishi_m70_m80": 20,
-    "latency_ms_mitsubishi_m70_m80_sum": 1849.9648571014404,
-    "gcode_ok_fagor_8055": 20,
-    "latency_ms_fagor_8055_sum": 1856.0078144073486
-  },
-  "wall_clock_seconds": 22.86,
-  "success_rate": 100.0,
-  "parse_rate": 100.0,
-  "features_rate": 100.0,
-  "model3d_rate": 100.0,
-  "gcode_rate": 100.0,
-  "gcode_rate_fanuc_0i": 100.0,
-  "latency_ms_fanuc_0i_avg": 89.77,
-  "gcode_rate_siemens_840d": 100.0,
-  "latency_ms_siemens_840d_avg": 92.38,
-  "gcode_rate_heidenhain_tnc": 100.0,
-  "latency_ms_heidenhain_tnc_avg": 91.19,
-  "gcode_rate_gsk_980_25i": 100.0,
-  "latency_ms_gsk_980_25i_avg": 89.06,
-  "gcode_rate_hnc_848_22": 100.0,
-  "latency_ms_hnc_848_22_avg": 99.31,
-  "gcode_rate_knd_1000_2000_3000": 100.0,
-  "latency_ms_knd_1000_2000_3000_avg": 97.59,
-  "gcode_rate_mitsubishi_m70_m80": 100.0,
-  "latency_ms_mitsubishi_m70_m80_avg": 92.5,
-  "gcode_rate_fagor_8055": 100.0,
-  "latency_ms_fagor_8055_avg": 92.8,
-  "ended_at": "2026-06-18T18:36:49"
+  }
 }

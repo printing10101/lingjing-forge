@@ -10,6 +10,7 @@ from app.process_planning._schemas import GCodeResult
 class _HoleDrillingMixin:
     # 宿主契约：由主类 / 兄弟 mixin 提供
     CONTROLLER_MAP: Any
+    supported_controllers: Any
     _registry: Any
 
     def generate_hole_drilling_only(
@@ -46,7 +47,7 @@ class _HoleDrillingMixin:
         if not hole_positions:
             raise ValueError("孔位置列表不能为空")
 
-        if controller_type not in self.CONTROLLER_MAP:
+        if controller_type not in self.supported_controllers:
             raise ValueError(f"不支持的控制器类型: '{controller_type}'")
 
         postprocessor = self._registry.get_processor(controller_type)

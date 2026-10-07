@@ -22,12 +22,164 @@ from __future__ import annotations
 
 import json
 import logging
+import math
 import time
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
 logger = logging.getLogger(__name__)
+
+# 内环与已识别孔去重的容差（mm）：圆心距、等效半径差
+HOLE_MATCH_CENTER_TOL = 1.0
+HOLE_MATCH_RADIUS_TOL = 0.5
+
+
+def _ring_effective_radius(ring: dict[str, Any]) -> float:
+    """环的等效圆半径：优先用 CIRCLE 原始半径，否则按面积反算。"""
+    r = ring.get("radius")
+    if isinstance(r, (int, float)) and r > 0:
+        return float(r)
+    area = abs(float(ring.get("area") or 0.0))
+    return (area / math.pi) ** 0.5 if area > 0 else 0.0
+
+
+def _matches_hole(ring: dict[str, Any], holes: list[dict[str, Any]]) -> bool:
+    """该环是否已被孔特征覆盖（避免同一个孔既钻孔又挖槽）。"""
+    rr = _ring_effective_radius(ring)
+    if rr <= 0:
+        return False
+    cx = float(ring.get("center_x") or 0.0)
+    cy = float(ring.get("center_y") or 0.0)
+    for h in holes:
+        try:
+            hr = float(h.get("diameter") or 0.0) / 2.0
+            hx = float(h.get("position_x", h.get("center_x", 0.0)) or 0.0)
+            hy = float(h.get("position_y", h.get("center_y", 0.0)) or 0.0)
+        except (TypeError, ValueError):
+            continue
+        if hr <= 0:
+            continue
+        if abs(rr - hr) <= HOLE_MATCH_RADIUS_TOL and math.hypot(cx - hx, cy - hy) <= HOLE_MATCH_CENTER_TOL:
+            return True
+    return False
+
+
+def contours_to_part_features(
+    contours_detail: list[dict[str, Any]],
+    holes: list[dict[str, Any]],
+    thickness: float,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[str]]:
+    """把 DXF 闭合轮廓环翻译成工艺规划器的特征字典（轮廓桥）。
+
+    Args:
+        contours_detail: FeatureExtractor 下发的环明细（已按面积降序）
+        holes: 已识别的孔特征（用于内环去重）
+        thickness: 板厚/加工深度（mm），来自 overall_height（2D 图纸为推断值）
+
+    Returns:
+        (outlines, cavities, notes)
+        - outlines: 外轮廓特征（type="outer_contour" → 精铣外形，偏置走刀把零件切出）
+        - cavities: 内环特征（type="through_pocket" → 精铣挖槽，按多边形偏置环切）
+        - notes: 口径说明（深度为推断值、含弧段弦近似等），供如实标注
+
+    设计口径：
+        - 2D 图纸没有 Z 信息，切深一律取板厚（贯通切割），并在 notes 里如实
+          标注"深度为推断值"，不假装是图纸给定。
+        - 内环若与已识别孔同心同径则跳过：孔走钻孔循环，不再重复挖槽。
+        - 环顶点顺序即走刀顺序；带符号面积决定内外，最大者为外轮廓。
+    """
+    outlines: list[dict[str, Any]] = []
+    cavities: list[dict[str, Any]] = []
+    notes: list[str] = []
+
+    if not contours_detail:
+        return outlines, cavities, notes
+
+    depth = float(thickness or 0.0)
+    if depth <= 0:
+        depth = 10.0
+        notes.append("板厚缺失，外轮廓/型腔切深按 10mm 推断")
+    else:
+        notes.append(f"外轮廓/型腔切深取板厚 {depth}mm（2D 图纸推断值，贯通切割）")
+
+    ordered = sorted(contours_detail, key=lambda c: abs(float(c.get("area") or 0.0)), reverse=True)
+    outer = ordered[0]
+    inner = ordered[1:]
+
+    def _vertices(ring: dict[str, Any]) -> list[list[float]]:
+        raw = ring.get("vertices") or []
+        pts: list[list[float]] = []
+        for p in raw:
+            try:
+                pts.append([float(p[0]), float(p[1])])
+            except (TypeError, ValueError, IndexError):
+                continue
+        return pts
+
+    outer_pts = _vertices(outer)
+    if len(outer_pts) >= 3:
+        outlines.append(
+            {
+                "name": f"OUTLINE_{outer.get('source', 'chained').upper()}",
+                "type": "outer_contour",
+                "geometric_type": "outline",
+                "tolerance_grade": "IT8",
+                "surface_roughness_ra": 3.2,
+                "is_datum_candidate": False,
+                "priority": "high",
+                "surface": "A",
+                "dimensions": {
+                    "length": float(outer.get("length") or 0.0),
+                    "width": float(outer.get("width") or 0.0),
+                    "depth": depth,
+                    "center_x": float(outer.get("center_x") or 0.0),
+                    "center_y": float(outer.get("center_y") or 0.0),
+                },
+                "parent_feature": "",
+                "tolerances": {},
+                "contour": outer_pts,
+            }
+        )
+        if outer.get("approximated_arcs"):
+            notes.append("外轮廓含弧段，按折线采样/弦近似（非解析圆弧插补）")
+    else:
+        notes.append("外轮廓顶点不足 3，未生成外形工序（刀轨退回包络矩形面铣）")
+
+    skipped_as_holes = 0
+    for i, ring in enumerate(inner, start=1):
+        pts = _vertices(ring)
+        if len(pts) < 3:
+            continue
+        if _matches_hole(ring, holes):
+            skipped_as_holes += 1
+            continue
+        cavities.append(
+            {
+                "name": f"POCKET_{i:03d}",
+                "type": "through_pocket",
+                "geometric_type": "pocket",
+                "tolerance_grade": "IT8",
+                "surface_roughness_ra": 3.2,
+                "is_datum_candidate": False,
+                "priority": "medium",
+                "surface": "A",
+                "dimensions": {
+                    "length": float(ring.get("length") or 0.0),
+                    "width": float(ring.get("width") or 0.0),
+                    "depth": depth,
+                    "center_x": float(ring.get("center_x") or 0.0),
+                    "center_y": float(ring.get("center_y") or 0.0),
+                },
+                "parent_feature": "",
+                "tolerances": {},
+                "contour": pts,
+            }
+        )
+    if skipped_as_holes:
+        notes.append(f"{skipped_as_holes} 个内环与已识别孔同心同径，交由钻孔循环处理（不重复挖槽）")
+
+    return outlines, cavities, notes
 
 
 @dataclass
@@ -314,6 +466,14 @@ class DxfProcessService:
                     "overall_length": r.overall_length,
                     "overall_width": r.overall_width,
                     "overall_height": r.overall_height,
+                    # 包络角点：没有它刀轨只能从原点起扫，非原点图纸会扫到工件外
+                    "overall_min_x": r.overall_min_x,
+                    "overall_min_y": r.overall_min_y,
+                    # 2026-10 轮廓桥：闭合环明细（外轮廓 + 内环）。
+                    # 此前只有 holes/planes 下发，规划器拿不到零件外形，
+                    # 20/20 案例的刀轨策略退化为 face_raster（外形从未被切削）。
+                    "contour_count": r.contour_count,
+                    "contours_detail": [c.to_dict() for c in r.contours],
                     # 2026-09 P1 特征桥：孔/平面明细此前在此处被丢弃（只留计数），
                     # 导致编排器 dxf_to_gcode 链拿不到规划器所需的 holes 数据，
                     # 真实 DXF 端到端必然"工序规划结果为空"。明细已由
@@ -425,8 +585,25 @@ class DxfProcessService:
                     "length": summary.get("overall_length", 0.0),
                     "width": summary.get("overall_width", 0.0),
                     "height": summary.get("overall_height", 0.0),
+                    "min_x": summary.get("overall_min_x", 0.0),
+                    "min_y": summary.get("overall_min_y", 0.0),
                 },
             }
+
+            # 轮廓桥（2026-10）：把 DXF 闭合环下发为外轮廓/型腔特征，
+            # 让刀轨引擎走真实多边形（偏置挖槽 / 外形轮廓铣），
+            # 而不是只按包络矩形面铣。无轮廓时保持旧行为（面铣 + 钻孔）。
+            outlines, cavities, contour_notes = contours_to_part_features(
+                summary.get("contours_detail", []),
+                summary.get("holes_detail", []),
+                float(summary.get("overall_height", 0.0) or 0.0),
+            )
+            if outlines:
+                part_description["outlines"] = outlines
+            if cavities:
+                part_description["cavities"] = cavities
+            if contour_notes:
+                part_description["contour_notes"] = contour_notes
             process_result = ProcessPlanningPipeline().run(
                 part_description=part_description,
                 controller_type=controller,

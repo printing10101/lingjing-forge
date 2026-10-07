@@ -99,8 +99,10 @@ class FeatureExtractionResult:
     Attributes:
         holes: 孔特征列表
         planes: 平面特征列表
+        contours: 闭合轮廓环列表（外轮廓 + 内环），来自 ContourExtractor
         overall_length: 零件总长(X方向)
         overall_width: 零件总宽(Y方向)
+        overall_min_x / overall_min_y: 包络角点坐标（mm），刀轨定位用
         overall_height: 推断的零件高度(Z方向)
         height_inferred: 高度是否由推断得出
         warnings: 提取过程中的警告
@@ -109,8 +111,11 @@ class FeatureExtractionResult:
 
     holes: list[HoleFeatureInfo] = field(default_factory=list)
     planes: list[PlaneFeatureInfo] = field(default_factory=list)
+    contours: list[Any] = field(default_factory=list)
     overall_length: float = 0.0
     overall_width: float = 0.0
+    overall_min_x: float = 0.0
+    overall_min_y: float = 0.0
     overall_height: float = 10.0
     height_inferred: bool = True
     warnings: list[str] = field(default_factory=list)
@@ -128,16 +133,24 @@ class FeatureExtractionResult:
     def plane_count(self) -> int:
         return len(self.planes)
 
+    @property
+    def contour_count(self) -> int:
+        return len(self.contours)
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "hole_count": self.hole_count,
             "plane_count": self.plane_count,
+            "contour_count": self.contour_count,
             "overall_length": self.overall_length,
             "overall_width": self.overall_width,
+            "overall_min_x": self.overall_min_x,
+            "overall_min_y": self.overall_min_y,
             "overall_height": self.overall_height,
             "height_inferred": self.height_inferred,
             "holes": [h.to_dict() for h in self.holes],
             "planes": [p.to_dict() for p in self.planes],
+            "contours": [c.to_dict() for c in self.contours],
             "warnings": self.warnings,
             "errors": self.errors,
         }

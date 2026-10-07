@@ -11,6 +11,8 @@ from app.process_planning.operation_sequencer import OperationPlan
 class _PreviewMixin:
     # 宿主契约：由主类 / 兄弟 mixin 提供
     CONTROLLER_MAP: Any
+    supported_controllers: Any
+    supported_controllers: Any
 
     def _validate_syntax(
         self,
@@ -40,5 +42,5 @@ class _PreviewMixin:
         )
 
     def list_available_controllers(self) -> list[str]:
-        """列出所有可用的控制器类型"""
-        return list(self.CONTROLLER_MAP.keys())
+        """列出所有可用的控制器类型（以注册表为准，含国产/欧洲方言）"""
+        return list(self.supported_controllers)
