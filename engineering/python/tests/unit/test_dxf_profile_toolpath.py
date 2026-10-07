@@ -25,7 +25,17 @@ import pytest
 
 from app.dxf.process_service import DxfProcessService
 
-FIXTURES = Path("data/test_fixtures")
+# 必须用绝对路径：CI 的工作目录与本机不同，写成 Path("data/test_fixtures") 会让
+# 本文件全部用例在 CI 上静默 SKIPPED（2026-10-07 首次推送后就是这样——本地 19/20
+# 的证据在 CI 上其实一条都没跑）。tests/unit → tests → python → engineering → 仓库根
+REPO_ROOT = Path(__file__).resolve().parents[4]
+FIXTURES = REPO_ROOT / "data" / "test_fixtures"
+
+
+@pytest.mark.unit
+def test_fixture_directory_is_resolvable():
+    """路径解析守护：解析不到 fixture 目录要报错，不能让整套验收静默跳过。"""
+    assert FIXTURES.is_dir(), f"fixture 目录解析失败: {FIXTURES}"
 
 
 def _run(tmp_path: Path, case: str) -> tuple[str, object]:
