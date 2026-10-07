@@ -1612,7 +1612,12 @@ class TestFagorPostProcessor(BaseProcessorTests):
         assert "G75 X0. Y0." in result
         assert "T05 M06" in result
         assert "G43 Z80.000 H05" in result  # 使用配置默认安全高度
-        assert "G01 Z10.500" in result
+        # 换刀后的首个进给段必须停在安全平面，而不是刀具长度补偿值。
+        # 旧断言写的是 "G01 Z10.500"（= 传入的 length_comp），等于把 H 偏置当 Z 坐标
+        # 输出——机床上是撞台面。2026-10-07 修正 fagor/gsk/hnc/knd/三菱/xmachine 后，
+        # 该断言同步改为安全平面；fanuc 一直是正确实现，可作对照。
+        assert "G01 Z80.000" in result
+        assert "G01 Z10.500" not in result
 
     def test_format_tool_change_with_radius_comp(self, make_processor):
         """验证 Fagor 换刀带半径补偿（覆盖行 85-86）。"""
