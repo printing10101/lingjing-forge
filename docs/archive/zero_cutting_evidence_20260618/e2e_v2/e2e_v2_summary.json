@@ -1,0 +1,1444 @@
+{
+  "started_at": "2026-06-18T18:36:26",
+  "fixture_count": 20,
+  "postprocessor_count": 8,
+  "postprocessors": [
+    "fanuc_0i",
+    "siemens_840d",
+    "heidenhain_tnc",
+    "gsk_980_25i",
+    "hnc_848_22",
+    "knd_1000_2000_3000",
+    "mitsubishi_m70_m80",
+    "fagor_8055"
+  ],
+  "fixtures": [
+    {
+      "name": "case10_i_shape.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 76.04
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 72.34
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 59.49
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 57.5
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 56.84
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 59.67
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 54.42
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 68.06
+        }
+      }
+    },
+    {
+      "name": "case11_perforated_plate.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 51.71
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 66.33
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 58.09
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 57.23
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 53.32
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 53.33
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 57.17
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 53.3
+        }
+      }
+    },
+    {
+      "name": "case12_triangle_support.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 46.44
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 47.67
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 51.46
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 45.41
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 44.81
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 46.33
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 53.99
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 44.5
+        }
+      }
+    },
+    {
+      "name": "case13_rounded_rect.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 50.35
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 60.2
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 64.51
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 52.07
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 52.44
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 49.6
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 50.26
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 52.41
+        }
+      }
+    },
+    {
+      "name": "case14_round_disk.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 80.54
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 81.51
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 90.21
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 80.33
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 91.67
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 88.52
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 80.37
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 85.69
+        }
+      }
+    },
+    {
+      "name": "case15_ellipse_outline.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 81.01
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 87.29
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 80.48
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 81.34
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 87.7
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 94.1
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 78.55
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 79.7
+        }
+      }
+    },
+    {
+      "name": "case16_irregular.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 51.3
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 49.32
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 55.88
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 65.09
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 52.04
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 47.42
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 48.93
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 59.46
+        }
+      }
+    },
+    {
+      "name": "case17_arc_profile.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 75.67
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 75.71
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 65.48
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 56.5
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 61.99
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 62.26
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 67.34
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 63.57
+        }
+      }
+    },
+    {
+      "name": "case18_sprocket.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 185.81
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 197.6
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 200.33
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 211.65
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 189.24
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 188.23
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 193.85
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 207.76
+        }
+      }
+    },
+    {
+      "name": "case19_coupling.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 173.18
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 159.64
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 166.44
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 162.05
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 196.49
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 158.66
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 165.11
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 172.7
+        }
+      }
+    },
+    {
+      "name": "case1_simple_box.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 68.82
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 67.63
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 68.07
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 59.33
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 62.51
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 59.42
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 64.81
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 66.47
+        }
+      }
+    },
+    {
+      "name": "case20_special_keyway.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 47.21
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 48.03
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 53.91
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 56.97
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 228.45
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 50.41
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 48.43
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 71.6
+        }
+      }
+    },
+    {
+      "name": "case2_box_4holes.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 99.19
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 109.04
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 99.87
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 99.42
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 99.44
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 123.0
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 120.16
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 104.18
+        }
+      }
+    },
+    {
+      "name": "case3_polyline_outer.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 45.52
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 53.7
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 47.71
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 48.71
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 48.57
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 51.08
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 73.94
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 46.3
+        }
+      }
+    },
+    {
+      "name": "case4_polyline_outer_with_hole.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 77.23
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 77.61
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 76.94
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 76.48
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 84.82
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 84.57
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 73.02
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 85.13
+        }
+      }
+    },
+    {
+      "name": "case5_complex_panel.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 113.22
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 112.61
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 112.49
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 110.86
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 106.41
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 109.05
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 111.03
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 110.04
+        }
+      }
+    },
+    {
+      "name": "case6_flange.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 171.61
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 166.11
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 183.64
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 162.47
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 168.65
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 172.68
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 175.55
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 182.77
+        }
+      }
+    },
+    {
+      "name": "case7_bracket.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 84.59
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 87.27
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 84.61
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 93.51
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 91.32
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 237.3
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 91.68
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 90.66
+        }
+      }
+    },
+    {
+      "name": "case8_gear_blank.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 101.18
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 106.5
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 90.13
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 96.3
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 94.68
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 101.17
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 103.41
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 98.16
+        }
+      }
+    },
+    {
+      "name": "case9_rect_block.dxf",
+      "results_by_controller": {
+        "fanuc_0i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 114.75
+        },
+        "siemens_840d": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 121.54
+        },
+        "heidenhain_tnc": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 114.08
+        },
+        "gsk_980_25i": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 108.02
+        },
+        "hnc_848_22": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 114.88
+        },
+        "knd_1000_2000_3000": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 114.9
+        },
+        "mitsubishi_m70_m80": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 137.93
+        },
+        "fagor_8055": {
+          "success": true,
+          "parse_ok": true,
+          "features_ok": true,
+          "model3d_ok": true,
+          "gcode_ok": true,
+          "total_latency_ms": 113.56
+        }
+      }
+    }
+  ],
+  "totals": {
+    "total": 160,
+    "success": 160,
+    "parse_ok": 20,
+    "features_ok": 20,
+    "model3d_ok": 20,
+    "gcode_ok": 160,
+    "gcode_ok_fanuc_0i": 20,
+    "latency_ms_fanuc_0i_sum": 1795.3598499298096,
+    "gcode_ok_siemens_840d": 20,
+    "latency_ms_siemens_840d_sum": 1847.6591110229492,
+    "gcode_ok_heidenhain_tnc": 20,
+    "latency_ms_heidenhain_tnc_sum": 1823.8475322723389,
+    "gcode_ok_gsk_980_25i": 20,
+    "latency_ms_gsk_980_25i_sum": 1781.224250793457,
+    "gcode_ok_hnc_848_22": 20,
+    "latency_ms_hnc_848_22_sum": 1986.2549304962158,
+    "gcode_ok_knd_1000_2000_3000": 20,
+    "latency_ms_knd_1000_2000_3000_sum": 1951.711654663086,
+    "gcode_ok_mitsubishi_m70_m80": 20,
+    "latency_ms_mitsubishi_m70_m80_sum": 1849.9648571014404,
+    "gcode_ok_fagor_8055": 20,
+    "latency_ms_fagor_8055_sum": 1856.0078144073486
+  },
+  "wall_clock_seconds": 22.86,
+  "success_rate": 100.0,
+  "parse_rate": 100.0,
+  "features_rate": 100.0,
+  "model3d_rate": 100.0,
+  "gcode_rate": 100.0,
+  "gcode_rate_fanuc_0i": 100.0,
+  "latency_ms_fanuc_0i_avg": 89.77,
+  "gcode_rate_siemens_840d": 100.0,
+  "latency_ms_siemens_840d_avg": 92.38,
+  "gcode_rate_heidenhain_tnc": 100.0,
+  "latency_ms_heidenhain_tnc_avg": 91.19,
+  "gcode_rate_gsk_980_25i": 100.0,
+  "latency_ms_gsk_980_25i_avg": 89.06,
+  "gcode_rate_hnc_848_22": 100.0,
+  "latency_ms_hnc_848_22_avg": 99.31,
+  "gcode_rate_knd_1000_2000_3000": 100.0,
+  "latency_ms_knd_1000_2000_3000_avg": 97.59,
+  "gcode_rate_mitsubishi_m70_m80": 100.0,
+  "latency_ms_mitsubishi_m70_m80_avg": 92.5,
+  "gcode_rate_fagor_8055": 100.0,
+  "latency_ms_fagor_8055_avg": 92.8,
+  "ended_at": "2026-06-18T18:36:49"
+}

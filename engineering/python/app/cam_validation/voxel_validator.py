@@ -56,6 +56,7 @@ from app.simulation.voxel_cutter.cutter import (
     _check_rapid_collisions,
     _discretize_segment,
 )
+from app.simulation.voxel_cutter.mesher import Z_EXTENT_CAP_MM
 
 if TYPE_CHECKING:
     from app.config import CamValidationConfig
@@ -233,13 +234,26 @@ class VoxelValidator:
             warnings.append("G 代码无运动段，体素仿真未检测到碰撞（空程序视为通过）")
 
         # 3. 切削内核与刀具（直径/类型优先用实际装刀参数）。
+        # 刀体建模长度按**实际最大吃深**取：毛坯顶面 − 最低切削 Z + 2 个体素余量。
+        # 旧口径固定用 stock_height + 4·voxel（≈54mm），两重代价：D10 刀的掩码
+        # 膨胀到 13×13×111≈1.9 万格/切触点（慢一个数量级），且把刀尖以上根本没进刀
+        # 的区间也当成刀体。快移段不计入吃深（G00 不该切材料）。
+        cut_zs = [z for seg in segments if seg.type in ("linear", "arc") for z in (seg.start[2], seg.end[2])]
+        engagement = (stock_top_z - min(cut_zs)) if cut_zs else stock_height
+        if engagement + 2 * cfg.voxel_size_mm > Z_EXTENT_CAP_MM:
+            warnings.append(
+                f"刀体建模长度按上限 {Z_EXTENT_CAP_MM}mm 截断（实际吃深 {engagement:.1f}mm）；"
+                "超深程序请分层校验，否则侧刃带以上材料不会被切除、抬刀可能误报碰撞。"
+            )
+        tool_length = max(min(engagement + 2 * cfg.voxel_size_mm, Z_EXTENT_CAP_MM), effective_diameter)
+
         # 刀具类型走 ToolModel 白名单校验：任务/报告携带的类型不在白名单时
         # 回退配置默认并写警告，绝不让自由字符串炸掉强制校验层（fail-open 禁止）。
         cutter = VoxelCutter(voxel_size=cfg.voxel_size_mm)
         try:
             tool = ToolModel(
                 diameter=effective_diameter,
-                cutting_length=max(stock_height + cfg.voxel_size_mm * 4, effective_diameter),
+                cutting_length=tool_length,
                 tool_type=effective_tool_type,
             )
         except ValueError as e:
@@ -250,64 +264,105 @@ class VoxelValidator:
             effective_tool_type = cfg.voxel_tool_type
             tool = ToolModel(
                 diameter=effective_diameter,
-                cutting_length=max(stock_height + cfg.voxel_size_mm * 4, effective_diameter),
+                cutting_length=tool_length,
                 tool_type=effective_tool_type,
             )
 
         # 4. 合成盒状毛坯体素网格（底面 Z=0，与 StockModel 语义一致）
+        #
+        # XY 定位：**毛坯中心对齐程序包络中心**，而不是从世界原点 (0,0) 起建。
+        # 旧口径把材料块固定在 (0,0) 角点，而大量 DXF 以原点为零件中心
+        # （圆/法兰/链轮/联轴节类都是），结果运动点大批落在网格外——
+        # 越界点在 `_check_rapid_collisions` 里被边界检查直接放行，
+        # 于是碰撞检查对这类程序等于**空转**（实测 case6 只有 17% 运动点在材料块内，
+        # 也就是「通过了」并不等于「检查过了」）。
+        # 毛坯尺寸语义保持为「最小材料尺寸」：程序包络超过它时按包络扩料并如实警告。
         voxel_size = cutter._voxel_size
         padding = voxel_size * 2
-        bbox_min = np.array([0.0, 0.0, 0.0])
-        voxel_grid = self._build_box_grid(stock_length, stock_width, stock_height, voxel_size, padding)
+        prog_pts = np.array(
+            [[float(p[0]), float(p[1])] for seg in segments for p in (seg.start, seg.end)],
+            dtype=float,
+        )
+        if prog_pts.size:
+            span_x = float(prog_pts[:, 0].max() - prog_pts[:, 0].min())
+            span_y = float(prog_pts[:, 1].max() - prog_pts[:, 1].min())
+            center_x = float(prog_pts[:, 0].max() + prog_pts[:, 0].min()) / 2.0
+            center_y = float(prog_pts[:, 1].max() + prog_pts[:, 1].min()) / 2.0
+            grid_length = max(float(stock_length), span_x)
+            grid_width = max(float(stock_width), span_y)
+            if grid_length > float(stock_length) or grid_width > float(stock_width):
+                warnings.append(
+                    f"程序 XY 包络 {span_x:.1f}×{span_y:.1f}mm 超出请求毛坯 "
+                    f"{stock_length}×{stock_width}mm，体素仿真按包络扩料为 "
+                    f"{grid_length:.1f}×{grid_width:.1f}mm 后继续；"
+                    "请工程师确认实际装夹材料尺寸（扩料不等于工件真的能装上）。"
+                )
+            bbox_min = np.array([center_x - grid_length / 2.0, center_y - grid_width / 2.0, 0.0])
+        else:
+            grid_length, grid_width = float(stock_length), float(stock_width)
+            bbox_min = np.array([0.0, 0.0, 0.0])
+        voxel_grid = self._build_box_grid(grid_length, grid_width, stock_height, voxel_size, padding)
         voxel_count = int(voxel_grid.sum())
 
-        # 5. 切削循环（语义与 VoxelCutter.run_simulation 保持一致）
+        # 5. 按**程序顺序**仿真：切削段即时刻掉材料，快移段按"当时"的材料状态判碰。
+        # 顺序不能反过来。旧实现先把所有切削段一次性刻完，再统一检查所有快移段，
+        # 于是一类真撞刀会被漏检：G00 直接扎进实心材料（紧随其后的 G01 下刀把该柱
+        # 材料抹掉，快移检查看到的是空柱）。侧刃扫掠口径修正后这个顺序问题会直接
+        # 暴露出来（抬刀不再误报，同时扎刀也不报），所以必须同时改成时序仿真。
         collision_positions: list[list[float]] = []
         collision_blocks: list[int] = []
-        below_bottom = False
-
-        cutting_segments = [s for s in segments if s.type in ("linear", "arc")]
-        all_cut_points: list[np.ndarray] = []
-        for seg in cutting_segments:
-            seg_points = _discretize_segment(seg, voxel_size * 0.5, voxel_size)
-            for pt in seg_points:
-                x, y, z = float(pt[0]), float(pt[1]), float(pt[2])
-                if z < bbox_min[2] - 0.01:
-                    below_bottom = True
-                    collision_positions.append([x, y, z])
-                    collision_blocks.append(seg.block_number)
-                    continue
-                all_cut_points.append(np.array([x, y, z]))
-
+        overcut_count = 0
+        rapid_critical = False
         removed_count = 0
-        if all_cut_points:
-            points_array = np.array(all_cut_points, dtype=np.float64)
-            tool_mask = cutter._build_tool_mask(tool)
-            removed_count = cutter._apply_tool_mask_batch(
-                voxel_grid, tool_mask, points_array, bbox_min, voxel_size, padding
-            )
+        cutting_segments = [s for s in segments if s.type in ("linear", "arc")]
+        tool_mask = cutter._build_tool_mask(tool)
 
+        for seg_index, seg in enumerate(segments):
+            if seg.type in ("linear", "arc"):
+                seg_points = _discretize_segment(seg, voxel_size * 0.5, voxel_size)
+                keep: list[np.ndarray] = []
+                for pt in seg_points:
+                    x, y, z = float(pt[0]), float(pt[1]), float(pt[2])
+                    if z < bbox_min[2] - 0.01:
+                        overcut_count += 1
+                        collision_positions.append([x, y, z])
+                        collision_blocks.append(seg.block_number)
+                        continue
+                    keep.append(np.array([x, y, z]))
+                if keep:
+                    removed_count += cutter._apply_tool_mask_batch(
+                        voxel_grid,
+                        tool_mask,
+                        np.array(keep, dtype=np.float64),
+                        bbox_min,
+                        voxel_size,
+                        padding,
+                    )
+            elif seg.type == "rapid" and seg_index > 0:
+                # 快移碰撞：G00 在安全高度以下切入**当时还剩**的材料。
+                # safe_z 语义为「相对毛坯底面（bbox_min[2]=0）的快速安全平面绝对高度」，
+                # 故直接传绝对 safe_z；高于安全平面的快速点由 _check_rapid_collisions 跳过，
+                # 落在网格外（毛坯上方）的点由边界检查自然放行。
+                # 首段运动排除：ToolpathParser 的模态起点 (0,0,0) 是虚拟起点（毛坯角点），
+                # 不代表物理刀具位置；真实程序的首段快速定位（如 G00 G43 Z80.）从该虚拟
+                # 点出发，按碰撞处理会误杀所有正常程序。与商用 CAM 仿真的初始定位约定一致。
+                rapid_check = _check_rapid_collisions([seg], voxel_grid, bbox_min, safe_z, voxel_size)
+                if rapid_check.collided:
+                    collision_positions.extend(rapid_check.collision_positions)
+                    collision_blocks.extend(rapid_check.collision_segment_indices)
+                    # 快移分级沿用 _check_rapid_collisions 自身的口径（>3 点为 critical），
+                    # 不在这里用合并后的总数重新判级——两类碰撞的计数口径不同
+                    if rapid_check.collision_severity == "critical":
+                        rapid_critical = True
+
+        # 分级口径保持与修正前一致：过切 >3 点为 critical；快移按其自身判级
         severity = "none"
-        if below_bottom:
-            severity = "critical" if len(collision_positions) > 3 else "warning"
-
-        # 6. 快移碰撞：G00 在安全高度以下切入剩余材料
-        # safe_z_height 语义为「相对毛坯底面（bbox_min[2]=0）的快速安全平面绝对高度」，
-        # 故直接传 safe_z（绝对坐标）；高于安全平面的快速点由 _check_rapid_collisions 跳过，
-        # 落在网格外（毛坯上方）的点由边界检查自然放行。
-        # 首段运动排除：ToolpathParser 的模态起点 (0,0,0) 是虚拟起点（毛坯角点），
-        # 不代表物理刀具位置；真实程序的首段快速定位（如 G00 G43 Z80.）从该虚拟
-        # 点出发，按碰撞处理会误杀所有正常程序。与商用 CAM 仿真的初始定位约定一致。
-        rapid_check = _check_rapid_collisions(
-            segments[1:] if segments else segments, voxel_grid, bbox_min, safe_z, voxel_size
-        )
-        if rapid_check.collided:
-            collision_positions.extend(rapid_check.collision_positions)
-            collision_blocks.extend(rapid_check.collision_segment_indices)
-            if rapid_check.collision_severity == "critical":
-                severity = "critical"
-            elif severity == "none":
-                severity = "warning"
+        if overcut_count:
+            severity = "critical" if overcut_count > 3 else "warning"
+        if rapid_critical:
+            severity = "critical"
+        elif collision_positions and severity == "none":
+            severity = "warning"
 
         # 7. 未归因碰撞提示（与 InternalValidator 的 unknown 归因口径一致）
         attributed_hint = f"（block 列表供特征归因：{sorted(set(collision_blocks))[:20]}）" if collision_blocks else ""

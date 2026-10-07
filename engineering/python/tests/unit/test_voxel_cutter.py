@@ -635,12 +635,23 @@ class TestToolModelInit:
 
 class TestToolModelVoxelMask:
     def test_flat_no_corner(self):
-        t = ToolModel(diameter=10.0, tool_type="flat")
+        """D10 平底刀：XY 按半径对称，Z 按刃长展开，且刀体在刀尖之上。
+
+        2026-10-07 口径修正：旧实现的 Z 半extent 沿用半径（数组成立方体），
+        并把刀体画在刀尖**之下**——后果是切深以上的侧刃带永远不被切除，
+        分层铣削后垂直抬刀被体素碰撞检查误判为 critical。
+        现在 Z 维按刃长展开，数组不再是立方体，这是有意的。
+        """
+        t = ToolModel(diameter=10.0, cutting_length=20.0, tool_type="flat")
         m = t.voxel_mask(voxel_size=1.0)
         assert m.ndim == 3
         assert m.dtype == bool
-        assert m.shape[0] == m.shape[1] == m.shape[2]
+        assert m.shape[0] == m.shape[1], "径向应对称"
+        assert m.shape[2] > m.shape[0], "Z 应按刃长展开，不应被半径截断"
         assert m.any()
+        center = m.shape[2] // 2
+        occupied_z = np.nonzero(m.any(axis=0).any(axis=0))[0]
+        assert occupied_z.min() >= center, "刀体必须占据刀尖(数组中心)以上的空间"
 
     def test_flat_with_corner(self):
         t = ToolModel(diameter=10.0, tool_type="flat", corner_radius=2.0)

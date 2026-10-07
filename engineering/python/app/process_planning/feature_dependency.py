@@ -29,6 +29,9 @@ class MachiningFeature:
         dimensions: Dimension dictionary {key: value in mm}.
         parent_feature: Parent feature name for nested features.
         tolerances: Tolerance values dictionary.
+        contour: Optional closed-loop vertices [[x, y], ...] in mm. When present,
+            the planar toolpath engine machines the real polygon (offset pocket /
+            outer profile) instead of the length×width envelope.
     """
 
     name: str
@@ -43,6 +46,10 @@ class MachiningFeature:
     dimensions: dict[str, float] = field(default_factory=dict)
     parent_feature: str = ""
     tolerances: dict[str, float] = field(default_factory=dict)
+    # 真实轮廓顶点（DXF/STEP 闭合环，mm，[[x, y], ...]）。
+    # 有值时刀轨引擎按多边形做偏置/轮廓加工；为 None 时按 dimensions 的
+    # length×width 矩形包络处理（历史口径，保持向后兼容）。
+    contour: list[list[float]] | None = None
 
     def is_rough(self) -> bool:
         """Check whether the feature requires rough machining.
@@ -128,6 +135,7 @@ class MachiningFeature:
             "dimensions": self.dimensions,
             "parent_feature": self.parent_feature,
             "tolerances": self.tolerances,
+            "contour": self.contour,
         }
 
 
@@ -377,6 +385,7 @@ class FeatureDependencyGraph:
                 dimensions=f.get("dimensions", {}),
                 parent_feature=f.get("parent_feature", ""),
                 tolerances=f.get("tolerances", {}),
+                contour=f.get("contour"),
             )
             mf_list.append(mf)
         graph = cls()

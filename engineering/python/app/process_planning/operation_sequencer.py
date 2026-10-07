@@ -259,6 +259,11 @@ class OperationSequencer:
         if fe.type in ("rectangular_boss", "circular_boss", "boss"):
             # 凸台特征走外形铣削分支（外轮廓偏置刀轨）
             return "粗铣外形" if is_rough else "精铣外形"
+        if fe.type in ("outer_contour", "part_outline", "profile"):
+            # 零件外轮廓（DXF/STEP 的最大闭合环）：沿边界偏置走刀把零件切出来。
+            # 与凸台同一走刀族（都按外轮廓偏移），但语义不同，单独一档，
+            # 便于工序表/审计里区分「外形轮廓铣」和「凸台铣」。
+            return "粗铣外形" if is_rough else "精铣外形"
         if fe.type in ("keyway",):
             return "铣键槽"
         if fe.type in ("slot",):
@@ -287,8 +292,21 @@ class OperationSequencer:
         现有坐标来源不变。
         """
         dims = fe.dimensions or {}
+
+        # 真实闭合轮廓优先：有 contour 时刀轨引擎按多边形做偏置（挖槽）或
+        # 外形走刀，length/width 退化为包络参考值。即使 dims 为空也要带上。
+        contour = getattr(fe, "contour", None)
+        pts: list[list[float]] = []
+        if contour:
+            try:
+                pts = [[float(p[0]), float(p[1])] for p in contour]
+            except (TypeError, ValueError, IndexError):
+                pts = []
+            if len(pts) < 3:
+                pts = []
+
         if not dims:
-            return {}
+            return {"contour": pts} if pts else {}
 
         geom: dict[str, Any] = {}
         for key in ("length", "width", "depth", "orientation", "diameter", "height"):
@@ -308,6 +326,11 @@ class OperationSequencer:
             geom.setdefault("x", 0.0)
             geom.setdefault("y", 0.0)
             geom["anchor"] = "corner"
+
+        # 真实闭合轮廓优先：有 contour 时刀轨引擎按多边形做偏置（挖槽）或
+        # 外形走刀，length/width 退化为包络参考值。
+        if pts:
+            geom["contour"] = pts
         return geom
 
     def _select_tool(self, fe: MachiningFeature, method: str) -> str:

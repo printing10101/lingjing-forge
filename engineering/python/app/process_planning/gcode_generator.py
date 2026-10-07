@@ -69,6 +69,18 @@ class GCodeGenerator(_FeatureCodeMixin, _HoleDrillingMixin, _PreviewMixin):
         "xmachine_xm100": XMachineXM100PostProcessor,
     }
 
+    @property
+    def supported_controllers(self) -> list[str]:
+        """端到端主路径放行的方言清单——以 **PostProcessorRegistry 为单一事实来源**。
+
+        这里曾经用 `CONTROLLER_MAP` 当白名单，而注册表早已注册 9 种方言：
+        结果 GSK/HNC/KND/三菱/Fagor 五个国产与欧洲控制器虽然能实例化后处理器，
+        却在 `generate()` 入口被拒（"不支持的控制器类型"），
+        与对外宣称的「9 种内置后处理器」不一致——多控制器兼容性验证因此无法执行。
+        `CONTROLLER_MAP` 保留为「显式类型标注的常用方言」，不再充当白名单。
+        """
+        return self._registry.list_controllers()
+
     def __init__(self, machine_config: dict[str, Any] | None = None) -> None:
         """初始化G代码生成器。
 
@@ -124,8 +136,8 @@ class GCodeGenerator(_FeatureCodeMixin, _HoleDrillingMixin, _PreviewMixin):
         if not operation_plan or not operation_plan.operations:
             raise ValueError("工序规划结果为空，无法生成G代码")
 
-        if controller_type not in self.CONTROLLER_MAP:
-            available = list(self.CONTROLLER_MAP.keys())
+        if controller_type not in self.supported_controllers:
+            available = self.supported_controllers
             raise ValueError(f"不支持的控制器类型: '{controller_type}'。可用类型: {available}")
 
         postprocessor = self._registry.get_processor(controller_type)

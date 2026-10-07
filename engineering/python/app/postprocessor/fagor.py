@@ -80,7 +80,7 @@ class FagorPostProcessor(FanucPostProcessor):
             f"T{tool_id:02d} M06",
             f"G00 G90 {wcs} X0. Y0.",
             f"G00 G43 Z{self._fmt(self.safe_z_height)} H{tool_id:02d}",
-            f"G01 Z{self._fmt(length_comp)} F{feed}",
+            f"G01 Z{self._fmt(self.safe_z_height)} F{feed}",  # 与 fanuc 对齐：起始段走到安全平面，不是刀具长度补偿值
         ]
         if radius_comp != 0.0:
             lines.append(f"M03 S{default_rpm}")

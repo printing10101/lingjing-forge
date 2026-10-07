@@ -167,6 +167,7 @@ class _FeatureCodeMixin:
             # 平面刀轨引擎：能从真实几何计算刀心轨迹时优先，
             # 替换模板式的直线走线（无几何刀轨层的旧路径保留为回退）
             planar_lines: list[str] | None = None
+            planar_fallback_notes: list[str] = []
             if not is_five_axis:
                 planar_lines = self._generate_planar_milling_lines(
                     op=op,
@@ -176,12 +177,17 @@ class _FeatureCodeMixin:
                     stock_top_z=stock_top_z,
                     feed_rate=feed_rate,
                     tool_diameter=tool_diameter,
+                    fallback_notes=planar_fallback_notes,
                 )
 
             if planar_lines is not None:
                 lines.extend(planar_lines)
+            else:
+                # 引擎正当拒绝（如窄槽无法环切）时，把原因写进程序本体——
+                # 只进 logger 的话，车间里拿着 .nc 的人看不到"为什么是模板走线"。
+                lines.extend(planar_fallback_notes)
             # 刀具半径补偿 (G41/G42)——仅模板走线路径需要（引擎刀心轨迹已含偏置）
-            elif radius_comp in ["G41", "G42"]:
+            if planar_lines is None and radius_comp in ["G41", "G42"]:
                 lines.append(postprocessor._comment(f"启用刀具半径补偿: {radius_comp}"))
                 # 抬刀到安全平面后再快速定位（避免G00在切削深度处移动引发碰撞）
                 lines.append(f"G00 Z{safe_z:.3f}")
@@ -428,11 +434,17 @@ class _FeatureCodeMixin:
         stock_top_z: float,
         feed_rate: float,
         tool_diameter: float,
+        fallback_notes: list[str] | None = None,
     ) -> list[str] | None:
         """用平面刀轨引擎从真实几何生成铣削指令段。
 
         返回 None 表示几何不可用或引擎失败（如轮廓过窄），调用方应回退
         到模板走线路径。错误日志会记录回退原因。
+
+        Args:
+            fallback_notes: 可选出参。引擎正当拒绝时，把「错误码 + 可操作建议」
+                追加进来，由调用方写入 NC 程序注释，使拒绝原因随产物一起交付
+                （而不是只留在服务端日志里）。
         """
         kind, polygon, rect = self._milling_geometry(op.machining_method, geom)
         if kind is None:
@@ -471,6 +483,10 @@ class _FeatureCodeMixin:
                 exc.code,
                 exc.detail,
             )
+            if fallback_notes is not None:
+                fallback_notes.append(
+                    postprocessor._comment(f"刀轨引擎未生成环切 [{exc.code}] {exc.detail}；以下为模板走线")
+                )
             return None
 
         lines: list[str] = [

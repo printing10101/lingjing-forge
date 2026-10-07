@@ -38,6 +38,10 @@ class _DimensionMixin:
         # 基于正确的几何信息。
         result.overall_length = extents.get("width", 100.0)
         result.overall_width = extents.get("height", 80.0)
+        # 包络角点：刀轨引擎需要「从哪开始扫」，只给长宽会让 raster/轮廓定位
+        # 退到原点（历史口径），非原点的图纸会扫到工件外。
+        result.overall_min_x = float(extents.get("min_x", 0.0) or 0.0)
+        result.overall_min_y = float(extents.get("min_y", 0.0) or 0.0)
         # 注：经复查，原赋值实际是正确的（widthlength, heightwidth 符合
         # DXF 坐标系约定）。但下游消费者存在两种解读，因此显式标注映射关系，
         # 避免后续误改。如确实需要反转，请同步更新所有下游消费者。
