@@ -1,0 +1,4 @@
+[run]
+source = model,tasks,step_io,runner,diagnostics,baselines
+[report]
+fail_under = 80

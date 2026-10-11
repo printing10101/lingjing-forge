@@ -1,0 +1,743 @@
+{
+  "expected_predictions": 40,
+  "received_predictions": 40,
+  "caveat": "Assistant-authored synthetic, independent review pending; state accuracy only, not model-driven STEP success or novelty.",
+  "modes": {
+    "history": {
+      "exact": 19,
+      "total": 20,
+      "retained_field_errors": 7,
+      "updated_field_errors": 0,
+      "clarification_correct": 19
+    },
+    "patch": {
+      "exact": 20,
+      "total": 20,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0,
+      "clarification_correct": 20
+    }
+  },
+  "rows": [
+    {
+      "dialogue_id": "c00",
+      "mode": "history",
+      "turn": 1,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c00",
+      "mode": "history",
+      "turn": 2,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c00",
+      "mode": "history",
+      "turn": 3,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c00",
+      "mode": "history",
+      "turn": 4,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c00",
+      "mode": "patch",
+      "turn": 1,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c00",
+      "mode": "patch",
+      "turn": 2,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c00",
+      "mode": "patch",
+      "turn": 3,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c00",
+      "mode": "patch",
+      "turn": 4,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c01",
+      "mode": "history",
+      "turn": 1,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c01",
+      "mode": "history",
+      "turn": 2,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c01",
+      "mode": "history",
+      "turn": 3,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c01",
+      "mode": "history",
+      "turn": 4,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c01",
+      "mode": "patch",
+      "turn": 1,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c01",
+      "mode": "patch",
+      "turn": 2,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c01",
+      "mode": "patch",
+      "turn": 3,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c01",
+      "mode": "patch",
+      "turn": 4,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c03",
+      "mode": "history",
+      "turn": 1,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c03",
+      "mode": "history",
+      "turn": 2,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c03",
+      "mode": "history",
+      "turn": 3,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c03",
+      "mode": "history",
+      "turn": 4,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c03",
+      "mode": "patch",
+      "turn": 1,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c03",
+      "mode": "patch",
+      "turn": 2,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c03",
+      "mode": "patch",
+      "turn": 3,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c03",
+      "mode": "patch",
+      "turn": 4,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c04",
+      "mode": "history",
+      "turn": 1,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c04",
+      "mode": "history",
+      "turn": 2,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c04",
+      "mode": "history",
+      "turn": 3,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c04",
+      "mode": "history",
+      "turn": 4,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c04",
+      "mode": "patch",
+      "turn": 1,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c04",
+      "mode": "patch",
+      "turn": 2,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c04",
+      "mode": "patch",
+      "turn": 3,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c04",
+      "mode": "patch",
+      "turn": 4,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c07",
+      "mode": "history",
+      "turn": 1,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c07",
+      "mode": "history",
+      "turn": 2,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c07",
+      "mode": "history",
+      "turn": 3,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c07",
+      "mode": "history",
+      "turn": 4,
+      "exact": false,
+      "field_matches": {
+        "amplitude": false,
+        "allow_refine": false,
+        "allow_expand": false,
+        "lock_interface": false,
+        "preserve_datum": false,
+        "priority": false,
+        "max_added_poles": false
+      },
+      "clarification_correct": false,
+      "retained_field_errors": 7,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c07",
+      "mode": "patch",
+      "turn": 1,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c07",
+      "mode": "patch",
+      "turn": 2,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c07",
+      "mode": "patch",
+      "turn": 3,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    },
+    {
+      "dialogue_id": "c07",
+      "mode": "patch",
+      "turn": 4,
+      "exact": true,
+      "field_matches": {
+        "amplitude": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": true,
+        "preserve_datum": true,
+        "priority": true,
+        "max_added_poles": true
+      },
+      "clarification_correct": true,
+      "retained_field_errors": 0,
+      "updated_field_errors": 0
+    }
+  ]
+}

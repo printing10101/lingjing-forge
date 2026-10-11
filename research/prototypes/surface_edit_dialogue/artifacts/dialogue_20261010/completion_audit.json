@@ -1,0 +1,43 @@
+{
+  "completed_on": "2026-10-11",
+  "formal_recorded_calls": 40,
+  "calibration_recorded_calls": 40,
+  "interrupted_after_saved_rows": 33,
+  "resumed_saved_rows": 7,
+  "cost_note": "80 recorded responses; an interrupted in-flight request may additionally have been sent/billed. Provider usage unavailable.",
+  "summary_scope": "summary.json is the earlier oracle-geometry run; this file records completed model evaluation.",
+  "raw_failure": {
+    "dialogue_id": "c07",
+    "turn": 4,
+    "raw_needs_clarification": true,
+    "changed_fields": {
+      "allow_refine": {
+        "before": false,
+        "raw_proposed": true
+      },
+      "max_added_poles": {
+        "before": 0,
+        "raw_proposed": 105
+      }
+    },
+    "transaction_rejected": true,
+    "committed_state_unchanged": true
+  },
+  "metric_note": "formal_scores counts invalid transactions as whole-turn failures (7 retained-field errors). The rejected raw response changed only 2 state fields and correctly requested clarification. These are not 7 observed semantic mistakes or a missed raw clarification flag.",
+  "source_sha256": {
+    "dialogue.py": "96943b45343df29edf2f5a9a15d5042c97debb5b4317cfb58049f04c7b0fcab3",
+    "compare.py": "b4d6195d9cf76df2a472a84962a5e9a9728eef42c7599813036bcc5369228cea",
+    "resume.py": "8c3537812401caf279b9e39bd84a0610e51aea1b25e75c5fd4b0070ba28f4847"
+  },
+  "artifact_sha256": {
+    "public.json": "32aee67661c5a0b4b90dc0fed10422eda4158cdf4ff93f0a79d261d548db6176",
+    "oracle.json": "10ed1ba986a69f2adbc50d69586c373aeaaa7b6cf950029c96c58e7837a7c7c3",
+    "formal_predictions.jsonl": "3bc413b16cfad91bb5cdd20ba0d144b7222f916ddadc71c3f931f0da03235889",
+    "formal_scores.json": "8923662801c1ebfd0fbd902b2d4a893dc57366d1caea33536ecf6463cccdba61"
+  },
+  "formal_complete_dialogues": {
+    "history": 4,
+    "patch": 5
+  },
+  "independent_human_review": "pending"
+}

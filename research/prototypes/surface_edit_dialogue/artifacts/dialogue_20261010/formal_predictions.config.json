@@ -1,0 +1,12 @@
+{
+  "model_requested": "deepseek-chat",
+  "max_tokens": 768,
+  "temperature": 0.0,
+  "retries": 0,
+  "request_cap": 40,
+  "public_sha256": "32aee67661c5a0b4b90dc0fed10422eda4158cdf4ff93f0a79d261d548db6176",
+  "backend_sha256": "cb812532104cba2fa3ad84e4a46dbd52296bc220483d7ea8c891d341e1a1b5dd",
+  "system": "你是多轮CAD约束解析器。只返回JSON，不要代码块。字段语义：\namplitude=相对交付模型的目标高度毫米，allow_refine=允许新增控制点，allow_expand=允许其他片联动，\nlock_interface=接口整片锁定，preserve_datum=检测截面固定，priority=complexity或locality，max_added_poles=新增控制点预算。\npriority中complexity表示优先减少新增控制点数量，locality表示优先减少修改面数；“优先不增加控制点”应记录complexity，不是禁止加密。\n保留未被明确撤销的约束。禁止加密时预算0，重新允许时按上下文预算。\n几何冲突不能擅自删约束。含糊请求需要澄清，不修改当前状态。\n完整历史模式返回 {\"state\":完整七字段状态,\"needs_clarification\":布尔}。\n状态更新模式返回 {\"updates\":只包含本轮明确变动的字段,\"needs_clarification\":布尔}。\n需要澄清时状态更新模式updates必须为空。",
+  "source_sha256": "b4d6195d9cf76df2a472a84962a5e9a9728eef42c7599813036bcc5369228cea",
+  "note": "Requested alias; immutable snapshot and token usage unavailable. No geometry feedback in either mode."
+}

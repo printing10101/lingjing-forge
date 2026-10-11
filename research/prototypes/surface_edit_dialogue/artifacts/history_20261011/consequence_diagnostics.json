@@ -1,0 +1,58 @@
+{
+  "selection": "Four preselected wrong-state turns, diagnostic replay, not all-task end-to-end scores.",
+  "rows": [
+    {
+      "dialogue_id": "temporary_undo",
+      "mode": "history",
+      "turn": 2,
+      "predicted_contract_geometry_status": "no_candidate_in_authorized_space"
+    },
+    {
+      "dialogue_id": "historical_reference",
+      "mode": "patch",
+      "turn": 3,
+      "predicted_contract_geometry_status": "feasible",
+      "audit_against_oracle_requirement": {
+        "smooth_trace_bound": 5.355688266018313e-14,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 6.40173418210632e-14,
+        "datum_position_bound": 3.5330654341196126e-14,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 0.9999999999999991,
+        "passed": false
+      }
+    },
+    {
+      "dialogue_id": "historical_reference",
+      "mode": "patch",
+      "turn": 6,
+      "predicted_contract_geometry_status": "feasible",
+      "audit_against_oracle_requirement": {
+        "smooth_trace_bound": 1.63070666631645e-14,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 8.539465431075163e-15,
+        "datum_position_bound": 0.0,
+        "frozen_pole_bound": 1.522453629138778,
+        "center_error_mm": 0.0,
+        "passed": false
+      }
+    },
+    {
+      "dialogue_id": "conflict_preservation",
+      "mode": "patch",
+      "turn": 2,
+      "predicted_contract_geometry_status": "feasible",
+      "audit_against_oracle_requirement": {
+        "smooth_trace_bound": 8.437694987151188e-15,
+        "sharp_original_jet_bound": 3.182639337258782e-15,
+        "outside_position_bound": 1.1624374386051344e-13,
+        "datum_position_bound": 1.3333333333333355,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 1.3322676295501878e-15,
+        "passed": false
+      }
+    }
+  ],
+  "predictions_sha256": "2d40f971a46c433d2036321058a9be8409664b2b4341674eeebf19b960294770",
+  "caveat": "Numerical downstream replay only. No STEP export, actual manufacturing, or model-generated tool plan. Priority and budget not measured by geometry audit."
+}

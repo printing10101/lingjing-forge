@@ -1,0 +1,4 @@
+[run]
+source = probe
+[report]
+fail_under = 80

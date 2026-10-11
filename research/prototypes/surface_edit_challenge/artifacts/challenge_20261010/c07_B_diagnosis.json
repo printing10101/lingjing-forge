@@ -1,0 +1,398 @@
+{
+  "task_id": "c07_B",
+  "warning": "Relaxed requirements are diagnostic counterfactuals, NOT valid solutions to c07_B.",
+  "experiments": [
+    {
+      "name": "original_permissions",
+      "requirement": {
+        "amplitude": 1.0,
+        "allow_refine": false,
+        "allow_expand": true,
+        "lock_interface": false,
+        "preserve_datum": true,
+        "priority": "complexity",
+        "max_added_poles": 0
+      },
+      "feasible_actions": [],
+      "candidates": [
+        {
+          "action": "local",
+          "support": [
+            3
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 1.5750810292731305,
+          "certificate_null_error": 2.947494789543315e-15,
+          "certificate_rhs": 2.24505218061274,
+          "reference_l2": null
+        },
+        {
+          "action": "expand_0_3",
+          "support": [
+            0,
+            3
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 1.5750810292731319,
+          "certificate_null_error": 8.300959379142694e-15,
+          "certificate_rhs": 2.2450521806127424,
+          "reference_l2": null
+        },
+        {
+          "action": "expand_3_5",
+          "support": [
+            3,
+            5
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 0.5175962015591408,
+          "certificate_null_error": 1.7693399024776842e-14,
+          "certificate_rhs": 1.0962095192440917,
+          "reference_l2": null
+        },
+        {
+          "action": "expand_0_3_5",
+          "support": [
+            0,
+            3,
+            5
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 0.5175962015591443,
+          "certificate_null_error": 1.2128704926946686e-14,
+          "certificate_rhs": 1.0962095192440904,
+          "reference_l2": null
+        },
+        {
+          "action": "expand_0_1_2_3_4_5_6_7",
+          "support": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 0.2316509736915452,
+          "certificate_null_error": 7.197983509260679e-13,
+          "certificate_rhs": 0.4854639976273851,
+          "reference_l2": null
+        }
+      ]
+    },
+    {
+      "name": "diagnostic_only_release_datum",
+      "requirement": {
+        "amplitude": 1.0,
+        "allow_refine": false,
+        "allow_expand": true,
+        "lock_interface": false,
+        "preserve_datum": false,
+        "priority": "complexity",
+        "max_added_poles": 0
+      },
+      "feasible_actions": [
+        "expand_0_1_2_3_4_5_6_7"
+      ],
+      "candidates": [
+        {
+          "action": "local",
+          "support": [
+            3
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 0.9820510244339125,
+          "certificate_null_error": 4.0885014537042374e-15,
+          "certificate_rhs": 1.772727637903952,
+          "reference_l2": null
+        },
+        {
+          "action": "expand_0_3",
+          "support": [
+            0,
+            3
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 0.9820510244339129,
+          "certificate_null_error": 3.2933703020633573e-15,
+          "certificate_rhs": 1.7727276379039532,
+          "reference_l2": null
+        },
+        {
+          "action": "expand_3_5",
+          "support": [
+            3,
+            5
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 0.4428328897038748,
+          "certificate_null_error": 1.7094963198489258e-14,
+          "certificate_rhs": 0.8765392899746559,
+          "reference_l2": null
+        },
+        {
+          "action": "expand_0_3_5",
+          "support": [
+            0,
+            3,
+            5
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 0.4428328897038726,
+          "certificate_null_error": 1.469279157193324e-14,
+          "certificate_rhs": 0.8765392899746479,
+          "reference_l2": null
+        },
+        {
+          "action": "expand_0_1_2_3_4_5_6_7",
+          "support": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "added_poles": 0,
+          "feasible": true,
+          "status": "solved",
+          "residual": 1.0591504736246689e-14,
+          "certificate_null_error": 0.0,
+          "certificate_rhs": 0.0,
+          "reference_l2": 13270.140699238065,
+          "audit": {
+            "smooth_trace_bound": 2.1820331347334225e-14,
+            "sharp_original_jet_bound": 6.8093678843676255e-15,
+            "outside_position_bound": 1.1250259982868252e-14,
+            "datum_position_bound": 0.0,
+            "frozen_pole_bound": 0.0,
+            "center_error_mm": 8.881784197001252e-16,
+            "passed": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "diagnostic_only_allow_refinement",
+      "requirement": {
+        "amplitude": 1.0,
+        "allow_refine": true,
+        "allow_expand": true,
+        "lock_interface": false,
+        "preserve_datum": true,
+        "priority": "complexity",
+        "max_added_poles": 105
+      },
+      "feasible_actions": [
+        "knots_u",
+        "knots_uv",
+        "knots_uv_dense",
+        "degree_uv8"
+      ],
+      "candidates": [
+        {
+          "action": "local",
+          "support": [
+            3
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 1.5750810292731305,
+          "certificate_null_error": 2.947494789543315e-15,
+          "certificate_rhs": 2.24505218061274,
+          "reference_l2": null
+        },
+        {
+          "action": "knots_u",
+          "support": [
+            3
+          ],
+          "added_poles": 12,
+          "feasible": true,
+          "status": "solved",
+          "residual": 2.397228017237359e-15,
+          "certificate_null_error": 0.0,
+          "certificate_rhs": 0.0,
+          "reference_l2": 206.24960260362897,
+          "audit": {
+            "smooth_trace_bound": 2.1316282072803e-14,
+            "sharp_original_jet_bound": 1.764792016227072e-15,
+            "outside_position_bound": 5.4644142678156356e-14,
+            "datum_position_bound": 3.7494576441350356e-14,
+            "frozen_pole_bound": 0.0,
+            "center_error_mm": 0.0,
+            "passed": true
+          }
+        },
+        {
+          "action": "knots_v",
+          "support": [
+            3
+          ],
+          "added_poles": 12,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 1.5346387317739416,
+          "certificate_null_error": 2.4926729945306023e-15,
+          "certificate_rhs": 1.970371290476568,
+          "reference_l2": null
+        },
+        {
+          "action": "knots_uv",
+          "support": [
+            3
+          ],
+          "added_poles": 33,
+          "feasible": true,
+          "status": "solved",
+          "residual": 2.1649348980190553e-15,
+          "certificate_null_error": 0.0,
+          "certificate_rhs": 0.0,
+          "reference_l2": 71.34867711912074,
+          "audit": {
+            "smooth_trace_bound": 1.2822297846866372e-13,
+            "sharp_original_jet_bound": 6.400517599607724e-14,
+            "outside_position_bound": 5.4643406445402694e-14,
+            "datum_position_bound": 5.684781573290165e-14,
+            "frozen_pole_bound": 0.0,
+            "center_error_mm": 4.440892098500626e-16,
+            "passed": true
+          }
+        },
+        {
+          "action": "knots_uv_dense",
+          "support": [
+            3
+          ],
+          "added_poles": 105,
+          "feasible": true,
+          "status": "solved",
+          "residual": 1.368917184063874e-15,
+          "certificate_null_error": 0.0,
+          "certificate_rhs": 0.0,
+          "reference_l2": 16.723372591346966,
+          "audit": {
+            "smooth_trace_bound": 9.26017998862645e-14,
+            "sharp_original_jet_bound": 4.6652022159218e-14,
+            "outside_position_bound": 7.045531258683805e-14,
+            "datum_position_bound": 7.942607775622197e-14,
+            "frozen_pole_bound": 0.0,
+            "center_error_mm": 0.0,
+            "passed": true
+          }
+        },
+        {
+          "action": "degree_uv8",
+          "support": [
+            3
+          ],
+          "added_poles": 65,
+          "feasible": true,
+          "status": "solved",
+          "residual": 1.4210854715202004e-13,
+          "certificate_null_error": 0.0,
+          "certificate_rhs": 0.0,
+          "reference_l2": 53.893239361837004,
+          "audit": {
+            "smooth_trace_bound": 1.0209942728700218e-12,
+            "sharp_original_jet_bound": 9.345799053501973e-13,
+            "outside_position_bound": 1.6533187009666895e-12,
+            "datum_position_bound": 1.8127769333931063e-12,
+            "frozen_pole_bound": 0.0,
+            "center_error_mm": 1.7763568394002505e-15,
+            "passed": true
+          }
+        },
+        {
+          "action": "expand_0_3",
+          "support": [
+            0,
+            3
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 1.5750810292731319,
+          "certificate_null_error": 8.300959379142694e-15,
+          "certificate_rhs": 2.2450521806127424,
+          "reference_l2": null
+        },
+        {
+          "action": "expand_3_5",
+          "support": [
+            3,
+            5
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 0.5175962015591408,
+          "certificate_null_error": 1.7693399024776842e-14,
+          "certificate_rhs": 1.0962095192440917,
+          "reference_l2": null
+        },
+        {
+          "action": "expand_0_3_5",
+          "support": [
+            0,
+            3,
+            5
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 0.5175962015591443,
+          "certificate_null_error": 1.2128704926946686e-14,
+          "certificate_rhs": 1.0962095192440904,
+          "reference_l2": null
+        },
+        {
+          "action": "expand_0_1_2_3_4_5_6_7",
+          "support": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "added_poles": 0,
+          "feasible": false,
+          "status": "linear_constraints_inconsistent",
+          "residual": 0.2316509736915452,
+          "certificate_null_error": 7.197983509260679e-13,
+          "certificate_rhs": 0.4854639976273851,
+          "reference_l2": null
+        }
+      ]
+    }
+  ],
+  "interpretation": "At least one refinement can satisfy the datum and target, while the complete original z-control space (expand_all) is numerically inconsistent. This is representation-dependent infeasibility, not geometry-independent impossibility. Original permissions prohibit the successful refinement.",
+  "source_sha256": "ce99481a283a839ff124835017d646d0d060851e800854d72da44ad542b5bfb9"
+}

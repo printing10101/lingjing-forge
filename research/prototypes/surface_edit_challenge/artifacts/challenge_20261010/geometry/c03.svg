@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="740" height="185">
+<rect width="100%" height="100%" fill="white"/>
+<text x="20" y="25" font-family="sans-serif">c03: strip (xy schematic)</text>
+<rect x="20" y="45" width="140" height="110" fill="#edf2f7" stroke="#334155"/>
+<text x="68" y="103" font-family="sans-serif">F00</text>
+<rect x="160" y="45" width="140" height="110" fill="#edf2f7" stroke="#334155"/>
+<text x="208" y="103" font-family="sans-serif">F01</text>
+<rect x="300" y="45" width="140" height="110" fill="#ffe2aa" stroke="#334155"/>
+<text x="348" y="103" font-family="sans-serif">F02</text>
+<line x1="370.0" y1="45" x2="370.0" y2="155" stroke="#16a34a" stroke-dasharray="5 4"/>
+<circle cx="370" cy="100" r="4" fill="#dc2626"/>
+<rect x="440" y="45" width="140" height="110" fill="#cce5ff" stroke="#334155"/>
+<text x="488" y="103" font-family="sans-serif">F03</text>
+<rect x="580" y="45" width="140" height="110" fill="#edf2f7" stroke="#334155"/>
+<text x="628" y="103" font-family="sans-serif">F04</text>
+<line x1="300" y1="45" x2="300" y2="155" stroke="#9333ea" stroke-width="5"/>
+</svg>

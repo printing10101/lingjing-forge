@@ -1,0 +1,4762 @@
+[
+  {
+    "task_id": "c00_A",
+    "family": "strip",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          1
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.059673425721635,
+        "certificate_null_error": 6.196813961300381e-15,
+        "certificate_rhs": 1.8414545778566556,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          1
+        ],
+        "added_poles": 12,
+        "feasible": true,
+        "status": "solved",
+        "residual": 5.243507477784158e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 106.14173580401052,
+        "refinement_sampled_error_mm": 2.1394778340859062e-14,
+        "audit": {
+          "smooth_trace_bound": 9.843977485009719e-15,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 7.987868422687732e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 0.0,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          1
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.1122424254562153,
+        "certificate_null_error": 4.047567757622612e-15,
+        "certificate_rhs": 1.677431220577865,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.140053876161471e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          1
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.9680705787165568e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 36.717997713175414,
+        "refinement_sampled_error_mm": 2.847716647714797e-14,
+        "audit": {
+          "smooth_trace_bound": 5.930457200009116e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 7.990127006843213e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 6.661338147750939e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          1
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.4456479115681394e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 8.047816004948873,
+        "refinement_sampled_error_mm": 2.849101387231457e-14,
+        "audit": {
+          "smooth_trace_bound": 9.27896157229898e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 7.957452050247048e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          1
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 3.028194452841718e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 26.445229994633337,
+        "refinement_sampled_error_mm": 4.2978682080556817e-14,
+        "audit": {
+          "smooth_trace_bound": 1.2216493358323954e-12,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 1.5142952198323044e-12,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "expand_1_2",
+        "support": [
+          1,
+          2
+        ],
+        "added_poles": 0,
+        "feasible": true,
+        "status": "solved",
+        "residual": 5.072146532113324e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 89254.6559301306,
+        "refinement_sampled_error_mm": 0.0,
+        "audit": {
+          "smooth_trace_bound": 6.165438530085036e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 3.8783790993572127e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.6629367034256575e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "expand_1_2",
+    "selected_primary_cost": [
+      0,
+      2
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        2.4755302795545294e-12,
+        4.009194671735558e-13,
+        1.6591523396884684e-13,
+        3.7964905124130385e-14,
+        2.4523081691170147e-14,
+        1.4981139701171486e-14
+      ],
+      "face_count": 3,
+      "step_bytes": 23117,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.0234527124711624e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 5.506717515386336e-12,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 6.586904832657828e-13,
+      "center_error_mm": 7.593925488436071e-14,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": true,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_1_2",
+        "feasible": true,
+        "priority_optimal": true
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 2
+  },
+  {
+    "task_id": "c00_B",
+    "family": "strip",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          1
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.584894282214287,
+        "certificate_null_error": 3.61158595929226e-15,
+        "certificate_rhs": 2.252035013734402,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1",
+        "support": [
+          0,
+          1
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.6181832776137884,
+        "certificate_null_error": 5.856469526596468e-14,
+        "certificate_rhs": 1.210994802134101,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_2",
+        "support": [
+          1,
+          2
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.050027389111401824,
+        "certificate_null_error": 8.513508570787954e-13,
+        "certificate_rhs": 0.10242007257164146,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2",
+        "support": [
+          0,
+          1,
+          2
+        ],
+        "added_poles": 0,
+        "feasible": true,
+        "status": "solved",
+        "residual": 9.71294657917926e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 833.1240586593146,
+        "refinement_sampled_error_mm": 0.0,
+        "audit": {
+          "smooth_trace_bound": 1.572815951552305e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 8.659739592076221e-15,
+          "datum_position_bound": 2.55351295663786e-15,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 1.7763568394002505e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "expand_0_1_2",
+    "selected_primary_cost": [
+      0,
+      3
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        2.4554707234677984e-12,
+        4.044140839241564e-13,
+        1.5528523552544305e-13,
+        3.810022154485967e-14,
+        2.456551437994853e-14,
+        1.4474532683550478e-14
+      ],
+      "face_count": 3,
+      "step_bytes": 23129,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.0224075558225903e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 5.506680545582974e-12,
+      "datum_position_bound": 5.202650562323692e-13,
+      "frozen_pole_bound": 0.0,
+      "center_error_mm": 1.056932319443149e-13,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "expand_0_1",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2",
+        "feasible": true,
+        "priority_optimal": true
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 4
+  },
+  {
+    "task_id": "c00_C",
+    "family": "strip",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          1
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.584894282214287,
+        "certificate_null_error": 3.61158595929226e-15,
+        "certificate_rhs": 2.252035013734402,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          1
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.04609048634316781,
+        "certificate_null_error": 9.86467887428654e-14,
+        "certificate_rhs": 0.08374710669360357,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.1394778340859062e-14
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          1
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.5419872642545434,
+        "certificate_null_error": 5.770313354862625e-15,
+        "certificate_rhs": 1.9750831634169324,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.140053876161471e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          1
+        ],
+        "added_poles": 33,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.0424841435262299,
+        "certificate_null_error": 1.7141285209419844e-13,
+        "certificate_rhs": 0.0831028741720348,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.847716647714797e-14
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          1
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.9984014443252818e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 8.204671898358855,
+        "refinement_sampled_error_mm": 2.849101387231457e-14,
+        "audit": {
+          "smooth_trace_bound": 9.281856980656905e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 7.958048386052129e-14,
+          "datum_position_bound": 7.583635066449777e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 6.661338147750939e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          1
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 8.526512829121202e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 29.245508108111608,
+        "refinement_sampled_error_mm": 4.2978682080556817e-14,
+        "audit": {
+          "smooth_trace_bound": 1.2221945757806346e-12,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 1.512399857721366e-12,
+          "datum_position_bound": 4.266372315502198e-12,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 2.886579864025407e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "degree_uv8",
+    "selected_primary_cost": [
+      1,
+      65
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        1.3277016498979059e-11,
+        2.197996154686475e-12,
+        3.0202103206690405e-12,
+        3.184389657006446e-13,
+        2.4266554716251575e-12,
+        4.989125161180413e-13
+      ],
+      "face_count": 3,
+      "step_bytes": 30412,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.2715888423823925e-12,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 5.506680545582974e-12,
+      "datum_position_bound": 3.3141876751107347e-12,
+      "frozen_pole_bound": 5.5223920133085705e-12,
+      "center_error_mm": 1.0695000440819058e-11,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 5
+  },
+  {
+    "task_id": "c01_A",
+    "family": "strip",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          1
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.9820510244339116,
+        "certificate_null_error": 3.3705119129404235e-15,
+        "certificate_rhs": 1.7727276379039503,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          1
+        ],
+        "added_poles": 12,
+        "feasible": true,
+        "status": "solved",
+        "residual": 6.152842858824012e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 51.3294582567247,
+        "refinement_sampled_error_mm": 2.8435583831733384e-14,
+        "audit": {
+          "smooth_trace_bound": 6.2172489379008774e-15,
+          "sharp_original_jet_bound": 2.5078894352394e-15,
+          "outside_position_bound": 2.8483864131995173e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 9.992007221626409e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          1
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.0429416032873897,
+        "certificate_null_error": 8.510635995919094e-15,
+        "certificate_rhs": 1.6243327080215821,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 1.4321554274776678e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          1
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 9.653946156023344e-16,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 17.756586667934766,
+        "refinement_sampled_error_mm": 2.1318594911964895e-14,
+        "audit": {
+          "smooth_trace_bound": 4.73974943266939e-14,
+          "sharp_original_jet_bound": 2.3696319859777815e-14,
+          "outside_position_bound": 2.8483457313552436e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 3.3306690738754696e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          1
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.0127986542903665e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 4.24885147261743,
+        "refinement_sampled_error_mm": 1.4649896587576702e-14,
+        "audit": {
+          "smooth_trace_bound": 8.05324645186219e-14,
+          "sharp_original_jet_bound": 4.02818441015196e-14,
+          "outside_position_bound": 4.296448352033119e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 3.3306690738754696e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          1
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 8.526512829121202e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 13.606394370244743,
+        "refinement_sampled_error_mm": 4.264181500047145e-14,
+        "audit": {
+          "smooth_trace_bound": 1.4897682846642932e-12,
+          "sharp_original_jet_bound": 7.516595299960243e-13,
+          "outside_position_bound": 3.473559813658541e-13,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 1.865174681370263e-14,
+          "passed": true
+        }
+      },
+      {
+        "action": "expand_0_1",
+        "support": [
+          0,
+          1
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.9820510244339111,
+        "certificate_null_error": 4.428449073730937e-15,
+        "certificate_rhs": 1.7727276379039496,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "knots_u",
+    "selected_primary_cost": [
+      12,
+      1
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.722472197754122e-13,
+        3.603282415107552e-13,
+        2.1457961980135972e-13,
+        1.2205721990610261e-13,
+        4.3907175776085754e-14,
+        1.0984290733928592e-13
+      ],
+      "face_count": 3,
+      "step_bytes": 24589,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 3.548306829672739e-13,
+      "sharp_original_jet_bound": 5.76752227347453e-13,
+      "outside_position_bound": 6.722472197754122e-13,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 6.722472197754122e-13,
+      "center_error_mm": 9.14823772291129e-14,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": true,
+        "priority_optimal": true
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 2
+  },
+  {
+    "task_id": "c01_B",
+    "family": "strip",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          1
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.7105746329157268,
+        "certificate_null_error": 1.905418244484131e-15,
+        "certificate_rhs": 2.339623650361383,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1",
+        "support": [
+          0,
+          1
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.7105746329157279,
+        "certificate_null_error": 2.999971621104574e-15,
+        "certificate_rhs": 2.3396236503613843,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_2",
+        "support": [
+          1,
+          2
+        ],
+        "added_poles": 0,
+        "feasible": true,
+        "status": "solved",
+        "residual": 4.2955808476758026e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 124243.43592868748,
+        "refinement_sampled_error_mm": 0.0,
+        "audit": {
+          "smooth_trace_bound": 8.511709855459534e-14,
+          "sharp_original_jet_bound": 4.936791716166529e-14,
+          "outside_position_bound": 8.215650382226158e-14,
+          "datum_position_bound": 1.2001973489124871e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 2.3314683517128287e-15,
+          "passed": true
+        }
+      },
+      {
+        "action": "expand_0_1_2",
+        "support": [
+          0,
+          1,
+          2
+        ],
+        "added_poles": 0,
+        "feasible": true,
+        "status": "solved",
+        "residual": 6.747944593233889e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 124243.43592869795,
+        "refinement_sampled_error_mm": 0.0,
+        "audit": {
+          "smooth_trace_bound": 4.033810322804736e-14,
+          "sharp_original_jet_bound": 1.872576168201097e-14,
+          "outside_position_bound": 7.401486830834377e-14,
+          "datum_position_bound": 2.7172708527700703e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 2.9976021664879227e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "expand_1_2",
+    "selected_primary_cost": [
+      0,
+      2
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.532671524778075e-13,
+        1.0935510814530625e-13,
+        2.1457961980135972e-13,
+        1.26172300282081e-14,
+        4.3907175776085754e-14,
+        2.771190937313206e-14
+      ],
+      "face_count": 3,
+      "step_bytes": 23072,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.1849780416165837e-13,
+      "sharp_original_jet_bound": 5.76752227347453e-13,
+      "outside_position_bound": 6.722472197754122e-13,
+      "datum_position_bound": 5.152404171010443e-13,
+      "frozen_pole_bound": 6.641041307333051e-13,
+      "center_error_mm": 4.218847493575595e-14,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "expand_0_1",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2",
+        "feasible": true,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 3
+  },
+  {
+    "task_id": "c01_C",
+    "family": "strip",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          1
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.7105746329157268,
+        "certificate_null_error": 1.905418244484131e-15,
+        "certificate_rhs": 2.339623650361383,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          1
+        ],
+        "added_poles": 12,
+        "feasible": true,
+        "status": "solved",
+        "residual": 3.1086244689504383e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 51.75143889278662,
+        "refinement_sampled_error_mm": 2.8435583831733384e-14,
+        "audit": {
+          "smooth_trace_bound": 4.51490696680897e-15,
+          "sharp_original_jet_bound": 1.7578531223231644e-15,
+          "outside_position_bound": 2.8497166110320264e-14,
+          "datum_position_bound": 1.776573666601473e-15,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 9.992007221626409e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          1
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.6355655054674598,
+        "certificate_null_error": 2.317810350925075e-15,
+        "certificate_rhs": 2.0341312169438344,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 1.4321554274776678e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          1
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.2565363675432988e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 17.902563968122674,
+        "refinement_sampled_error_mm": 2.1318594911964895e-14,
+        "audit": {
+          "smooth_trace_bound": 4.7369747013238777e-14,
+          "sharp_original_jet_bound": 2.369361052197986e-14,
+          "outside_position_bound": 2.848603561027852e-14,
+          "datum_position_bound": 4.382956861278727e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 5.551115123125783e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          1
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.7524280299515382e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 4.287205266690088,
+        "refinement_sampled_error_mm": 1.4649896587576702e-14,
+        "audit": {
+          "smooth_trace_bound": 8.057000543036963e-14,
+          "sharp_original_jet_bound": 4.027304159871773e-14,
+          "outside_position_bound": 4.296446060921076e-14,
+          "datum_position_bound": 3.7311129300596855e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 0.0,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          1
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.136868399579855e-13,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 13.955276277146368,
+        "refinement_sampled_error_mm": 4.264181500047145e-14,
+        "audit": {
+          "smooth_trace_bound": 1.4902834789505463e-12,
+          "sharp_original_jet_bound": 7.936850860069752e-13,
+          "outside_position_bound": 3.4662781520695245e-13,
+          "datum_position_bound": 6.658805532760698e-13,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 8.43769498715119e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "knots_u",
+    "selected_primary_cost": [
+      1,
+      12
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.722472197754122e-13,
+        3.607445369277617e-13,
+        2.1457961980135972e-13,
+        1.2201580348060057e-13,
+        4.3907175776085754e-14,
+        1.0954854644945611e-13
+      ],
+      "face_count": 3,
+      "step_bytes": 24588,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 3.548306829672739e-13,
+      "sharp_original_jet_bound": 5.76752227347453e-13,
+      "outside_position_bound": 6.722472197754122e-13,
+      "datum_position_bound": 5.151010303067089e-13,
+      "frozen_pole_bound": 6.722472197754122e-13,
+      "center_error_mm": 9.14823772291129e-14,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": true,
+        "priority_optimal": true
+      },
+      "expand_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": true,
+        "priority_optimal": true
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 2
+  },
+  {
+    "task_id": "c02_A",
+    "family": "strip",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          2
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.0596734257216327,
+        "certificate_null_error": 4.293580429991325e-15,
+        "certificate_rhs": 1.841454577856652,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          2
+        ],
+        "added_poles": 12,
+        "feasible": true,
+        "status": "solved",
+        "residual": 5.459500715206448e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 50.98683473781458,
+        "refinement_sampled_error_mm": 2.847716647714797e-14,
+        "audit": {
+          "smooth_trace_bound": 9.765336687432106e-15,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 5.725058436366927e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          2
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.1122424254562149,
+        "certificate_null_error": 4.966705394251395e-15,
+        "certificate_rhs": 1.6774312205778645,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.8477220581635265e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          2
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.095250774942345e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 17.63806166465939,
+        "refinement_sampled_error_mm": 2.843559737764471e-14,
+        "audit": {
+          "smooth_trace_bound": 1.0658200171058375e-13,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 5.724987940701466e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 6.661338147750939e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          2
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.1269512071926536e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 3.8658936707266744,
+        "refinement_sampled_error_mm": 2.8435583831733384e-14,
+        "audit": {
+          "smooth_trace_bound": 8.53968302522439e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 9.174031896380685e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 2.220446049250313e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          2
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 3.439188277463856e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 12.703377810144502,
+        "refinement_sampled_error_mm": 3.5626927553082453e-14,
+        "audit": {
+          "smooth_trace_bound": 3.084338146707107e-12,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 8.71625290924321e-13,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 1.1102230246251565e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "expand_2_3",
+        "support": [
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.45306869539279976,
+        "certificate_null_error": 1.632577450617017e-14,
+        "certificate_rhs": 1.050651350905104,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_2_3_4",
+        "support": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "added_poles": 0,
+        "feasible": true,
+        "status": "solved",
+        "residual": 6.687285680191379e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 94333.72634814237,
+        "refinement_sampled_error_mm": 0.0,
+        "audit": {
+          "smooth_trace_bound": 4.9987791683747673e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 6.320869753532557e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.884981308350689e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "expand_0_2_3_4",
+    "selected_primary_cost": [
+      0,
+      4
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        1.7447233638919555e-12,
+        5.415175028232072e-13,
+        5.799913891678651e-13,
+        9.270362255620057e-14,
+        1.280489133984841e-13,
+        1.9961809982760315e-13
+      ],
+      "face_count": 5,
+      "step_bytes": 37689,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.8492203368136597e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 1.0582221579692254e-12,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 6.932066809338279e-13,
+      "center_error_mm": 2.0650148258027912e-14,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": true,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_2_3_4",
+        "feasible": true,
+        "priority_optimal": true
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 2
+  },
+  {
+    "task_id": "c02_B",
+    "family": "strip",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          2
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.7142626815102693,
+        "certificate_null_error": 4.517214602028861e-15,
+        "certificate_rhs": 2.3421444406425636,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_2",
+        "support": [
+          1,
+          2
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.8749952613195671,
+        "certificate_null_error": 9.582504866144684e-15,
+        "certificate_rhs": 1.6733155220168765,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_2_3",
+        "support": [
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.6114467627838727,
+        "certificate_null_error": 4.953722403962875e-15,
+        "certificate_rhs": 2.270821358211251,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_2_3",
+        "support": [
+          1,
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.49942194893917957,
+        "certificate_null_error": 1.986392359039204e-14,
+        "certificate_rhs": 1.264179669432068,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_3_4",
+        "support": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "added_poles": 0,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.1316282072803006e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 722.0956044899415,
+        "refinement_sampled_error_mm": 0.0,
+        "audit": {
+          "smooth_trace_bound": 4.264181600414455e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 1.0963452368173418e-14,
+          "datum_position_bound": 5.474787290182803e-15,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 6.8833827526759706e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "expand_0_1_2_3_4",
+    "selected_primary_cost": [
+      0,
+      5
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.81039456465344e-13,
+        1.8482624442537268e-13,
+        2.1294297571940543e-13,
+        2.2483227100984882e-14,
+        4.285459349652421e-14,
+        3.350011240632611e-14
+      ],
+      "face_count": 5,
+      "step_bytes": 37670,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.8492203368136597e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 1.0582222845839783e-12,
+      "datum_position_bound": 5.05424444115365e-13,
+      "frozen_pole_bound": 0.0,
+      "center_error_mm": 2.886579864025407e-14,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "expand_1_2",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_3_4",
+        "feasible": true,
+        "priority_optimal": true
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 5
+  },
+  {
+    "task_id": "c02_C",
+    "family": "strip",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          2
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.7142626815102693,
+        "certificate_null_error": 4.517214602028861e-15,
+        "certificate_rhs": 2.3421444406425636,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          2
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.0826390264940844,
+        "certificate_null_error": 5.087787753407941e-14,
+        "certificate_rhs": 0.15457297411987259,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.847716647714797e-14
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          2
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.6381783369403835,
+        "certificate_null_error": 2.4176393743474267e-15,
+        "certificate_rhs": 2.035755340561014,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.8477220581635265e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          2
+        ],
+        "added_poles": 33,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.07605905599006779,
+        "certificate_null_error": 1.2197791281830773e-13,
+        "certificate_rhs": 0.15326921288255965,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.843559737764471e-14
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          2
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.9673409874994545e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 3.879113660029559,
+        "refinement_sampled_error_mm": 2.8435583831733384e-14,
+        "audit": {
+          "smooth_trace_bound": 8.539741140541127e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 9.174073556278361e-14,
+          "datum_position_bound": 6.42952303097061e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 2.220446049250313e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          2
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.842170943040401e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 13.09449165896217,
+        "refinement_sampled_error_mm": 3.5626927553082453e-14,
+        "audit": {
+          "smooth_trace_bound": 3.0829222166884303e-12,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 8.72672386928792e-13,
+          "datum_position_bound": 7.291554024975826e-13,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.773959005888173e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "degree_uv8",
+    "selected_primary_cost": [
+      1,
+      65
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        1.25645179997299e-11,
+        1.9984530367335254e-12,
+        2.5593506449780407e-12,
+        9.194887773076556e-13,
+        2.8058083014444177e-12,
+        5.951350523503152e-13
+      ],
+      "face_count": 5,
+      "step_bytes": 45013,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.3609919594534796e-12,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 1.1627710173006242e-12,
+      "datum_position_bound": 6.0832566931555015e-12,
+      "frozen_pole_bound": 1.0543800167919924e-12,
+      "center_error_mm": 1.2179368624742892e-11,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 5
+  },
+  {
+    "task_id": "c03_A",
+    "family": "strip",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          2
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.9820510244339111,
+        "certificate_null_error": 3.139483357260373e-15,
+        "certificate_rhs": 1.7727276379039496,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          2
+        ],
+        "added_poles": 12,
+        "feasible": true,
+        "status": "solved",
+        "residual": 6.6039936642450794e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 97.8824522461639,
+        "refinement_sampled_error_mm": 2.865666069755988e-14,
+        "audit": {
+          "smooth_trace_bound": 8.437694987151188e-15,
+          "sharp_original_jet_bound": 3.182639337258782e-15,
+          "outside_position_bound": 1.1624374386051344e-13,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 1.3322676295501878e-15,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          2
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.0429416032873882,
+        "certificate_null_error": 5.561220989432242e-15,
+        "certificate_rhs": 1.6243327080215801,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.864375403532904e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          2
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.7763568394002505e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 33.86083363448103,
+        "refinement_sampled_error_mm": 2.869792300935272e-14,
+        "audit": {
+          "smooth_trace_bound": 3.886393803853598e-14,
+          "sharp_original_jet_bound": 3.418886093026561e-14,
+          "outside_position_bound": 1.1619957172463736e-13,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 8.881784197001252e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          2
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.6645352591003757e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 8.102325944868763,
+        "refinement_sampled_error_mm": 4.2789556681718124e-14,
+        "audit": {
+          "smooth_trace_bound": 1.2601565507714644e-13,
+          "sharp_original_jet_bound": 4.869278374718905e-14,
+          "outside_position_bound": 1.2752813357793713e-13,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 1.3322676295501878e-15,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          2
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.4210854715202004e-13,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 25.946645306523806,
+        "refinement_sampled_error_mm": 5.68572949549634e-14,
+        "audit": {
+          "smooth_trace_bound": 2.5842670363764425e-12,
+          "sharp_original_jet_bound": 1.412727527331405e-12,
+          "outside_position_bound": 5.354048753183171e-13,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 1.6431300764452317e-14,
+          "passed": true
+        }
+      },
+      {
+        "action": "expand_1_2",
+        "support": [
+          1,
+          2
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.9820510244339111,
+        "certificate_null_error": 3.874502456456272e-15,
+        "certificate_rhs": 1.7727276379039492,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_4",
+        "support": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.9820510244339129,
+        "certificate_null_error": 9.305687584485e-15,
+        "certificate_rhs": 1.7727276379039527,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "knots_u",
+    "selected_primary_cost": [
+      12,
+      1
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.43896475336341e-12,
+        7.348391383705004e-13,
+        9.336530188261789e-14,
+        7.741382103927446e-14,
+        1.3210759526247062e-14,
+        3.795748098971673e-14
+      ],
+      "face_count": 5,
+      "step_bytes": 38996,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.081624695102756e-12,
+      "sharp_original_jet_bound": 5.539179989952988e-13,
+      "outside_position_bound": 8.21153014824648e-12,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 8.285539375172478e-12,
+      "center_error_mm": 8.659739592076221e-14,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": true,
+        "priority_optimal": true
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_4",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 2
+  },
+  {
+    "task_id": "c03_B",
+    "family": "strip",
+    "status": "no_feasible_candidate",
+    "diagnosis": "固定截面穿过目标点，要求原位与非零位移直接冲突。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          2
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.090563266338837,
+        "certificate_null_error": 1.6252424184493506e-15,
+        "certificate_rhs": 2.5864652428138832,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_2",
+        "support": [
+          1,
+          2
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.0905632663388376,
+        "certificate_null_error": 2.3610191932795496e-15,
+        "certificate_rhs": 2.586465242813884,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_2_3",
+        "support": [
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.9424236645380666,
+        "certificate_null_error": 1.7711517779697596e-15,
+        "certificate_rhs": 2.4931417381532515,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_2_3",
+        "support": [
+          1,
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.9424236645380675,
+        "certificate_null_error": 2.8634829797521892e-15,
+        "certificate_rhs": 2.4931417381532524,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_3_4",
+        "support": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.8943014969547003,
+        "certificate_null_error": 5.0299270187395405e-15,
+        "certificate_rhs": 2.462065147443309,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      }
+    ],
+    "exact_datum_target_conflict": true,
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "expand_1_2",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_3_4",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 5
+  },
+  {
+    "task_id": "c03_C",
+    "family": "strip",
+    "status": "no_feasible_candidate",
+    "diagnosis": "固定截面穿过目标点，要求原位与非零位移直接冲突。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          2
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.090563266338837,
+        "certificate_null_error": 1.6252424184493506e-15,
+        "certificate_rhs": 2.5864652428138832,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          2
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.4989568624897731,
+        "certificate_null_error": 5.137764049615442e-15,
+        "certificate_rhs": 1.9473300284866948,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.865666069755988e-14
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          2
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.8992718648183988,
+        "certificate_null_error": 6.2033263083478496e-15,
+        "certificate_rhs": 2.1919899614189045,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.864375403532904e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          2
+        ],
+        "added_poles": 33,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.3963622176484831,
+        "certificate_null_error": 3.698248284071962e-15,
+        "certificate_rhs": 1.6711446482267671,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.869792300935272e-14
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          2
+        ],
+        "added_poles": 105,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.4390004780579193,
+        "certificate_null_error": 3.1110999870528452e-15,
+        "certificate_rhs": 1.6964671986560302,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 4.2789556681718124e-14
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          2
+        ],
+        "added_poles": 65,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.546076146076217,
+        "certificate_null_error": 8.622437022071618e-14,
+        "certificate_rhs": 3.600695416615608,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 5.68572949549634e-14
+      }
+    ],
+    "exact_datum_target_conflict": true,
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 6
+  },
+  {
+    "task_id": "c04_A",
+    "family": "grid",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.6021827493264986,
+        "certificate_null_error": 4.045314147522733e-15,
+        "certificate_rhs": 1.3881587797672112,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.45232559586535753,
+        "certificate_null_error": 1.4373385368849627e-14,
+        "certificate_rhs": 1.032561008709968,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 3.6230712748823524e-14
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.45232559586535775,
+        "certificate_null_error": 1.2002002080479277e-14,
+        "certificate_rhs": 1.0325610087099601,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.842183140288669e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          3
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.6645352591003757e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 56.11056547336865,
+        "refinement_sampled_error_mm": 2.929642751054232e-14,
+        "audit": {
+          "smooth_trace_bound": 5.356417015021095e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 6.395913594156253e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 8.881784197001252e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          3
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.9984014443252818e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 10.555905083930034,
+        "refinement_sampled_error_mm": 2.842170943040401e-14,
+        "audit": {
+          "smooth_trace_bound": 5.5661506955848894e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 1.1133977325396484e-13,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 6.661338147750939e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          3
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.842170943040401e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 40.481139163225635,
+        "refinement_sampled_error_mm": 4.263288940501699e-14,
+        "audit": {
+          "smooth_trace_bound": 2.155801734133082e-12,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 4.029290209920831e-12,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 7.105427357601002e-15,
+          "passed": true
+        }
+      },
+      {
+        "action": "expand_2_3",
+        "support": [
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.6180726321169183,
+        "certificate_null_error": 8.030011617478325e-15,
+        "certificate_rhs": 1.0312959742963685,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_2_3",
+        "support": [
+          0,
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.574326852340283,
+        "certificate_null_error": 1.9733110140419535e-14,
+        "certificate_rhs": 1.015812269028042,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "knots_uv",
+    "selected_primary_cost": [
+      33,
+      1
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.40198747223888e-13,
+        1.4660857875991234e-13,
+        2.7973030063419073e-13,
+        3.905946326649111e-14,
+        1.6092496958208576e-13,
+        1.1957795864603327e-13
+      ],
+      "face_count": 4,
+      "step_bytes": 34633,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 6.722773472916699e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.383909878250631e-13,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 6.987176433323751e-13,
+      "center_error_mm": 1.454392162258955e-13,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_2_3",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 4
+  },
+  {
+    "task_id": "c04_B",
+    "family": "grid",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.169525926322855,
+        "certificate_null_error": 4.009293858410455e-15,
+        "certificate_rhs": 1.9345498091889846,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_3",
+        "support": [
+          1,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.7342260203733743,
+        "certificate_null_error": 1.2223251227214586e-14,
+        "certificate_rhs": 1.223601317796719,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_2_3",
+        "support": [
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.0019812557508314,
+        "certificate_null_error": 4.124857532205618e-15,
+        "certificate_rhs": 1.7906255941437519,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_2_3",
+        "support": [
+          1,
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.2295402261881438,
+        "certificate_null_error": 3.3967579543293567e-14,
+        "certificate_rhs": 0.5846571929109203,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_3",
+        "support": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": true,
+        "status": "solved",
+        "residual": 3.6365266504301135e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 540.3591060824866,
+        "refinement_sampled_error_mm": 0.0,
+        "audit": {
+          "smooth_trace_bound": 1.0734341035049846e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 4.283610503345396e-15,
+          "datum_position_bound": 7.355227538141662e-16,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "expand_0_1_2_3",
+    "selected_primary_cost": [
+      0,
+      4
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.12934584046928e-13,
+        6.447373630643933e-14,
+        1.0236705221565372e-13,
+        5.729791641151394e-15,
+        1.4541422613768576e-14,
+        8.815864704914134e-15
+      ],
+      "face_count": 4,
+      "step_bytes": 30560,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.208625213799941e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.383909878250631e-13,
+      "datum_position_bound": 5.553479426282668e-13,
+      "frozen_pole_bound": 0.0,
+      "center_error_mm": 5.839773109528323e-14,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "expand_1_3",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_3",
+        "feasible": true,
+        "priority_optimal": true
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 5
+  },
+  {
+    "task_id": "c04_C",
+    "family": "grid",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.169525926322855,
+        "certificate_null_error": 4.009293858410455e-15,
+        "certificate_rhs": 1.9345498091889846,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.45216702893944194,
+        "certificate_null_error": 1.1262709701510858e-14,
+        "certificate_rhs": 1.0331009663304607,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 3.6230712748823524e-14
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.093156060104142,
+        "certificate_null_error": 4.74589386527616e-15,
+        "certificate_rhs": 1.6629763649420906,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.842183140288669e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          3
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 4.253875517402657e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 453.95280493325885,
+        "refinement_sampled_error_mm": 2.929642751054232e-14,
+        "audit": {
+          "smooth_trace_bound": 5.355688266018313e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 6.40173418210632e-14,
+          "datum_position_bound": 3.5330654341196126e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 8.881784197001252e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          3
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.5685695171878212e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 10.594979454887316,
+        "refinement_sampled_error_mm": 2.842170943040401e-14,
+        "audit": {
+          "smooth_trace_bound": 5.5675123377064465e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 1.1132547284458119e-13,
+          "datum_position_bound": 6.404805808412178e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 5.551115123125783e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          3
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 3.552712917675393e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 42.442712092185275,
+        "refinement_sampled_error_mm": 4.263288940501699e-14,
+        "audit": {
+          "smooth_trace_bound": 2.165860683236712e-12,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 4.0341376518411735e-12,
+          "datum_position_bound": 8.420086593006918e-13,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 5.773159728050814e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "knots_uv",
+    "selected_primary_cost": [
+      1,
+      33
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.405672173092472e-13,
+        1.4705089678212343e-13,
+        2.791112693771264e-13,
+        4.044930907863447e-14,
+        1.606231655323336e-13,
+        1.1615838499401399e-13
+      ],
+      "face_count": 4,
+      "step_bytes": 34635,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 6.722773472916699e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.383909878250631e-13,
+      "datum_position_bound": 4.697578056909628e-13,
+      "frozen_pole_bound": 6.987176433323751e-13,
+      "center_error_mm": 1.7341683644644945e-13,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 4
+  },
+  {
+    "task_id": "c05_A",
+    "family": "grid",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.1990244644342845,
+        "certificate_null_error": 4.820972256097595e-15,
+        "certificate_rhs": 1.9587951108244366,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.450372796557891,
+        "certificate_null_error": 1.7441617174435686e-14,
+        "certificate_rhs": 1.0448300120259493,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.842517866562357e-14
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.103944612190407,
+        "certificate_null_error": 5.223817926581661e-15,
+        "certificate_rhs": 1.6711623225032264,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 1.467511591522657e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          3
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.7763568394002505e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 25.220805642782675,
+        "refinement_sampled_error_mm": 1.467511591522657e-14,
+        "audit": {
+          "smooth_trace_bound": 7.536676404382801e-14,
+          "sharp_original_jet_bound": 3.879637783496462e-14,
+          "outside_position_bound": 4.273113667984469e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 8.881784197001252e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          3
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 3.1086244689504383e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 4.694663726277226,
+        "refinement_sampled_error_mm": 1.4238583238573986e-14,
+        "audit": {
+          "smooth_trace_bound": 4.506332513765785e-14,
+          "sharp_original_jet_bound": 2.2502011169836754e-14,
+          "outside_position_bound": 5.789879009908082e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 2.6645352591003757e-15,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          3
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 5.684341886080802e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 17.93409343486121,
+        "refinement_sampled_error_mm": 2.935023183045314e-14,
+        "audit": {
+          "smooth_trace_bound": 1.4572827970484863e-12,
+          "sharp_original_jet_bound": 6.042799448575084e-13,
+          "outside_position_bound": 1.4743266794274004e-12,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 7.105427357601002e-15,
+          "passed": true
+        }
+      },
+      {
+        "action": "expand_1_3",
+        "support": [
+          1,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.1990244644342791,
+        "certificate_null_error": 4.925768697904452e-15,
+        "certificate_rhs": 1.9587951108244281,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_2_3",
+        "support": [
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.0149177872533999,
+        "certificate_null_error": 5.857711421478323e-15,
+        "certificate_rhs": 1.802147862749028,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_2_3",
+        "support": [
+          1,
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.0149177872533954,
+        "certificate_null_error": 6.854986751895463e-15,
+        "certificate_rhs": 1.8021478627490195,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_3_4",
+        "support": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.012981843763336,
+        "certificate_null_error": 8.92814582296079e-15,
+        "certificate_rhs": 1.8004282546224055,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "knots_uv",
+    "selected_primary_cost": [
+      33,
+      1
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.36201309264327e-13,
+        3.3863132786271014e-13,
+        7.096910226412236e-13,
+        1.2385740515098588e-13,
+        3.814340325406287e-13,
+        2.662914131501027e-13
+      ],
+      "face_count": 6,
+      "step_bytes": 49238,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 9.067447179648891e-13,
+      "sharp_original_jet_bound": 7.675508999731505e-13,
+      "outside_position_bound": 6.641751374972335e-13,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 7.507666635588421e-13,
+      "center_error_mm": 1.971756091734278e-13,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_3_4",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 4
+  },
+  {
+    "task_id": "c05_B",
+    "family": "grid",
+    "status": "no_feasible_candidate",
+    "diagnosis": "固定截面穿过目标点，要求原位与非零位移直接冲突。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.1672917479545384,
+        "certificate_null_error": 2.9019927663711838e-15,
+        "certificate_rhs": 2.63350215368329,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_3",
+        "support": [
+          1,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.167291747954538,
+        "certificate_null_error": 1.2686955297395262e-14,
+        "certificate_rhs": 2.6335021536832888,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_2_3",
+        "support": [
+          2,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.11749667646645,
+        "certificate_null_error": 1.3952216862158507e-15,
+        "certificate_rhs": 2.6030730617277413,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_3_5",
+        "support": [
+          3,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.0450401472751127,
+        "certificate_null_error": 3.2851966894845315e-15,
+        "certificate_rhs": 2.5581494231730018,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_2_3_5",
+        "support": [
+          1,
+          2,
+          3,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.965617718935139,
+        "certificate_null_error": 4.52524893155536e-15,
+        "certificate_rhs": 2.507982595751502,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_3_4_5",
+        "support": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.8852302832266123,
+        "certificate_null_error": 1.0658958444274038e-14,
+        "certificate_rhs": 2.4561630455499404,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      }
+    ],
+    "exact_datum_target_conflict": true,
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "expand_1_3",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_3_4_5",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 6
+  },
+  {
+    "task_id": "c05_C",
+    "family": "grid",
+    "status": "no_feasible_candidate",
+    "diagnosis": "固定截面穿过目标点，要求原位与非零位移直接冲突。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.1672917479545384,
+        "certificate_null_error": 2.9019927663711838e-15,
+        "certificate_rhs": 2.63350215368329,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.60191311832425,
+        "certificate_null_error": 6.068938171456007e-15,
+        "certificate_rhs": 2.0130959376259137,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.842517866562357e-14
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.928689850608586,
+        "certificate_null_error": 5.107519240105984e-15,
+        "certificate_rhs": 2.208900690927145,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 1.467511591522657e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          3
+        ],
+        "added_poles": 33,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.429196021627844,
+        "certificate_null_error": 3.2845218595314167e-15,
+        "certificate_rhs": 1.6906779833119279,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 1.467511591522657e-14
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          3
+        ],
+        "added_poles": 105,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.4412633747339796,
+        "certificate_null_error": 2.1719961366496222e-15,
+        "certificate_rhs": 1.6978005623358587,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 1.4238583238573986e-14
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          3
+        ],
+        "added_poles": 65,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 3.0489798483321873,
+        "certificate_null_error": 4.708777921827434e-14,
+        "certificate_rhs": 3.9402880254381034,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.935023183045314e-14
+      }
+    ],
+    "exact_datum_target_conflict": true,
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 6
+  },
+  {
+    "task_id": "c06_A",
+    "family": "grid",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          4
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.7650011640432006,
+        "certificate_null_error": 6.9534572372553475e-15,
+        "certificate_rhs": 2.3765529080873082,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          4
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.2152780271991794,
+        "certificate_null_error": 1.1149338942930878e-14,
+        "certificate_rhs": 1.7534073243386359,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.1316282072803006e-14
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          4
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.2152780271991783,
+        "certificate_null_error": 1.2931632048127985e-14,
+        "certificate_rhs": 1.7534073243386343,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.842170943040401e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          4
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.8401970747720444e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 79.58771297639755,
+        "refinement_sampled_error_mm": 2.929726896294324e-14,
+        "audit": {
+          "smooth_trace_bound": 1.0185576076270651e-13,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 0.0,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 8.881784197001252e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          4
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.1230984030117053e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 12.298728957679048,
+        "refinement_sampled_error_mm": 2.842257677890751e-14,
+        "audit": {
+          "smooth_trace_bound": 6.869154008299447e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 0.0,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          4
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 3.137924005317382e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 49.277477519333274,
+        "refinement_sampled_error_mm": 4.2647017724497675e-14,
+        "audit": {
+          "smooth_trace_bound": 3.0953322196930693e-12,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 0.0,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "expand_3_4",
+        "support": [
+          3,
+          4
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.5018922605298743,
+        "certificate_null_error": 5.573338689240449e-15,
+        "certificate_rhs": 2.1922717061750343,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_4_5",
+        "support": [
+          4,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.501892260529874,
+        "certificate_null_error": 8.578957850657591e-15,
+        "certificate_rhs": 2.192271706175034,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_4_7",
+        "support": [
+          4,
+          7
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.5018922605298748,
+        "certificate_null_error": 7.507979222661451e-15,
+        "certificate_rhs": 2.1922717061750343,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_3_4_5_7",
+        "support": [
+          3,
+          4,
+          5,
+          7
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.8271439668323293,
+        "certificate_null_error": 1.678673977292858e-14,
+        "certificate_rhs": 1.6269175436583898,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_2_3_4_5_6_7_8",
+        "support": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "added_poles": 0,
+        "feasible": true,
+        "status": "solved",
+        "residual": 5.429307266375978e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 236915.31218524819,
+        "refinement_sampled_error_mm": 0.0,
+        "audit": {
+          "smooth_trace_bound": 5.856667027510315e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 4.455695072162295e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "expand_0_2_3_4_5_6_7_8",
+    "selected_primary_cost": [
+      0,
+      8
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.451286418559247e-12,
+        4.122240299317528e-13,
+        2.64667691955266e-13,
+        2.5384946557446004e-14,
+        3.818436487758482e-14,
+        3.7386760354252146e-14
+      ],
+      "face_count": 9,
+      "step_bytes": 67173,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.2675119883593567e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 5.501777083089388e-12,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 6.320242936120877e-13,
+      "center_error_mm": 2.042810365310288e-14,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_2_3_4_5_6_7_8",
+        "feasible": true,
+        "priority_optimal": true
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 4
+  },
+  {
+    "task_id": "c06_B",
+    "family": "grid",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          4
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.143840875068771,
+        "certificate_null_error": 4.110080884417962e-15,
+        "certificate_rhs": 2.619215684173426,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_4",
+        "support": [
+          1,
+          4
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.8528477114705204,
+        "certificate_null_error": 4.82845595746924e-15,
+        "certificate_rhs": 2.4349769355592805,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_3_4",
+        "support": [
+          3,
+          4
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.011255477970548,
+        "certificate_null_error": 3.771175265634001e-15,
+        "certificate_rhs": 2.5369307301354844,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_4_5",
+        "support": [
+          4,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.011255477970546,
+        "certificate_null_error": 3.0568138584431615e-15,
+        "certificate_rhs": 2.5369307301354813,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_4_7",
+        "support": [
+          4,
+          7
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.0707883833621152,
+        "certificate_null_error": 5.2452922327381426e-15,
+        "certificate_rhs": 2.5742033382696814,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_3_4_5_7",
+        "support": [
+          1,
+          3,
+          4,
+          5,
+          7
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.2043616782833064,
+        "certificate_null_error": 1.9434720184123336e-14,
+        "certificate_rhs": 1.9631498594112935,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_3_4_5_6_7_8",
+        "support": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "added_poles": 0,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.021405182655144e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 2760.402920362132,
+        "refinement_sampled_error_mm": 0.0,
+        "audit": {
+          "smooth_trace_bound": 1.2292611286575754e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 1.202741610010586e-14,
+          "datum_position_bound": 3.071617034796267e-15,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "expand_0_1_2_3_4_5_6_7_8",
+    "selected_primary_cost": [
+      0,
+      9
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.451678209411325e-12,
+        3.8682033195656886e-13,
+        1.100733928510312e-13,
+        1.967479318086824e-14,
+        1.3480488325669037e-14,
+        9.797718192317006e-15
+      ],
+      "face_count": 9,
+      "step_bytes": 67141,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.5363649240960126e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 5.501777083089388e-12,
+      "datum_position_bound": 5.741456385344303e-13,
+      "frozen_pole_bound": 0.0,
+      "center_error_mm": 1.1457501614131615e-13,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "expand_1_4",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_3_4_5_6_7_8",
+        "feasible": true,
+        "priority_optimal": true
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 7
+  },
+  {
+    "task_id": "c06_C",
+    "family": "grid",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          4
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.143840875068771,
+        "certificate_null_error": 4.110080884417962e-15,
+        "certificate_rhs": 2.619215684173426,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          4
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.2190476767467804,
+        "certificate_null_error": 9.391845734464668e-15,
+        "certificate_rhs": 1.7561246504406243,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.1316282072803006e-14
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          4
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.7128694629935846,
+        "certificate_null_error": 4.373952152758526e-15,
+        "certificate_rhs": 2.0816472011576255,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.842170943040401e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          4
+        ],
+        "added_poles": 33,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.07585127368426015,
+        "certificate_null_error": 5.287139189448871e-13,
+        "certificate_rhs": 0.1855693101045146,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.929726896294324e-14
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          4
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.377955894414823e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 12.340786261657898,
+        "refinement_sampled_error_mm": 2.842257677890751e-14,
+        "audit": {
+          "smooth_trace_bound": 6.86862863024881e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 0.0,
+          "datum_position_bound": 8.527055716037236e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          4
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 4.9385193561595814e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 50.79464123606124,
+        "refinement_sampled_error_mm": 4.2647017724497675e-14,
+        "audit": {
+          "smooth_trace_bound": 3.0948554944585687e-12,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 0.0,
+          "datum_position_bound": 9.368315965339396e-13,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 2.220446049250313e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "degree_uv8",
+    "selected_primary_cost": [
+      1,
+      65
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.451678209411325e-12,
+        3.842692096779848e-13,
+        2.0431591657964387e-13,
+        4.032819005974468e-14,
+        5.6000847615437793e-14,
+        3.5935013645294056e-14
+      ],
+      "face_count": 9,
+      "step_bytes": 74735,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.8836307858575042e-12,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 5.501777083089388e-12,
+      "datum_position_bound": 1.6437139888361036e-12,
+      "frozen_pole_bound": 5.459519103534972e-12,
+      "center_error_mm": 1.759037360216098e-12,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 5
+  },
+  {
+    "task_id": "c07_A",
+    "family": "ring_with_hole",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.9820510244339125,
+        "certificate_null_error": 4.0885014537042374e-15,
+        "certificate_rhs": 1.772727637903952,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": true,
+        "status": "solved",
+        "residual": 5.7813302539481096e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 199.41814040160014,
+        "refinement_sampled_error_mm": 2.864633583298495e-14,
+        "audit": {
+          "smooth_trace_bound": 2.1316282072803e-14,
+          "sharp_original_jet_bound": 2.190377509000048e-15,
+          "outside_position_bound": 5.4648089969716705e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.042941603287388,
+        "certificate_null_error": 6.245781148556629e-15,
+        "certificate_rhs": 1.6243327080215795,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.848062895712638e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          3
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.5477183697769422e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 68.98544448860386,
+        "refinement_sampled_error_mm": 2.864633583298495e-14,
+        "audit": {
+          "smooth_trace_bound": 1.2803031930910088e-13,
+          "sharp_original_jet_bound": 6.400433597187193e-14,
+          "outside_position_bound": 5.4642338107043e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          3
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.5543122344752192e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 16.507052446846394,
+        "refinement_sampled_error_mm": 2.842517866562357e-14,
+        "audit": {
+          "smooth_trace_bound": 9.26017998862645e-14,
+          "sharp_original_jet_bound": 4.664236279954058e-14,
+          "outside_position_bound": 7.046504091705276e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 8.881784197001252e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          3
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.869528651258937e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 52.86168907705178,
+        "refinement_sampled_error_mm": 5.281491496111121e-14,
+        "audit": {
+          "smooth_trace_bound": 1.0503490764565436e-12,
+          "sharp_original_jet_bound": 9.388797404341683e-13,
+          "outside_position_bound": 1.6636695451060235e-12,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 8.881784197001252e-15,
+          "passed": true
+        }
+      },
+      {
+        "action": "expand_0_3",
+        "support": [
+          0,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.9820510244339129,
+        "certificate_null_error": 3.2933703020633573e-15,
+        "certificate_rhs": 1.7727276379039532,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_3_4_6_7",
+        "support": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          7
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.9820510244339111,
+        "certificate_null_error": 1.317749394849402e-14,
+        "certificate_rhs": 1.7727276379039496,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "knots_u",
+    "selected_primary_cost": [
+      12,
+      1
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.287336678645647e-12,
+        2.7720896257088226e-13,
+        4.37327030466787e-13,
+        3.170826682582361e-14,
+        2.582235715784988e-14,
+        2.2129813172927504e-14
+      ],
+      "face_count": 8,
+      "step_bytes": 61503,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.1291518289159666e-13,
+      "sharp_original_jet_bound": 4.7923780034836226e-12,
+      "outside_position_bound": 8.282717889023568e-12,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 8.353221663935086e-12,
+      "center_error_mm": 1.5765166949677223e-13,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": true,
+        "priority_optimal": true
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_3_4_6_7",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 2
+  },
+  {
+    "task_id": "c07_B",
+    "family": "ring_with_hole",
+    "status": "no_feasible_candidate",
+    "diagnosis": "给定动作和控制点预算内未找到可行方案；不作一般曲面全局无解判断。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.5750810292731305,
+        "certificate_null_error": 2.947494789543315e-15,
+        "certificate_rhs": 2.24505218061274,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_3",
+        "support": [
+          0,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.5750810292731319,
+        "certificate_null_error": 8.300959379142694e-15,
+        "certificate_rhs": 2.2450521806127424,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_3_5",
+        "support": [
+          3,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.5175962015591408,
+        "certificate_null_error": 1.7693399024776842e-14,
+        "certificate_rhs": 1.0962095192440917,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_3_5",
+        "support": [
+          0,
+          3,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.5175962015591443,
+        "certificate_null_error": 1.2128704926946686e-14,
+        "certificate_rhs": 1.0962095192440904,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_3_4_5_6_7",
+        "support": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.2316509736915452,
+        "certificate_null_error": 7.197983509260679e-13,
+        "certificate_rhs": 0.4854639976273851,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "expand_0_3",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_3_4_5_6_7",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 5
+  },
+  {
+    "task_id": "c07_C",
+    "family": "ring_with_hole",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.5750810292731305,
+        "certificate_null_error": 2.947494789543315e-15,
+        "certificate_rhs": 2.24505218061274,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.397228017237359e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 206.24960260362897,
+        "refinement_sampled_error_mm": 2.864633583298495e-14,
+        "audit": {
+          "smooth_trace_bound": 2.1316282072803e-14,
+          "sharp_original_jet_bound": 1.764792016227072e-15,
+          "outside_position_bound": 5.4644142678156356e-14,
+          "datum_position_bound": 3.7494576441350356e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 0.0,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.5346387317739416,
+        "certificate_null_error": 2.4926729945306023e-15,
+        "certificate_rhs": 1.970371290476568,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.848062895712638e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          3
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.1649348980190553e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 71.34867711912074,
+        "refinement_sampled_error_mm": 2.864633583298495e-14,
+        "audit": {
+          "smooth_trace_bound": 1.2822297846866372e-13,
+          "sharp_original_jet_bound": 6.400517599607724e-14,
+          "outside_position_bound": 5.4643406445402694e-14,
+          "datum_position_bound": 5.684781573290165e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          3
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.368917184063874e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 16.723372591346966,
+        "refinement_sampled_error_mm": 2.842517866562357e-14,
+        "audit": {
+          "smooth_trace_bound": 9.26017998862645e-14,
+          "sharp_original_jet_bound": 4.6652022159218e-14,
+          "outside_position_bound": 7.045531258683805e-14,
+          "datum_position_bound": 7.942607775622197e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 0.0,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          3
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.4210854715202004e-13,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 53.893239361837004,
+        "refinement_sampled_error_mm": 5.281491496111121e-14,
+        "audit": {
+          "smooth_trace_bound": 1.0209942728700218e-12,
+          "sharp_original_jet_bound": 9.345799053501973e-13,
+          "outside_position_bound": 1.6533187009666895e-12,
+          "datum_position_bound": 1.8127769333931063e-12,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 1.7763568394002505e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "knots_u",
+    "selected_primary_cost": [
+      1,
+      12
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.287336678645647e-12,
+        2.7720896257088226e-13,
+        4.37327030466787e-13,
+        3.1772337766327783e-14,
+        2.582235715784988e-14,
+        2.217160916667682e-14
+      ],
+      "face_count": 8,
+      "step_bytes": 61502,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.1291518289159666e-13,
+      "sharp_original_jet_bound": 4.7923780034836226e-12,
+      "outside_position_bound": 8.282717889023568e-12,
+      "datum_position_bound": 2.2642077314126082e-13,
+      "frozen_pole_bound": 8.353221663935086e-12,
+      "center_error_mm": 1.5498713423767185e-13,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": true,
+        "priority_optimal": true
+      },
+      "expand_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": true,
+        "priority_optimal": true
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 2
+  },
+  {
+    "task_id": "c08_A",
+    "family": "ring_with_hole",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.0596734257216354,
+        "certificate_null_error": 3.595066980832146e-15,
+        "certificate_rhs": 1.8414545778566567,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": true,
+        "status": "solved",
+        "residual": 5.105228333471817e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 53.93107059349351,
+        "refinement_sampled_error_mm": 1.4210963135005665e-14,
+        "audit": {
+          "smooth_trace_bound": 2.1316282072803e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 4.2964740400169705e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 2.220446049250313e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.1122424254562155,
+        "certificate_null_error": 4.2719842827595566e-15,
+        "certificate_rhs": 1.6774312205778652,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 1.2809491805806841e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          3
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 9.701647912466997e-16,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 18.65657191038864,
+        "refinement_sampled_error_mm": 1.4458497151625688e-14,
+        "audit": {
+          "smooth_trace_bound": 4.2793669338056485e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 4.297280209381224e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 2.220446049250313e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          3
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.6470705648050871e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 4.089129782913782,
+        "refinement_sampled_error_mm": 1.2809491335957507e-14,
+        "audit": {
+          "smooth_trace_bound": 5.330395027799937e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 4.4247128322764226e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 2.220446049250313e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          3
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 5.03130136593802e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 13.436934631801705,
+        "refinement_sampled_error_mm": 2.139024091767313e-14,
+        "audit": {
+          "smooth_trace_bound": 5.115555489161935e-13,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 1.3001687558027784e-12,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 3.9968028886505635e-15,
+          "passed": true
+        }
+      },
+      {
+        "action": "expand_3_5",
+        "support": [
+          3,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.4925229101512754,
+        "certificate_null_error": 1.659406898741552e-14,
+        "certificate_rhs": 1.063490587935355,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_1_2_3_4_5_6_7",
+        "support": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.3389055906257765,
+        "certificate_null_error": 1.3167590105873692e-13,
+        "certificate_rhs": 0.7964453485371132,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "knots_u",
+    "selected_primary_cost": [
+      12,
+      1
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.245215304303983e-13,
+        4.4975286854174225e-13,
+        1.488913860757824e-13,
+        2.2066832242313774e-13,
+        3.04260374788471e-14,
+        1.1103672235140971e-13
+      ],
+      "face_count": 8,
+      "step_bytes": 61739,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 4.641191038143153e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.918091431601916e-13,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 7.429224340532413e-13,
+      "center_error_mm": 1.0769163338864018e-13,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": true,
+        "priority_optimal": true
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_1_2_3_4_5_6_7",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 2
+  },
+  {
+    "task_id": "c08_B",
+    "family": "ring_with_hole",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.7142626815102664,
+        "certificate_null_error": 3.1297257708393977e-15,
+        "certificate_rhs": 2.3421444406425596,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_3",
+        "support": [
+          0,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.5789699312018801,
+        "certificate_null_error": 3.872954215150341e-15,
+        "certificate_rhs": 2.2478220080437907,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_3_5",
+        "support": [
+          3,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.8967564684043818,
+        "certificate_null_error": 1.1433333457811003e-14,
+        "certificate_rhs": 1.6939954837289386,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_3_5",
+        "support": [
+          0,
+          3,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.5304736672015501,
+        "certificate_null_error": 1.7713146226298186e-14,
+        "certificate_rhs": 1.1355232598105862,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_3_4_5_6_7",
+        "support": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "added_poles": 0,
+        "feasible": true,
+        "status": "solved",
+        "residual": 2.8126019684585007e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 10262.74581413886,
+        "refinement_sampled_error_mm": 0.0,
+        "audit": {
+          "smooth_trace_bound": 3.587894307819096e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 3.531434404161852e-14,
+          "datum_position_bound": 1.3069695788588595e-15,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 1.5543122344752192e-15,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "expand_0_1_2_3_4_5_6_7",
+    "selected_primary_cost": [
+      0,
+      8
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        1.322217285393595e-12,
+        4.687432609007308e-13,
+        5.251444685901274e-13,
+        8.720801858430605e-14,
+        1.1144689762642641e-13,
+        1.8340884366807586e-13
+      ],
+      "face_count": 8,
+      "step_bytes": 60183,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.3085319929800694e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.917902132655528e-13,
+      "datum_position_bound": 4.6846493472059e-13,
+      "frozen_pole_bound": 0.0,
+      "center_error_mm": 4.4853010194856324e-14,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "expand_0_3",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_3_4_5_6_7",
+        "feasible": true,
+        "priority_optimal": true
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 5
+  },
+  {
+    "task_id": "c08_C",
+    "family": "ring_with_hole",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.7142626815102664,
+        "certificate_null_error": 3.1297257708393977e-15,
+        "certificate_rhs": 2.3421444406425596,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.08263902649408578,
+        "certificate_null_error": 5.054072094875161e-14,
+        "certificate_rhs": 0.1545729741198072,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 1.4210963135005665e-14
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.638178336940384,
+        "certificate_null_error": 3.086940172390423e-15,
+        "certificate_rhs": 2.0357553405610145,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 1.2809491805806841e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          3
+        ],
+        "added_poles": 33,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.07605905599006886,
+        "certificate_null_error": 9.281629739088233e-14,
+        "certificate_rhs": 0.15326921288255665,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 1.4458497151625688e-14
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          3
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.993744074745115e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 4.103113160779955,
+        "refinement_sampled_error_mm": 1.2809491335957507e-14,
+        "audit": {
+          "smooth_trace_bound": 5.3300972992850654e-14,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 4.424738367846373e-14,
+          "datum_position_bound": 2.429743381534231e-14,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 8.881784197001252e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          3
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 8.526512829121202e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 13.850633358158802,
+        "refinement_sampled_error_mm": 2.139024091767313e-14,
+        "audit": {
+          "smooth_trace_bound": 4.328068939000458e-13,
+          "sharp_original_jet_bound": 0.0,
+          "outside_position_bound": 1.3010387103429369e-12,
+          "datum_position_bound": 1.1775886350200425e-12,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 1.1546319456101628e-14,
+          "passed": true
+        }
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "degree_uv8",
+    "selected_primary_cost": [
+      1,
+      65
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        1.0849344288258508e-11,
+        1.818021429696822e-12,
+        2.343992689484936e-12,
+        6.181444299959331e-13,
+        2.560609724702557e-12,
+        5.023713649937589e-13
+      ],
+      "face_count": 8,
+      "step_bytes": 67588,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.8321440048039308e-12,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 8.274349820019555e-13,
+      "datum_position_bound": 9.051137449724896e-12,
+      "frozen_pole_bound": 7.429224340532413e-13,
+      "center_error_mm": 1.0826672891539602e-11,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 5
+  },
+  {
+    "task_id": "c09_A",
+    "family": "ring_with_hole",
+    "status": "edited",
+    "diagnosis": "按几何与约束枚举可行方案；弱候选失败不等于任务无解。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.9820510244339111,
+        "certificate_null_error": 3.9522757391322755e-15,
+        "certificate_rhs": 1.7727276379039496,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": true,
+        "status": "solved",
+        "residual": 6.130342981311559e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 136.62444368756857,
+        "refinement_sampled_error_mm": 2.161145436330964e-14,
+        "audit": {
+          "smooth_trace_bound": 5.403085386509094e-15,
+          "sharp_original_jet_bound": 3.534209961723414e-15,
+          "outside_position_bound": 5.657138005449356e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 0.0,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.0429416032873902,
+        "certificate_null_error": 5.5359802604805374e-15,
+        "certificate_rhs": 1.6243327080215832,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.161145436330964e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          3
+        ],
+        "added_poles": 33,
+        "feasible": true,
+        "status": "solved",
+        "residual": 3.136480096557361e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 47.26299200671677,
+        "refinement_sampled_error_mm": 2.1394778340859062e-14,
+        "audit": {
+          "smooth_trace_bound": 5.0059664951485673e-14,
+          "sharp_original_jet_bound": 2.5439616566928278e-14,
+          "outside_position_bound": 5.659046582162079e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 8.881784197001252e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          3
+        ],
+        "added_poles": 105,
+        "feasible": true,
+        "status": "solved",
+        "residual": 1.3145808119533748e-15,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 11.30923622560175,
+        "refinement_sampled_error_mm": 2.1614876153176178e-14,
+        "audit": {
+          "smooth_trace_bound": 6.514104232619789e-14,
+          "sharp_original_jet_bound": 3.395147205205487e-14,
+          "outside_position_bound": 7.089511755827096e-14,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 4.440892098500626e-16,
+          "passed": true
+        }
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          3
+        ],
+        "added_poles": 65,
+        "feasible": true,
+        "status": "solved",
+        "residual": 8.526512829121202e-14,
+        "certificate_null_error": 0.0,
+        "certificate_rhs": 0.0,
+        "reference_l2": 36.21635849164795,
+        "refinement_sampled_error_mm": 4.278264268764907e-14,
+        "audit": {
+          "smooth_trace_bound": 8.028127211814179e-13,
+          "sharp_original_jet_bound": 8.077590088377159e-13,
+          "outside_position_bound": 8.554424880356052e-13,
+          "datum_position_bound": 0.0,
+          "frozen_pole_bound": 0.0,
+          "center_error_mm": 1.0658141036401503e-14,
+          "passed": true
+        }
+      },
+      {
+        "action": "expand_0_3",
+        "support": [
+          0,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.9820510244339138,
+        "certificate_null_error": 7.918660809483854e-14,
+        "certificate_rhs": 1.7727276379039543,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_3_4_6_7",
+        "support": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          7
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 0.9820510244339129,
+        "certificate_null_error": 1.49541626188934e-14,
+        "certificate_rhs": 1.7727276379039527,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      }
+    ],
+    "exact_datum_target_conflict": false,
+    "selected_action": "knots_u",
+    "selected_primary_cost": [
+      12,
+      1
+    ],
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.029431532523801e-12,
+        3.2597597315694914e-13,
+        4.5265196245099547e-13,
+        9.17865243589291e-14,
+        2.617395968679984e-14,
+        2.7392313677737645e-14
+      ],
+      "face_count": 8,
+      "step_bytes": 61457,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.7773928566797627e-13,
+      "sharp_original_jet_bound": 5.029431532523801e-12,
+      "outside_position_bound": 5.050949702698457e-12,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 5.048125663696931e-12,
+      "center_error_mm": 2.2737367544323206e-13,
+      "passed": true
+    },
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": true,
+        "priority_optimal": true
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_3_4_6_7",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 2
+  },
+  {
+    "task_id": "c09_B",
+    "family": "ring_with_hole",
+    "status": "no_feasible_candidate",
+    "diagnosis": "固定截面穿过目标点，要求原位与非零位移直接冲突。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.090563266338836,
+        "certificate_null_error": 1.8948898363277858e-15,
+        "certificate_rhs": 2.5864652428138815,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_3",
+        "support": [
+          0,
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.090563266338837,
+        "certificate_null_error": 1.2038425127884918e-15,
+        "certificate_rhs": 2.5864652428138832,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_3_5",
+        "support": [
+          3,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.936915770547669,
+        "certificate_null_error": 3.200963867987482e-15,
+        "certificate_rhs": 2.48960447978239,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_3_5",
+        "support": [
+          0,
+          3,
+          5
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.9369157705476692,
+        "certificate_null_error": 5.654080481355287e-15,
+        "certificate_rhs": 2.48960447978239,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "expand_0_1_2_3_4_5_6_7",
+        "support": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.8936512707263065,
+        "certificate_null_error": 5.801656877745235e-14,
+        "certificate_rhs": 2.4616425545404,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      }
+    ],
+    "exact_datum_target_conflict": true,
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "expand_0_3",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "expand_0_1_2_3_4_5_6_7",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 5
+  },
+  {
+    "task_id": "c09_C",
+    "family": "ring_with_hole",
+    "status": "no_feasible_candidate",
+    "diagnosis": "固定截面穿过目标点，要求原位与非零位移直接冲突。",
+    "candidates": [
+      {
+        "action": "local",
+        "support": [
+          3
+        ],
+        "added_poles": 0,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.090563266338836,
+        "certificate_null_error": 1.8948898363277858e-15,
+        "certificate_rhs": 2.5864652428138815,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 0.0
+      },
+      {
+        "action": "knots_u",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.498956862489776,
+        "certificate_null_error": 2.7480402652531257e-15,
+        "certificate_rhs": 1.9473300284866983,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.161145436330964e-14
+      },
+      {
+        "action": "knots_v",
+        "support": [
+          3
+        ],
+        "added_poles": 12,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.8992718648183988,
+        "certificate_null_error": 5.904785387453708e-15,
+        "certificate_rhs": 2.1919899614189036,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.161145436330964e-14
+      },
+      {
+        "action": "knots_uv",
+        "support": [
+          3
+        ],
+        "added_poles": 33,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.3963622176484838,
+        "certificate_null_error": 3.954014306094884e-15,
+        "certificate_rhs": 1.6711446482267678,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.1394778340859062e-14
+      },
+      {
+        "action": "knots_uv_dense",
+        "support": [
+          3
+        ],
+        "added_poles": 105,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 1.4390004780579198,
+        "certificate_null_error": 1.9232340664284263e-15,
+        "certificate_rhs": 1.6964671986560307,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 2.1614876153176178e-14
+      },
+      {
+        "action": "degree_uv8",
+        "support": [
+          3
+        ],
+        "added_poles": 65,
+        "feasible": false,
+        "status": "linear_constraints_inconsistent",
+        "residual": 2.5460761460764445,
+        "certificate_null_error": 2.9680046865060057e-13,
+        "certificate_rhs": 3.6006954166159293,
+        "reference_l2": null,
+        "refinement_sampled_error_mm": 4.278264268764907e-14
+      }
+    ],
+    "exact_datum_target_conflict": true,
+    "blind_baselines": {
+      "refine_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      },
+      "expand_first_without_geometry": {
+        "action": "knots_u",
+        "feasible": false,
+        "priority_optimal": false
+      }
+    },
+    "fixed_order_calls_to_first_feasible_or_exhaustion": 6
+  }
+]

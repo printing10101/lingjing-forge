@@ -1,0 +1,478 @@
+{
+  "completed": true,
+  "python": "3.14.4",
+  "numpy": "2.5.1",
+  "elapsed_seconds": 44.34918440002366,
+  "geometry_count": 30,
+  "task_count": 60,
+  "status_counts": {
+    "edited": 48,
+    "no_feasible_candidate": 12
+  },
+  "expectation_matches": 60,
+  "selected_actions": {
+    "local": 0,
+    "insert_knots": 30,
+    "elevate_degree": 0,
+    "expand_left": 12,
+    "expand_right": 6,
+    "expand_both": 0
+  },
+  "solver_calls": 270,
+  "max_readback_point_error_mm": 1.039508480696236e-11,
+  "max_readback_edit_error_mm": 1.0578204978628492e-12,
+  "input_step_checks": [
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        7.649330199315584e-12,
+        2.2136055288393326e-13,
+        1.676389710713249e-13,
+        1.2700345756495342e-14,
+        2.2856725471251336e-14,
+        1.12492480608406e-14
+      ],
+      "step_bytes": 23050,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g000.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        7.974336725561868e-12,
+        2.7392819489221197e-13,
+        1.7309645403105258e-13,
+        2.901131201705061e-14,
+        2.6864931525474017e-14,
+        1.3019482546098096e-14
+      ],
+      "step_bytes": 23013,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g001.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        9.278684024624697e-12,
+        3.201657497742668e-13,
+        8.660538474965084e-14,
+        1.1361257681592686e-14,
+        8.555683151791608e-15,
+        3.83850937146768e-15
+      ],
+      "step_bytes": 22928,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g002.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        8.410786834685693e-12,
+        6.302913621814164e-13,
+        9.441476818412387e-14,
+        3.139720220235108e-14,
+        1.2788494102653838e-14,
+        1.274739862278107e-14
+      ],
+      "step_bytes": 23100,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g003.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        6.092420491241436e-12,
+        2.5171393047865367e-13,
+        8.289801149000015e-14,
+        1.6168414824810455e-14,
+        7.970830813955513e-15,
+        4.1576984910474124e-15
+      ],
+      "step_bytes": 23120,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g004.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        1.0638123420916128e-12,
+        7.965314897598157e-14,
+        5.4867366436313184e-14,
+        8.733437928627143e-15,
+        5.515075381777448e-15,
+        6.135066413226475e-15
+      ],
+      "step_bytes": 23149,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g005.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        9.211495319110776e-12,
+        5.903970329153271e-13,
+        7.349694619249512e-13,
+        3.6183295942793237e-14,
+        3.702940811328657e-14,
+        4.831465089116804e-14
+      ],
+      "step_bytes": 23074,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g006.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        3.4645425810009134e-12,
+        2.8671833648069943e-13,
+        7.510778896319228e-14,
+        1.2482337209156084e-14,
+        8.232997616985926e-15,
+        4.483392823662058e-15
+      ],
+      "step_bytes": 23107,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g007.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        7.057222324767103e-12,
+        3.697230877545523e-13,
+        9.351706896681684e-14,
+        1.1442074017001415e-14,
+        1.1166855637459825e-14,
+        5.179125357746006e-15
+      ],
+      "step_bytes": 23009,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g008.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        3.4871477379252076e-12,
+        3.0898670757208816e-13,
+        6.291508992689815e-14,
+        2.029152531800428e-14,
+        3.821355481895519e-15,
+        5.954004650421396e-15
+      ],
+      "step_bytes": 23010,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g009.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        5.941981750953642e-12,
+        1.2765634070286738e-13,
+        1.4943369152539552e-13,
+        8.218701166981566e-15,
+        2.921784485154993e-14,
+        1.0066383490658914e-14
+      ],
+      "step_bytes": 23115,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g010.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        7.572282304646107e-13,
+        8.196591325979674e-14,
+        1.6175629428786348e-13,
+        9.400051035812362e-15,
+        4.227501766153827e-14,
+        1.427330476033717e-14
+      ],
+      "step_bytes": 23113,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g011.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        5.385181843153057e-13,
+        6.500299980861562e-14,
+        1.8302487043471315e-13,
+        8.132458974058337e-15,
+        4.052624578742391e-14,
+        2.1230196420307657e-14
+      ],
+      "step_bytes": 23070,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g012.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        4.7276141268993475e-12,
+        3.84402647945666e-13,
+        7.437689646366213e-14,
+        2.0000749943917534e-14,
+        5.750554112754491e-15,
+        8.769460851931754e-15
+      ],
+      "step_bytes": 23014,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g013.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        5.535293696613813e-12,
+        2.7440963336187377e-13,
+        5.878211552736414e-14,
+        1.4058248433590315e-14,
+        6.574232946945347e-15,
+        5.4110362024406555e-15
+      ],
+      "step_bytes": 23097,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g014.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        6.883560386067896e-13,
+        9.261779399671423e-14,
+        1.2234300077163607e-13,
+        1.1195062219354959e-14,
+        2.116213420140629e-14,
+        1.6672427327613093e-14
+      ],
+      "step_bytes": 23010,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g015.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        8.715165104384061e-12,
+        2.334064779310456e-13,
+        7.121085533590707e-14,
+        1.3276435367135488e-14,
+        4.981932691368698e-15,
+        2.544902019696073e-15
+      ],
+      "step_bytes": 23002,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g016.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        8.422077763752557e-12,
+        3.3188429963032605e-13,
+        4.8139516012929546e-14,
+        1.3404659581990612e-14,
+        2.956411870945388e-15,
+        2.488921612212036e-15
+      ],
+      "step_bytes": 23092,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g017.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        7.449462473067992e-13,
+        1.666053980971516e-13,
+        1.569990890042637e-13,
+        1.833701734408384e-14,
+        1.6407692834506702e-14,
+        1.747061696699692e-14
+      ],
+      "step_bytes": 23055,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g018.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        5.8463034120613586e-12,
+        5.279296712591194e-13,
+        4.967184991464436e-14,
+        4.0781775512072434e-14,
+        2.304547482090325e-15,
+        3.967312589558958e-15
+      ],
+      "step_bytes": 23071,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g019.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        8.93576144832012e-12,
+        3.19233140507381e-13,
+        5.513468171496406e-14,
+        8.054209959156388e-15,
+        4.949166076961831e-15,
+        4.0312805177356026e-15
+      ],
+      "step_bytes": 23141,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g020.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        9.073517463076057e-12,
+        3.0404853116825433e-13,
+        7.117854457680407e-14,
+        2.4634883837741863e-14,
+        7.428813447770127e-15,
+        7.719519468096792e-15
+      ],
+      "step_bytes": 23066,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g021.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        7.53388956112191e-12,
+        2.870665063515212e-13,
+        2.3961758800523425e-13,
+        1.093886648383992e-14,
+        1.1154074282514225e-14,
+        7.86697096355482e-15
+      ],
+      "step_bytes": 23154,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g022.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        6.6169080654341765e-12,
+        3.4340365726056967e-13,
+        8.950580567160786e-14,
+        1.3506400775110096e-14,
+        8.442559353482652e-15,
+        5.330920438157555e-15
+      ],
+      "step_bytes": 23107,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g023.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        7.226440190171551e-12,
+        9.869030321636093e-14,
+        8.339915239328867e-14,
+        6.241107413863067e-15,
+        2.1338133238228476e-14,
+        9.492135810001967e-15
+      ],
+      "step_bytes": 23064,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g024.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        6.329422666724795e-12,
+        1.4296005530729777e-13,
+        7.375199101631256e-14,
+        9.638778369651874e-15,
+        1.0151659324106639e-14,
+        3.4243441415782172e-15
+      ],
+      "step_bytes": 23109,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g025.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        7.072016413188889e-12,
+        3.8036117555193387e-13,
+        4.6240389133684105e-14,
+        1.4377602509906026e-14,
+        4.965180844187009e-15,
+        3.8888705623796316e-15
+      ],
+      "step_bytes": 23045,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g026.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        5.833859845527551e-12,
+        3.081662750549707e-13,
+        5.1414581776894826e-14,
+        1.1034320211499099e-14,
+        8.933156945900734e-15,
+        2.9156364822480185e-15
+      ],
+      "step_bytes": 23093,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g027.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        6.207074776766989e-12,
+        2.27020267733453e-13,
+        7.903291868855772e-14,
+        1.289098607893599e-14,
+        1.075039669653958e-14,
+        4.860261498818019e-15
+      ],
+      "step_bytes": 23046,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g028.step"
+    },
+    {
+      "passed": true,
+      "face_count": 3,
+      "sampled_jet_errors": [
+        8.874938366034502e-12,
+        2.6374336442678563e-13,
+        9.903158652444018e-14,
+        1.439819210065605e-14,
+        1.8856232625509428e-14,
+        8.886649554250281e-15
+      ],
+      "step_bytes": 22851,
+      "representation": "open_face_compound_not_solid",
+      "path": "artifacts\\pilot_20261010\\geometry\\g029.step"
+    }
+  ],
+  "manifest_sha256": "12daa109fbe715dfdb3c6f5557628fc21936c10822954e1c5af5a5dafe0ea9ec",
+  "caveat": "Oracle contracts; one synthetic topology family; unreviewed; no LLM results or general infeasibility claim."
+}

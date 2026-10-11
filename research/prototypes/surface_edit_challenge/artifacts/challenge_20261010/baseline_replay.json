@@ -1,0 +1,314 @@
+{
+  "task_count": 30,
+  "solvable": 23,
+  "grouped_matches_full_enumeration": 30,
+  "grouped_calls": 147,
+  "full_enumeration_calls": 194,
+  "fixed_order_calls": 122,
+  "fixed_order_priority_optimal": 16,
+  "caveat": "Replay on frozen outcomes, no new API calls or native solver timings. Oracle requirements; no language comprehension evaluation.",
+  "rows": [
+    {
+      "task_id": "c00_A",
+      "grouped_calls": 2,
+      "full_calls": 7,
+      "grouped_action": "expand_1_2",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": true,
+      "fixed_order_calls": 2
+    },
+    {
+      "task_id": "c00_B",
+      "grouped_calls": 4,
+      "full_calls": 4,
+      "grouped_action": "expand_0_1_2",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 4
+    },
+    {
+      "task_id": "c00_C",
+      "grouped_calls": 5,
+      "full_calls": 6,
+      "grouped_action": "degree_uv8",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": true,
+      "fixed_order_calls": 5
+    },
+    {
+      "task_id": "c01_A",
+      "grouped_calls": 4,
+      "full_calls": 7,
+      "grouped_action": "knots_u",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 2
+    },
+    {
+      "task_id": "c01_B",
+      "grouped_calls": 3,
+      "full_calls": 4,
+      "grouped_action": "expand_1_2",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 3
+    },
+    {
+      "task_id": "c01_C",
+      "grouped_calls": 3,
+      "full_calls": 6,
+      "grouped_action": "knots_u",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 2
+    },
+    {
+      "task_id": "c02_A",
+      "grouped_calls": 3,
+      "full_calls": 8,
+      "grouped_action": "expand_0_2_3_4",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": true,
+      "fixed_order_calls": 2
+    },
+    {
+      "task_id": "c02_B",
+      "grouped_calls": 5,
+      "full_calls": 5,
+      "grouped_action": "expand_0_1_2_3_4",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 5
+    },
+    {
+      "task_id": "c02_C",
+      "grouped_calls": 5,
+      "full_calls": 6,
+      "grouped_action": "degree_uv8",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": true,
+      "fixed_order_calls": 5
+    },
+    {
+      "task_id": "c03_A",
+      "grouped_calls": 5,
+      "full_calls": 8,
+      "grouped_action": "knots_u",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 2
+    },
+    {
+      "task_id": "c03_B",
+      "grouped_calls": 5,
+      "full_calls": 5,
+      "grouped_action": null,
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": false,
+      "fixed_order_calls": 5
+    },
+    {
+      "task_id": "c03_C",
+      "grouped_calls": 6,
+      "full_calls": 6,
+      "grouped_action": null,
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": false,
+      "fixed_order_calls": 6
+    },
+    {
+      "task_id": "c04_A",
+      "grouped_calls": 6,
+      "full_calls": 8,
+      "grouped_action": "knots_uv",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 4
+    },
+    {
+      "task_id": "c04_B",
+      "grouped_calls": 5,
+      "full_calls": 5,
+      "grouped_action": "expand_0_1_2_3",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 5
+    },
+    {
+      "task_id": "c04_C",
+      "grouped_calls": 4,
+      "full_calls": 6,
+      "grouped_action": "knots_uv",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 4
+    },
+    {
+      "task_id": "c05_A",
+      "grouped_calls": 8,
+      "full_calls": 10,
+      "grouped_action": "knots_uv",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 4
+    },
+    {
+      "task_id": "c05_B",
+      "grouped_calls": 6,
+      "full_calls": 6,
+      "grouped_action": null,
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": false,
+      "fixed_order_calls": 6
+    },
+    {
+      "task_id": "c05_C",
+      "grouped_calls": 6,
+      "full_calls": 6,
+      "grouped_action": null,
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": false,
+      "fixed_order_calls": 6
+    },
+    {
+      "task_id": "c06_A",
+      "grouped_calls": 6,
+      "full_calls": 11,
+      "grouped_action": "expand_0_2_3_4_5_6_7_8",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": true,
+      "fixed_order_calls": 4
+    },
+    {
+      "task_id": "c06_B",
+      "grouped_calls": 7,
+      "full_calls": 7,
+      "grouped_action": "expand_0_1_2_3_4_5_6_7_8",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 7
+    },
+    {
+      "task_id": "c06_C",
+      "grouped_calls": 5,
+      "full_calls": 6,
+      "grouped_action": "degree_uv8",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": true,
+      "fixed_order_calls": 5
+    },
+    {
+      "task_id": "c07_A",
+      "grouped_calls": 5,
+      "full_calls": 8,
+      "grouped_action": "knots_u",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 2
+    },
+    {
+      "task_id": "c07_B",
+      "grouped_calls": 5,
+      "full_calls": 5,
+      "grouped_action": null,
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": false,
+      "fixed_order_calls": 5
+    },
+    {
+      "task_id": "c07_C",
+      "grouped_calls": 3,
+      "full_calls": 6,
+      "grouped_action": "knots_u",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 2
+    },
+    {
+      "task_id": "c08_A",
+      "grouped_calls": 5,
+      "full_calls": 8,
+      "grouped_action": "knots_u",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 2
+    },
+    {
+      "task_id": "c08_B",
+      "grouped_calls": 5,
+      "full_calls": 5,
+      "grouped_action": "expand_0_1_2_3_4_5_6_7",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 5
+    },
+    {
+      "task_id": "c08_C",
+      "grouped_calls": 5,
+      "full_calls": 6,
+      "grouped_action": "degree_uv8",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": true,
+      "fixed_order_calls": 5
+    },
+    {
+      "task_id": "c09_A",
+      "grouped_calls": 5,
+      "full_calls": 8,
+      "grouped_action": "knots_u",
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": true,
+      "solvable": true,
+      "fixed_order_calls": 2
+    },
+    {
+      "task_id": "c09_B",
+      "grouped_calls": 5,
+      "full_calls": 5,
+      "grouped_action": null,
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": false,
+      "fixed_order_calls": 5
+    },
+    {
+      "task_id": "c09_C",
+      "grouped_calls": 6,
+      "full_calls": 6,
+      "grouped_action": null,
+      "matches_full_enumeration": true,
+      "first_feasible_priority_optimal": false,
+      "solvable": false,
+      "fixed_order_calls": 6
+    }
+  ],
+  "results_sha256": "1bfc92a1e2c08a73cf82d05a8b6438281e88547dbff1a2aedc81f40c1b97ab2e",
+  "source_sha256": "e60ec6c92184e8b397a3965608a2be4140d0d6f6e8ec0d4491fd7bdcc20aff06"
+}

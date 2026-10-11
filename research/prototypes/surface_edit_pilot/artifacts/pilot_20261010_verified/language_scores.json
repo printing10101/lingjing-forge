@@ -1,0 +1,860 @@
+{
+  "task_count": 60,
+  "expected_task_count": 60,
+  "prediction_coverage": 1.0,
+  "llm_exact": 60,
+  "rule_exact": 60,
+  "llm_field_correct": {
+    "amplitude_mm": 60,
+    "continuity": 60,
+    "allow_refine": 60,
+    "allow_expand": 60,
+    "pin_center": 60,
+    "priority": 60
+  },
+  "complete_pair_count": 30,
+  "llm_both_correct_pairs": 30,
+  "caveat": "Generated template prompts, unreviewed oracle labels; measures parsing only, not LLM geometry or action-selection improvement.",
+  "rows": [
+    {
+      "task_id": "g000_0",
+      "geometry_id": "g000",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g000_1",
+      "geometry_id": "g000",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g001_0",
+      "geometry_id": "g001",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g001_1",
+      "geometry_id": "g001",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g002_0",
+      "geometry_id": "g002",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g002_1",
+      "geometry_id": "g002",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g003_0",
+      "geometry_id": "g003",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g003_1",
+      "geometry_id": "g003",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g004_0",
+      "geometry_id": "g004",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g004_1",
+      "geometry_id": "g004",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g005_0",
+      "geometry_id": "g005",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g005_1",
+      "geometry_id": "g005",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g006_0",
+      "geometry_id": "g006",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g006_1",
+      "geometry_id": "g006",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g007_0",
+      "geometry_id": "g007",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g007_1",
+      "geometry_id": "g007",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g008_0",
+      "geometry_id": "g008",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g008_1",
+      "geometry_id": "g008",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g009_0",
+      "geometry_id": "g009",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g009_1",
+      "geometry_id": "g009",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g010_0",
+      "geometry_id": "g010",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g010_1",
+      "geometry_id": "g010",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g011_0",
+      "geometry_id": "g011",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g011_1",
+      "geometry_id": "g011",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g012_0",
+      "geometry_id": "g012",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g012_1",
+      "geometry_id": "g012",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g013_0",
+      "geometry_id": "g013",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g013_1",
+      "geometry_id": "g013",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g014_0",
+      "geometry_id": "g014",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g014_1",
+      "geometry_id": "g014",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g015_0",
+      "geometry_id": "g015",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g015_1",
+      "geometry_id": "g015",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g016_0",
+      "geometry_id": "g016",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g016_1",
+      "geometry_id": "g016",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g017_0",
+      "geometry_id": "g017",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g017_1",
+      "geometry_id": "g017",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g018_0",
+      "geometry_id": "g018",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g018_1",
+      "geometry_id": "g018",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g019_0",
+      "geometry_id": "g019",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g019_1",
+      "geometry_id": "g019",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g020_0",
+      "geometry_id": "g020",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g020_1",
+      "geometry_id": "g020",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g021_0",
+      "geometry_id": "g021",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g021_1",
+      "geometry_id": "g021",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g022_0",
+      "geometry_id": "g022",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g022_1",
+      "geometry_id": "g022",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g023_0",
+      "geometry_id": "g023",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g023_1",
+      "geometry_id": "g023",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g024_0",
+      "geometry_id": "g024",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g024_1",
+      "geometry_id": "g024",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g025_0",
+      "geometry_id": "g025",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g025_1",
+      "geometry_id": "g025",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g026_0",
+      "geometry_id": "g026",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g026_1",
+      "geometry_id": "g026",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g027_0",
+      "geometry_id": "g027",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g027_1",
+      "geometry_id": "g027",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g028_0",
+      "geometry_id": "g028",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g028_1",
+      "geometry_id": "g028",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g029_0",
+      "geometry_id": "g029",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    },
+    {
+      "task_id": "g029_1",
+      "geometry_id": "g029",
+      "llm_exact": true,
+      "rule_exact": true,
+      "field_matches": {
+        "amplitude_mm": true,
+        "continuity": true,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": true
+      }
+    }
+  ]
+}

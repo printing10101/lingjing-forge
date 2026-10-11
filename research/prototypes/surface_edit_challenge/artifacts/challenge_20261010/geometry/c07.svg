@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="405">
+<rect width="100%" height="100%" fill="white"/>
+<text x="20" y="25" font-family="sans-serif">c07: ring_with_hole (xy schematic)</text>
+<rect x="20" y="265" width="140" height="110" fill="#edf2f7" stroke="#334155"/>
+<text x="68" y="323" font-family="sans-serif">F00</text>
+<rect x="20" y="155" width="140" height="110" fill="#edf2f7" stroke="#334155"/>
+<text x="68" y="213" font-family="sans-serif">F01</text>
+<rect x="20" y="45" width="140" height="110" fill="#edf2f7" stroke="#334155"/>
+<text x="68" y="103" font-family="sans-serif">F02</text>
+<rect x="160" y="265" width="140" height="110" fill="#ffe2aa" stroke="#334155"/>
+<text x="208" y="323" font-family="sans-serif">F03</text>
+<line x1="188.0" y1="265" x2="188.0" y2="375" stroke="#16a34a" stroke-dasharray="5 4"/>
+<circle cx="230" cy="320" r="4" fill="#dc2626"/>
+<rect x="160" y="45" width="140" height="110" fill="#edf2f7" stroke="#334155"/>
+<text x="208" y="103" font-family="sans-serif">F04</text>
+<rect x="300" y="265" width="140" height="110" fill="#cce5ff" stroke="#334155"/>
+<text x="348" y="323" font-family="sans-serif">F05</text>
+<rect x="300" y="155" width="140" height="110" fill="#edf2f7" stroke="#334155"/>
+<text x="348" y="213" font-family="sans-serif">F06</text>
+<rect x="300" y="45" width="140" height="110" fill="#edf2f7" stroke="#334155"/>
+<text x="348" y="103" font-family="sans-serif">F07</text>
+<line x1="160" y1="45" x2="160" y2="155" stroke="#9333ea" stroke-width="5"/>
+<line x1="160" y1="265" x2="160" y2="375" stroke="#9333ea" stroke-width="5"/>
+</svg>
