@@ -1,0 +1,972 @@
+[
+  {
+    "dialogue_id": "c00",
+    "case_index": 0,
+    "geometry": {
+      "case_id": "c00",
+      "family": "strip",
+      "faces": [
+        {
+          "face_id": "F00",
+          "cell": [
+            0,
+            0
+          ]
+        },
+        {
+          "face_id": "F01",
+          "cell": [
+            1,
+            0
+          ]
+        },
+        {
+          "face_id": "F02",
+          "cell": [
+            2,
+            0
+          ]
+        }
+      ],
+      "target_face": "F01",
+      "installation_interface_face": "F00",
+      "datum": {
+        "face_id": "F01",
+        "parameter_axis": "u",
+        "parameter_value": 0.2,
+        "physical_x_mm": 50.096309953264
+      },
+      "target_point_xyz_mm": [
+        62.62038744157996,
+        8.839832796043169,
+        -2.0060833910111273
+      ],
+      "sharp_edges": [],
+      "common_context": "所有外边界（包括孔口）保持原位置。未标为锐边的接缝按匹配物理参数 C2 验收；锐边的位置和两侧原切向保留。修改沿全局 z 方向。允许细化时最多新增 105 个控制点。"
+    },
+    "context": "每轮高度都是相对初始交付模型的绝对目标，不是累加位移。几何角色不变。旧约束除非明确替换或撤销，否则持续有效。外边界、孔口、光滑 C2 接缝和锐边保留规则不可撤销。允许加密时预算默认105个新增控制点，禁止时预算为0。含糊请求需要澄清，当前状态保持不变。",
+    "turns": [
+      {
+        "turn": 1,
+        "input_text": "目标中心相对交付模型提高1毫米。接口整片不动，其他过渡片允许联动；允许加密，优先不增加控制点。",
+        "oracle_transaction": {
+          "updates": {
+            "amplitude": 1.0,
+            "lock_interface": true,
+            "allow_expand": true,
+            "allow_refine": true,
+            "priority": "complexity",
+            "max_added_poles": 105
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.0,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": false,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "amplitude",
+          "allow_refine",
+          "allow_expand",
+          "lock_interface",
+          "priority",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "preserve_datum"
+        ]
+      },
+      {
+        "turn": 2,
+        "input_text": "把刚才的中心高度改成相对交付模型提高1.5毫米，其他要求继续执行。",
+        "oracle_transaction": {
+          "updates": {
+            "amplitude": 1.5
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": false,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "amplitude"
+        ],
+        "retained_fields": [
+          "allow_refine",
+          "allow_expand",
+          "lock_interface",
+          "preserve_datum",
+          "priority",
+          "max_added_poles"
+        ]
+      },
+      {
+        "turn": 3,
+        "input_text": "现在控制网冻结，不许加控制点；检测截面也必须保留交付轮廓。仍允许过渡片联动，其他要求不变。",
+        "oracle_transaction": {
+          "updates": {
+            "allow_refine": false,
+            "max_added_poles": 0,
+            "preserve_datum": true
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": false,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": true,
+          "priority": "complexity",
+          "max_added_poles": 0
+        },
+        "changed_fields": [
+          "allow_refine",
+          "preserve_datum",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "amplitude",
+          "allow_expand",
+          "lock_interface",
+          "priority"
+        ]
+      },
+      {
+        "turn": 4,
+        "input_text": "检测截面继续固定，但解除接口整片锁定，重新允许加密，预算恢复105；高度和其他规则不变。",
+        "oracle_transaction": {
+          "updates": {
+            "lock_interface": false,
+            "allow_refine": true,
+            "max_added_poles": 105
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": false,
+          "preserve_datum": true,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "allow_refine",
+          "lock_interface",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "amplitude",
+          "allow_expand",
+          "preserve_datum",
+          "priority"
+        ]
+      }
+    ],
+    "independent_human_review": "pending",
+    "author": "implementing_assistant"
+  },
+  {
+    "dialogue_id": "c01",
+    "case_index": 1,
+    "geometry": {
+      "case_id": "c01",
+      "family": "strip",
+      "faces": [
+        {
+          "face_id": "F00",
+          "cell": [
+            0,
+            0
+          ]
+        },
+        {
+          "face_id": "F01",
+          "cell": [
+            1,
+            0
+          ]
+        },
+        {
+          "face_id": "F02",
+          "cell": [
+            2,
+            0
+          ]
+        }
+      ],
+      "target_face": "F01",
+      "installation_interface_face": "F02",
+      "datum": {
+        "face_id": "F01",
+        "parameter_axis": "u",
+        "parameter_value": 0.25,
+        "physical_x_mm": 31.722348544034812
+      },
+      "target_point_xyz_mm": [
+        38.06681825284178,
+        7.758954327507356,
+        0.6544760658642835
+      ],
+      "sharp_edges": [
+        [
+          "F00",
+          "F01"
+        ]
+      ],
+      "common_context": "所有外边界（包括孔口）保持原位置。未标为锐边的接缝按匹配物理参数 C2 验收；锐边的位置和两侧原切向保留。修改沿全局 z 方向。允许细化时最多新增 105 个控制点。"
+    },
+    "context": "每轮高度都是相对初始交付模型的绝对目标，不是累加位移。几何角色不变。旧约束除非明确替换或撤销，否则持续有效。外边界、孔口、光滑 C2 接缝和锐边保留规则不可撤销。允许加密时预算默认105个新增控制点，禁止时预算为0。含糊请求需要澄清，当前状态保持不变。",
+    "turns": [
+      {
+        "turn": 1,
+        "input_text": "目标中心相对交付模型提高1毫米。接口整片不动，其他过渡片允许联动；允许加密，优先不增加控制点。",
+        "oracle_transaction": {
+          "updates": {
+            "amplitude": 1.0,
+            "lock_interface": true,
+            "allow_expand": true,
+            "allow_refine": true,
+            "priority": "complexity",
+            "max_added_poles": 105
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.0,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": false,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "amplitude",
+          "allow_refine",
+          "allow_expand",
+          "lock_interface",
+          "priority",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "preserve_datum"
+        ]
+      },
+      {
+        "turn": 2,
+        "input_text": "把刚才的中心高度改成相对交付模型提高1.5毫米，其他要求继续执行。",
+        "oracle_transaction": {
+          "updates": {
+            "amplitude": 1.5
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": false,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "amplitude"
+        ],
+        "retained_fields": [
+          "allow_refine",
+          "allow_expand",
+          "lock_interface",
+          "preserve_datum",
+          "priority",
+          "max_added_poles"
+        ]
+      },
+      {
+        "turn": 3,
+        "input_text": "现在控制网冻结，不许加控制点；检测截面也必须保留交付轮廓。仍允许过渡片联动，其他要求不变。",
+        "oracle_transaction": {
+          "updates": {
+            "allow_refine": false,
+            "max_added_poles": 0,
+            "preserve_datum": true
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": false,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": true,
+          "priority": "complexity",
+          "max_added_poles": 0
+        },
+        "changed_fields": [
+          "allow_refine",
+          "preserve_datum",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "amplitude",
+          "allow_expand",
+          "lock_interface",
+          "priority"
+        ]
+      },
+      {
+        "turn": 4,
+        "input_text": "检测截面继续固定，但解除接口整片锁定，重新允许加密，预算恢复105；高度和其他规则不变。",
+        "oracle_transaction": {
+          "updates": {
+            "lock_interface": false,
+            "allow_refine": true,
+            "max_added_poles": 105
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": false,
+          "preserve_datum": true,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "allow_refine",
+          "lock_interface",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "amplitude",
+          "allow_expand",
+          "preserve_datum",
+          "priority"
+        ]
+      }
+    ],
+    "independent_human_review": "pending",
+    "author": "implementing_assistant"
+  },
+  {
+    "dialogue_id": "c03",
+    "case_index": 3,
+    "geometry": {
+      "case_id": "c03",
+      "family": "strip",
+      "faces": [
+        {
+          "face_id": "F00",
+          "cell": [
+            0,
+            0
+          ]
+        },
+        {
+          "face_id": "F01",
+          "cell": [
+            1,
+            0
+          ]
+        },
+        {
+          "face_id": "F02",
+          "cell": [
+            2,
+            0
+          ]
+        },
+        {
+          "face_id": "F03",
+          "cell": [
+            3,
+            0
+          ]
+        },
+        {
+          "face_id": "F04",
+          "cell": [
+            4,
+            0
+          ]
+        }
+      ],
+      "target_face": "F02",
+      "installation_interface_face": "F03",
+      "datum": {
+        "face_id": "F02",
+        "parameter_axis": "u",
+        "parameter_value": 0.5,
+        "physical_x_mm": 69.71234846202594
+      },
+      "target_point_xyz_mm": [
+        69.71234846202594,
+        13.465639106993839,
+        2.9979864076078506
+      ],
+      "sharp_edges": [
+        [
+          "F01",
+          "F02"
+        ]
+      ],
+      "common_context": "所有外边界（包括孔口）保持原位置。未标为锐边的接缝按匹配物理参数 C2 验收；锐边的位置和两侧原切向保留。修改沿全局 z 方向。允许细化时最多新增 105 个控制点。"
+    },
+    "context": "每轮高度都是相对初始交付模型的绝对目标，不是累加位移。几何角色不变。旧约束除非明确替换或撤销，否则持续有效。外边界、孔口、光滑 C2 接缝和锐边保留规则不可撤销。允许加密时预算默认105个新增控制点，禁止时预算为0。含糊请求需要澄清，当前状态保持不变。",
+    "turns": [
+      {
+        "turn": 1,
+        "input_text": "目标中心相对交付模型提高1毫米。接口整片不动，其他过渡片允许联动；允许加密，优先不增加控制点。",
+        "oracle_transaction": {
+          "updates": {
+            "amplitude": 1.0,
+            "lock_interface": true,
+            "allow_expand": true,
+            "allow_refine": true,
+            "priority": "complexity",
+            "max_added_poles": 105
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.0,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": false,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "amplitude",
+          "allow_refine",
+          "allow_expand",
+          "lock_interface",
+          "priority",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "preserve_datum"
+        ]
+      },
+      {
+        "turn": 2,
+        "input_text": "把刚才的中心高度改成相对交付模型提高1.5毫米，其他要求继续执行。",
+        "oracle_transaction": {
+          "updates": {
+            "amplitude": 1.5
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": false,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "amplitude"
+        ],
+        "retained_fields": [
+          "allow_refine",
+          "allow_expand",
+          "lock_interface",
+          "preserve_datum",
+          "priority",
+          "max_added_poles"
+        ]
+      },
+      {
+        "turn": 3,
+        "input_text": "现在控制网冻结，不许加控制点；检测截面也必须保留交付轮廓。仍允许过渡片联动，其他要求不变。",
+        "oracle_transaction": {
+          "updates": {
+            "allow_refine": false,
+            "max_added_poles": 0,
+            "preserve_datum": true
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": false,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": true,
+          "priority": "complexity",
+          "max_added_poles": 0
+        },
+        "changed_fields": [
+          "allow_refine",
+          "preserve_datum",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "amplitude",
+          "allow_expand",
+          "lock_interface",
+          "priority"
+        ]
+      },
+      {
+        "turn": 4,
+        "input_text": "撤销检测截面保持原样的要求，重新允许加密，预算恢复105；接口仍锁定，高度仍为1.5毫米。",
+        "oracle_transaction": {
+          "updates": {
+            "preserve_datum": false,
+            "allow_refine": true,
+            "max_added_poles": 105
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": false,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "allow_refine",
+          "preserve_datum",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "amplitude",
+          "allow_expand",
+          "lock_interface",
+          "priority"
+        ]
+      }
+    ],
+    "independent_human_review": "pending",
+    "author": "implementing_assistant"
+  },
+  {
+    "dialogue_id": "c04",
+    "case_index": 4,
+    "geometry": {
+      "case_id": "c04",
+      "family": "grid",
+      "faces": [
+        {
+          "face_id": "F00",
+          "cell": [
+            0,
+            0
+          ]
+        },
+        {
+          "face_id": "F01",
+          "cell": [
+            0,
+            1
+          ]
+        },
+        {
+          "face_id": "F02",
+          "cell": [
+            1,
+            0
+          ]
+        },
+        {
+          "face_id": "F03",
+          "cell": [
+            1,
+            1
+          ]
+        }
+      ],
+      "target_face": "F03",
+      "installation_interface_face": "F01",
+      "datum": {
+        "face_id": "F03",
+        "parameter_axis": "u",
+        "parameter_value": 0.25,
+        "physical_x_mm": 48.69959602804569
+      },
+      "target_point_xyz_mm": [
+        58.439515233654866,
+        37.23375948393313,
+        -0.878188196685479
+      ],
+      "sharp_edges": [],
+      "common_context": "所有外边界（包括孔口）保持原位置。未标为锐边的接缝按匹配物理参数 C2 验收；锐边的位置和两侧原切向保留。修改沿全局 z 方向。允许细化时最多新增 105 个控制点。"
+    },
+    "context": "每轮高度都是相对初始交付模型的绝对目标，不是累加位移。几何角色不变。旧约束除非明确替换或撤销，否则持续有效。外边界、孔口、光滑 C2 接缝和锐边保留规则不可撤销。允许加密时预算默认105个新增控制点，禁止时预算为0。含糊请求需要澄清，当前状态保持不变。",
+    "turns": [
+      {
+        "turn": 1,
+        "input_text": "目标中心相对交付模型提高1毫米。接口整片不动，其他过渡片允许联动；允许加密，优先不增加控制点。",
+        "oracle_transaction": {
+          "updates": {
+            "amplitude": 1.0,
+            "lock_interface": true,
+            "allow_expand": true,
+            "allow_refine": true,
+            "priority": "complexity",
+            "max_added_poles": 105
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.0,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": false,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "amplitude",
+          "allow_refine",
+          "allow_expand",
+          "lock_interface",
+          "priority",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "preserve_datum"
+        ]
+      },
+      {
+        "turn": 2,
+        "input_text": "把刚才的中心高度改成相对交付模型提高1.5毫米，其他要求继续执行。",
+        "oracle_transaction": {
+          "updates": {
+            "amplitude": 1.5
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": false,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "amplitude"
+        ],
+        "retained_fields": [
+          "allow_refine",
+          "allow_expand",
+          "lock_interface",
+          "preserve_datum",
+          "priority",
+          "max_added_poles"
+        ]
+      },
+      {
+        "turn": 3,
+        "input_text": "现在控制网冻结，不许加控制点；检测截面也必须保留交付轮廓。仍允许过渡片联动，其他要求不变。",
+        "oracle_transaction": {
+          "updates": {
+            "allow_refine": false,
+            "max_added_poles": 0,
+            "preserve_datum": true
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": false,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": true,
+          "priority": "complexity",
+          "max_added_poles": 0
+        },
+        "changed_fields": [
+          "allow_refine",
+          "preserve_datum",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "amplitude",
+          "allow_expand",
+          "lock_interface",
+          "priority"
+        ]
+      },
+      {
+        "turn": 4,
+        "input_text": "检测截面继续固定，但解除接口整片锁定，重新允许加密，预算恢复105；高度和其他规则不变。",
+        "oracle_transaction": {
+          "updates": {
+            "lock_interface": false,
+            "allow_refine": true,
+            "max_added_poles": 105
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": false,
+          "preserve_datum": true,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "allow_refine",
+          "lock_interface",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "amplitude",
+          "allow_expand",
+          "preserve_datum",
+          "priority"
+        ]
+      }
+    ],
+    "independent_human_review": "pending",
+    "author": "implementing_assistant"
+  },
+  {
+    "dialogue_id": "c07",
+    "case_index": 7,
+    "geometry": {
+      "case_id": "c07",
+      "family": "ring_with_hole",
+      "faces": [
+        {
+          "face_id": "F00",
+          "cell": [
+            0,
+            0
+          ]
+        },
+        {
+          "face_id": "F01",
+          "cell": [
+            0,
+            1
+          ]
+        },
+        {
+          "face_id": "F02",
+          "cell": [
+            0,
+            2
+          ]
+        },
+        {
+          "face_id": "F03",
+          "cell": [
+            1,
+            0
+          ]
+        },
+        {
+          "face_id": "F04",
+          "cell": [
+            1,
+            2
+          ]
+        },
+        {
+          "face_id": "F05",
+          "cell": [
+            2,
+            0
+          ]
+        },
+        {
+          "face_id": "F06",
+          "cell": [
+            2,
+            1
+          ]
+        },
+        {
+          "face_id": "F07",
+          "cell": [
+            2,
+            2
+          ]
+        }
+      ],
+      "target_face": "F03",
+      "installation_interface_face": "F05",
+      "datum": {
+        "face_id": "F03",
+        "parameter_axis": "u",
+        "parameter_value": 0.2,
+        "physical_x_mm": 53.61279351773712
+      },
+      "target_point_xyz_mm": [
+        67.01599189717136,
+        17.12258400446246,
+        2.026055478780595
+      ],
+      "sharp_edges": [
+        [
+          "F00",
+          "F03"
+        ],
+        [
+          "F02",
+          "F04"
+        ]
+      ],
+      "common_context": "所有外边界（包括孔口）保持原位置。未标为锐边的接缝按匹配物理参数 C2 验收；锐边的位置和两侧原切向保留。修改沿全局 z 方向。允许细化时最多新增 105 个控制点。"
+    },
+    "context": "每轮高度都是相对初始交付模型的绝对目标，不是累加位移。几何角色不变。旧约束除非明确替换或撤销，否则持续有效。外边界、孔口、光滑 C2 接缝和锐边保留规则不可撤销。允许加密时预算默认105个新增控制点，禁止时预算为0。含糊请求需要澄清，当前状态保持不变。",
+    "turns": [
+      {
+        "turn": 1,
+        "input_text": "目标中心相对交付模型提高1毫米。接口整片不动，其他过渡片允许联动；允许加密，优先不增加控制点。",
+        "oracle_transaction": {
+          "updates": {
+            "amplitude": 1.0,
+            "lock_interface": true,
+            "allow_expand": true,
+            "allow_refine": true,
+            "priority": "complexity",
+            "max_added_poles": 105
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.0,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": false,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "amplitude",
+          "allow_refine",
+          "allow_expand",
+          "lock_interface",
+          "priority",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "preserve_datum"
+        ]
+      },
+      {
+        "turn": 2,
+        "input_text": "把刚才的中心高度改成相对交付模型提高1.5毫米，其他要求继续执行。",
+        "oracle_transaction": {
+          "updates": {
+            "amplitude": 1.5
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": true,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": false,
+          "priority": "complexity",
+          "max_added_poles": 105
+        },
+        "changed_fields": [
+          "amplitude"
+        ],
+        "retained_fields": [
+          "allow_refine",
+          "allow_expand",
+          "lock_interface",
+          "preserve_datum",
+          "priority",
+          "max_added_poles"
+        ]
+      },
+      {
+        "turn": 3,
+        "input_text": "现在控制网冻结，不许加控制点；检测截面也必须保留交付轮廓。仍允许过渡片联动，其他要求不变。",
+        "oracle_transaction": {
+          "updates": {
+            "allow_refine": false,
+            "max_added_poles": 0,
+            "preserve_datum": true
+          },
+          "needs_clarification": false
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": false,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": true,
+          "priority": "complexity",
+          "max_added_poles": 0
+        },
+        "changed_fields": [
+          "allow_refine",
+          "preserve_datum",
+          "max_added_poles"
+        ],
+        "retained_fields": [
+          "amplitude",
+          "allow_expand",
+          "lock_interface",
+          "priority"
+        ]
+      },
+      {
+        "turn": 4,
+        "input_text": "那就把刚才的限制适当放宽一点。",
+        "oracle_transaction": {
+          "updates": {},
+          "needs_clarification": true
+        },
+        "oracle_state": {
+          "amplitude": 1.5,
+          "allow_refine": false,
+          "allow_expand": true,
+          "lock_interface": true,
+          "preserve_datum": true,
+          "priority": "complexity",
+          "max_added_poles": 0
+        },
+        "changed_fields": [],
+        "retained_fields": [
+          "amplitude",
+          "allow_refine",
+          "allow_expand",
+          "lock_interface",
+          "preserve_datum",
+          "priority",
+          "max_added_poles"
+        ]
+      }
+    ],
+    "independent_human_review": "pending",
+    "author": "implementing_assistant"
+  }
+]

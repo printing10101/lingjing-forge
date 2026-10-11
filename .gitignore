@@ -607,3 +607,8 @@ engineering/python/*.step
 # research/data/mlruns 是 MLflow tracking 输出，均可重新生成
 /reports/
 /research/data/
+
+# ZCode 会话本地状态，不入公开仓
+/.zcode/
+# 版权文献 PDF：只入点位数字化数据，不传原文（公开仓）
+research/datasets/measured_stability/literature_pdfs/

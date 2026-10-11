@@ -1,0 +1,967 @@
+{
+  "schema_version": 1,
+  "review_status": "generated_unreviewed",
+  "family": "three_graph_bicubic_patches_fixed_topology",
+  "tasks": [
+    {
+      "task_id": "g000_0",
+      "geometry_id": "g000",
+      "seed": 20261010,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g000_1",
+      "geometry_id": "g000",
+      "seed": 20261010,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g001_0",
+      "geometry_id": "g001",
+      "seed": 20261011,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g001_1",
+      "geometry_id": "g001",
+      "seed": 20261011,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g002_0",
+      "geometry_id": "g002",
+      "seed": 20261012,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 1,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g002_1",
+      "geometry_id": "g002",
+      "seed": 20261012,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 1,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g003_0",
+      "geometry_id": "g003",
+      "seed": 20261013,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。同时要求中间曲面中心保持原位置。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g003_1",
+      "geometry_id": "g003",
+      "seed": 20261013,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g004_0",
+      "geometry_id": "g004",
+      "seed": 20261014,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g004_1",
+      "geometry_id": "g004",
+      "seed": 20261014,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少新增控制点。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "complexity"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g005_0",
+      "geometry_id": "g005",
+      "seed": 20261015,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g005_1",
+      "geometry_id": "g005",
+      "seed": 20261015,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g006_0",
+      "geometry_id": "g006",
+      "seed": 20261016,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g006_1",
+      "geometry_id": "g006",
+      "seed": 20261016,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g007_0",
+      "geometry_id": "g007",
+      "seed": 20261017,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 1,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g007_1",
+      "geometry_id": "g007",
+      "seed": 20261017,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 1,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g008_0",
+      "geometry_id": "g008",
+      "seed": 20261018,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。同时要求中间曲面中心保持原位置。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g008_1",
+      "geometry_id": "g008",
+      "seed": 20261018,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g009_0",
+      "geometry_id": "g009",
+      "seed": 20261019,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g009_1",
+      "geometry_id": "g009",
+      "seed": 20261019,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少新增控制点。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "complexity"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g010_0",
+      "geometry_id": "g010",
+      "seed": 20261020,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g010_1",
+      "geometry_id": "g010",
+      "seed": 20261020,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g011_0",
+      "geometry_id": "g011",
+      "seed": 20261021,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g011_1",
+      "geometry_id": "g011",
+      "seed": 20261021,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g012_0",
+      "geometry_id": "g012",
+      "seed": 20261022,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 1,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g012_1",
+      "geometry_id": "g012",
+      "seed": 20261022,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 1,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g013_0",
+      "geometry_id": "g013",
+      "seed": 20261023,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。同时要求中间曲面中心保持原位置。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g013_1",
+      "geometry_id": "g013",
+      "seed": 20261023,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g014_0",
+      "geometry_id": "g014",
+      "seed": 20261024,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g014_1",
+      "geometry_id": "g014",
+      "seed": 20261024,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少新增控制点。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "complexity"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g015_0",
+      "geometry_id": "g015",
+      "seed": 20261025,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g015_1",
+      "geometry_id": "g015",
+      "seed": 20261025,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g016_0",
+      "geometry_id": "g016",
+      "seed": 20261026,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g016_1",
+      "geometry_id": "g016",
+      "seed": 20261026,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g017_0",
+      "geometry_id": "g017",
+      "seed": 20261027,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 1,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g017_1",
+      "geometry_id": "g017",
+      "seed": 20261027,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 1,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g018_0",
+      "geometry_id": "g018",
+      "seed": 20261028,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。同时要求中间曲面中心保持原位置。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g018_1",
+      "geometry_id": "g018",
+      "seed": 20261028,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g019_0",
+      "geometry_id": "g019",
+      "seed": 20261029,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g019_1",
+      "geometry_id": "g019",
+      "seed": 20261029,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少新增控制点。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "complexity"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g020_0",
+      "geometry_id": "g020",
+      "seed": 20261030,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g020_1",
+      "geometry_id": "g020",
+      "seed": 20261030,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g021_0",
+      "geometry_id": "g021",
+      "seed": 20261031,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g021_1",
+      "geometry_id": "g021",
+      "seed": 20261031,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g022_0",
+      "geometry_id": "g022",
+      "seed": 20261032,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 1,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g022_1",
+      "geometry_id": "g022",
+      "seed": 20261032,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 1,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g023_0",
+      "geometry_id": "g023",
+      "seed": 20261033,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。同时要求中间曲面中心保持原位置。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g023_1",
+      "geometry_id": "g023",
+      "seed": 20261033,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g024_0",
+      "geometry_id": "g024",
+      "seed": 20261034,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g024_1",
+      "geometry_id": "g024",
+      "seed": 20261034,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少新增控制点。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "complexity"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g025_0",
+      "geometry_id": "g025",
+      "seed": 20261035,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g025_1",
+      "geometry_id": "g025",
+      "seed": 20261035,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g026_0",
+      "geometry_id": "g026",
+      "seed": 20261036,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g026_1",
+      "geometry_id": "g026",
+      "seed": 20261036,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": false,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g027_0",
+      "geometry_id": "g027",
+      "seed": 20261037,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。两侧相邻曲面的几何完全不变。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 1,
+        "allow_refine": true,
+        "allow_expand": false,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g027_1",
+      "geometry_id": "g027",
+      "seed": 20261037,
+      "input_text": "将中间曲面中心沿 z 方向抬高 0.5 mm，接缝保持切向连续（按匹配参数 C1 验收）；左右最外侧边的位置不变。禁止增加控制点、插节点和升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 0.5,
+        "continuity": 1,
+        "allow_refine": false,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g028_0",
+      "geometry_id": "g028",
+      "seed": 20261038,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。同时要求中间曲面中心保持原位置。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": true,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "no_feasible_candidate"
+    },
+    {
+      "task_id": "g028_1",
+      "geometry_id": "g028",
+      "seed": 20261038,
+      "input_text": "将中间曲面中心沿 z 方向抬高 1 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 1.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g029_0",
+      "geometry_id": "g029",
+      "seed": 20261039,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少被修改的面数。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "locality"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    },
+    {
+      "task_id": "g029_1",
+      "geometry_id": "g029",
+      "seed": 20261039,
+      "input_text": "将中间曲面中心沿 z 方向抬高 2 mm，接缝保持切向及曲率连续（按匹配参数 C2 验收）；左右最外侧边的位置不变。允许增加控制点或升阶。允许相邻曲面随动。满足以上要求后优先减少新增控制点。",
+      "oracle_contract": {
+        "amplitude_mm": 2.0,
+        "continuity": 2,
+        "allow_refine": true,
+        "allow_expand": true,
+        "pin_center": false,
+        "priority": "complexity"
+      },
+      "review_status": "generated_unreviewed",
+      "expected_status": "edited"
+    }
+  ]
+}

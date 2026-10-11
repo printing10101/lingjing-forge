@@ -1,0 +1,19 @@
+{
+  "completed_on": "2026-10-11",
+  "saved_responses": 64,
+  "source_hashes_match": true,
+  "public_hash_match": true,
+  "unique_predictions": true,
+  "independent_human_review": "pending",
+  "geometry_reference_step_files": 22,
+  "files_sha256": {
+    "public.json": "55a27e8f47722572c90fa9dd66e290ab6635d2bcc18839433ae526beb94a4d30",
+    "oracle.json": "eb30546ba172de0c435cda4a967955ce3e27f593d2983100de3922283590b8ff",
+    "predictions.jsonl": "2d40f971a46c433d2036321058a9be8409664b2b4341674eeebf19b960294770",
+    "predictions.config.json": "b1da07d197201c5f87018221b46364d3c04eb3256f2bacfb67e8d10d5b4f7ea5",
+    "scores.json": "64eefd4d1548bc85606524610512f4c4eb27fc0fee7804d5cdce3ee557828463",
+    "geometry_results.json": "a2f847f016fe880a72d8ae562449e5385f8e848d0a6dee716f119626adb4512a",
+    "consequence_diagnostics.json": "956a4f6cd2a08cbe7ceeaf37b044de1b0183ce8704659418f7cb2ac5a2060bbc"
+  },
+  "scope": "Source/integrity checks, not independent semantic review or expert approval."
+}

@@ -1,0 +1,6 @@
+[run]
+source = probe
+[report]
+fail_under = 80
+exclude_lines =
+    if __name__ == .__main__.:

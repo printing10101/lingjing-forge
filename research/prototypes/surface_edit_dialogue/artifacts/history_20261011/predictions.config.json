@@ -1,0 +1,17 @@
+{
+  "model_requested": "deepseek-chat",
+  "max_tokens": 768,
+  "temperature": 0.0,
+  "backend_sha256": "cb812532104cba2fa3ad84e4a46dbd52296bc220483d7ea8c891d341e1a1b5dd",
+  "public_sha256": "55a27e8f47722572c90fa9dd66e290ab6635d2bcc18839433ae526beb94a4d30",
+  "source_sha256": {
+    "history_experiment.py": "34fbdaf49650ffe68e6637f93ba5d0a66b82c015a759ef2c9e5427f4831042fe",
+    "expanded.py": "9704a19a73910f383bee3b7d5f661f80f63ef2dd8c8d852f9eedb32799b8de3f",
+    "dialogue.py": "96943b45343df29edf2f5a9a15d5042c97debb5b4317cfb58049f04c7b0fcab3",
+    "compare.py": "b4d6195d9cf76df2a472a84962a5e9a9728eef42c7599813036bcc5369228cea"
+  },
+  "system": "你是多轮CAD约束解析器。只返回JSON，不要代码块。字段语义：\namplitude=相对交付模型的目标高度毫米，allow_refine=允许新增控制点，allow_expand=允许其他片联动，\nlock_interface=接口整片锁定，preserve_datum=检测截面固定，priority=complexity或locality，max_added_poles=新增控制点预算。\npriority中complexity表示优先减少新增控制点数量，locality表示优先减少修改面数；“优先不增加控制点”应记录complexity，不是禁止加密。\n保留未被明确撤销的约束。禁止加密时预算0，重新允许时按上下文预算。\n几何冲突不能擅自删约束。含糊请求需要澄清，不修改当前状态。\n完整历史模式返回 {\"state\":完整七字段状态,\"needs_clarification\":布尔}。\n状态更新模式返回 {\"updates\":只包含本轮明确变动的字段,\"needs_clarification\":布尔}。\n需要澄清时状态更新模式updates必须为空。\n本轮两个模式均给出完整用户历史和上一轮系统提交的状态。\n临时例外到期时，应更新相应字段；撤销、恢复和引用建议都需查完整历史，不能仅猜最近一次状态。\n完整历史模式需输出本轮完整有效状态；需要澄清时应输出未变化的有效状态。\n状态更新模式需输出从上一轮提交状态到本轮有效状态的差异，包含临时许可到期的恢复。\n只讨论、转述、问原因的消息不是修改授权。",
+  "request_cap": 64,
+  "retries": 0,
+  "limitation": "Requested alias; no immutable model snapshot or token usage. Both modes get full history and previous predicted committed state."
+}

@@ -1,0 +1,11 @@
+{
+  "model_requested": "deepseek-chat",
+  "temperature": 0.0,
+  "max_tokens": 512,
+  "request_cap": 60,
+  "transport_retries": 0,
+  "backend_source_sha256": "cb812532104cba2fa3ad84e4a46dbd52296bc220483d7ea8c891d341e1a1b5dd",
+  "public_input_sha256": "e8650b72c9228fafe05d02f083037eeb64b82208bbb4a16dd45e2a0e799e24b5",
+  "system_prompt": "你是 CAD 编辑需求解析器。只返回一个 JSON 对象，不要解释或代码。\n字段必须且只能是：amplitude_mm（中心沿 z 位移毫米数），continuity（0/1/2），\nallow_refine（布尔，允许插节点/升阶/增加控制点），allow_expand（布尔，允许邻面随动），\npin_center（布尔，是否同时要求中心保持原位），priority（locality 或 complexity）。\n“优先减少被修改面数”是 locality；“优先减少新增控制点”是 complexity。\n发生冲突时保留双方约束，例如抬高中心同时保持原位，记录位移并令 pin_center=true。\n不得擅自放松要求；没有明确许可时 allow_refine/allow_expand 为 false。\n未规定优先级时 priority=locality。",
+  "note": "Requested model alias, not an immutable model snapshot; usage unavailable in existing client."
+}

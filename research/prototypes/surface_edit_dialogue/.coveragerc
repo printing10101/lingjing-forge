@@ -1,0 +1,7 @@
+[run]
+source = dialogue,compare,resume,expanded,history_experiment
+omit = test_*
+[report]
+fail_under = 80
+exclude_lines =
+    if __name__ == .__main__.:

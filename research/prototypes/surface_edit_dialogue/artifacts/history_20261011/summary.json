@@ -1,0 +1,13 @@
+{
+  "dialogues": 4,
+  "turns": 32,
+  "independent_review": "pending",
+  "llm_evaluated": false,
+  "source_sha256": "9704a19a73910f383bee3b7d5f661f80f63ef2dd8c8d852f9eedb32799b8de3f",
+  "statuses": {
+    "direct_constraint_conflict": 4,
+    "feasible": 22,
+    "needs_clarification": 2,
+    "no_candidate_in_authorized_space": 4
+  }
+}

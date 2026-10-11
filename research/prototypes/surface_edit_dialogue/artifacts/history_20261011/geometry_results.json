@@ -1,0 +1,1190 @@
+[
+  {
+    "dialogue_id": "temporary_undo",
+    "turn": 1,
+    "status": "no_candidate_in_authorized_space",
+    "calls": 2,
+    "selected": null
+  },
+  {
+    "dialogue_id": "temporary_undo",
+    "turn": 2,
+    "status": "feasible",
+    "calls": 4,
+    "selected": {
+      "action": "expand_0_1_2",
+      "support": [
+        0,
+        1,
+        2
+      ],
+      "added_poles": 0,
+      "feasible": true,
+      "status": "solved",
+      "residual": 1.942589315835852e-14,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 3332.4962346372586,
+      "audit": {
+        "smooth_trace_bound": 3.1289785577352326e-14,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 1.4654943925052066e-14,
+        "datum_position_bound": 6.1802415037467045e-15,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 3.3306690738754696e-15,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        2.455434259429885e-12,
+        4.043734869575816e-13,
+        1.563793566062244e-13,
+        3.809352036895686e-14,
+        2.4605421393089894e-14,
+        1.1532441668293814e-14
+      ],
+      "face_count": 3,
+      "step_bytes": 23108,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.0200392388823688e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 5.506680545582974e-12,
+      "datum_position_bound": 5.202650562323692e-13,
+      "frozen_pole_bound": 0.0,
+      "center_error_mm": 4.463096558993129e-14,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "temporary_undo",
+    "turn": 3,
+    "status": "no_candidate_in_authorized_space",
+    "calls": 2,
+    "selected": null
+  },
+  {
+    "dialogue_id": "temporary_undo",
+    "turn": 4,
+    "status": "feasible",
+    "calls": 7,
+    "selected": {
+      "action": "degree_uv8",
+      "support": [
+        1
+      ],
+      "added_poles": 65,
+      "feasible": true,
+      "status": "solved",
+      "residual": 7.71681459072417e-14,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 65.80239324324248,
+      "audit": {
+        "smooth_trace_bound": 1.2214910551476185e-12,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 1.5126362947985047e-12,
+        "datum_position_bound": 4.265818705111976e-12,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 1.9984014443252818e-14,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        1.538050217535488e-11,
+        2.1519097861573834e-12,
+        4.730661864822518e-12,
+        2.591586226440184e-13,
+        2.8840727549217515e-12,
+        6.446696204209096e-13
+      ],
+      "face_count": 3,
+      "step_bytes": 30418,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.2715888423823925e-12,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 5.506680545582974e-12,
+      "datum_position_bound": 3.558028849022751e-12,
+      "frozen_pole_bound": 5.5223920133085705e-12,
+      "center_error_mm": 8.47699688222292e-12,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "temporary_undo",
+    "turn": 5,
+    "status": "feasible",
+    "calls": 7,
+    "selected": {
+      "action": "degree_uv8",
+      "support": [
+        1
+      ],
+      "added_poles": 65,
+      "feasible": true,
+      "status": "solved",
+      "residual": 7.71681459072417e-14,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 65.80239324324248,
+      "audit": {
+        "smooth_trace_bound": 1.2214910551476185e-12,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 1.5126362947985047e-12,
+        "datum_position_bound": 4.265818705111976e-12,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 1.9984014443252818e-14,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        1.538050217535488e-11,
+        2.1519097861573834e-12,
+        4.730661864822518e-12,
+        2.591586226440184e-13,
+        2.8840727549217515e-12,
+        6.446696204209096e-13
+      ],
+      "face_count": 3,
+      "step_bytes": 30418,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.2715888423823925e-12,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 5.506680545582974e-12,
+      "datum_position_bound": 3.558028849022751e-12,
+      "frozen_pole_bound": 5.5223920133085705e-12,
+      "center_error_mm": 8.47699688222292e-12,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "temporary_undo",
+    "turn": 6,
+    "status": "no_candidate_in_authorized_space",
+    "calls": 2,
+    "selected": null
+  },
+  {
+    "dialogue_id": "temporary_undo",
+    "turn": 7,
+    "status": "feasible",
+    "calls": 7,
+    "selected": {
+      "action": "degree_uv8",
+      "support": [
+        1
+      ],
+      "added_poles": 65,
+      "feasible": true,
+      "status": "solved",
+      "residual": 7.71681459072417e-14,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 65.80239324324248,
+      "audit": {
+        "smooth_trace_bound": 1.2214910551476185e-12,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 1.5126362947985047e-12,
+        "datum_position_bound": 4.265818705111976e-12,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 1.9984014443252818e-14,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        1.538050217535488e-11,
+        2.1519097861573834e-12,
+        4.730661864822518e-12,
+        2.591586226440184e-13,
+        2.8840727549217515e-12,
+        6.446696204209096e-13
+      ],
+      "face_count": 3,
+      "step_bytes": 30421,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.2715888423823925e-12,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 5.506680545582974e-12,
+      "datum_position_bound": 3.558028849022751e-12,
+      "frozen_pole_bound": 5.5223920133085705e-12,
+      "center_error_mm": 8.47699688222292e-12,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "temporary_undo",
+    "turn": 8,
+    "status": "needs_clarification",
+    "calls": 0
+  },
+  {
+    "dialogue_id": "historical_reference",
+    "turn": 1,
+    "status": "feasible",
+    "calls": 8,
+    "selected": {
+      "action": "knots_uv",
+      "support": [
+        3
+      ],
+      "added_poles": 33,
+      "feasible": true,
+      "status": "solved",
+      "residual": 2.6645352591003757e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 56.11056547336865,
+      "audit": {
+        "smooth_trace_bound": 5.356417015021095e-14,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 6.395913594156253e-14,
+        "datum_position_bound": 0.0,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 8.881784197001252e-16,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.40198747223888e-13,
+        1.4660857875991234e-13,
+        2.7973030063419073e-13,
+        3.905946326649111e-14,
+        1.6092496958208576e-13,
+        1.1957795864603327e-13
+      ],
+      "face_count": 4,
+      "step_bytes": 34623,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 6.722773472916699e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.383909878250631e-13,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 6.987176433323751e-13,
+      "center_error_mm": 1.454392162258955e-13,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "historical_reference",
+    "turn": 2,
+    "status": "feasible",
+    "calls": 8,
+    "selected": {
+      "action": "knots_uv",
+      "support": [
+        3
+      ],
+      "added_poles": 33,
+      "feasible": true,
+      "status": "solved",
+      "residual": 4.253875517402657e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 453.95280493325885,
+      "audit": {
+        "smooth_trace_bound": 5.355688266018313e-14,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 6.40173418210632e-14,
+        "datum_position_bound": 3.5330654341196126e-14,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 8.881784197001252e-16,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.405672173092472e-13,
+        1.4705089678212343e-13,
+        2.791112693771264e-13,
+        4.044930907863447e-14,
+        1.606231655323336e-13,
+        1.1615838499401399e-13
+      ],
+      "face_count": 4,
+      "step_bytes": 34625,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 6.722773472916699e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.383909878250631e-13,
+      "datum_position_bound": 4.697578056909628e-13,
+      "frozen_pole_bound": 6.987176433323751e-13,
+      "center_error_mm": 1.7341683644644945e-13,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "historical_reference",
+    "turn": 3,
+    "status": "feasible",
+    "calls": 8,
+    "selected": {
+      "action": "knots_uv",
+      "support": [
+        3
+      ],
+      "added_poles": 33,
+      "feasible": true,
+      "status": "solved",
+      "residual": 8.507751034805314e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 1815.8112197330354,
+      "audit": {
+        "smooth_trace_bound": 5.3561610052879e-14,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 6.412955894712624e-14,
+        "datum_position_bound": 3.5344001101536284e-14,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 1.7763568394002505e-15,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        1.599098155084447e-12,
+        8.958996823679613e-13,
+        2.7746110495378515e-13,
+        2.7133887936988167e-13,
+        1.5983934569584049e-13,
+        1.375566327510569e-13
+      ],
+      "face_count": 4,
+      "step_bytes": 34627,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 6.722773472916699e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.383909878250631e-13,
+      "datum_position_bound": 4.697578056909628e-13,
+      "frozen_pole_bound": 6.987176433323751e-13,
+      "center_error_mm": 1.7319479184152442e-13,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "historical_reference",
+    "turn": 4,
+    "status": "feasible",
+    "calls": 6,
+    "selected": {
+      "action": "knots_uv",
+      "support": [
+        3
+      ],
+      "added_poles": 33,
+      "feasible": true,
+      "status": "solved",
+      "residual": 8.507751034805314e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 1815.8112197330354,
+      "audit": {
+        "smooth_trace_bound": 5.3561610052879e-14,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 6.412955894712624e-14,
+        "datum_position_bound": 3.5344001101536284e-14,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 1.7763568394002505e-15,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        1.599098155084447e-12,
+        8.958996823679613e-13,
+        2.7746110495378515e-13,
+        2.7133887936988167e-13,
+        1.5983934569584049e-13,
+        1.375566327510569e-13
+      ],
+      "face_count": 4,
+      "step_bytes": 34627,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 6.722773472916699e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.383909878250631e-13,
+      "datum_position_bound": 4.697578056909628e-13,
+      "frozen_pole_bound": 6.987176433323751e-13,
+      "center_error_mm": 1.7319479184152442e-13,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "historical_reference",
+    "turn": 5,
+    "status": "feasible",
+    "calls": 8,
+    "selected": {
+      "action": "knots_uv",
+      "support": [
+        3
+      ],
+      "added_poles": 33,
+      "feasible": true,
+      "status": "solved",
+      "residual": 8.507751034805314e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 1815.8112197330354,
+      "audit": {
+        "smooth_trace_bound": 5.3561610052879e-14,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 6.412955894712624e-14,
+        "datum_position_bound": 3.5344001101536284e-14,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 1.7763568394002505e-15,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        1.599098155084447e-12,
+        8.958996823679613e-13,
+        2.7746110495378515e-13,
+        2.7133887936988167e-13,
+        1.5983934569584049e-13,
+        1.375566327510569e-13
+      ],
+      "face_count": 4,
+      "step_bytes": 34627,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 6.722773472916699e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.383909878250631e-13,
+      "datum_position_bound": 4.697578056909628e-13,
+      "frozen_pole_bound": 6.987176433323751e-13,
+      "center_error_mm": 1.7319479184152442e-13,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "historical_reference",
+    "turn": 6,
+    "status": "feasible",
+    "calls": 8,
+    "selected": {
+      "action": "knots_uv",
+      "support": [
+        3
+      ],
+      "added_poles": 33,
+      "feasible": true,
+      "status": "solved",
+      "residual": 5.329070518200751e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 224.4422618934746,
+      "audit": {
+        "smooth_trace_bound": 5.358068479141309e-14,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 6.395913594156253e-14,
+        "datum_position_bound": 0.0,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 1.9984014443252818e-15,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.396897355784066e-13,
+        1.4653946753674056e-13,
+        2.799366707691052e-13,
+        3.904558570840241e-14,
+        1.609249459301795e-13,
+        1.4089424071883627e-13
+      ],
+      "face_count": 4,
+      "step_bytes": 34641,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 6.722773472916699e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.383909878250631e-13,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 6.987176433323751e-13,
+      "center_error_mm": 6.217248937900877e-14,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "historical_reference",
+    "turn": 7,
+    "status": "feasible",
+    "calls": 8,
+    "selected": {
+      "action": "knots_uv",
+      "support": [
+        3
+      ],
+      "added_poles": 33,
+      "feasible": true,
+      "status": "solved",
+      "residual": 5.329070518200751e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 350.69103420855373,
+      "audit": {
+        "smooth_trace_bound": 5.356918132240177e-14,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 6.398006362140011e-14,
+        "datum_position_bound": 0.0,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 3.1086244689504383e-15,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.394639480786369e-13,
+        1.462630252738153e-13,
+        2.7931759990896555e-13,
+        4.0530836060009936e-14,
+        1.605930043799488e-13,
+        1.1627417778603544e-13
+      ],
+      "face_count": 4,
+      "step_bytes": 34640,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 6.722773472916699e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.383909878250631e-13,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 6.987176433323751e-13,
+      "center_error_mm": 1.5187850976872141e-13,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "historical_reference",
+    "turn": 8,
+    "status": "feasible",
+    "calls": 8,
+    "selected": {
+      "action": "knots_uv",
+      "support": [
+        3
+      ],
+      "added_poles": 33,
+      "feasible": true,
+      "status": "solved",
+      "residual": 5.329070518200751e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 350.69103420855373,
+      "audit": {
+        "smooth_trace_bound": 5.356918132240177e-14,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 6.398006362140011e-14,
+        "datum_position_bound": 0.0,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 3.1086244689504383e-15,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.394639480786369e-13,
+        1.462630252738153e-13,
+        2.7931759990896555e-13,
+        4.0530836060009936e-14,
+        1.605930043799488e-13,
+        1.1627417778603544e-13
+      ],
+      "face_count": 4,
+      "step_bytes": 34640,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 6.722773472916699e-13,
+      "sharp_original_jet_bound": 0.0,
+      "outside_position_bound": 6.383909878250631e-13,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 6.987176433323751e-13,
+      "center_error_mm": 1.5187850976872141e-13,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "conflict_preservation",
+    "turn": 1,
+    "status": "feasible",
+    "calls": 8,
+    "selected": {
+      "action": "knots_u",
+      "support": [
+        2
+      ],
+      "added_poles": 12,
+      "feasible": true,
+      "status": "solved",
+      "residual": 6.6039936642450794e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 97.8824522461639,
+      "audit": {
+        "smooth_trace_bound": 8.437694987151188e-15,
+        "sharp_original_jet_bound": 3.182639337258782e-15,
+        "outside_position_bound": 1.1624374386051344e-13,
+        "datum_position_bound": 0.0,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 1.3322676295501878e-15,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.43896475336341e-12,
+        7.348391383705004e-13,
+        9.336530188261789e-14,
+        7.741382103927446e-14,
+        1.3210759526247062e-14,
+        3.795748098971673e-14
+      ],
+      "face_count": 5,
+      "step_bytes": 38996,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.081624695102756e-12,
+      "sharp_original_jet_bound": 5.539179989952988e-13,
+      "outside_position_bound": 8.21153014824648e-12,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 8.285539375172478e-12,
+      "center_error_mm": 8.659739592076221e-14,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "conflict_preservation",
+    "turn": 2,
+    "status": "direct_constraint_conflict",
+    "calls": 0
+  },
+  {
+    "dialogue_id": "conflict_preservation",
+    "turn": 3,
+    "status": "direct_constraint_conflict",
+    "calls": 0
+  },
+  {
+    "dialogue_id": "conflict_preservation",
+    "turn": 4,
+    "status": "direct_constraint_conflict",
+    "calls": 0
+  },
+  {
+    "dialogue_id": "conflict_preservation",
+    "turn": 5,
+    "status": "needs_clarification",
+    "calls": 0
+  },
+  {
+    "dialogue_id": "conflict_preservation",
+    "turn": 6,
+    "status": "feasible",
+    "calls": 8,
+    "selected": {
+      "action": "knots_u",
+      "support": [
+        2
+      ],
+      "added_poles": 12,
+      "feasible": true,
+      "status": "solved",
+      "residual": 1.3207987328490159e-14,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 391.5298089846556,
+      "audit": {
+        "smooth_trace_bound": 1.5839181817985566e-14,
+        "sharp_original_jet_bound": 5.347574235277836e-15,
+        "outside_position_bound": 1.1630748900172308e-13,
+        "datum_position_bound": 0.0,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 1.7763568394002505e-15,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.43896475336341e-12,
+        7.348391383705004e-13,
+        9.336530188261789e-14,
+        7.741382103927446e-14,
+        1.3210759526247062e-14,
+        3.795748098971673e-14
+      ],
+      "face_count": 5,
+      "step_bytes": 38996,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.081624695102756e-12,
+      "sharp_original_jet_bound": 5.539179989952988e-13,
+      "outside_position_bound": 8.21153014824648e-12,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 8.285539375172478e-12,
+      "center_error_mm": 3.8191672047105385e-14,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "conflict_preservation",
+    "turn": 7,
+    "status": "direct_constraint_conflict",
+    "calls": 0
+  },
+  {
+    "dialogue_id": "conflict_preservation",
+    "turn": 8,
+    "status": "feasible",
+    "calls": 8,
+    "selected": {
+      "action": "local",
+      "support": [
+        2
+      ],
+      "added_poles": 0,
+      "feasible": true,
+      "status": "solved",
+      "residual": 0.0,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 0.0,
+      "audit": {
+        "smooth_trace_bound": 4.871830523550282e-15,
+        "sharp_original_jet_bound": 0.0,
+        "outside_position_bound": 0.0,
+        "datum_position_bound": 0.0,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 0.0,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        5.43896475336341e-12,
+        7.348391383705004e-13,
+        9.336530188261789e-14,
+        7.741382103927446e-14,
+        1.3210759526247062e-14,
+        1.3051209012170453e-14
+      ],
+      "face_count": 5,
+      "step_bytes": 37472,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 1.081624695102756e-12,
+      "sharp_original_jet_bound": 5.539179989952988e-13,
+      "outside_position_bound": 8.21153014824648e-12,
+      "datum_position_bound": 3.365352452592082e-13,
+      "frozen_pole_bound": 8.285539375172478e-12,
+      "center_error_mm": 2.398081733190338e-14,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "quoted_advice",
+    "turn": 1,
+    "status": "feasible",
+    "calls": 6,
+    "selected": {
+      "action": "knots_u",
+      "support": [
+        3
+      ],
+      "added_poles": 12,
+      "feasible": true,
+      "status": "solved",
+      "residual": 2.0068548394865823e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 131.99974566632233,
+      "audit": {
+        "smooth_trace_bound": 2.1316282072803e-14,
+        "sharp_original_jet_bound": 1.7994864857466078e-15,
+        "outside_position_bound": 5.4642024807375473e-14,
+        "datum_position_bound": 3.747850242408836e-14,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 6.661338147750939e-16,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.287336678645647e-12,
+        2.7720896257088226e-13,
+        4.37327030466787e-13,
+        3.176165899287524e-14,
+        2.582235715784988e-14,
+        2.2183806441117282e-14
+      ],
+      "face_count": 8,
+      "step_bytes": 61493,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.1291518289159666e-13,
+      "sharp_original_jet_bound": 4.7923780034836226e-12,
+      "outside_position_bound": 8.282717889023568e-12,
+      "datum_position_bound": 2.618919713643843e-13,
+      "frozen_pole_bound": 8.353221663935086e-12,
+      "center_error_mm": 9.214851104388799e-14,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "quoted_advice",
+    "turn": 2,
+    "status": "feasible",
+    "calls": 8,
+    "selected": {
+      "action": "knots_u",
+      "support": [
+        3
+      ],
+      "added_poles": 12,
+      "feasible": true,
+      "status": "solved",
+      "residual": 2.0068548394865823e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 131.99974566632233,
+      "audit": {
+        "smooth_trace_bound": 2.1316282072803e-14,
+        "sharp_original_jet_bound": 1.7994864857466078e-15,
+        "outside_position_bound": 5.4642024807375473e-14,
+        "datum_position_bound": 3.747850242408836e-14,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 6.661338147750939e-16,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.287336678645647e-12,
+        2.7720896257088226e-13,
+        4.37327030466787e-13,
+        3.176165899287524e-14,
+        2.582235715784988e-14,
+        2.2183806441117282e-14
+      ],
+      "face_count": 8,
+      "step_bytes": 61493,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.1291518289159666e-13,
+      "sharp_original_jet_bound": 4.7923780034836226e-12,
+      "outside_position_bound": 8.282717889023568e-12,
+      "datum_position_bound": 2.618919713643843e-13,
+      "frozen_pole_bound": 8.353221663935086e-12,
+      "center_error_mm": 9.214851104388799e-14,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "quoted_advice",
+    "turn": 3,
+    "status": "feasible",
+    "calls": 6,
+    "selected": {
+      "action": "knots_u",
+      "support": [
+        3
+      ],
+      "added_poles": 12,
+      "feasible": true,
+      "status": "solved",
+      "residual": 2.3647229902494135e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 296.99942774922545,
+      "audit": {
+        "smooth_trace_bound": 2.1316282072803e-14,
+        "sharp_original_jet_bound": 3.184952301893418e-15,
+        "outside_position_bound": 5.4642024807375473e-14,
+        "datum_position_bound": 3.755160591555474e-14,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 2.220446049250313e-16,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.287336678645647e-12,
+        2.7720896257088226e-13,
+        4.37327030466787e-13,
+        3.171894559719362e-14,
+        2.582235715784988e-14,
+        2.2142010447367966e-14
+      ],
+      "face_count": 8,
+      "step_bytes": 61491,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.1291518289159666e-13,
+      "sharp_original_jet_bound": 4.7923780034836226e-12,
+      "outside_position_bound": 8.282717889023568e-12,
+      "datum_position_bound": 2.3786019894759157e-13,
+      "frozen_pole_bound": 8.353221663935086e-12,
+      "center_error_mm": 2.8266278206956486e-13,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "quoted_advice",
+    "turn": 4,
+    "status": "feasible",
+    "calls": 6,
+    "selected": {
+      "action": "knots_u",
+      "support": [
+        3
+      ],
+      "added_poles": 12,
+      "feasible": true,
+      "status": "solved",
+      "residual": 2.3647229902494135e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 296.99942774922545,
+      "audit": {
+        "smooth_trace_bound": 2.1316282072803e-14,
+        "sharp_original_jet_bound": 3.184952301893418e-15,
+        "outside_position_bound": 5.4642024807375473e-14,
+        "datum_position_bound": 3.755160591555474e-14,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 2.220446049250313e-16,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.287336678645647e-12,
+        2.7720896257088226e-13,
+        4.37327030466787e-13,
+        3.171894559719362e-14,
+        2.582235715784988e-14,
+        2.2142010447367966e-14
+      ],
+      "face_count": 8,
+      "step_bytes": 61491,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.1291518289159666e-13,
+      "sharp_original_jet_bound": 4.7923780034836226e-12,
+      "outside_position_bound": 8.282717889023568e-12,
+      "datum_position_bound": 2.3786019894759157e-13,
+      "frozen_pole_bound": 8.353221663935086e-12,
+      "center_error_mm": 2.8266278206956486e-13,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "quoted_advice",
+    "turn": 5,
+    "status": "feasible",
+    "calls": 6,
+    "selected": {
+      "action": "knots_u",
+      "support": [
+        3
+      ],
+      "added_poles": 12,
+      "feasible": true,
+      "status": "solved",
+      "residual": 7.258832631183335e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 287.1621221783042,
+      "audit": {
+        "smooth_trace_bound": 2.1316282072803e-14,
+        "sharp_original_jet_bound": 4.366877230192282e-15,
+        "outside_position_bound": 5.4646085031857716e-14,
+        "datum_position_bound": 0.0,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 2.220446049250313e-16,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.287336678645647e-12,
+        2.7720896257088226e-13,
+        4.37327030466787e-13,
+        3.170826682582361e-14,
+        2.582235715784988e-14,
+        2.2143745170843943e-14
+      ],
+      "face_count": 8,
+      "step_bytes": 61500,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.1291518289159666e-13,
+      "sharp_original_jet_bound": 4.7923780034836226e-12,
+      "outside_position_bound": 8.282717889023568e-12,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 8.353221663935086e-12,
+      "center_error_mm": 1.9739765377835283e-13,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "quoted_advice",
+    "turn": 6,
+    "status": "feasible",
+    "calls": 6,
+    "selected": {
+      "action": "knots_u",
+      "support": [
+        3
+      ],
+      "added_poles": 12,
+      "feasible": true,
+      "status": "solved",
+      "residual": 7.258832631183335e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 287.1621221783042,
+      "audit": {
+        "smooth_trace_bound": 2.1316282072803e-14,
+        "sharp_original_jet_bound": 4.366877230192282e-15,
+        "outside_position_bound": 5.4646085031857716e-14,
+        "datum_position_bound": 0.0,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 2.220446049250313e-16,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.287336678645647e-12,
+        2.7720896257088226e-13,
+        4.37327030466787e-13,
+        3.170826682582361e-14,
+        2.582235715784988e-14,
+        2.2143745170843943e-14
+      ],
+      "face_count": 8,
+      "step_bytes": 61508,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.1291518289159666e-13,
+      "sharp_original_jet_bound": 4.7923780034836226e-12,
+      "outside_position_bound": 8.282717889023568e-12,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 8.353221663935086e-12,
+      "center_error_mm": 1.9739765377835283e-13,
+      "passed": true
+    }
+  },
+  {
+    "dialogue_id": "quoted_advice",
+    "turn": 7,
+    "status": "no_candidate_in_authorized_space",
+    "calls": 1,
+    "selected": null
+  },
+  {
+    "dialogue_id": "quoted_advice",
+    "turn": 8,
+    "status": "feasible",
+    "calls": 6,
+    "selected": {
+      "action": "knots_u",
+      "support": [
+        3
+      ],
+      "added_poles": 12,
+      "feasible": true,
+      "status": "solved",
+      "residual": 7.258832631183335e-15,
+      "certificate_null_error": 0.0,
+      "certificate_rhs": 0.0,
+      "reference_l2": 287.1621221783042,
+      "audit": {
+        "smooth_trace_bound": 2.1316282072803e-14,
+        "sharp_original_jet_bound": 4.366877230192282e-15,
+        "outside_position_bound": 5.4646085031857716e-14,
+        "datum_position_bound": 0.0,
+        "frozen_pole_bound": 0.0,
+        "center_error_mm": 2.220446049250313e-16,
+        "passed": true
+      }
+    },
+    "step": {
+      "passed": true,
+      "sampled_jet_errors": [
+        6.287336678645647e-12,
+        2.7720896257088226e-13,
+        4.37327030466787e-13,
+        3.170826682582361e-14,
+        2.582235715784988e-14,
+        2.2143745170843943e-14
+      ],
+      "face_count": 8,
+      "step_bytes": 61508,
+      "representation": "open_face_compound_not_solid"
+    },
+    "readback_audit": {
+      "smooth_trace_bound": 2.1291518289159666e-13,
+      "sharp_original_jet_bound": 4.7923780034836226e-12,
+      "outside_position_bound": 8.282717889023568e-12,
+      "datum_position_bound": 0.0,
+      "frozen_pole_bound": 8.353221663935086e-12,
+      "center_error_mm": 1.9739765377835283e-13,
+      "passed": true
+    }
+  }
+]
