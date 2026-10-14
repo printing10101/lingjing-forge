@@ -1,17 +1,20 @@
-"""批量自产进化案例（ICT 备赛 C4：failure_cases.db 灌数 0 → 200+）。
+"""批量自产进化案例（ICT 备赛 C4：failure_cases.db 灌数）。
 
 按 I1 技术路线 §2 的设计，把「同一案例族 × 切削参数扰动 × 材料扰动」
 的批量决策任务跑在**真实 GCodeGenerationPipeline**（规则模式，无 LLM
 依赖）上：稳定域成功、超限失败、参数越界、报告态异常都由管线自身
 口径写入失败案例库——本脚本不做任何结果改写。
 
-批次溯源走 task_id 前缀 ``batch_evo_v1-``（``FAILURE_CASES_DB`` 语义
-不变，source 仍是持久层白名单枚举），与真实使用数据可在 task_id 上
-区分。案例库统计用 ``FailureCaseStore.stats()`` 直接出报表。
+批次设计：
+- batch_evo_v1（首批，2026-09-28）：A 切深比×3材料×4族 + B 参数边界 +
+  C 报告态 = 219 案例（144 成功 / 75 失败）。
+- batch_evo_v2（第二批，默认）：A 扩展 6 材料（+168）+ D 转速扫掠（+20）
+  + E 双工序计划（+12）= 368 新案例，**生产库累积追加**（219→500+）。
+  工作目录 data/batch_evo_v2/，manifest 经 --batch-prefix 溯源。
 
 用法：
     python scripts/batch_evolution_cases.py --write-only   # 只生成输入集
-    python scripts/batch_evolution_cases.py                # 生成并跑批
+    python scripts/batch_evolution_cases.py                # 生成并跑批（v2 累积）
     python scripts/batch_evolution_cases.py --limit 10     # 冒烟
 """
 
@@ -47,10 +50,14 @@ CONTROLLER = "fanuc_0i"
 # ---------------------------------------------------------------------------
 
 #: 材料 → (特征 rpm, 极限切深 limit) 的族基线；铝放宽、钛收紧。
+#: C4 第二批（batch_evo_v2）新增 cast_iron/stainless/brass 三材料。
 MATERIALS: dict[str, dict[str, Any]] = {
     "steel_45": {"name": "45#钢", "scale": 1.0},
     "aluminum_6061": {"name": "铝合金6061", "scale": 1.6},
     "titanium_ti6al4v": {"name": "钛合金TC4", "scale": 0.6},
+    "cast_iron_ht250": {"name": "灰铸铁HT250", "scale": 1.15},
+    "stainless_304": {"name": "不锈钢304", "scale": 0.8},
+    "brass_h59": {"name": "黄铜H59", "scale": 1.9},
 }
 
 FAMILIES: dict[str, dict[str, Any]] = {
@@ -87,7 +94,11 @@ SPEED_VARIANTS = ("120 m/min", "99000 m/min", "0 m/min")
 #: C 轴：ChatterReport task_status 非法态（预期 ChatterReportLoadError）。
 BAD_STATUSES = ("failed", "pending", "running")
 
-WORK_ROOT = PROJECT_ROOT / "data" / "batch_evo_v1"
+#: D 轴（第二批）：转速扫掠（仅 steel_45 × 4 族，稳定域内隔离转速因素）。
+RPM_SWEEP_FACTORS = (0.5, 0.75, 1.25, 1.5, 2.0)
+
+#: E 轴（第二批）：双工序计划（plane+hole 组合，全部稳定域）。
+MULTI_OP_RATIOS = (0.30, 0.60, 0.85, 0.98)
 
 
 @dataclass(frozen=True)
@@ -99,11 +110,15 @@ class BatchCase:
     expected: str  # success / failure（注释性预期，供人工核对）
 
 
-def build_matrix() -> list[BatchCase]:
-    """确定性展开批量案例矩阵（A 切深比 × 材料族 + B 参数边界 + C 报告态）。"""
+def build_matrix(prefix: str = BATCH_PREFIX) -> list[BatchCase]:
+    """确定性展开批量案例矩阵。
+
+    batch_evo_v1：A 切深比×3材料×4族 + B 参数边界 + C 报告态（219 案例）。
+    batch_evo_v2：A 扩展到 6 材料（+168） + D 转速扫掠（+20） + E 双工序（+12）。
+    """
     cases: list[BatchCase] = []
 
-    # A 轴：切深比扫掠 × 4 族 × 3 材料
+    # A 轴：切深比扫掠 × 4 族 × 6 材料（v1 为 3 材料）
     for material_id, material in MATERIALS.items():
         for family_id, fam in FAMILIES.items():
             limit = round(fam["limit"] * material["scale"], 3)
@@ -127,7 +142,7 @@ def build_matrix() -> list[BatchCase]:
                 cases.append(
                     BatchCase(
                         case_id=case_id,
-                        chatter=_chatter(case_id, material_id, [feature]),
+                        chatter=_chatter(prefix, case_id, material_id, [feature]),
                         plan=_plan(fam, axial, "0.15 mm/r", "120 m/min"),
                         material_name=material["name"],
                         expected="success" if stable else "failure",
@@ -159,7 +174,7 @@ def build_matrix() -> list[BatchCase]:
                 cases.append(
                     BatchCase(
                         case_id=case_id,
-                        chatter=_chatter(case_id, "steel_45", [feature]),
+                        chatter=_chatter(prefix, case_id, "steel_45", [feature]),
                         plan=_plan(fam, axial, feed, speed),
                         material_name=MATERIALS["steel_45"]["name"],
                         expected="success",
@@ -180,19 +195,95 @@ def build_matrix() -> list[BatchCase]:
         cases.append(
             BatchCase(
                 case_id=case_id,
-                chatter=_chatter(case_id, "steel_45", [feature], task_status=status),
+                chatter=_chatter(prefix, case_id, "steel_45", [feature], task_status=status),
                 plan=_plan(fam, 1.0, "0.15 mm/r", "120 m/min"),
                 material_name=MATERIALS["steel_45"]["name"],
                 expected="failure",
             )
         )
 
+    # D 轴（第二批）：转速扫掠 × 4 族（steel_45，稳定域内，隔离转速因素）
+    for family_id, fam in FAMILIES.items():
+        for r_idx, factor in enumerate(RPM_SWEEP_FACTORS):
+            axial = round(fam["limit"] * 0.6, 3)
+            feature = {
+                "feature_id": fam["feature_id"],
+                "feature_type": fam["feature_type"],
+                "material_id": "steel_45",
+                "spindle_rpm": round(fam["rpm"] * factor, 1),
+                "axial_depth_mm": axial,
+                "limit_depth_mm": fam["limit"],
+                "stable": True,
+                "stability_margin": 0.4,
+                "method": "analytical",
+                "ltc_active": False,
+                "confidence": 0.9,
+            }
+            case_id = f"d_{family_id}_r{r_idx}"
+            cases.append(
+                BatchCase(
+                    case_id=case_id,
+                    chatter=_chatter(prefix, case_id, "steel_45", [feature]),
+                    plan=_plan(fam, axial, "0.15 mm/r", "120 m/min"),
+                    material_name=MATERIALS["steel_45"]["name"],
+                    expected="success",
+                )
+            )
+
+    # E 轴（第二批）：双工序计划（plane+hole，全部稳定域，多特征报告）
+    for material_id, material in MATERIALS.items():
+        if material_id not in ("steel_45", "aluminum_6061", "titanium_ti6al4v"):
+            continue  # 与 v1 三材料对齐，双工序组合只在原族基线上展开
+        for ratio in MULTI_OP_RATIOS:
+            plane_fam = FAMILIES["plane"]
+            hole_fam = FAMILIES["hole"]
+            plane_limit = round(plane_fam["limit"] * material["scale"], 3)
+            hole_limit = round(hole_fam["limit"] * material["scale"], 3)
+            features = [
+                {
+                    "feature_id": plane_fam["feature_id"],
+                    "feature_type": plane_fam["feature_type"],
+                    "material_id": material_id,
+                    "spindle_rpm": plane_fam["rpm"] * (material["scale"] ** 0.5),
+                    "axial_depth_mm": round(plane_limit * ratio, 3),
+                    "limit_depth_mm": plane_limit,
+                    "stable": True,
+                    "stability_margin": round(1.0 - ratio, 4),
+                    "method": "analytical", "ltc_active": False, "confidence": 0.9,
+                },
+                {
+                    "feature_id": hole_fam["feature_id"],
+                    "feature_type": hole_fam["feature_type"],
+                    "material_id": material_id,
+                    "spindle_rpm": hole_fam["rpm"] * (material["scale"] ** 0.5),
+                    "axial_depth_mm": round(hole_limit * ratio, 3),
+                    "limit_depth_mm": hole_limit,
+                    "stable": True,
+                    "stability_margin": round(1.0 - ratio, 4),
+                    "method": "analytical", "ltc_active": False, "confidence": 0.9,
+                },
+            ]
+            plan = _plan(plane_fam, round(plane_limit * ratio, 3), "0.15 mm/r", "120 m/min")
+            hole_op = _plan(hole_fam, round(hole_limit * ratio, 3), "0.15 mm/r", "120 m/min")
+            hole_op["operations"][0]["seq"] = 2
+            plan["operations"].append(hole_op["operations"][0])
+            case_id = f"e_multi_{material_id.split('_')[0]}_q{int(ratio * 100):03d}"
+            cases.append(
+                BatchCase(
+                    case_id=case_id,
+                    chatter=_chatter(prefix, case_id, material_id, features),
+                    plan=plan,
+                    material_name=material["name"],
+                    expected="success",
+                )
+            )
+
     return cases
 
 
-def _chatter(case_id: str, material_id: str, features: list[dict], task_status: str = "succeeded") -> dict:
+def _chatter(prefix: str, case_id: str, material_id: str, features: list[dict], task_status: str = "succeeded") -> dict:
     return {
-        "task_id": f"{BATCH_PREFIX}-{case_id}",
+        "task_id": f"{prefix}-{case_id}",
         "task_status": task_status,
         "material_id": material_id,
         "prediction_method": "analytical",
@@ -240,11 +331,12 @@ def write_input_set(cases: list[BatchCase], root: Path) -> Path:
     return root
 
 
-def run_batch(cases: list[BatchCase], root: Path) -> dict[str, Any]:
+def run_batch(cases: list[BatchCase], root: Path, prefix: str = BATCH_PREFIX) -> dict[str, Any]:
     """逐案例跑真实 pipeline，汇总实际结局与案例库统计。
 
     案例库的 task_id 由管线自生成（gc_ 前缀），批次溯源在本函数落盘的
     ``batch_manifest.json``（case_id ↔ 管线 task_id ↔ 实际结局）。
+    第二批起案例库为**累积写入**（不重置生产库，219→500 靠追加）。
     """
     cfg = GCodeGenerationConfig(output_dir=str(root / "gcode_out"))
     pipeline = GCodeGenerationPipeline(cfg=cfg)
@@ -268,7 +360,7 @@ def run_batch(cases: list[BatchCase], root: Path) -> dict[str, Any]:
             task_id = ""
         else:
             task_id = task.task_id
-        recorded = [c for c in store.list_cases(limit=500) if c.task_id == task_id] if task_id else []
+        recorded = [c for c in store.list_cases(limit=2000) if c.task_id == task_id] if task_id else []
         per_case.append(
             {
                 "case_id": case.case_id,
@@ -281,7 +373,7 @@ def run_batch(cases: list[BatchCase], root: Path) -> dict[str, Any]:
 
     manifest_path = root / "batch_manifest.json"
     manifest_path.write_text(
-        json.dumps({"batch": BATCH_PREFIX, "cases": per_case}, ensure_ascii=False, indent=2),
+        json.dumps({"batch": prefix, "cases": per_case}, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     print(f"批次 manifest 已写入 {manifest_path}")
@@ -292,20 +384,26 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="批量自产进化案例（C4）")
     parser.add_argument("--write-only", action="store_true", help="只生成输入集不跑批")
     parser.add_argument("--limit", type=int, default=0, help="只跑前 N 个案例（冒烟用，0=全部）")
-    parser.add_argument("--work-root", type=Path, default=WORK_ROOT, help="输入集与输出目录")
+    parser.add_argument(
+        "--batch-prefix",
+        default="batch_evo_v2",
+        help="批次前缀（v1=首批复现；v2=第二批累积追加，默认）",
+    )
+    parser.add_argument("--work-root", type=Path, default=None, help="输入集与输出目录（缺省 data/<batch-prefix>）")
     args = parser.parse_args(argv)
 
-    cases = build_matrix()
-    print(f"批量矩阵: {len(cases)} 案例")
-    write_input_set(cases, args.work_root)
-    print(f"输入集已写入 {args.work_root}")
+    work_root = args.work_root or (PROJECT_ROOT / "data" / args.batch_prefix)
+    cases = build_matrix(args.batch_prefix)
+    print(f"批量矩阵: {len(cases)} 案例（batch={args.batch_prefix}）")
+    write_input_set(cases, work_root)
+    print(f"输入集已写入 {work_root}")
 
     if args.write_only:
         return 0
 
     todo = cases[: args.limit] if args.limit else cases
-    reset_failure_case_store()
-    result = run_batch(todo, args.work_root)
+    reset_failure_case_store()  # 仅重置进程内单例，生产库行为累积追加
+    result = run_batch(todo, work_root, args.batch_prefix)
 
     stats = result["stats"]
     # 管线状态 → 成败口径：generated 及之后的人工确认态记成功，failed/异常记失败
