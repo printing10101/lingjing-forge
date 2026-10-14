@@ -50,6 +50,7 @@ logger = logging.getLogger("train-registry-model")
 #: 模型名 → NumPy 模型类（2D 批量前向均为 ReLU 隐层 + 线性输出的同构 MLP）
 MODEL_CLASS_MAP = {
     "cutting_force": CFCModel,
+    "cutting_force_v2": CFCModel,
     "wear_prediction": LTCModel,
 }
 
@@ -75,7 +76,7 @@ def _load_dataset(args: argparse.Namespace) -> tuple[np.ndarray, np.ndarray, dic
         x = np.load(d / "X.npy")
         y = np.load(d / "y.npy").reshape(-1)
         manifest = json.loads((d / "feature_manifest.json").read_text(encoding="utf-8"))
-        return x, y, {"kind": "dataset_store_export", **manifest.get("source", {})}
+        return x, y, {"kind": "dataset_store_export", **manifest.get("source", {})}, None
 
     if not (args.csv and args.features and args.target):
         raise SystemExit("数据源二选一：--dataset-dir 或 (--csv + --features + --target)")
@@ -105,9 +106,22 @@ def _load_dataset(args: argparse.Namespace) -> tuple[np.ndarray, np.ndarray, dic
         feature_cols = feature_cols + ["time_s"]
     x = np.column_stack(xs)
     y = _col(args.target).reshape(-1)
+
+    split_labels: np.ndarray | None = None
+    if getattr(args, "split_col", None):
+        # 预计算切分列（I2 §4 双口径：split_random=口径 A / split_group=口径 B），
+        # 列缺失即报错；NaN 行丢弃后标签必须与保留行一一对齐
+        key_idx = cols.index(args.split_col) if args.split_col in cols else -1
+        if key_idx < 0:
+            raise SystemExit(f"切分列不存在: {args.split_col}（可用列 {cols}）")
+        raw_key = (reader.fieldnames or [])[key_idx]
+        split_labels = np.asarray([str(row[raw_key]).strip() for row in rows])
+
     keep = ~(np.isnan(x).any(axis=1) | np.isnan(y))
     dropped = int((~keep).sum())
     x, y = x[keep], y[keep]
+    if split_labels is not None:
+        split_labels = split_labels[keep]
     source = {
         "kind": "csv",
         "path": str(csv_path),
@@ -115,8 +129,9 @@ def _load_dataset(args: argparse.Namespace) -> tuple[np.ndarray, np.ndarray, dic
         "feature_columns": feature_cols,
         "target_column": args.target,
         "rows_dropped_nan": dropped,
+        "split_column": args.split_col,
     }
-    return x, y, source
+    return x, y, source, split_labels
 
 
 def _split(x: np.ndarray, y: np.ndarray, seed: int, val_ratio: float, test_ratio: float):
@@ -232,6 +247,11 @@ def main() -> int:
     parser.add_argument("--target", default=None, help="目标列（--csv 模式）")
     parser.add_argument("--time-col", default=None, help="时间戳列名（追加为 time_s 特征）")
     parser.add_argument(
+        "--split-col",
+        default=None,
+        help="CSV 中预计算切分列名（如 split_random/split_group，取值 train/val/test）；缺省用种子随机切分",
+    )
+    parser.add_argument(
         "--out-dir",
         default=str(_PYTHON_DIR / "models" / "lnn"),
         help="产物目录（缺省 engineering/python/models/lnn）",
@@ -248,14 +268,27 @@ def main() -> int:
     input_dim = len(feature_order)
     layer_dims = [input_dim] + [args.hidden_dim] * DEFAULTS["num_layers"] + [1]
 
-    x, y, source = _load_dataset(args)
+    x, y, source, split_labels = _load_dataset(args)
     if x.shape[1] != input_dim:
         raise SystemExit(f"数据特征维度 {x.shape[1]} 与注册表契约 {input_dim} 不符（{feature_order}）")
     logger.info("数据: X%s y%s source=%s", x.shape, y.shape, source.get("kind"))
 
-    (x_tr, y_tr), (x_val, y_val), (x_te, y_te) = _split(
-        x, y, args.seed, DEFAULTS["val_ratio"], DEFAULTS["test_ratio"]
-    )
+    if split_labels is not None:
+        # 预计算切分（I2 §4）：split_group=口径 B（按 experiment_tag 分组，达标口径）
+        idx = {name: np.flatnonzero(split_labels == name) for name in ("train", "val", "test")}
+        empty = [k for k, v in idx.items() if len(v) == 0]
+        if empty:
+            raise SystemExit(f"切分列存在空子集: {empty}（各 split 行数 "
+                             f"{ {k: int(len(v)) for k, v in idx.items()} }）")
+        (x_tr, y_tr) = x[idx["train"]], y[idx["train"]]
+        (x_val, y_val) = x[idx["val"]], y[idx["val"]]
+        (x_te, y_te) = x[idx["test"]], y[idx["test"]]
+        split_mode = f"column:{args.split_col}"
+    else:
+        (x_tr, y_tr), (x_val, y_val), (x_te, y_te) = _split(
+            x, y, args.seed, DEFAULTS["val_ratio"], DEFAULTS["test_ratio"]
+        )
+        split_mode = f"random_seed_{args.seed}"
     x_mean, x_std, y_mean, y_std = fit_standardization(x_tr, y_tr)
     logger.info(
         "标准化(train): x_mean=%s x_std=%s y_mean=%.4g y_std=%.4g",
@@ -324,6 +357,7 @@ def main() -> int:
             "rows_train": int(len(x_tr)),
             "rows_val": int(len(x_val)),
             "rows_test": int(len(x_te)),
+            "split_mode": split_mode,
             "standardization": {
                 "x_mean": x_mean.tolist(),
                 "x_std": x_std.tolist(),
@@ -352,6 +386,14 @@ def main() -> int:
         "metrics_numpy_path": {"test": metrics, "val": metrics_val},
         "notes": (
             ("LTC memory_weights 为结构占位（未参与本批量回归任务训练）；" if args.model_name == "wear_prediction" else "")
+            + (
+                "数据为 uniwear 实测力信号 + 公开文档工况回填（conditions_lookup.csv，每行带 source）；"
+                "特征 feed_per_tooth_mm：NUAA 直接出处（MDPI Sensors 2023 Table 2），PHM2010 由 1555/(10400*3) 派生；"
+                "phm2010 工件材料文献口径冲突（Inconel 718 vs stainless HRC52）已记录，编码 12 为 C3 材料表扩展位；"
+                "评估切分口径见 data.split_mode（口径 B=split_group 为达标口径，I2 §4）；"
+                if args.model_name == "cutting_force_v2"
+                else ""
+            )
             + "权重为标准化折叠后产物，服务端无需任何预处理；"
             + "ONNX 工件因环境缺 onnx 包暂缓导出（onnxruntime 消费路径见 WP1 适配器）。"
         ),

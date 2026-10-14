@@ -51,6 +51,19 @@ class LNNModelRegistry(BaseModelRegistry):
             output_features=["predicted_cutting_force"],
             version="2.0.0",
         ),
+        "cutting_force_v2": ModelInfo(
+            name="cutting_force_v2",
+            model_type="CFC",
+            model_path="models/lnn/cutting_force_v2.npz",
+            # C2（I2 定稿）：uniwear 实测力信号 + 公开文档工况回填（conditions_lookup.csv）。
+            # 特征序重定义：v1 的 feed_rate 在 NUAA 无直接出处，改用 feed_per_tooth_mm
+            # （NUAA 直接出处 MDPI Sensors 2023 Table 2；PHM2010 由 1555/(10400*3) 派生）。
+            # material_encoded 对齐 C3 切参数据库材料表排序：material_tc4=11；
+            # phm2010 工件（Inconel 718/stainless HRC52 口径冲突已记录）=12 扩展位。
+            input_features=["spindle_rpm", "feed_per_tooth_mm", "axial_doc_mm", "material_encoded"],
+            output_features=["predicted_cutting_force"],
+            version="1.0.0",
+        ),
         "wear_prediction": ModelInfo(
             name="wear_prediction",
             # 学术诚信说明 [S6]：model_type="LTC" 指向 LTCModel 类
