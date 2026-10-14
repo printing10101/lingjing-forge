@@ -52,7 +52,11 @@ class TestHealthWeightsStatus:
             lambda: str(tmp_path),
         )
         status = health._get_lnn_weights_status()
-        assert status["total"] == 4
+        # 预定义模型数随注册表演进而变（C2 新增 cutting_force_v2 后为 5），
+        # 断言改为引用注册表现量，避免每次扩模型都改测试
+        from app.ai.lnn.inference._lnn_registry import LNNModelRegistry
+
+        assert status["total"] == len(LNNModelRegistry.PREDEFINED_MODELS)
         assert status["trained_count"] == 0
         assert all(m["weights_source"] == "random_init" for m in status["models"].values())
 
