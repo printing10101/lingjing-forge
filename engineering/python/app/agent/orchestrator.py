@@ -674,9 +674,7 @@ class AgentOrchestrator:
         if not actions:
             # 2026-09 升级：白名单外错误先尝试 LLM 诊断修复（提案位）；
             # 修复后的 G 代码会回到 validate_safety 重验，LLM 无权绕过校验。
-            llm_repaired = await gcode_repair.llm_repair_gcode(
-                report, context, enabled=self._llm_repair_enabled
-            )
+            llm_repaired = await gcode_repair.llm_repair_gcode(report, context, enabled=self._llm_repair_enabled)
             if llm_repaired is not None:
                 attempt = repair_attempt + 1
                 # 自进化 M0：修复所用提示词版本入 repair_history（可追溯）
