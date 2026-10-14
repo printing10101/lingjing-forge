@@ -2,6 +2,14 @@
 
 > 日期：2026-09-28 ｜ 对应 I1 §3（9 月底承诺项「实验设计定稿」的交付物）
 > 定位：可执行实验设计，所有现状数字均为实测（manifest / pandas 直查 / 代码核对），非叙事稿。
+>
+> **进度（2026-10-14）：第一周交付物已落地**——`conditions_lookup.csv`（12 tag 全覆盖，含 source 与核对日期）、
+> `scripts/build_cutting_force_v2_dataset.py` + 单测 13 passed（Python 3.14，ruff 通过）、
+> 数据集已产出：1,578 窗口样本（0 NaN 丢弃），双口径切分内置于 `build_summary.json`。
+> 两处与本文假设的偏差已实测修正：①实际 tag 为 W1–W9 + c1/c4/c6（非 W1–W8/c1–c6）；
+> ②特征序重定义为 `feed_per_tooth_mm`（NUAA 的 feed_rate 无直接出处，见 §2.3 口径）。
+> 物理抽查：nuaa 力-进给相关 +0.17、力-切深相关 -0.29——窗口均力被刀具寿命长度混淆，
+> 口径 B（LOEO/分组）R² 预期偏低，按 §4 如实双报，不回退口径 A。下一步：训练 + manifest v2。
 
 ## 0. 事实基线（2026-09-28 实测）
 
