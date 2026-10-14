@@ -1,6 +1,6 @@
 {
   "level": "v3",
-  "collected_at": "2026-10-14T17:08:17.196610+00:00",
+  "collected_at": "2026-10-14T17:42:02.345912+00:00",
   "cutting_params": {
     "total_entries": 609,
     "by_source": {
@@ -37,8 +37,16 @@
     "one_pass_rate": 0.6537
   },
   "evolution": {
-    "evolution_reports": [],
-    "replay_gate_records": "待第 2 周实验（I4 §4）"
+    "evolution_reports": [
+      "evolution_20261015_014037.json"
+    ],
+    "replay_gate": {
+      "passed": true,
+      "inconclusive": false,
+      "reasons": [
+        "一次通过率 0.8000 → 0.8000（未超阈值，通过）"
+      ]
+    }
   },
   "honesty_notes": [
     "切参覆盖用 (材料,工序) 组合覆盖率，不用精度——无真实机床真值",
