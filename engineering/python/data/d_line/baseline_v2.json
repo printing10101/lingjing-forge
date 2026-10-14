@@ -1,0 +1,64 @@
+{
+  "level": "v2",
+  "collected_at": "2026-10-14T17:08:17.141094+00:00",
+  "cutting_params": {
+    "total_entries": 609,
+    "by_source": {
+      "repo_seed_v1": 12,
+      "handbook_common_range": 597
+    },
+    "materials": 29,
+    "combos_covered": 174,
+    "combo_domain": 174,
+    "combo_coverage": 1.0
+  },
+  "model": {
+    "present": true,
+    "r2_test": 0.5419468925298145,
+    "mae_test": 47.010984383489955,
+    "split_mode": "column:split_group",
+    "feature_order": [
+      "spindle_rpm",
+      "feed_per_tooth_mm",
+      "axial_doc_mm",
+      "material_encoded"
+    ],
+    "created_at": "2026-10-14T09:25:33.533851+00:00"
+  },
+  "failure_cases": {
+    "present": true,
+    "total": 641,
+    "successes": 419,
+    "failures": 222,
+    "failure_by_source": {
+      "pipeline_exception": 6,
+      "unstable_features": 216
+    },
+    "one_pass_rate": 0.6537
+  },
+  "batch_agreement": {
+    "batch_evo_v1": {
+      "present": true,
+      "cases": 219,
+      "expected_matched": 175,
+      "agreement": 0.7991
+    },
+    "batch_evo_v2": {
+      "present": true,
+      "cases": 419,
+      "expected_matched": 419,
+      "agreement": 1.0
+    }
+  },
+  "honesty_notes": [
+    "切参覆盖用 (材料,工序) 组合覆盖率，不用精度——无真实机床真值",
+    "颤振误报/漏报在规则管线（确定性）下结构性为零，不作为 AI 预测能力宣称",
+    "one_pass_rate 分母含同参数复跑案例（I1 §2 披露：冒烟 3 例 + B/C 复跑 51 例）",
+    "M1 提示词进化未接入重放路径——v3 机制轴证明贯通与积累，不证质量提升"
+  ],
+  "tracked_files": {
+    "models/lnn/cutting_force_v2.manifest.json": "46439eda5db59505",
+    "app/data/cutting_parameters.json": "67e040b8b6aa9fe0",
+    "data/training_sets/cutting_force_v2/build_summary.json": "e783d7abfd75e0b6"
+  }
+}

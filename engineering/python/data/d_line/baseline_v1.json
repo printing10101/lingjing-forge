@@ -1,0 +1,51 @@
+{
+  "level": "v1",
+  "collected_at": "2026-10-14T17:08:16.966815+00:00",
+  "cutting_params": {
+    "total_entries": 12,
+    "by_source": {
+      "no_source_field": 12
+    },
+    "materials": 8,
+    "combos_covered": 12,
+    "combo_domain": 48,
+    "combo_coverage": 0.25,
+    "git_ref": "ed31f09"
+  },
+  "model": {
+    "present": true,
+    "r2_test": 0.998040190300895,
+    "mae_test": 22.82409000923676,
+    "split_mode": "",
+    "feature_order": [
+      "spindle_rpm",
+      "feed_rate",
+      "depth_of_cut",
+      "material_encoded"
+    ],
+    "created_at": "2026-09-08T16:16:42.461143+00:00"
+  },
+  "failure_cases": {
+    "present": false,
+    "total": 0,
+    "one_pass_rate": null,
+    "note": "v1 时刻案例库未建（C4 批一 2026-09-28 首灌 219 行）；db 为 gitignore 运行时资产"
+  },
+  "batch_agreement": {
+    "batch_evo_v1": {
+      "present": false
+    },
+    "batch_evo_v2": {
+      "present": false
+    }
+  },
+  "honesty_notes": [
+    "切参覆盖用 (材料,工序) 组合覆盖率，不用精度——无真实机床真值",
+    "颤振误报/漏报在规则管线（确定性）下结构性为零，不作为 AI 预测能力宣称",
+    "one_pass_rate 分母含同参数复跑案例（I1 §2 披露：冒烟 3 例 + B/C 复跑 51 例）",
+    "M1 提示词进化未接入重放路径——v3 机制轴证明贯通与积累，不证质量提升"
+  ],
+  "tracked_files": {
+    "models/lnn/cutting_force.manifest.json": "320d316b7da880e6"
+  }
+}
