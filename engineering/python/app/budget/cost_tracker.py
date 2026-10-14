@@ -45,7 +45,9 @@ __all__ = [
 logger = logging.getLogger(__name__)
 
 
-class MultiDimensionCostTracker(_CostPriceMixin, _CostRecordMixin, _CostQueryMixin, _CostBudgetMixin, BaseSingletonService):
+class MultiDimensionCostTracker(
+    _CostPriceMixin, _CostRecordMixin, _CostQueryMixin, _CostBudgetMixin, BaseSingletonService
+):
     """多维度成本追踪器.
 
     单例管理由 ``BaseSingletonService`` 提供（``get_instance`` / ``reset_instance``）。
@@ -162,7 +164,6 @@ class MultiDimensionCostTracker(_CostPriceMixin, _CostRecordMixin, _CostQueryMix
             self._conn = None
         logger.info("MultiDimensionCostTracker closed")
         self._closed = True
-
 
     # 单例生命周期扩展
 

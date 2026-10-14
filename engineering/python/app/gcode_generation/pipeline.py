@@ -273,9 +273,7 @@ class GCodeGenerationPipeline:
             report, operation_plan = await self._load_inputs(task)
 
             # 3. 调用 GeneratorAdapter.adapt() 生成基础 G 代码 + 特征级结果
-            base_result, feature_gcode_results = await self._generate(
-                task, operation_plan, report.feature_results
-            )
+            base_result, feature_gcode_results = await self._generate(task, operation_plan, report.feature_results)
 
             # 4. 检查 is_valid（含 unstable 特征时 base_result.errors 非空）
             if not base_result.is_valid:
