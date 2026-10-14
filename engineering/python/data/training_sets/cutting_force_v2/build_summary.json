@@ -1,0 +1,108 @@
+{
+  "dataset": "cutting_force_v2",
+  "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+  "conditions_lookup": "D:\\灵境制造\\engineering\\python\\data\\training_sets\\cutting_force_v2\\conditions_lookup.csv",
+  "window": 50,
+  "step": 25,
+  "feature_order": [
+    "spindle_rpm",
+    "feed_per_tooth_mm",
+    "axial_doc_mm",
+    "material_encoded"
+  ],
+  "target": "force_z_window_mean",
+  "n_samples": 1578,
+  "per_tag_stats": {
+    "W1": {
+      "n_raw": 5883,
+      "rows_dropped_nan": 0,
+      "n_windows": 234
+    },
+    "W2": {
+      "n_raw": 3468,
+      "rows_dropped_nan": 0,
+      "n_windows": 137
+    },
+    "W3": {
+      "n_raw": 2592,
+      "rows_dropped_nan": 0,
+      "n_windows": 102
+    },
+    "W4": {
+      "n_raw": 6179,
+      "rows_dropped_nan": 0,
+      "n_windows": 246
+    },
+    "W5": {
+      "n_raw": 1325,
+      "rows_dropped_nan": 0,
+      "n_windows": 52
+    },
+    "W6": {
+      "n_raw": 2465,
+      "rows_dropped_nan": 0,
+      "n_windows": 97
+    },
+    "W7": {
+      "n_raw": 1597,
+      "rows_dropped_nan": 0,
+      "n_windows": 62
+    },
+    "W8": {
+      "n_raw": 6734,
+      "rows_dropped_nan": 0,
+      "n_windows": 268
+    },
+    "W9": {
+      "n_raw": 1145,
+      "rows_dropped_nan": 0,
+      "n_windows": 44
+    },
+    "c1": {
+      "n_raw": 2841,
+      "rows_dropped_nan": 0,
+      "n_windows": 112
+    },
+    "c4": {
+      "n_raw": 2839,
+      "rows_dropped_nan": 0,
+      "n_windows": 112
+    },
+    "c6": {
+      "n_raw": 2835,
+      "rows_dropped_nan": 0,
+      "n_windows": 112
+    }
+  },
+  "split_sizes": {
+    "random": {
+      "train": 1105,
+      "val": 237,
+      "test": 236
+    },
+    "group": {
+      "train": 1073,
+      "val": 296,
+      "test": 209
+    }
+  },
+  "sanity_monotonicity": {
+    "nuaa": {
+      "checked": true,
+      "pearson_corr_force_vs_feed": 0.1664
+    },
+    "phm2010": {
+      "checked": false,
+      "reason": "single_condition"
+    }
+  },
+  "notes": [
+    "数据为 uniwear 实测力信号（~2Hz 对齐平滑），工况来自公开文档回填（见 conditions_lookup.csv source 列）。",
+    "v1 的 feed_rate 特征在 NUAA 无直接出处，v2 特征序重定义为 feed_per_tooth_mm（I2 §2.2 同一原则）。",
+    "PHM2010 feed_per_tooth=0.0498 为派生值（1555/(10400*3)，齿数 3 见计量学报 2025）；NUAA 为直接出处。",
+    "phm2010 工件材料存在文献口径冲突（Inconel 718 vs stainless HRC52），已记录于 lookup；单一固定工件，编码不受影响。",
+    "material_encoded 对齐 C3 切参数据库材料表排序：material_tc4=11；phm2010 工件不在 C3 表内，编码 12 为扩展位。",
+    "口径 A（split_random）为窗口级随机切分（乐观上界）；口径 B（split_group）按 experiment_tag 分组，R²>=0.90 只认口径 B（I2 §4）。",
+    "标签性质：uniwear 为实测力信号（非物理代理标签）；window=50/step=25 对齐 exp50 先例。"
+  ]
+}
