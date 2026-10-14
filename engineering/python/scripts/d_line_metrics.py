@@ -171,9 +171,17 @@ def _evolution_artifacts() -> dict[str, Any]:
     """v3 机制轴产物状态（第 2 周实验后填充，当前如实为空）。"""
     reports = PYTHON_DIR / "data" / "evolution_reports"
     report_files = sorted(p.name for p in reports.glob("*.json")) if reports.exists() else []
+    gate_result = PYTHON_DIR / "data" / "d_line" / "v3_mechanism" / "gate_result.json"
+    gate: dict[str, Any] | None = None
+    if gate_result.exists():
+        try:
+            g = json.loads(gate_result.read_text(encoding="utf-8"))
+            gate = {"passed": g.get("passed"), "inconclusive": g.get("inconclusive"), "reasons": g.get("reasons", [])}
+        except json.JSONDecodeError:
+            gate = None
     return {
         "evolution_reports": report_files,
-        "replay_gate_records": "待第 2 周实验（I4 §4）",
+        "replay_gate": gate if gate else {"status": "待第 2 周实验（I4 §4）"},
     }
 
 

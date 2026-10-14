@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "stats": {
+    "total": 641,
+    "failures": 222,
+    "successes": 419,
+    "one_pass_rate": 0.6537,
+    "by_source": {
+      "unstable_features": 216,
+      "pipeline_exception": 6
+    },
+    "by_code": {
+      "UNSTABLE_FEATURES": 216,
+      "ChatterReportLoadError": 6
+    }
+  },
+  "top_failure_classes": [
+    "UNSTABLE_FEATURES",
+    "ChatterReportLoadError"
+  ],
+  "proposal": null,
+  "auto_promoted": false,
+  "gate": null,
+  "report_path": "",
+  "error": ""
+}
