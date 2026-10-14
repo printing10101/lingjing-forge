@@ -1,0 +1,95 @@
+{
+  "model_name": "cutting_force_v2",
+  "registry_version": "1.0.0",
+  "model_type": "CFC",
+  "feature_order": [
+    "spindle_rpm",
+    "feed_per_tooth_mm",
+    "axial_doc_mm",
+    "material_encoded"
+  ],
+  "output_features": [
+    "predicted_cutting_force"
+  ],
+  "npz_format_version": 2,
+  "source": {
+    "kind": "csv",
+    "path": "engineering\\python\\data\\training_sets\\cutting_force_v2\\uniwear_force_v2.csv",
+    "sha256": "5bdce9957b701f5c",
+    "feature_columns": [
+      "spindle_rpm",
+      "feed_per_tooth_mm",
+      "axial_doc_mm",
+      "material_encoded"
+    ],
+    "target_column": "force_z_window_mean",
+    "rows_dropped_nan": 0,
+    "split_column": "split_random"
+  },
+  "data": {
+    "rows_total": 1578,
+    "rows_train": 1105,
+    "rows_val": 237,
+    "rows_test": 236,
+    "split_mode": "column:split_random",
+    "standardization": {
+      "x_mean": [
+        3594.841628959276,
+        0.04961864253393625,
+        2.2881447963800525,
+        11.209954751131221
+      ],
+      "x_std": [
+        3508.2856801909284,
+        0.003650274391694606,
+        1.1267760025974458,
+        0.4072760164908411
+      ],
+      "y_mean": 94.35678261719458,
+      "y_std": 79.42096758726848,
+      "folded_into_weights": true
+    }
+  },
+  "training": {
+    "framework": "torch",
+    "torch_version": "2.14.0+cu130",
+    "architecture": "MirrorMLP [4, 64, 64, 1]（ReLU 隐层+线性输出，与 NumPy 服务前向同构）",
+    "seed": 42,
+    "epochs_requested": 500,
+    "epochs_completed": 195,
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "patience": 30,
+    "final_train_loss": 0.59336194333987,
+    "best_val_loss": 0.6767947673797607
+  },
+  "parity": {
+    "torch_vs_numpy_mirror_max_abs": 3.0073034062994e-08,
+    "tolerance": 0.001
+  },
+  "metrics_numpy_path": {
+    "test": {
+      "r2": 0.38494149076032447,
+      "mae": 45.74423744389923,
+      "mape_percent": 108.32399385317008,
+      "max_abs_error": 205.20685233817045
+    },
+    "val": {
+      "r2": 0.44166097278569905,
+      "mae": 43.19327553365057,
+      "mape_percent": 91.61097641390353,
+      "max_abs_error": 287.9101577587785
+    }
+  },
+  "notes": "数据为 uniwear 实测力信号 + 公开文档工况回填（conditions_lookup.csv，每行带 source）；特征 feed_per_tooth_mm：NUAA 直接出处（MDPI Sensors 2023 Table 2），PHM2010 由 1555/(10400*3) 派生；phm2010 工件材料文献口径冲突（Inconel 718 vs stainless HRC52）已记录，编码 12 为 C3 材料表扩展位；评估切分口径见 data.split_mode（口径 B=split_group 为达标口径，I2 §4）；权重为标准化折叠后产物，服务端无需任何预处理；ONNX 工件因环境缺 onnx 包暂缓导出（onnxruntime 消费路径见 WP1 适配器）。",
+  "created_at": "2026-10-14T09:24:50.824561+00:00",
+  "artifacts": {
+    "npz": {
+      "path": "cutting_force_v2.npz",
+      "sha256": "8286892c563958d9c22388b8491fc04b1bc005dd68690e91edc203fe3df32b11"
+    },
+    "manifest": {
+      "path": "cutting_force_v2.manifest.json"
+    }
+  }
+}
