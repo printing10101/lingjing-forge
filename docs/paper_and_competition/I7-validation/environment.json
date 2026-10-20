@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-16",
+  "ports": {
+    "3000": {
+      "reachable": false,
+      "connect_code": 10035
+    },
+    "8088": {
+      "reachable": false,
+      "connect_code": 10035
+    },
+    "8765": {
+      "reachable": false,
+      "connect_code": 10035
+    },
+    "9080": {
+      "reachable": false,
+      "connect_code": 10035
+    },
+    "8080": {
+      "reachable": false,
+      "connect_code": 10035
+    }
+  },
+  "desktop_runtime": {
+    "version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "modules": {
+      "fastapi": false,
+      "ezdxf": false,
+      "cadquery": false
+    }
+  },
+  "runtime_probe_exit_code": 0,
+  "started_services": false,
+  "sent_nc": false
+}

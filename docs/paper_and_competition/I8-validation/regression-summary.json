@@ -1,0 +1,36 @@
+{
+  "python": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+  "exit_code": 0,
+  "counts": {
+    "tests": 388,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "targets": [
+    "engineering/python/tests/unit/test_competition_audit_regressions.py",
+    "engineering/python/tests/unit/test_competition_validation_contracts.py",
+    "engineering/python/tests/unit/test_competition_document_import.py",
+    "engineering/python/tests/unit/test_knowledge_graph.py",
+    "engineering/python/tests/unit/test_dnc_nc_gate.py",
+    "engineering/python/tests/unit/test_dnc_voxel_gate_closed_loop.py",
+    "engineering/python/tests/unit/test_dnc_manager.py",
+    "engineering/python/tests/unit/test_cam_voxel_pipeline.py",
+    "engineering/python/tests/test_cam_validation.py",
+    "engineering/python/tests/unit/test_evaluation_service.py",
+    "engineering/python/tests/unit/test_rag_index.py",
+    "engineering/python/tests/unit/test_rag_citations.py",
+    "engineering/python/tests/unit/test_rag_vector_store_recovery.py",
+    "engineering/python/tests/unit/test_drawing_feedback.py",
+    "engineering/python/app/pipelines/tests/test_feedback_loop.py",
+    "engineering/python/tests/api/test_dnc_api.py",
+    "engineering/python/tests/unit/test_agent_runtime_tools.py",
+    "engineering/python/tests/unit/test_agent_orchestrator_ai.py",
+    "engineering/python/tests/unit/test_mcp_cam_tools.py",
+    "engineering/python/tests/unit/test_mcp_dxf_tools.py",
+    "engineering/python/tests/unit/test_mcp_process_planning_tools.py",
+    "engineering/python/tests/unit/test_desktop_runtime_build.py",
+    "engineering/python/tests/unit/test_environment_check.py"
+  ],
+  "full_repository_suite": false
+}

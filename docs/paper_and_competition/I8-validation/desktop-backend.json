@@ -1,0 +1,36 @@
+{
+  "port": 55027,
+  "interpreter": "desktop_runtime/runtime/python.exe",
+  "checks": [
+    {
+      "path": "/api/health/ping",
+      "status": 200,
+      "response": {
+        "ping": true
+      }
+    },
+    {
+      "path": "/api/health",
+      "status": 200,
+      "response": {
+        "status": "ok",
+        "version": "2.7.0",
+        "timestamp": "2026-10-15T17:03:36.635471+00:00",
+        "dependencies": {
+          "database": "ok"
+        }
+      }
+    },
+    {
+      "path": "/openapi.json",
+      "status": 401,
+      "expected_status": 401
+    }
+  ],
+  "business_chain_validated": false,
+  "authenticated_routes_validated": false,
+  "premature_exit": null,
+  "http_ready": true,
+  "stopped_by_probe": true,
+  "final_exit_code": 1
+}

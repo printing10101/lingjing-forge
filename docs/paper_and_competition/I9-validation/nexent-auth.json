@@ -1,0 +1,51 @@
+{
+  "calls": [
+    {
+      "path": "/skills",
+      "status": 500
+    },
+    {
+      "path": "/user/signin",
+      "status": 200
+    },
+    {
+      "path": "/skills",
+      "status": 200,
+      "response_type": "dict",
+      "keys": [
+        "skills"
+      ],
+      "skills": []
+    },
+    {
+      "path": "/tool/list",
+      "status": 200,
+      "response_type": "list",
+      "keys": []
+    },
+    {
+      "path": "/agent/search_info",
+      "status": 200,
+      "keys": [],
+      "tools": [],
+      "skill_count": 0
+    }
+  ],
+  "login_response_keys": [
+    "message",
+    "data"
+  ],
+  "login_data_keys": [
+    "user",
+    "session"
+  ],
+  "session_keys": [
+    "expires_at",
+    "expires_in_seconds"
+  ],
+  "cookie_names": [
+    "nexent_access_token",
+    "nexent_refresh_token",
+    "nexent_token_expires_at"
+  ]
+}

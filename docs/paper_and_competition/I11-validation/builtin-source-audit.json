@@ -1,0 +1,15 @@
+{
+  "file": "engineering\\python\\app\\data\\cutting_parameters.json",
+  "sha256": "67e040b8b6aa9fe0d5f4c480b9f2f9bcc2895b8d8f6caee04c1f27e57a7455f5",
+  "entries": 609,
+  "sources": {
+    "repo_seed_v1": 12,
+    "handbook_common_range": 597
+  },
+  "feed_units": {
+    "mm/r": 312,
+    "mm/齿": 297
+  },
+  "old_online_snapshot_entries": 12,
+  "external_citation_verified": false
+}

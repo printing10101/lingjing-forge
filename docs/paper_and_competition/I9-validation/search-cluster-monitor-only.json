@@ -1,0 +1,74 @@
+{
+  "role": "monitoring_user",
+  "temporary_account_deleted": true,
+  "queries": [
+    {
+      "path": "/_cluster/health",
+      "status": 503,
+      "data": {
+        "error": {
+          "root_cause": [
+            {
+              "type": "unavailable_shards_exception",
+              "reason": "at least one search shard for the index [.security-7] is unavailable"
+            }
+          ],
+          "type": "unavailable_shards_exception",
+          "reason": "at least one search shard for the index [.security-7] is unavailable"
+        },
+        "status": 503
+      }
+    },
+    {
+      "path": "/_cluster/allocation/explain",
+      "status": 503,
+      "data": {
+        "error": {
+          "root_cause": [
+            {
+              "type": "unavailable_shards_exception",
+              "reason": "at least one search shard for the index [.security-7] is unavailable"
+            }
+          ],
+          "type": "unavailable_shards_exception",
+          "reason": "at least one search shard for the index [.security-7] is unavailable"
+        },
+        "status": 503
+      }
+    },
+    {
+      "path": "/_cat/shards?format=json",
+      "status": 503,
+      "data": {
+        "error": {
+          "root_cause": [
+            {
+              "type": "unavailable_shards_exception",
+              "reason": "at least one search shard for the index [.security-7] is unavailable"
+            }
+          ],
+          "type": "unavailable_shards_exception",
+          "reason": "at least one search shard for the index [.security-7] is unavailable"
+        },
+        "status": 503
+      }
+    },
+    {
+      "path": "/_nodes/stats/fs?filter_path=nodes.*.fs.total",
+      "status": 503,
+      "data": {
+        "error": {
+          "root_cause": [
+            {
+              "type": "unavailable_shards_exception",
+              "reason": "at least one search shard for the index [.security-7] is unavailable"
+            }
+          ],
+          "type": "unavailable_shards_exception",
+          "reason": "at least one search shard for the index [.security-7] is unavailable"
+        },
+        "status": 503
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "source_files_unchanged": true,
+  "cases": [
+    {
+      "name": "approval_confirmation",
+      "caught": true,
+      "exit_code": 1
+    },
+    {
+      "name": "https_source",
+      "caught": true,
+      "exit_code": 1
+    },
+    {
+      "name": "unsaved_parameter",
+      "caught": true,
+      "exit_code": 1
+    },
+    {
+      "name": "stale_revision",
+      "caught": true,
+      "exit_code": 1
+    },
+    {
+      "name": "double_submission",
+      "caught": true,
+      "exit_code": 1
+    },
+    {
+      "name": "engineer_identity",
+      "caught": true,
+      "exit_code": 1
+    }
+  ]
+}

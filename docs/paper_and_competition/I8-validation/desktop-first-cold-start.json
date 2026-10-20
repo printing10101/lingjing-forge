@@ -1,0 +1,8 @@
+{
+  "validation_error": "Command '['D:\\\\灵境制造\\\\engineering\\\\python\\\\desktop_runtime\\\\runtime\\\\python.exe', '-X', 'faulthandler', '-c', \"\\nimport importlib, json, sys\\nnames = ['fastapi', 'uvicorn', 'pydantic', 'ezdxf', 'cadquery', 'onnxruntime',\\n         'torch', 'sentence_transformers', 'chromadb']\\nmodules = {name: importlib.import_module(name) for name in names}\\nimport numpy as np\\nimport casadi\\nassert casadi.__version__ == '3.8.1'\\nassert sys.version_info[:2] == (3, 12)\\nvolume = modules['cadquery'].Workplane('XY').box(1, 2, 3).val().Volume()\\nassert abs(volume - 6.0) < 1e-8\\nassert modules['torch'].from_numpy(np.array([1.0, 2.0])).tolist() == [1.0, 2.0]\\nprint(json.dumps({'python': sys.version.split()[0], 'cad_volume': volume,\\n                  'imports': {name: str(getattr(mod, '__version__', 'unknown'))\\n                              for name, mod in modules.items()}}), flush=True)\\n\"]' timed out after 180 seconds",
+  "pip_check": {
+    "exit_code": 0,
+    "stdout": "No broken requirements found.\n",
+    "stderr": ""
+  }
+}

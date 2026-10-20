@@ -1,0 +1,151 @@
+{
+  "indices": [
+    "1-e4ef479196e84a3abfd828579d9e0951",
+    "3-57aa62095a814faea45a42cf2cc350cc",
+    "4-0e9cef201465425e92d39164d1a8a52d",
+    "2-fdff5ff05c674d1384ad8a1a25039490"
+  ],
+  "count": 4,
+  "indices_info": [
+    {
+      "knowledge_id": 1,
+      "name": "1-e4ef479196e84a3abfd828579d9e0951",
+      "display_name": "kb_lingjing_manual",
+      "permission": "CREATOR",
+      "group_ids": [
+        2
+      ],
+      "knowledge_sources": "elasticsearch",
+      "ingroup_permission": null,
+      "is_multimodal": false,
+      "tenant_id": "9d95221d-925e-4862-9e9e-816641312fe8",
+      "embedding_model_name": "Qwen3-Embedding 本地",
+      "embedding_model_id": 2,
+      "update_time": "2026-09-15T17:40:52Z",
+      "summary_frequency": null,
+      "last_summary_time": null,
+      "preserve_source_file": true,
+      "stats": {
+        "base_info": {
+          "doc_count": 1,
+          "chunk_count": 4,
+          "store_size": "100.01 KB",
+          "process_source": "Unstructured",
+          "embedding_model": "Qwen3-Embedding-0.6B",
+          "embedding_dim": 1024,
+          "creation_date": 1789493751149,
+          "update_date": 1789493751149
+        },
+        "search_performance": {
+          "total_search_count": 2,
+          "hit_count": 1
+        }
+      }
+    },
+    {
+      "knowledge_id": 3,
+      "name": "3-57aa62095a814faea45a42cf2cc350cc",
+      "display_name": "lingjing_acceptance_i10_synthetic",
+      "permission": "CREATOR",
+      "group_ids": [
+        2
+      ],
+      "knowledge_sources": "elasticsearch",
+      "ingroup_permission": "PRIVATE",
+      "is_multimodal": false,
+      "tenant_id": "9d95221d-925e-4862-9e9e-816641312fe8",
+      "embedding_model_name": "Qwen3-Embedding 本地",
+      "embedding_model_id": 2,
+      "update_time": "2026-10-16T09:21:20Z",
+      "summary_frequency": null,
+      "last_summary_time": null,
+      "preserve_source_file": true,
+      "stats": {
+        "base_info": {
+          "doc_count": 1,
+          "chunk_count": 1,
+          "store_size": "34.64 KB",
+          "process_source": "Unstructured",
+          "embedding_model": "Qwen3-Embedding-0.6B",
+          "embedding_dim": 1024,
+          "creation_date": 1792141946543,
+          "update_date": 1792141946543
+        },
+        "search_performance": {
+          "total_search_count": 2,
+          "hit_count": 1
+        }
+      }
+    },
+    {
+      "knowledge_id": 4,
+      "name": "4-0e9cef201465425e92d39164d1a8a52d",
+      "display_name": "lingjing_vendor_references_pending_review",
+      "permission": "CREATOR",
+      "group_ids": [
+        2
+      ],
+      "knowledge_sources": "elasticsearch",
+      "ingroup_permission": "PRIVATE",
+      "is_multimodal": false,
+      "tenant_id": "9d95221d-925e-4862-9e9e-816641312fe8",
+      "embedding_model_name": "Qwen3-Embedding 本地",
+      "embedding_model_id": 2,
+      "update_time": "2026-10-16T09:52:18Z",
+      "summary_frequency": null,
+      "last_summary_time": null,
+      "preserve_source_file": true,
+      "stats": {
+        "base_info": {
+          "doc_count": 1,
+          "chunk_count": 2,
+          "store_size": "59.40 KB",
+          "process_source": "Unstructured",
+          "embedding_model": "Qwen3-Embedding-0.6B",
+          "embedding_dim": 1024,
+          "creation_date": 1792144332235,
+          "update_date": 1792144332235
+        },
+        "search_performance": {
+          "total_search_count": 2,
+          "hit_count": 1
+        }
+      }
+    },
+    {
+      "knowledge_id": 2,
+      "name": "2-fdff5ff05c674d1384ad8a1a25039490",
+      "display_name": "lingjing_machining_kb",
+      "permission": "CREATOR",
+      "group_ids": [
+        2
+      ],
+      "knowledge_sources": "elasticsearch",
+      "ingroup_permission": null,
+      "is_multimodal": false,
+      "tenant_id": "9d95221d-925e-4862-9e9e-816641312fe8",
+      "embedding_model_name": "Qwen3-Embedding 本地",
+      "embedding_model_id": 2,
+      "update_time": "2026-10-20T05:42:23Z",
+      "summary_frequency": null,
+      "last_summary_time": null,
+      "preserve_source_file": true,
+      "stats": {
+        "base_info": {
+          "doc_count": 3,
+          "chunk_count": 24,
+          "store_size": "899.69 KB",
+          "process_source": "Unstructured",
+          "embedding_model": "Qwen3-Embedding-0.6B",
+          "embedding_dim": 1024,
+          "creation_date": 1790609223109,
+          "update_date": 1790609223109
+        },
+        "search_performance": {
+          "total_search_count": 3,
+          "hit_count": 1
+        }
+      }
+    }
+  ]
+}

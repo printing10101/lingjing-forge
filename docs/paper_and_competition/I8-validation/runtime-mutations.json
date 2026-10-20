@@ -1,0 +1,32 @@
+[
+  {
+    "name": "native_exit",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "nan_geometry",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "source_overlap",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "stale_manifest",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "copy_ignore",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "clear_boundary",
+    "exit_code": 1,
+    "caught": true
+  }
+]

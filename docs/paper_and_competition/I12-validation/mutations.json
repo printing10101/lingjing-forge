@@ -1,0 +1,37 @@
+[
+  {
+    "name": "center_inherits_hole",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "parameter_material",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "grade_alias",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "midpoint",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "family_verified",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "oversize_drill",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "candidate_score",
+    "exit_code": 1,
+    "caught": true
+  }
+]

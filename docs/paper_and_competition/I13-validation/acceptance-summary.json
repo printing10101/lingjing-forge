@@ -1,0 +1,19 @@
+{
+  "broad_tests": 264,
+  "focused_recheck_tests": 60,
+  "failures": 0,
+  "new_module_coverage_percent": 100.0,
+  "mutants_caught": 7,
+  "api_docs_missing": 0,
+  "live": {
+    "desktop_health": true,
+    "unauthenticated_review_status": 401,
+    "formal_recommendation_status": "knowledge_empty",
+    "production_knowledge_file_absent": true,
+    "production_approval_performed": false,
+    "machine_operations_performed": false
+  },
+  "real_candidate_approvals": 0,
+  "approval_ui_accepted": false,
+  "nexent_full_workflow_retested": false
+}

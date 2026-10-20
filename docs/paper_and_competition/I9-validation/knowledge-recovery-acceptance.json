@@ -1,0 +1,219 @@
+{
+  "health": {
+    "cluster_name": "docker-cluster",
+    "status": "green",
+    "timed_out": false,
+    "number_of_nodes": 1,
+    "number_of_data_nodes": 1,
+    "active_primary_shards": 9,
+    "active_shards": 9,
+    "relocating_shards": 0,
+    "initializing_shards": 0,
+    "unassigned_shards": 0,
+    "unassigned_primary_shards": 0,
+    "delayed_unassigned_shards": 0,
+    "number_of_pending_tasks": 0,
+    "number_of_in_flight_fetch": 0,
+    "task_max_waiting_in_queue_millis": 0,
+    "active_shards_percent_as_number": 100.0
+  },
+  "original_indices": 8,
+  "original_index_counts_match": true,
+  "original_directory_unchanged": true,
+  "knowledge_api": [
+    {
+      "path": "/indices",
+      "status": 200,
+      "body": {
+        "indices": [
+          "1-e4ef479196e84a3abfd828579d9e0951",
+          "2-fdff5ff05c674d1384ad8a1a25039490",
+          "3-57aa62095a814faea45a42cf2cc350cc"
+        ],
+        "count": 3,
+        "indices_info": [
+          {
+            "knowledge_id": 1,
+            "name": "1-e4ef479196e84a3abfd828579d9e0951",
+            "display_name": "kb_lingjing_manual",
+            "permission": "CREATOR",
+            "group_ids": [
+              2
+            ],
+            "knowledge_sources": "elasticsearch",
+            "ingroup_permission": null,
+            "is_multimodal": false,
+            "tenant_id": "9d95221d-925e-4862-9e9e-816641312fe8",
+            "embedding_model_name": "Qwen3-Embedding 本地",
+            "embedding_model_id": 2,
+            "update_time": "2026-09-15T17:40:52Z",
+            "summary_frequency": null,
+            "last_summary_time": null,
+            "preserve_source_file": true,
+            "stats": {
+              "base_info": {
+                "doc_count": 1,
+                "chunk_count": 4,
+                "store_size": "100.01 KB",
+                "process_source": "Unstructured",
+                "embedding_model": "Qwen3-Embedding-0.6B",
+                "embedding_dim": 1024,
+                "creation_date": 1789493751149,
+                "update_date": 1789493751149
+              },
+              "search_performance": {
+                "total_search_count": 1,
+                "hit_count": 0
+              }
+            }
+          },
+          {
+            "knowledge_id": 2,
+            "name": "2-fdff5ff05c674d1384ad8a1a25039490",
+            "display_name": "lingjing_machining_kb",
+            "permission": "CREATOR",
+            "group_ids": [
+              2
+            ],
+            "knowledge_sources": "elasticsearch",
+            "ingroup_permission": null,
+            "is_multimodal": false,
+            "tenant_id": "9d95221d-925e-4862-9e9e-816641312fe8",
+            "embedding_model_name": "Qwen3-Embedding 本地",
+            "embedding_model_id": 2,
+            "update_time": "2026-09-28T15:28:59Z",
+            "summary_frequency": null,
+            "last_summary_time": null,
+            "preserve_source_file": true,
+            "stats": {
+              "base_info": {
+                "doc_count": 2,
+                "chunk_count": 21,
+                "store_size": "506.77 KB",
+                "process_source": "Unstructured",
+                "embedding_model": "Qwen3-Embedding-0.6B",
+                "embedding_dim": 1024,
+                "creation_date": 1790609223109,
+                "update_date": 1790609223109
+              },
+              "search_performance": {
+                "total_search_count": 1,
+                "hit_count": 0
+              }
+            }
+          },
+          {
+            "knowledge_id": 3,
+            "name": "3-57aa62095a814faea45a42cf2cc350cc",
+            "display_name": "lingjing_acceptance_i10_synthetic",
+            "permission": "CREATOR",
+            "group_ids": [
+              2
+            ],
+            "knowledge_sources": "elasticsearch",
+            "ingroup_permission": "PRIVATE",
+            "is_multimodal": false,
+            "tenant_id": "9d95221d-925e-4862-9e9e-816641312fe8",
+            "embedding_model_name": "Qwen3-Embedding 本地",
+            "embedding_model_id": 2,
+            "update_time": "2026-10-16T09:12:26Z",
+            "summary_frequency": null,
+            "last_summary_time": null,
+            "preserve_source_file": true,
+            "stats": {
+              "base_info": {
+                "doc_count": 0,
+                "chunk_count": 0,
+                "store_size": "249.00 B",
+                "process_source": "",
+                "embedding_model": "",
+                "embedding_dim": 1024,
+                "creation_date": 1792141946543,
+                "update_date": 1792141946543
+              },
+              "search_performance": {
+                "total_search_count": 5,
+                "hit_count": 3
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "/indices/1-e4ef479196e84a3abfd828579d9e0951/files",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20260915173940_2c1d37e7497e441a9e90ea9dbfc68be8.md",
+            "file": "20260915173940_2c1d37e7497e441a9e90ea9dbfc68be8.md",
+            "file_size": 4848,
+            "create_time": 1789493984201,
+            "status": "COMPLETED",
+            "latest_task_id": "dbac0881-cfde-4313-8e3d-81b213d2eaf4",
+            "chunk_count": 4,
+            "error_reason": null,
+            "has_error_info": false,
+            "processed_chunk_num": 4,
+            "total_chunk_num": 4,
+            "file_id": "48759892eac6412b9c358753856850e1",
+            "error_code": null,
+            "error_stage": "COMPLETED",
+            "failed_at": null,
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "path": "/indices/2-fdff5ff05c674d1384ad8a1a25039490/files",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "knowledge_base/20260928152847_33818f1b02614633ab4469c320f37522.md",
+            "file": "cutting_manual_2026-09_1.md",
+            "file_size": 20234,
+            "create_time": 1790609327929,
+            "status": "COMPLETED",
+            "latest_task_id": "47823208-4d05-4f40-aa5e-091a232cda85",
+            "chunk_count": 19,
+            "error_reason": null,
+            "has_error_info": false,
+            "processed_chunk_num": 19,
+            "total_chunk_num": 19,
+            "file_id": "3e7dca6f89a7437f9c66c954c7f04c41",
+            "error_code": null,
+            "error_stage": "COMPLETED",
+            "failed_at": null,
+            "chunks": [],
+            "source_available": true
+          },
+          {
+            "path_or_url": "knowledge_base/20260928152847_c435b5624239459795ea145bc961f3cc.md",
+            "file": "failure_cases_2026-09_1.md",
+            "file_size": 3020,
+            "create_time": 1790609327941,
+            "status": "COMPLETED",
+            "latest_task_id": "b9c36691-2846-474a-bf63-cc37221db998",
+            "chunk_count": 2,
+            "error_reason": null,
+            "has_error_info": false,
+            "processed_chunk_num": 2,
+            "total_chunk_num": 2,
+            "file_id": "39e0041c81234dd88f286f9d3b04b883",
+            "error_code": null,
+            "error_stage": "COMPLETED",
+            "failed_at": null,
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    }
+  ]
+}

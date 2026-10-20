@@ -1,0 +1,22 @@
+[
+  {
+    "command": [
+      "docker",
+      "ps",
+      "--format"
+    ],
+    "exit": 0,
+    "stdout": "nexent-runtime Up 1 second\nnexent-data-process Up 1 second\nnexent-config Up 1 second\nnexent-mcp Up 1 second\nnexent-northbound Up 1 second\nnexent-web Up 1 second\nsupabase-auth-mini Up Less than a second (health: starting)\nsupabase-kong-mini Up 1 second (health: starting)\nsupabase-db-mini Up 1 second (health: starting)\nnexent-minio Up 1 second\nnexent-postgresql Up 1 second\nnexent-redis Up 1 second (health: starting)\nnexent-elasticsearch Up 1 second (health: starting)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "wsl",
+      "-d",
+      "docker-desktop"
+    ],
+    "exit": 0,
+    "stdout": "MemTotal:        6068840 kB\nMemFree:         3422072 kB\nMemAvailable:    5130032 kB\ndefault via 172.22.0.1 dev eth0 \n172.22.0.0/20 dev eth0 scope link  src 172.22.7.36 \n[   12.062448] br-9cdfab9c4c36: port 9(veth4f0caec) entered blocking state\n[   12.139581] br-9cdfab9c4c36: port 9(veth4f0caec) entered forwarding state\n[   12.985806] veth152551d: renamed from eth0\n[   13.025492] br-9cdfab9c4c36: port 9(veth4f0caec) entered disabled state\n[   13.202082] br-9cdfab9c4c36: port 9(veth4f0caec) entered disabled state\n[   13.283375] veth4f0caec (unregistering): left allmulticast mode\n[   13.358517] veth4f0caec (unregistering): left promiscuous mode\n[   13.437826] br-9cdfab9c4c36: port 9(veth4f0caec) entered disabled state\n[   14.324190] br-9cdfab9c4c36: port 9(veth1d61535) entered blocking state\n[   14.389310] br-9cdfab9c4c36: port 9(veth1d61535) entered disabled state\n[   14.392312] veth1d61535: entered allmulticast mode\n[   14.393161] veth1d61535: entered promiscuous mode\n[   14.502972] eth0: renamed from veth7f1f93c\n[   14.516242] br-9cdfab9c4c36: port 9(veth1d61535) entered blocking state\n[   14.519844] br-9cdfab9c4c36: port 9(veth1d61535) entered forwarding state\n",
+    "stderr": ""
+  }
+]

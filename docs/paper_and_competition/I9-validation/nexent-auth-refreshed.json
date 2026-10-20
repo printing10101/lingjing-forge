@@ -1,0 +1,31 @@
+{
+  "skills": {
+    "status": 200,
+    "names": [
+      "manufacturing-failure-review",
+      "manufacturing-evidence-review",
+      "hole-process-draft"
+    ]
+  },
+  "agent": {
+    "status": 200,
+    "name": "process_advisor",
+    "skills": [
+      {
+        "id": 1,
+        "enabled": true
+      },
+      {
+        "id": 2,
+        "enabled": true
+      },
+      {
+        "id": 3,
+        "enabled": true
+      }
+    ]
+  },
+  "tools": {
+    "status": 200
+  }
+}

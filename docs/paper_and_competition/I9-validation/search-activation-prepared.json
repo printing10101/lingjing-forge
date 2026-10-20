@@ -1,0 +1,49 @@
+{
+  "lab_health": "green",
+  "indices_verified": 8,
+  "document_counts_match_offline_check": true,
+  "original_files_unchanged": true,
+  "activation_directory": "D:\\nexent-deploy\\nexent-files\\elasticsearch-recovered-i9",
+  "index_document_counts": [
+    {
+      "index": ".security-7",
+      "uuid": "uzcFaqFNSpCGV3lkZz7xfw",
+      "documents": 1
+    },
+    {
+      "index": ".ds-.logs-deprecation.elasticsearch-default-2026.09.13-000001",
+      "uuid": "SYOQ-IWxSyCpP5DJE5cozA",
+      "documents": 1
+    },
+    {
+      "index": "mem_qwen3-embedding-0.6b_1024",
+      "uuid": "4xk-eX1sSNCJ8X_Bf_zZ_Q",
+      "documents": 4
+    },
+    {
+      "index": ".ds-.logs-deprecation.elasticsearch-default-2026.10.15-000002",
+      "uuid": "ph8IorAlThecpSaz0_gGzQ",
+      "documents": 0
+    },
+    {
+      "index": "1-e4ef479196e84a3abfd828579d9e0951",
+      "uuid": "Nu4IGGEmSdaoPblip4illA",
+      "documents": 4
+    },
+    {
+      "index": "2-fdff5ff05c674d1384ad8a1a25039490",
+      "uuid": "pZjbI4k-SKak_0JSL40-Ig",
+      "documents": 21
+    },
+    {
+      "index": ".ds-ilm-history-7-2026.09.28-000002",
+      "uuid": "b8KFRs8WTp2Sdksjux_sFw",
+      "documents": 0
+    },
+    {
+      "index": ".ds-ilm-history-7-2026.09.13-000001",
+      "uuid": "l4ZfNJ-ESM-92eUFkdAP4A",
+      "documents": 3
+    }
+  ]
+}

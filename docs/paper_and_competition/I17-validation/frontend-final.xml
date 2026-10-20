@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="65" failures="0" errors="0" time="82.215">
+    <testsuite name="src/api/__tests__/processKnowledge.test.ts" timestamp="2026-10-17T14:59:50.086Z" hostname="LAPTOP-SK94FEV8" tests="1" failures="0" errors="0" skipped="0" time="0.0021574">
+        <testcase classname="src/api/__tests__/processKnowledge.test.ts" name="process knowledge API &gt; uses actual RAG routes and their unwrapped envelopes" time="0.0019414">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/composables/__tests__/useProcessReview.test.ts" timestamp="2026-10-17T14:59:50.138Z" hostname="LAPTOP-SK94FEV8" tests="10" failures="0" errors="0" skipped="0" time="0.0513559">
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; loads, saves locally confirmed versions, and creates pending records" time="0.0062421">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; blocks double submissions and reloads while a save is pending" time="0.0045083">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; fails honestly on HTTP 401" time="0.0061269">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; fails honestly on HTTP 403" time="0.0122027">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; fails honestly on HTTP 409" time="0.0012564">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; fails honestly on HTTP 503" time="0.0047319">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; fails honestly on HTTP 500" time="0.0007979">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; does not submit without a selected record or while loading" time="0.0007241">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; ignores older loads and clears obsolete data when refresh fails" time="0.0087205">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; ignores an obsolete request failure" time="0.005061">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/utils/__tests__/processApplicabilityForm.test.ts" timestamp="2026-10-17T14:59:50.200Z" hostname="LAPTOP-SK94FEV8" tests="24" failures="0" errors="0" skipped="0" time="0.0651314">
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; does not crash on incomplete legacy limits undefined" time="0.0017748">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; does not crash on incomplete legacy limits null" time="0.0004955">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; does not crash on incomplete legacy limits {}" time="0.0066402">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; does not crash on incomplete legacy limits {&quot;coolants&quot;:null}" time="0.0027013">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; does not crash on incomplete legacy limits {&quot;coolants&quot;:[],&quot;workholdings&quot;:[],&quot;hardness_min_hrc&quot;:null}" time="0.0080596">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; retains partial draft without inventing bounds or modes" time="0.0014158">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; preserves inclusive and exclusive hardness boundaries and reloads evidence" time="0.0022908">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects invalid range {&quot;hardnessMin&quot;:&quot;-1&quot;}" time="0.003038">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects invalid range {&quot;hardnessMax&quot;:&quot;101&quot;}" time="0.0038186">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects invalid range {&quot;hardnessMin&quot;:&quot;25&quot;}" time="0.0058809">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects invalid range {&quot;diameterMin&quot;:&quot;9&quot;}" time="0.0005162">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects invalid range {&quot;diameterMax&quot;:&quot;0&quot;}" time="0.0003437">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects invalid range {&quot;depthRatio&quot;:&quot;Infinity&quot;}" time="0.000236">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects invalid range {&quot;depthRatio&quot;:&quot;NaN&quot;}" time="0.0003631">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects invalid range {&quot;depthRatio&quot;:&quot;-1&quot;}" time="0.0057397">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects invalid range {&quot;coolants&quot;:[&quot;unknown&quot;]}" time="0.0006839">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects invalid range {&quot;workholdings&quot;:[&quot;unknown&quot;]}" time="0.0003829">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects invalid range {&quot;hardnessMaxInclusive&quot;:&quot;wrong&quot;}" time="0.0002289">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; requires explicit mode and boundary {&quot;coolants&quot;:[]}" time="0.0040254">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; requires explicit mode and boundary {&quot;workholdings&quot;:[]}" time="0.0005894">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; requires explicit mode and boundary {&quot;hardnessMaxInclusive&quot;:&quot;&quot;}" time="0.000415">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; rejects an empty exclusive hardness interval" time="0.0006383">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; displays exact boundary semantics and readable modes" time="0.0058727">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processApplicabilityForm.test.ts" name="drilling applicability form &gt; does not silently approve a legacy form without bounds" time="0.0057861">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/utils/__tests__/processReviewForm.test.ts" timestamp="2026-10-17T14:59:50.560Z" hostname="LAPTOP-SK94FEV8" tests="22" failures="0" errors="0" skipped="0" time="0.039109">
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; starts with no implied approval and preserves submitted context separately" time="0.0038948">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects invalid parameter " time="0.0073404">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects invalid parameter 0" time="0.0006193">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects invalid parameter -1" time="0.0035403">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects invalid parameter NaN" time="0.0005395">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects invalid parameter Infinity" time="0.0003859">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects duplicate names, empty fields and invalid pending pages" time="0.0039427">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;note&quot;:&quot;&quot;}" time="0.0008654">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;resolvedConfirmed&quot;:false}" time="0.0014461">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;approvalConfirmed&quot;:false}" time="0.0004243">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;unresolved&quot;:&quot;unknown grade&quot;}" time="0.0003948">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;sourceUrl&quot;:&quot;not-a-url&quot;}" time="0.000439">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;sourceUrl&quot;:&quot;http://example.org&quot;}" time="0.0005311">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;sourceUrl&quot;:&quot;https://user:secret@example.org&quot;}" time="0.000493">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;documentHash&quot;:&quot;wrong&quot;}" time="0.0005342">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;page&quot;:&quot;0&quot;}" time="0.0003861">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;page&quot;:&quot;2.1&quot;}" time="0.0018446">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;applicability&quot;:&quot;&quot;}" time="0.0007024">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;verificationMethod&quot;:&quot;&quot;}" time="0.0004823">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; requires exact units and a specific material" time="0.0053468">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; constructs approval evidence for the current record, without self-reported actor" time="0.0008431">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; never approves a displayed but unsaved value or changed material" time="0.0027328">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/views/__tests__/ProcessKnowledgeReview.test.ts" timestamp="2026-10-17T14:59:50.699Z" hostname="LAPTOP-SK94FEV8" tests="8" failures="0" errors="0" skipped="0" time="4.8307573">
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; shows boundary semantics, modes and ranges in current evidence and history" time="1.4459033">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; does not read or mutate review records for operator" time="0.1403346">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; does not read or mutate review records for guest" time="0.1078055">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; shows empty and filtered states and saves new candidates with pending provenance" time="1.2004199">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; blocks incomplete approval, submits confirmed evidence and shows history" time="1.3095474">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; revises parameters without retaining approval and can add/remove parameter rows" time="0.3565309">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; requires refresh after conflict and keeps the displayed version unchanged on failure" time="0.1045307">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; renders source evidence and excludes unsafe source links" time="0.1565096">
+        </testcase>
+    </testsuite>
+</testsuites>

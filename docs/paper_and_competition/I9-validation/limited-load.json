@@ -1,0 +1,15 @@
+[
+  {
+    "url": "http://127.0.0.1:3000",
+    "status": 307
+  },
+  {
+    "url": "http://127.0.0.1:5010/health",
+    "status": 404
+  },
+  {
+    "docker_exit": 0,
+    "containers": "nexent-runtime Up About a minute\nnexent-config Up About a minute\nnexent-mcp Up About a minute\nnexent-northbound Up About a minute\nnexent-web Up About a minute\nsupabase-auth-mini Up About a minute (healthy)\nsupabase-kong-mini Up About a minute (healthy)\nsupabase-db-mini Up About a minute (healthy)\nnexent-minio Up About a minute\nnexent-postgresql Up About a minute\nnexent-redis Up About a minute (healthy)\nnexent-elasticsearch Up About a minute (health: starting)\n",
+    "error": ""
+  }
+]

@@ -1,0 +1,6 @@
+[run]
+include = */scripts/nexent_client.py
+
+[report]
+show_missing = True
+fail_under = 80

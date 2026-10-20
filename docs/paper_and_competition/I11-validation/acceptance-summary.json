@@ -1,0 +1,13 @@
+{
+  "tests_passed": 192,
+  "candidate_module_coverage_percent": 100,
+  "vendor_reference_chunks": 2,
+  "vendor_source_traceable": true,
+  "review_status": "unreviewed",
+  "mcp_contracts_passed": 6,
+  "formal_knowledge_file_absent": true,
+  "known_open_defects": [
+    "material_parameter_id_link",
+    "tool_family_diameter_and_material_matching"
+  ]
+}

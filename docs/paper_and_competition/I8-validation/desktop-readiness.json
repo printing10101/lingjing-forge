@@ -1,0 +1,38 @@
+{
+  "validation": {
+    "python": "3.12.14",
+    "cad_volume": 6.0,
+    "import_duration_seconds": {
+      "fastapi": 3.824,
+      "uvicorn": 0.654,
+      "pydantic": 0.0,
+      "ezdxf": 3.634,
+      "cadquery": 2.893,
+      "onnxruntime": 0.1,
+      "torch": 13.276,
+      "sentence_transformers": 51.518,
+      "chromadb": 13.997
+    },
+    "native_versions": {
+      "casadi": "3.8.1",
+      "numpy": "2.2.6"
+    },
+    "imports": {
+      "fastapi": "0.115.9",
+      "uvicorn": "0.32.0",
+      "pydantic": "2.9.2",
+      "ezdxf": "1.3.5",
+      "cadquery": "2.5.2",
+      "onnxruntime": "1.20.1",
+      "torch": "2.7.1+cpu",
+      "sentence_transformers": "3.3.1",
+      "chromadb": "1.0.0"
+    }
+  },
+  "native_exit_code": 0,
+  "pip_check": {
+    "exit_code": 0,
+    "stdout": "No broken requirements found.\n",
+    "stderr": ""
+  }
+}

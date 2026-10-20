@@ -1,0 +1,18 @@
+{
+  "inputs": {
+    "feature": "hole",
+    "material": "dormer_amg_1_3",
+    "top_k": 3,
+    "conditions": {
+      "tool": "dormer_r10a_hss",
+      "hardness_hrc": 20.0,
+      "diameter_mm": 7.9375,
+      "depth_mm": 20.0,
+      "coolant": "flood",
+      "workholding": "vise"
+    }
+  },
+  "http_status": 200,
+  "elapsed_seconds": 2.916,
+  "raw": "\"{\\n  \\\"type\\\": \\\"text\\\",\\n  \\\"text\\\": \\\"{\\\\n  \\\\\\\"code\\\\\\\": 0,\\\\n  \\\\\\\"message\\\\\\\": \\\\\\\"Success\\\\\\\",\\\\n  \\\\\\\"data\\\\\\\": {\\\\n    \\\\\\\"feature\\\\\\\": \\\\\\\"hole\\\\\\\",\\\\n    \\\\\\\"material\\\\\\\": \\\\\\\"dormer_amg_1_3\\\\\\\",\\\\n    \\\\\\\"recommendations\\\\\\\": [],\\\\n    \\\\\\\"recommendation_status\\\\\\\": \\\\\\\"knowledge_requires_review\\\\\\\",\\\\n    \\\\\\\"applicability_checks\\\\\\\": [],\\\\n    \\\\\\\"physical_validation_required\\\\\\\": true,\\\\n    \\\\\\\"hint\\\\\\\": \\\\\\\"已有工艺记录，但尚无有效批准。建议操作：核对来源与结构化适用范围；旧批准缺少范围或证据摘要时需重新修订审核。\\\\\\\"\\\\n  },\\\\n  \\\\\\\"request_id\\\\\\\": \\\\\\\"3d95fa5b33c4492fab42364f74dc730f\\\\\\\"\\\\n}\\\"\\n}\""
+}

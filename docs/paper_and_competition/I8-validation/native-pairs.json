@@ -1,0 +1,44 @@
+[
+  {
+    "case": "casadi",
+    "exit_code": 0,
+    "stdout": "before_exit",
+    "stderr_tail": ""
+  },
+  {
+    "case": "nlopt",
+    "exit_code": 0,
+    "stdout": "before_exit",
+    "stderr_tail": ""
+  },
+  {
+    "case": "ocp_casadi",
+    "exit_code": 0,
+    "stdout": "before_exit",
+    "stderr_tail": ""
+  },
+  {
+    "case": "casadi_ocp",
+    "exit_code": 0,
+    "stdout": "before_exit",
+    "stderr_tail": ""
+  },
+  {
+    "case": "vtk_casadi",
+    "exit_code": 0,
+    "stdout": "before_exit",
+    "stderr_tail": ""
+  },
+  {
+    "case": "ocp_vtk",
+    "exit_code": 0,
+    "stdout": "before_exit",
+    "stderr_tail": ""
+  },
+  {
+    "case": "ocp_nlopt",
+    "exit_code": 0,
+    "stdout": "before_exit",
+    "stderr_tail": ""
+  }
+]

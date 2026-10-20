@@ -1,0 +1,17 @@
+{
+  "backend_health_status": 200,
+  "new_file_completed_and_traceable": true,
+  "new_file_chunks": 1,
+  "embedding_dimension": 1024,
+  "two_queries_with_sources": true,
+  "mcp_contracts_passed": 6,
+  "process_recommendation_status": "knowledge_empty",
+  "es_status": "green",
+  "active_primary_shards": 9,
+  "original_eight_index_counts_unchanged": true,
+  "original_data_hashes_unchanged": true,
+  "docker_memory_bytes": 8328429568,
+  "process_knowledge_records": 0,
+  "regression_tests_passed": 78,
+  "deployment_test_data_absent": true
+}

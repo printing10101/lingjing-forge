@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-16",
+  "tests": 71,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "exit_code": 0,
+  "evidence": "final-focused.xml",
+  "scope": "focused regression; not full repository or machine acceptance"
+}

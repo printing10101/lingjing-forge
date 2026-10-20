@@ -1,0 +1,36 @@
+{
+  "record_id": "2e2b589650885fee4bd415674b81b228ca3bc8a963c41e6e51474eb55de972f8",
+  "revision": 1,
+  "evidence": {
+    "source_url": "https://api.dormerpramet.com/medias/dormerpramet-ptd-nas-drills.pdf?attachment=true&context=bWFzdGVyfHJvb3R8NjY5NTk3MHxhcHBsaWNhdGlvbi9wZGZ8YUdaaEwyaG1ZeTg0T0RNeU56azFNVFE0TXpFNEwyUnZjbTFsY25CeVlXMWxkRjl3ZEdSZmJtRnpYMlJ5YVd4c2N5NXdaR1l8YzU0NzRiMTIzNTVjNjk3NTE3OWQ2ZjY4Mzc0YTc5ZTY2ZDEyZDk2YWRiNzdlNjBkM2YyMDQ1MzQwYzU2MmZkNQ",
+    "document_sha256": "c749bdee685f53038b94b5b116d004155623af651e1068f1e41041bb4b867fe7",
+    "page": 4,
+    "material": "dormer_amg_1_3",
+    "tool": "dormer_r10a_hss",
+    "parameter_units": {
+      "feed_per_revolution_mm": "mm/rev",
+      "feed_min_mm_per_rev": "mm/rev",
+      "feed_max_mm_per_rev": "mm/rev"
+    },
+    "applicability": "仅适用于 Dormer AMG 1.3 普通碳钢（<24 HRC）、R10A HSS 5/16 inch（7.9375 mm）、深径比 ≤4、浇注冷却、台钳装夹的钻孔起始进给；不等同于 45# 或其他牌号；现场牌号/热处理/刀具/孔径/孔深/冷却/装夹仍需确认，且必须完成物理校验。",
+    "verification_method": "人工核对 Dormer NAS 钻头手册第4页进给表（5/16 inch 列，Alpha G，IPR ±25%）与第5页 AMG 1.3 R10A 单元（89G）；进给换算为 mm/rev；89G 的数字部分仅表示目录中的速度代码，本记录不采用其速度数值。未做实机加工，不是现场验证。",
+    "unresolved": [],
+    "constraints": {
+      "schema_version": 1,
+      "hardness_min_hrc": 0.0,
+      "hardness_max_hrc": 24.0,
+      "hardness_max_inclusive": false,
+      "diameter_min_mm": 7.9375,
+      "diameter_max_mm": 7.9375,
+      "max_depth_to_diameter": 4.0,
+      "coolants": [
+        "flood"
+      ],
+      "workholdings": [
+        "vise"
+      ]
+    },
+    "note": "拟议批准范围，尚未写入；需真实审核人确认。"
+  },
+  "validated": true
+}

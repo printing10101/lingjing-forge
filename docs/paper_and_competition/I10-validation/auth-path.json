@@ -1,0 +1,15 @@
+[
+  {
+    "path": "http://auth:9999/health",
+    "status": 200
+  },
+  {
+    "path": "http://nexent-supabase-kong:8000/auth/v1/health",
+    "status": 200
+  },
+  {
+    "path": "kong password login",
+    "status": 200,
+    "session_returned": true
+  }
+]

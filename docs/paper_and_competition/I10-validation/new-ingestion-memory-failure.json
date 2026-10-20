@@ -1,0 +1,1005 @@
+{
+  "synthetic_fixture": true,
+  "bound_to_business_agent": false,
+  "calls": [
+    {
+      "stage": "list",
+      "status": 200,
+      "body": {
+        "indices": [
+          "1-e4ef479196e84a3abfd828579d9e0951",
+          "2-fdff5ff05c674d1384ad8a1a25039490"
+        ],
+        "count": 2,
+        "indices_info": [
+          {
+            "knowledge_id": 1,
+            "name": "1-e4ef479196e84a3abfd828579d9e0951",
+            "display_name": "kb_lingjing_manual",
+            "permission": "CREATOR",
+            "group_ids": [
+              2
+            ],
+            "knowledge_sources": "elasticsearch",
+            "ingroup_permission": null,
+            "is_multimodal": false,
+            "tenant_id": "9d95221d-925e-4862-9e9e-816641312fe8",
+            "embedding_model_name": "Qwen3-Embedding 本地",
+            "embedding_model_id": 2,
+            "update_time": "2026-09-15T17:40:52Z",
+            "summary_frequency": null,
+            "last_summary_time": null,
+            "preserve_source_file": true,
+            "stats": {
+              "base_info": {
+                "doc_count": 1,
+                "chunk_count": 4,
+                "store_size": "100.01 KB",
+                "process_source": "Unstructured",
+                "embedding_model": "Qwen3-Embedding-0.6B",
+                "embedding_dim": 1024,
+                "creation_date": 1789493751149,
+                "update_date": 1789493751149
+              },
+              "search_performance": {
+                "total_search_count": 4,
+                "hit_count": 0
+              }
+            }
+          },
+          {
+            "knowledge_id": 2,
+            "name": "2-fdff5ff05c674d1384ad8a1a25039490",
+            "display_name": "lingjing_machining_kb",
+            "permission": "CREATOR",
+            "group_ids": [
+              2
+            ],
+            "knowledge_sources": "elasticsearch",
+            "ingroup_permission": null,
+            "is_multimodal": false,
+            "tenant_id": "9d95221d-925e-4862-9e9e-816641312fe8",
+            "embedding_model_name": "Qwen3-Embedding 本地",
+            "embedding_model_id": 2,
+            "update_time": "2026-09-28T15:28:59Z",
+            "summary_frequency": null,
+            "last_summary_time": null,
+            "preserve_source_file": true,
+            "stats": {
+              "base_info": {
+                "doc_count": 2,
+                "chunk_count": 21,
+                "store_size": "506.77 KB",
+                "process_source": "Unstructured",
+                "embedding_model": "Qwen3-Embedding-0.6B",
+                "embedding_dim": 1024,
+                "creation_date": 1790609223109,
+                "update_date": 1790609223109
+              },
+              "search_performance": {
+                "total_search_count": 4,
+                "hit_count": 0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "stage": "create_acceptance_kb",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "message": "Index 3-57aa62095a814faea45a42cf2cc350cc created successfully",
+        "id": "3-57aa62095a814faea45a42cf2cc350cc",
+        "embedding_model_name": "Qwen3-Embedding 本地",
+        "model_type": "embedding",
+        "knowledge_id": 3,
+        "name": "lingjing_acceptance_i10_synthetic"
+      }
+    },
+    {
+      "stage": "files_before",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": []
+      }
+    },
+    {
+      "stage": "upload",
+      "status": 200,
+      "body": {
+        "message": "Files uploaded successfully to minio, ready for processing.",
+        "uploaded_filenames": [
+          "lingjing_i10_ingestion_fixture_1.md"
+        ],
+        "uploaded_file_paths": [
+          "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md"
+        ],
+        "errors": [],
+        "file_records": [
+          {
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "object_name": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "original_filename": "lingjing_i10_ingestion_fixture_1.md",
+            "file_size": 224,
+            "status": "UPLOADED",
+            "stage": "UPLOAD",
+            "uploaded_at": "2026-10-16T09:12:30.630102Z",
+            "error_code": null,
+            "error_message": null,
+            "error_stage": null,
+            "failed_at": null
+          }
+        ],
+        "quota_status": {
+          "warning_enabled": true,
+          "tenant_level": {
+            "usage_pct": null,
+            "warning_level": "normal",
+            "hard_limit_bytes": null,
+            "hard_limit_readable": null,
+            "total_bytes": 649895,
+            "total_readable": "634.7 KB"
+          },
+          "kb_level": {
+            "usage_pct": null,
+            "warning_level": "normal"
+          }
+        }
+      }
+    },
+    {
+      "stage": "process_submit",
+      "status": 201,
+      "body": {
+        "message": "Files processing triggered successfully",
+        "process_tasks": {
+          "task_id": "3b58132e-0075-49a6-84ab-7f5e31989bbd"
+        }
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": null,
+            "has_error_info": false,
+            "status": "WAIT_FOR_PROCESSING",
+            "latest_task_id": "",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "UPLOAD",
+            "failed_at": null,
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    },
+    {
+      "stage": "processing_status",
+      "status": 200,
+      "body": {
+        "status": "success",
+        "files": [
+          {
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20261016091229_b32af13b5a63469ea5ac51cf2775e384.md",
+            "file": "lingjing_i10_ingestion_fixture.md",
+            "file_size": 224,
+            "create_time": 1792141950630,
+            "chunk_count": 0,
+            "error_reason": "1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 172.18.0.8, ID: b4552c07f1dd40a01ecdafa8d22f0c49cafd2d2d5ac9097fee4e7c3c) was 5.55GB / 5.79GB (0.959342)\nOOM kill reason: Memory usage 5971779584B exceeded threshold of 5903771136B (95.0% of 6214496256B total)\nObject store memory usage: [- objects spillable: 0\n- bytes spillable: 0\n- objects unsealed: 0\n- bytes unsealed: 0\n- objects in use: 0\n- bytes in use: 0\n- objects evictable: 0\n- bytes evictable: 0\n\n- obje",
+            "has_error_info": true,
+            "status": "PROCESS_FAILED",
+            "latest_task_id": "0ca06a4a-fdee-48af-ba94-358c99b1c9c5",
+            "processed_chunk_num": null,
+            "total_chunk_num": null,
+            "file_id": "948a24b65598490f94a47a123a60dd06",
+            "error_code": null,
+            "error_stage": "PROCESS",
+            "failed_at": "2026-10-16T09:12:35.503773Z",
+            "chunks": [],
+            "source_available": true
+          }
+        ]
+      }
+    }
+  ],
+  "index_name": "3-57aa62095a814faea45a42cf2cc350cc"
+}

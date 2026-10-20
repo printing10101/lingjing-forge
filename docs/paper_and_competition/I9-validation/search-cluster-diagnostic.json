@@ -1,0 +1,204 @@
+{
+  "role": "superuser",
+  "diagnostic_gets_only": true,
+  "temporary_account_deleted": true,
+  "queries": [
+    {
+      "path": "/_cluster/health",
+      "status": 200,
+      "data": {
+        "cluster_name": "docker-cluster",
+        "status": "red",
+        "timed_out": false,
+        "number_of_nodes": 1,
+        "number_of_data_nodes": 1,
+        "active_primary_shards": 4,
+        "active_shards": 4,
+        "relocating_shards": 0,
+        "initializing_shards": 0,
+        "unassigned_shards": 4,
+        "unassigned_primary_shards": 4,
+        "delayed_unassigned_shards": 0,
+        "number_of_pending_tasks": 0,
+        "number_of_in_flight_fetch": 0,
+        "task_max_waiting_in_queue_millis": 0,
+        "active_shards_percent_as_number": 50.0
+      }
+    },
+    {
+      "path": "/_cluster/allocation/explain",
+      "status": 200,
+      "data": {
+        "note": "No shard was specified in the explain API request, so this response explains a randomly chosen unassigned shard. There may be other unassigned shards in this cluster which cannot be assigned for different reasons. It may not be possible to assign this shard until one of the other shards is assigned correctly. To explain the allocation of other shards (whether assigned or unassigned) you must specify the target shard in the request to this API. See https://www.elastic.co/guide/en/elasticsearch/reference/8.17/cluster-allocation-explain.html for more information.",
+        "index": ".security-7",
+        "shard": 0,
+        "primary": true,
+        "current_state": "unassigned",
+        "unassigned_info": {
+          "reason": "CLUSTER_RECOVERED",
+          "at": "2026-10-15T17:09:22.838Z",
+          "last_allocation_status": "no_valid_shard_copy"
+        },
+        "can_allocate": "no_valid_shard_copy",
+        "allocate_explanation": "Elasticsearch can't allocate this shard because all the copies of its data in the cluster are stale or corrupt. Elasticsearch will allocate this shard when a node containing a good copy of its data joins the cluster. If no such node is available, restore this index from a recent snapshot.",
+        "node_allocation_decisions": [
+          {
+            "node_id": "n5KUlMI3TK-fQFoKjvJ-1A",
+            "node_name": "es01",
+            "transport_address": "172.18.0.9:9300",
+            "node_attributes": {
+              "ml.allocated_processors_double": "4.0",
+              "ml.allocated_processors": "4",
+              "ml.machine_memory": "6214492160",
+              "transform.config_version": "10.0.0",
+              "xpack.installed": "true",
+              "ml.config_version": "12.0.0",
+              "ml.max_jvm_size": "2147483648"
+            },
+            "roles": [
+              "data",
+              "data_cold",
+              "data_content",
+              "data_frozen",
+              "data_hot",
+              "data_warm",
+              "ingest",
+              "master",
+              "ml",
+              "remote_cluster_client",
+              "transform"
+            ],
+            "node_decision": "no",
+            "store": {
+              "in_sync": true,
+              "allocation_id": "PvoDwiAzQxOz1WNW43oaOg",
+              "store_exception": {
+                "type": "corrupt_index_exception",
+                "reason": "Hit unexpected exception while reading segment infos (resource=commit(null))",
+                "caused_by": {
+                  "type": "directory_iterator_exception",
+                  "reason": "directory_iterator_exception: java.nio.file.FileSystemException: /usr/share/elasticsearch/data/indices/uzcFaqFNSpCGV3lkZz7xfw/0/index: Cannot allocate memory",
+                  "caused_by": {
+                    "type": "file_system_exception",
+                    "reason": "/usr/share/elasticsearch/data/indices/uzcFaqFNSpCGV3lkZz7xfw/0/index: Cannot allocate memory"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "/_cat/shards?format=json",
+      "status": 200,
+      "data": [
+        {
+          "index": ".security-7",
+          "shard": "0",
+          "prirep": "p",
+          "state": "UNASSIGNED",
+          "docs": null,
+          "store": null,
+          "dataset": null,
+          "ip": null,
+          "node": null
+        },
+        {
+          "index": "mem_qwen3-embedding-0.6b_1024",
+          "shard": "0",
+          "prirep": "p",
+          "state": "UNASSIGNED",
+          "docs": null,
+          "store": null,
+          "dataset": null,
+          "ip": null,
+          "node": null
+        },
+        {
+          "index": "2-fdff5ff05c674d1384ad8a1a25039490",
+          "shard": "0",
+          "prirep": "p",
+          "state": "UNASSIGNED",
+          "docs": null,
+          "store": null,
+          "dataset": null,
+          "ip": null,
+          "node": null
+        },
+        {
+          "index": ".ds-.logs-deprecation.elasticsearch-default-2026.09.13-000001",
+          "shard": "0",
+          "prirep": "p",
+          "state": "UNASSIGNED",
+          "docs": null,
+          "store": null,
+          "dataset": null,
+          "ip": null,
+          "node": null
+        },
+        {
+          "index": ".ds-.logs-deprecation.elasticsearch-default-2026.10.15-000002",
+          "shard": "0",
+          "prirep": "p",
+          "state": "STARTED",
+          "docs": "0",
+          "store": "249b",
+          "dataset": "249b",
+          "ip": "172.18.0.9",
+          "node": "es01"
+        },
+        {
+          "index": "1-e4ef479196e84a3abfd828579d9e0951",
+          "shard": "0",
+          "prirep": "p",
+          "state": "STARTED",
+          "docs": "4",
+          "store": "100kb",
+          "dataset": "100kb",
+          "ip": "172.18.0.9",
+          "node": "es01"
+        },
+        {
+          "index": ".ds-ilm-history-7-2026.09.13-000001",
+          "shard": "0",
+          "prirep": "p",
+          "state": "STARTED",
+          "docs": "3",
+          "store": "9.9kb",
+          "dataset": "9.9kb",
+          "ip": "172.18.0.9",
+          "node": "es01"
+        },
+        {
+          "index": ".ds-ilm-history-7-2026.09.28-000002",
+          "shard": "0",
+          "prirep": "p",
+          "state": "STARTED",
+          "docs": "0",
+          "store": "249b",
+          "dataset": "249b",
+          "ip": "172.18.0.9",
+          "node": "es01"
+        }
+      ]
+    },
+    {
+      "path": "/_nodes/stats/fs?filter_path=nodes.*.fs.total",
+      "status": 200,
+      "data": {
+        "nodes": {
+          "n5KUlMI3TK-fQFoKjvJ-1A": {
+            "fs": {
+              "total": {
+                "total_in_bytes": 322227400704,
+                "free_in_bytes": 44267745280,
+                "available_in_bytes": 44267745280
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

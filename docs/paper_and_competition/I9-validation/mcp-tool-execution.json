@@ -1,0 +1,572 @@
+{
+  "synthetic_fixture": true,
+  "cases": [
+    {
+      "tool": "gcode_get_failure_stats",
+      "inputs": {},
+      "http_status": 200,
+      "contract_passed": true,
+      "recommendation_available": null,
+      "duration_seconds": 0.867,
+      "result": {
+        "code": 0,
+        "message": "Success",
+        "data": {
+          "total": 641,
+          "failures": 222,
+          "successes": 419,
+          "one_pass_rate": 0.6537,
+          "by_source": {
+            "unstable_features": 216,
+            "pipeline_exception": 6
+          },
+          "by_code": {
+            "UNSTABLE_FEATURES": 216,
+            "ChatterReportLoadError": 6
+          }
+        },
+        "request_id": "fd58dd9e7b2b443d835a3bf3745f572b"
+      }
+    },
+    {
+      "tool": "gcode_list_failure_cases",
+      "inputs": {
+        "limit": 5,
+        "outcome": "failure"
+      },
+      "http_status": 200,
+      "contract_passed": true,
+      "recommendation_available": null,
+      "duration_seconds": 0.838,
+      "result": {
+        "code": 0,
+        "message": "Success",
+        "data": {
+          "count": 5,
+          "cases": [
+            {
+              "case_id": "fc_50398c31-ef29-4a82-b91d-cfd7de780a1b",
+              "task_id": "gc_468c7de0-b9e6-4f67-830b-b0c0fba7b305",
+              "outcome": "failure",
+              "source": "pipeline_exception",
+              "controller_type": "fanuc_0i",
+              "material_name": "45#钢",
+              "error_codes": [
+                "ChatterReportLoadError"
+              ],
+              "error_messages": [
+                "服务内部错误，请稍后重试"
+              ],
+              "gcode_text": "",
+              "total_features": 0,
+              "unstable_features": 0,
+              "created_at": 1791989792.468217
+            },
+            {
+              "case_id": "fc_af821a68-24d7-45bb-88cb-427f4077d2ed",
+              "task_id": "gc_3fbcef74-6094-4708-a801-576510f899a6",
+              "outcome": "failure",
+              "source": "pipeline_exception",
+              "controller_type": "fanuc_0i",
+              "material_name": "45#钢",
+              "error_codes": [
+                "ChatterReportLoadError"
+              ],
+              "error_messages": [
+                "服务内部错误，请稍后重试"
+              ],
+              "gcode_text": "",
+              "total_features": 0,
+              "unstable_features": 0,
+              "created_at": 1791989792.342759
+            },
+            {
+              "case_id": "fc_9dd010e2-fefe-4466-9b7a-41f38e67a60b",
+              "task_id": "gc_90417ede-f82f-49c1-8425-638e98835ea0",
+              "outcome": "failure",
+              "source": "pipeline_exception",
+              "controller_type": "fanuc_0i",
+              "material_name": "45#钢",
+              "error_codes": [
+                "ChatterReportLoadError"
+              ],
+              "error_messages": [
+                "服务内部错误，请稍后重试"
+              ],
+              "gcode_text": "",
+              "total_features": 0,
+              "unstable_features": 0,
+              "created_at": 1791989792.2230754
+            },
+            {
+              "case_id": "fc_df3a2829-2f72-4750-9c01-95df6c3907fb",
+              "task_id": "gc_fb99e6ef-ea25-4c8f-b600-635086ba8d36",
+              "outcome": "failure",
+              "source": "unstable_features",
+              "controller_type": "fanuc_0i",
+              "material_name": "黄铜H59",
+              "error_codes": [
+                "UNSTABLE_FEATURES"
+              ],
+              "error_messages": [
+                "特征 boss_1(boss) 颤振预测结果为不稳定（axial_depth=13.68mm, limit_depth=7.6mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核。"
+              ],
+              "gcode_text": "%\nO1000 (PROGRAM 1000 - 2026-10-14)\n(POST: Fanuc 0i-MF)\nG21 G17 G40 G49 G80 G90 G94\nG00 G91 G28 Z0.\nG00 G91 G28 X0. Y0.\nG00 G90 G54 X0. Y0.\nG00 G43 Z80.000 H00\nM03 S1000\nM08\n\n; 材料: 黄铜H59\n; 工序数: 1 | 装夹次数: 1\n; 控制器: fanuc_0i | 生成日期: 2026-10-14\n\n; 安全设置\nG17 G21 G40 G49 G80 G90\nG00 Z80.000\n; 启用AI高精度轮廓控制\nG05.1 Q1\n; ==================================================\n; 刀具清单汇总表 (TOOL LIST SUMMARY)\n; ==================================================\n; T01 | endmill_d12          | Φ12.0    | 凸台铣削            | 1次 | boss_1\n; 总计: 1 把刀具\n; ==================================================\n\n\n; ---- OP01 凸台铣 - 凸台铣削 ----\nG00 G91 G28 Z0.\nG00 G91 G28 X0. Y0.\nT01 M06\nG00 G90 G54 X0. Y0.\nG43 Z80.000 H01\nG01 Z80.000 F10000.000\nM03 S1000\nN00100 (BREAKPOINT: CP001)\nM08\n; 铣削: boss_1\nS1541 M03\n; 参数来自数据库: 材料=steel, 直径=12.0mm\n; 刀轨策略: profile_offset | Z层数=7 环数=1 切削长度=1470mm 预估切削=5.0min\n; 刀心轨迹已按刀具半径偏置，不使用刀具半径补偿(G41/G42)\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z51.000 F150.625\nG01 X21.000 Y21.000 Z50.000 F150.625\nG01 X-21.000 Y21.000 Z49.000 F150.625\nG01 X-21.000 Y-21.000 Z48.000 F150.625\nG01 X-21.000 Y-21.000 Z48.000 F301.250\nG01 X21.000 Y-21.000 Z48.000 F301.250\nG01 X21.000 Y21.000 Z48.000 F301.250\nG01 X-21.000 Y21.000 Z48.000 F301.250\nG01 X-21.000 Y-21.000 Z48.000 F301.250\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z47.500 F150.625\nG01 X21.000 Y21.000 Z47.000 F150.625\nG01 X-21.000 Y21.000 Z46.500 F150.625\nG01 X-21.000 Y-21.000 Z46.000 F150.625\nG01 X-21.000 Y-21.000 Z46.000 F301.250\nG01 X21.000 Y-21.000 Z46.000 F301.250\nG01 X21.000 Y21.000 Z46.000 F301.250\nG01 X-21.000 Y21.000 Z46.000 F301.250\nG01 X-21.000 Y-21.000 Z46.000 F301.250\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z45.500 F150.625\nG01 X21.000 Y21.000 Z45.000 F150.625\nG01 X-21.000 Y21.000 Z44.500 F150.625\nG01 X-21.000 Y-21.000 Z44.000 F150.625\nG01 X-21.000 Y-21.000 Z44.000 F301.250\nG01 X21.000 Y-21.000 Z44.000 F301.250\nG01 X21.000 Y21.000 Z44.000 F301.250\nG01 X-21.000 Y21.000 Z44.000 F301.250\nG01 X-21.000 Y-21.000 Z44.000 F301.250\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z43.500 F150.625\nG01 X21.000 Y21.000 Z43.000 F150.625\nG01 X-21.000 Y21.000 Z42.500 F150.625\nG01 X-21.000 Y-21.000 Z42.000 F150.625\nG01 X-21.000 Y-21.000 Z42.000 F301.250\nG01 X21.000 Y-21.000 Z42.000 F301.250\nG01 X21.000 Y21.000 Z42.000 F301.250\nG01 X-21.000 Y21.000 Z42.000 F301.250\nG01 X-21.000 Y-21.000 Z42.000 F301.250\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z41.500 F150.625\nG01 X21.000 Y21.000 Z41.000 F150.625\nG01 X-21.000 Y21.000 Z40.500 F150.625\nG01 X-21.000 Y-21.000 Z40.000 F150.625\nG01 X-21.000 Y-21.000 Z40.000 F301.250\nG01 X21.000 Y-21.000 Z40.000 F301.250\nG01 X21.000 Y21.000 Z40.000 F301.250\nG01 X-21.000 Y21.000 Z40.000 F301.250\nG01 X-21.000 Y-21.000 Z40.000 F301.250\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z39.500 F150.625\nG01 X21.000 Y21.000 Z39.000 F150.625\nG01 X-21.000 Y21.000 Z38.500 F150.625\nG01 X-21.000 Y-21.000 Z38.000 F150.625\nG01 X-21.000 Y-21.000 Z38.000 F301.250\nG01 X21.000 Y-21.000 Z38.000 F301.250\nG01 X21.000 Y21.000 Z38.000 F301.250\nG01 X-21.000 Y21.000 Z38.000 F301.250\nG01 X-21.000 Y-21.000 Z38.000 F301.250\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z37.580 F150.625\nG01 X21.000 Y21.000 Z37.160 F150.625\nG01 X-21.000 Y21.000 Z36.740 F150.625\nG01 X-21.000 Y-21.000 Z36.320 F150.625\nG01 X-21.000 Y-21.000 Z36.320 F301.250\nG01 X21.000 Y-21.000 Z36.320 F301.250\nG01 X21.000 Y21.000 Z36.320 F301.250\nG01 X-21.000 Y21.000 Z36.320 F301.250\nG01 X-21.000 Y-21.000 Z36.320 F301.250\nG00 Z80.000\nM09\n\n; 程序结束\n\nM09\nM05\nG00 G91 G28 Z0.\nG00 G91 G28 X0. Y0.\nG90\nM30\n%",
+              "total_features": 1,
+              "unstable_features": 1,
+              "created_at": 1791989785.9659705
+            },
+            {
+              "case_id": "fc_df752cc2-5311-4628-bf36-c9bbc7173924",
+              "task_id": "gc_c8442138-adfa-428d-94d0-bb00d1331485",
+              "outcome": "failure",
+              "source": "unstable_features",
+              "controller_type": "fanuc_0i",
+              "material_name": "黄铜H59",
+              "error_codes": [
+                "UNSTABLE_FEATURES"
+              ],
+              "error_messages": [
+                "特征 boss_1(boss) 颤振预测结果为不稳定（axial_depth=11.4mm, limit_depth=7.6mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核。"
+              ],
+              "gcode_text": "%\nO1000 (PROGRAM 1000 - 2026-10-14)\n(POST: Fanuc 0i-MF)\nG21 G17 G40 G49 G80 G90 G94\nG00 G91 G28 Z0.\nG00 G91 G28 X0. Y0.\nG00 G90 G54 X0. Y0.\nG00 G43 Z80.000 H00\nM03 S1000\nM08\n\n; 材料: 黄铜H59\n; 工序数: 1 | 装夹次数: 1\n; 控制器: fanuc_0i | 生成日期: 2026-10-14\n\n; 安全设置\nG17 G21 G40 G49 G80 G90\nG00 Z80.000\n; 启用AI高精度轮廓控制\nG05.1 Q1\n; ==================================================\n; 刀具清单汇总表 (TOOL LIST SUMMARY)\n; ==================================================\n; T01 | endmill_d12          | Φ12.0    | 凸台铣削            | 1次 | boss_1\n; 总计: 1 把刀具\n; ==================================================\n\n\n; ---- OP01 凸台铣 - 凸台铣削 ----\nG00 G91 G28 Z0.\nG00 G91 G28 X0. Y0.\nT01 M06\nG00 G90 G54 X0. Y0.\nG43 Z80.000 H01\nG01 Z80.000 F10000.000\nM03 S1000\nN00100 (BREAKPOINT: CP001)\nM08\n; 铣削: boss_1\nS1541 M03\n; 参数来自数据库: 材料=steel, 直径=12.0mm\n; 刀轨策略: profile_offset | Z层数=6 环数=1 切削长度=1260mm 预估切削=4.3min\n; 刀心轨迹已按刀具半径偏置，不使用刀具半径补偿(G41/G42)\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z51.000 F150.625\nG01 X21.000 Y21.000 Z50.000 F150.625\nG01 X-21.000 Y21.000 Z49.000 F150.625\nG01 X-21.000 Y-21.000 Z48.000 F150.625\nG01 X-21.000 Y-21.000 Z48.000 F301.250\nG01 X21.000 Y-21.000 Z48.000 F301.250\nG01 X21.000 Y21.000 Z48.000 F301.250\nG01 X-21.000 Y21.000 Z48.000 F301.250\nG01 X-21.000 Y-21.000 Z48.000 F301.250\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z47.500 F150.625\nG01 X21.000 Y21.000 Z47.000 F150.625\nG01 X-21.000 Y21.000 Z46.500 F150.625\nG01 X-21.000 Y-21.000 Z46.000 F150.625\nG01 X-21.000 Y-21.000 Z46.000 F301.250\nG01 X21.000 Y-21.000 Z46.000 F301.250\nG01 X21.000 Y21.000 Z46.000 F301.250\nG01 X-21.000 Y21.000 Z46.000 F301.250\nG01 X-21.000 Y-21.000 Z46.000 F301.250\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z45.500 F150.625\nG01 X21.000 Y21.000 Z45.000 F150.625\nG01 X-21.000 Y21.000 Z44.500 F150.625\nG01 X-21.000 Y-21.000 Z44.000 F150.625\nG01 X-21.000 Y-21.000 Z44.000 F301.250\nG01 X21.000 Y-21.000 Z44.000 F301.250\nG01 X21.000 Y21.000 Z44.000 F301.250\nG01 X-21.000 Y21.000 Z44.000 F301.250\nG01 X-21.000 Y-21.000 Z44.000 F301.250\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z43.500 F150.625\nG01 X21.000 Y21.000 Z43.000 F150.625\nG01 X-21.000 Y21.000 Z42.500 F150.625\nG01 X-21.000 Y-21.000 Z42.000 F150.625\nG01 X-21.000 Y-21.000 Z42.000 F301.250\nG01 X21.000 Y-21.000 Z42.000 F301.250\nG01 X21.000 Y21.000 Z42.000 F301.250\nG01 X-21.000 Y21.000 Z42.000 F301.250\nG01 X-21.000 Y-21.000 Z42.000 F301.250\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z41.500 F150.625\nG01 X21.000 Y21.000 Z41.000 F150.625\nG01 X-21.000 Y21.000 Z40.500 F150.625\nG01 X-21.000 Y-21.000 Z40.000 F150.625\nG01 X-21.000 Y-21.000 Z40.000 F301.250\nG01 X21.000 Y-21.000 Z40.000 F301.250\nG01 X21.000 Y21.000 Z40.000 F301.250\nG01 X-21.000 Y21.000 Z40.000 F301.250\nG01 X-21.000 Y-21.000 Z40.000 F301.250\nG00 Z52.000\nG00 X-21.000 Y-21.000\nG01 X21.000 Y-21.000 Z39.650 F150.625\nG01 X21.000 Y21.000 Z39.300 F150.625\nG01 X-21.000 Y21.000 Z38.950 F150.625\nG01 X-21.000 Y-21.000 Z38.600 F150.625\nG01 X-21.000 Y-21.000 Z38.600 F301.250\nG01 X21.000 Y-21.000 Z38.600 F301.250\nG01 X21.000 Y21.000 Z38.600 F301.250\nG01 X-21.000 Y21.000 Z38.600 F301.250\nG01 X-21.000 Y-21.000 Z38.600 F301.250\nG00 Z80.000\nM09\n\n; 程序结束\n\nM09\nM05\nG00 G91 G28 Z0.\nG00 G91 G28 X0. Y0.\nG90\nM30\n%",
+              "total_features": 1,
+              "unstable_features": 1,
+              "created_at": 1791989785.827495
+            }
+          ]
+        },
+        "request_id": "2d1d2793760647bfb86d3fda7c824d42"
+      }
+    },
+    {
+      "tool": "cam_get_quadruple_stats",
+      "inputs": {},
+      "http_status": 200,
+      "contract_passed": true,
+      "recommendation_available": null,
+      "duration_seconds": 0.839,
+      "result": {
+        "code": 0,
+        "message": "Success",
+        "data": {
+          "total_quadruples": 0,
+          "feature_count": 0,
+          "process_count": 0,
+          "material_count": 0,
+          "tool_count": 0
+        },
+        "request_id": "3401412bea68452786b3c00b55aaaa2b"
+      }
+    },
+    {
+      "tool": "cam_recommend_process",
+      "inputs": {
+        "feature": "hole",
+        "material": "steel_45",
+        "top_k": 3
+      },
+      "http_status": 200,
+      "contract_passed": true,
+      "recommendation_available": false,
+      "duration_seconds": 0.789,
+      "result": {
+        "code": 0,
+        "message": "Success",
+        "data": {
+          "feature": "hole",
+          "material": "steel_45",
+          "recommendations": [],
+          "recommendation_status": "knowledge_empty",
+          "hint": "工艺知识库为空。建议操作：导入并审核带来源的工艺知识后重新查询；不得据此推定加工参数。"
+        },
+        "request_id": "6ed8f5d2a1c04cab930e324151f43175"
+      }
+    },
+    {
+      "tool": "dxf_describe_file",
+      "inputs": {
+        "path": "D:\\灵境制造\\engineering\\python\\output\\competition_i9\\plate.dxf"
+      },
+      "http_status": 200,
+      "contract_passed": true,
+      "recommendation_available": null,
+      "duration_seconds": 0.897,
+      "result": {
+        "code": 0,
+        "message": "Success",
+        "data": {
+          "file_name": "plate.dxf",
+          "file_size": 18701,
+          "dxf_version": "AC1024 (2010)",
+          "parse_time_ms": 29.86,
+          "entity_counts": {
+            "LINE": 0,
+            "CIRCLE": 1,
+            "ARC": 0,
+            "TEXT": 0,
+            "DIMENSION": 0,
+            "POLYLINE": 1,
+            "HATCH": 0,
+            "INSERT": 0,
+            "SPLINE": 0
+          },
+          "total_entities": 2,
+          "lines_count": 0,
+          "circles_count": 1,
+          "arcs_count": 0,
+          "texts_count": 0,
+          "dimensions_count": 0,
+          "polylines_count": 1,
+          "hatches_count": 0,
+          "inserts_count": 0,
+          "splines_count": 0,
+          "extents": {
+            "min_x": 0.0,
+            "min_y": 0.0,
+            "max_x": 40.0,
+            "max_y": 40.0,
+            "width": 40.0,
+            "height": 40.0
+          },
+          "warnings": [],
+          "errors": [],
+          "success": true,
+          "path": "D:\\灵境制造\\engineering\\python\\output\\competition_i9\\plate.dxf"
+        },
+        "request_id": "e01ab893a4f74c6b9c9cdd17c5ef09d5"
+      }
+    },
+    {
+      "tool": "process_plan_run",
+      "inputs": {
+        "part_description": {
+          "material": "45#钢",
+          "part_type": "plate",
+          "holes": [
+            {
+              "id": "h1",
+              "type": "through",
+              "position": {
+                "x": 20,
+                "y": 20
+              },
+              "diameter": 8.0,
+              "depth": 12.0
+            }
+          ]
+        },
+        "controller_type": "fanuc_0i",
+        "safe_z": 60.0,
+        "program_number": 1901
+      },
+      "http_status": 200,
+      "contract_passed": true,
+      "recommendation_available": null,
+      "duration_seconds": 0.946,
+      "result": {
+        "code": 0,
+        "message": "Success",
+        "data": {
+          "success": true,
+          "total_duration_ms": 59.77,
+          "summary": "流水线执行成功 (60ms) | 零件: 45#钢(plate) | 孔识别: 1个孔 ({'through': 1}) | 工序规划: 2个工序, 6.9min预估工时 | G代码: 215行 (2把刀具, 9.9min预估周期)",
+          "stages": [
+            {
+              "name": "输入验证",
+              "status": "success",
+              "duration_ms": 0.0,
+              "input_summary": "材料: 45#钢, 孔数据: 1条",
+              "output_summary": "",
+              "errors": [],
+              "warnings": []
+            },
+            {
+              "name": "孔特征识别",
+              "status": "success",
+              "duration_ms": 1.21,
+              "input_summary": "零件材料: 45#钢",
+              "output_summary": "识别孔数: 1, 类型分布: {'through': 1}",
+              "errors": [],
+              "warnings": []
+            },
+            {
+              "name": "知识库查询",
+              "status": "success",
+              "duration_ms": 2.0,
+              "input_summary": "材料: steel_45(carbon_steel), 孔数: 1",
+              "output_summary": "匹配方案: 1个, 刀具总数: 2, 匹配失败: 0",
+              "errors": [],
+              "warnings": []
+            },
+            {
+              "name": "工序规划",
+              "status": "success",
+              "duration_ms": 0.0,
+              "input_summary": "特征数: 2, 零件类型: plate",
+              "output_summary": "规划工序: 2个, 装夹方案: 1个, 预估总工时: 6.9min",
+              "errors": [],
+              "warnings": []
+            },
+            {
+              "name": "仿真验证",
+              "status": "success",
+              "duration_ms": 51.25,
+              "input_summary": "材料: 45#钢, 工序数: 2",
+              "output_summary": "仿真评分: 81.7, 推荐级别: not_recommended",
+              "errors": [],
+              "warnings": []
+            },
+            {
+              "name": "G代码生成",
+              "status": "success",
+              "duration_ms": 5.31,
+              "input_summary": "工序数: 2",
+              "output_summary": "代码行数: 215, 刀具数: 2, 预估周期: 9.9min",
+              "errors": [],
+              "warnings": []
+            },
+            {
+              "name": "结果验证",
+              "status": "success",
+              "duration_ms": 0.0,
+              "input_summary": "",
+              "output_summary": "验证通过",
+              "errors": [],
+              "warnings": []
+            }
+          ],
+          "hole_recognition": {
+            "total_count": 1,
+            "type_summary": {
+              "through": 1
+            },
+            "holes": [
+              {
+                "hole_id": "h1",
+                "type": "through",
+                "position": {
+                  "x": 20.0,
+                  "y": 20.0,
+                  "z": 0.0
+                },
+                "diameter": 8.0,
+                "depth": 12.0,
+                "bottom_angle": 118.0,
+                "tolerance_grade": "H8",
+                "surface_roughness_ra": 3.2,
+                "direction": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ],
+                "surface": "A",
+                "parent_feature_id": "",
+                "is_threaded": false,
+                "thread_spec": "",
+                "counterbore_diameter": 0.0,
+                "counterbore_depth": 0.0,
+                "aspect_ratio": 1.5
+              }
+            ],
+            "warnings": [],
+            "errors": [],
+            "accuracy_metrics": {
+              "overall": 1.0,
+              "recognized_count": 1.0,
+              "recognition_rate": 1.0
+            }
+          },
+          "process_plans": [
+            {
+              "hole_id": "h1",
+              "hole_type": "through",
+              "operations": [
+                "打中心孔定位",
+                "钻孔"
+              ],
+              "tools": [
+                {
+                  "tool_id": "fallback",
+                  "tool_name": "待确认中心钻（直径待补充）",
+                  "tool_series": "center_drill",
+                  "tool_material": "HSS",
+                  "diameter_mm": 0.0,
+                  "diameter_range_mm": [],
+                  "diameter_verified": false,
+                  "application": "打中心孔定位",
+                  "suitability_score": 30.0,
+                  "match_reason": "知识库中未找到 carbon_steel+打中心孔定位 的刀具，返回通用刀具建议",
+                  "warnings": [
+                    "该刀具仅为候选规格，未确认具体刀具；请补充专用刀具数据"
+                  ]
+                },
+                {
+                  "tool_id": "drill_wc_d8",
+                  "tool_name": "φ8硬质合金麻花钻",
+                  "tool_series": "twist_drill",
+                  "tool_material": "WC",
+                  "diameter_mm": 8.0,
+                  "diameter_range_mm": [
+                    1,
+                    25
+                  ],
+                  "diameter_verified": false,
+                  "application": "钻孔",
+                  "suitability_score": 50.0,
+                  "match_reason": "候选刀具直径φ8.0mm，尚未确认具体规格。WC材质，切削参数来自知识库: 80-120 m/min。",
+                  "warnings": [
+                    "该直径为刀具族范围内的候选规格或待补充规格，未确认具体刀具；使用前必须核对实际刀具",
+                    "切削参数来源 handbook_common_range 尚未核验，仅供草案参考；使用前需核对厂商资料与实际工况"
+                  ],
+                  "cutting_parameters": {
+                    "cutting_speed_m_per_min": "80-120",
+                    "feed_rate": "0.12-0.25 mm/r",
+                    "description": "45#钢使用carbidetwist_drill加工的推荐切削参数（公开手册常用推荐区间）",
+                    "source": "handbook_common_range",
+                    "source_verified": false
+                  }
+                }
+              ],
+              "estimated_time_min": 0.85
+            }
+          ],
+          "operation_plan": {
+            "operations": [
+              {
+                "seq": 1,
+                "name": "OP01-基准面A-上表面",
+                "feature_name": "基准面A-上表面",
+                "machining_method": "精铣平面",
+                "surface": "A",
+                "tolerance_grade": "IT7",
+                "tool_type": "立铣刀",
+                "cutting_params": {
+                  "feed_rate_factor": 1.0,
+                  "recommended_feed": "0.05-0.20 mm/tooth",
+                  "recommended_speed": "80-200 m/min",
+                  "geometry": {
+                    "length": 200.0,
+                    "width": 100.0,
+                    "x": 100.0,
+                    "y": 50.0,
+                    "anchor": "center"
+                  }
+                },
+                "estimated_time_min": 3.9,
+                "notes": "定位基准面，确保加工精度; 精密加工，公差等级IT7; 最终尺寸，使用切削液"
+              },
+              {
+                "seq": 2,
+                "name": "OP02-h1",
+                "feature_name": "h1",
+                "machining_method": "精加工-blind_hole",
+                "surface": "A",
+                "tolerance_grade": "IT8",
+                "tool_type": "通用刀具",
+                "cutting_params": {
+                  "feed_rate_factor": 1.0,
+                  "recommended_feed": "0.10-0.25 mm/rev",
+                  "recommended_speed": "80-200 m/min",
+                  "geometry": {
+                    "depth": 12.0,
+                    "diameter": 8.0,
+                    "x": 20.0,
+                    "y": 20.0,
+                    "anchor": "center"
+                  }
+                },
+                "estimated_time_min": 3.0,
+                "notes": "最终尺寸，使用切削液"
+              }
+            ],
+            "setups": [
+              {
+                "name": "装夹1-面A",
+                "surface": "A",
+                "fixture_type": "压板装夹",
+                "datum_features": []
+              }
+            ],
+            "estimated_time_min": 6.9,
+            "face_change_count": 0,
+            "fixture_recommendations": [
+              {
+                "fixture_id": "toe_clamp",
+                "fixture_name": "压板装夹",
+                "fixture_type": "toe_clamp",
+                "locating_method": "底面支撑+侧面定位+顶部压板",
+                "clamping_points": [
+                  {
+                    "type": "底面3点支撑限制Z向移动和XY平面转动，侧面2点限制X向移动，端面1点限制Y向移动，压板施加夹紧力",
+                    "constrained_dof": [
+                      "X_translation",
+                      "Y_translation",
+                      "Z_translation",
+                      "X_rotation",
+                      "Y_rotation",
+                      "Z_rotation"
+                    ]
+                  }
+                ],
+                "clamping_force_n": 600,
+                "degrees_constrained": 6,
+                "precautions": [
+                  "压板布局应均匀分布，间距不超过200mm",
+                  "压板应压在工件刚性较强位置，避免中空区域",
+                  "支撑点位置应与压板位置对应，防止悬空",
+                  "预紧力分级加载，先轻后重逐步锁紧",
+                  "使用等高垫块确保支撑面共面"
+                ],
+                "suitability_score": 80,
+                "reasoning": [
+                  "零件类型'plate'匹配夹具类型'压板装夹'",
+                  "适用零件类型: large_plate, irregular, plate, bracket"
+                ]
+              }
+            ],
+            "tool_diameter_mm": 8.0
+          },
+          "gcode": {
+            "controller_type": "fanuc_0i",
+            "program_number": 1901,
+            "total_lines": 215,
+            "operations_count": 2,
+            "tool_count": 2,
+            "estimated_cycle_time_min": 9.9,
+            "is_valid": true,
+            "program_text": "%\nO1901 (PROGRAM 1901 - 2026-10-16)\n(POST: Fanuc 0i-MF)\nG21 G17 G40 G49 G80 G90 G94\nG00 G91 G28 Z0.\nG00 G91 G28 X0. Y0.\nG00 G90 G54 X0. Y0.\nG00 G43 Z80.000 H00\nM03 S1000\nM08\n\n; 材料: 45#钢\n; 工序数: 2 | 装夹次数: 1\n; 控制器: fanuc_0i | 生成日期: 2026-10-16\n\n; 安全设置\nG17 G21 G40 G49 G80 G90\nG00 Z60.000\n; 启用AI高精度轮廓控制\nG05.1 Q1\n; ==================================================\n; 刀具清单汇总表 (TOOL LIST SUMMARY)\n; ==================================================\n; T01 | 立铣刀                  | N/A      | 精铣平面            | 1次 | 基准面A-上表面\n; T02 | 通用刀具                 | N/A      | 精加工-blind_hole  | 1次 | h1\n; 总计: 2 把刀具\n; ==================================================\n\n\n; ---- OP01 OP01-基准面A-上表面 - 精铣平面 ----\nG00 G91 G28 Z0.\nG00 G91 G28 X0. Y0.\nT01 M06\nG00 G90 G54 X0. Y0.\nG43 Z80.000 H01\nG01 Z80.000 F10000.000\nM03 S1000\nN00100 (BREAKPOINT: CP001)\nM08\n; 铣削: 基准面A-上表面\nS1850 M03\n; 参数来自数据库: 材料=steel, 直径=10.0mm\n; 刀轨策略: face_raster | Z层数=3 环数=19 切削长度=10830mm 预估切削=39.6min\n; 刀心轨迹已按刀具半径偏置，不使用刀具半径补偿(G41/G42)\nG00 Z52.000\nG00 X5.000 Y5.000\nG01 X195.000 Y5.000 Z48.000 F137.500\nG01 X195.000 Y5.000 Z48.000 F275.000\nG00 Z52.000\nG00 X195.000 Y10.000\nG01 X5.000 Y10.000 Z48.000 F275.000\nG00 Z52.000\nG00 X5.000 Y15.000\nG01 X195.000 Y15.000 Z48.000 F275.000\nG00 Z52.000\nG00 X195.000 Y20.000\nG01 X5.000 Y20.000 Z48.000 F275.000\nG00 Z52.000\nG00 X5.000 Y25.000\nG01 X195.000 Y25.000 Z48.000 F275.000\nG00 Z52.000\nG00 X195.000 Y30.000\nG01 X5.000 Y30.000 Z48.000 F275.000\nG00 Z52.000\nG00 X5.000 Y35.000\nG01 X195.000 Y35.000 Z48.000 F275.000\nG00 Z52.000\nG00 X195.000 Y40.000\nG01 X5.000 Y40.000 Z48.000 F275.000\nG00 Z52.000\nG00 X5.000 Y45.000\nG01 X195.000 Y45.000 Z48.000 F275.000\nG00 Z52.000\nG00 X195.000 Y50.000\nG01 X5.000 Y50.000 Z48.000 F275.000\nG00 Z52.000\nG00 X5.000 Y55.000\nG01 X195.000 Y55.000 Z48.000 F275.000\nG00 Z52.000\nG00 X195.000 Y60.000\nG01 X5.000 Y60.000 Z48.000 F275.000\nG00 Z52.000\nG00 X5.000 Y65.000\nG01 X195.000 Y65.000 Z48.000 F275.000\nG00 Z52.000\nG00 X195.000 Y70.000\nG01 X5.000 Y70.000 Z48.000 F275.000\nG00 Z52.000\nG00 X5.000 Y75.000\nG01 X195.000 Y75.000 Z48.000 F275.000\nG00 Z52.000\nG00 X195.000 Y80.000\nG01 X5.000 Y80.000 Z48.000 F275.000\nG00 Z52.000\nG00 X5.000 Y85.000\nG01 X195.000 Y85.000 Z48.000 F275.000\nG00 Z52.000\nG00 X195.000 Y90.000\nG01 X5.000 Y90.000 Z48.000 F275.000\nG00 Z52.000\nG00 X5.000 Y95.000\nG01 X195.000 Y95.000 Z48.000 F275.000\nG00 Z52.000\nG00 X5.000 Y5.000\nG01 X195.000 Y5.000 Z46.000 F137.500\nG01 X195.000 Y5.000 Z46.000 F275.000\nG00 Z52.000\nG00 X195.000 Y10.000\nG01 X5.000 Y10.000 Z46.000 F275.000\nG00 Z52.000\nG00 X5.000 Y15.000\nG01 X195.000 Y15.000 Z46.000 F275.000\nG00 Z52.000\nG00 X195.000 Y20.000\nG01 X5.000 Y20.000 Z46.000 F275.000\nG00 Z52.000\nG00 X5.000 Y25.000\nG01 X195.000 Y25.000 Z46.000 F275.000\nG00 Z52.000\nG00 X195.000 Y30.000\nG01 X5.000 Y30.000 Z46.000 F275.000\nG00 Z52.000\nG00 X5.000 Y35.000\nG01 X195.000 Y35.000 Z46.000 F275.000\nG00 Z52.000\nG00 X195.000 Y40.000\nG01 X5.000 Y40.000 Z46.000 F275.000\nG00 Z52.000\nG00 X5.000 Y45.000\nG01 X195.000 Y45.000 Z46.000 F275.000\nG00 Z52.000\nG00 X195.000 Y50.000\nG01 X5.000 Y50.000 Z46.000 F275.000\nG00 Z52.000\nG00 X5.000 Y55.000\nG01 X195.000 Y55.000 Z46.000 F275.000\nG00 Z52.000\nG00 X195.000 Y60.000\nG01 X5.000 Y60.000 Z46.000 F275.000\nG00 Z52.000\nG00 X5.000 Y65.000\nG01 X195.000 Y65.000 Z46.000 F275.000\nG00 Z52.000\nG00 X195.000 Y70.000\nG01 X5.000 Y70.000 Z46.000 F275.000\nG00 Z52.000\nG00 X5.000 Y75.000\nG01 X195.000 Y75.000 Z46.000 F275.000\nG00 Z52.000\nG00 X195.000 Y80.000\nG01 X5.000 Y80.000 Z46.000 F275.000\nG00 Z52.000\nG00 X5.000 Y85.000\nG01 X195.000 Y85.000 Z46.000 F275.000\nG00 Z52.000\nG00 X195.000 Y90.000\nG01 X5.000 Y90.000 Z46.000 F275.000\nG00 Z52.000\nG00 X5.000 Y95.000\nG01 X195.000 Y95.000 Z46.000 F275.000\nG00 Z52.000\nG00 X5.000 Y5.000\nG01 X195.000 Y5.000 Z45.000 F137.500\nG01 X195.000 Y5.000 Z45.000 F275.000\nG00 Z52.000\nG00 X195.000 Y10.000\nG01 X5.000 Y10.000 Z45.000 F275.000\nG00 Z52.000\nG00 X5.000 Y15.000\nG01 X195.000 Y15.000 Z45.000 F275.000\nG00 Z52.000\nG00 X195.000 Y20.000\nG01 X5.000 Y20.000 Z45.000 F275.000\nG00 Z52.000\nG00 X5.000 Y25.000\nG01 X195.000 Y25.000 Z45.000 F275.000\nG00 Z52.000\nG00 X195.000 Y30.000\nG01 X5.000 Y30.000 Z45.000 F275.000\nG00 Z52.000\nG00 X5.000 Y35.000\nG01 X195.000 Y35.000 Z45.000 F275.000\nG00 Z52.000\nG00 X195.000 Y40.000\nG01 X5.000 Y40.000 Z45.000 F275.000\nG00 Z52.000\nG00 X5.000 Y45.000\nG01 X195.000 Y45.000 Z45.000 F275.000\nG00 Z52.000\nG00 X195.000 Y50.000\nG01 X5.000 Y50.000 Z45.000 F275.000\nG00 Z52.000\nG00 X5.000 Y55.000\nG01 X195.000 Y55.000 Z45.000 F275.000\nG00 Z52.000\nG00 X195.000 Y60.000\nG01 X5.000 Y60.000 Z45.000 F275.000\nG00 Z52.000\nG00 X5.000 Y65.000\nG01 X195.000 Y65.000 Z45.000 F275.000\nG00 Z52.000\nG00 X195.000 Y70.000\nG01 X5.000 Y70.000 Z45.000 F275.000\nG00 Z52.000\nG00 X5.000 Y75.000\nG01 X195.000 Y75.000 Z45.000 F275.000\nG00 Z52.000\nG00 X195.000 Y80.000\nG01 X5.000 Y80.000 Z45.000 F275.000\nG00 Z52.000\nG00 X5.000 Y85.000\nG01 X195.000 Y85.000 Z45.000 F275.000\nG00 Z52.000\nG00 X195.000 Y90.000\nG01 X5.000 Y90.000 Z45.000 F275.000\nG00 Z52.000\nG00 X5.000 Y95.000\nG01 X195.000 Y95.000 Z45.000 F275.000\nG00 Z60.000\nM09\n\n; ---- OP02 OP02-h1 - 精加工-blind_hole ----\nG00 G91 G28 Z0.\nG00 G91 G28 X0. Y0.\nT02 M06\nG00 G90 G54 X0. Y0.\nG43 Z80.000 H02\nG01 Z80.000 F10000.000\nM03 S1000\nN00200 (BREAKPOINT: CP002)\nM08\n; 加工: h1 (精加工-blind_hole)\nG00 Z60.000\nM09\n\n; 程序结束\n\nM09\nM05\nG00 G91 G28 Z0.\nG00 G91 G28 X0. Y0.\nG90\nM30\n%",
+            "warnings": [],
+            "errors": []
+          },
+          "simulation": {
+            "status": "success",
+            "passed": false,
+            "score": 81.74,
+            "recommendation": "not_recommended",
+            "cutting_force": {
+              "Fx": 358.88370749309297,
+              "Fy": 478.5116099907907,
+              "Fz": 1196.2790249769766,
+              "method": "kienzle_fallback",
+              "confidence": 0.5,
+              "model_version": "kienzle_v1.0_fallback",
+              "warning": "PINN 模型未训练或输出异常，已回退到解析解"
+            },
+            "chatter_stability": {
+              "stable": true,
+              "limit_depth": 30.586942767806658,
+              "method": "analytical",
+              "ltc_active": false,
+              "assumed_depth_for_stability": 2.0
+            },
+            "duration_ms": 51.25,
+            "error_message": ""
+          },
+          "disclaimer": "生成结果仅供 CAM 软件（NX/PowerMill/PyCAM）二次校验，绝不直接接口 CNC 控制器"
+        },
+        "request_id": "90ad9a7dd3d44ba9843d04f21609af1a"
+      }
+    }
+  ]
+}

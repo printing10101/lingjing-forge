@@ -1,0 +1,58 @@
+{
+  "loader_path": "D:\\nexent-deploy\\nexent\\sdk\\nexent\\skills\\skill_loader.py",
+  "loader_sha256": "840cd4b2467c150ca4eada0b46eb091939debf3dfe9abb26b59c9f3b25d85199",
+  "locally_registered_tools": [
+    "cam_get_quadruple_stats",
+    "cam_recommend_process",
+    "dxf_describe_file",
+    "gcode_get_failure_stats",
+    "gcode_list_failure_cases",
+    "process_plan_run"
+  ],
+  "skills": [
+    {
+      "name": "hole-process-draft",
+      "tools": [
+        "cam_recommend_process",
+        "process_plan_run"
+      ],
+      "archive": "competition\\nexent\\dist\\hole-process-draft.zip",
+      "sha256": "28f950c3758cd7a60bd1c6e974eab82c3eaa874fc4579faad5d8ab2e9da52db9",
+      "loader_parse": true,
+      "zip_integrity": true,
+      "online_import": false,
+      "agent_binding": false,
+      "online_execution": false
+    },
+    {
+      "name": "manufacturing-evidence-review",
+      "tools": [
+        "dxf_describe_file",
+        "cam_recommend_process",
+        "cam_get_quadruple_stats"
+      ],
+      "archive": "competition\\nexent\\dist\\manufacturing-evidence-review.zip",
+      "sha256": "ca1a0cc19525ba690758c6463258d2571a95edf55643572c64629f27e07ed5b3",
+      "loader_parse": true,
+      "zip_integrity": true,
+      "online_import": false,
+      "agent_binding": false,
+      "online_execution": false
+    },
+    {
+      "name": "manufacturing-failure-review",
+      "tools": [
+        "gcode_get_failure_stats",
+        "gcode_list_failure_cases",
+        "cam_get_quadruple_stats"
+      ],
+      "archive": "competition\\nexent\\dist\\manufacturing-failure-review.zip",
+      "sha256": "0c3df8b02e21ca1c47d65bd4c1b9612422a31c73c4c8a161c142ea7d28d46a20",
+      "loader_parse": true,
+      "zip_integrity": true,
+      "online_import": false,
+      "agent_binding": false,
+      "online_execution": false
+    }
+  ]
+}

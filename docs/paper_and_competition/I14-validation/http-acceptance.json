@@ -1,0 +1,15 @@
+{
+  "browser_backed_synthetic_lifecycle": [
+    "rejected",
+    "pending",
+    "approved",
+    "revoked"
+  ],
+  "synthetic_candidate_created_and_reloaded": true,
+  "desktop_health": true,
+  "production_review_requires_authentication": true,
+  "production_recommendation_status": "knowledge_empty",
+  "production_knowledge_file_absent": true,
+  "real_candidate_approvals": 0,
+  "machine_actions": 0
+}

@@ -1,0 +1,22 @@
+{
+  "skill": "manufacturing-knowledge-update",
+  "skill_id": 4,
+  "agent_id": 1,
+  "bound_to_draft": true,
+  "tools": [
+    {
+      "name": "cam_submit_knowledge_candidate",
+      "tool_id": 61
+    },
+    {
+      "name": "cam_get_knowledge_candidate",
+      "tool_id": 62
+    },
+    {
+      "name": "cam_recommend_process",
+      "tool_id": 54
+    }
+  ],
+  "tool_mapping_verified": true,
+  "llm_autonomous_execution": false
+}

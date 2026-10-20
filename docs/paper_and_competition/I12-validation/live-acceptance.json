@@ -1,0 +1,16 @@
+{
+  "mcp_contracts_passed": 6,
+  "draft_generated": true,
+  "drill_diameter_mm": 8.0,
+  "tool_family_range_mm": [
+    1,
+    25
+  ],
+  "diameter_verified": false,
+  "parameter_source": "handbook_common_range",
+  "parameter_source_verified": false,
+  "unverified_warning_visible": true,
+  "center_diameter_unknown": true,
+  "formal_recommendation_status": "knowledge_empty",
+  "physical_machine_acceptance": false
+}

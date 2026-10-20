@@ -1,0 +1,4 @@
+{
+  "status": 200,
+  "response": "{\n  \"type\": \"text\",\n  \"text\": \"{\\n  \\\"error\\\": true,\\n  \\\"message\\\": \\\"Client error '401 Unauthorized' for url 'http://localhost:8765/api/agent/v1/cam/quadruple-stats'\\\\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401\\\"\\n}\"\n}"
+}

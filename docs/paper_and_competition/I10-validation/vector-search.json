@@ -1,0 +1,165 @@
+{
+  "embedding_http_status": 200,
+  "embedding_dimension": 1024,
+  "finite_nonzero_vector": true,
+  "searches": [
+    {
+      "query": "钻孔",
+      "http_status": 200,
+      "total": 3,
+      "response": {
+        "results": [
+          {
+            "title": "",
+            "filename": "20260915173940_2c1d37e7497e441a9e90ea9dbfc68be8.md",
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20260915173940_2c1d37e7497e441a9e90ea9dbfc68be8.md",
+            "source_type": "minio",
+            "language": "null",
+            "author": "null",
+            "date": "2026-09-15",
+            "content": "## param_ss304_hss_drill\n\nid: param_ss304_hss_drill\n\nmaterial_id: material_ss304\n\nmaterial_name: 不锈钢304\n\ntool_series: twist_drill\n\ntool_material: HSS\n\ncutting_speed_min_mpm: 10\n\ncutting_speed_max_mpm: 20\n\nfeed_min_mmpr: 0.08\n\nfeed_max_mmpr: 0.15\n\nfeed_unit: mm/r\n\ndescription: 不锈钢304使用HSS钻头加工的推荐切削参数\n\n## param_h59_carbide_ballnose\n\nid: param_h59_carbide_ballnose\n\nmaterial_id: material_h59\n\nmaterial_name: 黄铜H59\n\ntool_series: ball_nose\n\ntool_material: carbide\n\ncutting_speed_min_mpm: 150\n\ncutting_speed_max_mpm: 250\n\nfeed_min_mmpr: 0.05\n\nfeed_max_mmpr: 0.15\n\nfeed_unit: mm/齿\n\ndescription: 黄铜H59使用硬质合金球头铣刀五轴精加工的推荐切削参数\n\n## param_h59_carbide_taper_ball\n\nid: param_h59_carbide_taper_ball\n\nmaterial_id: material_h59\n\nmaterial_name: 黄铜H59\n\ntool_series: taper_ball\n\ntool_material: carbide\n\ncutting_speed_min_mpm: 150\n\ncutting_speed_max_mpm: 250\n\nfeed_min_mmpr: 0.05\n\nfeed_max_mmpr: 0.12\n\nfeed_unit: mm/齿\n\ndescription: 黄铜H59使用锥度球头刀五轴深腔加工的推荐切削参数\n\n## param_t2_carbide_ballnose\n\nid: param_t2_carbide_ballnose\n\nmaterial_id: material_t2\n\nmaterial_name: 紫铜T2",
+            "process_source": "Unstructured",
+            "file_size": 4848,
+            "create_time": "2026-09-15T17:40:46",
+            "languages": [],
+            "embedding_model_name": "Qwen3-Embedding-0.6B",
+            "id": "1789494046_172167539",
+            "score": 0.9667600136057148,
+            "index": "1-e4ef479196e84a3abfd828579d9e0951",
+            "score_details": {
+              "accurate": 1.0,
+              "semantic": 0.9335200272114296
+            }
+          },
+          {
+            "title": "",
+            "filename": "20260915173940_2c1d37e7497e441a9e90ea9dbfc68be8.md",
+            "path_or_url": "attachments/60a551ea-ac27-40ad-b0ee-6f8c1ff594ea/20260915173940_2c1d37e7497e441a9e90ea9dbfc68be8.md",
+            "source_type": "minio",
+            "language": "null",
+            "author": "null",
+            "date": "2026-09-15",
+            "content": "# 灵境制造 切削参数知识库（v2.8.0 内置）\n\n> 来源：engineering/python/app/data/cutting_parameters.json（项目内置工艺数据，12 条真实条目）\n\n## param_45steel_hss_drill\n\nid: param_45steel_hss_drill\n\nmaterial_id: material_45steel\n\nmaterial_name: 45#钢\n\ntool_series: twist_drill\n\ntool_material: HSS\n\ncutting_speed_min_mpm: 20\n\ncutting_speed_max_mpm: 30\n\nfeed_min_mmpr: 0.1\n\nfeed_max_mmpr: 0.2\n\nfeed_unit: mm/r\n\ndescription: 45#钢使用HSS钻头加工的推荐切削参数\n\n## param_45steel_carbide_endmill\n\nid: param_45steel_carbide_endmill\n\nmaterial_id: material_45steel\n\nmaterial_name: 45#钢\n\ntool_series: endmill\n\ntool_material: carbide\n\ncutting_speed_min_mpm: 80\n\ncutting_speed_max_mpm: 120\n\nfeed_min_mmpr: 0.05\n\nfeed_max_mmpr: 0.1\n\nfeed_unit: mm/齿\n\ndescription: 45#钢使用硬质合金立铣刀加工的推荐切削参数\n\n## param_al6061_carbide_endmill\n\nid: param_al6061_carbide_endmill\n\nmaterial_id: material_al6061\n\nmaterial_name: 铝合金6061\n\ntool_series: endmill\n\ntool_material: carbide\n\ncutting_speed_min_mpm: 200\n\ncutting_speed_max_mpm: 400\n\nfeed_min_mmpr: 0.05\n\nfeed_max_mmpr: 0.15\n\nfeed_unit: mm/齿\n\ndescription: 铝合金6061使用硬质合金立铣刀加工的推荐切削参数",
+            "process_source": "Unstructured",
+            "file_size": 4848,
+            "create_time": "2026-09-15T17:40:46",
+            "languages": [],
+            "embedding_model_name": "Qwen3-Embedding-0.6B",
+            "id": "1789494046_123865170",
+            "score": 0.9468461527047551,
+            "index": "1-e4ef479196e84a3abfd828579d9e0951",
+            "score_details": {
+              "accurate": 0.9784479948126519,
+              "semantic": 0.9152443105968583
+            }
+          },
+          {
+            "title": "",
+            "filename": "failure_cases_2026-09_1.md",
+            "path_or_url": "knowledge_base/20260928152847_c435b5624239459795ea145bc961f3cc.md",
+            "source_type": "minio",
+            "language": "null",
+            "author": "null",
+            "date": "2026-09-28",
+            "content": "（1 次）特征 plane_top(plane) 颤振预测结果为不稳定（axial_depth=9.0mm, limit_depth=5.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核\n\n（1 次）特征 hole_d10(hole) 颤振预测结果为不稳定（axial_depth=20.4mm, limit_depth=20.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核\n\n（1 次）特征 hole_d10(hole) 颤振预测结果为不稳定（axial_depth=21.2mm, limit_depth=20.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核\n\n（1 次）特征 hole_d10(hole) 颤振预测结果为不稳定（axial_depth=23.0mm, limit_depth=20.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核\n\n## 工艺决策提示\n\n参数处于手册区间边界时，优先向区间中值回调再重试。\n\n出现 unstable_features 失败时，先降低切深/进给，再考虑换刀具材料档位。\n\npipeline_exception 属环境/契约问题，不反映工艺本身，重试即可。",
+            "process_source": "Unstructured",
+            "file_size": 3020,
+            "create_time": "2026-09-28T15:28:52",
+            "languages": [],
+            "embedding_model_name": "Qwen3-Embedding-0.6B",
+            "id": "1790609333_-86971313",
+            "score": 0.5,
+            "index": "2-fdff5ff05c674d1384ad8a1a25039490",
+            "score_details": {
+              "accurate": 0.0,
+              "semantic": 1.0
+            }
+          }
+        ],
+        "total": 3,
+        "query_time_ms": 273
+      },
+      "nonempty_results": true,
+      "source_metadata_present": true
+    },
+    {
+      "query": "加工失败",
+      "http_status": 200,
+      "total": 3,
+      "response": {
+        "results": [
+          {
+            "title": "",
+            "filename": "failure_cases_2026-09_1.md",
+            "path_or_url": "knowledge_base/20260928152847_c435b5624239459795ea145bc961f3cc.md",
+            "source_type": "minio",
+            "language": "null",
+            "author": "null",
+            "date": "2026-09-28",
+            "content": "# 灵境制造 失败案例库知识\n\n> 数据来源：M2 AgentRuntime 批量决策闭环自产数据（batch_evo_v1），统计日期 2026-09-28。案例经「决策 → G-code → 体素仿真校验」全链生成。\n\n## 库存总览\n\n总行数：219（failure 75 + success 144）\n\n一次通过率（one_pass_rate）：65.8%\n\n注意口径：success 行仅记计数要素；「失败案例」以 failure 行为准。\n\n## 失败来源分布\n\n| source | 数量 | 含义 | |---|---|---| | pipeline_exception | 3 | 管线异常（载荷/契约/环境类错误） | | unstable_features | 72 | 体素仿真检出不稳定特征（颤振风险/欠切/过切等） |\n\n## 典型失败信号（按出现频次）\n\n（3 次）服务内部错误，请稍后重试\n\n（1 次）特征 plane_top(plane) 颤振预测结果为不稳定（axial_depth=5.1mm, limit_depth=5.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核\n\n（1 次）特征 plane_top(plane) 颤振预测结果为不稳定（axial_depth=5.3mm, limit_depth=5.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核\n\n（1 次）特征 plane_top(plane) 颤振预测结果为不稳定（axial_depth=5.75mm, limit_depth=5.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审\n\n（1 次）特征 plane_top(plane) 颤振预测结果为不稳定（axial_depth=6.5mm, limit_depth=5.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核\n\n（1 次）特征 plane_top(plane) 颤振预测结果为不稳定（axial_depth=7.5mm, limit_depth=5.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核",
+            "process_source": "Unstructured",
+            "file_size": 3020,
+            "create_time": "2026-09-28T15:28:52",
+            "languages": [],
+            "embedding_model_name": "Qwen3-Embedding-0.6B",
+            "id": "1790609333_287789757",
+            "score": 0.9952393044632619,
+            "index": "2-fdff5ff05c674d1384ad8a1a25039490",
+            "score_details": {
+              "accurate": 0.990478608926524,
+              "semantic": 1.0
+            }
+          },
+          {
+            "title": "",
+            "filename": "failure_cases_2026-09_1.md",
+            "path_or_url": "knowledge_base/20260928152847_c435b5624239459795ea145bc961f3cc.md",
+            "source_type": "minio",
+            "language": "null",
+            "author": "null",
+            "date": "2026-09-28",
+            "content": "（1 次）特征 plane_top(plane) 颤振预测结果为不稳定（axial_depth=9.0mm, limit_depth=5.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核\n\n（1 次）特征 hole_d10(hole) 颤振预测结果为不稳定（axial_depth=20.4mm, limit_depth=20.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核\n\n（1 次）特征 hole_d10(hole) 颤振预测结果为不稳定（axial_depth=21.2mm, limit_depth=20.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核\n\n（1 次）特征 hole_d10(hole) 颤振预测结果为不稳定（axial_depth=23.0mm, limit_depth=20.0mm, method=analytical），禁止生成 G 代码。请回到阶段 5 降低切深或主轴转速后重新审核\n\n## 工艺决策提示\n\n参数处于手册区间边界时，优先向区间中值回调再重试。\n\n出现 unstable_features 失败时，先降低切深/进给，再考虑换刀具材料档位。\n\npipeline_exception 属环境/契约问题，不反映工艺本身，重试即可。",
+            "process_source": "Unstructured",
+            "file_size": 3020,
+            "create_time": "2026-09-28T15:28:52",
+            "languages": [],
+            "embedding_model_name": "Qwen3-Embedding-0.6B",
+            "id": "1790609333_-86971313",
+            "score": 0.9870366150990824,
+            "index": "2-fdff5ff05c674d1384ad8a1a25039490",
+            "score_details": {
+              "accurate": 1.0,
+              "semantic": 0.9740732301981647
+            }
+          },
+          {
+            "title": "",
+            "filename": "cutting_manual_2026-09_1.md",
+            "path_or_url": "knowledge_base/20260928152847_33818f1b02614633ab4469c320f37522.md",
+            "source_type": "minio",
+            "language": "null",
+            "author": "null",
+            "date": "2026-09-28",
+            "content": "# 灵境制造 切削参数手册\n\n> 数据来源：灵境制造切参数据库（cutting_parameters.json，共 257 条，三路溯源：手册公开区间 handbook_common_range / 仓库种子 repo_seed_v1）。转速单位 m/min，进给单位 mm/r。\n\n> 生成日期：2026-09-28\n\n## 使用说明\n\n每条参数为「材料 × 刀具材料 × 工序」的推荐区间（最小值~最大值）。\n\n选用时先按工件材料定位章节，再按刀具材料与工序选行，取区间中值起试。\n\nsource 字段标注数值出处，答辩与工艺评审时可追溯。\n\n## 材料：45#钢\n\n| 刀具系列 | 刀具材料 | 切削速度 (m/min) | 进给 (mm/r) | 来源 |\n\n|---|---|---|---|---|\n\n| ball_nose | HSS | 20~30 | 0.03~0.08 | handbook_common_range |\n\n| ball_nose | carbide | 80~120 | 0.03~0.08 | repo_seed_v1 |\n\n| ball_nose | coated_carbide | 120~180 | 0.03~0.08 | handbook_common_range |\n\n| boring_bar | HSS | 20~30 | 0.06~0.18 | handbook_common_range |\n\n| boring_bar | carbide | 80~120 | 0.06~0.18 | handbook_common_range |\n\n| boring_bar | coated_carbide | 120~180 | 0.06~0.18 | handbook_common_range |\n\n| endmill | HSS | 20~30 | 0.05~0.12 | handbook_common_range |\n\n| endmill | carbide | 80~120 | 0.05~0.1 | repo_seed_v1 |\n\n| endmill | coated_carbide | 120~180 | 0.05~0.12 | handbook_common_range |\n\n| taper_ball | HSS | 20~30 | 0.03~0.08 | handbook_common_range |",
+            "process_source": "Unstructured",
+            "file_size": 20234,
+            "create_time": "2026-09-28T15:28:52",
+            "languages": [],
+            "embedding_model_name": "Qwen3-Embedding-0.6B",
+            "id": "1790609333_223261193",
+            "score": 0.4276560037680227,
+            "index": "2-fdff5ff05c674d1384ad8a1a25039490",
+            "score_details": {
+              "accurate": 0.0,
+              "semantic": 0.8553120075360454
+            }
+          }
+        ],
+        "total": 3,
+        "query_time_ms": 95
+      },
+      "nonempty_results": true,
+      "source_metadata_present": true
+    }
+  ]
+}

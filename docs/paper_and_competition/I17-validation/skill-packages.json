@@ -1,0 +1,20 @@
+[
+  {
+    "name": "hole-process-draft",
+    "path": "competition/nexent/dist/hole-process-draft-i17.zip",
+    "sha256": "8afa44c1e3e1818606f603110bff12ec555b4b9f5bed03b9d38a864d90996589",
+    "installed_this_round": false
+  },
+  {
+    "name": "manufacturing-evidence-review",
+    "path": "competition/nexent/dist/manufacturing-evidence-review-i17.zip",
+    "sha256": "8a266fae8766f8bf3c44e18b0182329b8a6328ec6b37559688dafa893d595c0a",
+    "installed_this_round": false
+  },
+  {
+    "name": "manufacturing-knowledge-update",
+    "path": "competition/nexent/dist/manufacturing-knowledge-update-i17.zip",
+    "sha256": "33eab5dfc4aa5737e3af112b8e0bd785749a24ca9e769a671c29d38a327100dc",
+    "installed_this_round": false
+  }
+]
