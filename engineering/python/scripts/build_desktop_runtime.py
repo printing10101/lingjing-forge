@@ -9,7 +9,7 @@
 
     <runtime-dir>/
     ├── runtime/            # 自包含 Python（python.exe + 标准库 + 依赖）
-    │   └── Lib/site-packages/   # 全部第三方依赖（onnxruntime-only，无 torch）
+    │   └── Lib/site-packages/   # 后端依赖（含 CPU 版 torch，用于文本嵌入）
     ├── backend/            # 后端源码（app/、start_server.py、alembic、config）
     │   └── start_server.py
     └── runtime.json        # 元信息（版本、构建时间）
@@ -31,6 +31,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import hashlib
+import math
 import os
 import shutil
 import subprocess
@@ -61,7 +63,7 @@ def find_uv_python() -> Path | None:
     if sys.platform == "win32":
         base = Path.home() / "AppData/Roaming/uv/python"
         if base.is_dir():
-            candidates = sorted(base.iterdir(), reverse=True)
+            candidates = sorted((p for p in base.iterdir() if p.name.startswith("cpython-3.12")), reverse=True)
             # 优先完整版（含 Scripts/pip），install_only 仅作回退
             for p in candidates:
                 if (p / "python.exe").exists() and (p / "Scripts").is_dir():
@@ -72,7 +74,7 @@ def find_uv_python() -> Path | None:
     else:
         base = Path.home() / ".local/share/uv/python"
         if base.is_dir():
-            candidates = sorted(base.iterdir(), reverse=True)
+            candidates = sorted((p for p in base.iterdir() if p.name.startswith("cpython-3.12")), reverse=True)
             for p in candidates:
                 if (p / "bin" / "python3").exists() and (p / "bin" / "pip").exists():
                     return p
@@ -86,12 +88,12 @@ def copy_tree(src: Path, dst: Path, ignore: tuple[str, ...] = ()) -> int:
     """复制目录树，返回复制的文件数"""
     count = 0
 
-    def _ignore(d: str, names: list[str]) -> list[str]:
-        return [n for n in names if n in ignore]
-
-    for root, _dirs, files in shutil.os.walk(src, topdown=True):
+    for root, dirs, files in shutil.os.walk(src, topdown=True):
+        dirs[:] = [name for name in dirs if name not in ignore]
         rel = Path(root).relative_to(src)
         for f in files:
+            if f in ignore or Path(f).suffix in ignore:
+                continue
             s = Path(root) / f
             d = dst / rel / f
             d.parent.mkdir(parents=True, exist_ok=True)
@@ -101,28 +103,105 @@ def copy_tree(src: Path, dst: Path, ignore: tuple[str, ...] = ()) -> int:
 
 
 
-def clear_dir(target: Path) -> None:
+def clear_dir(target: Path, *, allowed_root: Path) -> None:
     """清空目录内容（保留目录本身）。
 
     相比 shutil.rmtree + mkdir 的「先删后建」，本实现逐文件删除、
     逐子目录递归，避免在受限环境（如带安全删除守卫的沙箱）中
     因无法删除目录而失败；也避免构建中断时产物整体丢失。
     """
+    target = target.absolute()
+    root = allowed_root.resolve()
+    if not target.resolve().is_relative_to(root) or target.resolve() == root:
+        raise ValueError(f"Refusing to clear outside a runtime subdirectory: {target}")
     if not target.exists():
         target.mkdir(parents=True, exist_ok=True)
         return
     for child in target.iterdir():
-        if child.is_dir():
-            clear_dir(child)
-            try:
-                child.rmdir()
-            except OSError:
-                pass
+        if child.is_symlink():
+            child.unlink()
+        elif getattr(child, "is_junction", lambda: False)():
+            child.rmdir()
+        elif child.is_dir():
+            clear_dir(child, allowed_root=root)
+            child.rmdir()
         else:
-            try:
-                child.unlink()
-            except OSError:
-                pass
+            child.unlink()
+
+
+def validate_build_paths(
+    python_src: Path, runtime_dir: Path, backend_src: Path,
+    site_packages: Path | None = None,
+) -> None:
+    """Reject source/output overlap before any cleanup, including linked paths."""
+    root = runtime_dir.resolve()
+    destinations = [root / "runtime", root / "backend"]
+    sources = [python_src.resolve(), *(backend_src.resolve() / sub for sub in ("app", "alembic", "config"))]
+    if site_packages is not None:
+        if not site_packages.is_dir():
+            raise ValueError(f"Dependency source does not exist: {site_packages}")
+        sources.append(site_packages.resolve())
+    for destination in destinations:
+        resolved = destination.resolve()
+        if not resolved.is_relative_to(root):
+            raise ValueError(f"Output link escapes runtime directory: {destination}")
+        for source in sources:
+            if resolved.is_relative_to(source) or source.is_relative_to(resolved):
+                raise ValueError(f"Build source and destination overlap: {source} / {resolved}")
+
+
+RUNTIME_VALIDATION_CODE = """
+import importlib, json, sys, time
+names = ['fastapi', 'uvicorn', 'pydantic', 'ezdxf', 'cadquery', 'onnxruntime',
+         'torch', 'sentence_transformers', 'chromadb']
+modules, timings = {}, {}
+for name in names:
+    started = time.perf_counter()
+    print('Validating import: ' + name, file=sys.stderr, flush=True)
+    modules[name] = importlib.import_module(name)
+    timings[name] = round(time.perf_counter() - started, 3)
+import numpy as np
+import casadi
+assert casadi.__version__ == '3.8.1'
+assert sys.version_info[:2] == (3, 12)
+volume = modules['cadquery'].Workplane('XY').box(1, 2, 3).val().Volume()
+assert abs(volume - 6.0) < 1e-8
+assert modules['torch'].from_numpy(np.array([1.0, 2.0])).tolist() == [1.0, 2.0]
+print(json.dumps({'python': sys.version.split()[0], 'cad_volume': volume,
+                  'import_duration_seconds': timings,
+                  'native_versions': {'casadi': casadi.__version__, 'numpy': np.__version__},
+                  'imports': {name: str(getattr(mod, '__version__', 'unknown'))
+                              for name, mod in modules.items()}}), flush=True)
+"""
+
+
+def validate_runtime(python_exe: Path) -> dict:
+    """Readiness requires imports, native operations AND a clean process exit."""
+    env = dict(os.environ, PYTHONIOENCODING="utf-8")
+    env.pop("PYTHONPATH", None)
+    probe = subprocess.run([str(python_exe), "-X", "faulthandler", "-c", RUNTIME_VALIDATION_CODE],
+                           capture_output=True, text=True, encoding="utf-8", errors="replace",
+                           timeout=180, env=env)
+    if probe.returncode != 0:
+        raise RuntimeError(f"Runtime validation failed (exit={probe.returncode}): {probe.stderr[-4000:]}")
+    try:
+        result = json.loads(probe.stdout.strip().splitlines()[-1])
+    except (IndexError, ValueError) as exc:
+        raise RuntimeError("Runtime validation returned no valid report") from exc
+    required_imports = {
+        "fastapi", "uvicorn", "pydantic", "ezdxf", "cadquery", "onnxruntime",
+        "torch", "sentence_transformers", "chromadb",
+    }
+    if not isinstance(result, dict):
+        raise RuntimeError("Runtime validation report is incomplete")
+    volume = result.get("cad_volume")
+    imports = result.get("imports")
+    if (not isinstance(imports, dict) or set(imports) != required_imports
+            or not isinstance(volume, (int, float)) or isinstance(volume, bool)
+            or not math.isfinite(volume) or abs(volume - 6.0) > 1e-8
+            or not str(result.get("python", "")).startswith("3.12.")):
+        raise RuntimeError("Runtime validation report is incomplete")
+    return result
 
 
 def main() -> int:
@@ -158,10 +237,13 @@ def main() -> int:
         log("ERROR: 未找到完整版 Python（可用 --python-src 指定 python-build-standalone 目录）")
         return 1
     log(f"Python 来源: {python_src}")
+    validate_build_paths(python_src, runtime_dir, args.backend_src, args.site_packages)
+    # An interrupted rebuild must not leave an old readiness manifest behind.
+    (runtime_dir / "runtime.json").unlink(missing_ok=True)
 
     # 2. 复制 Python 运行时（排除冗余目录）
     log("复制 Python 运行时（含标准库）...")
-    clear_dir(runtime_py)
+    clear_dir(runtime_py, allowed_root=runtime_dir)
     n = copy_tree(python_src, runtime_py,
                   ignore=("__pycache__", "include", "libs", "tcl"))
     log(f"复制 Python 文件 {n} 个")
@@ -220,20 +302,20 @@ def main() -> int:
         # 训练向包污染运行时 → NSIS/WiX 打包失败），requirements.txt 才是真源。
         req = PROJECT_ROOT / "requirements.txt"
         # torch 必须取 CPU 轮子：PyPI 的 torch 默认捆绑整套 CUDA 依赖
-        # （nvidia-cudnn/nccl/cublas 等 ~3GB，实测 CI 下载 >1.5h）。做法是把
-        # pytorch CPU 索引设为主源、常规镜像设为 extra：PEP 440 本地版本号
-        # `2.14.0+cpu` 优先级高于 `2.14.0`，pip 解析 sentence-transformers 的
-        # torch 依赖时自然选中 +cpu 轮子，其余包仍来自常规镜像。
+        # （nvidia-cudnn/nccl/cublas 等 ~3GB，实测 CI 下载 >1.5h）。用约束文件
+        # 固定经过验证的 CPU 版本，并添加官方 CPU 索引供 pip 获取该轮子。
         # 注意 pip 的 --target 不会把已装进目标的包视为"已满足"，因此不能用
         # "先预装再装 requirements"的方式实现（2026-09-17 CI 实测无效）。
         # 工程侧 torch 仅用于 RAG 嵌入（见 requirements.txt 头注释），CPU 版即够。
         log(f"安装依赖到运行时（torch 取 CPU 轮子，其余来自 {args.pip_index}）...")
+        constraints = PROJECT_ROOT / "requirements-desktop-constraints.txt"
         r = subprocess.run(
             [str(py_exe), "-m", "pip", "install", "--no-cache-dir",
              "--break-system-packages",  # python-build-standalone 带 PEP668 标记
              "--target", str(sp_dst), "-r", str(req),
-             "--index-url", "https://download.pytorch.org/whl/cpu",
-             "--extra-index-url", args.pip_index],
+             "-c", str(constraints),
+             "--index-url", args.pip_index,
+             "--extra-index-url", "https://download.pytorch.org/whl/cpu"],
         )
         if r.returncode != 0:
             log("ERROR: 依赖安装失败")
@@ -290,14 +372,14 @@ def main() -> int:
 
     # 4. 后端代码
     log("复制后端代码...")
-    clear_dir(backend_dst)
+    clear_dir(backend_dst, allowed_root=runtime_dir)
     for sub in ("app", "alembic", "config"):
         s = args.backend_src / sub
         if s.is_dir():
             n = copy_tree(s, backend_dst / sub,
                           ignore=("__pycache__", "tests", "data", ".pyc"))
             log(f"复制 {sub}/ {n} 个文件")
-    for f in ("start_server.py", "alembic.ini", "requirements.txt"):
+    for f in ("start_server.py", "alembic.ini", "requirements.txt", "requirements-desktop-constraints.txt"):
         s = args.backend_src / f
         if s.is_file():
             shutil.copy2(s, backend_dst / f)
@@ -306,30 +388,25 @@ def main() -> int:
     # 注意：python 字段必须是「运行时自带解释器」的版本，而非构建宿主解释器版本。
     # 2026-08-24 修复：此前用 platform.python_version()（宿主 3.11）写入元信息，
     # 而运行时实为 python-build-standalone 3.12，误导排障。
-    probe = subprocess.run(
-        [str(py_exe), "-c", "import platform; print(platform.python_version())"],
-        capture_output=True, text=True, timeout=30,
-    )
-    runtime_version = probe.stdout.strip() if probe.returncode == 0 else "unknown"
     info = {
         "schema": 1,
-        "python": runtime_version,
         "python_exe": "runtime/python.exe" if sys.platform == "win32" else "runtime/bin/python3",
         "backend_dir": "backend",
         "backend_entry": "backend/start_server.py",
         "built_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
     }
-    (runtime_dir / "runtime.json").write_text(json.dumps(info, ensure_ascii=False, indent=2), encoding="utf-8")
 
     log("验证运行时...")
-    test = subprocess.run(
-        [str(py_exe), "-c", "import sys; print(sys.version.split()[0])"],
-        capture_output=True, text=True, timeout=30,
-    )
-    if test.returncode != 0:
-        log(f"ERROR: 运行时 Python 不可用\n{test.stderr}")
+    try:
+        info["validation"] = validate_runtime(py_exe)
+    except (RuntimeError, subprocess.TimeoutExpired) as exc:
+        log(f"ERROR: {exc}")
         return 1
-    log(f"运行时 Python: {test.stdout.strip()}")
+    info["python"] = info["validation"]["python"]
+    info["requirements_sha256"] = hashlib.sha256((PROJECT_ROOT / "requirements.txt").read_bytes()).hexdigest()
+    info["constraints_sha256"] = hashlib.sha256((PROJECT_ROOT / "requirements-desktop-constraints.txt").read_bytes()).hexdigest()
+    (runtime_dir / "runtime.json").write_text(json.dumps(info, ensure_ascii=False, indent=2), encoding="utf-8")
+    log(f"运行时 Python: {info['validation']['python']}（依赖与原生计算验证通过）")
 
     # 估算体积
     total = sum(f.stat().st_size for f in runtime_dir.rglob("*") if f.is_file())

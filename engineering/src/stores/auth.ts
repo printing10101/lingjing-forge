@@ -3,11 +3,11 @@ import { ref, computed } from 'vue'
 import http from '@/utils/http'
 import { API_CONFIG, buildApiPath } from '@/config/api'
 
-export type UserRole = 'admin' | 'operator' | 'viewer' | 'guest'
+export type UserRole = 'admin' | 'engineer' | 'operator' | 'viewer' | 'guest'
 
 // P1 安全修复：role 字段白名单。后端响应若被中间人篡改或 JWT 解码异常，
 // 未知 role 必须降级为 'viewer'，避免绕过 isAdmin() 等权限判断造成权限提升。
-const ALLOWED_ROLES: ReadonlySet<UserRole> = new Set(['admin', 'operator', 'viewer', 'guest'])
+const ALLOWED_ROLES: ReadonlySet<UserRole> = new Set(['admin', 'engineer', 'operator', 'viewer', 'guest'])
 
 function normalizeRole(role: unknown): UserRole {
   return ALLOWED_ROLES.has(role as UserRole) ? (role as UserRole) : 'viewer'

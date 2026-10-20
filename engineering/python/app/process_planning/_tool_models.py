@@ -39,6 +39,8 @@ class MatchedTool:
             "tool_series": self.tool.series,
             "tool_material": self.tool.material,
             "diameter_mm": self.tool.diameter_mm,
+            "diameter_range_mm": self.tool.diameter_range_mm,
+            "diameter_verified": self.tool.diameter_verified,
             "application": self.tool.application,
             "suitability_score": round(self.suitability_score, 1),
             "match_reason": self.match_reason,
@@ -55,6 +57,8 @@ class MatchedTool:
                     f"{self.cutting_params.feed_unit}"
                 ),
                 "description": self.cutting_params.description,
+                "source": self.cutting_params.source,
+                "source_verified": False,
             }
         return result
 

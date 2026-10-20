@@ -116,6 +116,16 @@ class DxfToModelConverter:
 
         try:
             base = self._create_base_solid(length, width, height)
+            if feature_result.contours:
+                outer = max(feature_result.contours, key=lambda ring: abs(ring.area))
+                if outer.source == "circle" and outer.radius and not any(
+                    abs(hole.diameter - 2 * outer.radius) < 0.05
+                    and abs(hole.center_x - outer.center[0]) < 0.05
+                    and abs(hole.center_y - outer.center[1]) < 0.05
+                    for hole in feature_result.holes
+                ):
+                    cx, cy = outer.center
+                    base = cq.Workplane("XY").center(cx, cy).circle(outer.radius).extrude(height)
         except (ValueError, TypeError, ZeroDivisionError, OverflowError, RuntimeError, OSError) as e:
             # cadquery/OCCT 在构造基础实体时可能抛出参数错误、内部运行时错误等
             # 统一收口为 DxfModelError 向上抛出，保持业务异常类型一致

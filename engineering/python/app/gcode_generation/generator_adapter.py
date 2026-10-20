@@ -235,6 +235,7 @@ class GeneratorAdapter:
         tool_radius_compensation: str = "G41",
         use_coolant: bool = True,
         stock_top_z: float = 50.0,
+        max_stepdown: float | None = None,
     ) -> tuple[GCodeResult, list[FeatureGCodeResult]]:
         """生成 G 代码 + 特征级安全裕度结果。
 
@@ -257,6 +258,9 @@ class GeneratorAdapter:
             tool_radius_compensation: 刀具半径补偿模式（G41/G42/G40）
             use_coolant: 是否开启冷却液
             stock_top_z: 毛坯顶面 Z 坐标（mm）
+            max_stepdown: 可选最大分层切深（mm）。透传给 GCodeGenerator，
+                用于颤振拦截后的自动降参重试（stepdown_retry 闭环）；
+                只钳制每层切深，不缩减特征总加工深度。
 
         Returns:
             (GCodeResult, list[FeatureGCodeResult]) 二元组：
@@ -282,6 +286,7 @@ class GeneratorAdapter:
                 tool_radius_compensation=tool_radius_compensation,
                 use_coolant=use_coolant,
                 stock_top_z=stock_top_z,
+                max_stepdown=max_stepdown,
             )
         except ValueError as e:
             raise GeneratorAdapterError(f"GCodeGenerator.generate() 失败: {e}") from e

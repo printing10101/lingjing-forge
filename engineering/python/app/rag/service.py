@@ -99,19 +99,9 @@ def _get_process_index():
     的完整文档反查能力（EntityIndex 已在 ``get_process_quadruple_index()``
     内部默认注入）。
     """
-    from app.rag.process_quadruple import (
-        get_process_quadruple_index,
-        seed_default_quadruples,
-    )
+    from app.rag.process_quadruple import get_process_quadruple_index
 
     index = get_process_quadruple_index(knowledge_base=kb)
-    # 首次访问时自动注入默认知识库（仅当索引为空）
-    if index.get_stats()["total_quadruples"] == 0:
-        try:
-            seeded = seed_default_quadruples(index)
-            logger.info("已注入 %d 条默认工艺四元组", seeded)
-        except (ValueError, KeyError, RuntimeError) as e:
-            logger.warning("注入默认工艺四元组失败: %s", e)
     return index
 
 
@@ -816,7 +806,7 @@ async def seed_default_process_knowledge():
         from app.rag.process_quadruple import seed_default_quadruples
 
         index = _get_process_index()
-        # 先清空再注入，避免重复
+        # 显式添加演示配方；不清空已有知识。
         before = index.get_stats()["total_quadruples"]
         count = seed_default_quadruples(index)
         index.flush(force=True)
@@ -824,7 +814,7 @@ async def seed_default_process_knowledge():
             "seeded": count,
             "before_total": before,
             "after_total": index.get_stats()["total_quadruples"],
-            "message": f"已注入 {count} 条默认工艺四元组",
+            "message": f"已注入 {count} 条演示四元组（不参与正式推荐）",
         }
     except (RuntimeError, OSError, ValueError) as e:
         logger.exception("Failed to seed default process knowledge")

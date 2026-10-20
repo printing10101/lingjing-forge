@@ -18,6 +18,7 @@
 import os
 import sys
 import types
+import tempfile
 from pathlib import Path
 
 # SQLite 连接池测试模式（M1 修复）
@@ -26,6 +27,10 @@ from pathlib import Path
 # sqlite_pool.get_connection time.sleep(0.1) 自旋触发 Timeout。
 # 生产环境不受影响（连接池正常工作时不会进入等待分支）。
 os.environ.setdefault("LNN_SQLITE_POOL_FAIL_FAST", "1")
+
+# MCP 工具模块在导入时要求 agent token。单元测试使用合成 token，
+# 避免单文件运行或收集顺序变化时因缺少环境变量而失败。
+os.environ.setdefault("LINGJING_AGENT_TOKEN", "synthetic-test-only-" + "x" * 32)
 
 # WinSock 损坏绕过补丁（仅 Windows）
 # 本机 _overlapped 模块因系统级 WinSock 损坏无法导入（WinError 10038），
@@ -73,3 +78,24 @@ if str(_PYTHON_ROOT) not in sys.path:
 # 机制的一部分（防止 pytest 9.x 跨目录调用时误扫 app 内嵌测试触发
 # torch 导入 STATUS_HEAP_CORRUPTION），必须保留。
 collect_ignore = ["app"]
+
+
+def pytest_configure(config):
+    """Isolate default process-knowledge writes before test modules are collected."""
+    key = "LINGJING_PROCESS_KNOWLEDGE_DIR"
+    config._lingjing_process_knowledge_previous = os.environ.get(key)
+    config._lingjing_process_knowledge_directory = tempfile.TemporaryDirectory(prefix="lingjing-pytest-process-")
+    os.environ[key] = config._lingjing_process_knowledge_directory.name
+
+
+def pytest_unconfigure(config):
+    directory = getattr(config, "_lingjing_process_knowledge_directory", None)
+    if directory is None:
+        return
+    key = "LINGJING_PROCESS_KNOWLEDGE_DIR"
+    previous = config._lingjing_process_knowledge_previous
+    if previous is None:
+        os.environ.pop(key, None)
+    else:
+        os.environ[key] = previous
+    directory.cleanup()

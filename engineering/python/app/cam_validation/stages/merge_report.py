@@ -285,6 +285,7 @@ class MergeReportMixin:
             # 上游追溯
             "source_gcode_report_path": task.source_gcode_report_path,
             "source_gcode_file_path": task.source_gcode_file_path,
+            "source_gcode_sha256": task.source_gcode_sha256,
             # 工艺参数（继承阶段 6）
             "controller_type": task.controller_type,
             "material_name": task.material_name,

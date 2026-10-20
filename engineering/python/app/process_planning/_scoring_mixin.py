@@ -1,6 +1,8 @@
 """刀具适用度评分 mixin（从 tool_param_matcher 拆出）。"""
 
 from __future__ import annotations
+from dataclasses import replace
+import math
 
 
 from app.data.process_data_manager import CuttingParameterEntry, ToolEntry
@@ -12,11 +14,9 @@ class _ScoringMixin:
         tools: list[ToolEntry],
         target_diameter: float,
     ) -> ToolEntry:
-        """从刀具列表中选择直径最接近目标直径的。
+        """优先固定精确尺寸，其次返回范围内的未确认候选。
 
-        优先级：
-        1. 直径 ≥ 目标直径（确保能加工出所需孔）
-        2. 在≥目标直径的刀具中选最小的（减少余量）
+        钻头过大或过小均不作为目标孔的匹配尺寸；其他刀具仅保留参考选择。
 
         Args:
             tools: 候选刀具列表
@@ -25,7 +25,23 @@ class _ScoringMixin:
         Returns:
             最优匹配的刀具
         """
-        # 筛选直径≥目标直径的刀具
+        exact = [tool for tool in tools if tool.diameter_verified and math.isclose(tool.diameter_mm, target_diameter, abs_tol=1e-6, rel_tol=0)]
+        if exact:
+            return exact[0]
+        for tool in tools:
+            bounds = tool.diameter_range_mm
+            if len(bounds) == 2 and all(isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v) and v > 0 for v in bounds):
+                if bounds[0] <= target_diameter <= bounds[1]:
+                    return replace(tool, diameter_mm=target_diameter, diameter_verified=False)
+        # A larger drill makes a larger hole; never call that a matching size.
+        if tools and all(tool.series == "twist_drill" for tool in tools):
+            return ToolEntry(id="unavailable", series="twist_drill", name=f"待确认 φ{target_diameter}mm 钻头",
+                             diameter_mm=target_diameter, material="unknown", application="钻孔", diameter_verified=False)
+        tools = [tool for tool in tools if tool.diameter_verified and tool.diameter_mm > 0]
+        if not tools:
+            return ToolEntry(id="unavailable", series="center_drill", name="待确认中心钻", diameter_mm=0.0,
+                             material="unknown", application="打中心孔定位", diameter_verified=False)
+        # Non-drilling tools retain their reference selection rule.
         oversize = [t for t in tools if t.diameter_mm >= target_diameter]
         if oversize:
             # 选择最接近目标直径的（即最小的≥目标直径的刀具）
@@ -44,8 +60,8 @@ class _ScoringMixin:
 
         评分维度：
         - 直径匹配度（50分）：直径越接近目标 → 分数越高
-        - 切削参数可用性（30分）：有切削参数 → +30
-        - 刀具材质适配（20分）：硬质合金优于HSS
+        - 切削参数可用性：不代表已核验其来源
+        - 未确认具体尺寸的候选评分上限 50
 
         Args:
             tool: 匹配的刀具
@@ -76,7 +92,7 @@ class _ScoringMixin:
         if tool.material == "carbide":
             score += 10  # 硬质合金适用于高速高效加工
 
-        return min(score, 100.0)
+        return min(score, 100.0 if tool.diameter_verified else 50.0)
 
     def _build_match_reason(
         self,
@@ -93,7 +109,9 @@ class _ScoringMixin:
         """
         dia_diff = abs(tool.diameter_mm - target_diameter)
 
-        if dia_diff == 0:
+        if not tool.diameter_verified:
+            dia_reason = f"候选刀具直径φ{tool.diameter_mm}mm，尚未确认具体规格"
+        elif dia_diff == 0:
             dia_reason = f"刀具直径φ{tool.diameter_mm}mm与孔直径φ{target_diameter}mm精确匹配"
         else:
             dia_reason = f"刀具直径φ{tool.diameter_mm}mm覆盖目标直径φ{target_diameter}mm(偏差{dia_diff:.1f}mm)"
@@ -129,9 +147,13 @@ class _ScoringMixin:
 
         if dia_diff >= 2.0:
             warnings.append(f"刀具直径偏差{dia_diff:.1f}mm较大，建议检查孔加工余量是否可接受")
+        if not tool.diameter_verified:
+            warnings.append("该直径为刀具族范围内的候选规格或待补充规格，未确认具体刀具；使用前必须核对实际刀具")
 
         if params is None:
             warnings.append("该组合暂无切削参数数据，请根据实际工况设定切削速度和进给量")
+        else:
+            warnings.append(f"切削参数来源 {params.source} 尚未核验，仅供草案参考；使用前需核对厂商资料与实际工况")
 
         return warnings
 

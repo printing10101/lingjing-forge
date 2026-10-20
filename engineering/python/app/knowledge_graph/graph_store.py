@@ -21,6 +21,8 @@
 from __future__ import annotations
 
 import logging
+import copy
+from contextlib import contextmanager
 import re
 import threading
 from typing import Any
@@ -469,6 +471,21 @@ class GraphStore:
             return sum(1 for _, _, k in self._graph.edges(keys=True) if k == edge_type)
 
     # ============================================================== 辅助操作
+
+    @contextmanager
+    def transaction(self):
+        """Serialize a record's mutations and restore all graph state on failure.
+
+        Persistence remains explicit via flush_to_repository; receipts stored as
+        nodes are flushed in the same database transaction as the business data.
+        """
+        with self._lock:
+            snapshot = copy.deepcopy(self._graph)
+            try:
+                yield self
+            except BaseException:
+                self._graph = snapshot
+                raise
 
     def clear(self) -> None:
         """清空内存图（不影响数据库）。"""

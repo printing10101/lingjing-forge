@@ -17,6 +17,8 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import math
+import json
 import re
 from typing import Any
 
@@ -40,13 +42,14 @@ class FeedbackUpdater:
     4. 可信度调整：首次合格提升置信度，不合格降低置信度
     """
 
-    def __init__(self, graph_store: GraphStore | None = None):
+    def __init__(self, graph_store: GraphStore | None = None, *, persist_updates: bool | None = None):
         """初始化反馈更新器
 
         Args:
             graph_store: 知识图谱存储实例，为None时自动创建
         """
-        self.graph_store = graph_store if graph_store is not None else GraphStore(auto_load=False)
+        self.graph_store = graph_store if graph_store is not None else GraphStore()
+        self._persist_updates = graph_store is None if persist_updates is None else persist_updates
         logger.info("FeedbackUpdater initialized")
 
     def update_from_machining_record(self, record: dict[str, Any]) -> dict[str, Any]:
@@ -71,8 +74,38 @@ class FeedbackUpdater:
             - confidence_adjustments: 可信度调整次数
         """
         record_id = record.get("record_id")
-        if not record_id:
-            raise ValueError("record must contain 'record_id'")
+        if not isinstance(record_id, str) or not record_id.strip():
+            raise ValueError("record must contain 'record_id' as a non-empty string")
+        first_pass = record.get("first_pass_acceptance", False)
+        if not isinstance(first_pass, bool):
+            raise ValueError("first_pass_acceptance must be boolean")
+        roughness = record.get("surface_roughness")
+        if roughness is not None:
+            if isinstance(roughness, bool) or not isinstance(roughness, (int, float)):
+                raise ValueError("surface_roughness must be a finite non-negative number")
+            if not math.isfinite(roughness) or roughness < 0:
+                raise ValueError("surface_roughness must be a finite non-negative number")
+        payload_hash = hashlib.sha256(
+            json.dumps(record, sort_keys=True, ensure_ascii=False, allow_nan=False).encode("utf-8")
+        ).hexdigest()
+        receipt_id = "feedback-" + hashlib.sha256(record_id.encode("utf-8")).hexdigest()
+        with self.graph_store.transaction():
+            receipt = self.graph_store.get_node(receipt_id)
+            if receipt:
+                if receipt["properties"]["payload_hash"] != payload_hash:
+                    raise ValueError("record_id already processed with different content")
+                return {"process_nodes_updated": 0, "tool_material_edges_updated": 0,
+                        "process_feature_edges_updated": 0, "confidence_adjustments": 0}
+            stats = self._apply_record(record)
+            self.graph_store.add_node("feedback_record", receipt_id,
+                                      {"record_id": record_id, "payload_hash": payload_hash})
+            if self._persist_updates:
+                self.graph_store.flush_to_repository()
+            return stats
+
+    def _apply_record(self, record: dict[str, Any]) -> dict[str, int]:
+        """Apply all updates within the caller's graph transaction."""
+        record_id = record["record_id"]
 
         stats = {
             "process_nodes_updated": 0,
@@ -160,11 +193,15 @@ class FeedbackUpdater:
             new_success_count = success_count + (1 if first_pass else 0)
 
             # 计算新的平均粗糙度
-            current_roughness = record.get("surface_roughness", 0.0)
-            if sample_count == 0:
-                new_avg_roughness = current_roughness
-            else:
-                new_avg_roughness = (avg_roughness * sample_count + current_roughness) / new_sample_count
+            current_roughness = record.get("surface_roughness")
+            # Legacy sample_count includes missing measurements and cannot be
+            # reused as an observed roughness count. Start a clean metric epoch.
+            roughness_count = props.get("roughness_sample_count", 0)
+            new_avg_roughness = avg_roughness if roughness_count else None
+            if current_roughness is not None:
+                new_avg_roughness = ((avg_roughness * roughness_count + current_roughness) / (roughness_count + 1)
+                                     if roughness_count else current_roughness)
+                roughness_count += 1
 
             # 更新节点属性
             self.graph_store.update_node_properties(
@@ -174,6 +211,7 @@ class FeedbackUpdater:
                     "success_count": new_success_count,
                     "success_rate": new_success_count / new_sample_count if new_sample_count > 0 else 0.0,
                     "avg_surface_roughness": new_avg_roughness,
+                    "roughness_sample_count": roughness_count,
                     "last_updated": record.get("record_id"),
                 },
             )
@@ -402,6 +440,7 @@ class FeedbackUpdater:
 
         # 调整Tool-Material关系可信度
         edge_type = "SUITABLE_FOR"
+        material = self._material_node_id(material)
         if self.graph_store.has_edge(tool_id, material, edge_type):
             edge = self.graph_store.get_edge(tool_id, material, edge_type)
             if edge:

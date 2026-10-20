@@ -14,6 +14,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 import time
 from pathlib import Path
@@ -40,6 +41,7 @@ def _make_task(
         task_id=task_id,
         source_gcode_report_path="/tmp/report.json",
         source_gcode_file_path=gcode_path,
+        source_gcode_sha256=hashlib.sha256(Path(gcode_path).read_bytes()).hexdigest(),
         controller_type="fanuc_0i",
         status=status,
         voxel_check_passed=voxel_check_passed,

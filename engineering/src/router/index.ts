@@ -157,6 +157,12 @@ const router = createRouter({
       meta: { title: "审批看板", requiresAuth: true, requiresAdmin: true },
     },
     {
+      path: "/process-knowledge-review",
+      name: "process-knowledge-review",
+      component: () => import("../views/ProcessKnowledgeReview.vue"),
+      meta: { title: "工艺知识审核", requiresAuth: true },
+    },
+    {
       path: "/goals",
       name: "goals",
       component: () => import("../views/Goals.vue"),

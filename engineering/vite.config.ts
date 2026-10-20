@@ -40,6 +40,10 @@ export default defineConfig({
     host: '127.0.0.1',
     port: 1420,
     strictPort: true,
+    // Python 桌面运行时包含大量依赖文件，不属于前端热更新范围。
+    watch: {
+      ignored: ['**/python/**', '**/src-tauri/target/**', '**/dist/**', '**/coverage/**'],
+    },
     proxy: {
       '/api': {
         target: 'http://localhost:8765',

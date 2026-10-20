@@ -41,7 +41,7 @@ import asyncio
 import json
 import logging
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, TYPE_CHECKING
 
@@ -76,8 +76,10 @@ from app.gcode_generation.generator_adapter import (
     load_operation_plan,
 )
 from app.gcode_generation.safety_validator import (
+    # noqa: F401 (re-exported for tests)
     SafetyValidator,
 )
+from app.gcode_generation.stepdown_retry import compute_stepdown_recovery
 
 if TYPE_CHECKING:
     from app.config import GCodeGenerationConfig
@@ -275,6 +277,62 @@ class GCodeGenerationPipeline:
             # 3. 调用 GeneratorAdapter.adapt() 生成基础 G 代码 + 特征级结果
             base_result, feature_gcode_results = await self._generate(task, operation_plan, report.feature_results)
 
+            # 3.5 颤振拦截自动降参重试（stepdown 闭环恢复）：
+            # 失败且全部错误为 unstable 型时，反解全局 max_stepdown 重试一次。
+            # 仅压低每层切深（生成器分层机制），不改工艺计划；重试结果带
+            # recovered 标记，不与正常产物混淆。非 unstable 错误不重试。
+            recovery_applied = False
+            recovery_stepdown: float | None = None
+            effective_results = report.feature_results
+            if not base_result.is_valid and all(
+                "颤振预测结果为不稳定" in msg for msg in base_result.errors
+            ):
+                decision = compute_stepdown_recovery(report.feature_results)
+                if decision.recoverable and decision.max_stepdown_mm is not None:
+                    logger.info(
+                        "任务 %s 触发降参重试：unstable=%d, max_stepdown=%.3fmm",
+                        task_id,
+                        report.unstable_features,
+                        decision.max_stepdown_mm,
+                    )
+                    retry_result, retry_features = await self._generate(
+                        task, operation_plan, report.feature_results,
+                        max_stepdown=decision.max_stepdown_mm,
+                    )
+                    if retry_result.is_valid:
+                        base_result = retry_result
+                        feature_gcode_results = retry_features
+                        recovery_applied = True
+                        recovery_stepdown = decision.max_stepdown_mm
+                        # 校验口径切换为"每层有效切深"：生成器已把每层钳制到
+                        # max_stepdown，安全门禁应校验真实每层切深而非总深。
+                        # stable 标记保持原样（兜底告警仍会发出，不静默洗白）。
+                        effective_results = [
+                            replace(f, axial_depth_mm=min(f.axial_depth_mm, decision.max_stepdown_mm))
+                            if not f.stable else f
+                            for f in report.feature_results
+                        ]
+                        base_result.warnings.append(
+                            f"[STEPDOWN_RECOVERY] 颤振拦截后自动降参重试成功："
+                            f"unstable 特征 {list(decision.affected_features)}，"
+                            f"每层切深钳制至 {decision.max_stepdown_mm:.3f}mm（0.95×极限）。"
+                            "恢复产物须经工程师审核后方可导出。"
+                        )
+                        logger.info(
+                            "任务 %s 降参重试成功，原 %d 个 unstable 特征已按分层恢复",
+                            task_id,
+                            report.unstable_features,
+                        )
+                    else:
+                        logger.warning(
+                            "任务 %s 降参重试后仍失败 errors=%d，走原 FAILED 流程",
+                            task_id,
+                            len(retry_result.errors),
+                        )
+                elif not decision.recoverable and decision.reasons:
+                    # 不可恢复的原因并入错误信息，工程师能看到为什么没自动救
+                    base_result.errors.extend(decision.reasons)
+
             # 4. 检查 is_valid（含 unstable 特征时 base_result.errors 非空）
             if not base_result.is_valid:
                 # stable == False 的特征存在 FAILED（强制回阶段 5）
@@ -313,8 +371,9 @@ class GCodeGenerationPipeline:
 
             # 4.5 统一多层安全门禁（SafetyValidator，借鉴 NumCraft）：
             # error 级 阻断导出（强制回上游调整）；warning 级 随任务上报
+            # 降参恢复成功时用"每层有效切深"口径校验（原始总深会误判超限）
             safety_report = self._safety_validator.validate_all(
-                chatter_results=report.feature_results,
+                chatter_results=effective_results,
                 gcode_text=base_result.program_text,
                 safe_z=task.safe_z,
                 stock_top_z=task.stock_top_z,
@@ -347,10 +406,16 @@ class GCodeGenerationPipeline:
                 task.warnings.append(_sw.message)
 
             # 5. is_valid == True GENERATED
+            # 降参重试成功时保留恢复警告（随任务上报，工程师可审计恢复来源）
             task.feature_gcode_results = feature_gcode_results
             task.gcode_text = base_result.program_text
             task.warnings = list(base_result.warnings)
             task.errors = []
+            if recovery_applied and recovery_stepdown is not None:
+                task.warnings.append(
+                    f"[STEPDOWN_RECOVERY] 本任务由颤振拦截自动降参恢复生成，"
+                    f"每层切深上限 {recovery_stepdown:.3f}mm，导出前必须人工审核。"
+                )
             task.total_features = report.total_features
             task.stable_features = report.stable_features
             task.unstable_features = report.unstable_features
@@ -410,7 +475,9 @@ class GCodeGenerationPipeline:
         task.tool_diameter_mm = operation_plan.tool_diameter_mm
         return report, operation_plan
 
-    async def _generate(self, task, operation_plan, chatter_results) -> tuple:
+    async def _generate(
+        self, task, operation_plan, chatter_results, max_stepdown: float | None = None
+    ) -> tuple:
         """调用 GeneratorAdapter.adapt() 生成基础 G 代码（CPU 密集，转线程池）."""
         return await asyncio.to_thread(
             self._adapter.adapt,
@@ -421,6 +488,7 @@ class GCodeGenerationPipeline:
             program_number=task.program_number,
             safe_z=task.safe_z,
             stock_top_z=task.stock_top_z,
+            max_stepdown=max_stepdown,
         )
 
     def _fail_from_exception(self, task, e: Exception, *, uncaught: bool) -> GCodeGenerationResult:

@@ -192,6 +192,10 @@ Content-Type: application/json
 | `POST` | `/api/rag/maintenance/cleanup` |  |
 | `POST` | `/api/rag/maintenance/optimize` |  |
 | `POST` | `/api/rag/process/add` | 添加工艺四元组到索引。 |
+| `POST` | `/api/agent/v1/cam/knowledge-candidates` | Agent 提交待审候选，按提交编号与内容持久去重；需要 R+W。 |
+| `GET` | `/api/agent/v1/cam/knowledge-candidates/{record_id}` | Agent 查询自己提交的候选及当前人工审核结果；需要 R。 |
+| `GET` | `/api/rag/process/review/records` | 工程师或管理员读取知识版本及审核历史。 |
+| `POST` | `/api/rag/process/review/{record_id}` | 按预期版本批准、拒绝、撤销或修订工艺知识。 |
 | `GET` | `/api/rag/process/features` | 列出所有已建模的特征类型。 |
 | `POST` | `/api/rag/process/flush` | 强制将工艺四元组索引落盘。 |
 | `POST` | `/api/rag/process/recommend` | 根据加工特征推荐工艺方案（CAMWorks TechDB 式自动决策）。 |
@@ -5008,3 +5012,143 @@ Kienzle 正向切削力计算请求。
 ---
 
 *本文档由 API 文档自动生成系统生成，如有疑问请联系开发团队。*
+
+### 2026-10-16：NC 下发与评分响应契约补充
+
+- `POST /api/v1/dnc/nc-program/send` 保持请求字段不变。默认门禁新增内容一致性检查：
+  阶段 7 记录 `source_gcode_sha256`，必须与本次发送内容一致；旧记录没有指纹、
+  或内容改变，均返回 HTTP 403 / `NC_NOT_VALIDATED`（8013），要求重新校验与审核。
+  下发使用检查过的私有内容快照，原路径在网络等待期间改变不会替换本次发送内容。
+  显式历史程序逃生阀及审计要求不变。没有实机安全认证含义。
+- CAM 任务及导出报告新增 `source_gcode_sha256`；加载结果增加 `gcode_sha256`。
+  摘要来自一次读取的原始 UTF-8 字节，文本校验消费该次读取内容。
+- 统一评分报告增加 `dimensions_complete`、`fully_validated` 和
+  `validation_scope="software_checks_only"`。`passed` 保留原有部分评分语义；
+  完整验收须三维度均实际执行并通过，且体素报告有切削段和非零材料去除。
+  内置 Agent 的 evaluate_gcode 工具透传这些标志，并接受 cutting_params 对象，
+  所需键为 spindle_rpm、feed_rate、depth_of_cut。
+# 工艺推荐的业务状态（2026-10-16）
+
+`GET /api/agent/v1/cam/process-recommend` 保留 `recommendations` 列表，新增 `recommendation_status` 和 `hint`。
+`matched` 表示存在匹配项；`knowledge_empty` 表示四元组知识库没有数据；`no_match` 表示有知识但此次查询没有命中。
+I15 增加 `knowledge_requires_review`：有知识记录但有效批准数量为零，不能作为正式推荐；
+统计接口增加 `approved_quadruples`，与 `total_quadruples` 分别表示有效批准和全部记录数量。
+后两种状态仍返回 HTTP 200 / code=0，表示查询执行成功，不能作为工艺推荐验收通过的依据。
+有匹配项也不等于完成物理校验或允许下发。知识缺失时不得补造加工参数。
+
+工艺四元组单例默认持久化到 `engineering/python/data/entity_index/process_quadruple.json`，
+可用 `LINGJING_PROCESS_KNOWLEDGE_DIR` 指定数据目录（在第一次获取索引前配置）。
+单条和批量新增只有在原子替换文件成功后才确认成功；失败会撤回此次内存新增并返回错误，原文件保留。
+损坏文件会停止加载并报错，不会作为空库继续写入。
+读取接口不再自动填入默认配方；显式 `/api/rag/process/seed` 添加的是 `source=example` 演示记录，
+不参与正式推荐。正式推荐要求针对明确材料的有效批准记录；其他材料和通用记录仍可由相似查询作为参考返回。
+
+来源增强：省略 `source` 的四元组标为 `unverified`；来源标识去空白、转小写。
+任何来源标识（包括 `manual`、`experiment`、`generated_validated`）均不能绕过审核，
+未审核记录仍可在相似参考查询中查看。仿真通过不自动升级为工艺知识批准。
+孔加工草案的 `cutting_parameters` 新增 `source` 和 `source_verified=false`，保留原有参数字段。
+匹配器会提示该来源尚未核验；适用度评分不等于来源可信度或机床校验结果。
+
+材料与刀具规格整改：孔加工草案的工具增加 `diameter_range_mm` 与 `diameter_verified`。
+范围型刀具不再以区间中点作为固定直径；范围内选取的目标尺寸标为候选，`diameter_verified=false`，评分上限 50。
+固定精确尺寸优先；过大或过小钻头不能称为目标孔的匹配规格。缺少具体钻头会返回待确认候选，
+缺少中心钻则直径为 0（未知），不会借用最终孔径。`diameter_verified=true` 仅表示记录给出了确定尺寸，
+不证明实际库存、安装或机床验证通过。
+参数查询通过已知旧 ID 别名或唯一精确材料名称关联规范材料，禁止用子串或同类材料代替牌号。
+孔刀具匹配会同时核对参数中的刀具材质；WC/carbide 的内部别名归一化不会合并 HSS 或涂层材质。
+
+工艺知识审核（I13）：新增记录由服务端生成 `record_id`，初始 `revision=1`、`review.status=pending`。
+新增与修订请求中的审核元数据不受信任，不会导入批准状态。
+读取 `GET /api/rag/process/review/records` 后，向 `POST /api/rag/process/review/{record_id}` 提交：
+
+```json
+{"expected_revision": 1, "decision": "rejected", "note": "来源材料映射尚未确认"}
+```
+
+`decision` 可为 `approved`、`rejected`、`revoked`、`revise`。
+待审可批准或拒绝；已批准可撤销；所有状态均可修订后重新待审。
+修订需 `replacement` 完整四元组；批准需 `evidence` 包含 HTTPS `source_url`、
+文档 `document_sha256`、正整数 `page`、明确匹配的 `material`/`tool`、
+与所有参数键对应的 `parameter_units`、非空 `applicability`/`verification_method`、`unresolved=[]`。
+当前批准契约要求参数为有限正数；范围需拆为带单位的上下界。`general` 材料不能批准。
+审核身份取自登录用户，只接受非访客工程师或管理员；即便关闭一般权限检查，匿名身份也不能审核。
+请求不接受自报 `actor`。字段格式错误返回 422；依据不完整返回 400；记录不存在返回 404；
+旧版本或非法状态转换返回 409；存储失败返回 503 并撤回内存和索引变更。
+每次变更递增版本，保留旧内容快照、审核人、时间和说明；内容及审核历史在同一文件原子保存。
+只有当前版本内容摘要匹配且依据完整的批准记录进入推荐。修改内容自动重新待审，撤销立即停止推荐。
+旧文件缺少审核字段时按待审加载，不因历史来源标签自动批准。
+I14 增加可选 `candidate_context`，用于新增和修订时保存待审依据：来源链接、文档校验值、页码、
+参数单位、适用条件、核验方法、未解决事项和资料说明。它只保存候选信息，不能写入审核状态或审核人。
+字段类型错误、未知字段以及伪造批准字段会被拒绝；审批仍使用独立的 `evidence` 和登录审核人。
+省略该字段的旧记录按空对象读取；参数单位与来源不再因新增待审或修订而丢失。
+该机制验证审核契约与追溯性，不自动验证远程文档内容、现场工况或参数安全性，也不代替体素、DNC 和实物验收。
+持久化适用于当前单后端进程；多个写进程共享目录尚无跨进程锁，禁止据此宣称支持多进程并发审核。
+
+Agent 候选提交（I15）：请求为 `{"submission_id":"stable_id","content":{...}}`。
+content 必填 feature、process、tool、material、parameters；四个标识使用 1–64 位 ASCII 字母数字、下划线或连字符。
+参数为最多 64 项有限正数；可携带 candidate_context、chunk_ids、tags。请求上限 64KB。
+Agent 身份来自网关验证后的 token，来源统一为 `agent_candidate`，排序权重 0.5，初始状态 pending。
+请求不能指定审核人、批准状态、来源可信等级、记录标识或提交所有者。
+写请求仍需 `Idempotency-Key` 请求头；该路由不读取通用短期响应缓存，改用记录中的 submission 持久去重。
+同一 Agent、submission_id 和规范内容再次提交返回 created=false 及当前版本；改变内容复用编号返回 409。
+人工修订保留原始提交指纹，重试不会覆盖人工结果或重新变成待审；失败写盘不留下候选。
+读取仅允许当前 Agent 的候选，未知或其他 Agent 的记录统一返回 404。
+GET 返回 record、eligible_for_recommendation、next_action 和 review_url；只有有效批准时 next_action=query_recommendation。
+Agent 工具不包含批准接口。人工审批仍在原审核页面中通过工程师或管理员身份完成。
+
+MCP 新增 cam_submit_knowledge_candidate(submission_id, content) 与 cam_get_knowledge_candidate(record_id)。
+可使用 `LINGJING_MCP_KNOWLEDGE_TOOLS=0` 关闭注册。提交工具自动提供请求级 Idempotency-Key，
+稳定业务提交编号放在 submission_id；调用失败不会宣称已经入库，也不会自动批准。
+MCP HTTP 错误携带 detail.http_status 和 detail.retryable。409 要求核对已有候选，422 要求修改输入；
+认证、权限、未知记录和大小错误不会被标成可直接重试。服务异常和限流可按相同业务编号及内容恢复，不自动循环重试。
+
+### I17：钻孔适用条件核验（2026-10-17）
+
+`GET /api/agent/v1/cam/process-recommend` 新增可选查询参数 `conditions`（JSON对象字符串，最多4096字符）。
+保持旧调用可达，但省略现场条件时不能得到正式参数。当前仅支持 feature=hole、process=drill/drilling，
+硬度单位为HRC，尺寸单位为mm；不自动转换HB/HV，不扩展到铣削或其他加工方式。
+
+现场条件示例仅为合成测试，不能用于真实加工：
+
+```json
+{"tool":"fixture_d8","hardness_hrc":20,"diameter_mm":8,"depth_mm":32,"coolant":"flood","workholding":"vise"}
+```
+
+tool 必须匹配当前记录刀具标识（去除首尾空白、不区分大小写），不能用刀具材质或系列名替代。
+coolant 允许 dry/flood/mist/through_tool；workholding 允许 vise/chuck/fixture/collet。
+硬度为0–100 HRC，孔径和孔深为有限正数，拒绝布尔、数字字符串、未知字段及非有限数。
+部分条件可以查询，响应缺失字段；格式非法返回422，不反射NaN数值或伪装成500。
+
+响应新增 `applicability_checks`，逐条包含 record_id、revision、status、missing、mismatched。
+missing列出缺失字段；mismatched列出tool/hardness_hrc/diameter_mm/depth_mm/coolant/workholding中的不符项。
+被拦截的检查条目不携带参数。只有matched条目参与排序和top_k截取。
+业务状态新增conditions_missing、conditions_mismatch、unsupported_process；保留knowledge_empty、knowledge_requires_review、no_match、matched。
+响应固定 `physical_validation_required=true`，适用性核验不等于仿真或实物验收。
+
+批准 evidence 现在必须包含完整 `constraints`：
+
+```json
+{
+  "schema_version":1,
+  "hardness_min_hrc":0,
+  "hardness_max_hrc":24,
+  "hardness_max_inclusive":false,
+  "diameter_min_mm":8,
+  "diameter_max_mm":8,
+  "max_depth_to_diameter":4,
+  "coolants":["flood"],
+  "workholdings":["vise"]
+}
+```
+
+此示例仍为合成范围。硬度下界包含边界，上界由hardness_max_inclusive明确；孔径包含上下界，深径比允许相等。
+schema_version严格为整数1；范围下界不得超过上界，排除空的硬度区间；冷却与装夹允许列表不能为空。
+constraints只规定审核范围，不可反推或填造现场条件。
+候选candidate_context允许保存局部constraints草稿；草稿不能参与批准或推荐。
+
+服务端为批准依据生成 evidence_digest，并同时检查当前内容摘要、证据摘要、批准版本和身份。
+缺少结构化范围或证据摘要的旧批准不再参与正式推荐；必须人工修订并重新审核，系统不会自动补全或批准。
+修订和撤销会立即使相应版本失去推荐资格；版本历史保留范围和来源。
+
+MCP `cam_recommend_process` 与本地Agent的 `rag_recommend_process` 均新增conditions对象参数。
+本地知识增强器在没有现场条件时不会注入正式参数。安装在Nexent的旧工具schema和Skill需要单独刷新；源码更新不代表线上更新完成。

@@ -88,6 +88,8 @@ class ProcessPlanningPipeline(_StagesMixin):
         controller_type: str = "fanuc_0i",
         safe_z: float = 50.0,
         program_number: int = 1000,
+        stock_top_z: float = 50.0,
+        max_stepdown: float | None = None,
     ) -> PipelineResult:
         """执行完整的端到端工艺规划流水线。
 
@@ -99,6 +101,8 @@ class ProcessPlanningPipeline(_StagesMixin):
             controller_type: 目标数控系统类型
             safe_z: 安全Z高度 (mm)
             program_number: 数控程序号
+            stock_top_z: 毛坯顶面绝对 Z 坐标（底面 Z=0）
+            max_stepdown: 可选最大分层切深，传递到实际刀轨生成
 
         Returns:
             PipelineResult: 完整的流水线执行结果
@@ -292,6 +296,8 @@ class ProcessPlanningPipeline(_StagesMixin):
                 material_name=material_name,
                 program_number=program_number,
                 safe_z=safe_z,
+                stock_top_z=stock_top_z,
+                max_stepdown=max_stepdown,
             )
 
             stage5 = PipelineStage(

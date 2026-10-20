@@ -3077,6 +3077,7 @@ export default {
       costDashboard: "Cost Dashboard",
       goals: "Goals",
       approvalDashboard: "Approvals",
+      processKnowledgeReview: "Process knowledge review",
       templateCenter: "Template Center",
       plugins: "Plugins",
       ruleEditor: "Machining Rules",

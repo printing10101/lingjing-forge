@@ -196,15 +196,6 @@ class TestVoxelToDncGateSeam:
         assert reason is not None and "未找到" not in reason
 
     @pytest.mark.unit
-    @pytest.mark.xfail(
-        reason=(
-            "已知缺口（2026-10-07 变异验证发现）：闸门只按 source_gcode_file_path 追溯，"
-            "CamValidationTask 未记录内容指纹（无 sha256/mtime 字段），"
-            "阶段 7 判合格后原地改写 .nc 文件仍会被放行。修复方向：任务落盘时记 G 代码"
-            "内容哈希，下发前重算比对，不一致按「未校验」处理。"
-        ),
-        strict=False,
-    )
     def test_post_validation_file_edit_must_not_pass_gate(self, tmp_path: Path):
         """校验通过后原地改坏 NC —— 必须重新拦截（当前实现做不到）。"""
         _, gcode_path = _build_report(tmp_path, BASE_GCODE, "tamper")

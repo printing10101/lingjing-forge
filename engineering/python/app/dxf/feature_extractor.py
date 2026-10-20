@@ -92,6 +92,7 @@ class FeatureExtractor(_DimensionMixin, _PlaneMixin):
             self._extract_plane_features(parse_result, result)
             self._extract_hole_features(parse_result, result)
             self._extract_contour_features(parse_result, result)
+            self._reconcile_plate_features(result)
         except (AttributeError, TypeError, ValueError, IndexError, KeyError) as e:
             # 防御性兜底：特征提取涉及几何运算/属性访问，异常类型多源
             # 任何阶段失败都通过 errors 字段暴露给上层，特征提取整体标记为失败
@@ -116,6 +117,38 @@ class FeatureExtractor(_DimensionMixin, _PlaneMixin):
             result.overall_height,
         )
         return result
+
+    @staticmethod
+    def _reconcile_plate_features(result: FeatureExtractionResult) -> None:
+        """Separate a containing circular plate boundary from its internal holes."""
+        if result.contours:
+            outer = max(result.contours, key=lambda ring: abs(ring.area))
+            # A concentric pair alone is ambiguous (e.g. a counterbore), so do
+            # not reinterpret it as a flange. Require a distributed hole pattern.
+            if outer.source == "circle" and outer.radius and len(result.contours) >= 4:
+                cx, cy = outer.center
+                distributed = sum(
+                    abs(hole.center_x - cx) > 0.05 or abs(hole.center_y - cy) > 0.05
+                    for hole in result.holes
+                ) >= 3
+                # Only an enclosing circle spanning the drawing is an exterior.
+                enclosing = all(
+                    (x - cx) ** 2 + (y - cy) ** 2 <= (outer.radius + 0.05) ** 2
+                    for ring in result.contours if ring is not outer for x, y in ring.vertices
+                )
+                if enclosing and distributed:
+                    result.holes = [
+                        hole for hole in result.holes
+                        if not (
+                            abs(hole.diameter - 2 * outer.radius) < 0.05
+                            and abs(hole.center_x - cx) < 0.05
+                            and abs(hole.center_y - cy) < 0.05
+                        )
+                    ]
+                    result.warnings.append("包含所有内环的外圆作为板件边界，不作为钻孔")
+        for hole in result.holes:
+            if hole.depth_inferred and hole.hole_type == "through_hole" and result.overall_height > 0:
+                hole.depth = result.overall_height
 
     def _extract_contour_features(
         self,

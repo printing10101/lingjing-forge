@@ -89,6 +89,15 @@ class CollectionProxy:
     def count(self):
         return self._store.count()
 
+    def replace_document_chunks(self, document_id, ids, documents, embeddings, metadatas, entities_list):
+        removed = self._store._vs.replace_document_chunks(document_id, ids, documents, embeddings, metadatas)
+        for chunk_id in removed:
+            self._store._entity_index.remove_chunk(chunk_id)
+        for chunk_id, entities in zip(ids, entities_list, strict=True):
+            self._store._entity_index.remove_chunk(chunk_id)
+            if entities:
+                self._store._entity_index.add(chunk_id, entities)
+
     def delete(self, ids=None, where=None, **kwargs):
         if ids:
             for doc_id in ids:

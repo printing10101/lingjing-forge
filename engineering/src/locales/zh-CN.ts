@@ -3042,6 +3042,7 @@ export default {
       costDashboard: "成本看板",
       goals: "目标对齐",
       approvalDashboard: "审批中心",
+      processKnowledgeReview: "工艺知识审核",
       templateCenter: "模板中心",
       plugins: "插件中心",
       ruleEditor: "工艺规则",

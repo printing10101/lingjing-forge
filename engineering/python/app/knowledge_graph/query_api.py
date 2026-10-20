@@ -246,7 +246,7 @@ class KnowledgeGraphQueryAPI:
             if conf < min_confidence:
                 continue
             tool_node = self._store.get_node(e["source_id"])
-            if tool_node is None:
+            if tool_node is None or tool_node["node_type"] != "tool":
                 continue
             out.append(
                 {
@@ -272,7 +272,7 @@ class KnowledgeGraphQueryAPI:
             if conf < min_confidence:
                 continue
             mat_node = self._store.get_node(e["target_id"])
-            if mat_node is None:
+            if mat_node is None or mat_node["node_type"] != "material":
                 continue
             out.append(
                 {
@@ -289,28 +289,49 @@ class KnowledgeGraphQueryAPI:
 
         返回的是有序的中间节点 + 关系列表。
         """
-        if not self._store.has_node(feature_id):
+        feature = self._store.get_node(feature_id)
+        if not feature or feature["node_type"] != "feature" or max_hops <= 0:
             return []
         chain: list[dict[str, Any]] = []
-        # 优先沿 USED 出边
-        edges = self._store.list_edges_by_source(feature_id, edge_type="USED")
-        edges += self._store.list_edges_by_source(feature_id, edge_type="APPLIED_TO")
-        for e in edges:
-            tgt = self._store.get_node(e["target_id"])
-            if tgt is None:
-                continue
-            chain.append(
-                {
-                    "from": feature_id,
-                    "to": tgt["node_id"],
-                    "edge_type": e["edge_type"],
-                    "confidence": (e.get("properties") or {}).get("confidence", 0.5),
-                    "target_type": tgt["node_type"],
-                    "target_props": tgt["properties"],
-                }
-            )
-        chain.sort(key=lambda x: x.get("confidence", 0.0), reverse=True)
-        return chain[: max_hops * 4]
+        frontier = [feature_id]
+        visited = {feature_id}
+        seen_edges: set[tuple[str, str, str]] = set()
+        for hop in range(1, max_hops + 1):
+            next_frontier = []
+            for node_id in frontier:
+                node = self._store.get_node(node_id)
+                if node is None:
+                    continue
+                if node["node_type"] == "feature":
+                    edges = self._store.list_edges_by_target(node_id, edge_type="APPLIED_TO")
+                    direction, target_key, expected_type = "in", "source_id", "process"
+                elif node["node_type"] == "process":
+                    edges = self._store.list_edges_by_source(node_id, edge_type="USED")
+                    direction, target_key, expected_type = "out", "target_id", "tool"
+                else:
+                    continue
+                for edge in edges:
+                    key = (edge["source_id"], edge["target_id"], edge["edge_type"])
+                    target = self._store.get_node(edge[target_key])
+                    if key in seen_edges or not target or target["node_type"] != expected_type:
+                        continue
+                    seen_edges.add(key)
+                    chain.append({
+                        "from": node_id, "to": target["node_id"],
+                        "edge_type": edge["edge_type"], "direction": direction, "hop": hop,
+                        "source_id": edge["source_id"], "target_id": edge["target_id"],
+                        "confidence": edge["properties"].get("confidence", 0.5),
+                        "evidence": edge["properties"].get("evidence", ""),
+                        "source": edge["properties"].get("source", ""),
+                        "target_type": target["node_type"], "target_props": target["properties"],
+                    })
+                    if target["node_id"] not in visited:
+                        visited.add(target["node_id"])
+                        next_frontier.append(target["node_id"])
+            frontier = next_frontier
+            if not frontier:
+                break
+        return chain
 
     # ============================================================== 入口
 

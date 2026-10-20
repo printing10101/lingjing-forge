@@ -11,6 +11,10 @@ v2 增强：
 from __future__ import annotations
 
 import logging
+import hashlib
+import json
+import os
+from zipfile import BadZipFile
 import re
 import time
 from pathlib import Path
@@ -32,9 +36,9 @@ _MATERIAL_PATTERNS: list[re.Pattern[str]] = [
     re.compile(r"\bTC[0-9]{1,2}\b"),  # TC4, TC11
     re.compile(r"\bTi-?\dAl-?\dV?\b", re.IGNORECASE),  # Ti-6Al-4V / Ti6Al4V
     re.compile(r"\bHRC\s*\d{1,3}\b"),  # HRC52, HRC 45
-    re.compile(r"\b\d{2,4}[钢]\b"),  # 45钢, 304钢
+    re.compile(r"(?<![A-Za-z0-9])\d{2,4}钢(?![A-Za-z0-9])"),  # 中文连续句中的 45钢 / 304钢
     re.compile(r"\b(?:6061|7075|2024|AISI\s*\d{3,4})\b", re.IGNORECASE),  # 铝合金/不锈钢牌号
-    re.compile(r"\b(?:钛合金|不锈钢|铝合金|硬质合金|高温合金)\b"),
+    re.compile(r"(?:钛合金|不锈钢|铝合金|硬质合金|高温合金)"),
 ]
 
 # 实验编号：W1-W9, c1/c4/c6
@@ -45,9 +49,9 @@ _EXPERIMENT_PATTERNS: list[re.Pattern[str]] = [
 
 # 信号类型：振动/切削力/声发射/主轴功率
 _SIGNAL_PATTERNS: list[re.Pattern[str]] = [
-    re.compile(r"\b(?:振动|vibration|RMS|声发射|acoustic)\b", re.IGNORECASE),
-    re.compile(r"\b(?:切削力|cutting\s*force|主轴功率|spindle\s*power)\b", re.IGNORECASE),
-    re.compile(r"\b(?:频域|频谱|frequency\s*domain)\b", re.IGNORECASE),
+    re.compile(r"振动|声发射|\b(?:vibration|RMS|acoustic)\b", re.IGNORECASE),
+    re.compile(r"切削力|主轴功率|\b(?:cutting\s*force|spindle\s*power)\b", re.IGNORECASE),
+    re.compile(r"频域|频谱|\bfrequency\s*domain\b", re.IGNORECASE),
 ]
 
 # 数据集名：NUAA, PHM2010, Uniwear, Bosch
@@ -60,7 +64,7 @@ _DATASET_PATTERNS: list[re.Pattern[str]] = [
 
 # 工艺参数关键词
 _PROCESS_PATTERNS: list[re.Pattern[str]] = [
-    re.compile(r"\b(?:切削速度|进给量|背吃刀量|切削深度|转速)\b"),
+    re.compile(r"(?:切削速度|进给量|背吃刀量|切削深度|转速)"),
     re.compile(r"\b(?:cutting\s*speed|feed\s*rate|depth\s*of\s*cut)\b", re.IGNORECASE),
 ]
 
@@ -106,12 +110,38 @@ def _parse_pdf(file_path: Path) -> str:
 def _parse_docx(file_path: Path) -> str:
     try:
         from docx import Document
-
-        doc = Document(str(file_path))
-        return "\n".join(p.text for p in doc.paragraphs if p.text.strip())
+        from docx.table import Table
+        from docx.text.paragraph import Paragraph
+        from docx.opc.exceptions import PackageNotFoundError
     except ImportError:
-        logger.warning("python-docx not installed, using raw text fallback")
-        return file_path.read_text(encoding="utf-8", errors="replace")
+        raise ValueError("缺少 python-docx，无法解析 Word 文档") from None
+    try:
+        doc = Document(str(file_path))
+    except (BadZipFile, PackageNotFoundError, KeyError) as exc:
+        raise ValueError("Word 文档格式错误或损坏，请检查文件") from exc
+    blocks = []
+    for element in doc.element.body:
+        if element.tag.endswith("}p"):
+            text = Paragraph(element, doc).text
+            if text.strip():
+                blocks.append(text)
+        elif element.tag.endswith("}tbl"):
+            table = Table(element, doc)
+            blocks.append("\n".join("\t".join(cell.text for cell in row.cells) for row in table.rows))
+    return "\n\n".join(blocks)
+
+
+def _parse_spreadsheet(file_path: Path) -> str:
+    from app.rag.excel_parser import parse_csv, parse_excel
+    result = parse_csv(file_path) if file_path.suffix.lower() == ".csv" else parse_excel(file_path)
+    if result["status"] != "success":
+        raise ValueError(result["error"])
+    blocks = []
+    for table in result["tables"]:
+        rows = [table["headers"], *table["rows"]]
+        blocks.append("工作表：" + table.get("sheet_name", file_path.stem) + "\n" +
+                      "\n".join("\t".join(str(value) for value in row) for row in rows))
+    return "\n\n".join(blocks)
 
 
 def _parse_md(file_path: Path) -> str:
@@ -135,11 +165,13 @@ def _parse_json(file_path: Path) -> list[dict[str, Any]]:
 PARSERS = {
     ".pdf": _parse_pdf,
     ".docx": _parse_docx,
-    ".doc": _parse_docx,
     ".md": _parse_md,
     ".markdown": _parse_md,
     ".txt": _parse_txt,
     ".json": None,
+    ".xlsx": _parse_spreadsheet,
+    ".xlsm": _parse_spreadsheet,
+    ".csv": _parse_spreadsheet,
 }
 
 
@@ -181,6 +213,7 @@ class DocumentImportService:
 
         try:
             parse_start = time.time()
+            source_hash = hashlib.sha256(file_path_obj.read_bytes()).hexdigest()
             if suffix == ".json":
                 items = _parse_json(file_path_obj)
                 chunks = [item["document"] for item in items]
@@ -209,14 +242,27 @@ class DocumentImportService:
         if not chunks:
             return self._error_result(file_path_obj.name, "No chunks produced")
 
+        try:
+            if hashlib.sha256(file_path_obj.read_bytes()).hexdigest() != source_hash:
+                return self._error_result(file_path_obj.name, "Document changed during parsing; retry import")
+        except OSError:
+            return self._error_result(file_path_obj.name, "Document became unreadable during parsing")
+        document_id = hashlib.sha256(os.path.normcase(str(file_path_obj.resolve())).encode("utf-8")).hexdigest()
+        revision = hashlib.sha256(json.dumps(
+            [source_hash, chunk_size, chunk_overlap, chunks], ensure_ascii=False,
+        ).encode("utf-8")).hexdigest()
+
         base_meta = {
+            **(additional_metadata or {}),
             "source": "file_import",
             "file_name": file_path_obj.name,
             "file_type": suffix,
             "imported_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
             "chunk_size": chunk_size,
             "chunk_overlap": chunk_overlap,
-            **(additional_metadata or {}),
+            "document_id": document_id,
+            "document_revision": revision,
+            "source_sha256": source_hash,
         }
 
         try:
@@ -243,6 +289,26 @@ class DocumentImportService:
         failed_chunks = 0
         # 实体提取统计
         total_entities = 0
+        replace_chunks = getattr(self.knowledge_base.collection, "replace_document_chunks", None)
+        if callable(replace_chunks):
+            ids = [f"import_{document_id}_{revision}_{i}" for i in range(len(chunks))]
+            entities = [extract_entities(chunk) for chunk in chunks]
+            metadatas = [{**chunk_metas[i], **base_meta, "chunk_index": i,
+                          "entity_count": len(entities[i])} for i in range(len(chunks))]
+            try:
+                replace_chunks(document_id, ids, chunks, embeddings, metadatas, entities)
+            except (OSError, RuntimeError, ValueError, KeyError, TypeError):
+                logger.exception("Document replacement failed: %s", file_path_obj.name)
+                return self._error_result(file_path_obj.name, "Document replacement failed; retry import")
+            result = {"file_name": file_path_obj.name, "file_size": file_path_obj.stat().st_size,
+                      "document_id": document_id, "document_revision": revision,
+                      "source_sha256": source_hash, "chunk_count": len(chunks), "failed_chunks": 0,
+                      "entities_extracted": sum(map(len, entities)), "success": True,
+                      "parse_time_ms": round(parse_ms, 2), "embed_time_ms": round(embed_ms, 2),
+                      "import_time_ms": round((time.time() - import_start) * 1000, 2),
+                      "total_time_ms": round((time.time() - start_time) * 1000, 2)}
+            self._import_history.append(result)
+            return result
         # 批量写入优化：分批 add，减少与 ChromaDB 的 round-trip 次数
         # 一次 add() 内部要序列化、计算距离索引、写入 SQLite，单条调用开销约 1-5ms
         # 批量 32 条可显著降低总延迟
@@ -258,7 +324,7 @@ class DocumentImportService:
             for i in range(batch_start, batch_end):
                 chunk = chunks[i]
                 meta = {**base_meta, "chunk_index": i, **chunk_metas[i]}
-                doc_id = f"import_{file_path_obj.stem}_{i}"
+                doc_id = f"import_{document_id}_{revision}_{i}"
                 # 切分时提取实体，写入倒排索引
                 ents = extract_entities(chunk)
                 total_entities += len(ents)

@@ -51,7 +51,7 @@ _ENV_AUGMENT = "LNN_AI_AUGMENT_PARAMS"
 # 材料名归一化：中文牌号 → 四元组材料词表
 _MATERIAL_KEYWORDS: list[tuple[tuple[str, ...], str]] = [
     (("钛", "ti6al4v", "ti-6al", "tc4", "titanium"), "titanium"),
-    (("铝", "aluminum", "alloy", "6061", "7075"), "aluminum"),
+    (("铝", "aluminum", "aluminium", "6061", "7075"), "aluminum"),
     (("铸铁", "灰铁", "iron", "ht2", "ht3"), "cast_iron"),
     (("钢", "steel", "45#", "40cr", "q235", "304"), "steel"),
 ]

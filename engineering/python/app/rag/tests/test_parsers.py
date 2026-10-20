@@ -75,7 +75,9 @@ class TestPDFParser:
 
             doc = fitz.open()
             page = doc.new_page()
-            page.insert_text((100, 100), "纯文本提取测试")
+            # The default Helvetica font replaces Chinese glyphs with dots.
+            # Embed a CJK font so this fixture actually contains the asserted text.
+            page.insert_text((100, 100), "纯文本提取测试", fontname="china-s")
             doc.save(str(pdf_file))
             doc.close()
 

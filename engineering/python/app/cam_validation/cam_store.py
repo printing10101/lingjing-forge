@@ -318,6 +318,7 @@ class CamValidationTask:
     task_id: str
     source_gcode_report_path: str = ""
     source_gcode_file_path: str = ""
+    source_gcode_sha256: str = ""
     controller_type: str = "fanuc_0i"
     material_name: str = "45#钢"
     safe_z: float = 80.0
@@ -370,6 +371,7 @@ class CamValidationTask:
             "task_id": self.task_id,
             "source_gcode_report_path": self.source_gcode_report_path,
             "source_gcode_file_path": self.source_gcode_file_path,
+            "source_gcode_sha256": self.source_gcode_sha256,
             "controller_type": self.controller_type,
             "material_name": self.material_name,
             "safe_z": self.safe_z,

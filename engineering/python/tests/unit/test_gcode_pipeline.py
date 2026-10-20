@@ -13,10 +13,8 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from app.chatter_prediction._types import FeatureChatterResult
-from app.gcode_generation.gcode_disclaimer import GCodeDisclaimer
 from app.gcode_generation.gcode_store import (
     FeatureGCodeResult,
-    GCodeGenerationError,
     GCodeGenerationPipelineError,
     GCodeGenerationTask,
     GCodeGenerationTaskStatus,
@@ -30,7 +28,7 @@ from app.gcode_generation.pipeline import (
     GCodeReviewError,
 )
 from app.process_planning.gcode_generator import GCodeResult
-from app.process_planning.operation_sequencer import Operation, OperationPlan
+from app.process_planning.operation_sequencer import OperationPlan
 
 pytestmark = pytest.mark.unit
 
@@ -396,6 +394,172 @@ class TestBuildResult:
         assert d.ltc_experiment_used is True
         assert d.pending_calibration is True
         assert "HRC52" in d.warning_message
+
+
+class TestStepdownRecovery:
+    """颤振拦截自动降参重试环（stepdown_retry 闭环）。"""
+
+    # ---- compute_stepdown_recovery 决策 ----
+
+    def test_no_unstable_not_recoverable(self):
+        from app.gcode_generation.stepdown_retry import compute_stepdown_recovery
+
+        d = compute_stepdown_recovery([_feature(stable=True)])
+        assert d.recoverable is False
+        assert d.max_stepdown_mm is None
+
+    def test_recoverable_simple_case(self):
+        from app.gcode_generation.stepdown_retry import compute_stepdown_recovery
+
+        # ap=5.1, limit=5.0（真实失败库最贴线场景）→ 2 层，stepdown=4.75
+        d = compute_stepdown_recovery([_feature(stable=False, axial_depth_mm=5.1, limit_depth_mm=5.0)])
+        assert d.recoverable is True
+        assert d.max_stepdown_mm == pytest.approx(4.75)
+        assert d.affected_features == ("f1",)
+
+    def test_recoverable_takes_worst_limit(self):
+        from app.gcode_generation.stepdown_retry import compute_stepdown_recovery
+
+        d = compute_stepdown_recovery(
+            [
+                _feature("fa", stable=False, axial_depth_mm=5.1, limit_depth_mm=5.0),
+                _feature("fb", stable=False, axial_depth_mm=22.0, limit_depth_mm=20.0),
+            ]
+        )
+        assert d.recoverable is True
+        # 全局取最严限值（min）：limit 5.0 与 20.0 中取 5.0 → 4.75
+        assert d.max_stepdown_mm == pytest.approx(4.75)
+
+    def test_abnormal_limit_not_recoverable(self):
+        from app.gcode_generation.stepdown_retry import compute_stepdown_recovery
+
+        d = compute_stepdown_recovery([_feature(stable=False, axial_depth_mm=5.0, limit_depth_mm=0.0)])
+        assert d.recoverable is False
+        assert any("异常" in r for r in d.reasons)
+
+    def test_excessive_layers_not_recoverable(self):
+        from app.gcode_generation.stepdown_retry import compute_stepdown_recovery
+
+        # ap/limit = 12 → 需 13 层 > 上限 6
+        d = compute_stepdown_recovery([_feature(stable=False, axial_depth_mm=60.0, limit_depth_mm=5.0)])
+        assert d.recoverable is False
+        assert any("层" in r for r in d.reasons)
+
+    # ---- 管线闭环：unstable 失败 → 重试 → GENERATED + 恢复标记 ----
+
+    @pytest.mark.asyncio
+    async def test_pipeline_recovers_via_stepdown(self):
+        """首次 unstable、重试 is_valid → GENERATED 且带恢复警告。"""
+        calls = []
+
+        class _RetryAdapter:
+            def adapt(self, **kwargs):
+                calls.append(kwargs.get("max_stepdown"))
+                if kwargs.get("max_stepdown") is None:
+                    # 首次：unstable 失败（错误文案须含判定关键词）
+                    br = _base_result(is_valid=False)
+                    br.errors = [
+                        "特征 f1(plane) 颤振预测结果为不稳定（axial_depth=5.1mm, "
+                        "limit_depth=5.0mm, method=analytical），禁止生成 G 代码。"
+                    ]
+                    return br, [_fgcr(stable=False)]
+                # 重试：成功，且带恢复警告
+                br = _base_result(is_valid=True)
+                br.warnings.append("[STEPDOWN_RECOVERY] 颤振拦截后自动降参重试成功")
+                return br, [_fgcr()]
+
+        TaskStore().add_task(_task(status=GCodeGenerationTaskStatus.PENDING.value))
+        p = _make_pipeline(adapter=_RetryAdapter())
+        p._loader.load.return_value = _fake_report(
+            features=[_feature(stable=False, axial_depth_mm=5.1, limit_depth_mm=5.0)],
+            unstable_features=1,
+            stable_features=0,
+        )
+        with patch("app.gcode_generation.pipeline.load_operation_plan", return_value=OperationPlan()):
+            result = await p.run_pipeline("gc-1")
+
+        assert result.status == GCodeGenerationTaskStatus.GENERATED.value
+        # 两次调用：第一次无 stepdown，第二次带 0.95×5.0=4.75
+        assert calls[0] is None
+        assert calls[1] == pytest.approx(4.75)
+        # 恢复标记随任务上报（warnings 在 task 上，result 只带 status 摘要）
+        task = TaskStore().get_task("gc-1")
+        assert any("STEPDOWN_RECOVERY" in w for w in (task.warnings or []))
+
+    @pytest.mark.asyncio
+    async def test_pipeline_retry_still_fails_goes_failed(self):
+        """重试后仍 unstable → 维持 FAILED，不吞错误。"""
+
+        class _AlwaysUnstableAdapter:
+            def adapt(self, **kwargs):
+                br = _base_result(is_valid=False)
+                br.errors = [
+                    "特征 f1(plane) 颤振预测结果为不稳定（axial_depth=5.1mm, "
+                    "limit_depth=5.0mm, method=analytical），禁止生成 G 代码。"
+                ]
+                return br, [_fgcr(stable=False)]
+
+        TaskStore().add_task(_task(status=GCodeGenerationTaskStatus.PENDING.value))
+        p = _make_pipeline(adapter=_AlwaysUnstableAdapter())
+        p._loader.load.return_value = _fake_report(
+            features=[_feature(stable=False, axial_depth_mm=5.1, limit_depth_mm=5.0)],
+            unstable_features=1,
+            stable_features=0,
+        )
+        with patch("app.gcode_generation.pipeline.load_operation_plan", return_value=OperationPlan()):
+            result = await p.run_pipeline("gc-1")
+
+        assert result.status == GCodeGenerationTaskStatus.FAILED.value
+        assert "不稳定" in (result.error_message or "")
+
+    @pytest.mark.asyncio
+    async def test_pipeline_non_chatter_error_no_retry(self):
+        """非颤振错误（语法/其他）不触发重试，直接 FAILED。"""
+        calls = []
+
+        class _SyntaxErrAdapter:
+            def adapt(self, **kwargs):
+                calls.append(kwargs.get("max_stepdown"))
+                br = _base_result(is_valid=False)
+                br.errors = ["G 代码语法错误：第 3 行非法指令"]
+                return br, [_fgcr()]
+
+        TaskStore().add_task(_task(status=GCodeGenerationTaskStatus.PENDING.value))
+        p = _make_pipeline(adapter=_SyntaxErrAdapter())
+        p._loader.load.return_value = _fake_report(features=[_feature()])
+        with patch("app.gcode_generation.pipeline.load_operation_plan", return_value=OperationPlan()):
+            result = await p.run_pipeline("gc-1")
+
+        assert result.status == GCodeGenerationTaskStatus.FAILED.value
+        assert len(calls) == 1  # 只调一次，无重试
+
+    @pytest.mark.asyncio
+    async def test_pipeline_unrecoverable_reasons_surfaced(self):
+        """limit 异常的 unstable 失败：不重试，但原因并入 errors 供工程师查看。"""
+
+        class _BadLimitAdapter:
+            def adapt(self, **kwargs):
+                br = _base_result(is_valid=False)
+                br.errors = [
+                    "特征 f1(plane) 颤振预测结果为不稳定（axial_depth=5.0mm, "
+                    "limit_depth=0.0mm, method=analytical），禁止生成 G 代码。"
+                ]
+                return br, [_fgcr(stable=False)]
+
+        TaskStore().add_task(_task(status=GCodeGenerationTaskStatus.PENDING.value))
+        p = _make_pipeline(adapter=_BadLimitAdapter())
+        p._loader.load.return_value = _fake_report(
+            features=[_feature(stable=False, axial_depth_mm=5.0, limit_depth_mm=0.0)],
+            unstable_features=1,
+            stable_features=0,
+        )
+        with patch("app.gcode_generation.pipeline.load_operation_plan", return_value=OperationPlan()):
+            result = await p.run_pipeline("gc-1")
+
+        assert result.status == GCodeGenerationTaskStatus.FAILED.value
+        # 不可恢复原因并入错误信息（任务级 errors 含原始颤振错误 + 决策原因）
+        task = TaskStore().get_task("gc-1")
+        assert any("异常" in e for e in (task.errors or []))
 
 
 if __name__ == "__main__":

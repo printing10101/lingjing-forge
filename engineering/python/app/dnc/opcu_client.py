@@ -422,7 +422,7 @@ class OPCUAClient:
 
         try:
             # 读取本地文件
-            with open(program_path, "r", encoding="utf-8") as f:
+            with open(program_path, "r", encoding="utf-8", newline="") as f:
                 program_content = f.read()
 
             # 写入机床 NC 程序存储节点

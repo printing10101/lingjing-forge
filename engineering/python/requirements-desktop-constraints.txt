@@ -1,0 +1,7 @@
+# Desktop Python 3.12: keep the CPU embedding runtime reproducible.
+# Used together with requirements.txt and the official PyTorch CPU index.
+torch==2.7.1+cpu; sys_platform != "darwin"
+torch==2.7.1; sys_platform == "darwin"
+# 3.8.0 shares a SWIG table with NLopt and corrupts the Windows heap at exit.
+# https://github.com/casadi/casadi/issues/4403
+casadi==3.8.1

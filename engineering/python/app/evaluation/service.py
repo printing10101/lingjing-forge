@@ -155,10 +155,32 @@ class EvalReport:
                 return d
         return None
 
+    @property
+    def dimensions_complete(self) -> bool:
+        return all((d := self.dimension(name)) is not None and d.available
+                   for name in ("syntax", "geometry", "physics"))
+
+    @property
+    def fully_validated(self) -> bool:
+        """All required checks passed, with observed material removal.
+
+        This is software validation within the supplied context, not a machine
+        authorization or a final-part tolerance certificate.
+        """
+        if not self.dimensions_complete:
+            return False
+        geometry = self.dimension("geometry")
+        return (all(self.dimension(name).passed for name in ("syntax", "geometry", "physics"))
+                and geometry.detail.get("cutting_segments", 0) > 0
+                and geometry.detail.get("removed_voxel_count", 0) > 0)
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "passed": self.passed,
             "composite_score": round(self.composite_score, 2),
+            "dimensions_complete": self.dimensions_complete,
+            "fully_validated": self.fully_validated,
+            "validation_scope": "software_checks_only",
             "dimensions": [d.to_dict() for d in self.dimensions],
             "failure_classes": list(self.failure_classes),
             "controller_type": self.controller_type,
