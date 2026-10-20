@@ -307,6 +307,10 @@ def register_tools(server) -> None:
     故障隔离: 工厂/设备注册失败仅告警，不影响 LNN 工具可用性。
     """
 
+    if os.environ.get("LINGJING_MCP_KNOWLEDGE_TOOLS", "1").strip().lower() not in {"0", "false", "no", "off"}:
+        from mcp_server.knowledge_candidate_tools import register_knowledge_candidate_tools
+        register_knowledge_candidate_tools(server)
+
     @server.tool(name="lnn_list_models", description="列出所有已注册的LNN模型及其基本元数据")
     async def lnn_list_models() -> list[dict]:
         try:

@@ -15,8 +15,17 @@ import threading
 import time
 from pathlib import Path
 from typing import Any
+from functools import wraps
 
 logger = logging.getLogger(__name__)
+
+
+def _serialized(method):
+    @wraps(method)
+    def locked(self, *args, **kwargs):
+        with self._operation_lock:
+            return method(self, *args, **kwargs)
+    return locked
 
 DEFAULT_COLLECTION = "knowledge_base"
 # W 引擎验证修复：必须 normpath——chromadb 1.0.0 的 Rust sqlite 层处理
@@ -88,6 +97,7 @@ class VectorStore:
         self._client: Any = None
         self._collection: Any = None
         self._closed = False  # P3 幂等性标志位
+        self._operation_lock = threading.RLock()
 
     @property
     def persist_directory(self) -> str:
@@ -174,6 +184,7 @@ class VectorStore:
             DEFAULT_HNSW_EF_SEARCH,
         )
 
+    @_serialized
     def add(
         self,
         ids: str | list[str],
@@ -200,6 +211,45 @@ class VectorStore:
         )
         return ids
 
+    @_serialized
+    def replace_document_chunks(self, document_id: str, ids: list[str], documents: list[str],
+                                embeddings: list[list[float]], metadatas: list[dict]) -> list[str]:
+        """Replace one document, rolling back ordinary backend failures.
+
+        Readers through this wrapper are serialized. This is not a distributed
+        or crash-atomic transaction across ChromaDB and the entity index.
+        """
+        self._ensure_collection()
+        if not ids or not (len(ids) == len(documents) == len(embeddings) == len(metadatas)):
+            raise ValueError("Document chunks must be non-empty with matching lengths")
+        if len(set(ids)) != len(ids) or any(m.get("document_id") != document_id for m in metadatas):
+            raise ValueError("Invalid document identity or duplicate chunk IDs")
+        previous = self._collection.get(where={"document_id": document_id},
+                                        include=["documents", "metadatas", "embeddings"])
+        old_ids = list(previous["ids"])
+        stale_ids = sorted(set(old_ids) - set(ids))
+        try:
+            for start in range(0, len(ids), 32):
+                end = start + 32
+                self._collection.upsert(ids=ids[start:end], documents=documents[start:end],
+                                        embeddings=embeddings[start:end], metadatas=metadatas[start:end])
+            if stale_ids:
+                self._collection.delete(ids=stale_ids)
+        except Exception:
+            # Restore overwritten chunks and any deleted old tail; remove only
+            # this import's new IDs. Other documents are never deleted.
+            fresh_ids = sorted(set(ids) - set(old_ids))
+            if fresh_ids:
+                self._collection.delete(ids=fresh_ids)
+            for start in range(0, len(old_ids), 32):
+                end = start + 32
+                self._collection.upsert(ids=old_ids[start:end], documents=previous["documents"][start:end],
+                                        embeddings=previous["embeddings"][start:end],
+                                        metadatas=previous["metadatas"][start:end])
+            raise
+        return stale_ids
+
+    @_serialized
     def query(
         self,
         query_embedding: list[float],
@@ -215,6 +265,7 @@ class VectorStore:
         )
         return result
 
+    @_serialized
     def get(
         self,
         ids: list[str] | None = None,
@@ -232,6 +283,7 @@ class VectorStore:
             kwargs["where"] = where
         return self._collection.get(**kwargs)
 
+    @_serialized
     def delete(self, ids: list[str] | None = None, where: dict | None = None) -> int:
         self._ensure_collection()
         before = self._collection.count()

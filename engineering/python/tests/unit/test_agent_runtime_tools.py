@@ -71,6 +71,8 @@ class TestEvaluateTool:
         assert obs["composite_score"] == 100.0
         assert set(obs["dimensions"]) == {"syntax", "geometry", "physics"}
         assert obs["dimensions"]["geometry"]["status"] == "skipped"
+        assert obs["fully_validated"] is False
+        assert obs["dimensions_complete"] is False
 
     def test_failure_classes_surfaced(self):
         obs = json.loads(create_default_registry().get("evaluate_gcode").run(gcode_text=INVALID_GCODE))
@@ -114,8 +116,8 @@ class TestRagTool:
         from app.rag import process_quadruple as pq
 
         class _FakeIndex:
-            def recommend_process(self, feature, material="general", top_k=3):
-                return [{"feature": feature, "process": "drill", "parameters": {"spindle_rpm": 1200}}]
+            def assess_recommendations(self, feature, material="general", top_k=3, conditions=None):
+                return {"recommendations": [{"feature": feature, "process": "drill", "parameters": {"spindle_rpm": 1200}}], "applicability_checks": []}
 
         monkeypatch.setattr(pq, "get_process_quadruple_index", lambda: _FakeIndex())
         obs = json.loads(

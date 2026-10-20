@@ -335,10 +335,11 @@ class TestFeedbackLoopPipeline:
         """测试重试机制"""
         # 模拟训练数据湖写入失败
         with patch.object(
-            feedback_pipeline.training_data_lake, "write_training_sample", side_effect=Exception("Write failed")
-        ):
+            feedback_pipeline.training_data_lake, "write_training_sample", side_effect=OSError("Write failed")
+        ) as write_sample:
             with pytest.raises(FeedbackLoopError, match="failed after .* retries"):
                 await feedback_pipeline.ingest_machining_record(sample_machining_record)
+            assert write_sample.call_count == 3
 
     def test_get_queue_status(self, feedback_pipeline, sample_machining_record):
         """测试获取队列状态"""

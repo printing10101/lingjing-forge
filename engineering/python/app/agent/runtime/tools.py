@@ -144,6 +144,7 @@ def _tool_evaluate_gcode(
     stock_length: float | None = None,
     stock_width: float | None = None,
     stock_height: float | None = None,
+    cutting_params: dict[str, Any] | None = None,
     **_: Any,
 ) -> dict[str, Any]:
     """G 代码统一评分（app.evaluation 唯一分数出口：passed/复合分/失败类别）。"""
@@ -158,10 +159,13 @@ def _tool_evaluate_gcode(
             stock_length=stock_length,
             stock_width=stock_width,
             stock_height=stock_height,
+            cutting_params=cutting_params,
         )
     )
     return {
         "passed": report.passed,
+        "dimensions_complete": report.dimensions_complete,
+        "fully_validated": report.fully_validated,
         "composite_score": round(report.composite_score, 1),
         "failure_classes": report.failure_classes,
         "dimensions": {d.name: {"status": d.status, "score": round(d.score, 1)} for d in report.dimensions},
@@ -169,14 +173,14 @@ def _tool_evaluate_gcode(
 
 
 def _tool_rag_recommend_process(
-    feature: str = "", material: str = "general", top_k: int = 3, **_: Any
+    feature: str = "", material: str = "general", top_k: int = 3, conditions: dict | None = None, **_: Any
 ) -> dict[str, Any]:
     """工艺四元组知识检索（app.rag ProcessQuadruple 索引）。"""
     from app.rag.process_quadruple import get_process_quadruple_index
 
     index = get_process_quadruple_index()
-    quads = index.recommend_process(feature or "", material or "general", top_k=max(1, min(int(top_k), 5)))
-    return {"count": len(quads), "recommendations": quads}
+    assessment = index.assess_recommendations(feature or "", material or "general", top_k=max(1, min(int(top_k), 5)), conditions=conditions)
+    return {"count": len(assessment["recommendations"]), **assessment, "physical_validation_required": True}
 
 
 def _tool_failure_stats_query(**_: Any) -> dict[str, Any]:
@@ -208,7 +212,7 @@ def create_default_registry() -> ToolRegistry:
     registry.register(
         Tool(
             name="evaluate_gcode",
-            description="统一评分：语法安全 + 体素几何 + 物理仿真复合分（passed/composite_score/failure_classes）",
+            description="统一评分与软件校验：完整验收须 fully_validated=true；passed 和高分只表示部分评分通过",
             params={
                 "gcode_text": "G 代码全文",
                 "controller_type": "控制器类型，默认 fanuc_0i",
@@ -217,6 +221,7 @@ def create_default_registry() -> ToolRegistry:
                 "stock_length": "可选：毛坯长（mm）",
                 "stock_width": "可选：毛坯宽（mm）",
                 "stock_height": "可选：毛坯高（mm）",
+                "cutting_params": "物理校验参数对象：spindle_rpm、feed_rate、depth_of_cut，及可选 material/tool/machine",
             },
             fn=_tool_evaluate_gcode,
         )
@@ -224,11 +229,12 @@ def create_default_registry() -> ToolRegistry:
     registry.register(
         Tool(
             name="rag_recommend_process",
-            description="按特征与材料检索工艺四元组知识库的历史方案",
+            description="按特征、材料和现场条件检索有效批准且适用的钻孔方案；缺失条件不返回正式参数",
             params={
                 "feature": "特征类型（hole/plane/cylinder...）",
                 "material": "材料（steel/aluminum...）",
                 "top_k": "返回条数，默认 3",
+                "conditions": "现场条件对象：tool、hardness_hrc、diameter_mm、depth_mm、coolant、workholding；不可推测缺失条件",
             },
             fn=_tool_rag_recommend_process,
         )

@@ -69,11 +69,8 @@ def test_no_pythonpath_shading():
 def test_ocp_loaded():
     """测试 OCP 依赖正常加载。
 
-    2026-09 修复：① 硬编码的解释器路径改为 ``sys.executable``——环境
-    守卫的本意是验证"当前解释器"能否加载 OCP；② OCP/OCCT 在部分
-    Windows 环境存在已知的解释器退出期 native 崩溃（STATUS_DLL_NOT_FOUND，
-    本机实测 returncode=3221226356 且 stdout 已打印成功字样）——加载
-    成功与否以 stdout 为准，退出码崩溃不掩盖可用性结论。
+    同时验证导入和正常退出。Windows 上 CasADi 3.8.0 与 NLopt 共用
+    SWIG 类型表会导致退出期堆损坏；修复依赖为 CasADi 3.8.1。
     """
     result = subprocess.run(
         [sys.executable, "-c", "import cadquery; print('OCP loaded successfully')"],
@@ -85,9 +82,11 @@ def test_ocp_loaded():
     assert "OCP loaded successfully" in result.stdout, (
         f"OCP failed to load: {result.stderr}"
     )
-    if result.returncode != 0:
-        # 可用但退出期崩溃：记录已知环境问题，不据此判定 OCP 不可用
-        print(f"⚠ OCP teardown crash (known issue), returncode={result.returncode}")
+    assert result.returncode == 0, (
+        f"CAD native runtime crashed at exit ({result.returncode}). "
+        "Install the pinned CasADi 3.8.1 fix and rerun; stdout success is not readiness. "
+        f"{result.stderr[-1500:]}"
+    )
     print(f"✓ OCP loaded: {result.stdout.strip()}")
 
 

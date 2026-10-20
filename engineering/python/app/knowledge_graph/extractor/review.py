@@ -320,6 +320,10 @@ class ReviewManager:
             for i, entity in enumerate(review.entities):
                 if entity.id == entity_id:
                     entity.status = "deleted"
+                    for relation in review.relations:
+                        if entity_id in (relation.source_id, relation.target_id):
+                            relation.status = "deleted"
+                            relation.reviewed_at = datetime.now(timezone.utc).isoformat()
                     entity.reviewed_at = datetime.now(timezone.utc).isoformat()
                     review.updated_at = datetime.now(timezone.utc).isoformat()
                     self._update_overall_status(review)
@@ -374,7 +378,7 @@ class ReviewManager:
                     relation.status = ReviewStatus.APPROVED
                     relation.reviewed_at = now
 
-            review.overall_status = ReviewStatus.APPROVED
+            self._update_overall_status(review)
             review.updated_at = now
             self._save_to_disk(review)
             return True
@@ -405,6 +409,7 @@ class ReviewManager:
                 if e.status == ReviewStatus.APPROVED
             ]
 
+            approved_ids = {entity["id"] for entity in entities}
             relations = [
                 {
                     "relation_type": r.relation_type,
@@ -415,6 +420,7 @@ class ReviewManager:
                 }
                 for r in review.relations
                 if r.status == ReviewStatus.APPROVED
+                and r.source_id in approved_ids and r.target_id in approved_ids
             ]
 
             return {
@@ -432,6 +438,12 @@ class ReviewManager:
             return
 
         statuses = [item.status for item in all_items if item.status != "deleted"]
+        approved_ids = {e.id for e in review.entities if e.status == ReviewStatus.APPROVED}
+        if any(r.status == ReviewStatus.APPROVED and
+               (r.source_id not in approved_ids or r.target_id not in approved_ids)
+               for r in review.relations):
+            review.overall_status = ReviewStatus.NEEDS_REVISION
+            return
         if not statuses:
             review.overall_status = ReviewStatus.APPROVED
         elif all(s == ReviewStatus.APPROVED for s in statuses):

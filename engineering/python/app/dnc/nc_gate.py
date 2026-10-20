@@ -33,6 +33,8 @@ from __future__ import annotations
 
 import logging
 import os
+import hashlib
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +72,9 @@ def _audit_unvalidated_dispatch(program_path: str, machine_id: str | None) -> No
     )
 
 
-def get_dispatch_block_reason(program_path: str, machine_id: str | None = None) -> str | None:
+def get_dispatch_block_reason(
+    program_path: str, machine_id: str | None = None, *, program_bytes: bytes | None = None,
+) -> str | None:
     """判断 NC 程序是否允许下发到机床。
 
     Args:
@@ -148,4 +152,12 @@ def get_dispatch_block_reason(program_path: str, machine_id: str | None = None) 
             "DNC 下发被仿真强制闭环拦截。请修正程序后重新执行阶段 7 校验。"
         )
 
+    if not latest.source_gcode_sha256:
+        return "该程序的校验记录缺少内容指纹。建议操作：重新执行阶段 7 校验与审核后再下发。"
+    try:
+        content = Path(program_path).read_bytes() if program_bytes is None else program_bytes
+    except OSError:
+        return "无法读取待下发程序。建议操作：检查文件并重新执行阶段 7 校验。"
+    if hashlib.sha256(content).hexdigest() != latest.source_gcode_sha256:
+        return "NC 程序内容已变更，与校验指纹不一致。建议操作：重新执行阶段 7 校验与审核后再下发。"
     return None

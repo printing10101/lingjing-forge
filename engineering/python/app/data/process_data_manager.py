@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import logging
+import math
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -64,6 +65,8 @@ class ToolEntry:
     material: str
     application: str
     description: str = ""
+    diameter_range_mm: list[float] = field(default_factory=list)
+    diameter_verified: bool = True
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> ToolEntry:
@@ -75,6 +78,8 @@ class ToolEntry:
             material=data["material"],
             application=data["application"],
             description=data.get("description", ""),
+            diameter_range_mm=data.get("diameter_range_mm", []),
+            diameter_verified=data.get("diameter_verified", True),
         )
 
 
@@ -91,6 +96,7 @@ class CuttingParameterEntry:
     feed_max_mmpr: float
     feed_unit: str
     description: str = ""
+    source: str = "unverified"
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> CuttingParameterEntry:
@@ -106,6 +112,7 @@ class CuttingParameterEntry:
             feed_max_mmpr=data["feed_max_mmpr"],
             feed_unit=data["feed_unit"],
             description=data.get("description", ""),
+            source=data.get("source") or "unverified",
         )
 
 
@@ -223,15 +230,9 @@ class ProcessPlanningDataManager:
             logger.warning("新版刀具库加载失败，回退 JSON 解析: %s", e)
             self._load_tools_from_raw(self._load_json_optional("tools.json"))
             return
-        seen: set[str] = set()
         for t in new_tools:
             series = self._tool_series_for_type(t.type)
             diameter = self._tool_nominal_diameter(t.diameter_range)
-            # 同名/同系列且同直径的刀具去重，避免重复条目干扰精确匹配
-            key = (series, round(diameter, 3))
-            if key in seen:
-                continue
-            seen.add(key)
             entry = ToolEntry(
                 id=t.id,
                 series=series,
@@ -240,6 +241,8 @@ class ProcessPlanningDataManager:
                 material=t.material,
                 application=self._tool_application_for_type(t.type),
                 description=f"type={t.type}, subtype={t.subtype}",
+                diameter_range_mm=list(t.diameter_range),
+                diameter_verified=diameter > 0,
             )
             self._tools[entry.id] = entry
 
@@ -268,14 +271,17 @@ class ProcessPlanningDataManager:
 
     @staticmethod
     def _tool_nominal_diameter(diameter_range: list[float]) -> float:
-        """按直径区间取标称直径：优先上限，其次区间中点。"""
-        if not diameter_range:
+        """Only a single size establishes a diameter; a family interval does not."""
+        if not diameter_range or len(diameter_range) not in (1, 2) or any(
+            isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0
+            for value in diameter_range
+        ):
             return 0.0
         upper = diameter_range[-1]
         lower = diameter_range[0]
-        if upper and lower:
-            return round((lower + upper) / 2.0, 3)
-        return float(upper or lower or 0.0)
+        if upper == lower and upper > 0:
+            return float(upper)
+        return 0.0
 
     @staticmethod
     def _tool_application_for_type(tool_type: str) -> str:
@@ -399,12 +405,38 @@ class ProcessPlanningDataManager:
 
         return [tool for tool in self._tools.values() if tool.series == tool_series]
 
-    def get_cutting_parameters(self, material_id: str, tool_series: str) -> list[CuttingParameterEntry]:
+    _LEGACY_PARAMETER_MATERIAL_IDS = {
+        "material_45steel": "steel_45", "material_al6061": "al_6061", "material_ss304": "ss_304",
+    }
+
+    @staticmethod
+    def normalize_tool_material(value: str) -> str:
+        normalized = value.strip().lower().replace("-", "_")
+        return {"wc": "carbide", "tungsten_carbide": "carbide"}.get(normalized, normalized)
+
+    def _parameter_material_aliases(self) -> dict[str, str]:
+        """Link only known aliases or unique exact grade names, never substring grades."""
+        aliases = dict(self._LEGACY_PARAMETER_MATERIAL_IDS)
+        names: dict[str, set[str]] = {}
+        for material in self._materials.values():
+            names.setdefault(self._normalize_material_name(material.name), set()).add(material.id)
+        proposed: dict[str, set[str]] = {}
+        for param in self._cutting_parameters.values():
+            ids = names.get(self._normalize_material_name(param.material_name), set())
+            if len(ids) == 1:
+                proposed.setdefault(param.material_id, set()).update(ids)
+        for legacy, ids in proposed.items():
+            if len(ids) == 1 and legacy not in aliases and legacy not in self._materials:
+                aliases[legacy] = next(iter(ids))
+        return aliases
+
+    def get_cutting_parameters(self, material_id: str, tool_series: str, tool_material: str | None = None) -> list[CuttingParameterEntry]:
         """按材料类型和刀具类型查询推荐切削参数。
 
         Args:
             material_id: 材料ID
             tool_series: 刀具系列，如 twist_drill, endmill 等
+            tool_material: 指定时只返回兼容刀具材质的参数；WC 与 carbide 为同一标识，涂层材质不合并。
 
         Returns:
             list[CuttingParameterEntry]: 切削参数列表
@@ -414,10 +446,17 @@ class ProcessPlanningDataManager:
         if not tool_series or not tool_series.strip():
             raise QueryError("刀具系列不能为空")
 
+        aliases = self._parameter_material_aliases()
+        requested = material_id.strip()
+        requested = aliases.get(requested, requested)
         results = []
         for param in self._cutting_parameters.values():
-            if param.material_id == material_id.strip() and param.tool_series == tool_series.strip():
-                results.append(param)
+            candidate_material = aliases.get(param.material_id, param.material_id)
+            if candidate_material != requested or param.tool_series != tool_series.strip():
+                continue
+            if tool_material is not None and self.normalize_tool_material(param.tool_material) != self.normalize_tool_material(tool_material):
+                continue
+            results.append(param)
         return results
 
     def get_material_by_id(self, material_id: str) -> MaterialEntry | None:

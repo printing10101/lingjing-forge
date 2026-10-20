@@ -247,6 +247,8 @@ class DxfProcessService:
         postprocessor: str | None = None,
         user_id: str | None = None,
         material: str = "45钢",
+        stock_top_z: float | None = None,
+        max_stepdown: float | None = None,
     ) -> DxfProcessResult:
         """一站式处理 DXF 文件。
 
@@ -256,6 +258,8 @@ class DxfProcessService:
             postprocessor: 目标控制器方言（fanuc_0i / siemens_840d / ...）
             user_id: 触发用户（用于影子模式/审计）
             material: 零件材料名（工艺规划知识库查询用）
+            stock_top_z: 明确的毛坯顶面 Z；None 保留历史生成坐标约定
+            max_stepdown: 可选最大分层切深；仅约束走刀分层，不改变加工总深度
         """
         t0 = time.time()
         path = Path(dxf_path)
@@ -286,7 +290,7 @@ class DxfProcessService:
         if out_dir is not None:
             ctl = postprocessor or self._default_postprocessor
             features_summary = result.features.summary if result.features else {}
-            result.gcode = self._run_gcode(path, out_dir, ctl, user_id, features_summary, material)
+            result.gcode = self._run_gcode(path, out_dir, ctl, user_id, features_summary, material, stock_top_z, max_stepdown)
 
         # 收集输出文件
         if out_dir is not None:
@@ -547,6 +551,8 @@ class DxfProcessService:
         user_id: str | None,
         features_summary: dict[str, Any] | None = None,
         material: str = "45钢",
+        stock_top_z: float | None = None,
+        max_stepdown: float | None = None,
     ) -> StageResult:
         t0 = time.time()
         try:
@@ -607,6 +613,8 @@ class DxfProcessService:
             process_result = ProcessPlanningPipeline().run(
                 part_description=part_description,
                 controller_type=controller,
+                stock_top_z=50.0 if stock_top_z is None else stock_top_z,
+                max_stepdown=max_stepdown,
             )
             if not process_result.success or not process_result.gcode_result:
                 errs = "; ".join(e for s in process_result.stages for e in (s.errors or []))
@@ -632,6 +640,10 @@ class DxfProcessService:
                     "operations": len(op.operations) if op else 0,
                     "estimated_time_min": round(op.estimated_time_min, 1) if op else 0.0,
                     "holes": len(holes),
+                    "stock_top_z": 50.0 if stock_top_z is None else stock_top_z,
+                    "max_stepdown": max_stepdown,
+                    "operation_plan": op.to_dict() if op else {},
+                    "simulation": process_result.simulation,
                 },
             )
         except (OSError, RuntimeError, KeyError, ValueError, TypeError) as e:

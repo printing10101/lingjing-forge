@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Any
+import math
 from collections.abc import Callable
 
 from app.data.process_data_manager import MaterialEntry, QueryError, ToolEntry
@@ -44,6 +45,8 @@ class _MatchingMixin:
             raise QueryError("材料ID不能为空")
         if not process_name or not process_name.strip():
             raise QueryError("加工工序名称不能为空")
+        if isinstance(hole_diameter, bool) or not isinstance(hole_diameter, (int, float)) or not math.isfinite(hole_diameter) or hole_diameter <= 0:
+            raise QueryError("孔径必须为有限正数")
 
         # 查询该工序适用的所有刀具
         all_tools = self._data.get_tools_by_material_and_process(
@@ -52,27 +55,28 @@ class _MatchingMixin:
         )
 
         if not all_tools:
+            is_center_drill = process_name == "打中心孔定位"
             return MatchedTool(
                 tool=ToolEntry(
                     id="fallback",
-                    series="twist_drill",
-                    name=f"麻花钻 φ{hole_diameter}mm(通用)",
-                    diameter_mm=hole_diameter,
+                    series="center_drill" if is_center_drill else "twist_drill",
+                    name="待确认中心钻（直径待补充）" if is_center_drill else f"待确认麻花钻 φ{hole_diameter}mm",
+                    diameter_mm=0.0 if is_center_drill else hole_diameter,
                     material="HSS",
                     application=process_name,
+                    diameter_verified=False,
                 ),
                 suitability_score=30.0,
                 match_reason=(f"知识库中未找到 {material_category}+{process_name} 的刀具，返回通用刀具建议"),
-                warnings=["建议向知识库添加该组合的专用刀具数据"],
+                warnings=["该刀具仅为候选规格，未确认具体刀具；请补充专用刀具数据"],
             )
 
-        # 按直径匹配最佳刀具
-        # 选择直径最接近hole_diameter的刀具（优先选择大于等于孔直径的，其次选最大的）
+        # 固定精确尺寸优先；刀具族只产生未确认候选，不用区间中点冒充规格。
         best_tool = self._select_best_diameter(all_tools, hole_diameter)
 
         # 查询该材料+刀具系列的切削参数
         cutting_params = None
-        cp_list = self._data.get_cutting_parameters(material_id, best_tool.series)
+        cp_list = self._data.get_cutting_parameters(material_id, best_tool.series, tool_material=best_tool.material)
         if cp_list:
             cutting_params = cp_list[0]  # 取第一个匹配的参数组
 

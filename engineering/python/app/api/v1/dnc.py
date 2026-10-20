@@ -15,6 +15,7 @@ Example::
 
 import asyncio
 import logging
+import tempfile
 
 from pathlib import Path
 
@@ -154,7 +155,13 @@ async def send_nc_program(req: NCSendRequest):
         raise HTTPException(status_code=400, detail="文件不存在，请检查路径后重试")
 
     # 仿真强制闭环闸门（fail-closed：未通过阶段 7 校验（含体素仿真）的程序不允许上机）
-    block_reason = get_dispatch_block_reason(str(program_path), machine_id=req.machine_id)
+    try:
+        program_bytes = program_path.read_bytes()
+    except OSError as exc:
+        raise HTTPException(status_code=400, detail="无法读取 NC 程序，请检查文件后重试") from exc
+    block_reason = get_dispatch_block_reason(
+        str(program_path), machine_id=req.machine_id, program_bytes=program_bytes,
+    )
     if block_reason:
         logger.warning(
             "NC 程序下发被闸门拦截: machine_id=%s path=%s reason=%s",
@@ -172,7 +179,12 @@ async def send_nc_program(req: NCSendRequest):
         )
 
     program_name = req.program_name or program_path.stem
-    ok = await dnc_manager.send_nc_program(req.machine_id, str(program_path), program_name)
+    # Send a private snapshot of exactly the bytes checked above. Reopening the
+    # original path after awaiting a network operation permits a check/use race.
+    with tempfile.TemporaryDirectory(prefix="lingjing_nc_dispatch_") as snapshot_dir:
+        snapshot_path = Path(snapshot_dir) / ("program" + program_path.suffix)
+        snapshot_path.write_bytes(program_bytes)
+        ok = await dnc_manager.send_nc_program(req.machine_id, str(snapshot_path), program_name)
     if ok:
         return success(data={"machine_id": req.machine_id, "program_name": program_name, "status": "sent"})
     return error(code=ErrorCode.INTERNAL_ERROR, message="NC 程序发送失败")

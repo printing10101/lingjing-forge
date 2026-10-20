@@ -249,6 +249,8 @@ class TestNCProgramDispatchGate:
 
     def _register_cam_task(self, cam_store, program_path: str, status: str, voxel: bool | None) -> None:
         import time
+        import hashlib
+        from pathlib import Path
 
         from app.cam_validation.cam_store import CamValidationTask
 
@@ -257,6 +259,7 @@ class TestNCProgramDispatchGate:
                 task_id=f"cam_gate_{abs(hash(program_path)) % 10**8}",
                 source_gcode_report_path=str(program_path) + ".report.json",
                 source_gcode_file_path=program_path,
+                source_gcode_sha256=hashlib.sha256(Path(program_path).read_bytes()).hexdigest(),
                 controller_type="fanuc_0i",
                 status=status,
                 voxel_check_passed=voxel,

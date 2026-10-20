@@ -19,6 +19,13 @@ describe('useAuthStore', () => {
   })
 
   describe('initial state', () => {
+    it('restores engineer without granting administrator rights', () => {
+      sessionStorage.setItem('auth_token', 'synthetic-token')
+      sessionStorage.setItem('auth_user', JSON.stringify({ id: 'fixture', username: 'fixture', role: 'engineer', permissions: [] }))
+      const store = useAuthStore()
+      expect(store.userRole).toBe('engineer')
+      expect(store.isAdmin()).toBe(false)
+    })
     it('sessionStorage 无数据时 token 为 null', () => {
       const store = useAuthStore()
       expect(store.token).toBeNull()

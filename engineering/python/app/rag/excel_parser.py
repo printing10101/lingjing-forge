@@ -1,6 +1,6 @@
 """Excel文档解析模块
 
-使用openpyxl库实现Excel表格数据的精准提取，支持.xls和.xlsx格式，
+使用openpyxl库提取 .xlsx / .xlsm 格式，旧版二进制 .xls 需先转换，
 能够识别合并单元格、冻结窗格等复杂表格结构。
 """
 
@@ -18,7 +18,7 @@ def parse_excel(file_path: str | Path) -> dict[str, Any]:
     """解析Excel文档，提取表格数据
 
     Args:
-        file_path: Excel文件路径（.xls或.xlsx）
+        file_path: Excel文件路径（.xlsx或.xlsm）
 
     Returns:
         包含解析结果的字典，结构如下：
@@ -55,6 +55,9 @@ def parse_excel(file_path: str | Path) -> dict[str, Any]:
         return result
 
     # 获取文件大小
+    if file_path.suffix.lower() not in (".xlsx", ".xlsm"):
+        result["error"] = "[不支持的表格格式] 仅支持 .xlsx/.xlsm。建议操作：将旧版 .xls 转存为 .xlsx 后导入。"
+        return result
     try:
         result["file_size"] = file_path.stat().st_size
     except OSError as e:
@@ -67,6 +70,20 @@ def parse_excel(file_path: str | Path) -> dict[str, Any]:
         logger.info("开始解析Excel文件: %s", file_path.name)
 
         wb = openpyxl.load_workbook(str(file_path), data_only=True)
+        formula_wb = None
+        try:
+            formula_wb = openpyxl.load_workbook(str(file_path), data_only=False)
+            for formula_sheet in formula_wb:
+                for row in formula_sheet:
+                    for cell in row:
+                        if cell.data_type == "f" and wb[formula_sheet.title][cell.coordinate].value is None:
+                            raise ValueError("公式没有已计算缓存，请在 Excel 中重新计算并保存后导入")
+        except Exception:
+            wb.close()
+            raise
+        finally:
+            if formula_wb is not None:
+                formula_wb.close()
         result["sheet_count"] = len(wb.sheetnames)
 
         all_tables = []
@@ -102,7 +119,7 @@ def parse_excel(file_path: str | Path) -> dict[str, Any]:
         logger.error(error_msg)
         result["error"] = error_msg
     except (OSError, ValueError, TypeError, KeyError):
-        error_msg = "Excel解析失败: 文件格式错误或损坏，请检查文件"
+        error_msg = "Excel解析失败: 请检查文件格式；公式单元格须在 Excel 中重新计算并保存后导入"
         logger.exception(error_msg)
         result["error"] = error_msg
     except Exception:
@@ -129,7 +146,15 @@ def _extract_table_from_sheet(ws: Any, sheet_idx: int, sheet_name: str) -> dict[
     try:
         # 获取所有数据
         data = []
-        for row in ws.iter_rows(values_only=True):
+        merged_values = {}
+        for merged_range in ws.merged_cells.ranges:
+            value = ws.cell(merged_range.min_row, merged_range.min_col).value
+            for row_idx in range(merged_range.min_row, merged_range.max_row + 1):
+                for col_idx in range(merged_range.min_col, merged_range.max_col + 1):
+                    merged_values[row_idx, col_idx] = value
+        for row_idx, raw_row in enumerate(ws.iter_rows(values_only=True), start=1):
+            row = [merged_values.get((row_idx, col_idx), value)
+                   for col_idx, value in enumerate(raw_row, start=1)]
             # 过滤完全空行
             if any(cell is not None for cell in row):
                 data.append([str(cell) if cell is not None else "" for cell in row])

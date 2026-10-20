@@ -175,6 +175,7 @@ class SoftwareCheckMixin:
 
         # 同步 task 字段（从阶段 6 report.json 继承）
         task.source_gcode_file_path = load_result.gcode_file_path
+        task.source_gcode_sha256 = load_result.gcode_sha256
         task.controller_type = load_result.controller_type
         task.material_name = load_result.material_name
         task.safe_z = load_result.safe_z

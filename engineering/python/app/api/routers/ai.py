@@ -41,6 +41,7 @@ from app.api.v1 import (
 from app.api.v1.lnn.routes import router as lnn_routes_router
 from app.ai.process_understanding import routes as process_understanding_routes
 from app.rag import routes as rag_routes
+from app.rag import review_routes as rag_review_routes
 
 
 def register(app: FastAPI, *, ollama_available: bool = False) -> None:
@@ -57,6 +58,9 @@ def register(app: FastAPI, *, ollama_available: bool = False) -> None:
 
     # RAG
     app.include_router(rag_routes.router)
+    app.include_router(rag_review_routes.router)
+    from app.api.v1.agent_gateway.knowledge_candidates import router as candidates_router
+    app.include_router(candidates_router)
 
     # Ollama（条件注册）
     if ollama_available:

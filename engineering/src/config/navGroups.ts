@@ -29,6 +29,7 @@ import {
   Operation,
   Aim,
   Check,
+  Reading,
   FolderOpened,
   Connection,
   Guide,
@@ -138,6 +139,7 @@ export const navGroups: NavGroup[] = [
         labelKey: "nav.items.approvalDashboard",
         icon: Check,
       },
+      { path: "/process-knowledge-review", labelKey: "nav.items.processKnowledgeReview", icon: Reading },
     ],
   },
   {

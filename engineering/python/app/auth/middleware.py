@@ -787,7 +787,10 @@ class UnifiedAuthMiddleware:
                     },
                 )
 
-            cached_result = idempotency_store.check_and_set(idem_key, agent_id)
+            # Candidate writes have durable, content-bound idempotency in the knowledge index.
+            # A generic cached response must not hide changed content or a newer human review.
+            durable_candidate_route = path.rstrip("/") == "/api/agent/v1/cam/knowledge-candidates"
+            cached_result = None if durable_candidate_route else idempotency_store.check_and_set(idem_key, agent_id)
             if cached_result is not None:
                 elapsed = (time.perf_counter() - start_time) * 1000
                 agent_audit_log.log(

@@ -18,10 +18,10 @@ if str(_REPO_ROOT) not in sys.path:
 os.environ.setdefault("LINGJING_MCP_DEV", "1")
 os.environ.setdefault("LINGJING_AGENT_TOKEN", "x" * 40)
 
-import pytest
+import pytest  # noqa: E402 - token must be set before importing mcp_server
 
-import mcp_server.cam_tools as ct
-from mcp_server.cam_tools import _sanitize_identifier, register_cam_tools
+import mcp_server.cam_tools as ct  # noqa: E402
+from mcp_server.cam_tools import _sanitize_identifier, register_cam_tools  # noqa: E402
 
 
 class _FakeServer:
@@ -62,6 +62,21 @@ class TestSanitizeIdentifier:
 
 
 class TestToolHandlers:
+    @pytest.mark.asyncio
+    async def test_conditions_roundtrip_and_nonfinite_not_sent(self, monkeypatch):
+        captured = []
+        async def fake_get(path, params=None):
+            captured.append(params)
+            return {"data": {"recommendations": [], "recommendation_status": "conditions_missing"}}
+        monkeypatch.setattr(ct, "_get", fake_get)
+        conditions = {"tool": "fixture_d8", "hardness_hrc": 20.0}
+        result = json.loads(await ct._handle_recommend_process("hole", "fixture_steel", 3, conditions))
+        assert json.loads(captured[0]["conditions"]) == conditions
+        assert result["data"]["recommendation_status"] == "conditions_missing"
+        assert json.loads(await ct._handle_recommend_process("hole", conditions={"depth_mm": float("nan")}))["error"] is True
+        assert json.loads(await ct._handle_recommend_process("hole", conditions=[]))["error"] is True
+        assert len(captured) == 1
+
     @pytest.mark.asyncio
     async def test_stats_success(self, monkeypatch) -> None:
         async def fake_get(path, params=None):

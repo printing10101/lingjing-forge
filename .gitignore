@@ -76,6 +76,7 @@ pytest_cache/
 .pytest_cache/
 .coverage
 .coverage.*
+.coverage-*
 coverage-unit.json
 coverage-unit.xml
 coverage-unit-html/

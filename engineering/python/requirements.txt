@@ -22,6 +22,7 @@ pydantic-settings==2.5.2  # 配置管理（Settings 模型依赖）
 trimesh==4.6.0           # 三角网格处理与体素化
 rtree==1.4.0             # 空间索引加速（trimesh 依赖）
 cadquery==2.5.2          # 参数化 CAD 几何生成
+casadi==3.8.1           # 修复 Windows 与 NLopt 同载时 SWIG 类型表冲突导致的退出崩溃（casadi#4403）
 Pillow==11.1.0           # 图像处理与 CV 几何参数提取
 ezdxf==1.3.5             # DXF 工程图文件解析（dxf_parser 依赖）
 

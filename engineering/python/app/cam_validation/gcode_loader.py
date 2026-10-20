@@ -40,6 +40,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import logging
 import math
 import os
@@ -116,6 +117,8 @@ class GCodeLoadResult:
     gcode_file_path: str
     gcode_total_lines: int
     cam_validation_required: bool
+    # Hash of the exact bytes decoded and supplied to all text validators.
+    gcode_sha256: str = ""
     source_chatter_report_path: str = ""
     source_operation_plan_path: str = ""
     reviewer: str = ""
@@ -136,6 +139,7 @@ class GCodeLoadResult:
             "prediction_method": self.prediction_method,
             "pending_calibration": self.pending_calibration,
             "gcode_file_path": self.gcode_file_path,
+            "gcode_sha256": self.gcode_sha256,
             "gcode_total_lines": self.gcode_total_lines,
             "cam_validation_required": self.cam_validation_required,
             "source_chatter_report_path": self.source_chatter_report_path,
@@ -265,7 +269,12 @@ class GCodeLoader:
 
         # 6. 读取 G 代码文件
         gcode_file_path = report_data["gcode_file_path"]
-        gcode_text = self._load_gcode_text(gcode_file_path)
+        gcode_file_path = self._resolve_path(gcode_file_path)
+        gcode_bytes = self._load_gcode_bytes(gcode_file_path)
+        try:
+            gcode_text = gcode_bytes.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise GCodeReportLoadError("G 代码必须使用 UTF-8 编码") from exc
 
         # 6.5 可选刀具参数（阶段 6 新版 report.json 携带；旧版缺省 → None，
         # 体素仿真侧回退配置默认并标注 tool_source，工程师可见）
@@ -285,6 +294,7 @@ class GCodeLoader:
         result = GCodeLoadResult(
             task_id=str(report_data["task_id"]),
             gcode_text=gcode_text,
+            gcode_sha256=hashlib.sha256(gcode_bytes).hexdigest(),
             feature_results=feature_results,
             controller_type=str(report_data["controller_type"]),
             material_name=str(report_data["material_name"]),
@@ -341,6 +351,9 @@ class GCodeLoader:
         return resolved
 
     def _load_gcode_text(self, gcode_file_path: str) -> str:
+        return self._load_gcode_bytes(gcode_file_path).decode("utf-8")
+
+    def _load_gcode_bytes(self, gcode_file_path: str) -> bytes:
         """读取 G 代码文件文本。
 
         Args:
@@ -356,7 +369,7 @@ class GCodeLoader:
         if not os.path.isfile(full_path):
             raise GCodeReportLoadError(safe_error_message(ValueError(f"阶段 6 G 代码文件不存在: {gcode_file_path}")))
         try:
-            with open(full_path, "r", encoding="utf-8") as f:
+            with open(full_path, "rb") as f:
                 return f.read()
         except OSError as e:
             raise GCodeReportLoadError(safe_error_message(ValueError(f"阶段 6 G 代码文件读取失败: {e}"))) from e

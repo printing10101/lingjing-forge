@@ -17,6 +17,8 @@ G代码生成的设计原则：
 from __future__ import annotations
 
 import logging
+import math
+from dataclasses import replace
 from typing import Any
 
 from app.process_planning.operation_sequencer import OperationPlan
@@ -103,6 +105,7 @@ class GCodeGenerator(_FeatureCodeMixin, _HoleDrillingMixin, _PreviewMixin):
         tool_radius_compensation: str = "G41",
         use_coolant: bool = True,
         stock_top_z: float = 50.0,
+        max_stepdown: float | None = None,
     ) -> GCodeResult:
         """从工序规划结果生成完整G代码程序。
 
@@ -123,6 +126,7 @@ class GCodeGenerator(_FeatureCodeMixin, _HoleDrillingMixin, _PreviewMixin):
             tool_radius_compensation: 刀具半径补偿模式 "G41"/"G42"/"G40"
             use_coolant: 是否开启冷却液
             stock_top_z: 毛坯顶面Z坐标 (mm)，切削深度以此为基准向下计算
+            max_stepdown: 可选最大分层切深；不会缩减特征总加工深度
 
         Returns:
             GCodeResult: 生成的G代码程序及元信息
@@ -130,6 +134,10 @@ class GCodeGenerator(_FeatureCodeMixin, _HoleDrillingMixin, _PreviewMixin):
         Raises:
             ValueError: 当controller_type无效或operation_plan为空时
         """
+        if not math.isfinite(stock_top_z) or stock_top_z <= 0:
+            raise ValueError("[INVALID_STOCK_TOP] 毛坯顶面必须为正有限值。建议操作：确认 Z 坐标约定")
+        if max_stepdown is not None and (not math.isfinite(max_stepdown) or max_stepdown <= 0):
+            raise ValueError("[INVALID_STEPDOWN] 最大分层切深必须为正有限值。建议操作：设置合理切深")
         if safe_z <= stock_top_z:
             # 安全平面必须高于毛坯顶面，否则快速定位时会触发碰撞
             safe_z = stock_top_z + 30.0
@@ -313,6 +321,10 @@ class GCodeGenerator(_FeatureCodeMixin, _HoleDrillingMixin, _PreviewMixin):
             # 根据加工类型生成对应的加工指令
             # 从工序参数中提取材料和刀具信息
             cut_params = op.cutting_params or {}
+            if max_stepdown is not None:
+                # Candidate parameters affect real path generation without mutating the plan.
+                cut_params = {**cut_params, "depth_of_cut": min(float(cut_params.get("depth_of_cut") or max_stepdown), max_stepdown)}
+                op = replace(op, cutting_params=cut_params)
             material = cut_params.get("material", "steel")
             tool_diameter = cut_params.get("tool_diameter", 10.0)
             radius_comp = cut_params.get("radius_comp", "G41")

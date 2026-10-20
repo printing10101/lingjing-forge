@@ -16,6 +16,7 @@ handler 提取为模块级函数便于测试（与 factory_tools 同模式）。
 from __future__ import annotations
 
 import logging
+import json
 import re as _re
 from typing import Any
 
@@ -89,7 +90,7 @@ async def _handle_list_failure_cases(
 
 
 async def _handle_recommend_process(
-    feature: str, material: str = "general", top_k: int = 5
+    feature: str, material: str = "general", top_k: int = 5, conditions: dict[str, Any] | None = None,
 ) -> str:
     try:
         feature = _sanitize_identifier(feature, "feature")
@@ -100,9 +101,14 @@ async def _handle_recommend_process(
     if not 1 <= top_k <= 20:
         return _format_error("top_k 须在 [1, 20]")
     try:
+        params = {"feature": feature, "material": material, "top_k": top_k}
+        if conditions is not None:
+            if not isinstance(conditions, dict):
+                return _format_error("conditions 必须为现场条件对象")
+            params["conditions"] = json.dumps(conditions, allow_nan=False)
         result = await _get(
             "/api/agent/v1/cam/process-recommend",
-            params={"feature": feature, "material": material, "top_k": top_k},
+            params=params,
         )
         return _format_success(result)
     except Exception as exc:  # noqa: BLE001
@@ -162,19 +168,21 @@ def register_cam_tools(server) -> None:
         name="cam_recommend_process",
         description=(
             "工艺四元组推荐：给定加工特征(feature，如 face/hole/profile)与材料(material)，"
-            "返回推荐的工艺方法、刀具与切削参数（含历史成功实证 generated_validated），"
-            "按置信度降序"
+            "仅返回有效人工批准且符合现场条件的钻孔工艺。conditions包含tool、hardness_hrc、"
+            "diameter_mm、depth_mm、coolant(dry/flood/mist/through_tool)、"
+            "workholding(vise/chuck/fixture/collet)。缺少或不符时返回缺失/不符项，禁止补造参数。仍需物理校验"
         ),
     )
     async def cam_recommend_process(
         feature: str,
         material: str = "general",
         top_k: int = 5,
+        conditions: dict[str, Any] | None = None,
     ) -> list[dict]:
         return [
             {
                 "type": "text",
-                "text": await _handle_recommend_process(feature, material, top_k),
+                "text": await _handle_recommend_process(feature, material, top_k, conditions),
             }
         ]
 

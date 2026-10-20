@@ -8,7 +8,7 @@
 - ``GET /gcode/failure-cases`` —— 最近案例列表（含错误分类，
   failure 案例附 G 代码文本，M1）
 - ``GET /cam/process-recommend`` —— 工艺四元组推荐
-  （feature+material → process/tool/parameters，含 generated_validated 实证，M4a）
+  （feature+material → 已审核的 process/tool/parameters；仿真生成记录须另行审核）
 - ``GET /cam/quadruple-stats`` —— 工艺知识库统计
 
 全部为 R 类只读，权限 ``agent:read``；任何内部异常不泄露堆栈
@@ -21,7 +21,8 @@ job 化设计，见后续迭代。
 from __future__ import annotations
 
 import logging
-from typing import Any
+import json
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
@@ -102,25 +103,57 @@ def cam_process_recommend(
     feature: str = Query(min_length=1, max_length=64),
     material: str = Query(default="general", max_length=64),
     top_k: int = Query(default=5, ge=1, le=20),
+    conditions: Annotated[str | None, Query(max_length=4096)] = None,
 ):
     """工艺四元组推荐（R 类）：feature+material → 工艺/刀具/参数。
 
-    数据源含手册知识与 generated_validated 成功实证（Phase 0 M4a），
-    按置信度降序返回。
+    仅当前内容经过有效人工批准的记录参与推荐，按置信度降序返回。
     """
     try:
         from app.rag.process_quadruple import get_process_quadruple_index
 
-        recs = get_process_quadruple_index().recommend_process(
-            feature.strip().lower(), material.strip().lower(), top_k=top_k
-        )
+        index = get_process_quadruple_index()
+        try:
+            supplied = json.loads(conditions) if conditions is not None else None
+            if conditions is not None and not isinstance(supplied, dict):
+                raise ValueError("现场条件必须为对象")
+            assessment = index.assess_recommendations(
+                feature.strip().lower(), material.strip().lower(), top_k=top_k, conditions=supplied
+            )
+        except (ValueError, TypeError) as exc:
+            raise HTTPException(status_code=422, detail="[条件错误] 现场条件格式、数值或单位不合法。建议操作：按接口说明填写有限数值与允许选项。") from exc
+        recs = assessment["recommendations"]
+        checks = assessment["applicability_checks"]
+        if recs:
+            recommendation_status, hint = "matched", None
+        elif checks:
+            statuses = {check["status"] for check in checks}
+            recommendation_status = "conditions_missing" if "conditions_missing" in statuses else (
+                "unsupported_process" if statuses == {"unsupported_process"} else "conditions_mismatch"
+            )
+            hint = "缺少现场条件，请补齐缺失项。" if recommendation_status == "conditions_missing" else "现场条件不符合已审核范围，或该加工方式尚不支持适用性核验。"
+        elif index.get_stats()["total_quadruples"] == 0:
+            recommendation_status = "knowledge_empty"
+            hint = "工艺知识库为空。建议操作：导入并审核带来源的工艺知识后重新查询；不得据此推定加工参数。"
+        elif index.get_stats().get("approved_quadruples") == 0:
+            recommendation_status = "knowledge_requires_review"
+            hint = "已有工艺记录，但尚无有效批准。建议操作：核对来源与结构化适用范围；旧批准缺少范围或证据摘要时需重新修订审核。"
+        else:
+            recommendation_status = "no_match"
+            hint = "未找到匹配工艺。建议操作：核对特征与材料标识，或补充经审核的相关知识；不得补造推荐参数。"
         return success(
             data={
                 "feature": feature.strip().lower(),
                 "material": material.strip().lower(),
                 "recommendations": recs,
+                "recommendation_status": recommendation_status,
+                "applicability_checks": checks,
+                "physical_validation_required": True,
+                "hint": hint,
             }
         )
+    except HTTPException:
+        raise
     except Exception as exc:  # noqa: BLE001
         logger.exception("cam_process_recommend failed for feature=%s", feature)
         raise HTTPException(
