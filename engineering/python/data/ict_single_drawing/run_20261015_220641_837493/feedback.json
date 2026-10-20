@@ -1,0 +1,30 @@
+[
+  {
+    "kind": "validation_feedback",
+    "source": "baseline/validation.json",
+    "reasons": [
+      "physics: 未完整执行或未通过",
+      "NO_MATERIAL_REMOVAL: 刀轨没有实际去除毛坯体素"
+    ],
+    "legacy_stock_top_z": 50.0,
+    "drawing_thickness": 10.0
+  },
+  {
+    "kind": "physics_feedback",
+    "source": "candidate/validation.json",
+    "action": "halve_max_stepdown",
+    "max_stepdown": 1.0
+  },
+  {
+    "kind": "candidate_promoted",
+    "policy": "active_policy.json"
+  },
+  {
+    "kind": "policy_consumed_on_next_generation",
+    "evidence": "policy_replay/process.json"
+  },
+  {
+    "kind": "failed_candidate_rejected",
+    "active_policy_unchanged": true
+  }
+]

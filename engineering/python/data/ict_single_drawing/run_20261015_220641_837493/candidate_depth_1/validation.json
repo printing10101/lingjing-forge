@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "composite_score": 99.0,
+  "dimensions": [
+    {
+      "name": "syntax",
+      "weight": 0.5,
+      "status": "evaluated",
+      "passed": true,
+      "score": 98.0,
+      "skip_reason": "",
+      "detail": {
+        "is_valid": true,
+        "error_count": 0,
+        "warning_count": 1,
+        "error_codes": [],
+        "warning_codes": [
+          "UNKNOWN_G_M_CODE"
+        ],
+        "issues": [
+          {
+            "code": "UNKNOWN_G_M_CODE",
+            "severity": "warning",
+            "message": "第 13 行未知 G 代码 G05（不在白名单，请人工确认控制器兼容性）",
+            "context": {
+              "line": 13,
+              "code": "G05"
+            },
+            "recommended": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "geometry",
+      "weight": 0.3,
+      "status": "evaluated",
+      "passed": true,
+      "score": 100.0,
+      "skip_reason": "",
+      "detail": {
+        "passed": true,
+        "engine": "python",
+        "voxel_size_mm": 1.0,
+        "total_segments": 123,
+        "cutting_segments": 89,
+        "collision_count": 0,
+        "collision_blocks": [],
+        "collision_positions": [],
+        "severity": "none",
+        "removed_voxel_count": 20031,
+        "voxel_count": 57040,
+        "duration_seconds": 0.1088,
+        "warnings": [],
+        "tool_diameter_mm": 10.0,
+        "tool_type": "flat",
+        "tool_source": "config_default"
+      }
+    },
+    {
+      "name": "physics",
+      "weight": 0.2,
+      "status": "evaluated",
+      "passed": true,
+      "score": 100.0,
+      "skip_reason": "",
+      "detail": {
+        "status": "success",
+        "passed": true,
+        "score": 100,
+        "recommendation": "recommended",
+        "cutting_force": {
+          "Fx": 106.69676460233538,
+          "Fy": 142.26235280311386,
+          "Fz": 355.6558820077846,
+          "method": "kienzle_fallback",
+          "confidence": 0.5,
+          "model_version": "kienzle_v1.0_fallback",
+          "warning": "PINN 模型未训练或输出异常，已回退到解析解"
+        },
+        "chatter_stability": {
+          "stable": true,
+          "limit_depth": 30.586942767806658,
+          "method": "analytical",
+          "ltc_active": false,
+          "assumed_depth_for_stability": 2.0
+        },
+        "duration_ms": 5.93,
+        "error_message": ""
+      }
+    }
+  ],
+  "failure_classes": [],
+  "controller_type": "fanuc_0i",
+  "duration_ms": 117.12,
+  "accepted": true,
+  "reasons": [],
+  "nc_sha256": "a663049b6105207431d642ff89351fffe1ab2c6d6fbe2c622dc163bbb0d6e09d",
+  "cutting_parameters_from_nc": {
+    "spindle_rpm": 1850,
+    "feed_rate": 275.0,
+    "depth_of_cut": 1.0,
+    "material": "steel_45",
+    "tool": "endmill_d10",
+    "machine": "vmc_850"
+  }
+}

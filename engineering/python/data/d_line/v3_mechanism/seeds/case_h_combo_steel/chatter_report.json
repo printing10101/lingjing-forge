@@ -1,0 +1,34 @@
+{
+  "task_id": "replay-case_h_combo_steel",
+  "task_status": "succeeded",
+  "material_id": "steel_45",
+  "prediction_method": "analytical",
+  "feature_results": [
+    {
+      "feature_id": "plane_top",
+      "feature_type": "plane",
+      "material_id": "steel_45",
+      "spindle_rpm": 2000.0,
+      "axial_depth_mm": 1.5,
+      "limit_depth_mm": 6.0,
+      "stable": true,
+      "stability_margin": 0.75,
+      "method": "analytical",
+      "ltc_active": false,
+      "confidence": 0.9
+    },
+    {
+      "feature_id": "hole_d12",
+      "feature_type": "hole",
+      "material_id": "steel_45",
+      "spindle_rpm": 1400.0,
+      "axial_depth_mm": 15.0,
+      "limit_depth_mm": 22.0,
+      "stable": true,
+      "stability_margin": 0.3182,
+      "method": "analytical",
+      "ltc_active": false,
+      "confidence": 0.85
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "composite_score": 98.75,
+  "dimensions": [
+    {
+      "name": "syntax",
+      "weight": 0.5,
+      "status": "evaluated",
+      "passed": true,
+      "score": 98.0,
+      "skip_reason": "",
+      "detail": {
+        "is_valid": true,
+        "error_count": 0,
+        "warning_count": 1,
+        "error_codes": [],
+        "warning_codes": [
+          "UNKNOWN_G_M_CODE"
+        ],
+        "issues": [
+          {
+            "code": "UNKNOWN_G_M_CODE",
+            "severity": "warning",
+            "message": "第 13 行未知 G 代码 G05（不在白名单，请人工确认控制器兼容性）",
+            "context": {
+              "line": 13,
+              "code": "G05"
+            },
+            "recommended": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "geometry",
+      "weight": 0.3,
+      "status": "evaluated",
+      "passed": true,
+      "score": 100.0,
+      "skip_reason": "",
+      "detail": {
+        "passed": true,
+        "engine": "python",
+        "voxel_size_mm": 1.0,
+        "total_segments": 132,
+        "cutting_segments": 69,
+        "collision_count": 0,
+        "collision_blocks": [],
+        "collision_positions": [],
+        "severity": "none",
+        "removed_voxel_count": 0,
+        "voxel_count": 57040,
+        "duration_seconds": 1.3391,
+        "warnings": [],
+        "tool_diameter_mm": 10.0,
+        "tool_type": "flat",
+        "tool_source": "config_default"
+      }
+    },
+    {
+      "name": "physics",
+      "weight": 0.2,
+      "status": "skipped",
+      "passed": false,
+      "score": 0.0,
+      "skip_reason": "缺少切削参数（spindle_rpm / feed_rate / depth_of_cut），跳过物理仿真",
+      "detail": {}
+    }
+  ],
+  "failure_classes": [],
+  "controller_type": "fanuc_0i",
+  "duration_ms": 1411.84,
+  "accepted": false,
+  "reasons": [
+    "physics: 未完整执行或未通过",
+    "NO_MATERIAL_REMOVAL: 刀轨没有实际去除毛坯体素"
+  ],
+  "nc_sha256": "83166cf72bb5ba758ef657146d9f6011da2f6c339092c6e31936ea4b3b67c2be",
+  "cutting_parameters_from_nc": null
+}

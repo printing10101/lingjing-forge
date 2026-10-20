@@ -1,0 +1,29 @@
+{
+  "completed": true,
+  "source": "D:\\灵境制造\\data\\test_fixtures\\case3_polyline_outer.dxf",
+  "source_sha256": "226e5f31301cf9b151f05e61372252341e1d34555ec86633ba92eff126d22caf",
+  "source_classification": "repository DXF fixture; not a verified factory drawing",
+  "controller": "fanuc_0i",
+  "material": "45钢",
+  "stock": {
+    "stock_length": 92.0,
+    "stock_width": 62.0,
+    "stock_height": 10.0
+  },
+  "baseline_accepted": false,
+  "candidate_accepted": true,
+  "replay_accepted": true,
+  "failed_candidate_rejected": true,
+  "active_policy_unchanged_after_rejection": true,
+  "nc_changed": true,
+  "replay_nc_matches_candidate": true,
+  "final_nc": "D:\\灵境制造\\engineering\\python\\data\\ict_single_drawing\\run_20261015_220641_837493\\policy_replay\\case3_polyline_outer.fanuc_0i.nc",
+  "limitations": [
+    "Rule-level coordinate feedback evolution; no LLM, Nexent, or model training in this experiment",
+    "2D plate thickness inferred by existing extractor; this is an explicit experiment assumption",
+    "Single-contour 3-axis milling; D10 configured tool, no drilling, fixtures or holder simulation",
+    "Voxel check detects below-stock-bottom cuts and rapid collisions; it does not verify final shape tolerance",
+    "Analytical force/chatter fallbacks are reported; no real machine or machining feedback",
+    "Failed candidates are rejected before promotion; this is not a test of post-release automatic rollback"
+  ]
+}

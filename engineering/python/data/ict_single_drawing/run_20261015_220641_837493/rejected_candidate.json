@@ -1,0 +1,9 @@
+{
+  "stock_top_z": 50.0,
+  "accepted": false,
+  "reasons": [
+    "physics: 未完整执行或未通过",
+    "NO_MATERIAL_REMOVAL: 刀轨没有实际去除毛坯体素"
+  ],
+  "rejection_test": "failed candidate was not promoted"
+}

@@ -1,0 +1,21 @@
+{
+  "task_id": "replay-case_d_plane_alu",
+  "task_status": "succeeded",
+  "material_id": "aluminum_6061",
+  "prediction_method": "analytical",
+  "feature_results": [
+    {
+      "feature_id": "plane_top",
+      "feature_type": "plane",
+      "material_id": "aluminum_6061",
+      "spindle_rpm": 3000.0,
+      "axial_depth_mm": 1.2,
+      "limit_depth_mm": 6.0,
+      "stable": true,
+      "stability_margin": 0.8,
+      "method": "analytical",
+      "ltc_active": false,
+      "confidence": 0.9
+    }
+  ]
+}

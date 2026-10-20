@@ -1,0 +1,21 @@
+{
+  "task_id": "replay-case_e_hole_alu",
+  "task_status": "succeeded",
+  "material_id": "aluminum_6061",
+  "prediction_method": "analytical",
+  "feature_results": [
+    {
+      "feature_id": "hole_d8",
+      "feature_type": "hole",
+      "material_id": "aluminum_6061",
+      "spindle_rpm": 2500.0,
+      "axial_depth_mm": 10.0,
+      "limit_depth_mm": 25.0,
+      "stable": true,
+      "stability_margin": 0.6,
+      "method": "analytical",
+      "ltc_active": false,
+      "confidence": 0.9
+    }
+  ]
+}

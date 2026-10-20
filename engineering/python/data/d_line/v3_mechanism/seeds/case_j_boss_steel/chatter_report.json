@@ -1,0 +1,21 @@
+{
+  "task_id": "replay-case_j_boss_steel",
+  "task_status": "succeeded",
+  "material_id": "steel_45",
+  "prediction_method": "analytical",
+  "feature_results": [
+    {
+      "feature_id": "boss_1",
+      "feature_type": "boss",
+      "material_id": "steel_45",
+      "spindle_rpm": 1500.0,
+      "axial_depth_mm": 1.0,
+      "limit_depth_mm": 4.0,
+      "stable": true,
+      "stability_margin": 0.75,
+      "method": "analytical",
+      "ltc_active": false,
+      "confidence": 0.9
+    }
+  ]
+}
