@@ -1,0 +1,35 @@
+{
+  "operations": [
+    {
+      "seq": 1,
+      "name": "凸台铣",
+      "feature_name": "boss_1",
+      "machining_method": "凸台铣削",
+      "surface": "top",
+      "tolerance_grade": "IT8",
+      "tool_type": "endmill_d12",
+      "cutting_params": {
+        "material": "steel",
+        "tool_diameter": 12.0,
+        "recommended_feed": "0.15 mm/r",
+        "recommended_speed": "120 m/min",
+        "geometry": {
+          "x": 35.0,
+          "y": 35.0,
+          "z_depth": 1.0,
+          "length": 30.0,
+          "width": 30.0
+        }
+      },
+      "estimated_time_min": 2.0,
+      "notes": "replay seed op"
+    }
+  ],
+  "setups": [
+    {
+      "name": "平口钳装夹",
+      "surface": "top",
+      "fixture_type": "vise"
+    }
+  ]
+}

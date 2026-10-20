@@ -1,0 +1,33 @@
+{
+  "operations": [
+    {
+      "seq": 1,
+      "name": "钻孔",
+      "feature_name": "hole_d8",
+      "machining_method": "钻孔",
+      "surface": "top",
+      "tolerance_grade": "IT9",
+      "tool_type": "drill_d8",
+      "cutting_params": {
+        "material": "steel",
+        "tool_diameter": 8.0,
+        "recommended_feed": "0.15 mm/r",
+        "recommended_speed": "120 m/min",
+        "geometry": {
+          "x": 20.0,
+          "y": 20.0,
+          "z_depth": 10.0
+        }
+      },
+      "estimated_time_min": 2.0,
+      "notes": "replay seed op"
+    }
+  ],
+  "setups": [
+    {
+      "name": "平口钳装夹",
+      "surface": "top",
+      "fixture_type": "vise"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "operations": [
+    {
+      "seq": 1,
+      "name": "外圆铣",
+      "feature_name": "cyl_od",
+      "machining_method": "外圆铣削",
+      "surface": "top",
+      "tolerance_grade": "IT8",
+      "tool_type": "endmill_d16",
+      "cutting_params": {
+        "material": "steel",
+        "tool_diameter": 16.0,
+        "recommended_feed": "0.15 mm/r",
+        "recommended_speed": "120 m/min",
+        "geometry": {
+          "x": 0.0,
+          "y": 0.0,
+          "z_depth": 2.0,
+          "length": 70.0,
+          "width": 70.0
+        }
+      },
+      "estimated_time_min": 2.0,
+      "notes": "replay seed op"
+    }
+  ],
+  "setups": [
+    {
+      "name": "平口钳装夹",
+      "surface": "top",
+      "fixture_type": "vise"
+    }
+  ]
+}

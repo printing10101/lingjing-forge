@@ -1,0 +1,278 @@
+{
+  "file_path": "D:\\灵境制造\\data\\test_fixtures\\case3_polyline_outer.dxf",
+  "file_name": "case3_polyline_outer.dxf",
+  "success": true,
+  "total_latency_ms": 75.1,
+  "parse": {
+    "name": "parse",
+    "success": true,
+    "latency_ms": 10.408639907836914,
+    "summary": {
+      "file_name": "case3_polyline_outer.dxf",
+      "file_size": 15572,
+      "dxf_version": "AC1024 (2010)",
+      "parse_time_ms": 9.51,
+      "entity_counts": {
+        "LINE": 0,
+        "CIRCLE": 0,
+        "ARC": 0,
+        "TEXT": 1,
+        "DIMENSION": 0,
+        "POLYLINE": 1,
+        "HATCH": 0,
+        "INSERT": 0,
+        "SPLINE": 0
+      },
+      "total_entities": 2,
+      "lines_count": 0,
+      "circles_count": 0,
+      "arcs_count": 0,
+      "texts_count": 1,
+      "dimensions_count": 0,
+      "polylines_count": 1,
+      "hatches_count": 0,
+      "inserts_count": 0,
+      "splines_count": 0,
+      "extents": {
+        "min_x": 0.0,
+        "min_y": 0.0,
+        "max_x": 80.0,
+        "max_y": 50.0,
+        "width": 80.0,
+        "height": 50.0
+      },
+      "warnings": [],
+      "errors": [],
+      "success": true
+    },
+    "error": ""
+  },
+  "features": {
+    "name": "features",
+    "success": true,
+    "latency_ms": 10.954141616821289,
+    "summary": {
+      "hole_count": 0,
+      "overall_length": 80.0,
+      "overall_width": 50.0,
+      "overall_height": 10.0,
+      "overall_min_x": 0.0,
+      "overall_min_y": 0.0,
+      "contour_count": 1,
+      "contours_detail": [
+        {
+          "vertices": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              80.0,
+              0.0
+            ],
+            [
+              80.0,
+              50.0
+            ],
+            [
+              0.0,
+              50.0
+            ]
+          ],
+          "area": 4000.0,
+          "length": 80.0,
+          "width": 50.0,
+          "center_x": 40.0,
+          "center_y": 25.0,
+          "min_x": 0.0,
+          "min_y": 0.0,
+          "max_x": 80.0,
+          "max_y": 50.0,
+          "source": "polyline",
+          "layer": "0",
+          "handles": [
+            "2F"
+          ],
+          "approximated_arcs": false,
+          "radius": null
+        }
+      ],
+      "holes_detail": [],
+      "planes_detail": []
+    },
+    "error": ""
+  },
+  "model3d": {
+    "name": "model3d",
+    "success": true,
+    "latency_ms": 31.411409378051758,
+    "summary": {
+      "length": 80.0,
+      "width": 50.0,
+      "height": 10.0,
+      "hole_count": 0,
+      "exported_files": [
+        "D:\\灵境制造\\engineering\\python\\data\\ict_single_drawing\\run_20261015_220328_110125\\candidate\\case3_polyline_outer.stl"
+      ]
+    },
+    "error": ""
+  },
+  "gcode": {
+    "name": "gcode",
+    "success": true,
+    "latency_ms": 21.46625518798828,
+    "summary": {
+      "controller": "fanuc_0i",
+      "output": "D:\\灵境制造\\engineering\\python\\data\\ict_single_drawing\\run_20261015_220328_110125\\candidate\\case3_polyline_outer.fanuc_0i.nc",
+      "lines": 183,
+      "operations": 2,
+      "estimated_time_min": 7.8,
+      "holes": 0,
+      "stock_top_z": 10.0,
+      "operation_plan": {
+        "operations": [
+          {
+            "seq": 1,
+            "name": "OP01-基准面A-上表面",
+            "feature_name": "基准面A-上表面",
+            "machining_method": "精铣平面",
+            "surface": "A",
+            "tolerance_grade": "IT7",
+            "tool_type": "立铣刀",
+            "cutting_params": {
+              "feed_rate_factor": 1.0,
+              "recommended_feed": "0.05-0.20 mm/tooth",
+              "recommended_speed": "80-200 m/min",
+              "geometry": {
+                "length": 80.0,
+                "width": 50.0,
+                "x": 40.0,
+                "y": 25.0,
+                "anchor": "center"
+              }
+            },
+            "estimated_time_min": 3.9,
+            "notes": "定位基准面，确保加工精度; 精密加工，公差等级IT7; 最终尺寸，使用切削液"
+          },
+          {
+            "seq": 2,
+            "name": "OP02-OUTLINE_POLYLINE",
+            "feature_name": "OUTLINE_POLYLINE",
+            "machining_method": "精铣外形",
+            "surface": "A",
+            "tolerance_grade": "IT8",
+            "tool_type": "立铣刀",
+            "cutting_params": {
+              "feed_rate_factor": 1.0,
+              "recommended_feed": "0.10-0.25 mm/rev",
+              "recommended_speed": "80-200 m/min",
+              "geometry": {
+                "length": 80.0,
+                "width": 50.0,
+                "depth": 10.0,
+                "x": 40.0,
+                "y": 25.0,
+                "anchor": "center",
+                "contour": [
+                  [
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    80.0,
+                    0.0
+                  ],
+                  [
+                    80.0,
+                    50.0
+                  ],
+                  [
+                    0.0,
+                    50.0
+                  ]
+                ]
+              }
+            },
+            "estimated_time_min": 3.9,
+            "notes": "最终尺寸，使用切削液"
+          }
+        ],
+        "setups": [
+          {
+            "name": "装夹1-面A",
+            "surface": "A",
+            "fixture_type": "虎钳装夹",
+            "datum_features": []
+          }
+        ],
+        "estimated_time_min": 7.8,
+        "face_change_count": 0,
+        "fixture_recommendations": [
+          {
+            "fixture_id": "vise",
+            "fixture_name": "虎钳装夹",
+            "fixture_type": "vise",
+            "locating_method": "固定钳口+活动钳口",
+            "clamping_points": [
+              {
+                "type": "固定钳口限制Y向移动和XZ平面旋转，底面支撑限制Z向移动和XY平面旋转，活动钳口施加夹紧力",
+                "constrained_dof": [
+                  "Y_translation",
+                  "X_rotation",
+                  "Z_rotation",
+                  "Z_translation",
+                  "X_rotation_xy"
+                ]
+              }
+            ],
+            "clamping_force_n": 1000,
+            "degrees_constrained": 5,
+            "precautions": [
+              "工件伸出长度不超过工件高度的1.5倍",
+              "使用铜垫片保护已加工表面",
+              "确保夹紧力均匀分布，避免工件变形",
+              "粗加工时夹紧力应大于精加工",
+              "装夹前清除钳口铁屑"
+            ],
+            "suitability_score": 75,
+            "reasoning": [
+              "零件类型'general'匹配夹具类型'虎钳装夹'",
+              "适用零件类型: rectangular, square, plate, block, bracket"
+            ]
+          }
+        ]
+      },
+      "simulation": {
+        "status": "success",
+        "passed": false,
+        "score": 81.74,
+        "recommendation": "not_recommended",
+        "cutting_force": {
+          "Fx": 358.88370749309297,
+          "Fy": 478.5116099907907,
+          "Fz": 1196.2790249769766,
+          "method": "kienzle_fallback",
+          "confidence": 0.5,
+          "model_version": "kienzle_v1.0_fallback",
+          "warning": "PINN 模型未训练或输出异常，已回退到解析解"
+        },
+        "chatter_stability": {
+          "stable": true,
+          "limit_depth": 30.586942767806658,
+          "method": "analytical",
+          "ltc_active": false,
+          "assumed_depth_for_stability": 2.0
+        },
+        "duration_ms": 6.49,
+        "error_message": ""
+      }
+    },
+    "error": ""
+  },
+  "output_files": {
+    "case3_polyline_outer.fanuc_0i.nc": "D:\\灵境制造\\engineering\\python\\data\\ict_single_drawing\\run_20261015_220328_110125\\candidate\\case3_polyline_outer.fanuc_0i.nc",
+    "case3_polyline_outer.stl": "D:\\灵境制造\\engineering\\python\\data\\ict_single_drawing\\run_20261015_220328_110125\\candidate\\case3_polyline_outer.stl"
+  },
+  "errors": [],
+  "warnings": []
+}

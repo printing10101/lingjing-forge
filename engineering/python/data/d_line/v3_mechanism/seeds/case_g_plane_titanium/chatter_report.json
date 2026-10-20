@@ -1,0 +1,21 @@
+{
+  "task_id": "replay-case_g_plane_titanium",
+  "task_status": "succeeded",
+  "material_id": "titanium_ti6al4v",
+  "prediction_method": "analytical",
+  "feature_results": [
+    {
+      "feature_id": "plane_top",
+      "feature_type": "plane",
+      "material_id": "titanium_ti6al4v",
+      "spindle_rpm": 800.0,
+      "axial_depth_mm": 0.5,
+      "limit_depth_mm": 3.0,
+      "stable": true,
+      "stability_margin": 0.8333,
+      "method": "analytical",
+      "ltc_active": false,
+      "confidence": 0.8
+    }
+  ]
+}

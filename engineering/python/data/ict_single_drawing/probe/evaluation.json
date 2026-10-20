@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "composite_score": 98.75,
+  "dimensions": [
+    {
+      "name": "syntax",
+      "weight": 0.5,
+      "status": "evaluated",
+      "passed": true,
+      "score": 98.0,
+      "skip_reason": "",
+      "detail": {
+        "is_valid": true,
+        "error_count": 0,
+        "warning_count": 1,
+        "error_codes": [],
+        "warning_codes": [
+          "UNKNOWN_G_M_CODE"
+        ],
+        "issues": [
+          {
+            "code": "UNKNOWN_G_M_CODE",
+            "severity": "warning",
+            "message": "第 13 行未知 G 代码 G05（不在白名单，请人工确认控制器兼容性）",
+            "context": {
+              "line": 13,
+              "code": "G05"
+            },
+            "recommended": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "geometry",
+      "weight": 0.3,
+      "status": "evaluated",
+      "passed": true,
+      "score": 100.0,
+      "skip_reason": "",
+      "detail": {
+        "passed": true,
+        "engine": "python",
+        "voxel_size_mm": 1.0,
+        "total_segments": 847,
+        "cutting_segments": 597,
+        "collision_count": 0,
+        "collision_blocks": [],
+        "collision_positions": [],
+        "severity": "none",
+        "removed_voxel_count": 0,
+        "voxel_count": 441000,
+        "duration_seconds": 1.606,
+        "warnings": [
+          "程序 XY 包络 210.0×210.0mm 超出请求毛坯 200.0×200.0mm，体素仿真按包络扩料为 210.0×210.0mm 后继续；请工程师确认实际装夹材料尺寸（扩料不等于工件真的能装上）。"
+        ],
+        "tool_diameter_mm": 10.0,
+        "tool_type": "flat",
+        "tool_source": "config_default"
+      }
+    },
+    {
+      "name": "physics",
+      "weight": 0.2,
+      "status": "skipped",
+      "passed": false,
+      "score": 0.0,
+      "skip_reason": "缺少切削参数（spindle_rpm / feed_rate / depth_of_cut），跳过物理仿真",
+      "detail": {}
+    }
+  ],
+  "failure_classes": [],
+  "controller_type": "fanuc_0i",
+  "duration_ms": 4210.33
+}

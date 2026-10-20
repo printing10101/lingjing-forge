@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "kind": "drawing_coordinate_rule",
+  "source_sha256": "226e5f31301cf9b151f05e61372252341e1d34555ec86633ba92eff126d22caf",
+  "stock_top_z": 10.0,
+  "max_stepdown": 1.0,
+  "status": "accepted",
+  "evidence": "candidate_depth_1/validation.json",
+  "feedback": "feedback.json"
+}

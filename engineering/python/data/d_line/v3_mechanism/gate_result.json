@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "inconclusive": false,
+  "reasons": [
+    "一次通过率 0.8000 → 0.8000（未超阈值，通过）"
+  ],
+  "baseline_summary": {
+    "total": 10,
+    "failures": 2,
+    "successes": 8,
+    "one_pass_rate": 0.8
+  },
+  "current_summary": {
+    "total": 10,
+    "failures": 2,
+    "successes": 8,
+    "one_pass_rate": 0.8
+  }
+}
