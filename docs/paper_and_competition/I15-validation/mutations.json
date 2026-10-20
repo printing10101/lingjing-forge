@@ -1,0 +1,47 @@
+[
+  {
+    "name": "owner_isolation",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "content_conflict",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "write_scope",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "revision_preserves_submission",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "generic_cache_bypass",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "pending_recommendation_gate",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "status_approval_gate",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "nonfinite_json",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "http_retry_classification",
+    "exit_code": 1,
+    "caught": true
+  }
+]

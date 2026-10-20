@@ -1,0 +1,6 @@
+[
+  {
+    "http_status": 401,
+    "credential_source": "nexent/deploy/env/.env"
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "case": "empty",
+    "exit_code": 0,
+    "stdout": "before_exit",
+    "stderr_tail": ""
+  },
+  {
+    "case": "ocp_import",
+    "exit_code": 0,
+    "stdout": "before_exit",
+    "stderr_tail": ""
+  },
+  {
+    "case": "ocp_box",
+    "exit_code": 0,
+    "stdout": "before_exit",
+    "stderr_tail": ""
+  },
+  {
+    "case": "vtk_import",
+    "exit_code": 0,
+    "stdout": "before_exit",
+    "stderr_tail": ""
+  },
+  {
+    "case": "cadquery_import",
+    "exit_code": 3221225477,
+    "stdout": "before_exit",
+    "stderr_tail": "Windows fatal exception: access violation\n\nCurrent thread 0x00009170 (most recent call first):\n  <no Python frame>\n\nCurrent thread's C stack trace (most recent call first):\n  <cannot get C stack on this system>\n"
+  },
+  {
+    "case": "cadquery_box",
+    "exit_code": 3221225477,
+    "stdout": "6.0",
+    "stderr_tail": "Windows fatal exception: access violation\n\nCurrent thread 0x00000e68 (most recent call first):\n  <no Python frame>\n\nCurrent thread's C stack trace (most recent call first):\n  <cannot get C stack on this system>\n"
+  },
+  {
+    "case": "numpy_cadquery",
+    "exit_code": 3221226356,
+    "stdout": "before_exit",
+    "stderr_tail": "Windows fatal exception: code 0xc0000374\n\nCurrent thread 0x00009214 (most recent call first):\n  <no Python frame>\n\nCurrent thread's C stack trace (most recent call first):\n  <cannot get C stack on this system>\n"
+  }
+]

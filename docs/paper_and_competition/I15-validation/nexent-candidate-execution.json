@@ -1,0 +1,34 @@
+{
+  "real_vendor_candidates": [
+    {
+      "candidate_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+      "record_id": "2e2b589650885fee4bd415674b81b228ca3bc8a963c41e6e51474eb55de972f8",
+      "material": "dormer_amg_1_3",
+      "status": "pending",
+      "retry_deduplicated": true,
+      "eligible_for_recommendation": false,
+      "formal_recommendations": 0
+    },
+    {
+      "candidate_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+      "record_id": "7033b5a29ba7bd2520482526815ab5e23b2b9952c078af5579fe019b29d9ceae",
+      "material": "dormer_amg_1_4",
+      "status": "pending",
+      "retry_deduplicated": true,
+      "eligible_for_recommendation": false,
+      "formal_recommendations": 0
+    },
+    {
+      "candidate_id": "ef253f7d0f986072b6f206c18f7b4af1b82af79d64e48d0a2774750e4b9c4913",
+      "record_id": "ef442d29a1f7ac8a030a88dd113250fad2d263df466531727cf15273f8a44698",
+      "material": "dormer_amg_2_2",
+      "status": "pending",
+      "retry_deduplicated": true,
+      "eligible_for_recommendation": false,
+      "formal_recommendations": 0
+    }
+  ],
+  "nexent_tool_calls": 12,
+  "real_approvals": 0,
+  "llm_autonomous_execution": false
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "context_preserved",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "context_object",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "unknown_context_field",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "context_text",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "context_page",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "context_units",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "context_unresolved",
+    "exit_code": 1,
+    "caught": true
+  }
+]

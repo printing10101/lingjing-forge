@@ -1,0 +1,17 @@
+{
+  "mcp_shape": "dict",
+  "mcp_keys": [
+    "remote_mcp_server_list",
+    "enable_upload_image",
+    "status"
+  ],
+  "services": [
+    {
+      "mcp_id": 1,
+      "mcp_name": null,
+      "enabled": true,
+      "status": true
+    }
+  ],
+  "candidate_tools": []
+}

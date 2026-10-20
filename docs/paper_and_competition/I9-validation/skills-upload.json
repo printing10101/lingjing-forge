@@ -1,0 +1,37 @@
+[
+  {
+    "name": "hole-process-draft",
+    "skill_id": 1,
+    "tool_ids": [
+      54,
+      60
+    ],
+    "content_match": true,
+    "zip_sha256": "28f950c3758cd7a60bd1c6e974eab82c3eaa874fc4579faad5d8ab2e9da52db9",
+    "upload_verified": true
+  },
+  {
+    "name": "manufacturing-evidence-review",
+    "skill_id": 2,
+    "tool_ids": [
+      54,
+      55,
+      59
+    ],
+    "content_match": true,
+    "zip_sha256": "ca1a0cc19525ba690758c6463258d2571a95edf55643572c64629f27e07ed5b3",
+    "upload_verified": true
+  },
+  {
+    "name": "manufacturing-failure-review",
+    "skill_id": 3,
+    "tool_ids": [
+      52,
+      53,
+      55
+    ],
+    "content_match": true,
+    "zip_sha256": "0c3df8b02e21ca1c47d65bd4c1b9612422a31c73c4c8a161c142ea7d28d46a20",
+    "upload_verified": true
+  }
+]

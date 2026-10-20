@@ -1,0 +1,74 @@
+{
+  "scope": "local isolated reproduction; no machine or external services",
+  "results": [
+    {
+      "id": "D02_process_chain_direction",
+      "observed": 0,
+      "expected": 2,
+      "defect_reproduced": true
+    },
+    {
+      "id": "D03_materials_query_type_filter",
+      "observed": [
+        "feature",
+        "material"
+      ],
+      "expected": [
+        "material"
+      ],
+      "defect_reproduced": true
+    },
+    {
+      "id": "D04_feedback_idempotency",
+      "observed": 2,
+      "expected": 1,
+      "defect_reproduced": true
+    },
+    {
+      "id": "D05_missing_roughness",
+      "observed": [
+        1.0
+      ],
+      "expected": [
+        2.0
+      ],
+      "defect_reproduced": true
+    },
+    {
+      "id": "D06_normalized_confidence_path",
+      "observed": 0,
+      "expected": 1,
+      "defect_reproduced": true
+    },
+    {
+      "id": "D07_feedback_atomicity",
+      "observed": true,
+      "expected": false,
+      "defect_reproduced": true
+    },
+    {
+      "id": "D08_review_dangling_relation",
+      "observed": 1,
+      "expected": 0,
+      "defect_reproduced": true
+    },
+    {
+      "id": "D09_bulk_review_status",
+      "observed": "approved",
+      "expected": "needs_revision",
+      "defect_reproduced": true
+    },
+    {
+      "id": "D10_alloy_steel_normalization",
+      "observed": "aluminum",
+      "expected": "steel",
+      "defect_reproduced": true
+    },
+    {
+      "id": "D11_chinese_entity_boundary",
+      "observed": false,
+      "expected": true,
+      "defect_reproduced": true
+    }
+  ]
+}

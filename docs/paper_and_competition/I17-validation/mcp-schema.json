@@ -1,0 +1,7 @@
+{
+  "schema_verified": true,
+  "tool": "cam_recommend_process",
+  "conditions_parameter": true,
+  "tool_calls": 0,
+  "approval_tools": []
+}

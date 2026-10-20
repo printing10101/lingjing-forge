@@ -1,0 +1,27 @@
+[
+  {
+    "name": "cookie",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "fresh_header",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "response_shape",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "server_failure",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "verify_before_save",
+    "exit_code": 1,
+    "caught": true
+  }
+]

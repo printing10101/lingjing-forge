@@ -1,0 +1,283 @@
+[
+  {
+    "feature": "hole",
+    "process": "drill",
+    "tool": "fixture_drill_d8",
+    "parameters": {
+      "spindle_rpm": 900
+    },
+    "material": "fixture_steel",
+    "confidence": 0.8,
+    "source": "synthetic_test",
+    "chunk_ids": [],
+    "tags": [],
+    "record_id": "c52187b9f40a43f48a3596f315c4c40d",
+    "revision": 5,
+    "review": {
+      "status": "revoked",
+      "actor": "synthetic_review_engineer",
+      "revision": 5,
+      "at": "2026-10-16T15:37:07.493318+00:00",
+      "note": "隔离合成验收完成，撤销合成样本批准",
+      "digest": "dd328b3cb64b76d37aa084ffc871ecb53a88cde5ab597a73fbbd6acb70ec3f49",
+      "evidence": {}
+    },
+    "review_history": [
+      {
+        "before": {
+          "feature": "hole",
+          "process": "drill",
+          "tool": "fixture_drill_d8",
+          "parameters": {
+            "spindle_rpm": 1200
+          },
+          "material": "fixture_steel",
+          "confidence": 0.8,
+          "source": "synthetic_test",
+          "chunk_ids": [],
+          "tags": [],
+          "record_id": "c52187b9f40a43f48a3596f315c4c40d",
+          "revision": 1,
+          "review": {
+            "status": "pending"
+          },
+          "candidate_context": {
+            "source_url": "https://example.org/synthetic-test.pdf",
+            "page": 2,
+            "parameter_units": {
+              "spindle_rpm": "rpm"
+            },
+            "unresolved": [
+              "仅为隔离验收的合成资料"
+            ],
+            "note": "合成样本，仅验证界面与审核流程，不用于实际加工"
+          }
+        },
+        "after_review": {
+          "status": "rejected",
+          "actor": "synthetic_review_engineer",
+          "revision": 2,
+          "at": "2026-10-16T15:32:19.534478+00:00",
+          "note": "隔离合成验收：拒绝缺少核验依据的样本",
+          "digest": "33d7d4c1a058b67234d604bacfee0172283aabe84b205f4878037baf6d154364",
+          "evidence": {}
+        }
+      },
+      {
+        "before": {
+          "feature": "hole",
+          "process": "drill",
+          "tool": "fixture_drill_d8",
+          "parameters": {
+            "spindle_rpm": 1200
+          },
+          "material": "fixture_steel",
+          "confidence": 0.8,
+          "source": "synthetic_test",
+          "chunk_ids": [],
+          "tags": [],
+          "record_id": "c52187b9f40a43f48a3596f315c4c40d",
+          "revision": 2,
+          "review": {
+            "status": "rejected",
+            "actor": "synthetic_review_engineer",
+            "revision": 2,
+            "at": "2026-10-16T15:32:19.534478+00:00",
+            "note": "隔离合成验收：拒绝缺少核验依据的样本",
+            "digest": "33d7d4c1a058b67234d604bacfee0172283aabe84b205f4878037baf6d154364",
+            "evidence": {}
+          },
+          "candidate_context": {
+            "source_url": "https://example.org/synthetic-test.pdf",
+            "page": 2,
+            "parameter_units": {
+              "spindle_rpm": "rpm"
+            },
+            "unresolved": [
+              "仅为隔离验收的合成资料"
+            ],
+            "note": "合成样本，仅验证界面与审核流程，不用于实际加工"
+          }
+        },
+        "after_review": {
+          "status": "pending",
+          "actor": "synthetic_review_engineer",
+          "revision": 3,
+          "at": "2026-10-16T15:32:33.648830+00:00",
+          "note": "隔离合成验收：修订参数后重新待审",
+          "digest": "dd328b3cb64b76d37aa084ffc871ecb53a88cde5ab597a73fbbd6acb70ec3f49",
+          "evidence": {}
+        }
+      },
+      {
+        "before": {
+          "feature": "hole",
+          "process": "drill",
+          "tool": "fixture_drill_d8",
+          "parameters": {
+            "spindle_rpm": 900
+          },
+          "material": "fixture_steel",
+          "confidence": 0.8,
+          "source": "synthetic_test",
+          "chunk_ids": [],
+          "tags": [],
+          "record_id": "c52187b9f40a43f48a3596f315c4c40d",
+          "revision": 3,
+          "review": {
+            "status": "pending",
+            "actor": "synthetic_review_engineer",
+            "revision": 3,
+            "at": "2026-10-16T15:32:33.648830+00:00",
+            "note": "隔离合成验收：修订参数后重新待审",
+            "digest": "dd328b3cb64b76d37aa084ffc871ecb53a88cde5ab597a73fbbd6acb70ec3f49",
+            "evidence": {}
+          },
+          "candidate_context": {
+            "source_url": "https://example.org/synthetic-test.pdf",
+            "document_sha256": "",
+            "page": 2,
+            "parameter_units": {
+              "spindle_rpm": "rpm"
+            },
+            "applicability": "",
+            "verification_method": "",
+            "unresolved": [
+              "仅为隔离验收的合成资料"
+            ],
+            "note": "隔离合成验收：修订参数后重新待审"
+          }
+        },
+        "after_review": {
+          "status": "approved",
+          "actor": "synthetic_review_engineer",
+          "revision": 4,
+          "at": "2026-10-16T15:32:51.029382+00:00",
+          "note": "隔离合成验收：检查批准前置条件",
+          "digest": "dd328b3cb64b76d37aa084ffc871ecb53a88cde5ab597a73fbbd6acb70ec3f49",
+          "evidence": {
+            "source_url": "https://example.org/synthetic-test.pdf",
+            "document_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "page": 2,
+            "material": "fixture_steel",
+            "tool": "fixture_drill_d8",
+            "parameter_units": {
+              "spindle_rpm": "rpm"
+            },
+            "applicability": "仅限隔离合成验收：不代表真实材料、刀具或加工条件",
+            "verification_method": "使用合成样本验证审核接口、版本和页面，不用于实际加工",
+            "unresolved": []
+          }
+        }
+      },
+      {
+        "before": {
+          "feature": "hole",
+          "process": "drill",
+          "tool": "fixture_drill_d8",
+          "parameters": {
+            "spindle_rpm": 900
+          },
+          "material": "fixture_steel",
+          "confidence": 0.8,
+          "source": "synthetic_test",
+          "chunk_ids": [],
+          "tags": [],
+          "record_id": "c52187b9f40a43f48a3596f315c4c40d",
+          "revision": 4,
+          "review": {
+            "status": "approved",
+            "actor": "synthetic_review_engineer",
+            "revision": 4,
+            "at": "2026-10-16T15:32:51.029382+00:00",
+            "note": "隔离合成验收：检查批准前置条件",
+            "digest": "dd328b3cb64b76d37aa084ffc871ecb53a88cde5ab597a73fbbd6acb70ec3f49",
+            "evidence": {
+              "source_url": "https://example.org/synthetic-test.pdf",
+              "document_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "page": 2,
+              "material": "fixture_steel",
+              "tool": "fixture_drill_d8",
+              "parameter_units": {
+                "spindle_rpm": "rpm"
+              },
+              "applicability": "仅限隔离合成验收：不代表真实材料、刀具或加工条件",
+              "verification_method": "使用合成样本验证审核接口、版本和页面，不用于实际加工",
+              "unresolved": []
+            }
+          },
+          "candidate_context": {
+            "source_url": "https://example.org/synthetic-test.pdf",
+            "document_sha256": "",
+            "page": 2,
+            "parameter_units": {
+              "spindle_rpm": "rpm"
+            },
+            "applicability": "",
+            "verification_method": "",
+            "unresolved": [
+              "仅为隔离验收的合成资料"
+            ],
+            "note": "隔离合成验收：修订参数后重新待审"
+          }
+        },
+        "after_review": {
+          "status": "revoked",
+          "actor": "synthetic_review_engineer",
+          "revision": 5,
+          "at": "2026-10-16T15:37:07.493318+00:00",
+          "note": "隔离合成验收完成，撤销合成样本批准",
+          "digest": "dd328b3cb64b76d37aa084ffc871ecb53a88cde5ab597a73fbbd6acb70ec3f49",
+          "evidence": {}
+        }
+      }
+    ],
+    "candidate_context": {
+      "source_url": "https://example.org/synthetic-test.pdf",
+      "document_sha256": "",
+      "page": 2,
+      "parameter_units": {
+        "spindle_rpm": "rpm"
+      },
+      "applicability": "",
+      "verification_method": "",
+      "unresolved": [
+        "仅为隔离验收的合成资料"
+      ],
+      "note": "隔离合成验收：修订参数后重新待审"
+    }
+  },
+  {
+    "feature": "hole",
+    "process": "drill",
+    "tool": "fixture_drill_d6",
+    "parameters": {
+      "spindle_rpm": 1000
+    },
+    "material": "fixture_aluminum",
+    "confidence": 0.5,
+    "source": "unverified",
+    "chunk_ids": [],
+    "tags": [],
+    "record_id": "541a0404a0824c729fe267e46780cae6",
+    "revision": 1,
+    "review": {
+      "status": "pending"
+    },
+    "review_history": [],
+    "candidate_context": {
+      "source_url": "https://example.org/second-synthetic.pdf",
+      "document_sha256": "",
+      "page": 3,
+      "parameter_units": {
+        "spindle_rpm": "rpm"
+      },
+      "applicability": "",
+      "verification_method": "",
+      "unresolved": [
+        "合成样本：尚未核验适用条件"
+      ],
+      "note": "浏览器新增的隔离待审样本"
+    }
+  }
+]

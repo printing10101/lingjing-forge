@@ -1,0 +1,18 @@
+{
+  "tool_id": 54,
+  "name": "cam_recommend_process",
+  "origin_name": "cam_recommend_process",
+  "description": "工艺四元组推荐：给定加工特征(feature，如 face/hole/profile)与材料(material)，仅返回有效人工批准且符合现场条件的钻孔工艺。conditions包含tool、hardness_hrc、diameter_mm、depth_mm、coolant(dry/flood/mist/through_tool)、workholding(vise/chuck/fixture/collet)。缺少或不符时返回缺失/不符项，禁止补造参数。仍需物理校验",
+  "description_zh": null,
+  "source": "mcp",
+  "is_available": true,
+  "create_time": "2026-09-15T17:56:18.233580Z",
+  "usage": "lingjing-mcp",
+  "params": [],
+  "inputs": "{'feature': {'title': 'Feature', 'type': 'string', 'description': 'see tool description'}, 'material': {'default': 'general', 'title': 'Material', 'type': 'string', 'description': 'see tool description'}, 'top_k': {'default': 5, 'title': 'Top K', 'type': 'integer', 'description': 'see tool description'}, 'conditions': {'anyOf': [{'additionalProperties': True, 'type': 'object'}, {'type': 'null'}], 'default': None, 'title': 'Conditions', 'description': 'see tool description', 'type': 'string'}}",
+  "category": null,
+  "labels": null,
+  "is_user_selectable": true,
+  "updated_by": "60a551ea-ac27-40ad-b0ee-6f8c1ff594ea",
+  "updated_by_name": "svc-lingjing@nexent.com"
+}

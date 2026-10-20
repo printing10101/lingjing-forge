@@ -1,0 +1,37 @@
+[
+  {
+    "name": "content_binding",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "unresolved",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "units",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "version_conflict",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "write_rollback",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "pending_filter",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "reset_on_add",
+    "exit_code": 1,
+    "caught": true
+  }
+]

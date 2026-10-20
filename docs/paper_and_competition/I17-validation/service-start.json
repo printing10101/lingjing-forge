@@ -1,0 +1,16 @@
+[
+  {
+    "service": "docker_desktop",
+    "action": "started"
+  },
+  {
+    "process_id": 28096,
+    "service": "desktop_backend",
+    "action": "started"
+  },
+  {
+    "process_id": 31632,
+    "service": "authenticated_mcp",
+    "action": "started"
+  }
+]

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="80" failures="0" errors="0" time="5.127">
+    <testsuite name="src/api/__tests__/processKnowledge.test.ts" timestamp="2026-10-16T15:38:30.963Z" hostname="LAPTOP-SK94FEV8" tests="1" failures="0" errors="0" skipped="0" time="0.0059367">
+        <testcase classname="src/api/__tests__/processKnowledge.test.ts" name="process knowledge API &gt; uses actual RAG routes and their unwrapped envelopes" time="0.0043699">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/config/__tests__/navGroups.test.ts" timestamp="2026-10-16T15:38:30.964Z" hostname="LAPTOP-SK94FEV8" tests="4" failures="0" errors="0" skipped="0" time="0.0066842">
+        <testcase classname="src/config/__tests__/navGroups.test.ts" name="navGroups &gt; 每个分组与菜单项的 labelKey 在中英文 locale 中都存在" time="0.0037707">
+        </testcase>
+        <testcase classname="src/config/__tests__/navGroups.test.ts" name="navGroups &gt; 路径不重复且均为站内绝对路径" time="0.0009733">
+        </testcase>
+        <testcase classname="src/config/__tests__/navGroups.test.ts" name="navGroups &gt; labelKey 无重复（同一菜单文案不得挂两个入口）" time="0.0001543">
+        </testcase>
+        <testcase classname="src/config/__tests__/navGroups.test.ts" name="navGroups &gt; 图标不重复（重复图标降低扫读辨识度）" time="0.0001394">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/composables/__tests__/useProcessReview.test.ts" timestamp="2026-10-16T15:38:30.966Z" hostname="LAPTOP-SK94FEV8" tests="10" failures="0" errors="0" skipped="0" time="0.014369">
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; loads, saves locally confirmed versions, and creates pending records" time="0.0065886">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; blocks double submissions and reloads while a save is pending" time="0.00106">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; fails honestly on HTTP 401" time="0.0020535">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; fails honestly on HTTP 403" time="0.0006631">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; fails honestly on HTTP 409" time="0.0004682">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; fails honestly on HTTP 503" time="0.0003558">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; fails honestly on HTTP 500" time="0.000328">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; does not submit without a selected record or while loading" time="0.0002423">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; ignores older loads and clears obsolete data when refresh fails" time="0.0006376">
+        </testcase>
+        <testcase classname="src/composables/__tests__/useProcessReview.test.ts" name="useProcessReview &gt; ignores an obsolete request failure" time="0.0003763">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/stores/__tests__/auth.test.ts" timestamp="2026-10-16T15:38:30.969Z" hostname="LAPTOP-SK94FEV8" tests="36" failures="0" errors="0" skipped="0" time="0.0372574">
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; initial state &gt; restores engineer without granting administrator rights" time="0.0042922">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; initial state &gt; sessionStorage 无数据时 token 为 null" time="0.0007198">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; initial state &gt; sessionStorage 无数据时 user 为 null" time="0.0004685">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; initial state &gt; isAuthenticated 为 false" time="0.0005387">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; initial state &gt; userRole 默认为 viewer" time="0.0004627">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; initial state &gt; permissions 默认为空数组" time="0.001149">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; initial state &gt; sessionStorage 有 token 时恢复 token" time="0.0004712">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; initial state &gt; sessionStorage 有合法用户信息时恢复 user" time="0.0007705">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; initial state &gt; sessionStorage 有非法 role 时降级为 viewer" time="0.0004344">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; initial state &gt; sessionStorage 损坏的数据被清理且 user 为 null" time="0.0056558">
+            <system-err>
+[auth] auth_user 数据损坏，已清理: SyntaxError: Unexpected token &apos;i&apos;, &quot;invalid json{{{&quot; is not valid JSON
+    at JSON.parse (&lt;anonymous&gt;)
+    at safeParseUser (D:\灵境制造\engineering\src\stores\auth.ts:22:25)
+    at D:\灵境制造\engineering\src\stores\auth.ts:48:37
+    at file:///D:/%E7%81%B5%E5%A2%83%E5%88%B6%E9%80%A0/engineering/node_modules/.pnpm/pinia@2.3.1_typescript@5.9.3_vue@3.5.38_typescript@5.9.3_/node_modules/pinia/dist/pinia.mjs:1474:98
+    at EffectScope.run (D:\灵境制造\engineering\node_modules\.pnpm\@vue+reactivity@3.5.38\node_modules\@vue\reactivity\dist\reactivity.cjs.js:93:16)
+    at file:///D:/%E7%81%B5%E5%A2%83%E5%88%B6%E9%80%A0/engineering/node_modules/.pnpm/pinia@2.3.1_typescript@5.9.3_vue@3.5.38_typescript@5.9.3_/node_modules/pinia/dist/pinia.mjs:1474:88
+    at EffectScope.run (D:\灵境制造\engineering\node_modules\.pnpm\@vue+reactivity@3.5.38\node_modules\@vue\reactivity\dist\reactivity.cjs.js:93:16)
+    at file:///D:/%E7%81%B5%E5%A2%83%E5%88%B6%E9%80%A0/engineering/node_modules/.pnpm/pinia@2.3.1_typescript@5.9.3_vue@3.5.38_typescript@5.9.3_/node_modules/pinia/dist/pinia.mjs:1474:54
+    at fallbackRunWithContext (file:///D:/%E7%81%B5%E5%A2%83%E5%88%B6%E9%80%A0/engineering/node_modules/.pnpm/pinia@2.3.1_typescript@5.9.3_vue@3.5.38_typescript@5.9.3_/node_modules/pinia/dist/pinia.mjs:1149:40)
+    at createSetupStore (file:///D:/%E7%81%B5%E5%A2%83%E5%88%B6%E9%80%A0/engineering/node_modules/.pnpm/pinia@2.3.1_typescript@5.9.3_vue@3.5.38_typescript@5.9.3_/node_modules/pinia/dist/pinia.mjs:1474:24)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; computed &gt; isAdmin 在 admin 角色时返回 true" time="0.0008888">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; computed &gt; isAdmin 在 operator 角色时返回 false" time="0.0004075">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; computed &gt; isAdmin 在 viewer 角色时返回 false" time="0.0005413">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; computed &gt; hasPermission 包含权限时返回 true" time="0.0006981">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; computed &gt; hasPermission 不包含权限时返回 false" time="0.0005481">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; computed &gt; hasPermission 无用户时返回 false" time="0.0004321">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; login &gt; 登录成功时保存 token 和用户信息" time="0.0021526">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; login &gt; 登录成功时 user.id 使用 username 回退" time="0.0009909">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; login &gt; 后端返回非 0 code 时返回错误信息" time="0.0007966">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; login &gt; 后端返回非 0 code 且无 message 时使用默认信息" time="0.0006295">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; login &gt; 网络异常时返回错误信息" time="0.0008205">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; login &gt; 网络异常无 Error 对象时使用默认信息" time="0.0005254">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; login &gt; 后端返回未知 role 时降级为 viewer" time="0.0004483">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; logout &gt; 清除 token 和 user" time="0.0007961">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; logout &gt; 同步清理 sessionStorage" time="0.0005785">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; setToken &gt; 设置 token 并持久化" time="0.0005079">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; setUser &gt; 设置用户信息并持久化" time="0.0014268">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; isGuest &gt; is_guest 为 true 时返回 true" time="0.0006769">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; isGuest &gt; guest 角色时返回 true" time="0.0002794">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; isGuest &gt; 普通用户返回 false" time="0.0004627">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; register &gt; 后端返回非 0 code 时返回错误信息" time="0.000732">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; register &gt; 注册成功后自动登录并保存会话" time="0.0011483">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; register &gt; 网络异常时返回错误信息" time="0.0007079">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; guestLogin &gt; 访客登录成功时保存会话并标记 is_guest" time="0.0010874">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; guestLogin &gt; 访客模式关闭时返回错误信息" time="0.0007295">
+        </testcase>
+        <testcase classname="src/stores/__tests__/auth.test.ts" name="useAuthStore &gt; guestLogin &gt; 网络异常时返回错误信息" time="0.0004142">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/utils/__tests__/processReviewForm.test.ts" timestamp="2026-10-16T15:38:30.975Z" hostname="LAPTOP-SK94FEV8" tests="22" failures="0" errors="0" skipped="0" time="0.0139441">
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; starts with no implied approval and preserves submitted context separately" time="0.0046292">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects invalid parameter " time="0.0014265">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects invalid parameter 0" time="0.0002343">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects invalid parameter -1" time="0.0002048">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects invalid parameter NaN" time="0.0002432">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects invalid parameter Infinity" time="0.000197">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects duplicate names, empty fields and invalid pending pages" time="0.0009105">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;note&quot;:&quot;&quot;}" time="0.0003055">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;resolvedConfirmed&quot;:false}" time="0.0002182">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;approvalConfirmed&quot;:false}" time="0.0001947">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;unresolved&quot;:&quot;unknown grade&quot;}" time="0.0001794">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;sourceUrl&quot;:&quot;not-a-url&quot;}" time="0.0002229">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;sourceUrl&quot;:&quot;http://example.org&quot;}" time="0.0001991">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;sourceUrl&quot;:&quot;https://user:secret@example.org&quot;}" time="0.0002315">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;documentHash&quot;:&quot;wrong&quot;}" time="0.0002599">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;page&quot;:&quot;0&quot;}" time="0.0002071">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;page&quot;:&quot;2.1&quot;}" time="0.0001918">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;applicability&quot;:&quot;&quot;}" time="0.0001788">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; rejects incomplete approval {&quot;verificationMethod&quot;:&quot;&quot;}" time="0.0002078">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; requires exact units and a specific material" time="0.0007852">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; constructs approval evidence for the current record, without self-reported actor" time="0.0003888">
+        </testcase>
+        <testcase classname="src/utils/__tests__/processReviewForm.test.ts" name="process review form &gt; never approves a displayed but unsaved value or changed material" time="0.000446">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/views/__tests__/ProcessKnowledgeReview.test.ts" timestamp="2026-10-16T15:38:30.981Z" hostname="LAPTOP-SK94FEV8" tests="7" failures="0" errors="0" skipped="0" time="0.1403024">
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; does not read or mutate review records for operator" time="0.0255025">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; does not read or mutate review records for guest" time="0.0034062">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; shows empty and filtered states and saves new candidates with pending provenance" time="0.0414537">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; blocks incomplete approval, submits confirmed evidence and shows history" time="0.0255535">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; revises parameters without retaining approval and can add/remove parameter rows" time="0.0169949">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; requires refresh after conflict and keeps the displayed version unchanged on failure" time="0.0140188">
+        </testcase>
+        <testcase classname="src/views/__tests__/ProcessKnowledgeReview.test.ts" name="ProcessKnowledgeReview &gt; renders source evidence and excludes unsafe source links" time="0.0115436">
+        </testcase>
+    </testsuite>
+</testsuites>

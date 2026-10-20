@@ -1,0 +1,25 @@
+{
+  "source_unchanged": true,
+  "cases": [
+    {
+      "name": "exclusive_boundary",
+      "caught": true,
+      "exit_code": 1
+    },
+    {
+      "name": "range_order",
+      "caught": true,
+      "exit_code": 1
+    },
+    {
+      "name": "required_modes",
+      "caught": true,
+      "exit_code": 1
+    },
+    {
+      "name": "finite_values",
+      "caught": true,
+      "exit_code": 1
+    }
+  ]
+}

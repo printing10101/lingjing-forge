@@ -1,0 +1,11 @@
+{
+  "agent_id": "718eaf80-f19c-4bf7-90a1-544f51936ba2",
+  "scopes": [
+    "R",
+    "W"
+  ],
+  "paper_only": true,
+  "expires_at": 1792689620.7691455,
+  "separate_deployment_store": true,
+  "revoked_tokens_reactivated": false
+}

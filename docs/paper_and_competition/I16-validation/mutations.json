@@ -1,0 +1,42 @@
+[
+  {
+    "name": "source_hash",
+    "caught": true,
+    "failure_type": "Failed"
+  },
+  {
+    "name": "material_scope",
+    "caught": true,
+    "failure_type": "Failed"
+  },
+  {
+    "name": "duplicate_fact",
+    "caught": true,
+    "failure_type": "Failed"
+  },
+  {
+    "name": "page_bound",
+    "caught": true,
+    "failure_type": "Failed"
+  },
+  {
+    "name": "retain_blockers",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "no_approval",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "preserve_parameters",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "forbid_trust_fields",
+    "caught": true,
+    "failure_type": "Failed"
+  }
+]

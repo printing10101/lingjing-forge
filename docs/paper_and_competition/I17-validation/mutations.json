@@ -1,0 +1,67 @@
+[
+  {
+    "name": "missing_conditions",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "tool",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "hardness",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "exclusive_boundary",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "diameter",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "depth",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "coolant",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "workholding",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "scope",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "evidence_binding",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "require_limits",
+    "caught": true,
+    "failure_type": "Failed"
+  },
+  {
+    "name": "outer_gate",
+    "caught": true,
+    "failure_type": "AssertionError"
+  },
+  {
+    "name": "bounds",
+    "caught": true,
+    "failure_type": "Failed"
+  }
+]

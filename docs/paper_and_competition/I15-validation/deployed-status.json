@@ -1,0 +1,8 @@
+{
+  "desktop_health": true,
+  "unauthenticated_review_rejected": true,
+  "total_quadruples": 3,
+  "approved_quadruples": 0,
+  "recommendation_status": "knowledge_requires_review",
+  "machine_actions": 0
+}

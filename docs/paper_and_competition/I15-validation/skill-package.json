@@ -1,0 +1,12 @@
+{
+  "name": "manufacturing-knowledge-update",
+  "allowed_tools": [
+    "cam_submit_knowledge_candidate",
+    "cam_get_knowledge_candidate",
+    "cam_recommend_process"
+  ],
+  "zip_integrity": true,
+  "sha256": "049cec314a0378d3f0e253971828fd8fe1a863d1ef00b80a8ce351f524126786",
+  "online_import_evidence": "nexent-skill-installation.json",
+  "llm_autonomous_execution": false
+}

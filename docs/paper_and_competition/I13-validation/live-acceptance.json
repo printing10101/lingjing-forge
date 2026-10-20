@@ -1,0 +1,8 @@
+{
+  "desktop_health": true,
+  "unauthenticated_review_status": 401,
+  "formal_recommendation_status": "knowledge_empty",
+  "production_knowledge_file_absent": true,
+  "production_approval_performed": false,
+  "machine_operations_performed": false
+}

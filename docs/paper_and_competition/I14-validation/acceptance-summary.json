@@ -1,0 +1,143 @@
+{
+  "frontend_tests": 80,
+  "backend_tests": 275,
+  "frontend_new_module_coverage": {
+    "lines": {
+      "total": 697,
+      "covered": 687,
+      "skipped": 0,
+      "pct": 98.56
+    },
+    "statements": {
+      "total": 697,
+      "covered": 687,
+      "skipped": 0,
+      "pct": 98.56
+    },
+    "functions": {
+      "total": 34,
+      "covered": 31,
+      "skipped": 0,
+      "pct": 91.17
+    },
+    "branches": {
+      "total": 274,
+      "covered": 262,
+      "skipped": 0,
+      "pct": 95.62
+    },
+    "branchesTrue": {
+      "total": 0,
+      "covered": 0,
+      "skipped": 0,
+      "pct": "Unknown"
+    }
+  },
+  "frontend_mutations": {
+    "source_files_unchanged": true,
+    "cases": [
+      {
+        "name": "approval_confirmation",
+        "caught": true,
+        "exit_code": 1
+      },
+      {
+        "name": "https_source",
+        "caught": true,
+        "exit_code": 1
+      },
+      {
+        "name": "unsaved_parameter",
+        "caught": true,
+        "exit_code": 1
+      },
+      {
+        "name": "stale_revision",
+        "caught": true,
+        "exit_code": 1
+      },
+      {
+        "name": "double_submission",
+        "caught": true,
+        "exit_code": 1
+      },
+      {
+        "name": "engineer_identity",
+        "caught": true,
+        "exit_code": 1
+      }
+    ]
+  },
+  "candidate_context_mutations": [
+    {
+      "name": "context_preserved",
+      "exit_code": 1,
+      "caught": true
+    },
+    {
+      "name": "context_object",
+      "exit_code": 1,
+      "caught": true
+    },
+    {
+      "name": "unknown_context_field",
+      "exit_code": 1,
+      "caught": true
+    },
+    {
+      "name": "context_text",
+      "exit_code": 1,
+      "caught": true
+    },
+    {
+      "name": "context_page",
+      "exit_code": 1,
+      "caught": true
+    },
+    {
+      "name": "context_units",
+      "exit_code": 1,
+      "caught": true
+    },
+    {
+      "name": "context_unresolved",
+      "exit_code": 1,
+      "caught": true
+    }
+  ],
+  "http_acceptance": {
+    "browser_backed_synthetic_lifecycle": [
+      "rejected",
+      "pending",
+      "approved",
+      "revoked"
+    ],
+    "synthetic_candidate_created_and_reloaded": true,
+    "desktop_health": true,
+    "production_review_requires_authentication": true,
+    "production_recommendation_status": "knowledge_empty",
+    "production_knowledge_file_absent": true,
+    "real_candidate_approvals": 0,
+    "machine_actions": 0
+  },
+  "production_build_exit_code": 0,
+  "frontend_lint_exit_code": 0,
+  "api_docs": {
+    "total_routes_in_code": 564,
+    "total_routes_in_docs": 625,
+    "documented_coverage_percent": 100,
+    "routes_missing_from_docs": 0,
+    "routes_only_in_docs": 121,
+    "sync_status": "FULLY_SYNCHRONIZED"
+  },
+  "vite_observation": {
+    "before_script_request_timed_out_seconds": 15,
+    "before_handles": 25477,
+    "after_script_request_ms": 252,
+    "after_handles": 1237,
+    "statistical_benchmark": false
+  },
+  "real_candidate_approvals": 0,
+  "nexent_full_workflow_accepted": false,
+  "tauri_installer_accepted": false
+}

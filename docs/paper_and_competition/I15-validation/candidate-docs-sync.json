@@ -1,0 +1,14 @@
+{
+  "new_routes": [
+    {
+      "method": "POST",
+      "path": "/api/agent/v1/cam/knowledge-candidates"
+    },
+    {
+      "method": "GET",
+      "path": "/api/agent/v1/cam/knowledge-candidates/{record_id}"
+    }
+  ],
+  "missing_documentation": 0,
+  "legacy_scan_is_non_recursive": true
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "name": "ack_without_save",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "no_memory_rollback",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "wrong_material",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "example_recommendation",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "corrupt_as_empty",
+    "exit_code": 1,
+    "caught": true
+  }
+]

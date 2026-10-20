@@ -1,0 +1,93 @@
+- generic: 隔离验收环境 · 合成资料 · 不连接正式知识库或机床
+- main:
+  - heading "工艺知识审核" [level=1]
+  - paragraph: 核对来源、参数单位与适用条件，保留每次审核和修订的依据。
+  - button "重新加载"
+  - button "新增待审资料"
+  - paragraph: 知识批准用于条件明确的方案推荐；实际加工仍需确认刀具、现场工况和物理校验结果。
+  - region "知识记录":
+    - text: 查找资料
+    - textbox "查找资料":
+      - /placeholder: 材料、刀具、特征或来源
+    - text: 审核状态
+    - combobox "审核状态":
+      - option "全部状态" [selected]
+      - option "待审核"
+      - option "已批准"
+      - option "已拒绝"
+      - option "已撤销"
+    - paragraph: 2 条资料
+    - button "fixture_steel · hole drill / fixture_drill_d8 已撤销 · 版本 5" [pressed]:
+      - strong: fixture_steel · hole
+      - generic: drill / fixture_drill_d8
+      - generic: 已撤销 · 版本 5
+    - button "fixture_aluminum · hole drill / fixture_drill_d6 待审核 · 版本 1":
+      - strong: fixture_aluminum · hole
+      - generic: drill / fixture_drill_d6
+      - generic: 待审核 · 版本 1
+  - region "审核详情":
+    - heading "资料详情 · 版本 5" [level=2]
+    - paragraph: 当前状态：已撤销。来源标识：synthetic_test
+    - paragraph: 资料说明：隔离合成验收：修订参数后重新待审
+    - text: 本次操作
+    - combobox "本次操作":
+      - option "修订并重新待审" [selected]
+    - text: 加工特征
+    - textbox "加工特征":
+      - /placeholder: 例如 hole
+      - text: hole
+    - text: 工艺方法
+    - textbox "工艺方法":
+      - /placeholder: 例如 drill
+      - text: drill
+    - text: 具体刀具
+    - textbox "具体刀具": fixture_drill_d8
+    - text: 明确材料
+    - textbox "明确材料": fixture_steel
+    - text: 来源标识
+    - textbox "来源标识": synthetic_test
+    - heading "参数与单位" [level=3]
+    - text: 参数名
+    - textbox "参数名": spindle_rpm
+    - text: 数值
+    - textbox "数值": "900"
+    - text: 单位
+    - textbox "单位":
+      - /placeholder: 例如 rpm、mm/rev
+      - text: rpm
+    - button "删除参数" [disabled]
+    - button "添加参数"
+    - paragraph: 新增和修订只保存为待审，批准时再核对来源及单位。
+    - region "来源依据":
+      - heading "来源与审核依据" [level=3]
+      - text: 来源链接
+      - textbox "来源链接":
+        - /placeholder: https://…
+        - text: https://example.org/synthetic-test.pdf
+      - text: 来源文档 SHA256 校验值
+      - textbox "来源文档 SHA256 校验值"
+      - text: 来源页码
+      - textbox "来源页码": "2"
+      - text: 适用条件
+      - textbox "适用条件":
+        - /placeholder: 具体材料、刀具规格、加工方式及适用范围
+      - text: 核验方法
+      - textbox "核验方法":
+        - /placeholder: 如何核对原文、单位、材料及加工条件
+      - text: 尚未解决的问题
+      - textbox "尚未解决的问题":
+        - /placeholder: 仍有疑问时保留待审，不提交批准
+        - text: 仅为隔离验收的合成资料
+    - text: 本次说明
+    - textbox "本次说明":
+      - /placeholder: 说明新增、批准、拒绝、撤销或修订的原因
+    - button "提交本次变更"
+    - region "当前审核记录":
+      - heading "当前审核记录" [level=3]
+      - paragraph: synthetic_review_engineer · 2026-10-16T15:37:07.493318+00:00 · 隔离合成验收完成，撤销合成样本批准
+    - region "版本历史":
+      - heading "版本历史" [level=3]
+      - generic "版本 4 → 5 · 已撤销 · synthetic_review_engineer"
+      - generic "版本 3 → 4 · 已批准 · synthetic_review_engineer"
+      - generic "版本 2 → 3 · 待审核 · synthetic_review_engineer"
+      - generic "版本 1 → 2 · 已拒绝 · synthetic_review_engineer"

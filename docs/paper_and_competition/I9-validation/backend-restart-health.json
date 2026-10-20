@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/ping",
+    "status": 401
+  },
+  {
+    "path": "/api/ping",
+    "status": 401
+  },
+  {
+    "path": "/api/health",
+    "status": 200
+  }
+]

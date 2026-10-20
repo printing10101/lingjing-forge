@@ -1,0 +1,32 @@
+[
+  {
+    "name": "false_verified",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "hash",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "unit",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "review",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "candidate_gate",
+    "exit_code": 1,
+    "caught": true
+  },
+  {
+    "name": "missing_source",
+    "exit_code": 1,
+    "caught": true
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "targeted_tests_passed": 213,
+  "mutants_caught": 7,
+  "cutting_parameter_json_unchanged": true,
+  "production_test_data_absent": true
+}

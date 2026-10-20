@@ -1,0 +1,26 @@
+{
+  "updated_existing_skills": [
+    {
+      "name": "hole-process-draft",
+      "skill_id": 1,
+      "zip": "D:\\灵境制造\\competition\\nexent\\dist\\hole-process-draft-i18.zip",
+      "content_verified": true,
+      "tool_mapping_verified": true
+    },
+    {
+      "name": "manufacturing-evidence-review",
+      "skill_id": 2,
+      "zip": "D:\\灵境制造\\competition\\nexent\\dist\\manufacturing-evidence-review-i18.zip",
+      "content_verified": true,
+      "tool_mapping_verified": true
+    },
+    {
+      "name": "manufacturing-knowledge-update",
+      "skill_id": 4,
+      "zip": "D:\\灵境制造\\competition\\nexent\\dist\\manufacturing-knowledge-update-i18.zip",
+      "content_verified": true,
+      "tool_mapping_verified": true
+    }
+  ],
+  "draft_bindings_preserved": true
+}

@@ -1,0 +1,121 @@
+[
+  {
+    "id": "D01",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_validation_contracts.py::test_line_ending_change_requires_revalidation"
+    ]
+  },
+  {
+    "id": "D02",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_process_chain_respects_ontology_hops_and_evidence"
+    ]
+  },
+  {
+    "id": "D03",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_process_chain_respects_ontology_hops_and_evidence"
+    ]
+  },
+  {
+    "id": "D04",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_feedback_retries_and_concurrent_delivery_are_idempotent"
+    ]
+  },
+  {
+    "id": "D05",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_missing_roughness_does_not_create_zero_measurement[missing0]",
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_missing_roughness_does_not_create_zero_measurement[missing1]"
+    ]
+  },
+  {
+    "id": "D06",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_chinese_material_feedback_uses_same_identity_for_adjustment"
+    ]
+  },
+  {
+    "id": "D07",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_failed_feedback_rolls_back_nodes_edges_and_receipt"
+    ]
+  },
+  {
+    "id": "D08",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_deleted_entity_invalidates_relations_and_persists"
+    ]
+  },
+  {
+    "id": "D09",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_bulk_approval_cannot_hide_revision_or_export_dangling_relations"
+    ]
+  },
+  {
+    "id": "D10",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_material_identity_is_not_inferred_from_generic_alloy[alloy steel-steel]",
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_material_identity_is_not_inferred_from_generic_alloy[unknown alloy-unknown alloy]"
+    ]
+  },
+  {
+    "id": "D11",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_chinese_entities_do_not_require_spaces[\\u52a0\\u5de545\\u94a2\\u5de5\\u4ef6-45\\u94a2]",
+      "engineering/python/tests/unit/test_competition_audit_regressions.py::test_chinese_entities_do_not_require_spaces[\\u8c03\\u6574\\u94dd\\u5408\\u91d1\\u5207\\u524a\\u901f\\u5ea6-\\u94dd\\u5408\\u91d1]"
+    ]
+  },
+  {
+    "id": "S01",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_document_import.py::test_same_named_documents_are_separate_and_shorter_revision_removes_tail"
+    ]
+  },
+  {
+    "id": "S02",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_validation_contracts.py::test_partial_evaluation_is_not_full_validation[skipped]",
+      "engineering/python/tests/unit/test_competition_validation_contracts.py::test_partial_evaluation_is_not_full_validation[error]",
+      "engineering/python/tests/unit/test_competition_validation_contracts.py::test_full_validation_requires_execution_material_removal_and_physics[0-2-True-False]",
+      "engineering/python/tests/unit/test_competition_validation_contracts.py::test_full_validation_requires_execution_material_removal_and_physics[20-0-True-False]",
+      "engineering/python/tests/unit/test_competition_validation_contracts.py::test_full_validation_requires_execution_material_removal_and_physics[20-2-False-False]"
+    ]
+  },
+  {
+    "id": "S03",
+    "exit_code": 1,
+    "killed": true,
+    "failed_tests": [
+      "engineering/python/tests/unit/test_competition_document_import.py::test_excel_merged_cells_and_uncached_formulas"
+    ]
+  }
+]

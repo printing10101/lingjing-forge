@@ -1,0 +1,100 @@
+{
+  "synthetic_fixture": true,
+  "cases": [
+    {
+      "tool": "gcode_get_failure_stats",
+      "inputs": {},
+      "http_status": 500,
+      "contract_passed": false,
+      "recommendation_available": null,
+      "duration_seconds": 0.049,
+      "result": {
+        "message": "Client failed to connect: All connection attempts failed"
+      }
+    },
+    {
+      "tool": "gcode_list_failure_cases",
+      "inputs": {
+        "limit": 5,
+        "outcome": "failure"
+      },
+      "http_status": 500,
+      "contract_passed": false,
+      "recommendation_available": null,
+      "duration_seconds": 0.017,
+      "result": {
+        "message": "Client failed to connect: All connection attempts failed"
+      }
+    },
+    {
+      "tool": "cam_get_quadruple_stats",
+      "inputs": {},
+      "http_status": 500,
+      "contract_passed": false,
+      "recommendation_available": null,
+      "duration_seconds": 0.035,
+      "result": {
+        "message": "Client failed to connect: All connection attempts failed"
+      }
+    },
+    {
+      "tool": "cam_recommend_process",
+      "inputs": {
+        "feature": "hole",
+        "material": "steel_45",
+        "top_k": 3
+      },
+      "http_status": 500,
+      "contract_passed": false,
+      "recommendation_available": false,
+      "duration_seconds": 0.021,
+      "result": {
+        "message": "Client failed to connect: All connection attempts failed"
+      }
+    },
+    {
+      "tool": "dxf_describe_file",
+      "inputs": {
+        "path": "D:\\灵境制造\\engineering\\python\\output\\competition_i9\\plate.dxf"
+      },
+      "http_status": 500,
+      "contract_passed": false,
+      "recommendation_available": null,
+      "duration_seconds": 0.019,
+      "result": {
+        "message": "Client failed to connect: All connection attempts failed"
+      }
+    },
+    {
+      "tool": "process_plan_run",
+      "inputs": {
+        "part_description": {
+          "material": "45#钢",
+          "part_type": "plate",
+          "holes": [
+            {
+              "id": "h1",
+              "type": "through",
+              "position": {
+                "x": 20,
+                "y": 20
+              },
+              "diameter": 8.0,
+              "depth": 12.0
+            }
+          ]
+        },
+        "controller_type": "fanuc_0i",
+        "safe_z": 60.0,
+        "program_number": 1901
+      },
+      "http_status": 500,
+      "contract_passed": false,
+      "recommendation_available": null,
+      "duration_seconds": 0.019,
+      "result": {
+        "message": "Client failed to connect: All connection attempts failed"
+      }
+    }
+  ]
+}

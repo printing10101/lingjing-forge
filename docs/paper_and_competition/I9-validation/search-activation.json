@@ -1,0 +1,10 @@
+{
+  "exit_code": 0,
+  "same_image": true,
+  "credentials_and_settings_preserved": true,
+  "compose_project": "nexent",
+  "data_mount_verified": true,
+  "jvm_heap": "512m",
+  "original_data_deleted": false,
+  "other_services_recreated": false
+}

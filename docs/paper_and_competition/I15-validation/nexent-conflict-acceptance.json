@@ -1,0 +1,6 @@
+{
+  "nexent_conflict_observed": true,
+  "http_status": 409,
+  "retryable": false,
+  "candidate_unchanged": true
+}
