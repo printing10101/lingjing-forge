@@ -9,8 +9,9 @@
 | manufacturing-failure-review | gcode_get_failure_stats、gcode_list_failure_cases、cam_get_quadruple_stats | 案例复盘和改进提案；不写知识或宣称已自进化 |
 | manufacturing-knowledge-update | cam_submit_knowledge_candidate、cam_get_knowledge_candidate、cam_recommend_process | 提交待审资料、回读人工审核结果、再次查询正式推荐；不批准知识 |
 
-`skills/` 是可编辑来源，`dist/` 每个 ZIP 根目录直接包含 SKILL.md，可分别上传至 Nexent 的“我的 Skill”。
+`skills/` 是可编辑来源，`dist/` 下的最终包为 `*-i18.zip`：每个 ZIP 内层路径为 `<skill-name>/SKILL.md`，新建和更新均使用该结构。
 上传后须选择与源文件相同的实际 MCP 工具并配置权限，再在智能体中绑定技能。
+`*-i17.zip` 与无版本后缀的旧包只保留在本地历史中，不应再用于线上更新。
 2026-10-16 在线验收：三个 Skill 已上传并绑定到 `process_advisor`（agent_id=1），工具映射和启用状态已回读确认。
 六个 MCP 工具已通过 Nexent 的实际工具校验链路调用桌面后端。
 尚未完成大模型自主选择和执行 Skill 的对话验收；当前有三条待审候选，有效批准数为 0，推荐接口连通不代表推荐内容有效。
