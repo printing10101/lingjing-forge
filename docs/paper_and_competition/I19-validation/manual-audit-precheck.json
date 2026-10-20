@@ -1,0 +1,31 @@
+{
+  "checked_at": "2026-10-20",
+  "scope": "manual_audit_20.csv vs conditions_lookup.csv",
+  "rows": 20,
+  "tags": [
+    "W1",
+    "W2",
+    "W4",
+    "W5",
+    "W6",
+    "W8",
+    "W9",
+    "c1",
+    "c6"
+  ],
+  "datasets": [
+    "nuaa",
+    "phm2010"
+  ],
+  "checked_conditions": 60,
+  "checked_numbers": 80,
+  "condition_mismatches": 0,
+  "nonfinite_values": 0,
+  "missing_lookup": 0,
+  "missing_values": 0,
+  "issues": [],
+  "audit_sha256": "19fd8a1627d72d06f8eaac657dbeaabdab620731876b8828011536582cc0103c",
+  "lookup_sha256": "0f978292b84fe26cbce1efe7dfa361d403a6d3d8c0710ed295cdb30db0f03c72",
+  "human_signoff": false,
+  "conclusion": "机器预检通过不等于人工签注；20 行仍需工艺人员逐行确认量纲、工况与数值。"
+}
