@@ -1,0 +1,10 @@
+# Local pilot: use a separately verified recovery copy, never overwrite the original data.
+# Include after Nexent's base compose file and pass LINGJING_ES_DATA_DIR in the environment.
+services:
+  nexent-elasticsearch:
+    environment:
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    volumes:
+      - type: bind
+        source: ${LINGJING_ES_DATA_DIR:?Specify the verified Elasticsearch data directory}
+        target: /usr/share/elasticsearch/data
