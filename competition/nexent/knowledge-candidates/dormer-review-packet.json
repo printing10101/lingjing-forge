@@ -1,0 +1,379 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "human_review_preparation",
+  "review_status": "unreviewed",
+  "eligible_for_recommendation": false,
+  "document_sha256": "c749bdee685f53038b94b5b116d004155623af651e1068f1e41041bb4b867fe7",
+  "count": 3,
+  "candidates": [
+    {
+      "candidate_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+      "source": "manufacturer_candidate",
+      "review_status": "unreviewed",
+      "eligible_for_recommendation": false,
+      "feature": "hole",
+      "process": "drill",
+      "tool": "Dormer Pramet R10A HSS",
+      "material": "dormer_amg_1_3",
+      "conditions": {
+        "hardness": "<24 HRC",
+        "diameter_mm": 7.9375
+      },
+      "parameters": {
+        "feed_per_revolution_mm": 0.16002,
+        "feed_min_mm_per_rev": 0.120015,
+        "feed_max_mm_per_rev": 0.200025
+      },
+      "unresolved": [
+        "cutting_speed_unit",
+        "material_grade_equivalence",
+        "machining_review",
+        "coolant_and_workholding",
+        "hole_depth_and_tool_confirmation"
+      ],
+      "original_record": {
+        "material_group": "dormer_amg_1_3",
+        "tool": "Dormer Pramet R10A HSS",
+        "hardness_condition": "<24 HRC",
+        "speed_code": "89G",
+        "speed_unit": "unconfirmed",
+        "feed": 0.0063,
+        "feed_unit": "inch/rev",
+        "feed_tolerance_percent": 25,
+        "diameter_inch": 0.3125,
+        "pdf_pages": [
+          4,
+          5
+        ],
+        "locator": "PDF p5 AMG 1.3, R10A column; PDF p4 feed G, 8mm/5-16in column"
+      },
+      "provenance": {
+        "url": "https://api.dormerpramet.com/medias/dormerpramet-ptd-nas-drills.pdf?attachment=true&context=bWFzdGVyfHJvb3R8NjY5NTk3MHxhcHBsaWNhdGlvbi9wZGZ8YUdaaEwyaG1ZeTg0T0RNeU56azFNVFE0TXpFNEwyUnZjbTFsY25CeVlXMWxkRjl3ZEdSZmJtRnpYMlJ5YVd4c2N5NXdaR1l8YzU0NzRiMTIzNTVjNjk3NTE3OWQ2ZjY4Mzc0YTc5ZTY2ZDEyZDk2YWRiNzdlNjBkM2YyMDQ1MzQwYzU2MmZkNQ",
+        "sha256": "c749bdee685f53038b94b5b116d004155623af651e1068f1e41041bb4b867fe7",
+        "pdf_pages": [
+          4,
+          5
+        ],
+        "locator": "PDF p5 AMG 1.3, R10A column; PDF p4 feed G, 8mm/5-16in column"
+      },
+      "source_facts": [
+        {
+          "key": "feed_chart_selection",
+          "value": "以最接近实际直径的表格档位选择进给；所选档位表头为 8 mm / 5/16 inch。两者为同一表格档位，不是精确尺寸等价关系。",
+          "pdf_pages": [
+            4
+          ],
+          "locator": "右上角选表步骤 2；进给表第 7 个直径档位"
+        },
+        {
+          "key": "feed_tolerance",
+          "value": "表中进给为 inch/rev，标注 ±25%；换算后的上下界是该表格范围，不能当成现场实测置信区间。",
+          "pdf_pages": [
+            4
+          ],
+          "locator": "进给表表头 IPR 与 ±25%"
+        },
+        {
+          "key": "tool_specification",
+          "value": "R10A 为 NAS 907 Type A、HSS、118° split point、jobber length；系列页标识深度 4×D。该标识不能代替具体孔深、排屑与装夹验算。",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "locator": "页5第一工具列；页6标题、图标和首段"
+        },
+        {
+          "key": "tool_size_reference",
+          "value": "R10A 5/16 inch（0.3125 inch，换算 7.9375 mm）对应目录号 010120；该目录号不证明现场已安装此刀具，也不证明能直接加工精确 8 mm 成品孔。",
+          "pdf_pages": [
+            7
+          ],
+          "locator": "5/16 行，R10A 列"
+        },
+        {
+          "key": "cutting_speed_unit",
+          "value": "页5数字字母组合分别为 89G / 79F / 36G；尚未找到明确的数字部分单位说明，不能将其直接解释为 m/min、ft/min 或 rpm。",
+          "pdf_pages": [
+            4,
+            5
+          ],
+          "locator": "页5 AMG 1.3、1.4、2.2 与 R10A 交叉单元；页4仅解释字母进给代码"
+        },
+        {
+          "key": "material_group_definition",
+          "value": "AMG 1.3：普通碳钢；示例为 1030–1060、1050–1060、1144–1146，硬度 <24 HRC，ISO P2。示例牌号属于手册分组，不能自动换成国标 45 钢。",
+          "pdf_pages": [
+            4
+          ],
+          "locator": "下半部材料组表 1.3 行"
+        }
+      ],
+      "candidate_context": {
+        "source_url": "https://api.dormerpramet.com/medias/dormerpramet-ptd-nas-drills.pdf?attachment=true&context=bWFzdGVyfHJvb3R8NjY5NTk3MHxhcHBsaWNhdGlvbi9wZGZ8YUdaaEwyaG1ZeTg0T0RNeU56azFNVFE0TXpFNEwyUnZjbTFsY25CeVlXMWxkRjl3ZEdSZmJtRnpYMlJ5YVd4c2N5NXdaR1l8YzU0NzRiMTIzNTVjNjk3NTE3OWQ2ZjY4Mzc0YTc5ZTY2ZDEyZDk2YWRiNzdlNjBkM2YyMDQ1MzQwYzU2MmZkNQ",
+        "document_sha256": "c749bdee685f53038b94b5b116d004155623af651e1068f1e41041bb4b867fe7",
+        "page": 4,
+        "parameter_units": {
+          "feed_per_revolution_mm": "mm/rev",
+          "feed_min_mm_per_rev": "mm/rev",
+          "feed_max_mm_per_rev": "mm/rev"
+        },
+        "applicability": "feed_chart_selection: 以最接近实际直径的表格档位选择进给；所选档位表头为 8 mm / 5/16 inch。两者为同一表格档位，不是精确尺寸等价关系。（PDF页 4；右上角选表步骤 2；进给表第 7 个直径档位）；feed_tolerance: 表中进给为 inch/rev，标注 ±25%；换算后的上下界是该表格范围，不能当成现场实测置信区间。（PDF页 4；进给表表头 IPR 与 ±25%）；tool_specification: R10A 为 NAS 907 Type A、HSS、118° split point、jobber length；系列页标识深度 4×D。该标识不能代替具体孔深、排屑与装夹验算。（PDF页 5,6；页5第一工具列；页6标题、图标和首段）；tool_size_reference: R10A 5/16 inch（0.3125 inch，换算 7.9375 mm）对应目录号 010120；该目录号不证明现场已安装此刀具，也不证明能直接加工精确 8 mm 成品孔。（PDF页 7；5/16 行，R10A 列）；cutting_speed_unit: 页5数字字母组合分别为 89G / 79F / 36G；尚未找到明确的数字部分单位说明，不能将其直接解释为 m/min、ft/min 或 rpm。（PDF页 4,5；页5 AMG 1.3、1.4、2.2 与 R10A 交叉单元；页4仅解释字母进给代码）；material_group_definition: AMG 1.3：普通碳钢；示例为 1030–1060、1050–1060、1144–1146，硬度 <24 HRC，ISO P2。示例牌号属于手册分组，不能自动换成国标 45 钢。（PDF页 4；下半部材料组表 1.3 行）",
+        "verification_method": "原文哈希核对及页码目视核对；补充资料只供人工审核，尚未完成现场工艺确认。",
+        "unresolved": [
+          "cutting_speed_unit",
+          "material_grade_equivalence",
+          "machining_review",
+          "coolant_and_workholding",
+          "hole_depth_and_tool_confirmation"
+        ],
+        "note": "原始候选标识用于关联；补充内容不代表已提交或批准，不可据此生成正式推荐。"
+      }
+    },
+    {
+      "candidate_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+      "source": "manufacturer_candidate",
+      "review_status": "unreviewed",
+      "eligible_for_recommendation": false,
+      "feature": "hole",
+      "process": "drill",
+      "tool": "Dormer Pramet R10A HSS",
+      "material": "dormer_amg_1_4",
+      "conditions": {
+        "hardness": "<24 HRC",
+        "diameter_mm": 7.9375
+      },
+      "parameters": {
+        "feed_per_revolution_mm": 0.13716,
+        "feed_min_mm_per_rev": 0.10287,
+        "feed_max_mm_per_rev": 0.17145
+      },
+      "unresolved": [
+        "cutting_speed_unit",
+        "material_grade_equivalence",
+        "machining_review",
+        "coolant_and_workholding",
+        "hole_depth_and_tool_confirmation"
+      ],
+      "original_record": {
+        "material_group": "dormer_amg_1_4",
+        "tool": "Dormer Pramet R10A HSS",
+        "hardness_condition": "<24 HRC",
+        "speed_code": "79F",
+        "speed_unit": "unconfirmed",
+        "feed": 0.0054,
+        "feed_unit": "inch/rev",
+        "feed_tolerance_percent": 25,
+        "diameter_inch": 0.3125,
+        "pdf_pages": [
+          4,
+          5
+        ],
+        "locator": "PDF p5 AMG 1.4, R10A column; PDF p4 feed F, 8mm/5-16in column"
+      },
+      "provenance": {
+        "url": "https://api.dormerpramet.com/medias/dormerpramet-ptd-nas-drills.pdf?attachment=true&context=bWFzdGVyfHJvb3R8NjY5NTk3MHxhcHBsaWNhdGlvbi9wZGZ8YUdaaEwyaG1ZeTg0T0RNeU56azFNVFE0TXpFNEwyUnZjbTFsY25CeVlXMWxkRjl3ZEdSZmJtRnpYMlJ5YVd4c2N5NXdaR1l8YzU0NzRiMTIzNTVjNjk3NTE3OWQ2ZjY4Mzc0YTc5ZTY2ZDEyZDk2YWRiNzdlNjBkM2YyMDQ1MzQwYzU2MmZkNQ",
+        "sha256": "c749bdee685f53038b94b5b116d004155623af651e1068f1e41041bb4b867fe7",
+        "pdf_pages": [
+          4,
+          5
+        ],
+        "locator": "PDF p5 AMG 1.4, R10A column; PDF p4 feed F, 8mm/5-16in column"
+      },
+      "source_facts": [
+        {
+          "key": "feed_chart_selection",
+          "value": "以最接近实际直径的表格档位选择进给；所选档位表头为 8 mm / 5/16 inch。两者为同一表格档位，不是精确尺寸等价关系。",
+          "pdf_pages": [
+            4
+          ],
+          "locator": "右上角选表步骤 2；进给表第 7 个直径档位"
+        },
+        {
+          "key": "feed_tolerance",
+          "value": "表中进给为 inch/rev，标注 ±25%；换算后的上下界是该表格范围，不能当成现场实测置信区间。",
+          "pdf_pages": [
+            4
+          ],
+          "locator": "进给表表头 IPR 与 ±25%"
+        },
+        {
+          "key": "tool_specification",
+          "value": "R10A 为 NAS 907 Type A、HSS、118° split point、jobber length；系列页标识深度 4×D。该标识不能代替具体孔深、排屑与装夹验算。",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "locator": "页5第一工具列；页6标题、图标和首段"
+        },
+        {
+          "key": "tool_size_reference",
+          "value": "R10A 5/16 inch（0.3125 inch，换算 7.9375 mm）对应目录号 010120；该目录号不证明现场已安装此刀具，也不证明能直接加工精确 8 mm 成品孔。",
+          "pdf_pages": [
+            7
+          ],
+          "locator": "5/16 行，R10A 列"
+        },
+        {
+          "key": "cutting_speed_unit",
+          "value": "页5数字字母组合分别为 89G / 79F / 36G；尚未找到明确的数字部分单位说明，不能将其直接解释为 m/min、ft/min 或 rpm。",
+          "pdf_pages": [
+            4,
+            5
+          ],
+          "locator": "页5 AMG 1.3、1.4、2.2 与 R10A 交叉单元；页4仅解释字母进给代码"
+        },
+        {
+          "key": "material_group_definition",
+          "value": "AMG 1.4：合金钢；示例包含 4140、4340、52100、8620 及工具钢系列，硬度 <24 HRC，ISO P3。需确认具体牌号与热处理状态。",
+          "pdf_pages": [
+            4
+          ],
+          "locator": "下半部材料组表 1.4 行"
+        }
+      ],
+      "candidate_context": {
+        "source_url": "https://api.dormerpramet.com/medias/dormerpramet-ptd-nas-drills.pdf?attachment=true&context=bWFzdGVyfHJvb3R8NjY5NTk3MHxhcHBsaWNhdGlvbi9wZGZ8YUdaaEwyaG1ZeTg0T0RNeU56azFNVFE0TXpFNEwyUnZjbTFsY25CeVlXMWxkRjl3ZEdSZmJtRnpYMlJ5YVd4c2N5NXdaR1l8YzU0NzRiMTIzNTVjNjk3NTE3OWQ2ZjY4Mzc0YTc5ZTY2ZDEyZDk2YWRiNzdlNjBkM2YyMDQ1MzQwYzU2MmZkNQ",
+        "document_sha256": "c749bdee685f53038b94b5b116d004155623af651e1068f1e41041bb4b867fe7",
+        "page": 4,
+        "parameter_units": {
+          "feed_per_revolution_mm": "mm/rev",
+          "feed_min_mm_per_rev": "mm/rev",
+          "feed_max_mm_per_rev": "mm/rev"
+        },
+        "applicability": "feed_chart_selection: 以最接近实际直径的表格档位选择进给；所选档位表头为 8 mm / 5/16 inch。两者为同一表格档位，不是精确尺寸等价关系。（PDF页 4；右上角选表步骤 2；进给表第 7 个直径档位）；feed_tolerance: 表中进给为 inch/rev，标注 ±25%；换算后的上下界是该表格范围，不能当成现场实测置信区间。（PDF页 4；进给表表头 IPR 与 ±25%）；tool_specification: R10A 为 NAS 907 Type A、HSS、118° split point、jobber length；系列页标识深度 4×D。该标识不能代替具体孔深、排屑与装夹验算。（PDF页 5,6；页5第一工具列；页6标题、图标和首段）；tool_size_reference: R10A 5/16 inch（0.3125 inch，换算 7.9375 mm）对应目录号 010120；该目录号不证明现场已安装此刀具，也不证明能直接加工精确 8 mm 成品孔。（PDF页 7；5/16 行，R10A 列）；cutting_speed_unit: 页5数字字母组合分别为 89G / 79F / 36G；尚未找到明确的数字部分单位说明，不能将其直接解释为 m/min、ft/min 或 rpm。（PDF页 4,5；页5 AMG 1.3、1.4、2.2 与 R10A 交叉单元；页4仅解释字母进给代码）；material_group_definition: AMG 1.4：合金钢；示例包含 4140、4340、52100、8620 及工具钢系列，硬度 <24 HRC，ISO P3。需确认具体牌号与热处理状态。（PDF页 4；下半部材料组表 1.4 行）",
+        "verification_method": "原文哈希核对及页码目视核对；补充资料只供人工审核，尚未完成现场工艺确认。",
+        "unresolved": [
+          "cutting_speed_unit",
+          "material_grade_equivalence",
+          "machining_review",
+          "coolant_and_workholding",
+          "hole_depth_and_tool_confirmation"
+        ],
+        "note": "原始候选标识用于关联；补充内容不代表已提交或批准，不可据此生成正式推荐。"
+      }
+    },
+    {
+      "candidate_id": "ef253f7d0f986072b6f206c18f7b4af1b82af79d64e48d0a2774750e4b9c4913",
+      "source": "manufacturer_candidate",
+      "review_status": "unreviewed",
+      "eligible_for_recommendation": false,
+      "feature": "hole",
+      "process": "drill",
+      "tool": "Dormer Pramet R10A HSS",
+      "material": "dormer_amg_2_2",
+      "conditions": {
+        "hardness": "<24 HRC",
+        "diameter_mm": 7.9375
+      },
+      "parameters": {
+        "feed_per_revolution_mm": 0.16002,
+        "feed_min_mm_per_rev": 0.120015,
+        "feed_max_mm_per_rev": 0.200025
+      },
+      "unresolved": [
+        "cutting_speed_unit",
+        "material_grade_equivalence",
+        "machining_review",
+        "coolant_and_workholding",
+        "hole_depth_and_tool_confirmation"
+      ],
+      "original_record": {
+        "material_group": "dormer_amg_2_2",
+        "tool": "Dormer Pramet R10A HSS",
+        "hardness_condition": "<24 HRC",
+        "speed_code": "36G",
+        "speed_unit": "unconfirmed",
+        "feed": 0.0063,
+        "feed_unit": "inch/rev",
+        "feed_tolerance_percent": 25,
+        "diameter_inch": 0.3125,
+        "pdf_pages": [
+          4,
+          5
+        ],
+        "locator": "PDF p5 AMG 2.2, R10A column; PDF p4 feed G, 8mm/5-16in column"
+      },
+      "provenance": {
+        "url": "https://api.dormerpramet.com/medias/dormerpramet-ptd-nas-drills.pdf?attachment=true&context=bWFzdGVyfHJvb3R8NjY5NTk3MHxhcHBsaWNhdGlvbi9wZGZ8YUdaaEwyaG1ZeTg0T0RNeU56azFNVFE0TXpFNEwyUnZjbTFsY25CeVlXMWxkRjl3ZEdSZmJtRnpYMlJ5YVd4c2N5NXdaR1l8YzU0NzRiMTIzNTVjNjk3NTE3OWQ2ZjY4Mzc0YTc5ZTY2ZDEyZDk2YWRiNzdlNjBkM2YyMDQ1MzQwYzU2MmZkNQ",
+        "sha256": "c749bdee685f53038b94b5b116d004155623af651e1068f1e41041bb4b867fe7",
+        "pdf_pages": [
+          4,
+          5
+        ],
+        "locator": "PDF p5 AMG 2.2, R10A column; PDF p4 feed G, 8mm/5-16in column"
+      },
+      "source_facts": [
+        {
+          "key": "feed_chart_selection",
+          "value": "以最接近实际直径的表格档位选择进给；所选档位表头为 8 mm / 5/16 inch。两者为同一表格档位，不是精确尺寸等价关系。",
+          "pdf_pages": [
+            4
+          ],
+          "locator": "右上角选表步骤 2；进给表第 7 个直径档位"
+        },
+        {
+          "key": "feed_tolerance",
+          "value": "表中进给为 inch/rev，标注 ±25%；换算后的上下界是该表格范围，不能当成现场实测置信区间。",
+          "pdf_pages": [
+            4
+          ],
+          "locator": "进给表表头 IPR 与 ±25%"
+        },
+        {
+          "key": "tool_specification",
+          "value": "R10A 为 NAS 907 Type A、HSS、118° split point、jobber length；系列页标识深度 4×D。该标识不能代替具体孔深、排屑与装夹验算。",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "locator": "页5第一工具列；页6标题、图标和首段"
+        },
+        {
+          "key": "tool_size_reference",
+          "value": "R10A 5/16 inch（0.3125 inch，换算 7.9375 mm）对应目录号 010120；该目录号不证明现场已安装此刀具，也不证明能直接加工精确 8 mm 成品孔。",
+          "pdf_pages": [
+            7
+          ],
+          "locator": "5/16 行，R10A 列"
+        },
+        {
+          "key": "cutting_speed_unit",
+          "value": "页5数字字母组合分别为 89G / 79F / 36G；尚未找到明确的数字部分单位说明，不能将其直接解释为 m/min、ft/min 或 rpm。",
+          "pdf_pages": [
+            4,
+            5
+          ],
+          "locator": "页5 AMG 1.3、1.4、2.2 与 R10A 交叉单元；页4仅解释字母进给代码"
+        },
+        {
+          "key": "material_group_definition",
+          "value": "AMG 2.2：奥氏体不锈钢；示例包含 301、302、304、316、321、330 等，硬度 <24 HRC，ISO M3。表中包含 304 不等于任意现场 304 状态均已验收。",
+          "pdf_pages": [
+            4
+          ],
+          "locator": "下半部材料组表 2.2 行"
+        }
+      ],
+      "candidate_context": {
+        "source_url": "https://api.dormerpramet.com/medias/dormerpramet-ptd-nas-drills.pdf?attachment=true&context=bWFzdGVyfHJvb3R8NjY5NTk3MHxhcHBsaWNhdGlvbi9wZGZ8YUdaaEwyaG1ZeTg0T0RNeU56azFNVFE0TXpFNEwyUnZjbTFsY25CeVlXMWxkRjl3ZEdSZmJtRnpYMlJ5YVd4c2N5NXdaR1l8YzU0NzRiMTIzNTVjNjk3NTE3OWQ2ZjY4Mzc0YTc5ZTY2ZDEyZDk2YWRiNzdlNjBkM2YyMDQ1MzQwYzU2MmZkNQ",
+        "document_sha256": "c749bdee685f53038b94b5b116d004155623af651e1068f1e41041bb4b867fe7",
+        "page": 4,
+        "parameter_units": {
+          "feed_per_revolution_mm": "mm/rev",
+          "feed_min_mm_per_rev": "mm/rev",
+          "feed_max_mm_per_rev": "mm/rev"
+        },
+        "applicability": "feed_chart_selection: 以最接近实际直径的表格档位选择进给；所选档位表头为 8 mm / 5/16 inch。两者为同一表格档位，不是精确尺寸等价关系。（PDF页 4；右上角选表步骤 2；进给表第 7 个直径档位）；feed_tolerance: 表中进给为 inch/rev，标注 ±25%；换算后的上下界是该表格范围，不能当成现场实测置信区间。（PDF页 4；进给表表头 IPR 与 ±25%）；tool_specification: R10A 为 NAS 907 Type A、HSS、118° split point、jobber length；系列页标识深度 4×D。该标识不能代替具体孔深、排屑与装夹验算。（PDF页 5,6；页5第一工具列；页6标题、图标和首段）；tool_size_reference: R10A 5/16 inch（0.3125 inch，换算 7.9375 mm）对应目录号 010120；该目录号不证明现场已安装此刀具，也不证明能直接加工精确 8 mm 成品孔。（PDF页 7；5/16 行，R10A 列）；cutting_speed_unit: 页5数字字母组合分别为 89G / 79F / 36G；尚未找到明确的数字部分单位说明，不能将其直接解释为 m/min、ft/min 或 rpm。（PDF页 4,5；页5 AMG 1.3、1.4、2.2 与 R10A 交叉单元；页4仅解释字母进给代码）；material_group_definition: AMG 2.2：奥氏体不锈钢；示例包含 301、302、304、316、321、330 等，硬度 <24 HRC，ISO M3。表中包含 304 不等于任意现场 304 状态均已验收。（PDF页 4；下半部材料组表 2.2 行）",
+        "verification_method": "原文哈希核对及页码目视核对；补充资料只供人工审核，尚未完成现场工艺确认。",
+        "unresolved": [
+          "cutting_speed_unit",
+          "material_grade_equivalence",
+          "machining_review",
+          "coolant_and_workholding",
+          "hole_depth_and_tool_confirmation"
+        ],
+        "note": "原始候选标识用于关联；补充内容不代表已提交或批准，不可据此生成正式推荐。"
+      }
+    }
+  ]
+}

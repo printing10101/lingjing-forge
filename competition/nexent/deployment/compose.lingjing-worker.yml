@@ -1,0 +1,10 @@
+# Conservative local pilot budget; keep Ray's memory guard enabled.
+services:
+  nexent-data-process:
+    environment:
+      DP_PART_PROCESSOR_COUNT: "1"
+      RAY_ACTOR_NUM_CPUS: "1"
+      WORKER_CONCURRENCY: "1"
+      RAY_OBJECT_STORE_MEMORY_GB: "0.10"
+      DISABLE_RAY_DASHBOARD: "true"
+      DISABLE_CELERY_FLOWER: "true"

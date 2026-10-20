@@ -1,0 +1,22 @@
+{
+  "document_sha256": "c749bdee685f53038b94b5b116d004155623af651e1068f1e41041bb4b867fe7",
+  "shared_facts": [
+    {"key":"feed_chart_selection","value":"以最接近实际直径的表格档位选择进给；所选档位表头为 8 mm / 5/16 inch。两者为同一表格档位，不是精确尺寸等价关系。","pdf_pages":[4],"locator":"右上角选表步骤 2；进给表第 7 个直径档位"},
+    {"key":"feed_tolerance","value":"表中进给为 inch/rev，标注 ±25%；换算后的上下界是该表格范围，不能当成现场实测置信区间。","pdf_pages":[4],"locator":"进给表表头 IPR 与 ±25%"},
+    {"key":"tool_specification","value":"R10A 为 NAS 907 Type A、HSS、118° split point、jobber length；系列页标识深度 4×D。该标识不能代替具体孔深、排屑与装夹验算。","pdf_pages":[5,6],"locator":"页5第一工具列；页6标题、图标和首段"},
+    {"key":"tool_size_reference","value":"R10A 5/16 inch（0.3125 inch，换算 7.9375 mm）对应目录号 010120；该目录号不证明现场已安装此刀具，也不证明能直接加工精确 8 mm 成品孔。","pdf_pages":[7],"locator":"5/16 行，R10A 列"},
+    {"key":"cutting_speed_unit","value":"页5数字字母组合分别为 89G / 79F / 36G；尚未找到明确的数字部分单位说明，不能将其直接解释为 m/min、ft/min 或 rpm。","pdf_pages":[4,5],"locator":"页5 AMG 1.3、1.4、2.2 与 R10A 交叉单元；页4仅解释字母进给代码"}
+  ],
+  "materials": {
+    "dormer_amg_1_3": [
+      {"key":"material_group_definition","value":"AMG 1.3：普通碳钢；示例为 1030–1060、1050–1060、1144–1146，硬度 <24 HRC，ISO P2。示例牌号属于手册分组，不能自动换成国标 45 钢。","pdf_pages":[4],"locator":"下半部材料组表 1.3 行"}
+    ],
+    "dormer_amg_1_4": [
+      {"key":"material_group_definition","value":"AMG 1.4：合金钢；示例包含 4140、4340、52100、8620 及工具钢系列，硬度 <24 HRC，ISO P3。需确认具体牌号与热处理状态。","pdf_pages":[4],"locator":"下半部材料组表 1.4 行"}
+    ],
+    "dormer_amg_2_2": [
+      {"key":"material_group_definition","value":"AMG 2.2：奥氏体不锈钢；示例包含 301、302、304、316、321、330 等，硬度 <24 HRC，ISO M3。表中包含 304 不等于任意现场 304 状态均已验收。","pdf_pages":[4],"locator":"下半部材料组表 2.2 行"}
+    ]
+  },
+  "open_questions": ["coolant_and_workholding", "hole_depth_and_tool_confirmation"]
+}

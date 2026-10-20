@@ -1,0 +1,60 @@
+{
+  "publisher": "Dormer Pramet",
+  "url": "https://api.dormerpramet.com/medias/dormerpramet-ptd-nas-drills.pdf?attachment=true&context=bWFzdGVyfHJvb3R8NjY5NTk3MHxhcHBsaWNhdGlvbi9wZGZ8YUdaaEwyaG1ZeTg0T0RNeU56azFNVFE0TXpFNEwyUnZjbTFsY25CeVlXMWxkRjl3ZEdSZmJtRnpYMlJ5YVd4c2N5NXdaR1l8YzU0NzRiMTIzNTVjNjk3NTE3OWQ2ZjY4Mzc0YTc5ZTY2ZDEyZDk2YWRiNzdlNjBkM2YyMDQ1MzQwYzU2MmZkNQ",
+  "sha256": "c749bdee685f53038b94b5b116d004155623af651e1068f1e41041bb4b867fe7",
+  "bytes": 6695970,
+  "retrieved_date": "2026-10-16",
+  "page_count": 40,
+  "extraction": "selected facts; PDF pages visually checked",
+  "redistribution": "Link to original PDF; full document retained outside repository; no open-license claim",
+  "records": [
+    {
+      "material_group": "dormer_amg_1_3",
+      "tool": "Dormer Pramet R10A HSS",
+      "hardness_condition": "<24 HRC",
+      "speed_code": "89G",
+      "speed_unit": "unconfirmed",
+      "feed": 0.0063,
+      "feed_unit": "inch/rev",
+      "feed_tolerance_percent": 25,
+      "diameter_inch": 0.3125,
+      "pdf_pages": [
+        4,
+        5
+      ],
+      "locator": "PDF p5 AMG 1.3, R10A column; PDF p4 feed G, 8mm/5-16in column"
+    },
+    {
+      "material_group": "dormer_amg_1_4",
+      "tool": "Dormer Pramet R10A HSS",
+      "hardness_condition": "<24 HRC",
+      "speed_code": "79F",
+      "speed_unit": "unconfirmed",
+      "feed": 0.0054,
+      "feed_unit": "inch/rev",
+      "feed_tolerance_percent": 25,
+      "diameter_inch": 0.3125,
+      "pdf_pages": [
+        4,
+        5
+      ],
+      "locator": "PDF p5 AMG 1.4, R10A column; PDF p4 feed F, 8mm/5-16in column"
+    },
+    {
+      "material_group": "dormer_amg_2_2",
+      "tool": "Dormer Pramet R10A HSS",
+      "hardness_condition": "<24 HRC",
+      "speed_code": "36G",
+      "speed_unit": "unconfirmed",
+      "feed": 0.0063,
+      "feed_unit": "inch/rev",
+      "feed_tolerance_percent": 25,
+      "diameter_inch": 0.3125,
+      "pdf_pages": [
+        4,
+        5
+      ],
+      "locator": "PDF p5 AMG 2.2, R10A column; PDF p4 feed G, 8mm/5-16in column"
+    }
+  ]
+}
