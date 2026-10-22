@@ -57,6 +57,23 @@ def _guard_default_training_data():
     )
 
 
+@pytest.fixture(scope="module", autouse=True)
+def _ensure_knowledge_graph_schema():
+    """确保知识图谱 schema 存在（CI 干净 checkout 下默认库没有表）。
+
+    2026-10-22 CI run 39801762269 实测：``FeedbackUpdater()`` → ``GraphStore(auto_load=True)``
+    直接 ``SELECT ... FROM kg_nodes``，干净环境报 ``no such table: kg_nodes``，
+    导致本模块 setup 阶段整片 ERROR。本地能通过只是因为工作区里已有建过表的
+    开发库——属于测试环境依赖，不是代码回归。这里显式建表（幂等）。
+    """
+    from app.knowledge_graph.repository import KnowledgeGraphRepository
+
+    try:
+        KnowledgeGraphRepository().init_schema()
+    except RuntimeError as exc:  # 数据库未配置（DB_URL 缺失）
+        pytest.skip(f"知识图谱数据库未配置：{exc}")
+
+
 class TestFlywheelE2E:
     """飞轮端到端测试套件"""
 
