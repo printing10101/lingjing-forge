@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-10-20T14:33:04+0800",
+  "step": {
+    "path": "D:\\灵境制造\\research\\prototypes\\pointcloud_registration\\data\\F06-d1\\truth.step",
+    "sha256": "c58e0231abaeb2ac3905180d19a6ab30541fed54d47cb3dd31f3c5ee12047326"
+  },
+  "mesh": {
+    "vertices": 84,
+    "faces": 164,
+    "volume_mm3": 25704.90977422531
+  },
+  "config": {
+    "points": 20000,
+    "seed": 42,
+    "angles_deg": [
+      5.0,
+      30.0,
+      60.0,
+      90.0
+    ],
+    "tilt_deg": [
+      4.0,
+      2.0
+    ],
+    "translation_mm": [
+      12.0,
+      -6.0,
+      4.0
+    ],
+    "noise_mm": 0.03,
+    "dropout": 0.1,
+    "max_iter": 80,
+    "tolerance": 1e-07,
+    "success_rot_deg": 1.0,
+    "success_trans_mm": 0.5,
+    "sampling": "target and source are independent surface samples"
+  },
+  "cases": [
+    {
+      "init_angle_deg": 5.0,
+      "success": true,
+      "rotation_error_deg": 0.041302847634682116,
+      "translation_error_mm": 0.029407833457798013,
+      "rmse_mm": 0.37349165132268086,
+      "max_nn_mm": 1.1464551738919948,
+      "iterations": 80,
+      "runtime_s": 1.4182585000089603,
+      "source_points": 18091,
+      "det_rotation": 1.0000000000000127
+    },
+    {
+      "init_angle_deg": 30.0,
+      "success": true,
+      "rotation_error_deg": 0.03432183952246204,
+      "translation_error_mm": 0.012891207996151854,
+      "rmse_mm": 0.3737707059752128,
+      "max_nn_mm": 1.1264854970100155,
+      "iterations": 80,
+      "runtime_s": 1.4285389000142459,
+      "source_points": 18022,
+      "det_rotation": 0.9999999999999976
+    },
+    {
+      "init_angle_deg": 60.0,
+      "success": true,
+      "rotation_error_deg": 0.02166578194505169,
+      "translation_error_mm": 0.024987289212938985,
+      "rmse_mm": 0.37300879653459473,
+      "max_nn_mm": 1.1471131117493478,
+      "iterations": 80,
+      "runtime_s": 1.4618922999943607,
+      "source_points": 17925,
+      "det_rotation": 1.0000000000000016
+    },
+    {
+      "init_angle_deg": 90.0,
+      "success": false,
+      "rotation_error_deg": 2.437006813716235,
+      "translation_error_mm": 0.36776698595084356,
+      "rmse_mm": 0.5134503646580376,
+      "max_nn_mm": 1.7482712500486142,
+      "iterations": 80,
+      "runtime_s": 1.9715369000041392,
+      "source_points": 18009,
+      "det_rotation": 0.9999999999999996
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "success": 3,
+    "failed": 1
+  }
+}
