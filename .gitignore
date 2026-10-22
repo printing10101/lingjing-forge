@@ -625,4 +625,4 @@ research/prototypes/**/coverage.json
 # 世界模型数据集与权重：按 WORLD_MODEL_STATUS 台账不受版本控制，跨机复现另行归档
 /data/world_model/
 # 本地 torch 安装轮子（GB 级，勿入公开仓）
-/data/torch-*.whl
+/data/torch*.whl
