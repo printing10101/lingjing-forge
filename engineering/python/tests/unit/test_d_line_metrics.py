@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -19,6 +20,24 @@ _spec = importlib.util.spec_from_file_location("d_line_metrics", _SCRIPT_PATH)
 assert _spec is not None and _spec.loader is not None
 mod = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(mod)
+
+
+def _historical_ref_available(ref: str) -> bool:
+    """历史锚点是否可达。
+
+    CI 默认是 depth=1 浅克隆，``git show ed31f09:...`` 会以退出码 128 失败
+    （2026-10-22 run 39783411501 实测：unit 与 full suite 各挂一次）。
+    这里显式探测，缺对象时跳过而不是把环境限制误报成回归。
+    """
+    try:
+        subprocess.run(
+            ["git", "-C", str(mod.REPO_ROOT), "cat-file", "-e", f"{ref}^{{commit}}"],
+            check=True,
+            capture_output=True,
+        )
+        return True
+    except (OSError, subprocess.CalledProcessError):
+        return False
 
 
 def _records(sources: list[str | None]) -> list[dict]:
@@ -79,6 +98,10 @@ class TestVerifySnapshot:
 
 class TestV1GitAnchor:
     @pytest.mark.skipif(not Path(mod.REPO_ROOT, ".git").exists(), reason="非 git 仓库")
+    @pytest.mark.skipif(
+        not _historical_ref_available(mod.V1_GIT_REF),
+        reason="历史锚点不可达（浅克隆或缺少对象，CI 需 fetch-depth: 0）",
+    )
     def test_v1_git_ref_reads_12_seed_entries(self) -> None:
         """v1 历史锚点（ed31f09）应读到 12 条、无 source 字段的 seed 数据。"""
         m = mod._cutting_param_metrics(git_ref=mod.V1_GIT_REF)
