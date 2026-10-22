@@ -8,6 +8,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "..
 
 import pytest
 from app.simulation.chatter.stability import (
+    DEFAULT_TOOL_PARAMS,
     MachineParams,
     ToolParams,
     ChatterParams,
@@ -242,6 +243,24 @@ class TestComputeStabilityLimit:
 
 class TestComputeStabilityLobe:
     """稳定性叶图计算测试。"""
+
+    def test_lobe_minimum_matches_absolute_envelope(self):
+        """叶瓣最低点必须等于绝对包络（2026-10-22 修正的回归断言）。
+
+        修正前该函数只取 Re[G] > 0、用 natural_freq 当共振、且漏齿数，
+        实测 vmc_850/d10 叶瓣最低点 30.59 mm vs 包络 10.50 mm（3 倍高估）——
+        对「AI 产出必经物理校验」是安全相关的错误乐观。
+        """
+        for machine_id in ("vmc_850", "small_vmc_640"):
+            machine = get_machine_params(machine_id)
+            tool = ToolParams(tool_id="endmill_d10", **DEFAULT_TOOL_PARAMS["endmill_d10"])
+            envelope = compute_stability_limit(ChatterParams(spindle_rpm=8000, machine=machine, tool=tool))
+            lobe = compute_stability_lobe(machine, tool, speed_range=(1000, 10000), num_points=400, num_lobes=6)
+            assert lobe["limit_depths"], f"{machine_id} 无叶瓣点"
+            minimum = min(lobe["limit_depths"])
+            assert minimum == pytest.approx(envelope, rel=0.05), (
+                f"{machine_id}: 叶瓣最低 {minimum:.2f} vs 包络 {envelope:.2f}"
+            )
 
     def test_basic_lobe(self):
         """测试基本叶图计算。"""

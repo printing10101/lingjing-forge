@@ -138,7 +138,7 @@ $py = "<用户主目录>\miniconda3\envs\lingjing-wm\python.exe"
 
 ## 7. 遗留与未做
 
-1. **权重不入 git**：`.gitignore` 忽略 `*.pt`，两个检查点目前只在本机。要让干净环境/安装包拿到神经路径，需定打包或 LFS 方案（决策项，不是技术障碍）。
+1. ~~权重不入 git~~ → **已补做（同日）**：两文件以普通 git 二进制入库随安装包分发（不走 LFS——`build_desktop_runtime` 只做文件拷贝、不做 LFS 检出），`.gitignore` 白名单 + `.gitattributes` 例外；回归测试断言 `copy_tree` 保留 checkpoints 且仓库实际存在权重。
 2. **实测验证未做**：两个代理都没有与实测力/实测稳定性边界对标；§2.4 已写明边界。
-3. **叶瓣口径**：`compute_stability_lobe` 仍只取 `Re[G] > 0` 的点（10-21 只修了 `compute_stability_limit`），与包络函数口径不一致，需立项统一后再重训。
+3. ~~叶瓣口径不一致~~ → **已补做（同日）**：`compute_stability_lobe` 修正三处——只取 `Re[G] > 0`、频率窗口用 `natural_freq` 而非实际模态共振 `sqrt(k_z/m)/2π`、转速关系漏齿数。实测 **叶瓣最低点 30.59 mm → 10.50 mm，与绝对包络比值 1.00**（修正前 2.9 倍安全高估）；回归断言 `test_lobe_minimum_matches_absolute_envelope` 固化（rel ≤ 5%）。**注意：叶瓣图数值整体下移，这是安全修正，消费方（前端叶瓣图）需同步复核展示。** 该修正不要求重训 LTC——训练标签是包络，与叶瓣口径无关。
 4. **训练脚本未接入 MLflow**：世界模型线有完整 track，这两个训练只落检查点与 JSON 指标。
