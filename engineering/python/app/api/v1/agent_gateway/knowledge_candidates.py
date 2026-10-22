@@ -1,12 +1,13 @@
 """Agent candidate submission and status; approval remains a human-only route."""
 
-from typing import Annotated
+from typing import Annotated, Any
 import json
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, ConfigDict, Field, FiniteFloat, StringConstraints, model_validator
 
 from app.core.response import success
+from app.core.response_models import ErrorResponse, SuccessResponse
 from app.rag.process_quadruple import ReviewConflict, get_process_quadruple_index
 from app.rag.process_review import is_approved
 
@@ -59,7 +60,17 @@ def reader(request: Request) -> str:
     return agent_identity(request)
 
 
-@router.post("")
+@router.post(
+    "",
+    response_model=SuccessResponse[dict[str, Any]],
+    responses={
+        400: {"model": ErrorResponse},
+        403: {"model": ErrorResponse},
+        409: {"model": ErrorResponse},
+        413: {"model": ErrorResponse},
+        503: {"model": ErrorResponse},
+    },
+)
 def submit_candidate(request: CandidateSubmission, agent: str = Depends(writer)):
     if len(request.model_dump_json().encode()) > 64 * 1024:
         raise HTTPException(413, "候选请求超过 64KB")
@@ -83,7 +94,14 @@ def submit_candidate(request: CandidateSubmission, agent: str = Depends(writer))
         raise HTTPException(503, "候选未保存，请检查数据目录后重试") from exc
 
 
-@router.get("/{record_id}")
+@router.get(
+    "/{record_id}",
+    response_model=SuccessResponse[dict[str, Any]],
+    responses={
+        403: {"model": ErrorResponse},
+        404: {"model": ErrorResponse},
+    },
+)
 def candidate_status(record_id: str, agent: str = Depends(reader)):
     try:
         record = get_process_quadruple_index().get_candidate_for_agent(record_id, agent)
