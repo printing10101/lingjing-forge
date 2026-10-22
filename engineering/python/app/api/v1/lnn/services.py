@@ -9,74 +9,11 @@ from collections.abc import Callable
 from datetime import timezone
 
 
-# 阶段2 解耦改造：torch 训练栈已迁移到 research/。工程侧仅消费 ONNX 模型，
-# 不再依赖 torch。此处保留 try/except 兼容旧路径，torch 缺失时降级为 None，
-# 训练相关 API 将返回 503 服务不可用。
-try:
-    import torch
-    from torch.utils.data import DataLoader, TensorDataset
-
-    _HAS_TORCH = True
-except ImportError:
-    torch = None
-    DataLoader = None
-    TensorDataset = None
-    _HAS_TORCH = False
-
 from app.core.safe_errors import safe_error_message
 from app.ai.lnn.inference.predictor import LNNPredictor
 from app.ai.lnn.inference.registry import (
     get_quantized_model_name,
 )
-
-# P0#3 解耦: 通过 research_bridge 延迟导入，替代直接 import research/。
-# 桥接模块在 torch 缺失时返回 None，训练 API 将降级返回 503。
-_HAS_TRAINING_STACK = False
-LNNConfig = None
-LNNTrainer = None
-mlflow_start_run = None
-mlflow_log_params = None
-mlflow_log_metrics = None
-mlflow_log_model = None
-detect_device = None
-get_optimal_batch_size = None
-get_optimal_num_workers = None
-
-
-def _lazy_init_training_stack() -> bool:
-    """延迟初始化训练栈（首次调用时执行，避免模块加载期 ImportError）。"""
-    global _HAS_TRAINING_STACK, LNNConfig, LNNTrainer
-    global mlflow_start_run, mlflow_log_params, mlflow_log_metrics, mlflow_log_model
-    global detect_device, get_optimal_batch_size, get_optimal_num_workers
-    if _HAS_TRAINING_STACK:
-        return True
-    try:
-        from app.ai.lnn._research_bridge import (
-            get_lnn_config_factory,
-            get_trainer_factory,
-            get_mlflow_start_run,
-            get_mlflow_log_params,
-            get_mlflow_log_metrics,
-            get_mlflow_log_model,
-            get_device_detect,
-            get_device_optimal_batch_size,
-            get_device_optimal_num_workers,
-        )
-
-        LNNConfig = get_lnn_config_factory()
-        LNNTrainer = get_trainer_factory()
-        mlflow_start_run = get_mlflow_start_run()
-        mlflow_log_params = get_mlflow_log_params()
-        mlflow_log_metrics = get_mlflow_log_metrics()
-        mlflow_log_model = get_mlflow_log_model()
-        detect_device = get_device_detect()
-        get_optimal_batch_size = get_device_optimal_batch_size()
-        get_optimal_num_workers = get_device_optimal_num_workers()
-        _HAS_TRAINING_STACK = all(x is not None for x in (LNNConfig, LNNTrainer, detect_device))
-    except Exception:
-        _HAS_TRAINING_STACK = False
-    return _HAS_TRAINING_STACK
-
 
 from app.tasks.task_manager import TaskStatus
 from app.models.schemas import (
@@ -250,12 +187,18 @@ async def run_training_task_v2(
     try:
         # P0-3-a 重构：将数据加载、数据集构建、训练器构造、训练循环逻辑
         # 拆分到 ``_training_executor`` 模块,本函数仅保留编排与计数器管理。
+        from app.api.v1.lnn import _training_executor
         from app.api.v1.lnn._training_executor import (
             _load_training_data,
             _prepare_datasets,
             _build_trainer,
             _execute_training_loop,
         )
+
+        if not _training_executor._lazy_init_training_stack():
+            raise RuntimeError(
+                "[训练不可用] 训练依赖未就绪。建议操作：在科研环境安装训练依赖后重试。"
+            )
 
         await progress_updater(5.0, "Loading data...")
         X, y, input_dim = await _load_training_data(data_path)
@@ -265,7 +208,7 @@ async def run_training_task_v2(
             X, y, hyperparameters, device_preference
         )
 
-        use_amp = device.type == "cuda" and torch.cuda.is_available()
+        use_amp = device.type == "cuda" and _training_executor.torch.cuda.is_available()
         epochs = hyperparameters.get("epochs", 100)
 
         await progress_updater(15.0, f"Starting training on {device.type}...")

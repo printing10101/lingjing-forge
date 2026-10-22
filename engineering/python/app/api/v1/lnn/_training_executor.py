@@ -15,7 +15,7 @@ import numpy as np
 
 # 阶段2 解耦改造：torch 训练栈已迁移到 research/。工程侧仅消费 ONNX 模型，
 # 不再依赖 torch。此处保留 try/except 兼容旧路径，torch 缺失时降级为 None，
-# 训练相关 API 将返回 503 服务不可用。
+# 训练任务在执行前检查依赖，不可用时记录明确的失败原因。
 try:
     import torch
     from torch.utils.data import DataLoader, TensorDataset
@@ -30,7 +30,7 @@ except ImportError:
 from app.ai.lnn.inference.registry import get_torch_model_class
 
 # P0#3 解耦: 通过 research_bridge 延迟导入，替代直接 import research/。
-# 桥接模块在 torch 缺失时返回 None，训练 API 将降级返回 503。
+# 桥接模块在 torch 缺失时返回 None，训练任务将以明确错误结束。
 _HAS_TRAINING_STACK = False
 LNNConfig: Any = None
 LNNTrainer: Any = None
@@ -72,8 +72,15 @@ def _lazy_init_training_stack() -> bool:
         detect_device = get_device_detect()
         get_optimal_batch_size = get_device_optimal_batch_size()
         get_optimal_num_workers = get_device_optimal_num_workers()
-        _HAS_TRAINING_STACK = all(x is not None for x in (LNNConfig, LNNTrainer, detect_device))
+        _HAS_TRAINING_STACK = _HAS_TORCH and all(
+            callable(item) for item in (
+                LNNConfig, LNNTrainer, detect_device,
+                mlflow_start_run, mlflow_log_params, mlflow_log_metrics, mlflow_log_model,
+                get_optimal_batch_size, get_optimal_num_workers,
+            )
+        )
     except Exception:
+        logger.warning("训练依赖初始化失败", exc_info=True)
         _HAS_TRAINING_STACK = False
     return _HAS_TRAINING_STACK
 
@@ -84,45 +91,22 @@ logger = logging.getLogger(__name__)
 async def _load_training_data(data_path: str):
     """加载训练数据 CSV,返回特征矩阵 X、标签 y 与输入维度。
 
-    使用 ``asyncio.to_thread`` 将同步阻塞的 ``np.loadtxt`` 移至工作线程,
-    避免大数据集加载期间冻结事件循环。文件不存在时抛出 FileNotFoundError。
+    CSV 第一行是表头，最后一列是标签。保留列位置，拒绝缺失、非数值或
+    非有限值，避免清洗时错位或复制标签造成数据泄漏。文件读取在线程中执行。
     """
 
-    def _load_csv_sync() -> np.ndarray:
-        try:
-            return np.loadtxt(data_path, delimiter=",", skiprows=1, dtype=float)
-        except (ValueError, UnicodeDecodeError):
-            # Fallback：手动解析非标准 CSV（含非数值单元格）
-            with open(data_path, "r", encoding="utf-8") as f:
-                lines = f.readlines()
-            numeric_lines = []
-            for line in lines[1:]:
-                parts = line.strip().split(",")
-                numeric_line = []
-                for p in parts:
-                    try:
-                        numeric_line.append(float(p))
-                    except ValueError as e:
-                        logger.debug(
-                            f"Skipping non-numeric value in row: {e}",
-                            exc_info=True,
-                        )
-                if numeric_line:
-                    numeric_lines.append(numeric_line)
-            return np.array(numeric_lines)
-
-    # np.loadtxt 是同步阻塞 I/O，在大数据集上会长时间冻结事件循环。
-    # 通过 asyncio.to_thread 将其移至工作线程，期间事件循环可继续处理
-    # SSE 心跳、取消信号等其他协程。
-    try:
-        data = await asyncio.to_thread(_load_csv_sync)
-    except FileNotFoundError:
-        raise FileNotFoundError(f"Data file not found: {data_path}")
-
-    if data.ndim == 1:
-        data = data.reshape(-1, 1)
-    if data.shape[1] == 1:
-        data = np.column_stack([data, data])
+    data = await asyncio.to_thread(
+        np.loadtxt, data_path, delimiter=",", skiprows=1, dtype=float, ndmin=2
+    )
+    if data.shape[0] < 2 or data.shape[1] < 2:
+        raise ValueError(
+            "[训练数据无效] CSV 至少需要两行样本、一个特征列和一个标签列。"
+            "建议操作：提供带表头的数值 CSV，最后一列作为标签。"
+        )
+    if not np.isfinite(data).all():
+        raise ValueError(
+            "[训练数据无效] 数据包含 NaN 或无穷值。建议操作：清洗数据后重试。"
+        )
 
     X = data[:, :-1]
     y = data[:, -1]
@@ -333,11 +317,7 @@ async def _execute_training_loop(
                     r2_score = None
                     logger.warning("R² 不可计算：验证集目标方差为零（ss_tot≈0），请检查数据是否为常数标签。")
         except (RuntimeError, ValueError, TypeError, KeyError, OSError, AttributeError) as r2_err:
-            # Q1 修复：原 `except Exception` 过宽，会吞掉 asyncio.CancelledError /
-            # KeyboardInterrupt。收窄为可预期的数值/张量/设备异常。
-            # RuntimeError 覆盖 PyTorch/CUDA 错误；ValueError/TypeError 覆盖
-            # numpy 数组转换与形状问题；OSError 覆盖 CUDA 设备 IO 错误。
-            # R² 计算失败不应阻断训练流程，但必须记录以便排查
+            # 数值、张量或设备错误允许指标降级，但保留日志供排查。
             logger.warning(
                 f"R² 计算失败，本次训练将返回 r2_score=None：{r2_err}",
                 exc_info=True,
