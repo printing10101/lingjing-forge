@@ -49,6 +49,7 @@ from typing import TYPE_CHECKING, Any
 import numpy as np
 
 from app.cam_validation.cam_store import VoxelValidationError
+from app.simulation.fixed_cycle_expander import expand_fixed_cycles
 from app.simulation.rust_engine import VoxelCutter, is_rust_available
 from app.simulation.toolpath_parser import ToolpathParser
 from app.simulation.voxel_cutter import ToolModel
@@ -161,6 +162,7 @@ class VoxelValidator:
         tool_diameter_mm: float | None = None,
         tool_type: str = "",
         tool_source: str = "",
+        breakthrough_tolerance_mm: float | None = None,
     ) -> VoxelValidationReport:
         """执行体素材料去除仿真校验。
 
@@ -212,10 +214,38 @@ class VoxelValidator:
                 f"（与 InternalValidator 同一约束），无法确定安全高度余量。"
             )
 
-        # 1. 解析 G 代码
+        # 1. 固定循环展开（P1 修复，2026-10-21）
+        # ToolpathParser 对 G73/G81–G89 只生成「定位到 (X, Y, R 平面)」的 rapid 段，
+        # 循环内部的钻深轨迹完全不生成。于是一份 Z=-15 钻穿垫板的程序在体素闸里
+        # 报 collision_count=0（实测 case2/case6）——钻孔段对强制校验**完全不可见**。
+        # 体素闸的职责是完整校验，故在解析前展开为显式 G00/G01 序列；
+        # 不支持的循环（攻丝/镗孔）与增量模式保留原样，并把覆盖度缺口如实写进报告。
+        expanded_text, cycle_stats = expand_fixed_cycles(gcode_text)
+        if cycle_stats.expanded_holes:
+            logger.info(
+                "VoxelValidator 固定循环展开：cycles=%d holes=%d emitted=%d lines",
+                cycle_stats.expanded_cycles,
+                cycle_stats.expanded_holes,
+                cycle_stats.emitted_lines,
+            )
+        if not cycle_stats.complete:
+            gap: list[str] = []
+            if cycle_stats.unsupported:
+                gap.append(
+                    "未支持循环 "
+                    + "/".join(f"G{k}×{v}" for k, v in sorted(cycle_stats.unsupported.items()))
+                )
+            if cycle_stats.skipped_incremental:
+                gap.append(f"增量模式循环×{cycle_stats.skipped_incremental}")
+            warnings.append(
+                "固定循环未完全展开（" + "，".join(gap) + "），"
+                "对应孔段不在本次体素校验覆盖范围内，须由外部 CAM 复核。"
+            )
+
+        # 2. 解析 G 代码
         try:
             parser = ToolpathParser(controller_type=controller_type)
-            segments = parser.parse_gcode(gcode_text)
+            segments = parser.parse_gcode(expanded_text)
         except Exception as e:
             raise VoxelValidationError(
                 f"ToolpathParser 解析 G 代码失败（controller_type={controller_type}）: {e}"
@@ -312,8 +342,17 @@ class VoxelValidator:
         collision_positions: list[list[float]] = []
         collision_blocks: list[int] = []
         overcut_count = 0
+        breakthrough_count = 0
         rapid_critical = False
         removed_count = 0
+        # 钻穿超程容差：通孔必须钻到毛坯底面以下，容差内的 Z<0 属设计意图而非过切。
+        # 默认取配置（默认 0.0 = 严格）；显式传参优先。
+        tol = (
+            float(breakthrough_tolerance_mm)
+            if breakthrough_tolerance_mm is not None
+            else float(getattr(cfg, "voxel_breakthrough_tolerance_mm", 0.0) or 0.0)
+        )
+        tol = max(tol, 0.0)
         cutting_segments = [s for s in segments if s.type in ("linear", "arc")]
         tool_mask = cutter._build_tool_mask(tool)
 
@@ -323,10 +362,14 @@ class VoxelValidator:
                 keep: list[np.ndarray] = []
                 for pt in seg_points:
                     x, y, z = float(pt[0]), float(pt[1]), float(pt[2])
-                    if z < bbox_min[2] - 0.01:
+                    if z < bbox_min[2] - 0.01 - tol:
                         overcut_count += 1
                         collision_positions.append([x, y, z])
                         collision_blocks.append(seg.block_number)
+                        continue
+                    if z < bbox_min[2] - 0.01:
+                        # 容差内钻穿（通孔超程）：属设计意图，不计碰撞，也不参与去材料
+                        breakthrough_count += 1
                         continue
                     keep.append(np.array([x, y, z]))
                 if keep:
@@ -355,6 +398,12 @@ class VoxelValidator:
                     if rapid_check.collision_severity == "critical":
                         rapid_critical = True
 
+        if breakthrough_count:
+            warnings.append(
+                f"检测到 {breakthrough_count} 个钻穿超程点（在 {tol:.2f}mm 容差内，不计为过切）；"
+                "请确认垫板厚度足以承受该超程。"
+            )
+
         # 分级口径保持与修正前一致：过切 >3 点为 critical；快移按其自身判级
         severity = "none"
         if overcut_count:
@@ -363,6 +412,21 @@ class VoxelValidator:
             severity = "critical"
         elif collision_positions and severity == "none":
             severity = "warning"
+
+        # P0 修复（2026-10-21）：空切检测。
+        # 原口径 passed 只判「有无碰撞」，于是一份悬在毛坯上方空跑的程序会拿到
+        # passed=True（实测 case2：cutting_segments=57、removed_voxel_count=0、
+        # passed=true、severity=none），使这道强制闸对「刀路根本没切到材料」
+        # 完全透明——而空切在报告上与「加工完成」不可区分。
+        # 判据：有切削段却零去除 → 坐标/深度基准错位或纯空行程，按 fail-closed 处理。
+        empty_cut = bool(cutting_segments) and removed_count == 0
+        if empty_cut:
+            warnings.append(
+                f"空切检测：{len(cutting_segments)} 个切削段未去除任何材料"
+                f"（removed={removed_count}/{voxel_count} voxels）。"
+                "刀路可能悬在毛坯外或深度基准错误，按 fail-closed 判定不通过。"
+            )
+            severity = "critical"
 
         # 7. 未归因碰撞提示（与 InternalValidator 的 unknown 归因口径一致）
         attributed_hint = f"（block 列表供特征归因：{sorted(set(collision_blocks))[:20]}）" if collision_blocks else ""
@@ -377,7 +441,7 @@ class VoxelValidator:
         unique_positions = unique_positions[:_MAX_COLLISION_POSITIONS]
 
         report = VoxelValidationReport(
-            passed=not collision_positions,
+            passed=not collision_positions and not empty_cut,
             engine="rust" if is_rust_available() else "python",
             voxel_size_mm=voxel_size,
             total_segments=len(segments),
