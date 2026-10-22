@@ -510,13 +510,17 @@ class TestPredictorAdapter:
     """双路径预测适配器（解析法 / LTC 神经网络 / 兜底）。"""
 
     def test_check_ltc_model_available_returns_bool(self):
-        """T18: check_ltc_model_available 返回布尔值（默认无模型文件返回 False）。"""
+        """T18: check_ltc_model_available 返回布尔值。
+
+        契约更新（2026-10-22）：颤振权重已随仓库分发
+        （app/simulation/chatter/checkpoints/chatter_model.pt），
+        因此默认环境应为 True；原断言「默认无模型」仅在权重缺失时成立。
+        """
         from app.chatter_prediction import check_ltc_model_available
 
         result = check_ltc_model_available()
         assert isinstance(result, bool)
-        # 默认环境无 chatter_model.pt，应为 False
-        assert result is False, "默认环境应无 chatter_model.pt，check_ltc_model_available 应返回 False"
+        assert result is True, "权重随仓库分发，默认环境 check_ltc_model_available 应为 True"
 
     def test_adapter_force_analytical_disables_ltc(self):
         """T19: force_analytical=True 时适配器不尝试 LTC。"""
@@ -1343,9 +1347,7 @@ class TestProjectMemoryHardConstraints:
         class_source = inspect.getsource(TaskStore)
         assert "SUCCEEDED" in class_source, "TaskStore 未检查 SUCCEEDED 禁删状态"
         assert "ReviewError" in class_source, "删除守卫未抛出 ReviewError"
-        assert "_deletable_reason" in inspect.getsource(TaskStore.delete_task), (
-            "delete_task 未接入删除守卫助手"
-        )
+        assert "_deletable_reason" in inspect.getsource(TaskStore.delete_task), "delete_task 未接入删除守卫助手"
 
     def test_hrc52_in_pending_calibration_materials(self):
         """T47: HRC52 材料 ID 在 PENDING_CALIBRATION_MATERIALS 集合中。"""

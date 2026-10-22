@@ -309,12 +309,28 @@ def compute_stability_lobe(
 
     生成主轴转速与极限切削深度的关系曲线（稳定性叶图）。
 
-    基于 Tlusty 稳定性理论，对于每个叶图扇叶 j，主轴转速与颤振频率关系：
-        n = 60 * f / (j + 1)
+    2026-10-22 修正三处口径（与 :func:`compute_stability_limit` 对齐）：
+
+    1. **频率窗口**：改用实际模态共振 ``f_mode = sqrt(k_z/m)/2π`` 而非
+       ``natural_freq``。预设表两者不一致（vmc_850: 318 Hz vs 100 Hz），
+       按 ``natural_freq`` 扫描会完全错过负实部区域。
+    2. **取负实部**：再生颤振由 FRF 负实部供能，原实现只取 ``Re[G] > 0``
+       的点，与 10-21 修复前的 ``compute_stability_limit`` 同源缺陷——
+       实测叶瓣最低点 30.59 mm，而修正后的绝对包络是 10.50 mm（3 倍高估）。
+    3. **齿数**：转速与颤振频率关系为 ``n = 60f/(z(j+1))``，原实现漏掉齿数
+       （按 z=1 计算），叶瓣位置整体偏移。
+
+    修正后应满足不变量：``min(limit_depths)`` 与同参数下的
+    ``compute_stability_limit`` 同量级（叶瓣最低点即包络在离散采样下的近似）。
+
+    基于 Tlusty 稳定性理论，对于每个叶图扇叶 j：
+
+        n = 60 * f / (z * (j + 1))
+        a_lim = |1 + 2ζi·G(f)|² / (2·K_s·|Re[G(f)]|)   （仅 Re[G] < 0 有物理意义）
 
     Args:
         machine: 机床参数
-        tool: 刀具参数
+        tool: 刀具参数（使用 ``num_flutes`` 与 ``cutting_force_coeff``）
         speed_range: 主轴转速范围 (rpm)，如 (1000, 10000)
         num_points: 每个叶图的点数
         num_lobes: 叶图扇叶数量
@@ -325,26 +341,29 @@ def compute_stability_lobe(
         - limit_depths: 极限切削深度列表 (mm)
         - lobes: 各扇叶的 (speeds, limit_depths) 元组列表
     """
-    all_speeds = []
-    all_depths = []
-    lobes = []
+    all_speeds: list[float] = []
+    all_depths: list[float] = []
+    lobes: list[tuple[list[float], list[float]]] = []
 
     f_n = machine.natural_freq
     k_s = tool.cutting_force_coeff  # N/mm²
     zeta = machine.damping_ratio
+    teeth = max(int(tool.num_flutes), 1)
 
-    # 频率搜索范围：0.5*f_n 到 2*f_n
-    freq_min = f_n * 0.5
-    freq_max = f_n * 2.0
+    # 频率窗口按实际模态共振（与 compute_stability_limit 同一口径）
+    f_mode = float(np.sqrt(machine.stiffness_z / machine.modal_mass) / (2.0 * np.pi))
+    f_center = f_mode if np.isfinite(f_mode) and f_mode > 0 else f_n
+    freq_min = f_center * 0.5
+    freq_max = f_center * 2.0
 
     for j in range(num_lobes):
-        lobe_speeds = []
-        lobe_depths = []
+        lobe_speeds: list[float] = []
+        lobe_depths: list[float] = []
+        order = j + 1
 
-        # 对于叶图 j，计算对应的频率范围
-        # n = 60 * f / (j + 1) => f = n * (j + 1) / 60
-        f_for_speed_min = speed_range[0] * (j + 1) / 60.0
-        f_for_speed_max = speed_range[1] * (j + 1) / 60.0
+        # 叶瓣 j 的转速边界 => 频率边界 f = n·z·(j+1)/60
+        f_for_speed_min = speed_range[0] * teeth * order / 60.0
+        f_for_speed_max = speed_range[1] * teeth * order / 60.0
 
         # 取交集：频率既要满足转速范围，也要在有效范围内
         f_start = max(freq_min, f_for_speed_min)
@@ -356,23 +375,24 @@ def compute_stability_lobe(
         freqs = np.linspace(f_start, f_end, num_points)
 
         for freq in freqs:
-            speed_rpm = 60.0 * freq / (j + 1)
+            speed_rpm = 60.0 * freq / (teeth * order)
 
             # 计算 FRF
             frf = _compute_frf(machine, freq)
             re_frf = frf.real
 
-            # 只取 Re[G] > 0 或接近零的点（避免 a_lim 发散）
-            if re_frf <= 1e-9:
+            # 只接受负实部：这是再生颤振的供能区（2026-10-22 修正，原为 >0）
+            if re_frf >= -1e-12:
                 continue
 
             # Tlusty 公式（单自由度修正形式）
-            # a_lim = |1 + 2ζi·G(ω)|² / (2·K_s·Re[G(ω)])
+            # a_lim = |1 + 2ζi·G(ω)|² / (2·K_s·|Re[G(ω)]|)
             numerator = abs(1.0 + 2.0 * zeta * 1j * frf) ** 2
-            re_frf_mm = re_frf * 1000.0  # m/N → mm/N
+            re_frf_mm = abs(re_frf) * 1000.0  # m/N → mm/N
             a_lim_mm = numerator / (2.0 * k_s * re_frf_mm)
 
-            # 统一截断阈值：与 compute_stability_limit 保持一致（100mm）
+            # 图表展示上限（包络本身裁剪到 20 mm；此处保留 100 以维持叶瓣尾部形状，
+            # 消费方取 min() 时仍以包络为准）
             if a_lim_mm <= 0 or a_lim_mm > 100.0:
                 continue
 
