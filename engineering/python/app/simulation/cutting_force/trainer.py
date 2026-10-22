@@ -59,6 +59,11 @@ def get_worker_init_fn(seed: int = 42):
 
 logger = logging.getLogger(__name__)
 
+# 训练目标变换：Kienzle 是幂律（F ∝ 切深^1.25），力值跨两个数量级（20 N–5 kN）。
+# 线性空间的 MSE 会牺牲浅切样本的相对精度（实测切深 0.2mm 处相对误差 68%），
+# 故在 log1p 空间回归：目标 = log(1 + F)，推理端 expm1 还原（2026-10-22）。
+TARGET_TRANSFORM = "log1p"
+
 
 class SyntheticCuttingForceDataset(Dataset):
     """合成切削力数据集。
@@ -123,6 +128,10 @@ class SyntheticCuttingForceDataset(Dataset):
 
         # 同时保存无噪声的 Kienzle 解析解（用于物理损失）
         self.kienzle_forces = forces.copy()
+
+        # 目标变换到 log1p 空间（幂律线性化，浅切与大载荷同等权重）
+        self.targets = np.log1p(np.maximum(self.targets, 0.0)).astype(np.float32)
+        self.kienzle_forces = np.log1p(np.maximum(self.kienzle_forces, 0.0)).astype(np.float32)
 
     def __len__(self) -> int:
         return self.num_samples
@@ -301,6 +310,9 @@ class CuttingForceTrainer:
                     "num_blocks": 3,
                     "output_dim": 3,
                 },
+                # 推理端按 target_transform 把模型输出还原为牛顿（见 predictor.predict_cutting_force）
+                "target_transform": TARGET_TRANSFORM,
+                "force_scale": 1.0,
                 "optimizer_state_dict": self.optimizer.state_dict(),
                 "history": self.history,
             },

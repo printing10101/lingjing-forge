@@ -19,6 +19,8 @@ import os
 import logging
 from typing import Any
 
+import numpy as np
+
 # torch 软依赖：桌面 MVP 打包时排除 torch，此时仅 Kienzle 解析解可用
 try:
     import torch
@@ -44,6 +46,12 @@ logger = logging.getLogger(__name__)
 _model_cache: dict[str, Any] = {}
 _model_dir = os.path.join(os.path.dirname(__file__), "checkpoints")
 
+# 检查点记录的训练目标尺度（力值除以该系数训练，推理时乘回；缺省 1.0 兼容旧权重）
+_model_force_scale: dict[str, float] = {}
+
+# 检查点记录的目标变换（"linear" 或 "log1p"；缺省 linear 兼容旧权重）
+_model_target_transform: dict[str, str] = {}
+
 
 def _load_model(device: str = "cpu") -> Any:
     """加载训练好的 PINN 模型。
@@ -65,7 +73,14 @@ def _load_model(device: str = "cpu") -> Any:
         # 安全修复 [P1-BE-2]：weights_only=True 防止 pickle 反序列化任意代码执行
         checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=True)
         model.load_state_dict(checkpoint["model_state_dict"])
-        logger.info("已加载模型检查点: %s", checkpoint_path)
+        _model_force_scale[cache_key] = float(checkpoint.get("force_scale", 1.0))
+        _model_target_transform[cache_key] = str(checkpoint.get("target_transform", "linear"))
+        logger.info(
+            "已加载模型检查点: %s（transform=%s, force_scale=%s）",
+            checkpoint_path,
+            _model_target_transform[cache_key],
+            _model_force_scale[cache_key],
+        )
     else:
         logger.warning(f"未找到模型检查点: {checkpoint_path}。请先运行训练脚本，或使用 Kienzle 解析解。")
 
@@ -169,6 +184,11 @@ def predict_cutting_force(
             x_norm = x_norm.to(model_device)
             pred = model(x_norm)
             forces = pred[0].detach().cpu().numpy()
+            if _model_target_transform.get(device, "linear") == "log1p":
+                # log1p 空间训练：expm1 还原为牛顿，负值截断到 0
+                forces = np.maximum(np.expm1(forces), 0.0)
+            else:
+                forces = forces * _model_force_scale.get(device, 1.0)
 
         # 若模型未经训练（输出接近零），回退到 Kienzle
         if forces.sum() < 1.0:
