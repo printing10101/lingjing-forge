@@ -147,3 +147,41 @@ def test_build_publishes_manifest_only_after_native_success(monkeypatch, tmp_pat
         assert manifest["python"] == "3.12.14"
         assert manifest["validation"] == complete_report()
         assert len(manifest["constraints_sha256"]) == 64
+
+
+def test_copy_tree_keeps_model_weights(tmp_path):
+    """安装包必须带上工艺参数的模型权重。
+
+    回归背景（2026-10-22）：build_desktop_runtime 以
+    ``ignore=("__pycache__", "tests", "data", ".pyc")`` 复制 app/，
+    checkpoints 下的 .pt 必须被保留——否则装完仍是解析回退路径，
+    "双路径颤振预测"在交付物里等于不存在。
+    """
+    source = tmp_path / "app"
+    for name in (
+        "simulation/chatter/checkpoints/chatter_model.pt",
+        "simulation/cutting_force/checkpoints/best_model.pt",
+        "simulation/chatter/tests/test_predictor.py",
+    ):
+        path = source / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"\x00\x01")
+
+    destination = tmp_path / "out"
+    copied = build.copy_tree(source, destination, ("__pycache__", "tests", "data", ".pyc"))
+    assert copied == 2
+    assert (destination / "simulation/chatter/checkpoints/chatter_model.pt").is_file()
+    assert (destination / "simulation/cutting_force/checkpoints/best_model.pt").is_file()
+    assert not (destination / "simulation/chatter/tests").exists()
+
+
+def test_repository_ships_parameter_weights():
+    """两处工艺参数权重必须随仓库存在（桌面安装包的唯一来源）。"""
+    backend = Path(__file__).resolve().parents[2]
+    for rel in (
+        "app/simulation/chatter/checkpoints/chatter_model.pt",
+        "app/simulation/cutting_force/checkpoints/best_model.pt",
+    ):
+        weight = backend / rel
+        assert weight.is_file(), f"缺少随安装包分发的权重: {rel}"
+        assert weight.stat().st_size > 10_000, f"权重文件可疑（过小）: {rel}"
