@@ -77,7 +77,6 @@ def collect_files():
 
     def key(item):
         rel, _ = item
-        base = rel.split("/")[0] + "/" + (rel.split("/")[1] if len(rel.split("/")) > 1 else "")
         block = next((b for b in INCLUDE_DIRS if rel.startswith(b)), "zzz")
         block_idx = block_order.get(block, 99)
         basename = os.path.basename(rel)

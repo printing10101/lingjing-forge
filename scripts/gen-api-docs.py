@@ -15,12 +15,10 @@ API 文档自动生成系统
 
 import ast
 import argparse
-import json
 import sys
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any
 
 
 # 数据模型定义
@@ -519,7 +517,6 @@ class PydanticModelExtractor(ast.NodeVisitor):
         description = ""
         constraints: list[str] = []
 
-        positional_idx = 0
         if call_node.args:
             default_node = call_node.args[0]
             if isinstance(default_node, ast.Constant):
@@ -814,7 +811,6 @@ Content-Type: application/json
         """格式化单个路由为 Markdown"""
         lines: list[str] = []
 
-        badge_color = self._get_method_color(route.method)
         lines.append(f"### `{route.method}` `{route.path}`")
         lines.append("")
 
@@ -868,8 +864,6 @@ Content-Type: application/json
                 lines.append("")
 
         if route.responses:
-            success_responses = [r for r in route.responses if r.is_success]
-            error_responses = [r for r in route.responses if not r.is_success]
 
             lines.append("**响应：**")
             lines.append("")
@@ -1164,7 +1158,7 @@ def validate_document(project_root: Path, output_path: Path) -> bool:
 
     if not output_path.exists():
         print("[验证] 文档文件不存在，需要生成初始文档")
-        print(f"  请运行: python scripts/gen-api-docs.py")
+        print("  请运行: python scripts/gen-api-docs.py")
         return False
 
     existing_doc = output_path.read_text(encoding="utf-8")

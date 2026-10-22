@@ -17,7 +17,8 @@ from __future__ import annotations
 import json
 import logging
 import os
-from typing import Any, Callable
+from typing import Any
+from collections.abc import Callable
 
 from mcp_server.factory_sandbox import SimulatedFactory
 

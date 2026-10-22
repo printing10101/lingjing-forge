@@ -16,16 +16,15 @@ AI 模型下载工具 - 支持魔搭社区（ModelScope）和国内镜像
 import os
 import sys
 import argparse
-import subprocess
 from pathlib import Path
 
 
 def check_modelscope_installed():
     """检查是否安装了 modelscope"""
     try:
-        import modelscope
+        from modelscope import snapshot_download
 
-        return True
+        return callable(snapshot_download)
     except ImportError:
         print("未安装 modelscope，请先执行：pip install modelscope")
         print("   或使用国内镜像：pip install modelscope -i https://mirrors.aliyun.com/pypi/simple/")

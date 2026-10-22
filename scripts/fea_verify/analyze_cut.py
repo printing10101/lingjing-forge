@@ -59,11 +59,11 @@ def main():
     print(f"稳态平均反力: Fx(切削方向)={avg_fx:8.2f} N, Fy(切深方向)={avg_fy:8.2f} N")
     print(f"峰值反力:     Fx={max_fx:8.2f} N, Fy={max_fy:8.2f} N")
     pred = kienzle_prediction()
-    print(f"\nKienzle 预测 (45钢, b=1mm, h=0.1mm):")
+    print("\nKienzle 预测 (45钢, b=1mm, h=0.1mm):")
     print(f"  Fz(主切削力) = {pred['Fz']:8.2f} N   <- FEA Fx 对应")
     print(f"  Fx(进给力)   = {pred['Fx']:8.2f} N   <- FEA Fy 对应")
     print(f"  Fy(径向力)   = {pred['Fy']:8.2f} N")
-    print(f"\n对比 (FEA/Kienzle):")
+    print("\n对比 (FEA/Kienzle):")
     print(f"  主切削力: FEA {avg_fx:.1f} vs Kienzle {pred['Fz']:.1f} -> 比值 {avg_fx/pred['Fz']:.2f}")
     print(f"  进给力:   FEA {avg_fy:.1f} vs Kienzle {pred['Fx']:.1f} -> 比值 {avg_fy/pred['Fx']:.2f}")
 

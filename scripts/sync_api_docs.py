@@ -95,7 +95,7 @@ def main(report_path: str = "api-sync-report.json", api_md_path: str = "docs/API
     parts.append("")
     parts.append("> 本节由 `scripts/sync_api_docs.py` 根据 `api-sync-report.json` 自动生成。")
     parts.append(">")
-    parts.append(f"> 用于将 `docs/API.md` 与 `python/app/**` 中的实际 FastAPI 路由保持同步。")
+    parts.append("> 用于将 `docs/API.md` 与 `python/app/**` 中的实际 FastAPI 路由保持同步。")
     parts.append(">")
     parts.append(f"> **补全状态**: {len(missing)} 个缺失路由 / {len(only_in_docs)} 个需复核")
     parts.append("")
