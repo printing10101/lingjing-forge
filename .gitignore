@@ -627,6 +627,7 @@ research/prototypes/**/coverage.json
 # 本地 torch 安装轮子（GB 级，勿入公开仓）
 /data/torch*.whl
 
-# 工艺参数两处小权重随仓库分发（桌面安装包需要它们，见 .gitattributes 同路径例外）
-!/engineering/python/app/simulation/chatter/checkpoints/*.pt
-!/engineering/python/app/simulation/cutting_force/checkpoints/*.pt
+# 工艺参数两处小权重随仓库分发（桌面安装包需要它们，见 .gitattributes 同路径例外）；
+# 仅放行这两个文件，last_model.pt 等其余检查点继续忽略
+!/engineering/python/app/simulation/chatter/checkpoints/chatter_model.pt
+!/engineering/python/app/simulation/cutting_force/checkpoints/best_model.pt
