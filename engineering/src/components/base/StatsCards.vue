@@ -17,7 +17,7 @@
     :style="gridStyle"
   >
     <el-card
-      v-for="card in cards"
+      v-for="card in processedCards"
       :key="card.label"
       :class="['stat-card', 'stat-card--' + card.type, { 'stat-card--clickable': card.clickable }]"
       :shadow="hover ? 'hover' : 'never'"
@@ -34,21 +34,16 @@
       <div class="stat-card__content">
         <!-- 图标区域 -->
         <div
-          v-if="card.icon || iconSlot"
+          v-if="card.resolvedIcon || $slots.icon"
           class="stat-card__icon"
           :class="'stat-card__icon--' + card.type"
         >
           <!-- 支持动态图标或插槽 -->
           <component
-            v-if="typeof card.icon === 'object'"
-            :is="card.icon"
+            v-if="card.resolvedIcon"
+            :is="card.resolvedIcon"
             :size="iconSize"
           />
-          <slot v-else-if="iconSlot" name="icon" :card="card">
-            <el-icon :size="iconSize">
-              <component :is="card.icon" />
-            </el-icon>
-          </slot>
           <slot v-else name="icon" :card="card" />
         </div>
 
@@ -126,9 +121,9 @@ const emit = defineEmits<{
 }>()
 
 /** 使用 Composable 获取处理后的数据 */
-const { formatValue, size: getComponentSize } = useStatsCards(
-  props.cards,
-  { autoWrap: props.autoWrap, size: props.size },
+const { processedCards, formatValue, size: getComponentSize } = useStatsCards(
+  () => props.cards,
+  { autoWrap: props.autoWrap, size: () => props.size },
 )
 
 /** 计算布局类型 */
@@ -154,9 +149,6 @@ const computedSize = computed(() => getComponentSize())
 
 /** 格式化值 */
 const computedFormatValue = (value: string | number) => formatValue(value)
-
-/** 处理图标插槽 */
-const iconSlot = computed(() => !!props.cards.some((c) => typeof c.icon === 'symbol'))
 
 /** 处理卡片点击 */
 function handleCardClick(card: StatsCardItem): void {

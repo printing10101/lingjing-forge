@@ -5,14 +5,15 @@
  * 
  * @example
  * ```typescript
- * const { stats, colorType } = useStatsCards([
+ * const { processedCards, colorType } = useStatsCards([
  *   { label: '总数', value: 100, icon: 'DataAnalysis' },
  *   { label: '合格', value: 95, icon: 'CircleCheck', type: 'success' }
  * ])
  * ```
  */
-import { computed } from 'vue'
-import type { Component } from 'vue'
+import { computed, markRaw, toRaw, toValue } from 'vue'
+import type { Component, MaybeRefOrGetter } from 'vue'
+import * as icons from '@element-plus/icons-vue'
 
 export interface StatsCardItem {
   label: string
@@ -45,7 +46,7 @@ interface UseStatsCardsOptions {
   /** 是否自动换行（grid 模式） */
   autoWrap?: boolean
   /** 卡片尺寸 */
-  size?: CardSize
+  size?: MaybeRefOrGetter<CardSize>
 }
 
 /**
@@ -54,19 +55,18 @@ interface UseStatsCardsOptions {
  * @param options - 配置选项
  */
 export function useStatsCards(
-  cards: StatsCardItem[],
+  cards: MaybeRefOrGetter<StatsCardItem[]>,
   options: UseStatsCardsOptions = {},
 ) {
-  const { size = 'default' } = options
-
   /**
    * 将图标名转换为 Component
    */
   function resolveIcon(icon: Component | string | undefined): Component | undefined {
     if (!icon) return undefined
-    if (typeof icon === 'object') return icon
-    // 字符串转图标组件
-    return undefined as any // TODO: 动态图标导入
+    if (typeof icon !== 'string') return markRaw(toRaw(icon))
+    return Object.prototype.hasOwnProperty.call(icons, icon)
+      ? icons[icon as keyof typeof icons]
+      : undefined
   }
 
   /**
@@ -95,19 +95,14 @@ export function useStatsCards(
    * 获取卡片尺寸（Element Plus button size）
    */
   function getSize(): CardSize {
-    const map: Record<CardSize, CardSize> = {
-      small: 'small',
-      default: 'default',
-      large: 'large',
-    }
-    return map[size] || 'default'
+    return toValue(options.size) || 'default'
   }
 
   /**
    * 计算属性：卡片列表图标
    */
   const processedCards = computed(() =>
-    cards.map((card) => ({
+    toValue(cards).map((card) => ({
       ...card,
       resolvedIcon: resolveIcon(card.icon),
     })),

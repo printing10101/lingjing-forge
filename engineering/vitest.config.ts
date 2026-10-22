@@ -17,6 +17,10 @@ export default defineConfig({
     environment: 'happy-dom',
     setupFiles: ['src/tests/setup.ts'],
     include: ['src/**/*.{test,spec}.ts'],
+    // 每个 worker 都会加载 Vue/DOM；高核数开发机按 CPU 数派生会耗尽内存。
+    // CLI 的 --maxWorkers/--minWorkers 仍可按 CI 资源覆盖。
+    maxWorkers: 2,
+    minWorkers: 1,
     coverage: {
       provider: 'v8',
       // 覆盖率阈值与实测基线保持一致（原 65% 阈值高于实际，导致 CI 永远失败）。
