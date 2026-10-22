@@ -62,6 +62,18 @@ def check_torch_available() -> tuple[bool, str]:
     return True, info
 
 
+def _existing_tests(python_dir: Path) -> tuple[list[str], list[str]]:
+    """把清单拆成"实际存在"与"已不存在"两组.
+
+    仓库重构（V2.7/V2.8）后部分测试文件被移动或删除，硬编码清单会过期；
+    直接把它们交给 pytest 会以 "file or directory not found" 退出，
+    导致验证脚本假失败。这里显式区分并告警。
+    """
+    present = [t for t in TORCH_DEPENDENT_TESTS if (python_dir / t).exists()]
+    missing = [t for t in TORCH_DEPENDENT_TESTS if not (python_dir / t).exists()]
+    return present, missing
+
+
 def run_tests() -> int:
     """通过 run_pytest.py 跑全 torch 依赖测试（复用 WinSock 绕过补丁）.
 
@@ -72,6 +84,18 @@ def run_tests() -> int:
     """
     python_dir = Path(__file__).resolve().parent.parent  # python/
     run_pytest = python_dir / "run_pytest.py"
+
+    present, missing = _existing_tests(python_dir)
+    if missing:
+        print(
+            f"[verify] 警告：清单中 {len(missing)} 个文件已不存在（仓库重构后清单过期，已跳过）:",
+            file=sys.stderr,
+        )
+        for item in missing:
+            print(f"  - {item}", file=sys.stderr)
+    if not present:
+        print("[verify] 没有任何可运行的 torch 依赖测试文件，视为清单失效", file=sys.stderr)
+        return 2
 
     if not run_pytest.exists():
         print(f"[verify] 未找到 {run_pytest}，回退到 ``python -m pytest``", file=sys.stderr)
@@ -88,7 +112,7 @@ def run_tests() -> int:
             "addopts=",
             "--noconftest",
             "-v",
-            *TORCH_DEPENDENT_TESTS,
+            *present,
         ]
     )
 

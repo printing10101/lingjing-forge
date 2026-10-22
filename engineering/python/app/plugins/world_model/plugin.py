@@ -35,6 +35,7 @@ from typing import Any, Union, cast
 import numpy as np
 
 from app.contracts.task import Artifact, TaskContext, TaskResult, TaskStatus
+from app.plugins.artifact_data import load_artifact_data
 from app.plugins.world_model.dynamics_state_bridge import BridgeResult
 from app.plugins.world_model.geometry_features_deriver import DerivationResult
 from app.plugins.world_model.net import WorldModelConfig
@@ -328,6 +329,9 @@ class WorldModelPlugin:
                     "horizon": prediction.horizon,
                     "model_uri": model_uri,
                     "input_mode": input_mode,
+                    # 权重来源（checkpoint / random_init）：让下游能判定本次
+                    # 预测是否来自训练权重，而不是随机初始化（2026-10-21 通电）
+                    "weights_source": prediction.model_info.get("weights_source", "unknown"),
                     "preview": prediction.predicted_trajectory[:3].tolist()
                     if hasattr(prediction.predicted_trajectory, "tolist")
                     else prediction.predicted_trajectory[:3],
@@ -507,39 +511,8 @@ class WorldModelPlugin:
         return None
 
     def _load_artifact_data(self, artifact: Artifact | None) -> np.ndarray | None:
-        """从 Artifact 加载数据.
-
-        Args:
-            artifact: 输入产物.
-
-        Returns
-        -------
-        Optional[np.ndarray]
-            数据数组. None 表示产物不存在.
-        """
-        if artifact is None:
-            return None
-
-        # 优先从 metadata 加载（小数据）
-        if "data" in artifact.metadata:
-            return np.asarray(artifact.metadata["data"], dtype=np.float32)
-
-        # 从 URI 加载（实际部署中应支持 file:// / metrics:// 等协议）
-        uri = artifact.uri
-        if uri.startswith("file://"):
-            path = uri[len("file://") :]
-            try:
-                return np.load(path, allow_pickle=False)
-            except (OSError, ValueError) as exc:
-                logger.warning("加载文件失败: %s err=%s", path, exc)
-                return None
-
-        # 未实现完整加载逻辑时返回 None
-        logger.warning(
-            "Artifact URI 协议未实现加载: %s（仅支持 file:// 和 metadata.data）",
-            uri,
-        )
-        return None
+        """加载插件输入；统一 URI 解析与无 pickle 数组读取。"""
+        return load_artifact_data(artifact)
 
     def _try_load_unified_state(self, artifact: Artifact | None) -> UnifiedState | None:
         """尝试从 Artifact.metadata 解析 UnifiedState（融合模式检测）.

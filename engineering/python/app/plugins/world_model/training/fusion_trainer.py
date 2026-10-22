@@ -143,6 +143,7 @@ class FusionWorldModelTrainer:
         experiment_name: str = DEFAULT_FUSION_EXPERIMENT_NAME,
         models_dir: str | None = None,
         save_every_epoch: bool = False,
+        loss_weights: list[float] | None = None,
     ) -> None:
         if not HAS_TORCH:
             raise RuntimeError(
@@ -174,6 +175,18 @@ class FusionWorldModelTrainer:
         self.experiment_name = experiment_name
         self.models_dir = models_dir
         self.save_every_epoch = save_every_epoch
+        # 按维损失权重（2026-10-21 真实数据微调新增）：
+        # 8 维状态量级差异大（Ra 2–7 µm vs 磨损 0.1 mm），未加权 MSE 会被
+        # 大量级维度主导，磨损通道几乎拿不到梯度。None 保持原行为。
+        self.loss_weights = list(loss_weights) if loss_weights is not None else None
+        if self.loss_weights is not None:
+            expected_dim = getattr(model_config, "state_dim", None)
+            if expected_dim is not None and len(self.loss_weights) != expected_dim:
+                raise FusionTrainerError(
+                    f"loss_weights 长度 ({len(self.loss_weights)}) 必须等于 state_dim ({expected_dim})"
+                )
+            if any(w < 0 for w in self.loss_weights):
+                raise FusionTrainerError("loss_weights 不允许负值")
 
         # 设备解析（auto cuda if available else cpu）
         if isinstance(device, str) and device == "auto":
@@ -447,6 +460,13 @@ class FusionWorldModelTrainer:
 
         return self.training_history
 
+    def _compute_loss(self, pred: "torch.Tensor", target: "torch.Tensor") -> "torch.Tensor":
+        """按维加权 MSE（loss_weights 为 None 时退化为普通 MSE）."""
+        if self.loss_weights is None:
+            return self.criterion(pred, target)
+        weight = torch.as_tensor(self.loss_weights, dtype=pred.dtype, device=pred.device).view(1, 1, -1)
+        return (((pred - target) ** 2) * weight).mean()
+
     def _train_epoch(
         self,
         train_loader: "DataLoader",
@@ -457,11 +477,20 @@ class FusionWorldModelTrainer:
         total_loss = 0.0
         total_samples = 0
 
-        for geometry, dynamics, actions, target in train_loader:
+        for batch in train_loader:
+            # ADR-023：兼容 4 元组与 5 元组 batch（5 元 = 含 initial_state）
+            if len(batch) == 5:
+                geometry, dynamics, actions, target, initial_state = batch
+            else:
+                geometry, dynamics, actions, target = batch
+                initial_state = None
             geometry = geometry.to(self.device)
             dynamics = dynamics.to(self.device)
             actions = actions.to(self.device)
             target = target.to(self.device)
+            if initial_state is not None:
+                initial_state = initial_state.to(self.device)
+                self.saw_initial_state = True
 
             self.optimizer.zero_grad()
 
@@ -472,9 +501,10 @@ class FusionWorldModelTrainer:
                         actions=actions,
                         horizon=horizon,
                         unified_states=(geometry, dynamics),
+                        initial_state=initial_state,
                     )
                     pred = output["predicted_trajectory"]
-                    loss = self.criterion(pred, target)
+                    loss = self._compute_loss(pred, target)
 
                 self.scaler.scale(loss).backward()
 
@@ -490,9 +520,10 @@ class FusionWorldModelTrainer:
                     actions=actions,
                     horizon=horizon,
                     unified_states=(geometry, dynamics),
+                    initial_state=initial_state,
                 )
                 pred = output["predicted_trajectory"]
-                loss = self.criterion(pred, target)
+                loss = self._compute_loss(pred, target)
 
                 loss.backward()
 
@@ -521,11 +552,19 @@ class FusionWorldModelTrainer:
 
         # P2-AI-4: 使用 inference_mode 替代 no_grad，验证阶段无需 autograd 图
         with torch.inference_mode():
-            for geometry, dynamics, actions, target in val_loader:
+            for batch in val_loader:
+                # ADR-023：兼容 4 元组与 5 元组 batch
+                if len(batch) == 5:
+                    geometry, dynamics, actions, target, initial_state = batch
+                else:
+                    geometry, dynamics, actions, target = batch
+                    initial_state = None
                 geometry = geometry.to(self.device)
                 dynamics = dynamics.to(self.device)
                 actions = actions.to(self.device)
                 target = target.to(self.device)
+                if initial_state is not None:
+                    initial_state = initial_state.to(self.device)
 
                 if self.scaler is not None:
                     with torch.cuda.amp.autocast():
@@ -534,18 +573,20 @@ class FusionWorldModelTrainer:
                             actions=actions,
                             horizon=horizon,
                             unified_states=(geometry, dynamics),
+                            initial_state=initial_state,
                         )
                         pred = output["predicted_trajectory"]
-                        loss = self.criterion(pred, target)
+                        loss = self._compute_loss(pred, target)
                 else:
                     output = self.model(
                         states=None,
                         actions=actions,
                         horizon=horizon,
                         unified_states=(geometry, dynamics),
+                        initial_state=initial_state,
                     )
                     pred = output["predicted_trajectory"]
-                    loss = self.criterion(pred, target)
+                    loss = self._compute_loss(pred, target)
 
                 batch_size = geometry.size(0)
                 total_loss += loss.item() * batch_size
@@ -601,6 +642,9 @@ class FusionWorldModelTrainer:
             # 融合训练专属字段，便于加载时校验
             "model_uri": self.model_uri,
             "trainer_type": "FusionWorldModelTrainer",
+            "loss_weights": self.loss_weights,
+            # ADR-023：是否以状态反馈（initial_state 直连）模式训练
+            "state_feedback": getattr(self, "saw_initial_state", False),
         }
 
         os.makedirs(

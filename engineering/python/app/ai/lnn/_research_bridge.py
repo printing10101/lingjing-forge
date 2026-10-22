@@ -185,24 +185,54 @@ def get_set_global_seed() -> Callable | None:
     return _lazy_import("research.training.reproducibility", "set_global_seed")
 
 
+def _lazy_import_first(module_path: str, attr_names: tuple[str, ...]) -> Any | None:
+    """按顺序尝试多个属性名，返回第一个存在的对象（兼容历史命名）.
+
+    背景（2026-10-21）：research 侧 ``experiment_tracker`` 实际导出的是
+    ``start_run`` / ``log_params`` / ``log_metrics`` / ``log_model``，而本桥接
+    早期按 ``mlflow_*`` 前缀查找，导致即使安装了 mlflow 也永远返回 None，
+    MLflow 记录静默失效。
+    """
+    key = f"{module_path}:first:{','.join(attr_names)}"
+    if key in _cache:
+        return _cache[key]
+    try:
+        import importlib
+
+        _inject_research_syspath()
+        module = importlib.import_module(module_path)
+    except Exception as exc:  # noqa: BLE001 - 桥接层统一降级
+        logger.warning("research bridge: cannot import %s: %s", module_path, exc)
+        _cache[key] = None
+        return None
+    for name in attr_names:
+        attr = getattr(module, name, None)
+        if attr is not None:
+            _cache[key] = attr
+            return attr
+    logger.warning("research bridge: %s 中找不到 %s", module_path, attr_names)
+    _cache[key] = None
+    return None
+
+
 def get_mlflow_start_run() -> Callable | None:
-    """获取 mlflow.start_run。"""
-    return _lazy_import("research.training.experiment_tracker", "mlflow_start_run")
+    """获取 mlflow run 上下文（兼容 ``mlflow_start_run`` / ``start_run``）。"""
+    return _lazy_import_first("research.training.experiment_tracker", ("mlflow_start_run", "start_run"))
 
 
 def get_mlflow_log_params() -> Callable | None:
-    """获取 mlflow.log_params。"""
-    return _lazy_import("research.training.experiment_tracker", "mlflow_log_params")
+    """获取参数记录函数（兼容 ``mlflow_log_params`` / ``log_params``）。"""
+    return _lazy_import_first("research.training.experiment_tracker", ("mlflow_log_params", "log_params"))
 
 
 def get_mlflow_log_metrics() -> Callable | None:
-    """获取 mlflow.log_metrics。"""
-    return _lazy_import("research.training.experiment_tracker", "mlflow_log_metrics")
+    """获取指标记录函数（兼容 ``mlflow_log_metrics`` / ``log_metrics``）。"""
+    return _lazy_import_first("research.training.experiment_tracker", ("mlflow_log_metrics", "log_metrics"))
 
 
 def get_mlflow_log_model() -> Callable | None:
-    """获取 mlflow.log_model。"""
-    return _lazy_import("research.training.experiment_tracker", "mlflow_log_model")
+    """获取模型记录函数（兼容 ``mlflow_log_model`` / ``log_model``）。"""
+    return _lazy_import_first("research.training.experiment_tracker", ("mlflow_log_model", "log_model"))
 
 
 def get_has_mlflow() -> bool:
