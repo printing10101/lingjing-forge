@@ -48,6 +48,40 @@ _WORLD_MODEL_URI_PREFIX = "model://world_model/"
 _VERSION_PATTERN = re.compile(r"^[A-Za-z0-9_.-]+$")
 
 
+def _repo_root_models_dir() -> Path | None:
+    """从本文件向上定位仓库根，返回 ``<repo>/data/models``（不存在则 None）.
+
+    背景（2026-10-21 世界模型通电）：``DEFAULT_MODELS_DIR`` 以 **cwd** 为基准，
+    而训练脚本与后端 sidecar 的 cwd 不一定相同——训练在 repo 根写
+    ``<repo>/data/models``，后端从 ``engineering/python`` 启动时却解析到
+    ``engineering/python/data/models``，导致"训练好了但生产加载不到"。
+    这里追加仓库根候选目录，让默认解析不再依赖启动目录。
+    """
+    p = Path(__file__).resolve().parent
+    for _ in range(6):
+        p = p.parent
+        if (p / "engineering").is_dir() and (p / "research").is_dir():
+            candidate = p / "data" / "models"
+            return candidate if candidate.is_dir() else None
+    return None
+
+
+def _candidate_model_dirs(models_dir: str | None = None) -> list[Path]:
+    """候选模型根目录（按优先级）.
+
+    1. 显式传入 ``models_dir``（训练时指定，最高优先级）；
+    2. ``DEFAULT_MODELS_DIR``（``WORLD_MODEL_MODELS_DIR`` 环境变量或 cwd/data/models）；
+    3. 仓库根 ``data/models``（不依赖启动目录的兜底）。
+    """
+    if models_dir:
+        return [Path(models_dir)]
+    candidates: list[Path] = [Path(DEFAULT_MODELS_DIR)]
+    repo_dir = _repo_root_models_dir()
+    if repo_dir is not None and repo_dir.resolve() not in {c.resolve() for c in candidates}:
+        candidates.append(repo_dir)
+    return candidates
+
+
 class WeightsResolutionError(RuntimeError):
     """权重路径解析失败（URI 格式非法或版本字符串不安全）。"""
 
@@ -103,13 +137,13 @@ def resolve_world_model_weights_path(
     约定式解析（不查注册表）：
     - URI 必须以 ``model://world_model/`` 开头；
     - 剩余部分作为版本字符串，按白名单校验；
-    - 拼接 ``<models_dir>/world_model/<version>.pt``；
-    - 文件存在则返回绝对路径，不存在则返回 None（与
-      ``_resolve_weights_path`` 既有 None 契约一致）。
+    - 依次在候选根目录下拼接 ``world_model/<version>.pt``（见
+      ``_candidate_model_dirs``），返回第一个存在的文件；
+    - 都不存在则返回 None（与 ``_resolve_weights_path`` 既有 None 契约一致）。
 
     Args:
         model_uri: 模型 URI，如 ``model://world_model/1.0.0``。
-        models_dir: 模型存储根目录。None 时使用 ``DEFAULT_MODELS_DIR``。
+        models_dir: 模型存储根目录。None 时按 env → cwd → 仓库根顺序查找。
 
     Returns
     -------
@@ -131,15 +165,17 @@ def resolve_world_model_weights_path(
             f"world_model URI 版本字符串不安全（仅允许 [A-Za-z0-9_.-]）: uri={model_uri!r} version={version!r}"
         )
 
-    base = Path(models_dir) if models_dir else Path(DEFAULT_MODELS_DIR)
-    candidate = base.resolve() / "world_model" / f"{version}.pt"
-    if candidate.is_file():
-        logger.debug("world_model 权重路径解析成功: uri=%s path=%s", model_uri, candidate)
-        return str(candidate)
+    tried: list[str] = []
+    for base in _candidate_model_dirs(models_dir):
+        candidate = base.resolve() / "world_model" / f"{version}.pt"
+        tried.append(str(candidate))
+        if candidate.is_file():
+            logger.debug("world_model 权重路径解析成功: uri=%s path=%s", model_uri, candidate)
+            return str(candidate)
     logger.debug(
-        "world_model 权重文件不存在（使用随机初始化）: uri=%s expected=%s",
+        "world_model 权重文件不存在（使用随机初始化）: uri=%s tried=%s",
         model_uri,
-        candidate,
+        tried,
     )
     return None
 

@@ -97,6 +97,12 @@ class WorldModelConfig:
     feature_dim: int = 32
     d_model: int = 64
     fused_dim: int = 128
+    # Δ 状态预测（2026-10-21）：解码器预测「相对上一状态的增量」而非绝对值。
+    # 动机：慢漂移量（刀具磨损/表面粗糙度）在 H 步内变化极小，但绝对水平在
+    # LSTM 压缩成隐向量时容易丢失；改为增量预测后，模型可学到 delta≈0，
+    # 从而在慢变量上达到持久性基线水平，同时保留快变量（振动/力）的预测能力。
+    # 默认 False，保证既有 checkpoint 的 state_dict 键不变（可直接加载）。
+    delta_prediction: bool = False
 
     def validate(self) -> None:
         """参数校验."""
@@ -136,6 +142,7 @@ class WorldModelConfig:
             "feature_dim": self.feature_dim,
             "d_model": self.d_model,
             "fused_dim": self.fused_dim,
+            "delta_prediction": self.delta_prediction,
         }
 
 
@@ -264,6 +271,12 @@ if HAS_TORCH:
             # 状态预测头：hidden state
             self.state_head = nn.Linear(config.hidden_dim, config.state_dim)
 
+            # Δ 预测头：仅 delta_prediction=True 时创建。单独成头而非复用
+            # state_head，保证默认配置的 state_dict 键集合不变（旧权重可加载）。
+            self.delta_head: nn.Linear | None = (
+                nn.Linear(config.hidden_dim, config.state_dim) if config.delta_prediction else None
+            )
+
             # 轨迹指标预测头：hidden metrics（颤振峰值/最大磨损等）
             self.metrics_head = nn.Linear(config.hidden_dim, 3)
 
@@ -305,6 +318,7 @@ if HAS_TORCH:
             actions: "torch.Tensor",
             horizon: int,
             unified_states: tuple["torch.Tensor", "torch.Tensor"] | None = None,
+            initial_state: "torch.Tensor" | None = None,
         ) -> dict[str, "torch.Tensor"]:
             """前向传播：预测未来 ``horizon`` 步的状态轨迹.
 
@@ -364,7 +378,19 @@ if HAS_TORCH:
             # - 融合模式：从 LSTM 上下文投影（state_head(h)），避免依赖
             # 未传入的 states，纯融合路径
             # - 非融合模式：取历史最后一个状态（向后兼容）
-            if self.config.use_fusion:
+            # 初始 prev_state 优先级：
+            # 1. 显式 initial_state（状态反馈，2026-10-21 实验项）——直连上一时刻
+            #    状态，解决"绝对水平经 LSTM 压缩后丢失"的问题（磨损预测曾退化为常数）；
+            # 2. 融合模式：从 LSTM 上下文投影（state_head(h)）；
+            # 3. 非融合模式：取历史最后一个状态（向后兼容）。
+            if initial_state is not None:
+                if initial_state.shape[-1] != self.config.state_dim:
+                    raise ValueError(
+                        f"initial_state 最后一维必须为 state_dim={self.config.state_dim}，"
+                        f"实际={initial_state.shape[-1]}"
+                    )
+                prev_state = initial_state
+            elif self.config.use_fusion:
                 prev_state = self.state_head(h)  # [batch, state_dim]
             else:
                 if states is None:
@@ -375,8 +401,12 @@ if HAS_TORCH:
                 action_t = actions[:, t, :]  # [batch, action_dim]
                 decoder_input = torch.cat([prev_state, action_t], dim=-1)
                 h = self.decoder(decoder_input, h)
-                # 预测下一步状态
-                prev_state = self.state_head(h)
+                # 预测下一步状态：Δ 模式输出增量（更容易保持慢变量水平），
+                # 绝对模式沿用 state_head
+                if self.delta_head is not None:
+                    prev_state = prev_state + self.delta_head(h)
+                else:
+                    prev_state = self.state_head(h)
                 predicted_states.append(prev_state)
                 # 累积每步指标
                 metrics_accumulator.append(self.metrics_head(h))

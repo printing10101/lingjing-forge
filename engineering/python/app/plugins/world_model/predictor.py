@@ -96,6 +96,11 @@ class TrajectoryPredictor:
         self._device = self._select_device(device)
         self._model: WorldModelNet | None = None
         self._model_uri: str | None = None
+        # 权重来源："unloaded" / "checkpoint" / "random_init"
+        # 供上层（plugin / API / 测试）判定预测是否来自训练权重，
+        # 避免"加载了但没生效"这类静默失败。
+        self._weights_source: str = "unloaded"
+        self._weights_path: str | None = None
         self._lock = threading.Lock()
         logger.info(
             "TrajectoryPredictor 初始化: device=%s config=%s",
@@ -126,14 +131,17 @@ class TrajectoryPredictor:
         with self._lock:
             self._model = WorldModelNet(self.config)
             self._model_uri = model_uri
+            # 默认视为随机初始化；成功加载 checkpoint 后覆盖为 "checkpoint"
+            self._weights_source = "random_init"
+            self._weights_path = None
 
             if HAS_TORCH and weights_path:
                 try:
-                    # 安全：强制 weights_only=True，只接受纯张量 state_dict，
+                    # 安全：强制 weights_only=True，只接受纯张量/基础容器，
                     # 拒绝反序列化任意对象（RCE 风险）。weights_only 自
                     # torch 1.13 起支持，桌面 runtime 自带现代 torch，无需
                     # 为史前版本保留无防护的降级路径。
-                    state_dict = torch.load(weights_path, map_location="cpu", weights_only=True)
+                    payload = torch.load(weights_path, map_location="cpu", weights_only=True)
                 except ValueError as e:
                     # weights_only 校验拒绝的权重（含非白名单 pickle 对象）：
                     # 显式拒绝加载，提示使用可信权重
@@ -141,21 +149,45 @@ class TrajectoryPredictor:
                         f"世界模型权重加载被拒绝（weights_only 校验失败）: {weights_path}。"
                         "文件包含非标准权重对象，可能已损坏或被篡改，请使用可信权重。"
                     ) from e
-                    if hasattr(self._model, "load_state_dict"):
-                        self._model.load_state_dict(state_dict)
-                    logger.info(
-                        "世界模型权重已加载: uri=%s path=%s",
-                        model_uri,
-                        weights_path,
-                    )
                 except (RuntimeError, OSError, KeyError) as exc:
                     logger.warning("权重加载失败，使用随机初始化: %s", exc)
+                else:
+                    # 修复（2026-10-21 世界模型通电）：
+                    #   1. 原先 load_state_dict 位于 except 块内 raise 之后，
+                    #      是不可达死代码 —— 权重加载成功也从未应用到模型；
+                    #   2. FusionWorldModelTrainer.save_checkpoint 产出的是
+                    #      含 model_state_dict 的 checkpoint dict，不能直接
+                    #      喂给 load_state_dict，需先解包。
+                    state_dict = self._extract_model_state_dict(payload)
+                    if hasattr(self._model, "load_state_dict"):
+                        self._model.load_state_dict(state_dict)
+                        self._weights_source = "checkpoint"
+                        self._weights_path = weights_path
+                        logger.info(
+                            "世界模型权重已加载: uri=%s path=%s",
+                            model_uri,
+                            weights_path,
+                        )
             elif not weights_path:
                 logger.warning("未提供权重路径，使用随机初始化权重。预测结果无实际意义，仅用于接口验证。")
 
             if HAS_TORCH and hasattr(self._model, "to") and hasattr(self._device, "type"):
                 self._model.to(self._device)
                 self._model.eval()
+
+    @staticmethod
+    def _extract_model_state_dict(payload: Any) -> dict[str, Any]:
+        """从 checkpoint payload 中提取纯 model state_dict.
+
+        兼容两种格式：
+
+        1. ``FusionWorldModelTrainer.save_checkpoint`` 产出的 checkpoint dict
+           （含 ``model_state_dict`` 键 + optimizer/metrics/history 等元信息）；
+        2. 裸 state_dict（早期手工导出 / 其他 trainer 直接 ``torch.save``）。
+        """
+        if isinstance(payload, dict) and "model_state_dict" in payload:
+            return payload["model_state_dict"]
+        return payload
 
     def predict(
         self,
@@ -331,6 +363,8 @@ class TrajectoryPredictor:
                 "backend": "torch",
                 "mode": "fusion",
                 "fused_embedding_dim": self.config.fused_dim,
+                "weights_source": self._weights_source,
+                "weights_path": self._weights_path,
             },
         )
 
@@ -406,6 +440,8 @@ class TrajectoryPredictor:
                 "device": str(self._device),
                 "config": self.config.to_dict(),
                 "backend": "torch",
+                "weights_source": self._weights_source,
+                "weights_path": self._weights_path,
             },
         )
 

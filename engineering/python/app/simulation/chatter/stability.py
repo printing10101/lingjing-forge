@@ -230,67 +230,72 @@ def _compute_frf(
 def compute_stability_limit(
     params: ChatterParams,
 ) -> float:
-    """计算给定主轴转速下的稳定性极限切削深度。
+    """计算绝对稳定性极限切深（对主轴转速取最坏情况的包络）。
 
-    基于 Tlusty 公式（单自由度系统修正形式）：
-        a_lim = |1 + 2ζir·G(ω)|² / (2·K_s·Re[G(ω)])
+    基于 Tlusty 单自由度公式，在 ``[0.5f_n, 2f_n]`` 内取 FRF 实部最负点 f*：
 
-    其中：
-        - ζ: 阻尼比
-        - ir: 虚数单位
-        - G(ω): 频率响应函数
-        - K_s: 切削力系数
+        a_lim = |1 + 2ζi·G(f*)|² / (2·K_s·|Re[G(f*)]|)
+
+    关键点：**再生颤振由负实部提供能量**，因此必须用 Re[G] 的最小值（最负值）。
+    原实现只在 ``Re[G] > 0`` 频点中搜索，跳过了决定极限的区域，返回 25–31 mm；
+    修复后 k=stiffness_z=2e8 N/m 时约 10 mm，按最柔性轴（1.5e7 N/m）约 0.8 mm。
+
+    限制
+    ----
+    - 返回**与转速无关的绝对包络**（1-DOF 最坏转速下的极限），``spindle_rpm``
+      不参与计算；分转速叶瓣请用 :func:`compute_stability_lobe`。
+    - 未考虑径向浸入比增益与多模态耦合。
+    - 采用 ``stiffness_z``（原设计口径）。颤振通常发生在最柔性方向，
+      是否改用 ``min(stiffness_x, stiffness_y)`` 属建模决策，需单独评估，
+      不在本函数内静默改变语义。
 
     Args:
-        params: 颤振计算参数
+        params: 颤振计算参数（machine/tool 参与；spindle_rpm 不参与）
 
     Returns:
-        极限切削深度 (mm)
+        极限切深 (mm)，裁剪到 [0.05, 20]
     """
     f_n = params.machine.natural_freq
     zeta = params.machine.damping_ratio
 
-    # 在固有频率附近搜索极限切深的最小值
-    # 频率范围：0.5*f_n 到 2*f_n
-    freqs = np.linspace(f_n * 0.5, f_n * 2.0, 500)
+    # 修复（2026-10-21）：再生颤振由 FRF 实部最负的频率决定。
+    # 原实现只在 Re[G] > 0 的频点里找最小值，跳过了真正决定极限的负实部区域，
+    # 结果被抬到 25–31 mm（钢件铣削真实量级 0.5–3 mm）并在 100 mm 上限裁剪。
+    # 用模态参数推导实际共振频率：预设表里 natural_freq 与 sqrt(k/m) 不一致
+    # （vmc_850: k_z=2e8 N/m, m=50 kg -> 318 Hz，而 natural_freq=100 Hz），
+    # 若按 natural_freq 扫描会完全错过负实部区域（Re[G] 恒正）。
+    f_mode = float(np.sqrt(params.machine.stiffness_z / params.machine.modal_mass) / (2.0 * np.pi))
+    f_center = f_mode if np.isfinite(f_mode) and f_mode > 0 else f_n
+    freqs = np.linspace(f_center * 0.5, f_center * 2.0, 2000)
 
-    min_a_lim = float("inf")
+    best_freq: float | None = None
+    best_re = 0.0  # 只接受负实部
 
     for freq in freqs:
-        # 计算 FRF
-        frf = _compute_frf(params.machine, freq)
-        re_frf = frf.real
+        re_frf = _compute_frf(params.machine, freq).real
+        if re_frf < best_re:
+            best_re = re_frf
+            best_freq = freq
 
-        # 跳过 Re[G] <= 0 或接近零的点（避免 a_lim 数值奇异）
-        # Re[G] 0 时 a_lim = numerator / (2·K_s·Re[G]) 会发散到无穷大
-        if re_frf <= 1e-9:
-            continue
+    if best_freq is None or best_re >= -1e-12:
+        logger.warning("FRF 实部在搜索区间内无负值，返回保守默认极限切深 0.5 mm")
+        return 0.5
 
-        # Tlusty 公式（单自由度修正形式）
-        # a_lim = |1 + 2ζi·G(ω)|² / (2·K_s·Re[G(ω)])
-        numerator = abs(1.0 + 2.0 * zeta * 1j * frf) ** 2
+    frf = _compute_frf(params.machine, best_freq)
+    numerator = abs(1.0 + 2.0 * zeta * 1j * frf) ** 2
 
-        # 单位转换：K_s (N/mm²), FRF (m/N mm/N)
-        k_s = params.tool.cutting_force_coeff  # N/mm²
-        re_frf_mm = re_frf * 1000.0  # m/N → mm/N
+    # 单位转换：K_s (N/mm²), FRF (m/N -> mm/N)
+    k_s = params.tool.cutting_force_coeff  # N/mm²
+    re_frf_mm = abs(best_re) * 1000.0  # m/N → mm/N
 
-        a_lim_mm = numerator / (2.0 * k_s * re_frf_mm)
+    a_lim_mm = numerator / (2.0 * k_s * re_frf_mm)
 
-        # 记录最小值
-        if a_lim_mm > 0 and a_lim_mm < min_a_lim:
-            min_a_lim = a_lim_mm
+    if not np.isfinite(a_lim_mm) or a_lim_mm <= 0:
+        logger.warning("极限切深计算异常（a_lim=%s），返回保守默认值 0.5 mm", a_lim_mm)
+        return 0.5
 
-    # 如果未找到有效值，返回默认值
-    if min_a_lim == float("inf") or min_a_lim <= 0:
-        logger.warning("未找到有效的极限切深，使用默认值")
-        return 1.0
-
-    # 限制在合理范围内
-    if min_a_lim > 100.0:
-        logger.warning("极限切深过大: %s mm，限制为 100 mm", min_a_lim)
-        return 100.0
-
-    return float(min_a_lim)
+    # 物理合理区间裁剪（1-DOF 包络可能给出远超实际的数值，避免下游拿到离谱数字）
+    return float(min(max(a_lim_mm, 0.05), 20.0))
 
 
 def compute_stability_lobe(

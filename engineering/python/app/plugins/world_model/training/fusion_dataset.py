@@ -84,6 +84,21 @@ def _coerce_to_ndarray(value: Any, name: str, expected_dim: int) -> np.ndarray:
     return arr
 
 
+def _coerce_state_vector(value: Any, name: str, state_dim: int) -> np.ndarray:
+    """校验并转换 1-D 状态向量（initial_state 等）为 float32 [state_dim]."""
+    if isinstance(value, str) or not isinstance(value, (list, tuple, np.ndarray)):
+        raise FusionSampleError(f"{name} 必须为 list/tuple/np.ndarray，实际类型={type(value).__name__}")
+    try:
+        arr = np.asarray(value, dtype=np.float32)
+    except (ValueError, TypeError) as exc:
+        raise FusionSampleError(f"{name} 无法转为 float32 ndarray: {exc}") from exc
+    if arr.ndim != 1 or arr.shape[0] != state_dim:
+        raise FusionSampleError(f"{name} 必须为 1 维 [state_dim={state_dim}]，实际 shape={arr.shape}")
+    if not np.all(np.isfinite(arr)):
+        raise FusionSampleError(f"{name} 含 NaN/Inf，无法训练")
+    return arr
+
+
 def validate_sample(
     geometry_seq: Any,
     dynamics_seq: Any,
@@ -192,6 +207,7 @@ class FusionTrajectoryDataset(Dataset):
         self._action_dim = action_dim
         self._state_dim = state_dim
         self._samples: list[dict[str, np.ndarray]] = []
+        self._has_initial: set[int] = set()
 
         for idx, raw in enumerate(samples):
             if not isinstance(raw, dict):
@@ -209,13 +225,30 @@ class FusionTrajectoryDataset(Dataset):
                 )
             except KeyError as exc:
                 raise FusionSampleError(f"samples[{idx}] 缺少必需字段: {exc}") from exc
-            self._samples.append(
-                {
-                    "geometry_seq": geo,
-                    "dynamics_seq": dyn,
-                    "actions": act,
-                    "target_trajectory": tgt,
-                }
+
+            # ADR-023：可选 initial_state（最后观测状态，状态反馈训练）。
+            # 一致性契约：要么全部样本提供，要么全部不提供；部分提供直接报错，
+            # 避免 collate 产出混合 4/5 元组 batch。
+            if "initial_state" in raw:
+                init_state = _coerce_state_vector(raw["initial_state"], "initial_state", state_dim)
+                self._has_initial.add(idx)
+            else:
+                init_state = None
+
+            record = {
+                "geometry_seq": geo,
+                "dynamics_seq": dyn,
+                "actions": act,
+                "target_trajectory": tgt,
+            }
+            if init_state is not None:
+                record["initial_state"] = init_state
+            self._samples.append(record)
+
+        if self._has_initial and len(self._has_initial) != len(self._samples):
+            raise FusionSampleError(
+                "initial_state 必须全量提供或全量缺省（ADR-023 一致性契约），"
+                f"实际 {len(self._has_initial)}/{len(self._samples)} 个样本提供"
             )
         if strict and not self._samples:
             logger.warning("FusionTrajectoryDataset 为空（0 个样本）")
@@ -231,14 +264,28 @@ class FusionTrajectoryDataset(Dataset):
     def __len__(self) -> int:
         return len(self._samples)
 
-    def __getitem__(self, idx: int) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    def __getitem__(self, idx: int) -> tuple:
+        """返回 4 元组；全部样本含 initial_state 时返回 5 元组（ADR-023）."""
         sample = self._samples[idx]
+        if self._has_initial:
+            return (
+                sample["geometry_seq"],
+                sample["dynamics_seq"],
+                sample["actions"],
+                sample["target_trajectory"],
+                sample["initial_state"],
+            )
         return (
             sample["geometry_seq"],
             sample["dynamics_seq"],
             sample["actions"],
             sample["target_trajectory"],
         )
+
+    @property
+    def has_initial_state(self) -> bool:
+        """数据集是否提供 initial_state（状态反馈训练模式）."""
+        return bool(self._has_initial)
 
     @property
     def geo_input_dim(self) -> int:
@@ -258,32 +305,31 @@ class FusionTrajectoryDataset(Dataset):
 
 
 def fusion_collate_fn(
-    batch: Sequence[tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]],
-) -> tuple[
-    "torch.Tensor",
-    "torch.Tensor",
-    "torch.Tensor",
-    "torch.Tensor",
-]:
-    """自定义 collate_fn：把变长 numpy 四元组 batch 化为 torch 张量.
+    batch: Sequence[tuple],
+) -> tuple:
+    """自定义 collate_fn：把变长 numpy 四/五元组 batch 化为 torch 张量.
+
+    兼容两种样本形态（按首个元素长度自动识别，ADR-023）：
+
+    - 4 元组 ``(geo, dyn, act, tgt)`` → 返回 4 张量；
+    - 5 元组 ``(geo, dyn, act, tgt, initial_state)`` → 返回 5 张量，
+      ``initial_state`` 形状 ``[batch, state_dim]``（状态反馈训练）。
 
     要求 batch 内所有样本的 ``T`` 和 ``horizon`` 一致（变长序列请用
     ``pad_sequence`` 或在数据预处理阶段对齐）。这是 WorldModelNet.forward
     的硬约束：``actions`` 必须是 ``[batch, T + horizon, action_dim]`` 整张量。
-
-    Returns
-    -------
-    tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]
-        ``(geometry, dynamics, actions, target)``，shape 分别为
-        ``[batch, T, geo_dim]`` / ``[batch, T, 6]`` /
-        ``[batch, T + horizon, action_dim]`` / ``[batch, horizon, state_dim]``。
     """
     if not HAS_TORCH:
         raise RuntimeError("fusion_collate_fn 需要 torch")
     if not batch:
         raise ValueError("batch 不能为空")
 
-    geo_list, dyn_list, act_list, tgt_list = zip(*batch, strict=True)
+    include_initial = len(batch[0]) == 5
+    if include_initial:
+        geo_list, dyn_list, act_list, tgt_list, init_list = zip(*batch, strict=True)
+        init_arr = np.stack(init_list).astype(np.float32)  # [B, state_dim]
+    else:
+        geo_list, dyn_list, act_list, tgt_list = zip(*batch, strict=True)
     # 形状一致性校验（batch 内 T / horizon 必须一致）
     T0 = geo_list[0].shape[0]
     horizon0 = tgt_list[0].shape[0]
@@ -299,6 +345,9 @@ def fusion_collate_fn(
     dynamics = torch.from_numpy(np.stack(dyn_list)).float()  # [B, T, 6]
     actions = torch.from_numpy(np.stack(act_list)).float()  # [B, T+H, A]
     target = torch.from_numpy(np.stack(tgt_list)).float()  # [B, H, S]
+    if include_initial:
+        initial_state = torch.from_numpy(init_arr).float()  # [B, state_dim]
+        return geometry, dynamics, actions, target, initial_state
     return geometry, dynamics, actions, target
 
 
