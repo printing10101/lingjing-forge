@@ -16,6 +16,8 @@ import pytest
 # 由 CI 的 -m "not skip_ci" 排除（与 tests/performance、tests/image_to_3d 同模式）。
 pytestmark = pytest.mark.skip_ci
 
+REPOSITORY_ROOT = Path(__file__).resolve().parents[4]
+
 
 def test_python_version():
     """测试必须使用 Python 3.14"""
@@ -34,7 +36,7 @@ def test_python_version():
     
     version_output = result.stdout.strip()
     assert "Python 3.14" in version_output, f"Expected Python 3.14, got: {version_output}"
-    print(f"✓ Python version: {version_output}")
+    print(f"[OK] Python version: {version_output}")
 
 
 def test_no_pythonpath_shading():
@@ -58,12 +60,12 @@ def test_no_pythonpath_shading():
         capture_output=True,
         text=True,
         env=env,
-        cwd=Path.cwd(),
+        cwd=REPOSITORY_ROOT,
     )
     
     assert result.returncode == 0, f"Module import failed: {result.stderr}"
     assert "OK" in result.stdout, f"Unexpected output: {result.stdout}"
-    print(f"✓ Module import works: {result.stdout.strip()}")
+    print(f"[OK] Module import works: {result.stdout.strip()}")
 
 
 def test_ocp_loaded():
@@ -76,7 +78,7 @@ def test_ocp_loaded():
         [sys.executable, "-c", "import cadquery; print('OCP loaded successfully')"],
         capture_output=True,
         text=True,
-        cwd=Path.cwd(),
+        cwd=REPOSITORY_ROOT,
     )
 
     assert "OCP loaded successfully" in result.stdout, (
@@ -87,7 +89,7 @@ def test_ocp_loaded():
         "Install the pinned CasADi 3.8.1 fix and rerun; stdout success is not readiness. "
         f"{result.stderr[-1500:]}"
     )
-    print(f"✓ OCP loaded: {result.stdout.strip()}")
+    print(f"[OK] OCP loaded: {result.stdout.strip()}")
 
 
 def test_desktop_runtime_python():
@@ -107,7 +109,7 @@ def test_desktop_runtime_python():
     )
     
     version_output = result.stdout.strip()
-    print(f"✓ Desktop runtime Python: {version_output}")
+    print(f"[OK] Desktop runtime Python: {version_output}")
     
     # 验证包含正确的 Python 版本
     assert "Python 3.12" in version_output, f"Expected Python 3.12.x in desktop runtime, got: {version_output}"
@@ -131,11 +133,11 @@ def test_key_modules_import():
             ],
             capture_output=True,
             text=True,
-            cwd=Path.cwd(),
+            cwd=REPOSITORY_ROOT,
         )
         
         assert result.returncode == 0, f"{module} import failed: {result.stderr}"
-        print(f"✓ Module import: {module}")
+        print(f"[OK] Module import: {module}")
 
 
 def test_exceptions_import():
@@ -159,11 +161,11 @@ def test_exceptions_import():
             ],
             capture_output=True,
             text=True,
-            cwd=Path.cwd(),
+            cwd=REPOSITORY_ROOT,
         )
         
         assert result.returncode == 0, f"{exc_name} import failed: {result.stderr}"
-        print(f"✓ Import: {exc_name}")
+        print(f"[OK] Import: {exc_name}")
 
 
 if __name__ == "__main__":

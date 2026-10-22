@@ -162,9 +162,11 @@ def _parse_memory_to_bytes(mem_str: str) -> int:
     """解析内存字符串为字节数"""
     mem_str = mem_str.strip().upper()
     multipliers = {"B": 1, "KB": 1024, "MB": 1024**2, "GB": 1024**3}
-    for unit, mult in multipliers.items():
+    # 先匹配长后缀，避免 "8GB" 被 "B" 提前命中后尝试转换 "8G"。
+    for unit in sorted(multipliers, key=len, reverse=True):
+        mult = multipliers[unit]
         if mem_str.endswith(unit):
-            return int(float(mem_str.replace(unit, "")) * mult)
+            return int(float(mem_str[:-len(unit)]) * mult)
     if mem_str.isdigit():
         return int(mem_str)
     return 8 * 1024**3
