@@ -493,39 +493,3 @@ pub fn run() {
         _ => {}
     });
 }
-
-/// 递归遍历目录，返回所有文件和子目录的路径列表。
-/// 这是个最小化的实现，避免引入 `walkdir` crate 依赖。
-/// 仅用于启动时清理 WebView2 Default 目录下的 LOCK 文件。
-///
-/// 安全修复：原实现无深度限制，遇到符号链接环（symlink loop）会无限递归导致栈溢出。
-/// 现添加 max_depth 限制（默认 10 层）并跳过符号链接，避免栈溢出风险。
-fn walkdir(dir: &std::path::Path) -> Vec<std::path::PathBuf> {
-    walkdir_inner(dir, 0, 10)
-}
-
-fn walkdir_inner(dir: &std::path::Path, depth: u32, max_depth: u32) -> Vec<std::path::PathBuf> {
-    let mut result = Vec::new();
-    // 深度超限直接返回，避免恶意构造的深层嵌套目录导致栈溢出
-    if depth >= max_depth {
-        return result;
-    }
-    if let Ok(entries) = std::fs::read_dir(dir) {
-        for entry in entries.flatten() {
-            let path = entry.path();
-            // 跳过符号链接，避免符号链接环导致无限递归栈溢出
-            // （使用 symlink_metadata 不跟踪符号链接目标）
-            let is_symlink = std::fs::symlink_metadata(&path)
-                .map(|m| m.file_type().is_symlink())
-                .unwrap_or(false);
-            if is_symlink {
-                continue;
-            }
-            result.push(path.clone());
-            if path.is_dir() {
-                result.extend(walkdir_inner(&path, depth + 1, max_depth));
-            }
-        }
-    }
-    result
-}
