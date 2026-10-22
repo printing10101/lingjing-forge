@@ -46,3 +46,9 @@
 *.bin filter=lfs diff=lfs merge=lfs -text
 data/traces/** filter=lfs diff=lfs merge=lfs -text
 data/external/cnc_machining/** filter=lfs diff=lfs merge=lfs -text
+
+# 工艺参数两处小权重（颤振 LTC ≈60KB / 切削力 PINN ≈345KB）以普通二进制入库：
+# 桌面安装包的运行时组装（build_desktop_runtime.py）只做文件拷贝、不做 LFS 检出，
+# 走 LFS 会让安装包拿到指针文件而不是权重。合计约 400KB，不必引入 LFS 依赖。
+engineering/python/app/simulation/chatter/checkpoints/*.pt -filter -text
+engineering/python/app/simulation/cutting_force/checkpoints/*.pt -filter -text
