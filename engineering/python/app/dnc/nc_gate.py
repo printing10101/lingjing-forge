@@ -73,7 +73,10 @@ def _audit_unvalidated_dispatch(program_path: str, machine_id: str | None) -> No
 
 
 def get_dispatch_block_reason(
-    program_path: str, machine_id: str | None = None, *, program_bytes: bytes | None = None,
+    program_path: str,
+    machine_id: str | None = None,
+    *,
+    program_bytes: bytes | None = None,
 ) -> str | None:
     """判断 NC 程序是否允许下发到机床。
 

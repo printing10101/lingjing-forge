@@ -153,8 +153,7 @@ def _extract_table_from_sheet(ws: Any, sheet_idx: int, sheet_name: str) -> dict[
                 for col_idx in range(merged_range.min_col, merged_range.max_col + 1):
                     merged_values[row_idx, col_idx] = value
         for row_idx, raw_row in enumerate(ws.iter_rows(values_only=True), start=1):
-            row = [merged_values.get((row_idx, col_idx), value)
-                   for col_idx, value in enumerate(raw_row, start=1)]
+            row = [merged_values.get((row_idx, col_idx), value) for col_idx, value in enumerate(raw_row, start=1)]
             # 过滤完全空行
             if any(cell is not None for cell in row):
                 data.append([str(cell) if cell is not None else "" for cell in row])

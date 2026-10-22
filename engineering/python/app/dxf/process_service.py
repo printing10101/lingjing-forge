@@ -290,7 +290,9 @@ class DxfProcessService:
         if out_dir is not None:
             ctl = postprocessor or self._default_postprocessor
             features_summary = result.features.summary if result.features else {}
-            result.gcode = self._run_gcode(path, out_dir, ctl, user_id, features_summary, material, stock_top_z, max_stepdown)
+            result.gcode = self._run_gcode(
+                path, out_dir, ctl, user_id, features_summary, material, stock_top_z, max_stepdown
+            )
 
         # 收集输出文件
         if out_dir is not None:

@@ -179,7 +179,9 @@ def _tool_rag_recommend_process(
     from app.rag.process_quadruple import get_process_quadruple_index
 
     index = get_process_quadruple_index()
-    assessment = index.assess_recommendations(feature or "", material or "general", top_k=max(1, min(int(top_k), 5)), conditions=conditions)
+    assessment = index.assess_recommendations(
+        feature or "", material or "general", top_k=max(1, min(int(top_k), 5)), conditions=conditions
+    )
     return {"count": len(assessment["recommendations"]), **assessment, "physical_validation_required": True}
 
 

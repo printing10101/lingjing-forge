@@ -4,6 +4,7 @@ This is a sandboxed rule evolution experiment, not model training or machine
 execution. The legacy Z convention is compared with the drawing thickness;
 only a fully evaluated, material-removing candidate can become the local policy.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -49,8 +50,10 @@ def cutting_parameters(gcode: str, stock_top_z: float) -> dict[str, Any] | None:
     stepdowns = []
     for block in re.split(r"(?m)^; ---- OP", gcode):
         op_segments = ToolpathParser("fanuc_0i").parse_gcode(block)
-        levels = sorted({stock_top_z, *(seg.end[2] for seg in op_segments
-                        if seg.type == "linear" and seg.end[2] < stock_top_z)}, reverse=True)
+        levels = sorted(
+            {stock_top_z, *(seg.end[2] for seg in op_segments if seg.type == "linear" and seg.end[2] < stock_top_z)},
+            reverse=True,
+        )
         stepdowns.extend(upper - lower for upper, lower in zip(levels, levels[1:]))
     stepdown = max(stepdowns)
     return {
@@ -109,10 +112,14 @@ def run_drawing_feedback(source: Path, output: Path) -> dict[str, Any]:
 
     def generate(label: str, top: float | None, max_stepdown: float | None = None) -> tuple[Any, str]:
         directory = output / label
-        result = service.process(source, output_dir=directory, material="45钢", stock_top_z=top, max_stepdown=max_stepdown)
+        result = service.process(
+            source, output_dir=directory, material="45钢", stock_top_z=top, max_stepdown=max_stepdown
+        )
         write_json(directory / "process.json", result.to_dict())
         if not all(stage and stage.success for stage in (result.parse, result.features, result.model3d, result.gcode)):
-            raise RuntimeError(f"[DRAWING_PIPELINE_FAILED] {label} 阶段失败。建议操作：查看 {directory / 'process.json'}")
+            raise RuntimeError(
+                f"[DRAWING_PIPELINE_FAILED] {label} 阶段失败。建议操作：查看 {directory / 'process.json'}"
+            )
         nc = Path(result.gcode.summary["output"])
         return result, nc.read_text(encoding="utf-8")
 
@@ -126,20 +133,37 @@ def run_drawing_feedback(source: Path, output: Path) -> dict[str, Any]:
 
     def validate(label: str, nc: str) -> dict[str, Any]:
         params = cutting_parameters(nc, height)
-        report = evaluation.evaluate(GcodeEvaluationRequest(
-            gcode_text=nc, safe_z=height + 2.0, stock_top_z=height,
-            cutting_params=params, **stock,
-        )).to_dict()
+        report = evaluation.evaluate(
+            GcodeEvaluationRequest(
+                gcode_text=nc,
+                safe_z=height + 2.0,
+                stock_top_z=height,
+                cutting_params=params,
+                **stock,
+            )
+        ).to_dict()
         passed, reasons = acceptance(report)
-        report.update({"accepted": passed, "reasons": reasons, "nc_sha256": hashlib.sha256(nc.encode()).hexdigest(),
-                       "cutting_parameters_from_nc": params})
+        report.update(
+            {
+                "accepted": passed,
+                "reasons": reasons,
+                "nc_sha256": hashlib.sha256(nc.encode()).hexdigest(),
+                "cutting_parameters_from_nc": params,
+            }
+        )
         write_json(output / label / "validation.json", report)
         return report
 
     baseline_report = validate("baseline", baseline_nc)
-    events.append({"kind": "validation_feedback", "source": "baseline/validation.json",
-                   "reasons": baseline_report["reasons"], "legacy_stock_top_z": baseline.gcode.summary["stock_top_z"],
-                   "drawing_thickness": height})
+    events.append(
+        {
+            "kind": "validation_feedback",
+            "source": "baseline/validation.json",
+            "reasons": baseline_report["reasons"],
+            "legacy_stock_top_z": baseline.gcode.summary["stock_top_z"],
+            "drawing_thickness": height,
+        }
+    )
     write_json(output / "feedback.json", events)
     candidate, candidate_nc = generate("candidate", height)
     candidate_report = validate("candidate", candidate_nc)
@@ -156,19 +180,30 @@ def run_drawing_feedback(source: Path, output: Path) -> dict[str, Any]:
             break
         stepdown = params["depth_of_cut"] / 2.0
         label = f"candidate_depth_{attempt}"
-        events.append({"kind": "physics_feedback", "source": evidence,
-                       "action": "halve_max_stepdown", "max_stepdown": stepdown})
+        events.append(
+            {"kind": "physics_feedback", "source": evidence, "action": "halve_max_stepdown", "max_stepdown": stepdown}
+        )
         candidate, candidate_nc = generate(label, height, stepdown)
         candidate_report = validate(label, candidate_nc)
         evidence = f"{label}/validation.json"
-    policy = {"version": 1, "kind": "drawing_coordinate_rule", "source_sha256": source_hash,
-              "stock_top_z": height, "max_stepdown": stepdown,
-              "status": "accepted" if candidate_report["accepted"] else "rejected",
-              "evidence": evidence, "feedback": "feedback.json"}
+    policy = {
+        "version": 1,
+        "kind": "drawing_coordinate_rule",
+        "source_sha256": source_hash,
+        "stock_top_z": height,
+        "max_stepdown": stepdown,
+        "status": "accepted" if candidate_report["accepted"] else "rejected",
+        "evidence": evidence,
+        "feedback": "feedback.json",
+    }
     write_json(output / "candidate_policy.json", policy)
     if not candidate_report["accepted"]:
-        summary = {"completed": False, "stage": "candidate_rejected", "policy": policy,
-                   "reasons": candidate_report["reasons"]}
+        summary = {
+            "completed": False,
+            "stage": "candidate_rejected",
+            "policy": policy,
+            "reasons": candidate_report["reasons"],
+        }
         write_json(output / "summary.json", summary)
         return summary
 
@@ -179,27 +214,37 @@ def run_drawing_feedback(source: Path, output: Path) -> dict[str, Any]:
     replay_report = validate("policy_replay", replay_nc)
     # Re-evaluate the observed legacy candidate to demonstrate refusal to regress.
     before_hash = hashlib.sha256(policy_path.read_bytes()).hexdigest()
-    rejected = {"stock_top_z": baseline.gcode.summary["stock_top_z"],
-                "accepted": baseline_report["accepted"], "reasons": baseline_report["reasons"]}
+    rejected = {
+        "stock_top_z": baseline.gcode.summary["stock_top_z"],
+        "accepted": baseline_report["accepted"],
+        "reasons": baseline_report["reasons"],
+    }
     if rejected["accepted"]:
         rejected["rejection_test"] = "not_applicable: legacy candidate also passed"
     else:
         rejected["rejection_test"] = "failed candidate was not promoted"
     write_json(output / "rejected_candidate.json", rejected)
     unchanged = before_hash == hashlib.sha256(policy_path.read_bytes()).hexdigest()
-    events.extend([
-        {"kind": "candidate_promoted", "policy": "active_policy.json"},
-        {"kind": "policy_consumed_on_next_generation", "evidence": "policy_replay/process.json"},
-        {"kind": "failed_candidate_rejected", "active_policy_unchanged": unchanged},
-    ])
+    events.extend(
+        [
+            {"kind": "candidate_promoted", "policy": "active_policy.json"},
+            {"kind": "policy_consumed_on_next_generation", "evidence": "policy_replay/process.json"},
+            {"kind": "failed_candidate_rejected", "active_policy_unchanged": unchanged},
+        ]
+    )
     write_json(output / "feedback.json", events)
     summary = {
         "completed": bool(replay_report["accepted"] and unchanged),
-        "source": str(source), "source_sha256": source_hash,
+        "source": str(source),
+        "source_sha256": source_hash,
         "source_classification": "repository DXF fixture; not a verified factory drawing",
-        "controller": "fanuc_0i", "material": "45钢", "stock": stock,
-        "baseline_accepted": baseline_report["accepted"], "candidate_accepted": candidate_report["accepted"],
-        "replay_accepted": replay_report["accepted"], "failed_candidate_rejected": not rejected["accepted"],
+        "controller": "fanuc_0i",
+        "material": "45钢",
+        "stock": stock,
+        "baseline_accepted": baseline_report["accepted"],
+        "candidate_accepted": candidate_report["accepted"],
+        "replay_accepted": replay_report["accepted"],
+        "failed_candidate_rejected": not rejected["accepted"],
         "active_policy_unchanged_after_rejection": unchanged,
         "nc_changed": baseline_report["nc_sha256"] != candidate_report["nc_sha256"],
         "replay_nc_matches_candidate": replay_nc == candidate_nc,

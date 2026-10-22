@@ -80,15 +80,25 @@ class ProcessQuadruple:
     submission: dict = field(default_factory=dict)
 
     def __post_init__(self) -> None:
-        if any(not isinstance(value, str) or not value.strip()
-               for value in (self.feature, self.process, self.tool, self.material)):
+        if any(
+            not isinstance(value, str) or not value.strip()
+            for value in (self.feature, self.process, self.tool, self.material)
+        ):
             raise ValueError("特征、工艺、刀具和材料必须为非空字符串")
         if not isinstance(self.parameters, dict):
             raise ValueError("parameters 必须为参数对象")
         if not isinstance(self.candidate_context, dict):
             raise ValueError("candidate_context 必须为待审依据对象")
         context = self.candidate_context
-        text_fields = {"source_url", "document_sha256", "material", "tool", "applicability", "verification_method", "note"}
+        text_fields = {
+            "source_url",
+            "document_sha256",
+            "material",
+            "tool",
+            "applicability",
+            "verification_method",
+            "note",
+        }
         if set(context) - text_fields - {"page", "parameter_units", "unresolved", "constraints"}:
             raise ValueError("candidate_context 包含未知字段")
         if "constraints" in context:
@@ -98,7 +108,9 @@ class ProcessQuadruple:
         if context.get("page") is not None and (type(context["page"]) is not int or context["page"] < 1):
             raise ValueError("待审页码必须为正整数或空值")
         units = context.get("parameter_units", {})
-        if not isinstance(units, dict) or any(not isinstance(key, str) or not isinstance(value, str) for key, value in units.items()):
+        if not isinstance(units, dict) or any(
+            not isinstance(key, str) or not isinstance(value, str) for key, value in units.items()
+        ):
             raise ValueError("待审参数单位必须为字符串映射")
         unresolved = context.get("unresolved", [])
         if not isinstance(unresolved, list) or any(not isinstance(value, str) for value in unresolved):
@@ -110,7 +122,11 @@ class ProcessQuadruple:
         if not isinstance(self.source, str):
             raise ValueError("source 必须为来源标识字符串")
         self.source = self.source.strip().lower() or "unverified"
-        if isinstance(self.confidence, bool) or not isinstance(self.confidence, (int, float)) or not 0 <= self.confidence <= 1:
+        if (
+            isinstance(self.confidence, bool)
+            or not isinstance(self.confidence, (int, float))
+            or not 0 <= self.confidence <= 1
+        ):
             raise ValueError(f"confidence 必须在 [0, 1]，当前 {self.confidence}")
         content_digest(self.to_dict())  # Reject non-JSON and non-finite parameter values.
 
@@ -139,7 +155,12 @@ class ProcessQuadruple:
             quad.revision = data.get("revision", 1)
             quad.review = deepcopy(data.get("review", {"status": "pending"}))
             quad.review_history = deepcopy(data.get("review_history", []))
-            if not isinstance(quad.record_id, str) or not quad.record_id or type(quad.revision) is not int or quad.revision < 1:
+            if (
+                not isinstance(quad.record_id, str)
+                or not quad.record_id
+                or type(quad.revision) is not int
+                or quad.revision < 1
+            ):
                 raise ValueError("非法知识版本标识")
             if not isinstance(quad.review, dict) or not isinstance(quad.review_history, list):
                 raise ValueError("非法知识审核记录")
@@ -365,7 +386,9 @@ class ProcessQuadrupleIndex:
                     self._by_feature_process[(quad.feature, quad.process)].append(quad)
                     self._by_material[quad.material].append(quad)
                 self._dirty = was_dirty
-                raise RuntimeError("[持久化错误] 工艺知识未保存，新增已撤回。建议操作：检查数据目录权限和磁盘空间后重试。")
+                raise RuntimeError(
+                    "[持久化错误] 工艺知识未保存，新增已撤回。建议操作：检查数据目录权限和磁盘空间后重试。"
+                )
 
     def list_review_records(self) -> list[dict]:
         with self._lock:
@@ -374,10 +397,26 @@ class ProcessQuadrupleIndex:
     def submit_candidate(self, agent_id: str, submission_id: str, content: dict) -> tuple[dict, bool]:
         """Persist idempotency with the candidate, including across review and restart."""
         quad = ProcessQuadruple.from_dict({**content, "source": "agent_candidate", "confidence": 0.5})
-        payload = {"content": {key: quad.to_dict()[key] for key in (
-            "feature", "process", "tool", "material", "parameters", "source", "confidence", "chunk_ids", "tags")},
-            "candidate_context": quad.candidate_context}
-        digest = hashlib.sha256(json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False).encode()).hexdigest()
+        payload = {
+            "content": {
+                key: quad.to_dict()[key]
+                for key in (
+                    "feature",
+                    "process",
+                    "tool",
+                    "material",
+                    "parameters",
+                    "source",
+                    "confidence",
+                    "chunk_ids",
+                    "tags",
+                )
+            },
+            "candidate_context": quad.candidate_context,
+        }
+        digest = hashlib.sha256(
+            json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False).encode()
+        ).hexdigest()
         quad.record_id = hashlib.sha256(json.dumps([agent_id, submission_id], ensure_ascii=False).encode()).hexdigest()
         quad.submission = {"agent_id": agent_id, "submission_id": submission_id, "digest": digest}
         with self._lock:
@@ -391,14 +430,24 @@ class ProcessQuadrupleIndex:
 
     def get_candidate_for_agent(self, record_id: str, agent_id: str) -> dict:
         with self._lock:
-            record = next((q for q in self._all if q.record_id == record_id and q.submission.get("agent_id") == agent_id), None)
+            record = next(
+                (q for q in self._all if q.record_id == record_id and q.submission.get("agent_id") == agent_id), None
+            )
             if record is None:
                 raise KeyError(record_id)
             return record.to_dict()
 
-    def update_review(self, record_id: str, expected_revision: int, *, actor: str,
-                      decision: str, note: str, evidence: dict | None = None,
-                      replacement: dict | None = None) -> dict:
+    def update_review(
+        self,
+        record_id: str,
+        expected_revision: int,
+        *,
+        actor: str,
+        decision: str,
+        note: str,
+        evidence: dict | None = None,
+        replacement: dict | None = None,
+    ) -> dict:
         """Atomically save content and audit trail; stale decisions never overwrite newer ones."""
         if not isinstance(actor, str) or not actor.strip() or actor == "_anonymous_":
             raise ValueError("审核必须有实名登录身份")
@@ -410,9 +459,12 @@ class ProcessQuadrupleIndex:
                 raise KeyError(record_id)
             if type(expected_revision) is not int or current.revision != expected_revision:
                 raise ReviewConflict("知识版本已变更，请重新读取后审核")
-            allowed = {"pending": {"approved", "rejected", "revise"},
-                       "approved": {"revoked", "revise"},
-                       "rejected": {"revise"}, "revoked": {"revise"}}
+            allowed = {
+                "pending": {"approved", "rejected", "revise"},
+                "approved": {"revoked", "revise"},
+                "rejected": {"revise"},
+                "revoked": {"revise"},
+            }
             if decision not in allowed.get(current.review.get("status"), set()):
                 raise ReviewConflict("当前审核状态不允许此操作")
             if decision == "revise" and not isinstance(replacement, dict):
@@ -423,17 +475,22 @@ class ProcessQuadrupleIndex:
             updated.record_id = current.record_id
             updated.submission = deepcopy(current.submission)
             updated.revision = current.revision + 1
-            updated.review = {"status": "pending" if decision == "revise" else decision,
-                              "actor": actor, "revision": updated.revision,
-                              "at": datetime.now(timezone.utc).isoformat(), "note": note,
-                              "digest": content_digest(updated.to_dict()),
-                              "evidence": deepcopy(evidence) if decision == "approved" else {}}
+            updated.review = {
+                "status": "pending" if decision == "revise" else decision,
+                "actor": actor,
+                "revision": updated.revision,
+                "at": datetime.now(timezone.utc).isoformat(),
+                "note": note,
+                "digest": content_digest(updated.to_dict()),
+                "evidence": deepcopy(evidence) if decision == "approved" else {},
+            }
             if decision == "approved":
                 updated.review["evidence_digest"] = evidence_digest(evidence)
             snapshot = current.to_dict()
             snapshot.pop("review_history")
             updated.review_history = deepcopy(current.review_history) + [
-                {"before": snapshot, "after_review": deepcopy(updated.review)}]
+                {"before": snapshot, "after_review": deepcopy(updated.review)}
+            ]
             previous, was_dirty = self._all, self._dirty
             self._all = [updated if q.record_id == record_id else q for q in previous]
             self._rebuild_indexes()
@@ -504,7 +561,11 @@ class ProcessQuadrupleIndex:
         return self.assess_recommendations(feature, material, top_k, conditions)["recommendations"]
 
     def assess_recommendations(
-        self, feature: str, material: str = "general", top_k: int = 5, conditions: dict | None = None,
+        self,
+        feature: str,
+        material: str = "general",
+        top_k: int = 5,
+        conditions: dict | None = None,
     ) -> dict:
         """推荐工艺方案（CAMWorks TechDB 式自动决策）。
 
@@ -521,8 +582,13 @@ class ProcessQuadrupleIndex:
         validate_supplied_conditions(conditions)
 
         with self._lock:
-            candidates = deepcopy([q for q in self._by_feature.get(feature, [])
-                          if q.material in (material, "general") and is_approved(q.to_dict())])
+            candidates = deepcopy(
+                [
+                    q
+                    for q in self._by_feature.get(feature, [])
+                    if q.material in (material, "general") and is_approved(q.to_dict())
+                ]
+            )
 
         # 材料匹配加权
         scored: list[tuple[float, ProcessQuadruple]] = []
@@ -556,12 +622,14 @@ class ProcessQuadrupleIndex:
     ) -> list[ProcessQuadruple]:
         """按 (feature, process) 精确查找。"""
         with self._lock:
-            return deepcopy(list(
-                self._by_feature_process.get(
-                    (feature.strip().lower(), process.strip().lower()),
-                    [],
+            return deepcopy(
+                list(
+                    self._by_feature_process.get(
+                        (feature.strip().lower(), process.strip().lower()),
+                        [],
+                    )
                 )
-            ))
+            )
 
     def find_similar(
         self,
@@ -666,8 +734,9 @@ class ProcessQuadrupleIndex:
             for position, (quad, raw) in enumerate(zip(restored, data["quadruples"], strict=True)):
                 if "record_id" not in raw:
                     # Stable migration identity even before the first explicit write.
-                    quad.record_id = uuid.uuid5(uuid.NAMESPACE_URL,
-                                               f"lingjing-process:{position}:{content_digest(quad.to_dict())}").hex
+                    quad.record_id = uuid.uuid5(
+                        uuid.NAMESPACE_URL, f"lingjing-process:{position}:{content_digest(quad.to_dict())}"
+                    ).hex
             if len({q.record_id for q in restored}) != len(restored):
                 raise ValueError("重复知识标识")
         except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:

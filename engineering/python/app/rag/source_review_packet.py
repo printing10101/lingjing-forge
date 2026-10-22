@@ -1,4 +1,5 @@
 """Prepare source supplements for human review without granting recommendation trust."""
+
 from __future__ import annotations
 
 from copy import deepcopy
@@ -57,13 +58,15 @@ def build_vendor_review_packet(pdf: bytes, manifest: dict, supplement: dict) -> 
             if any(page < 1 or page > page_count for page in fact.pdf_pages):
                 raise ValueError("来源事实页码超出文档范围")
         blockers = list(dict.fromkeys([*candidate["unresolved"], *source.open_questions]))
-        descriptions = [f"{fact.key}: {fact.value}（PDF页 {','.join(map(str, fact.pdf_pages))}；{fact.locator}）"
-                        for fact in facts]
+        descriptions = [
+            f"{fact.key}: {fact.value}（PDF页 {','.join(map(str, fact.pdf_pages))}；{fact.locator}）" for fact in facts
+        ]
         packet = deepcopy(candidate)
         packet["source_facts"] = [fact.model_dump() for fact in facts]
         packet["unresolved"] = blockers
         packet["candidate_context"] = {
-            "source_url": manifest["url"], "document_sha256": manifest["sha256"],
+            "source_url": manifest["url"],
+            "document_sha256": manifest["sha256"],
             "page": min(page for fact in facts for page in fact.pdf_pages),
             "parameter_units": {key: "mm/rev" for key in candidate["parameters"]},
             "applicability": "；".join(descriptions),
@@ -72,6 +75,12 @@ def build_vendor_review_packet(pdf: bytes, manifest: dict, supplement: dict) -> 
             "note": "原始候选标识用于关联；补充内容不代表已提交或批准，不可据此生成正式推荐。",
         }
         packets.append(packet)
-    return {"schema_version": 1, "artifact_kind": "human_review_preparation",
-            "review_status": "unreviewed", "eligible_for_recommendation": False,
-            "document_sha256": manifest["sha256"], "count": len(packets), "candidates": packets}
+    return {
+        "schema_version": 1,
+        "artifact_kind": "human_review_preparation",
+        "review_status": "unreviewed",
+        "eligible_for_recommendation": False,
+        "document_sha256": manifest["sha256"],
+        "count": len(packets),
+        "candidates": packets,
+    }

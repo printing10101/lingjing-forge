@@ -323,7 +323,10 @@ class GCodeGenerator(_FeatureCodeMixin, _HoleDrillingMixin, _PreviewMixin):
             cut_params = op.cutting_params or {}
             if max_stepdown is not None:
                 # Candidate parameters affect real path generation without mutating the plan.
-                cut_params = {**cut_params, "depth_of_cut": min(float(cut_params.get("depth_of_cut") or max_stepdown), max_stepdown)}
+                cut_params = {
+                    **cut_params,
+                    "depth_of_cut": min(float(cut_params.get("depth_of_cut") or max_stepdown), max_stepdown),
+                }
                 op = replace(op, cutting_params=cut_params)
             material = cut_params.get("material", "steel")
             tool_diameter = cut_params.get("tool_diameter", 10.0)

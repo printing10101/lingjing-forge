@@ -25,7 +25,9 @@ def _serialized(method):
     def locked(self, *args, **kwargs):
         with self._operation_lock:
             return method(self, *args, **kwargs)
+
     return locked
+
 
 DEFAULT_COLLECTION = "knowledge_base"
 # W 引擎验证修复：必须 normpath——chromadb 1.0.0 的 Rust sqlite 层处理
@@ -212,8 +214,14 @@ class VectorStore:
         return ids
 
     @_serialized
-    def replace_document_chunks(self, document_id: str, ids: list[str], documents: list[str],
-                                embeddings: list[list[float]], metadatas: list[dict]) -> list[str]:
+    def replace_document_chunks(
+        self,
+        document_id: str,
+        ids: list[str],
+        documents: list[str],
+        embeddings: list[list[float]],
+        metadatas: list[dict],
+    ) -> list[str]:
         """Replace one document, rolling back ordinary backend failures.
 
         Readers through this wrapper are serialized. This is not a distributed
@@ -224,15 +232,20 @@ class VectorStore:
             raise ValueError("Document chunks must be non-empty with matching lengths")
         if len(set(ids)) != len(ids) or any(m.get("document_id") != document_id for m in metadatas):
             raise ValueError("Invalid document identity or duplicate chunk IDs")
-        previous = self._collection.get(where={"document_id": document_id},
-                                        include=["documents", "metadatas", "embeddings"])
+        previous = self._collection.get(
+            where={"document_id": document_id}, include=["documents", "metadatas", "embeddings"]
+        )
         old_ids = list(previous["ids"])
         stale_ids = sorted(set(old_ids) - set(ids))
         try:
             for start in range(0, len(ids), 32):
                 end = start + 32
-                self._collection.upsert(ids=ids[start:end], documents=documents[start:end],
-                                        embeddings=embeddings[start:end], metadatas=metadatas[start:end])
+                self._collection.upsert(
+                    ids=ids[start:end],
+                    documents=documents[start:end],
+                    embeddings=embeddings[start:end],
+                    metadatas=metadatas[start:end],
+                )
             if stale_ids:
                 self._collection.delete(ids=stale_ids)
         except Exception:
@@ -243,9 +256,12 @@ class VectorStore:
                 self._collection.delete(ids=fresh_ids)
             for start in range(0, len(old_ids), 32):
                 end = start + 32
-                self._collection.upsert(ids=old_ids[start:end], documents=previous["documents"][start:end],
-                                        embeddings=previous["embeddings"][start:end],
-                                        metadatas=previous["metadatas"][start:end])
+                self._collection.upsert(
+                    ids=old_ids[start:end],
+                    documents=previous["documents"][start:end],
+                    embeddings=previous["embeddings"][start:end],
+                    metadatas=previous["metadatas"][start:end],
+                )
             raise
         return stale_ids
 

@@ -249,9 +249,7 @@ def expand_fixed_cycles(gcode: str) -> tuple[str, ExpandStats]:
             continue
 
         if active_z > active_r:
-            stats.warnings.append(
-                f"固定循环孔底 Z={active_z} 高于退回平面 R={active_r}，跳过展开：{raw.strip()[:60]}"
-            )
+            stats.warnings.append(f"固定循环孔底 Z={active_z} 高于退回平面 R={active_r}，跳过展开：{raw.strip()[:60]}")
             out.append(raw)
             continue
 

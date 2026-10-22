@@ -127,18 +127,20 @@ class FeatureExtractor(_DimensionMixin, _PlaneMixin):
             # not reinterpret it as a flange. Require a distributed hole pattern.
             if outer.source == "circle" and outer.radius and len(result.contours) >= 4:
                 cx, cy = outer.center
-                distributed = sum(
-                    abs(hole.center_x - cx) > 0.05 or abs(hole.center_y - cy) > 0.05
-                    for hole in result.holes
-                ) >= 3
+                distributed = (
+                    sum(abs(hole.center_x - cx) > 0.05 or abs(hole.center_y - cy) > 0.05 for hole in result.holes) >= 3
+                )
                 # Only an enclosing circle spanning the drawing is an exterior.
                 enclosing = all(
                     (x - cx) ** 2 + (y - cy) ** 2 <= (outer.radius + 0.05) ** 2
-                    for ring in result.contours if ring is not outer for x, y in ring.vertices
+                    for ring in result.contours
+                    if ring is not outer
+                    for x, y in ring.vertices
                 )
                 if enclosing and distributed:
                     result.holes = [
-                        hole for hole in result.holes
+                        hole
+                        for hole in result.holes
                         if not (
                             abs(hole.diameter - 2 * outer.radius) < 0.05
                             and abs(hole.center_x - cx) < 0.05

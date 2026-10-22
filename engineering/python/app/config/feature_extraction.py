@@ -66,9 +66,7 @@ class FeatureExtractionConfig:
     # 判定为「可疑空结果」并写入告警。用于拦住「阈值与网格密度不匹配」这类静默失败
     # （实测：260 顶点 → 0 平面/0 圆柱/0 孔，status 仍 features_extracted）。
     # 设为 0 关闭自检。
-    min_vertices_for_feature_check: int = field(
-        default_factory=lambda: _int_env("LNN_FE_MIN_VERTICES_FOR_CHECK", 50)
-    )
+    min_vertices_for_feature_check: int = field(default_factory=lambda: _int_env("LNN_FE_MIN_VERTICES_FOR_CHECK", 50))
 
     def effective_min_inliers(self, kind: str, vertex_count: int) -> int:
         """按网格规模计算有效内点下限。
@@ -107,9 +105,7 @@ class FeatureExtractionConfig:
     # 交互指定；网格特征角容忍 30–120°，实际加工垂直度控制在 0.05°–0.2°。
     # 取 5°：比实际加工精度高 1–2 个数量级，留足网格噪声余量，同时能干净剔除
     # 低密度网格的斜轴误检。设为 0 关闭轴向过滤（兼容斜孔/侧孔场景）。
-    hole_axis_tolerance_deg: float = field(
-        default_factory=lambda: _float_env("LNN_FE_HOLE_AXIS_TOLERANCE_DEG", 5.0)
-    )
+    hole_axis_tolerance_deg: float = field(default_factory=lambda: _float_env("LNN_FE_HOLE_AXIS_TOLERANCE_DEG", 5.0))
 
     # mesh 预处理参数
     # 大 mesh 降采样目标顶点数：避免 RANSAC 在百万顶点 mesh 上过慢

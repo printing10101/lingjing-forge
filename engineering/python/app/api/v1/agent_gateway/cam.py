@@ -121,17 +121,26 @@ def cam_process_recommend(
                 feature.strip().lower(), material.strip().lower(), top_k=top_k, conditions=supplied
             )
         except (ValueError, TypeError) as exc:
-            raise HTTPException(status_code=422, detail="[条件错误] 现场条件格式、数值或单位不合法。建议操作：按接口说明填写有限数值与允许选项。") from exc
+            raise HTTPException(
+                status_code=422,
+                detail="[条件错误] 现场条件格式、数值或单位不合法。建议操作：按接口说明填写有限数值与允许选项。",
+            ) from exc
         recs = assessment["recommendations"]
         checks = assessment["applicability_checks"]
         if recs:
             recommendation_status, hint = "matched", None
         elif checks:
             statuses = {check["status"] for check in checks}
-            recommendation_status = "conditions_missing" if "conditions_missing" in statuses else (
-                "unsupported_process" if statuses == {"unsupported_process"} else "conditions_mismatch"
+            recommendation_status = (
+                "conditions_missing"
+                if "conditions_missing" in statuses
+                else ("unsupported_process" if statuses == {"unsupported_process"} else "conditions_mismatch")
             )
-            hint = "缺少现场条件，请补齐缺失项。" if recommendation_status == "conditions_missing" else "现场条件不符合已审核范围，或该加工方式尚不支持适用性核验。"
+            hint = (
+                "缺少现场条件，请补齐缺失项。"
+                if recommendation_status == "conditions_missing"
+                else "现场条件不符合已审核范围，或该加工方式尚不支持适用性核验。"
+            )
         elif index.get_stats()["total_quadruples"] == 0:
             recommendation_status = "knowledge_empty"
             hint = "工艺知识库为空。建议操作：导入并审核带来源的工艺知识后重新查询；不得据此推定加工参数。"

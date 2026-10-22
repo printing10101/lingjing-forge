@@ -1,4 +1,5 @@
 """Content-bound human review policy; no network or persistence side effects."""
+
 from __future__ import annotations
 
 import hashlib
@@ -16,13 +17,15 @@ CONTENT_FIELDS = ("feature", "process", "tool", "parameters", "material", "confi
 def content_digest(record: dict) -> str:
     content = {key: record[key] for key in CONTENT_FIELDS}
     # Candidate annotations are persisted but cannot grant approval or alter approved evidence.
-    return hashlib.sha256(json.dumps(content, ensure_ascii=False, sort_keys=True,
-                                    allow_nan=False, separators=(",", ":")).encode()).hexdigest()
+    return hashlib.sha256(
+        json.dumps(content, ensure_ascii=False, sort_keys=True, allow_nan=False, separators=(",", ":")).encode()
+    ).hexdigest()
 
 
 def evidence_digest(evidence: dict) -> str:
-    return hashlib.sha256(json.dumps(evidence, ensure_ascii=False, sort_keys=True,
-                                    allow_nan=False, separators=(",", ":")).encode()).hexdigest()
+    return hashlib.sha256(
+        json.dumps(evidence, ensure_ascii=False, sort_keys=True, allow_nan=False, separators=(",", ":")).encode()
+    ).hexdigest()
 
 
 def validate_approval(record: dict, evidence: dict) -> None:
@@ -48,8 +51,10 @@ def validate_approval(record: dict, evidence: dict) -> None:
         raise ValueError("每个参数必须有对应单位")
     if any(not isinstance(unit, str) or not unit.strip() for unit in units.values()):
         raise ValueError("参数单位不能为空")
-    if any(type(value) not in (int, float) or not math.isfinite(value) or value <= 0
-           for value in record["parameters"].values()):
+    if any(
+        type(value) not in (int, float) or not math.isfinite(value) or value <= 0
+        for value in record["parameters"].values()
+    ):
         raise ValueError("审核参数必须为有限正数；范围应拆分为带单位的上下界")
     for key in ("applicability", "verification_method"):
         if not isinstance(evidence.get(key), str) or not evidence[key].strip():

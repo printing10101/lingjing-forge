@@ -45,7 +45,12 @@ class _MatchingMixin:
             raise QueryError("材料ID不能为空")
         if not process_name or not process_name.strip():
             raise QueryError("加工工序名称不能为空")
-        if isinstance(hole_diameter, bool) or not isinstance(hole_diameter, (int, float)) or not math.isfinite(hole_diameter) or hole_diameter <= 0:
+        if (
+            isinstance(hole_diameter, bool)
+            or not isinstance(hole_diameter, (int, float))
+            or not math.isfinite(hole_diameter)
+            or hole_diameter <= 0
+        ):
             raise QueryError("孔径必须为有限正数")
 
         # 查询该工序适用的所有刀具

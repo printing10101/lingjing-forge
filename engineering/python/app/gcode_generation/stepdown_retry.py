@@ -90,10 +90,7 @@ def compute_stepdown_recovery(
     for f in unstable:
         limit = f.limit_depth_mm
         if not math.isfinite(limit) or limit <= 0:
-            reasons.append(
-                f"特征 {f.feature_id} 极限切深异常（limit_depth_mm={limit}），"
-                "不可自动降参，需工程师审核"
-            )
+            reasons.append(f"特征 {f.feature_id} 极限切深异常（limit_depth_mm={limit}），不可自动降参，需工程师审核")
             continue
         layers = math.ceil(f.axial_depth_mm / (margin * limit)) if f.axial_depth_mm > 0 else 0
         if layers > max_layers:

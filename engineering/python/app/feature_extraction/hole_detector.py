@@ -632,8 +632,7 @@ def _merge_coaxial_holes(
                 continue
             gr = float(group[0].params.get("radius_mm", 0.0) or 0.0)
             same_xy = (
-                abs(float(center[0]) - float(gc[0])) <= xy_tol_mm
-                and abs(float(center[1]) - float(gc[1])) <= xy_tol_mm
+                abs(float(center[0]) - float(gc[0])) <= xy_tol_mm and abs(float(center[1]) - float(gc[1])) <= xy_tol_mm
             )
             same_r = abs(radius - gr) <= max(1e-6, radius_tol_ratio * max(radius, gr))
             if same_xy and same_r:
