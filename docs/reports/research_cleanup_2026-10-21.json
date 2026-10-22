@@ -1,0 +1,5455 @@
+{
+  "date": "2026-10-21",
+  "root": "D:\\灵境制造",
+  "directories": [
+    "D:\\灵境制造\\research\\prototypes\\agents_research",
+    "D:\\灵境制造\\research\\prototypes\\lnn_research",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\02d6cca15daa42129aa6cce3141c76d6",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\0594e2e4f0ae41ba907b7845c0f98c01",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\08669227bf9742efa8cf10ba1ddaed5d",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\0c6e201ba59a4496942e08d833c9f83d",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\0e5538e38b3747e6b40aa1e248c50a12",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\0f30700e0aec4ff48b23be053156270e",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\1141ac05619d46bb81f8dd9f3136c941",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\116cfd9665bb48968dbd30f5198c45fa",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\12add533d2624bfba7e26ffc37d28b72",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\132df69ab67e43a6bd561c45ef93930b",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\16d59433d6d74f2dbce041ac8f3a701a",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\16ef9cf62bbe40c299074d6d35fe31ce",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\1742578c7a6147329ec0e3952302ede7",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\184ea4cf1126445a83ffd507d54b72f1",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\1a7c40443dfd41a59c1f65071876c592",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\1b4807e84e7647b092e3f9d3ee6e0e0b",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\1bac1606e077473eb16f554cc97c2421",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\1c5b33726334435f8b41cda60bf4c817",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\1faddc4ac9ea4610aad8d558d9c4eb9e",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\2051c6de1df6489889fb64bbf7a42ed7",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\20dc4f44fd78466f886aa54f4c3586ce",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\21741a5632a1452584bb8db0f77ca20a",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\222699cd984f442f872ec76a7ffa43d9",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\250533bc21814b8eb0ea8e1ea73e384d",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\271bfb3ef0d1498f81885b3d20665d4d",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\274da6f8d92d4601947d2bd4651593fd",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\2a92f8b88aa448acb1e530f589cbc21e",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\2c2ef347490241899a4faeb6d68bc492",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\30100034f1ed4f4bb2241507b0267912",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\325959e9a06440069788b216140e07ea",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\3690a8a1dc0044fd8ca9e360130f9f4f",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\3820a514f5864105ae0bb1ea04035454",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\3b02861049994515a4381234eb2cc57a",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\3b2912e3be1342cca70c730c66f22341",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\3bdcbce6df0b4be4a35d8c6454b473ea",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\3c5b01b5853f45048bf0f9d34d19a1bf",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\402e8835a7474821916d4871ca88b628",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\42bed726ea474a5da6547142e3eca202",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\48dbf73c1d6f470aa69675eff90415d6",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\48e4487f89594dd0a16344eb5f1e96cb",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\4dcfb417880645f9a45fa576f9461057",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\4ebf3e85e9bc4994b076138e506c7261",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\4f70425ed8b146f7954288609b355fe0",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\4f8dea8cd1ac4fc58bcf1b67bfca15ca",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\522012f65e2c465099a97e7b9cc1d89f",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\5542abd2ef894f67b95922f140137440",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\55b9ba4923794fa89c2001a1ae661d75",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\5adca09eec8d42ea952c3848d5be2e00",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\5b52750780e9421bb6dae61d3f12940f",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\5c23f7c7b7234256b7ff22c83b1dee73",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\63feaf7e01be4874bca211f1f3e665d5",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\646059fda2b94ca4a33dffe3b78d0d1e",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\683abfc939444f73a3bccc2c6d46b3b5",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\6f43f550678d402b9738bd21144874de",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\6fedecf450c6477dacdcacc2f0778d78",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\710bf77ebfc0496d9c7ecbc5442e967e",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\73da5f580ec848a596bc9ae4e725068d",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\75ed16e23f72412bb2d795dcdf97275b",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\777ca957d67e42af8c4e9060e97d6bf1",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\7bc3a431557247dda61b8c03850a2635",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\7d5674906af54269a2d2cffe71a2c1e1",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\7d7458d65b2349b39e53e9c97a278617",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\7ef6989639e948e0a6c94d80e8bb9f15",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\80a009b2abca4b7cb4d8b779db6013eb",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\88bf0ffc7d8643858587ec3f05099b07",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\890bf75b65964ea59406fb25b3830477",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\8a434d0685184c49afc954ba8d0e79ef",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\8bd7f86b3dd240c99cfd33b07e8ac849",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\8cb04fd0bf1741d5b5d6d61302da8850",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\8ed36f5e73654118a61bfed2be836246",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\915b6322bff44784852bfcfb4110a09c",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\91757ea2ffe041419e09714e21220458",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\92f34086745e41959bce992e45f0d5e4",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\93f1a964db1544a88d1b3ae26c2fc347",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\959d376572e841ab8e6c4a886361c451",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\9a7d0a11af69460098ec717fdd801697",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\9cc6662a2f8c4b1794f33904dae3ef6d",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\a701ad139c1c4fb789511c4b51409d21",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\a9219abaf5314a63a5f7f8d18fba028d",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\b16fde0d67b54b4b8742c6660ba82e50",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\b17f5a4bc9e048029abbf75cd33fcdf3",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\b52937af955d4c8eaf16191551be174d",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\b6bce3f3d8554d9395b72e23ae60b2ac",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\b82313014958479e8b23f465bde85796",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\bac3e48440e547e7a8d852ff1b41ba87",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\be21afc1b40f4c0284a2d828faf67d02",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\be9707fd2f7a4846b9f94fa4b308806e",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\c0189c1ac7b845988d54873207ac2bd5",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\c2cd97d8dfec4c9fb71b34f7b60f734a",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\c2d289324681439dac7af42d95c46dd6",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\c3c89a2ee5f94e6e9a51942214229846",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\c487e15ac66c451ba5e08008fff5c217",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\c6759e3373134448930951447ac5181a",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\ca843aeabda44e3cb5ebd5ffa23473f6",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\cb46153b581743879c7e5a4815fdbc45",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\ccbec7b182fa403d9cbe2b054b94fb57",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\cd08367024844b7e97b824bf19b51dd9",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\cebac03cefb6440c8939783254e8782c",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\cee64eec4c7e4f68957778a0baae4bf6",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\d1a28a542b3444df85e34d8327314209",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\d26c85dcae954b488b48c1476d6d0813",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\d422f88f022b41f98f3a4741f97f60d0",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\d69f51f34d9b48dfb58919862ca6aacc",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\d78ab71faafe4f689dfc4036db1a31c4",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\d86283a866d046cdb82859db0e742c17",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\d98bbeeb92c745feae5a0a6e743f06bc",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\d994b2a6650046438f7898f1f08833ba",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\db8aab0f09564872860be6554bbe66e3",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\deb278df92d846c89f7f29cab68236dd",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\e2ff7999f96b4baab6c208bb17485f88",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\ed29fb71f39e4fc1bd9dc3065458409f",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\ef57b25501134ad3bc0451aeb0743c52",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\f0f95bbc80a74b3e9e2b209bb55fcd9e",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\f1c45ea9b5e74ce5bc4a488678cbdb0d",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\f70934bdc6af4c44847131c6cbf5b04c",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\fb15a5d478cf47f6bb3f0fae66a0c6e5",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\fcae587472a445729c68c8f69986beb2",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\fd68272366664bf785eccff641cb97df",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\fd6f463f3d0d41bc8ba2a00955422888",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\fec9f0e663b94140a4d6d5550f177c12",
+    "D:\\灵境制造\\research\\experiments\\checkpoints",
+    "D:\\灵境制造\\research\\experiments\\logs",
+    "D:\\灵境制造\\research\\data\\mlruns\\.trash"
+  ],
+  "files": [
+    "D:\\灵境制造\\research\\phase1_dlnn_v2\\config_v2.py",
+    "D:\\灵境制造\\research\\phase1_dlnn_v2\\data_generator_v2.py",
+    "D:\\灵境制造\\research\\phase1_dlnn_v2\\delay_embedding.py",
+    "D:\\灵境制造\\research\\phase1_dlnn_v2\\losses_v2.py",
+    "D:\\灵境制造\\research\\phase1_dlnn_v2\\models_v2.py",
+    "D:\\灵境制造\\research\\phase1_dlnn_v2\\PHASE2_实验方案.md",
+    "D:\\灵境制造\\research\\phase1_dlnn_v2\\preprocess_piecuch.py",
+    "D:\\灵境制造\\research\\phase1_dlnn_v2\\run_phase1.py",
+    "D:\\灵境制造\\research\\phase1_dlnn_v2\\run_sim2real.py",
+    "D:\\灵境制造\\research\\phase1_dlnn_v2\\trainer_v2.py",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_challenge\\.coverage",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_challenge\\coverage.json",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_challenge\\run.log",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_challenge\\test_run.log",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_dialogue\\.coverage",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_dialogue\\coverage.json",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_pilot\\.coverage",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_pilot\\coverage.json",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_pilot\\language_run.log",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_pilot\\pilot_run.log",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_pilot\\pilot_verified.log",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_probe\\.coverage",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_probe\\coverage.json",
+    "D:\\灵境制造\\research\\prototypes\\tool_conditioned_surface_gate\\.coverage",
+    "D:\\灵境制造\\research\\prototypes\\tool_conditioned_surface_gate\\coverage.json"
+  ],
+  "items": [
+    {
+      "path": "research/prototypes/agents_research",
+      "bytes": 34360,
+      "files": 2
+    },
+    {
+      "path": "research/prototypes/lnn_research",
+      "bytes": 72815,
+      "files": 7
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/02d6cca15daa42129aa6cce3141c76d6",
+      "bytes": 189347,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/0594e2e4f0ae41ba907b7845c0f98c01",
+      "bytes": 207325,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/08669227bf9742efa8cf10ba1ddaed5d",
+      "bytes": 14776,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/0c6e201ba59a4496942e08d833c9f83d",
+      "bytes": 239563,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/0e5538e38b3747e6b40aa1e248c50a12",
+      "bytes": 409330,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/0f30700e0aec4ff48b23be053156270e",
+      "bytes": 434061,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/1141ac05619d46bb81f8dd9f3136c941",
+      "bytes": 189050,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/116cfd9665bb48968dbd30f5198c45fa",
+      "bytes": 237740,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/12add533d2624bfba7e26ffc37d28b72",
+      "bytes": 1120,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/132df69ab67e43a6bd561c45ef93930b",
+      "bytes": 207325,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/16d59433d6d74f2dbce041ac8f3a701a",
+      "bytes": 419120,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/16ef9cf62bbe40c299074d6d35fe31ce",
+      "bytes": 189348,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/1742578c7a6147329ec0e3952302ede7",
+      "bytes": 725,
+      "files": 19
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/184ea4cf1126445a83ffd507d54b72f1",
+      "bytes": 237759,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/1a7c40443dfd41a59c1f65071876c592",
+      "bytes": 15077,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/1b4807e84e7647b092e3f9d3ee6e0e0b",
+      "bytes": 409331,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/1bac1606e077473eb16f554cc97c2421",
+      "bytes": 417516,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/1c5b33726334435f8b41cda60bf4c817",
+      "bytes": 414707,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/1faddc4ac9ea4610aad8d558d9c4eb9e",
+      "bytes": 14759,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/2051c6de1df6489889fb64bbf7a42ed7",
+      "bytes": 189119,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/20dc4f44fd78466f886aa54f4c3586ce",
+      "bytes": 965,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/21741a5632a1452584bb8db0f77ca20a",
+      "bytes": 233319,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/222699cd984f442f872ec76a7ffa43d9",
+      "bytes": 435309,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/250533bc21814b8eb0ea8e1ea73e384d",
+      "bytes": 237765,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/271bfb3ef0d1498f81885b3d20665d4d",
+      "bytes": 207325,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/274da6f8d92d4601947d2bd4651593fd",
+      "bytes": 435310,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/2a92f8b88aa448acb1e530f589cbc21e",
+      "bytes": 1275,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/2c2ef347490241899a4faeb6d68bc492",
+      "bytes": 1120,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/30100034f1ed4f4bb2241507b0267912",
+      "bytes": 215378,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/325959e9a06440069788b216140e07ea",
+      "bytes": 1417,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/3690a8a1dc0044fd8ca9e360130f9f4f",
+      "bytes": 189050,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/3820a514f5864105ae0bb1ea04035454",
+      "bytes": 2163,
+      "files": 14
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/3b02861049994515a4381234eb2cc57a",
+      "bytes": 233319,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/3b2912e3be1342cca70c730c66f22341",
+      "bytes": 417516,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/3bdcbce6df0b4be4a35d8c6454b473ea",
+      "bytes": 263890,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/3c5b01b5853f45048bf0f9d34d19a1bf",
+      "bytes": 417526,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/402e8835a7474821916d4871ca88b628",
+      "bytes": 189811,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/42bed726ea474a5da6547142e3eca202",
+      "bytes": 430108,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/48dbf73c1d6f470aa69675eff90415d6",
+      "bytes": 417529,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/48e4487f89594dd0a16344eb5f1e96cb",
+      "bytes": 414708,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/4dcfb417880645f9a45fa576f9461057",
+      "bytes": 189119,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/4ebf3e85e9bc4994b076138e506c7261",
+      "bytes": 189126,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/4f70425ed8b146f7954288609b355fe0",
+      "bytes": 419120,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/4f8dea8cd1ac4fc58bcf1b67bfca15ca",
+      "bytes": 409328,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/522012f65e2c465099a97e7b9cc1d89f",
+      "bytes": 1120,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/5542abd2ef894f67b95922f140137440",
+      "bytes": 208243,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/55b9ba4923794fa89c2001a1ae661d75",
+      "bytes": 417526,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/5adca09eec8d42ea952c3848d5be2e00",
+      "bytes": 281199,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/5b52750780e9421bb6dae61d3f12940f",
+      "bytes": 189119,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/5c23f7c7b7234256b7ff22c83b1dee73",
+      "bytes": 417528,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/63feaf7e01be4874bca211f1f3e665d5",
+      "bytes": 237995,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/646059fda2b94ca4a33dffe3b78d0d1e",
+      "bytes": 414708,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/683abfc939444f73a3bccc2c6d46b3b5",
+      "bytes": 1120,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/6f43f550678d402b9738bd21144874de",
+      "bytes": 1418,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/6fedecf450c6477dacdcacc2f0778d78",
+      "bytes": 1275,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/710bf77ebfc0496d9c7ecbc5442e967e",
+      "bytes": 189348,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/73da5f580ec848a596bc9ae4e725068d",
+      "bytes": 725,
+      "files": 19
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/75ed16e23f72412bb2d795dcdf97275b",
+      "bytes": 189120,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/777ca957d67e42af8c4e9060e97d6bf1",
+      "bytes": 189118,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/7bc3a431557247dda61b8c03850a2635",
+      "bytes": 189809,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/7d5674906af54269a2d2cffe71a2c1e1",
+      "bytes": 1119,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/7d7458d65b2349b39e53e9c97a278617",
+      "bytes": 237996,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/7ef6989639e948e0a6c94d80e8bb9f15",
+      "bytes": 15077,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/80a009b2abca4b7cb4d8b779db6013eb",
+      "bytes": 434063,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/88bf0ffc7d8643858587ec3f05099b07",
+      "bytes": 14776,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/890bf75b65964ea59406fb25b3830477",
+      "bytes": 189126,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/8a434d0685184c49afc954ba8d0e79ef",
+      "bytes": 189811,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/8bd7f86b3dd240c99cfd33b07e8ac849",
+      "bytes": 276974,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/8cb04fd0bf1741d5b5d6d61302da8850",
+      "bytes": 1120,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/8ed36f5e73654118a61bfed2be836246",
+      "bytes": 281199,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/915b6322bff44784852bfcfb4110a09c",
+      "bytes": 1119,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/91757ea2ffe041419e09714e21220458",
+      "bytes": 215379,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/92f34086745e41959bce992e45f0d5e4",
+      "bytes": 189126,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/93f1a964db1544a88d1b3ae26c2fc347",
+      "bytes": 966,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/959d376572e841ab8e6c4a886361c451",
+      "bytes": 725,
+      "files": 19
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/9a7d0a11af69460098ec717fdd801697",
+      "bytes": 237759,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/9cc6662a2f8c4b1794f33904dae3ef6d",
+      "bytes": 237764,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/a701ad139c1c4fb789511c4b51409d21",
+      "bytes": 14776,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/a9219abaf5314a63a5f7f8d18fba028d",
+      "bytes": 1120,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/b16fde0d67b54b4b8742c6660ba82e50",
+      "bytes": 430109,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/b17f5a4bc9e048029abbf75cd33fcdf3",
+      "bytes": 215379,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/b52937af955d4c8eaf16191551be174d",
+      "bytes": 237764,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/b6bce3f3d8554d9395b72e23ae60b2ac",
+      "bytes": 233320,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/b82313014958479e8b23f465bde85796",
+      "bytes": 237996,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/bac3e48440e547e7a8d852ff1b41ba87",
+      "bytes": 966,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/be21afc1b40f4c0284a2d828faf67d02",
+      "bytes": 276973,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/be9707fd2f7a4846b9f94fa4b308806e",
+      "bytes": 417529,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/c0189c1ac7b845988d54873207ac2bd5",
+      "bytes": 2163,
+      "files": 14
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/c2cd97d8dfec4c9fb71b34f7b60f734a",
+      "bytes": 281198,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/c2d289324681439dac7af42d95c46dd6",
+      "bytes": 14760,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/c3c89a2ee5f94e6e9a51942214229846",
+      "bytes": 1120,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/c487e15ac66c451ba5e08008fff5c217",
+      "bytes": 434063,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/c6759e3373134448930951447ac5181a",
+      "bytes": 276974,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/ca843aeabda44e3cb5ebd5ffa23473f6",
+      "bytes": 965,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/cb46153b581743879c7e5a4815fdbc45",
+      "bytes": 237739,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/ccbec7b182fa403d9cbe2b054b94fb57",
+      "bytes": 430109,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/cd08367024844b7e97b824bf19b51dd9",
+      "bytes": 237760,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/cebac03cefb6440c8939783254e8782c",
+      "bytes": 1120,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/cee64eec4c7e4f68957778a0baae4bf6",
+      "bytes": 189120,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/d1a28a542b3444df85e34d8327314209",
+      "bytes": 15077,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/d26c85dcae954b488b48c1476d6d0813",
+      "bytes": 965,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/d422f88f022b41f98f3a4741f97f60d0",
+      "bytes": 1275,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/d69f51f34d9b48dfb58919862ca6aacc",
+      "bytes": 1120,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/d78ab71faafe4f689dfc4036db1a31c4",
+      "bytes": 417516,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/d86283a866d046cdb82859db0e742c17",
+      "bytes": 189049,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/d98bbeeb92c745feae5a0a6e743f06bc",
+      "bytes": 965,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/d994b2a6650046438f7898f1f08833ba",
+      "bytes": 263891,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/db8aab0f09564872860be6554bbe66e3",
+      "bytes": 14759,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/deb278df92d846c89f7f29cab68236dd",
+      "bytes": 237738,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/e2ff7999f96b4baab6c208bb17485f88",
+      "bytes": 2163,
+      "files": 14
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/ed29fb71f39e4fc1bd9dc3065458409f",
+      "bytes": 239563,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/ef57b25501134ad3bc0451aeb0743c52",
+      "bytes": 239563,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/f0f95bbc80a74b3e9e2b209bb55fcd9e",
+      "bytes": 1417,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/f1c45ea9b5e74ce5bc4a488678cbdb0d",
+      "bytes": 1118,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/f70934bdc6af4c44847131c6cbf5b04c",
+      "bytes": 417526,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/fb15a5d478cf47f6bb3f0fae66a0c6e5",
+      "bytes": 208244,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/fcae587472a445729c68c8f69986beb2",
+      "bytes": 435310,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/fd68272366664bf785eccff641cb97df",
+      "bytes": 208244,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/fd6f463f3d0d41bc8ba2a00955422888",
+      "bytes": 263890,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/fec9f0e663b94140a4d6d5550f177c12",
+      "bytes": 419120,
+      "files": 36
+    },
+    {
+      "path": "research/experiments/checkpoints",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "research/experiments/logs",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "research/data/mlruns/.trash",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "research/phase1_dlnn_v2/config_v2.py",
+      "bytes": 2983,
+      "files": 1
+    },
+    {
+      "path": "research/phase1_dlnn_v2/data_generator_v2.py",
+      "bytes": 11552,
+      "files": 1
+    },
+    {
+      "path": "research/phase1_dlnn_v2/delay_embedding.py",
+      "bytes": 12822,
+      "files": 1
+    },
+    {
+      "path": "research/phase1_dlnn_v2/losses_v2.py",
+      "bytes": 12840,
+      "files": 1
+    },
+    {
+      "path": "research/phase1_dlnn_v2/models_v2.py",
+      "bytes": 14066,
+      "files": 1
+    },
+    {
+      "path": "research/phase1_dlnn_v2/PHASE2_实验方案.md",
+      "bytes": 9871,
+      "files": 1
+    },
+    {
+      "path": "research/phase1_dlnn_v2/preprocess_piecuch.py",
+      "bytes": 4893,
+      "files": 1
+    },
+    {
+      "path": "research/phase1_dlnn_v2/run_phase1.py",
+      "bytes": 9043,
+      "files": 1
+    },
+    {
+      "path": "research/phase1_dlnn_v2/run_sim2real.py",
+      "bytes": 8683,
+      "files": 1
+    },
+    {
+      "path": "research/phase1_dlnn_v2/trainer_v2.py",
+      "bytes": 20172,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_challenge/.coverage",
+      "bytes": 53248,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_challenge/coverage.json",
+      "bytes": 24436,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_challenge/run.log",
+      "bytes": 18260,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_challenge/test_run.log",
+      "bytes": 881,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_dialogue/.coverage",
+      "bytes": 53248,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_dialogue/coverage.json",
+      "bytes": 17624,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_pilot/.coverage",
+      "bytes": 53248,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_pilot/coverage.json",
+      "bytes": 21542,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_pilot/language_run.log",
+      "bytes": 1251,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_pilot/pilot_run.log",
+      "bytes": 37293,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_pilot/pilot_verified.log",
+      "bytes": 38332,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_probe/.coverage",
+      "bytes": 53248,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/surface_edit_probe/coverage.json",
+      "bytes": 6184,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/tool_conditioned_surface_gate/.coverage",
+      "bytes": 53248,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/tool_conditioned_surface_gate/coverage.json",
+      "bytes": 3651,
+      "files": 1
+    }
+  ],
+  "pytest_runs": [
+    {
+      "id": "02d6cca15daa42129aa6cce3141c76d6",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "0594e2e4f0ae41ba907b7845c0f98c01",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "08669227bf9742efa8cf10ba1ddaed5d",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "0c6e201ba59a4496942e08d833c9f83d",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "0e5538e38b3747e6b40aa1e248c50a12",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "0f30700e0aec4ff48b23be053156270e",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "1141ac05619d46bb81f8dd9f3136c941",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "116cfd9665bb48968dbd30f5198c45fa",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "12add533d2624bfba7e26ffc37d28b72",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "132df69ab67e43a6bd561c45ef93930b",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "16d59433d6d74f2dbce041ac8f3a701a",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "16ef9cf62bbe40c299074d6d35fe31ce",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "1742578c7a6147329ec0e3952302ede7",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "184ea4cf1126445a83ffd507d54b72f1",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "1a7c40443dfd41a59c1f65071876c592",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "1b4807e84e7647b092e3f9d3ee6e0e0b",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "1bac1606e077473eb16f554cc97c2421",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "1c5b33726334435f8b41cda60bf4c817",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "1faddc4ac9ea4610aad8d558d9c4eb9e",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "2051c6de1df6489889fb64bbf7a42ed7",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "20dc4f44fd78466f886aa54f4c3586ce",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "21741a5632a1452584bb8db0f77ca20a",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "222699cd984f442f872ec76a7ffa43d9",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "250533bc21814b8eb0ea8e1ea73e384d",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "271bfb3ef0d1498f81885b3d20665d4d",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "274da6f8d92d4601947d2bd4651593fd",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "2a92f8b88aa448acb1e530f589cbc21e",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "2c2ef347490241899a4faeb6d68bc492",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "30100034f1ed4f4bb2241507b0267912",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "325959e9a06440069788b216140e07ea",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "3690a8a1dc0044fd8ca9e360130f9f4f",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "3820a514f5864105ae0bb1ea04035454",
+      "name": "capable-auk-759"
+    },
+    {
+      "id": "3b02861049994515a4381234eb2cc57a",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "3b2912e3be1342cca70c730c66f22341",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "3bdcbce6df0b4be4a35d8c6454b473ea",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "3c5b01b5853f45048bf0f9d34d19a1bf",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "402e8835a7474821916d4871ca88b628",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "42bed726ea474a5da6547142e3eca202",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "48dbf73c1d6f470aa69675eff90415d6",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "48e4487f89594dd0a16344eb5f1e96cb",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "4dcfb417880645f9a45fa576f9461057",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "4ebf3e85e9bc4994b076138e506c7261",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "4f70425ed8b146f7954288609b355fe0",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "4f8dea8cd1ac4fc58bcf1b67bfca15ca",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "522012f65e2c465099a97e7b9cc1d89f",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "5542abd2ef894f67b95922f140137440",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "55b9ba4923794fa89c2001a1ae661d75",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "5adca09eec8d42ea952c3848d5be2e00",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "5b52750780e9421bb6dae61d3f12940f",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "5c23f7c7b7234256b7ff22c83b1dee73",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "63feaf7e01be4874bca211f1f3e665d5",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "646059fda2b94ca4a33dffe3b78d0d1e",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "683abfc939444f73a3bccc2c6d46b3b5",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "6f43f550678d402b9738bd21144874de",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "6fedecf450c6477dacdcacc2f0778d78",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "710bf77ebfc0496d9c7ecbc5442e967e",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "73da5f580ec848a596bc9ae4e725068d",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "75ed16e23f72412bb2d795dcdf97275b",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "777ca957d67e42af8c4e9060e97d6bf1",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "7bc3a431557247dda61b8c03850a2635",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "7d5674906af54269a2d2cffe71a2c1e1",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "7d7458d65b2349b39e53e9c97a278617",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "7ef6989639e948e0a6c94d80e8bb9f15",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "80a009b2abca4b7cb4d8b779db6013eb",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "88bf0ffc7d8643858587ec3f05099b07",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "890bf75b65964ea59406fb25b3830477",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "8a434d0685184c49afc954ba8d0e79ef",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "8bd7f86b3dd240c99cfd33b07e8ac849",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "8cb04fd0bf1741d5b5d6d61302da8850",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "8ed36f5e73654118a61bfed2be836246",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "915b6322bff44784852bfcfb4110a09c",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "91757ea2ffe041419e09714e21220458",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "92f34086745e41959bce992e45f0d5e4",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "93f1a964db1544a88d1b3ae26c2fc347",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "959d376572e841ab8e6c4a886361c451",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "9a7d0a11af69460098ec717fdd801697",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "9cc6662a2f8c4b1794f33904dae3ef6d",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "a701ad139c1c4fb789511c4b51409d21",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "a9219abaf5314a63a5f7f8d18fba028d",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "b16fde0d67b54b4b8742c6660ba82e50",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "b17f5a4bc9e048029abbf75cd33fcdf3",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "b52937af955d4c8eaf16191551be174d",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "b6bce3f3d8554d9395b72e23ae60b2ac",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "b82313014958479e8b23f465bde85796",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "bac3e48440e547e7a8d852ff1b41ba87",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "be21afc1b40f4c0284a2d828faf67d02",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "be9707fd2f7a4846b9f94fa4b308806e",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "c0189c1ac7b845988d54873207ac2bd5",
+      "name": "capable-auk-759"
+    },
+    {
+      "id": "c2cd97d8dfec4c9fb71b34f7b60f734a",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "c2d289324681439dac7af42d95c46dd6",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "c3c89a2ee5f94e6e9a51942214229846",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "c487e15ac66c451ba5e08008fff5c217",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "c6759e3373134448930951447ac5181a",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "ca843aeabda44e3cb5ebd5ffa23473f6",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "cb46153b581743879c7e5a4815fdbc45",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "ccbec7b182fa403d9cbe2b054b94fb57",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "cd08367024844b7e97b824bf19b51dd9",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "cebac03cefb6440c8939783254e8782c",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "cee64eec4c7e4f68957778a0baae4bf6",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "d1a28a542b3444df85e34d8327314209",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "d26c85dcae954b488b48c1476d6d0813",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "d422f88f022b41f98f3a4741f97f60d0",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "d69f51f34d9b48dfb58919862ca6aacc",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "d78ab71faafe4f689dfc4036db1a31c4",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "d86283a866d046cdb82859db0e742c17",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "d98bbeeb92c745feae5a0a6e743f06bc",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "d994b2a6650046438f7898f1f08833ba",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "db8aab0f09564872860be6554bbe66e3",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "deb278df92d846c89f7f29cab68236dd",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "e2ff7999f96b4baab6c208bb17485f88",
+      "name": "capable-auk-759"
+    },
+    {
+      "id": "ed29fb71f39e4fc1bd9dc3065458409f",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "ef57b25501134ad3bc0451aeb0743c52",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "f0f95bbc80a74b3e9e2b209bb55fcd9e",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "f1c45ea9b5e74ce5bc4a488678cbdb0d",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "f70934bdc6af4c44847131c6cbf5b04c",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "fb15a5d478cf47f6bb3f0fae66a0c6e5",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "fcae587472a445729c68c8f69986beb2",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "fd68272366664bf785eccff641cb97df",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "fd6f463f3d0d41bc8ba2a00955422888",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "fec9f0e663b94140a4d6d5550f177c12",
+      "name": "seed42_adamw_lr0.001"
+    }
+  ],
+  "retired_sources": [
+    {
+      "path": "research/phase1_dlnn_v2/config_v2.py",
+      "sha256": "1b8214f653b5c95e66d32b222008b7a146a74ef4b57e09f162e49db3a97958fa"
+    },
+    {
+      "path": "research/phase1_dlnn_v2/data_generator_v2.py",
+      "sha256": "fa97f199b2e331f4e174603a257bc10eb674a0a5f4acf6a2155568324941b827"
+    },
+    {
+      "path": "research/phase1_dlnn_v2/delay_embedding.py",
+      "sha256": "30df4080ab342915d39326b82bf7b82933ad88e4eeb0ae94938b689622b0be70"
+    },
+    {
+      "path": "research/phase1_dlnn_v2/losses_v2.py",
+      "sha256": "093606ba1fed18dd87b44ec27927fcdf3c995282c50f6cf8e3652fa7154e9b0e"
+    },
+    {
+      "path": "research/phase1_dlnn_v2/models_v2.py",
+      "sha256": "da944acc5f2776a7e0aac40cc44690a723664f01a078f14d15d7fa4b1bcd5a11"
+    },
+    {
+      "path": "research/phase1_dlnn_v2/PHASE2_实验方案.md",
+      "sha256": "646bd0ec7f7c6ed16bae75d783944fc5d6997da7b83cc5f06c562587e1574dec"
+    },
+    {
+      "path": "research/phase1_dlnn_v2/preprocess_piecuch.py",
+      "sha256": "6c7aa47e80b8561d2f43b62456259975cc9446d66777569a76a43b734f9c03ac"
+    },
+    {
+      "path": "research/phase1_dlnn_v2/run_phase1.py",
+      "sha256": "4411a2571b15efccdf264ee1afb7631b37a0b4be6e80ef88646215d5f59407bc"
+    },
+    {
+      "path": "research/phase1_dlnn_v2/run_sim2real.py",
+      "sha256": "d803119d2a922bc598d4de8cbdcec113f98071eae5c6cf3a2b0ae27c6ac2483b"
+    },
+    {
+      "path": "research/phase1_dlnn_v2/trainer_v2.py",
+      "sha256": "163f386cb57a3f02d493c756545d8e3a6395edd2024058734bd0f6ce54a15430"
+    },
+    {
+      "path": "research/prototypes/agents_research/agents.py",
+      "sha256": "b9dfd860975bd4cac7eab127f80e5db7258d39e74e685adc07ff81a47aeff900"
+    },
+    {
+      "path": "research/prototypes/agents_research/__init__.py",
+      "sha256": "0f0ecaf08d5ee6089ab2159834c38e9135d7ccaadab4c05bb085341d4e20055e"
+    },
+    {
+      "path": "research/prototypes/lnn_research/bayesian_lnn.py",
+      "sha256": "2be15454ba1d0ceac9d2eab04ec8d9e8b07b88c685a9a7c6cfa12e508f7dc181"
+    },
+    {
+      "path": "research/prototypes/lnn_research/bayesian_lnn_predict.py",
+      "sha256": "ade32b8ebe04292e05ef646d259cfaafc9a3dcf35b5bc468d01e4fa908fbe5b9"
+    },
+    {
+      "path": "research/prototypes/lnn_research/__init__.py",
+      "sha256": "60df19971dbdc0f62b74086a0c93ef42a33091ccf6d6ea6f72e22865bee6d86f"
+    },
+    {
+      "path": "research/prototypes/lnn_research/cross_layer_fusion/cross_layer_fusion/alignment.py",
+      "sha256": "acba65a1975496c7b2dea0aa76e80bb92bf2fb66a630c287ede811f491e04c25"
+    },
+    {
+      "path": "research/prototypes/lnn_research/cross_layer_fusion/cross_layer_fusion/attention.py",
+      "sha256": "6a7d23aea45be15cc63ae44893d7cb85d774eac36a20de15496cd48970a98a4c"
+    },
+    {
+      "path": "research/prototypes/lnn_research/cross_layer_fusion/cross_layer_fusion/fusion.py",
+      "sha256": "4c21e865e06234d7c5789403a68d3a7e89f0c568cb99d0ca7ed617e673107a33"
+    },
+    {
+      "path": "research/prototypes/lnn_research/cross_layer_fusion/cross_layer_fusion/__init__.py",
+      "sha256": "d53cc905c465c711b0e876c5053b09a40fdfeae1b2a786b532462fb29eaf976c"
+    }
+  ],
+  "git_head_before_cleanup": "ca1cf1c8894e5f5603b97328d87bbf5da2f70be2",
+  "cache_directories": [
+    "D:\\灵境制造\\research\\.mimosa",
+    "D:\\灵境制造\\research\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\anyio\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\anyio\\abc\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\anyio\\streams\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\anyio\\_backends\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\anyio\\_core\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\attr\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\cachetools\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\certifi\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\charset_normalizer\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\click\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\cloudpickle\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\colorama\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\cryptography\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\bindings\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\decrepit\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\decrepit\\ciphers\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\ciphers\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\cycler\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\dateutil\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\dateutil\\parser\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\dateutil\\tz\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\defusedxml\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\fontTools\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\fontTools\\cffLib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\fontTools\\config\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\fontTools\\feaLib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\fontTools\\misc\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\fontTools\\pens\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\fontTools\\ttLib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\fontTools\\ttLib\\tables\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\git\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\git\\index\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\git\\objects\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\git\\objects\\submodule\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\git\\refs\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\git\\repo\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\gitdb\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\gitdb\\db\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\gitdb\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\google\\protobuf\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\google\\protobuf\\internal\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\google\\protobuf\\pyext\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\h5py\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\h5py\\_hl\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\idna\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\importlib_metadata\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\importlib_metadata\\compat\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\iniconfig\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\IPython\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\IPython\\core\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\IPython\\lib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\IPython\\testing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\IPython\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\joblib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\joblib\\externals\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\joblib\\externals\\loky\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\joblib\\externals\\loky\\backend\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\kiwisolver\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\matplotlib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\matplotlib\\axes\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\matplotlib\\backends\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\matplotlib\\projections\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\matplotlib\\style\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\matplotlib\\tri\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\matplotlib\\_api\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\artifacts\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\azure\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\config\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\data\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\entities\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\entities\\model_registry\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\gateway\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\legacy_databricks_cli\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\legacy_databricks_cli\\configure\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\models\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\models\\evaluation\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\projects\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\projects\\backend\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\protos\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\protos\\scalapb\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\pyfunc\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\pyfunc\\loaders\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\pyfunc\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\pytorch\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\spark\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\store\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\store\\artifact\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\store\\artifact\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\store\\db\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\store\\entities\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\store\\model_registry\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\store\\tracking\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\store\\_unity_catalog\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\store\\_unity_catalog\\lineage\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\store\\_unity_catalog\\registry\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\system_metrics\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\tracing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\tracing\\display\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\tracing\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\tracking\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\tracking\\context\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\tracking\\default_experiment\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\tracking\\_model_registry\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\tracking\\_tracking_service\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\transformers\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\types\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\utils\\async_logging\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\utils\\autologging_utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mlflow\\utils\\import_hooks\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mpl_toolkits\\mplot3d\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mpmath\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mpmath\\calculus\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mpmath\\functions\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mpmath\\libmp\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\mpmath\\matrices\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\char\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\core\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\ctypeslib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\f2py\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\f2py\\_backends\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\fft\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\lib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\linalg\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\ma\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\matrixlib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\polynomial\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\random\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\rec\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\strings\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\testing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\testing\\_private\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\typing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\_core\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\_typing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\numpy\\_utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\onnx\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\onnx\\defs\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\onnxruntime\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\onnxruntime\\capi\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\attributes\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\context\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\environment_variables\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\metrics\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\metrics\\_internal\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\sdk\\environment_variables\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\sdk\\resources\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\sdk\\trace\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\sdk\\util\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\sdk\\version\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\semconv\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\semconv\\attributes\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\semconv\\resource\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\semconv\\_incubating\\attributes\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\semconv\\_incubating\\metrics\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\trace\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\trace\\propagation\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\opentelemetry\\util\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\packaging\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\api\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\api\\extensions\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\api\\indexers\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\api\\interchange\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\api\\types\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\api\\typing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\arrays\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\compat\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\compat\\numpy\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\arrays\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\arrays\\arrow\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\arrays\\sparse\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\array_algos\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\computation\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\dtypes\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\groupby\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\indexers\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\indexes\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\interchange\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\internals\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\methods\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\ops\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\reshape\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\strings\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\tools\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\util\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\window\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\core\\_numba\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\errors\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\io\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\io\\excel\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\io\\formats\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\io\\json\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\io\\parsers\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\io\\sas\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\plotting\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\tseries\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\util\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\util\\version\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\_config\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\_libs\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\_libs\\tslibs\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\_libs\\window\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pandas\\_testing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\PIL\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\cli\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\commands\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\distributions\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\index\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\locations\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\metadata\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\metadata\\importlib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\models\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\network\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\operations\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\operations\\build\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\operations\\install\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\req\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\resolution\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\resolution\\resolvelib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_internal\\vcs\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\caches\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\certifi\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\distlib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\idna\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\msgpack\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\packaging\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\pkg_resources\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\platformdirs\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\filters\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\lexers\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\styles\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\pyproject_hooks\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\pyproject_hooks\\_in_process\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\requests\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\resolvelib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\resolvelib\\compat\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\rich\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\truststore\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pluggy\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\psutil\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pyarrow\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pyarrow\\vendored\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pygments\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pygments\\filters\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pygments\\formatters\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pygments\\lexers\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pygments\\styles\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pyparsing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pypdf\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pypdf\\actions\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pypdf\\annotations\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pypdf\\generic\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pypdf\\_codecs\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pypdf\\_crypt_providers\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pypdf\\_text_extraction\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pypdf\\_text_extraction\\_layout_mode\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pyreadline3\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pyreadline3\\clipboard\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pyreadline3\\console\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pyreadline3\\keysyms\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pyreadline3\\lineeditor\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pyreadline3\\logger\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pyreadline3\\modes\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pytest\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\pytz\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\requests\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\constants\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\fft\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\fft\\_pocketfft\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\integrate\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\integrate\\_ivp\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\integrate\\_rules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\interpolate\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\linalg\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\ndimage\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\optimize\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\optimize\\_highspy\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\optimize\\_lsq\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\optimize\\_shgo_lib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\optimize\\_trlib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\optimize\\_trustregion_constr\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\sparse\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\sparse\\csgraph\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\sparse\\linalg\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\sparse\\linalg\\_dsolve\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\sparse\\linalg\\_eigen\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\sparse\\linalg\\_eigen\\arpack\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\sparse\\linalg\\_eigen\\lobpcg\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\sparse\\linalg\\_isolve\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\spatial\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\spatial\\transform\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\special\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\stats\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\stats\\_levy_stable\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\stats\\_rcont\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\_lib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\_lib\\array_api_compat\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\_lib\\array_api_compat\\common\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\_lib\\array_api_compat\\numpy\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\_lib\\array_api_extra\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\_lib\\array_api_extra\\_lib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\_lib\\array_api_extra\\_lib\\_utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\scipy\\_lib\\_uarray\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\compose\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\covariance\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\decomposition\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\ensemble\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\ensemble\\_hist_gradient_boosting\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\externals\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\externals\\_packaging\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\impute\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\linear_model\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\linear_model\\_glm\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\metrics\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\metrics\\cluster\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\metrics\\_pairwise_distances_reduction\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\metrics\\_plot\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\model_selection\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\neighbors\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\neural_network\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\preprocessing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\svm\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\tree\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\_loss\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sklearn\\__check_build\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\smmap\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\connectors\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\dialects\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\dialects\\postgresql\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\dialects\\sqlite\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\engine\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\event\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\future\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\orm\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\pool\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\sql\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlalchemy\\util\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlparse\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlparse\\engine\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sqlparse\\filters\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\algebras\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\assumptions\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\assumptions\\relation\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\calculus\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\concrete\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\core\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\discrete\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\external\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\functions\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\functions\\combinatorial\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\functions\\elementary\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\functions\\special\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\geometry\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\integrals\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\interactive\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\logic\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\matrices\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\matrices\\expressions\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\multipledispatch\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\ntheory\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\parsing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\plotting\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\plotting\\backends\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\plotting\\backends\\matplotlibbackend\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\plotting\\backends\\textbackend\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\plotting\\intervalmath\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\plotting\\pygletplot\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\polys\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\polys\\agca\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\polys\\domains\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\polys\\matrices\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\polys\\numberfields\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\printing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\printing\\pretty\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\series\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\sets\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\sets\\handlers\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\simplify\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\solvers\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\solvers\\diophantine\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\solvers\\ode\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\strategies\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\strategies\\branch\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\tensor\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\tensor\\array\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\utilities\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\sympy\\utilities\\mathml\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\amp\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\intrinsic\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\intrinsic\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\intrinsic\\qat\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\intrinsic\\qat\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\intrinsic\\quantized\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\intrinsic\\quantized\\dynamic\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\intrinsic\\quantized\\dynamic\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\intrinsic\\quantized\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\qat\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\qat\\dynamic\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\qat\\dynamic\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\qat\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\quantizable\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\quantizable\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\quantized\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\quantized\\dynamic\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\quantized\\dynamic\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\quantized\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\quantized\\reference\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\quantized\\reference\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\sparse\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\sparse\\quantized\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\nn\\sparse\\quantized\\dynamic\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\ns\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\ns\\fx\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\quantization\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\ao\\quantization\\pt2e\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\autograd\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\cpu\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\cuda\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\cudnn\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\cusparselt\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\mha\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\mkl\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\mkldnn\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\mps\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\nnpack\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\openmp\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\backends\\quantized\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\compiler\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\cpu\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\cpu\\amp\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\cuda\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\cuda\\amp\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\algorithms\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\algorithms\\_checkpoint\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\algorithms\\_comm_hooks\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\autograd\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\fsdp\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\nn\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\rpc\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\tensor\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\tensor\\parallel\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\tensor\\_ops\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\_composable\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\_composable\\fsdp\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\_shard\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\_shard\\sharded_tensor\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\_shard\\sharded_tensor\\_ops\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\_shard\\sharding_plan\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\_shard\\sharding_spec\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributed\\_shard\\sharding_spec\\chunk_sharding_spec_ops\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\distributions\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\export\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\fft\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\func\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\futures\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\fx\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\fx\\experimental\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\fx\\passes\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\fx\\passes\\infra\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\fx\\passes\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\jit\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\linalg\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\masked\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\masked\\maskedtensor\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\mps\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\mtia\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\multiprocessing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nested\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nested\\_internal\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\attention\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\intrinsic\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\intrinsic\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\intrinsic\\qat\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\intrinsic\\qat\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\intrinsic\\quantized\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\intrinsic\\quantized\\dynamic\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\intrinsic\\quantized\\dynamic\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\intrinsic\\quantized\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\parallel\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\qat\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\qat\\dynamic\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\qat\\dynamic\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\qat\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\quantizable\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\quantizable\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\quantized\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\quantized\\dynamic\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\quantized\\modules\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\nn\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\onnx\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\onnx\\_internal\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\onnx\\_internal\\diagnostics\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\onnx\\_internal\\diagnostics\\infra\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\onnx\\_internal\\diagnostics\\infra\\sarif\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\onnx\\_internal\\fx\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\optim\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\package\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\package\\analyze\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\profiler\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\quantization\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\signal\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\signal\\windows\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\sparse\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\special\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\testing\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\testing\\_internal\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\testing\\_internal\\distributed\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\utils\\backcompat\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\utils\\data\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\utils\\data\\datapipes\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\utils\\data\\datapipes\\dataframe\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\utils\\data\\datapipes\\iter\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\utils\\data\\datapipes\\map\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\utils\\data\\datapipes\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\utils\\data\\_utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\utils\\_sympy\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\xpu\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_awaits\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_custom_op\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_decomp\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_dispatch\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_dynamo\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_dynamo\\backends\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_dynamo\\polyfills\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_dynamo\\variables\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_export\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_functorch\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_functorch\\_aot_autograd\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_higher_order_ops\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_inductor\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_inductor\\codegen\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_inductor\\codegen\\cuda\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_inductor\\codegen\\rocm\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_inductor\\runtime\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_library\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_logging\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_numpy\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_prims\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_prims_common\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_refs\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_refs\\linalg\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_refs\\nn\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_refs\\nn\\functional\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_refs\\special\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_strobelight\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_subclasses\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_vendor\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torch\\_vendor\\packaging\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torchdiffeq\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torchdiffeq\\_impl\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\torchgen\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\tqdm\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\traitlets\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\traitlets\\config\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\traitlets\\utils\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\urllib3\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\urllib3\\contrib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\urllib3\\http2\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\urllib3\\util\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\win32\\lib\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\xgboost\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\xgboost\\dask\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\yaml\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\zipp\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\zipp\\compat\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\_distutils_hack\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\_pytest\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\_pytest\\assertion\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\_pytest\\config\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\_pytest\\mark\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\_pytest\\_code\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\_pytest\\_io\\__pycache__",
+    "D:\\灵境制造\\research\\.venv\\Lib\\site-packages\\_pytest\\_py\\__pycache__",
+    "D:\\灵境制造\\research\\datasets\\__pycache__",
+    "D:\\灵境制造\\research\\experiments\\__pycache__",
+    "D:\\灵境制造\\research\\experiments\\02_LAM激光抑颤\\__pycache__",
+    "D:\\灵境制造\\research\\experiments\\04_物理感知颤振\\__pycache__",
+    "D:\\灵境制造\\research\\models\\__pycache__",
+    "D:\\灵境制造\\research\\multimodal_jepa\\__pycache__",
+    "D:\\灵境制造\\research\\multimodal_jepa\\ijepa_3d\\__pycache__",
+    "D:\\灵境制造\\research\\prototypes\\__pycache__",
+    "D:\\灵境制造\\research\\prototypes\\pointcloud_registration\\__pycache__",
+    "D:\\灵境制造\\research\\prototypes\\shared\\__pycache__",
+    "D:\\灵境制造\\research\\prototypes\\shared\\contracts\\__pycache__",
+    "D:\\灵境制造\\research\\prototypes\\shared\\problem_registry\\__pycache__",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_challenge\\.pytest_cache",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_challenge\\__pycache__",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_dialogue\\.pytest_cache",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_dialogue\\__pycache__",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_pilot\\.pytest_cache",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_pilot\\__pycache__",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_probe\\.pytest_cache",
+    "D:\\灵境制造\\research\\prototypes\\surface_edit_probe\\__pycache__",
+    "D:\\灵境制造\\research\\prototypes\\tool_conditioned_surface_gate\\.pytest_cache",
+    "D:\\灵境制造\\research\\prototypes\\tool_conditioned_surface_gate\\__pycache__",
+    "D:\\灵境制造\\research\\quantization\\__pycache__",
+    "D:\\灵境制造\\research\\scripts\\__pycache__",
+    "D:\\灵境制造\\research\\tests\\.mimosa",
+    "D:\\灵境制造\\research\\tests\\__pycache__",
+    "D:\\灵境制造\\research\\training\\__pycache__"
+  ],
+  "cache_items": [
+    {
+      "path": "research/.mimosa",
+      "bytes": 2963885,
+      "files": 256
+    },
+    {
+      "path": "research/__pycache__",
+      "bytes": 3344,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/__pycache__",
+      "bytes": 283104,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/anyio/__pycache__",
+      "bytes": 50176,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/anyio/abc/__pycache__",
+      "bytes": 66418,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/anyio/streams/__pycache__",
+      "bytes": 44121,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/anyio/_backends/__pycache__",
+      "bytes": 229792,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/anyio/_core/__pycache__",
+      "bytes": 124882,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/attr/__pycache__",
+      "bytes": 205439,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/cachetools/__pycache__",
+      "bytes": 46551,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/certifi/__pycache__",
+      "bytes": 2337,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/charset_normalizer/__pycache__",
+      "bytes": 114871,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/click/__pycache__",
+      "bytes": 396203,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/cloudpickle/__pycache__",
+      "bytes": 55952,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/colorama/__pycache__",
+      "bytes": 41484,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/cryptography/__pycache__",
+      "bytes": 9464,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/cryptography/hazmat/__pycache__",
+      "bytes": 236,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/cryptography/hazmat/bindings/__pycache__",
+      "bytes": 240,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/cryptography/hazmat/decrepit/__pycache__",
+      "bytes": 240,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/cryptography/hazmat/decrepit/ciphers/__pycache__",
+      "bytes": 8380,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/cryptography/hazmat/primitives/__pycache__",
+      "bytes": 11119,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/cryptography/hazmat/primitives/ciphers/__pycache__",
+      "bytes": 19609,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/cycler/__pycache__",
+      "bytes": 22928,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/dateutil/__pycache__",
+      "bytes": 100565,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/dateutil/parser/__pycache__",
+      "bytes": 80005,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/dateutil/tz/__pycache__",
+      "bytes": 102437,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/defusedxml/__pycache__",
+      "bytes": 12653,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/fontTools/__pycache__",
+      "bytes": 424,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/fontTools/cffLib/__pycache__",
+      "bytes": 123628,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/fontTools/config/__pycache__",
+      "bytes": 3709,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/fontTools/feaLib/__pycache__",
+      "bytes": 979,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/fontTools/misc/__pycache__",
+      "bytes": 195349,
+      "files": 14
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/fontTools/pens/__pycache__",
+      "bytes": 90113,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/fontTools/ttLib/__pycache__",
+      "bytes": 152245,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/fontTools/ttLib/tables/__pycache__",
+      "bytes": 506150,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/git/__pycache__",
+      "bytes": 291374,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/git/index/__pycache__",
+      "bytes": 106659,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/git/objects/__pycache__",
+      "bytes": 107751,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/git/objects/submodule/__pycache__",
+      "bytes": 84400,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/git/refs/__pycache__",
+      "bytes": 85032,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/git/repo/__pycache__",
+      "bytes": 98169,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/gitdb/__pycache__",
+      "bytes": 126777,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/gitdb/db/__pycache__",
+      "bytes": 41008,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/gitdb/utils/__pycache__",
+      "bytes": 958,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/google/protobuf/__pycache__",
+      "bytes": 621985,
+      "files": 15
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/google/protobuf/internal/__pycache__",
+      "bytes": 268637,
+      "files": 15
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/google/protobuf/pyext/__pycache__",
+      "bytes": 1846,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/h5py/__pycache__",
+      "bytes": 6782,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/h5py/_hl/__pycache__",
+      "bytes": 209174,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/idna/__pycache__",
+      "bytes": 59822,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/importlib_metadata/__pycache__",
+      "bytes": 86773,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/importlib_metadata/compat/__pycache__",
+      "bytes": 1439,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/iniconfig/__pycache__",
+      "bytes": 17559,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/IPython/__pycache__",
+      "bytes": 11866,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/IPython/core/__pycache__",
+      "bytes": 643509,
+      "files": 33
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/IPython/lib/__pycache__",
+      "bytes": 73705,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/IPython/testing/__pycache__",
+      "bytes": 1402,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/IPython/utils/__pycache__",
+      "bytes": 149847,
+      "files": 25
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/joblib/__pycache__",
+      "bytes": 348672,
+      "files": 20
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/joblib/externals/__pycache__",
+      "bytes": 177,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/joblib/externals/loky/__pycache__",
+      "bytes": 72815,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/joblib/externals/loky/backend/__pycache__",
+      "bytes": 85154,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/kiwisolver/__pycache__",
+      "bytes": 2669,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/matplotlib/__pycache__",
+      "bytes": 3789381,
+      "files": 68
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/matplotlib/axes/__pycache__",
+      "bytes": 578954,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/matplotlib/backends/__pycache__",
+      "bytes": 14871,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/matplotlib/projections/__pycache__",
+      "bytes": 110488,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/matplotlib/style/__pycache__",
+      "bytes": 9872,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/matplotlib/tri/__pycache__",
+      "bytes": 135368,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/matplotlib/_api/__pycache__",
+      "bytes": 41066,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/__pycache__",
+      "bytes": 36487,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/artifacts/__pycache__",
+      "bytes": 9475,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/azure/__pycache__",
+      "bytes": 11798,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/config/__pycache__",
+      "bytes": 1505,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/data/__pycache__",
+      "bytes": 177159,
+      "files": 24
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/entities/__pycache__",
+      "bytes": 118016,
+      "files": 28
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/entities/model_registry/__pycache__",
+      "bytes": 31803,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/gateway/__pycache__",
+      "bytes": 44712,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/legacy_databricks_cli/__pycache__",
+      "bytes": 189,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/legacy_databricks_cli/configure/__pycache__",
+      "bytes": 19719,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/models/__pycache__",
+      "bytes": 200264,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/models/evaluation/__pycache__",
+      "bytes": 87913,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/projects/__pycache__",
+      "bytes": 83351,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/projects/backend/__pycache__",
+      "bytes": 22290,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/protos/__pycache__",
+      "bytes": 274978,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/protos/scalapb/__pycache__",
+      "bytes": 4244,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/pyfunc/__pycache__",
+      "bytes": 161493,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/pyfunc/loaders/__pycache__",
+      "bytes": 6795,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/pyfunc/utils/__pycache__",
+      "bytes": 1719,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/pytorch/__pycache__",
+      "bytes": 74918,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/spark/__pycache__",
+      "bytes": 51121,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/store/__pycache__",
+      "bytes": 390,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/store/artifact/__pycache__",
+      "bytes": 259865,
+      "files": 23
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/store/artifact/utils/__pycache__",
+      "bytes": 5382,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/store/db/__pycache__",
+      "bytes": 604,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/store/entities/__pycache__",
+      "bytes": 1435,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/store/model_registry/__pycache__",
+      "bytes": 91484,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/store/tracking/__pycache__",
+      "bytes": 137243,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/store/_unity_catalog/__pycache__",
+      "bytes": 251,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/store/_unity_catalog/lineage/__pycache__",
+      "bytes": 584,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/store/_unity_catalog/registry/__pycache__",
+      "bytes": 45062,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/system_metrics/__pycache__",
+      "bytes": 2834,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/tracing/__pycache__",
+      "bytes": 45567,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/tracing/display/__pycache__",
+      "bytes": 4838,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/tracing/utils/__pycache__",
+      "bytes": 25260,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/tracking/__pycache__",
+      "bytes": 317533,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/tracking/context/__pycache__",
+      "bytes": 21572,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/tracking/default_experiment/__pycache__",
+      "bytes": 8671,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/tracking/_model_registry/__pycache__",
+      "bytes": 42456,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/tracking/_tracking_service/__pycache__",
+      "bytes": 56122,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/transformers/__pycache__",
+      "bytes": 177098,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/types/__pycache__",
+      "bytes": 141844,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/utils/__pycache__",
+      "bytes": 569803,
+      "files": 43
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/utils/async_logging/__pycache__",
+      "bytes": 37216,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/utils/autologging_utils/__pycache__",
+      "bytes": 121147,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mlflow/utils/import_hooks/__pycache__",
+      "bytes": 11027,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mpl_toolkits/mplot3d/__pycache__",
+      "bytes": 288310,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mpmath/__pycache__",
+      "bytes": 588829,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mpmath/calculus/__pycache__",
+      "bytes": 275208,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mpmath/functions/__pycache__",
+      "bytes": 495657,
+      "files": 14
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mpmath/libmp/__pycache__",
+      "bytes": 317085,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/mpmath/matrices/__pycache__",
+      "bytes": 192376,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/__pycache__",
+      "bytes": 72358,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/char/__pycache__",
+      "bytes": 1250,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/core/__pycache__",
+      "bytes": 2306,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/ctypeslib/__pycache__",
+      "bytes": 22806,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/f2py/__pycache__",
+      "bytes": 500820,
+      "files": 16
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/f2py/_backends/__pycache__",
+      "bytes": 456,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/fft/__pycache__",
+      "bytes": 81151,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/lib/__pycache__",
+      "bytes": 878534,
+      "files": 29
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/linalg/__pycache__",
+      "bytes": 128103,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/ma/__pycache__",
+      "bytes": 396102,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/matrixlib/__pycache__",
+      "bytes": 36683,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/polynomial/__pycache__",
+      "bytes": 469093,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/random/__pycache__",
+      "bytes": 10398,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/rec/__pycache__",
+      "bytes": 263,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/strings/__pycache__",
+      "bytes": 267,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/testing/__pycache__",
+      "bytes": 3574,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/testing/_private/__pycache__",
+      "bytes": 122493,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/typing/__pycache__",
+      "bytes": 7267,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/_core/__pycache__",
+      "bytes": 1013257,
+      "files": 28
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/_typing/__pycache__",
+      "bytes": 48773,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/numpy/_utils/__pycache__",
+      "bytes": 14380,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/onnx/__pycache__",
+      "bytes": 270028,
+      "files": 24
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/onnx/defs/__pycache__",
+      "bytes": 5950,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/onnxruntime/__pycache__",
+      "bytes": 2487,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/onnxruntime/capi/__pycache__",
+      "bytes": 61676,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/attributes/__pycache__",
+      "bytes": 12752,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/context/__pycache__",
+      "bytes": 10846,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/environment_variables/__pycache__",
+      "bytes": 648,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/metrics/__pycache__",
+      "bytes": 2501,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/metrics/_internal/__pycache__",
+      "bytes": 59351,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/sdk/environment_variables/__pycache__",
+      "bytes": 6802,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/sdk/resources/__pycache__",
+      "bytes": 34151,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/sdk/trace/__pycache__",
+      "bytes": 94295,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/sdk/util/__pycache__",
+      "bytes": 17667,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/sdk/version/__pycache__",
+      "bytes": 215,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/semconv/__pycache__",
+      "bytes": 182,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/semconv/attributes/__pycache__",
+      "bytes": 761,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/semconv/resource/__pycache__",
+      "bytes": 11266,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/semconv/_incubating/attributes/__pycache__",
+      "bytes": 3522,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/semconv/_incubating/metrics/__pycache__",
+      "bytes": 12340,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/trace/__pycache__",
+      "bytes": 54262,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/trace/propagation/__pycache__",
+      "bytes": 1529,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/opentelemetry/util/__pycache__",
+      "bytes": 7490,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/packaging/__pycache__",
+      "bytes": 149604,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/__pycache__",
+      "bytes": 23660,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/api/__pycache__",
+      "bytes": 389,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/api/extensions/__pycache__",
+      "bytes": 768,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/api/indexers/__pycache__",
+      "bytes": 502,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/api/interchange/__pycache__",
+      "bytes": 448,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/api/types/__pycache__",
+      "bytes": 588,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/api/typing/__pycache__",
+      "bytes": 1119,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/arrays/__pycache__",
+      "bytes": 1348,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/compat/__pycache__",
+      "bytes": 24036,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/compat/numpy/__pycache__",
+      "bytes": 15066,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/__pycache__",
+      "bytes": 1819833,
+      "files": 22
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/arrays/__pycache__",
+      "bytes": 766695,
+      "files": 20
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/arrays/arrow/__pycache__",
+      "bytes": 161420,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/arrays/sparse/__pycache__",
+      "bytes": 87917,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/array_algos/__pycache__",
+      "bytes": 54230,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/computation/__pycache__",
+      "bytes": 147776,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/dtypes/__pycache__",
+      "bytes": 292336,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/groupby/__pycache__",
+      "bytes": 419055,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/indexers/__pycache__",
+      "bytes": 34308,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/indexes/__pycache__",
+      "bytes": 690864,
+      "files": 14
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/interchange/__pycache__",
+      "bytes": 43473,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/internals/__pycache__",
+      "bytes": 322498,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/methods/__pycache__",
+      "bytes": 24417,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/ops/__pycache__",
+      "bytes": 54883,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/reshape/__pycache__",
+      "bytes": 229907,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/strings/__pycache__",
+      "bytes": 165165,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/tools/__pycache__",
+      "bytes": 71131,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/util/__pycache__",
+      "bytes": 15266,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/window/__pycache__",
+      "bytes": 190707,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/core/_numba/__pycache__",
+      "bytes": 9906,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/errors/__pycache__",
+      "bytes": 30936,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/io/__pycache__",
+      "bytes": 669308,
+      "files": 16
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/io/excel/__pycache__",
+      "bytes": 141438,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/io/formats/__pycache__",
+      "bytes": 153285,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/io/json/__pycache__",
+      "bytes": 86996,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/io/parsers/__pycache__",
+      "bytes": 213875,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/io/sas/__pycache__",
+      "bytes": 6071,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/plotting/__pycache__",
+      "bytes": 92536,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/tseries/__pycache__",
+      "bytes": 23400,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/util/__pycache__",
+      "bytes": 47244,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/util/version/__pycache__",
+      "bytes": 22032,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/_config/__pycache__",
+      "bytes": 43270,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/_libs/__pycache__",
+      "bytes": 566,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/_libs/tslibs/__pycache__",
+      "bytes": 1928,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/_libs/window/__pycache__",
+      "bytes": 180,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pandas/_testing/__pycache__",
+      "bytes": 93315,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/PIL/__pycache__",
+      "bytes": 1174795,
+      "files": 73
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/__pycache__",
+      "bytes": 1504,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/__pycache__",
+      "bytes": 111741,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/cli/__pycache__",
+      "bytes": 105139,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/commands/__pycache__",
+      "bytes": 33070,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/distributions/__pycache__",
+      "bytes": 16182,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/index/__pycache__",
+      "bytes": 75690,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/locations/__pycache__",
+      "bytes": 28213,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/metadata/__pycache__",
+      "bytes": 60068,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/metadata/importlib/__pycache__",
+      "bytes": 28759,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/models/__pycache__",
+      "bytes": 67113,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/network/__pycache__",
+      "bytes": 70562,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/operations/__pycache__",
+      "bytes": 33037,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/operations/build/__pycache__",
+      "bytes": 22092,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/operations/install/__pycache__",
+      "bytes": 36131,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/req/__pycache__",
+      "bytes": 124913,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/resolution/__pycache__",
+      "bytes": 1358,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/resolution/resolvelib/__pycache__",
+      "bytes": 120169,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/utils/__pycache__",
+      "bytes": 154366,
+      "files": 25
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_internal/vcs/__pycache__",
+      "bytes": 73654,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/__pycache__",
+      "bytes": 143978,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/cachecontrol/__pycache__",
+      "bytes": 38582,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/cachecontrol/caches/__pycache__",
+      "bytes": 10879,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/certifi/__pycache__",
+      "bytes": 3507,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/distlib/__pycache__",
+      "bytes": 171840,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/idna/__pycache__",
+      "bytes": 119278,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/msgpack/__pycache__",
+      "bytes": 53503,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/packaging/__pycache__",
+      "bytes": 149796,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/pkg_resources/__pycache__",
+      "bytes": 161250,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/platformdirs/__pycache__",
+      "bytes": 47378,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/pygments/__pycache__",
+      "bytes": 82175,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/pygments/filters/__pycache__",
+      "bytes": 37901,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/pygments/lexers/__pycache__",
+      "bytes": 82864,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/pygments/styles/__pycache__",
+      "bytes": 6292,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/pyproject_hooks/__pycache__",
+      "bytes": 18773,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_in_process/__pycache__",
+      "bytes": 1066,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/requests/__pycache__",
+      "bytes": 205988,
+      "files": 17
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/resolvelib/__pycache__",
+      "bytes": 46469,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/resolvelib/compat/__pycache__",
+      "bytes": 600,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/rich/__pycache__",
+      "bytes": 1032742,
+      "files": 65
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/truststore/__pycache__",
+      "bytes": 34941,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__",
+      "bytes": 166391,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/urllib3/contrib/__pycache__",
+      "bytes": 9527,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/urllib3/packages/__pycache__",
+      "bytes": 41434,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__",
+      "bytes": 100059,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pluggy/__pycache__",
+      "bytes": 70844,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/psutil/__pycache__",
+      "bytes": 171596,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pyarrow/__pycache__",
+      "bytes": 100387,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pyarrow/vendored/__pycache__",
+      "bytes": 32044,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pygments/__pycache__",
+      "bytes": 123926,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pygments/filters/__pycache__",
+      "bytes": 37846,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pygments/formatters/__pycache__",
+      "bytes": 16792,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pygments/lexers/__pycache__",
+      "bytes": 131390,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pygments/styles/__pycache__",
+      "bytes": 6543,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pyparsing/__pycache__",
+      "bytes": 502540,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pypdf/__pycache__",
+      "bytes": 683517,
+      "files": 20
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pypdf/actions/__pycache__",
+      "bytes": 9050,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pypdf/annotations/__pycache__",
+      "bytes": 22042,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pypdf/generic/__pycache__",
+      "bytes": 265968,
+      "files": 14
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pypdf/_codecs/__pycache__",
+      "bytes": 997102,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pypdf/_crypt_providers/__pycache__",
+      "bytes": 20341,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pypdf/_text_extraction/__pycache__",
+      "bytes": 26807,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pypdf/_text_extraction/_layout_mode/__pycache__",
+      "bytes": 39984,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pyreadline3/__pycache__",
+      "bytes": 36823,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pyreadline3/clipboard/__pycache__",
+      "bytes": 7611,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pyreadline3/console/__pycache__",
+      "bytes": 47801,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pyreadline3/keysyms/__pycache__",
+      "bytes": 15880,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pyreadline3/lineeditor/__pycache__",
+      "bytes": 60648,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pyreadline3/logger/__pycache__",
+      "bytes": 5942,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pyreadline3/modes/__pycache__",
+      "bytes": 172607,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pytest/__pycache__",
+      "bytes": 4932,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/pytz/__pycache__",
+      "bytes": 65637,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/requests/__pycache__",
+      "bytes": 238269,
+      "files": 18
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/__pycache__",
+      "bytes": 11500,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/constants/__pycache__",
+      "bytes": 232467,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/fft/__pycache__",
+      "bytes": 142795,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/fft/_pocketfft/__pycache__",
+      "bytes": 23663,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/integrate/__pycache__",
+      "bytes": 526531,
+      "files": 15
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/integrate/_ivp/__pycache__",
+      "bytes": 162498,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/integrate/_rules/__pycache__",
+      "bytes": 39498,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/interpolate/__pycache__",
+      "bytes": 674884,
+      "files": 26
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/linalg/__pycache__",
+      "bytes": 526459,
+      "files": 32
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/ndimage/__pycache__",
+      "bytes": 347996,
+      "files": 16
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/optimize/__pycache__",
+      "bytes": 1391363,
+      "files": 55
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/optimize/_highspy/__pycache__",
+      "bytes": 11788,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/optimize/_lsq/__pycache__",
+      "bytes": 134944,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/optimize/_shgo_lib/__pycache__",
+      "bytes": 67869,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/optimize/_trlib/__pycache__",
+      "bytes": 776,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/optimize/_trustregion_constr/__pycache__",
+      "bytes": 111025,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/sparse/__pycache__",
+      "bytes": 599462,
+      "files": 31
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/sparse/csgraph/__pycache__",
+      "bytes": 31875,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/sparse/linalg/__pycache__",
+      "bytes": 218823,
+      "files": 14
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/sparse/linalg/_dsolve/__pycache__",
+      "bytes": 43183,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/sparse/linalg/_eigen/__pycache__",
+      "bytes": 21554,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/sparse/linalg/_eigen/arpack/__pycache__",
+      "bytes": 71271,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/sparse/linalg/_eigen/lobpcg/__pycache__",
+      "bytes": 39941,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/sparse/linalg/_isolve/__pycache__",
+      "bytes": 119814,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/spatial/__pycache__",
+      "bytes": 186570,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/spatial/transform/__pycache__",
+      "bytes": 290391,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/special/__pycache__",
+      "bytes": 335670,
+      "files": 18
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/stats/__pycache__",
+      "bytes": 3339382,
+      "files": 57
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/stats/_levy_stable/__pycache__",
+      "bytes": 51528,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/stats/_rcont/__pycache__",
+      "bytes": 280,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/_lib/__pycache__",
+      "bytes": 227736,
+      "files": 15
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/_lib/array_api_compat/__pycache__",
+      "bytes": 4435,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/_lib/array_api_compat/common/__pycache__",
+      "bytes": 76722,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/_lib/array_api_compat/numpy/__pycache__",
+      "bytes": 27505,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/_lib/array_api_extra/__pycache__",
+      "bytes": 53649,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/_lib/array_api_extra/_lib/__pycache__",
+      "bytes": 60066,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/_lib/array_api_extra/_lib/_utils/__pycache__",
+      "bytes": 24939,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/scipy/_lib/_uarray/__pycache__",
+      "bytes": 29739,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/__pycache__",
+      "bytes": 244658,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/compose/__pycache__",
+      "bytes": 87455,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/covariance/__pycache__",
+      "bytes": 128000,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/decomposition/__pycache__",
+      "bytes": 359541,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/ensemble/__pycache__",
+      "bytes": 411062,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/ensemble/_hist_gradient_boosting/__pycache__",
+      "bytes": 136409,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/externals/__pycache__",
+      "bytes": 229,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/externals/_packaging/__pycache__",
+      "bytes": 24134,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/impute/__pycache__",
+      "bytes": 59551,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/linear_model/__pycache__",
+      "bytes": 714781,
+      "files": 17
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/linear_model/_glm/__pycache__",
+      "bytes": 54121,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/metrics/__pycache__",
+      "bytes": 403848,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/metrics/cluster/__pycache__",
+      "bytes": 70302,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/metrics/_pairwise_distances_reduction/__pycache__",
+      "bytes": 30398,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/metrics/_plot/__pycache__",
+      "bytes": 76597,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/model_selection/__pycache__",
+      "bytes": 350684,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/neighbors/__pycache__",
+      "bytes": 207244,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/neural_network/__pycache__",
+      "bytes": 101212,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/preprocessing/__pycache__",
+      "bytes": 340692,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/svm/__pycache__",
+      "bytes": 118107,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/tree/__pycache__",
+      "bytes": 128179,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/utils/__pycache__",
+      "bytes": 571175,
+      "files": 36
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/_loss/__pycache__",
+      "bytes": 55157,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sklearn/__check_build/__pycache__",
+      "bytes": 2231,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/smmap/__pycache__",
+      "bytes": 43820,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/__pycache__",
+      "bytes": 68818,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/connectors/__pycache__",
+      "bytes": 24164,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/dialects/__pycache__",
+      "bytes": 2968,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/dialects/postgresql/__pycache__",
+      "bytes": 615851,
+      "files": 19
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/dialects/sqlite/__pycache__",
+      "bytes": 196240,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/engine/__pycache__",
+      "bytes": 734179,
+      "files": 15
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/event/__pycache__",
+      "bytes": 83101,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/future/__pycache__",
+      "bytes": 829,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/orm/__pycache__",
+      "bytes": 2376154,
+      "files": 38
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/pool/__pycache__",
+      "bytes": 99209,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/sql/__pycache__",
+      "bytes": 2350426,
+      "files": 31
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlalchemy/util/__pycache__",
+      "bytes": 225677,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlparse/__pycache__",
+      "bytes": 122143,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlparse/engine/__pycache__",
+      "bytes": 36336,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sqlparse/filters/__pycache__",
+      "bytes": 47144,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/__pycache__",
+      "bytes": 31164,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/algebras/__pycache__",
+      "bytes": 62727,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/assumptions/__pycache__",
+      "bytes": 136835,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/assumptions/relation/__pycache__",
+      "bytes": 18374,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/calculus/__pycache__",
+      "bytes": 107984,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/concrete/__pycache__",
+      "bytes": 135677,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/core/__pycache__",
+      "bytes": 1267068,
+      "files": 35
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/discrete/__pycache__",
+      "bytes": 34939,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/external/__pycache__",
+      "bytes": 50617,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/functions/__pycache__",
+      "bytes": 6134,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/functions/combinatorial/__pycache__",
+      "bytes": 174674,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/functions/elementary/__pycache__",
+      "bytes": 549829,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/functions/special/__pycache__",
+      "bytes": 549275,
+      "files": 15
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/geometry/__pycache__",
+      "bytes": 429098,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/integrals/__pycache__",
+      "bytes": 412114,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/interactive/__pycache__",
+      "bytes": 42592,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/logic/__pycache__",
+      "bytes": 150125,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/matrices/__pycache__",
+      "bytes": 557302,
+      "files": 18
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/matrices/expressions/__pycache__",
+      "bytes": 258785,
+      "files": 22
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/multipledispatch/__pycache__",
+      "bytes": 31434,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/ntheory/__pycache__",
+      "bytes": 297777,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/parsing/__pycache__",
+      "bytes": 47305,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/plotting/__pycache__",
+      "bytes": 204286,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/plotting/backends/__pycache__",
+      "bytes": 18311,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/plotting/backends/matplotlibbackend/__pycache__",
+      "bytes": 17681,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/plotting/backends/textbackend/__pycache__",
+      "bytes": 2026,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/plotting/intervalmath/__pycache__",
+      "bytes": 46576,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/plotting/pygletplot/__pycache__",
+      "bytes": 4046,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/polys/__pycache__",
+      "bytes": 2090893,
+      "files": 36
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/polys/agca/__pycache__",
+      "bytes": 134549,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/polys/domains/__pycache__",
+      "bytes": 256582,
+      "files": 29
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/polys/matrices/__pycache__",
+      "bytes": 331857,
+      "files": 14
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/polys/numberfields/__pycache__",
+      "bytes": 251323,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/printing/__pycache__",
+      "bytes": 837462,
+      "files": 28
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/printing/pretty/__pycache__",
+      "bytes": 210169,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/series/__pycache__",
+      "bytes": 254415,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/sets/__pycache__",
+      "bytes": 210461,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/sets/handlers/__pycache__",
+      "bytes": 34994,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/simplify/__pycache__",
+      "bytes": 543893,
+      "files": 14
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/solvers/__pycache__",
+      "bytes": 511494,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/solvers/diophantine/__pycache__",
+      "bytes": 147500,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/solvers/ode/__pycache__",
+      "bytes": 553166,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/strategies/__pycache__",
+      "bytes": 24895,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/strategies/branch/__pycache__",
+      "bytes": 8042,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/tensor/__pycache__",
+      "bytes": 53641,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/tensor/array/__pycache__",
+      "bytes": 97664,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/utilities/__pycache__",
+      "bytes": 263006,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/sympy/utilities/mathml/__pycache__",
+      "bytes": 4204,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/__pycache__",
+      "bytes": 2050231,
+      "files": 39
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/amp/__pycache__",
+      "bytes": 57625,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/__pycache__",
+      "bytes": 600,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/__pycache__",
+      "bytes": 629,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/intrinsic/__pycache__",
+      "bytes": 872,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/intrinsic/modules/__pycache__",
+      "bytes": 13806,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/intrinsic/qat/__pycache__",
+      "bytes": 215,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/intrinsic/qat/modules/__pycache__",
+      "bytes": 43398,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/intrinsic/quantized/__pycache__",
+      "bytes": 370,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/intrinsic/quantized/dynamic/__pycache__",
+      "bytes": 229,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/intrinsic/quantized/dynamic/modules/__pycache__",
+      "bytes": 3643,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/intrinsic/quantized/modules/__pycache__",
+      "bytes": 30941,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/qat/__pycache__",
+      "bytes": 205,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/qat/dynamic/__pycache__",
+      "bytes": 213,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/qat/dynamic/modules/__pycache__",
+      "bytes": 1881,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/qat/modules/__pycache__",
+      "bytes": 24871,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/quantizable/__pycache__",
+      "bytes": 213,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/quantizable/modules/__pycache__",
+      "bytes": 47123,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/quantized/__pycache__",
+      "bytes": 32833,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/quantized/dynamic/__pycache__",
+      "bytes": 219,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/quantized/dynamic/modules/__pycache__",
+      "bytes": 82807,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/quantized/modules/__pycache__",
+      "bytes": 147091,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/quantized/reference/__pycache__",
+      "bytes": 394,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/quantized/reference/modules/__pycache__",
+      "bytes": 71757,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/sparse/__pycache__",
+      "bytes": 216,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/sparse/quantized/__pycache__",
+      "bytes": 15076,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/nn/sparse/quantized/dynamic/__pycache__",
+      "bytes": 8551,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/ns/__pycache__",
+      "bytes": 172,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/ns/fx/__pycache__",
+      "bytes": 23626,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/quantization/__pycache__",
+      "bytes": 266831,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/ao/quantization/pt2e/__pycache__",
+      "bytes": 20724,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/autograd/__pycache__",
+      "bytes": 378970,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/__pycache__",
+      "bytes": 2654,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/cpu/__pycache__",
+      "bytes": 629,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/cuda/__pycache__",
+      "bytes": 22203,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/cudnn/__pycache__",
+      "bytes": 7831,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/cusparselt/__pycache__",
+      "bytes": 1298,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/mha/__pycache__",
+      "bytes": 1014,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/mkl/__pycache__",
+      "bytes": 2683,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/mkldnn/__pycache__",
+      "bytes": 5206,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/mps/__pycache__",
+      "bytes": 2538,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/nnpack/__pycache__",
+      "bytes": 1720,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/openmp/__pycache__",
+      "bytes": 443,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/backends/quantized/__pycache__",
+      "bytes": 3601,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/compiler/__pycache__",
+      "bytes": 13366,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/cpu/__pycache__",
+      "bytes": 6896,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/cpu/amp/__pycache__",
+      "bytes": 4270,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/cuda/__pycache__",
+      "bytes": 234943,
+      "files": 14
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/cuda/amp/__pycache__",
+      "bytes": 6810,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/__pycache__",
+      "bytes": 365410,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/algorithms/__pycache__",
+      "bytes": 15748,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/algorithms/_checkpoint/__pycache__",
+      "bytes": 14222,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/algorithms/_comm_hooks/__pycache__",
+      "bytes": 9850,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/autograd/__pycache__",
+      "bytes": 2463,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/fsdp/__pycache__",
+      "bytes": 577475,
+      "files": 19
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/nn/__pycache__",
+      "bytes": 21867,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/rpc/__pycache__",
+      "bytes": 8913,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/tensor/__pycache__",
+      "bytes": 226184,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/tensor/parallel/__pycache__",
+      "bytes": 76635,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/tensor/_ops/__pycache__",
+      "bytes": 203138,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/_composable/__pycache__",
+      "bytes": 32199,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/_composable/fsdp/__pycache__",
+      "bytes": 153221,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/_shard/__pycache__",
+      "bytes": 23853,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/_shard/sharded_tensor/__pycache__",
+      "bytes": 98819,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/_shard/sharded_tensor/_ops/__pycache__",
+      "bytes": 27684,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/_shard/sharding_plan/__pycache__",
+      "bytes": 4852,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/_shard/sharding_spec/__pycache__",
+      "bytes": 29204,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributed/_shard/sharding_spec/chunk_sharding_spec_ops/__pycache__",
+      "bytes": 45914,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/distributions/__pycache__",
+      "bytes": 504390,
+      "files": 47
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/export/__pycache__",
+      "bytes": 226258,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/fft/__pycache__",
+      "bytes": 56746,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/func/__pycache__",
+      "bytes": 661,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/futures/__pycache__",
+      "bytes": 16862,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/fx/__pycache__",
+      "bytes": 348349,
+      "files": 16
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/fx/experimental/__pycache__",
+      "bytes": 424762,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/fx/passes/__pycache__",
+      "bytes": 239467,
+      "files": 15
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/fx/passes/infra/__pycache__",
+      "bytes": 16546,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/fx/passes/utils/__pycache__",
+      "bytes": 23793,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/jit/__pycache__",
+      "bytes": 351891,
+      "files": 18
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/linalg/__pycache__",
+      "bytes": 116002,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/masked/__pycache__",
+      "bytes": 120193,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/masked/maskedtensor/__pycache__",
+      "bytes": 45399,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/mps/__pycache__",
+      "bytes": 13404,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/mtia/__pycache__",
+      "bytes": 16300,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/multiprocessing/__pycache__",
+      "bytes": 37554,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nested/__pycache__",
+      "bytes": 22019,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nested/_internal/__pycache__",
+      "bytes": 22289,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/__pycache__",
+      "bytes": 293064,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/attention/__pycache__",
+      "bytes": 4459,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/intrinsic/__pycache__",
+      "bytes": 759,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/intrinsic/modules/__pycache__",
+      "bytes": 1243,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/intrinsic/qat/__pycache__",
+      "bytes": 235,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/intrinsic/qat/modules/__pycache__",
+      "bytes": 3010,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/intrinsic/quantized/__pycache__",
+      "bytes": 422,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/intrinsic/quantized/dynamic/__pycache__",
+      "bytes": 263,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/intrinsic/quantized/dynamic/modules/__pycache__",
+      "bytes": 648,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/intrinsic/quantized/modules/__pycache__",
+      "bytes": 1531,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/modules/__pycache__",
+      "bytes": 878160,
+      "files": 26
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/parallel/__pycache__",
+      "bytes": 165578,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/qat/__pycache__",
+      "bytes": 504,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/qat/dynamic/__pycache__",
+      "bytes": 374,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/qat/dynamic/modules/__pycache__",
+      "bytes": 899,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/qat/modules/__pycache__",
+      "bytes": 2577,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/quantizable/__pycache__",
+      "bytes": 231,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/quantizable/modules/__pycache__",
+      "bytes": 402,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/quantized/__pycache__",
+      "bytes": 1206,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/quantized/dynamic/__pycache__",
+      "bytes": 238,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/quantized/modules/__pycache__",
+      "bytes": 2001,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/nn/utils/__pycache__",
+      "bytes": 169731,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/onnx/__pycache__",
+      "bytes": 731969,
+      "files": 25
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/onnx/_internal/__pycache__",
+      "bytes": 172313,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/onnx/_internal/diagnostics/__pycache__",
+      "bytes": 44361,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/onnx/_internal/diagnostics/infra/__pycache__",
+      "bytes": 45594,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/onnx/_internal/diagnostics/infra/sarif/__pycache__",
+      "bytes": 113933,
+      "files": 55
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/onnx/_internal/fx/__pycache__",
+      "bytes": 24854,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/optim/__pycache__",
+      "bytes": 458620,
+      "files": 19
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/package/__pycache__",
+      "bytes": 143668,
+      "files": 14
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/package/analyze/__pycache__",
+      "bytes": 4983,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/profiler/__pycache__",
+      "bytes": 138739,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/quantization/__pycache__",
+      "bytes": 12147,
+      "files": 11
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/signal/__pycache__",
+      "bytes": 240,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/signal/windows/__pycache__",
+      "bytes": 25672,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/sparse/__pycache__",
+      "bytes": 80697,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/special/__pycache__",
+      "bytes": 33322,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/testing/__pycache__",
+      "bytes": 87526,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/testing/_internal/__pycache__",
+      "bytes": 11336,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/testing/_internal/distributed/__pycache__",
+      "bytes": 1748,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/utils/__pycache__",
+      "bytes": 361904,
+      "files": 27
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/utils/backcompat/__pycache__",
+      "bytes": 1262,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/utils/data/__pycache__",
+      "bytes": 107343,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/utils/data/datapipes/__pycache__",
+      "bytes": 60686,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/utils/data/datapipes/dataframe/__pycache__",
+      "bytes": 37142,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/utils/data/datapipes/iter/__pycache__",
+      "bytes": 97141,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/utils/data/datapipes/map/__pycache__",
+      "bytes": 21693,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/utils/data/datapipes/utils/__pycache__",
+      "bytes": 31740,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/utils/data/_utils/__pycache__",
+      "bytes": 42331,
+      "files": 6
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/utils/_sympy/__pycache__",
+      "bytes": 141392,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/xpu/__pycache__",
+      "bytes": 47595,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_awaits/__pycache__",
+      "bytes": 2238,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_custom_op/__pycache__",
+      "bytes": 45955,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_decomp/__pycache__",
+      "bytes": 268329,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_dispatch/__pycache__",
+      "bytes": 11113,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_dynamo/__pycache__",
+      "bytes": 1126427,
+      "files": 34
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_dynamo/backends/__pycache__",
+      "bytes": 5335,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_dynamo/polyfills/__pycache__",
+      "bytes": 13954,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_dynamo/variables/__pycache__",
+      "bytes": 967412,
+      "files": 22
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_export/__pycache__",
+      "bytes": 86774,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_functorch/__pycache__",
+      "bytes": 346709,
+      "files": 15
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_functorch/_aot_autograd/__pycache__",
+      "bytes": 273995,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_higher_order_ops/__pycache__",
+      "bytes": 193491,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_inductor/__pycache__",
+      "bytes": 401604,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_inductor/codegen/__pycache__",
+      "bytes": 184,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_inductor/codegen/cuda/__pycache__",
+      "bytes": 2285,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_inductor/codegen/rocm/__pycache__",
+      "bytes": 6288,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_inductor/runtime/__pycache__",
+      "bytes": 10819,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_library/__pycache__",
+      "bytes": 115813,
+      "files": 9
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_logging/__pycache__",
+      "bytes": 57214,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_numpy/__pycache__",
+      "bytes": 246476,
+      "files": 17
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_prims/__pycache__",
+      "bytes": 126840,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_prims_common/__pycache__",
+      "bytes": 95346,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_refs/__pycache__",
+      "bytes": 297233,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_refs/linalg/__pycache__",
+      "bytes": 15005,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_refs/nn/__pycache__",
+      "bytes": 287,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_refs/nn/functional/__pycache__",
+      "bytes": 48027,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_refs/special/__pycache__",
+      "bytes": 9753,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_strobelight/__pycache__",
+      "bytes": 22203,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_subclasses/__pycache__",
+      "bytes": 253716,
+      "files": 7
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_vendor/__pycache__",
+      "bytes": 174,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torch/_vendor/packaging/__pycache__",
+      "bytes": 23774,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torchdiffeq/__pycache__",
+      "bytes": 314,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torchdiffeq/_impl/__pycache__",
+      "bytes": 97507,
+      "files": 16
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/torchgen/__pycache__",
+      "bytes": 136899,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/tqdm/__pycache__",
+      "bytes": 112847,
+      "files": 8
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/traitlets/__pycache__",
+      "bytes": 183440,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/traitlets/config/__pycache__",
+      "bytes": 126166,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/traitlets/utils/__pycache__",
+      "bytes": 27048,
+      "files": 10
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/urllib3/__pycache__",
+      "bytes": 246225,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/urllib3/contrib/__pycache__",
+      "bytes": 8192,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/urllib3/http2/__pycache__",
+      "bytes": 5369,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/urllib3/util/__pycache__",
+      "bytes": 113738,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/win32/lib/__pycache__",
+      "bytes": 529,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/xgboost/__pycache__",
+      "bytes": 387552,
+      "files": 13
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/xgboost/dask/__pycache__",
+      "bytes": 88001,
+      "files": 2
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/yaml/__pycache__",
+      "bytes": 249900,
+      "files": 17
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/zipp/__pycache__",
+      "bytes": 27261,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/zipp/compat/__pycache__",
+      "bytes": 3681,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/_distutils_hack/__pycache__",
+      "bytes": 10581,
+      "files": 1
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/_pytest/__pycache__",
+      "bytes": 1124068,
+      "files": 47
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/_pytest/assertion/__pycache__",
+      "bytes": 109251,
+      "files": 12
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/_pytest/config/__pycache__",
+      "bytes": 131545,
+      "files": 4
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/_pytest/mark/__pycache__",
+      "bytes": 58799,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/_pytest/_code/__pycache__",
+      "bytes": 82835,
+      "files": 3
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/_pytest/_io/__pycache__",
+      "bytes": 44447,
+      "files": 5
+    },
+    {
+      "path": "research/.venv/Lib/site-packages/_pytest/_py/__pycache__",
+      "bytes": 73832,
+      "files": 3
+    },
+    {
+      "path": "research/datasets/__pycache__",
+      "bytes": 8126,
+      "files": 2
+    },
+    {
+      "path": "research/experiments/__pycache__",
+      "bytes": 374486,
+      "files": 11
+    },
+    {
+      "path": "research/experiments/02_LAM激光抑颤/__pycache__",
+      "bytes": 82468,
+      "files": 7
+    },
+    {
+      "path": "research/experiments/04_物理感知颤振/__pycache__",
+      "bytes": 104310,
+      "files": 4
+    },
+    {
+      "path": "research/models/__pycache__",
+      "bytes": 317327,
+      "files": 21
+    },
+    {
+      "path": "research/multimodal_jepa/__pycache__",
+      "bytes": 318,
+      "files": 1
+    },
+    {
+      "path": "research/multimodal_jepa/ijepa_3d/__pycache__",
+      "bytes": 15964,
+      "files": 2
+    },
+    {
+      "path": "research/prototypes/__pycache__",
+      "bytes": 280,
+      "files": 1
+    },
+    {
+      "path": "research/prototypes/pointcloud_registration/__pycache__",
+      "bytes": 39952,
+      "files": 4
+    },
+    {
+      "path": "research/prototypes/shared/__pycache__",
+      "bytes": 10520,
+      "files": 2
+    },
+    {
+      "path": "research/prototypes/shared/contracts/__pycache__",
+      "bytes": 8496,
+      "files": 2
+    },
+    {
+      "path": "research/prototypes/shared/problem_registry/__pycache__",
+      "bytes": 9659,
+      "files": 2
+    },
+    {
+      "path": "research/prototypes/surface_edit_challenge/.pytest_cache",
+      "bytes": 2687,
+      "files": 4
+    },
+    {
+      "path": "research/prototypes/surface_edit_challenge/__pycache__",
+      "bytes": 133013,
+      "files": 7
+    },
+    {
+      "path": "research/prototypes/surface_edit_dialogue/.pytest_cache",
+      "bytes": 1849,
+      "files": 5
+    },
+    {
+      "path": "research/prototypes/surface_edit_dialogue/__pycache__",
+      "bytes": 117447,
+      "files": 6
+    },
+    {
+      "path": "research/prototypes/surface_edit_pilot/.pytest_cache",
+      "bytes": 1948,
+      "files": 4
+    },
+    {
+      "path": "research/prototypes/surface_edit_pilot/__pycache__",
+      "bytes": 118620,
+      "files": 5
+    },
+    {
+      "path": "research/prototypes/surface_edit_probe/.pytest_cache",
+      "bytes": 1341,
+      "files": 5
+    },
+    {
+      "path": "research/prototypes/surface_edit_probe/__pycache__",
+      "bytes": 33689,
+      "files": 2
+    },
+    {
+      "path": "research/prototypes/tool_conditioned_surface_gate/.pytest_cache",
+      "bytes": 1164,
+      "files": 4
+    },
+    {
+      "path": "research/prototypes/tool_conditioned_surface_gate/__pycache__",
+      "bytes": 18202,
+      "files": 2
+    },
+    {
+      "path": "research/quantization/__pycache__",
+      "bytes": 22770,
+      "files": 2
+    },
+    {
+      "path": "research/scripts/__pycache__",
+      "bytes": 8733,
+      "files": 1
+    },
+    {
+      "path": "research/tests/.mimosa",
+      "bytes": 55958,
+      "files": 5
+    },
+    {
+      "path": "research/tests/__pycache__",
+      "bytes": 881573,
+      "files": 25
+    },
+    {
+      "path": "research/training/__pycache__",
+      "bytes": 443265,
+      "files": 18
+    }
+  ],
+  "verification_cleanup_directories": [
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\043fa3a09e264c0e84f19227d3602bfb",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\074487b505a34b2aa96bc32d9a0f7e2b",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\0e2d53829ecf49c99d4559d5d088acf9",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\246866895b0c4b62b8f5588307869d79",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\27e8b812a3a4402bb8509320770a5310",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\381aa4c167e2459dab5652400a59cc9f",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\3e76cac150574f649db8d89712683e7c",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\446abf793e334207b03caa84e1735d4c",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\5a4bf05f5d9047e1a52334cb78c6ef00",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\6654e7f29a2f4b65b5059c7d6edbde0d",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\968f83d9ea954d0f88d28a0449c2ce90",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\9aee04da6ef74c3490bc5bba573a2615",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\b21ccbcc13bc496ea8c6bf84ad1d04ac",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\bfa8d115ce1b4c26a50d4711e442a8b8",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\cd2cca971f154585ac5dabd93c85469f",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\da6472051c7e49218d3d5ff6c87629e8",
+    "D:\\灵境制造\\research\\data\\mlruns\\300801071688230417\\f5dfd2cb4ccb4c45bcd79e830491ddf3"
+  ],
+  "verification_cleanup_items": [
+    {
+      "path": "research/data/mlruns/300801071688230417/043fa3a09e264c0e84f19227d3602bfb",
+      "bytes": 207546,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/074487b505a34b2aa96bc32d9a0f7e2b",
+      "bytes": 14759,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/0e2d53829ecf49c99d4559d5d088acf9",
+      "bytes": 965,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/246866895b0c4b62b8f5588307869d79",
+      "bytes": 1119,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/27e8b812a3a4402bb8509320770a5310",
+      "bytes": 1120,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/381aa4c167e2459dab5652400a59cc9f",
+      "bytes": 15076,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/3e76cac150574f649db8d89712683e7c",
+      "bytes": 2163,
+      "files": 14
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/446abf793e334207b03caa84e1735d4c",
+      "bytes": 215379,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/5a4bf05f5d9047e1a52334cb78c6ef00",
+      "bytes": 1273,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/6654e7f29a2f4b65b5059c7d6edbde0d",
+      "bytes": 1119,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/968f83d9ea954d0f88d28a0449c2ce90",
+      "bytes": 4762,
+      "files": 26
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/9aee04da6ef74c3490bc5bba573a2615",
+      "bytes": 1417,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/b21ccbcc13bc496ea8c6bf84ad1d04ac",
+      "bytes": 965,
+      "files": 30
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/bfa8d115ce1b4c26a50d4711e442a8b8",
+      "bytes": 725,
+      "files": 19
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/cd2cca971f154585ac5dabd93c85469f",
+      "bytes": 14775,
+      "files": 36
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/da6472051c7e49218d3d5ff6c87629e8",
+      "bytes": 2212,
+      "files": 26
+    },
+    {
+      "path": "research/data/mlruns/300801071688230417/f5dfd2cb4ccb4c45bcd79e830491ddf3",
+      "bytes": 1120,
+      "files": 30
+    }
+  ],
+  "verification_pytest_runs": [
+    {
+      "id": "043fa3a09e264c0e84f19227d3602bfb",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "074487b505a34b2aa96bc32d9a0f7e2b",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "0e2d53829ecf49c99d4559d5d088acf9",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "246866895b0c4b62b8f5588307869d79",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "27e8b812a3a4402bb8509320770a5310",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "381aa4c167e2459dab5652400a59cc9f",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "3e76cac150574f649db8d89712683e7c",
+      "name": "capable-auk-759"
+    },
+    {
+      "id": "446abf793e334207b03caa84e1735d4c",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "5a4bf05f5d9047e1a52334cb78c6ef00",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "6654e7f29a2f4b65b5059c7d6edbde0d",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "968f83d9ea954d0f88d28a0449c2ce90",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "9aee04da6ef74c3490bc5bba573a2615",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "b21ccbcc13bc496ea8c6bf84ad1d04ac",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "bfa8d115ce1b4c26a50d4711e442a8b8",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "cd2cca971f154585ac5dabd93c85469f",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "da6472051c7e49218d3d5ff6c87629e8",
+      "name": "seed42_adamw_lr0.001"
+    },
+    {
+      "id": "f5dfd2cb4ccb4c45bcd79e830491ddf3",
+      "name": "seed42_adamw_lr0.001"
+    }
+  ],
+  "verification": {
+    "environment_passed": 6,
+    "prototype_passed": 101,
+    "research_targeted_passed": 110,
+    "research_targeted_skipped": 2,
+    "full_research_training_suite": "interrupted; not declared passed",
+    "partial_regression_430": "interrupted on prediction-distribution training; not declared passed",
+    "deleted_module_imports": 0,
+    "frozen_prototype_json_preserved": 49
+  },
+  "workspace_bytes_removed_including_verification": 124296778,
+  "disposition": "Windows Recycle Bin; not emptied"
+}

@@ -2,8 +2,8 @@
 贝叶斯 DL-LNN 包装器（适配 v4 的 DLLNNWithPhysics）
 ====================================================
 
-与 prototypes/lnn_research/bayesian_lnn.py 的区别：
-    - bayesian_lnn.py 适配 CFCModel（接口: model(x, dt, hidden_state) → (out, h)）
+与已于 2026-10-21 关闭的旧 Bayesian CFC 原型的区别：
+    - 旧原型适配 CFCModel（接口: model(x, dt, hidden_state) → (out, h)）
     - 本模块适配 DLLNNWithPhysics（接口: model(x, physics_pred=None) → (final, ltc)）
     - 处理 target 归一化反归一化（v4 trainer 的 mean/std 机制）
     - 同时支持数据分支和物理分支的 MC Dropout

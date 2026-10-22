@@ -1,12 +1,7 @@
-# phase1_dlnn_v2/ — 旧版 DLNN（Phase 1，v2）
+# Phase 1 DLNN — 已关闭，仅留历史证据
 
-早期 DLNN 研究的训练/实验代码（已被 experiments/ 的新体系取代，保留作历史与基线）。
+2026-10-21 清理：该早期独立训练栈已被 `research/experiments/` 与 `research/models/`、`research/training/` 取代；全仓代码/配置核查未发现外部运行引用，删除 9 个 Python 文件和旧 Phase 2 实验计划，停止维护此入口。
 
-| 内容 | 说明 |
-|---|---|
-| `models_v2.py` / `config_v2.py` / `losses_v2.py` / `trainer_v2.py` | v2 模型/配置/损失/训练器 |
-| `data_generator_v2.py` / `delay_embedding.py` / `preprocess_piecuch.py` | 数据侧 |
-| `run_phase1.py` / `run_sim2real.py` | 训练入口（sim2real 迁移） |
-| `ablation1_no_tau.log` / `ablation2_no_horizon.log` / `phase1_final_training.log` / `phase1_full_training.log` | 训练日志（过程产物） |
-| `PHASE2_实验方案.md` | Phase 2 实验方案 |
-| `phase1_dlnn_v2/` | 嵌套目录（历史遗留，勿动） |
+保留 `phase1_dlnn_v2/results/results.json`、`training_history.json`，记录当时配置、合成数据结果与曲线。合成 R² 不能代表真实加工预测精度。嵌套目录是原始输出位置，不代表还有可运行代码。
+
+代码可从清理前 Git 历史恢复；本次清理不删除其他 DL-LNN、LAM、工具磨损或实测验证代码。见 [清理记录](../../docs/reports/research_cleanup_2026-10-21.md)。

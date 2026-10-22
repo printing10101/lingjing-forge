@@ -13,8 +13,7 @@ the optimal inference engine per task. The full algorithm described in
 - **混合决策**：``score = 0.4 * rule_score + 0.6 * ml_score``，取最高分
   引擎，并填充 ``alternatives`` 备选列表供调用方回退。
 
-下游消费者（如 ``research/agents_research/agents.py``）可安全导入公共
-API。``HybridInferenceEngine.get_engine_stats()`` 显式输出
+下游消费者可安全导入公共 API。``HybridInferenceEngine.get_engine_stats()`` 显式输出
 ``stub_implementation: False`` 以确认非 stub 实现。
 
 See ARCHITECTURE.md for the target design contract.
