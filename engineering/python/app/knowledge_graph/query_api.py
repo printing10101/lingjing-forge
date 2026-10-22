@@ -316,15 +316,22 @@ class KnowledgeGraphQueryAPI:
                     if key in seen_edges or not target or target["node_type"] != expected_type:
                         continue
                     seen_edges.add(key)
-                    chain.append({
-                        "from": node_id, "to": target["node_id"],
-                        "edge_type": edge["edge_type"], "direction": direction, "hop": hop,
-                        "source_id": edge["source_id"], "target_id": edge["target_id"],
-                        "confidence": edge["properties"].get("confidence", 0.5),
-                        "evidence": edge["properties"].get("evidence", ""),
-                        "source": edge["properties"].get("source", ""),
-                        "target_type": target["node_type"], "target_props": target["properties"],
-                    })
+                    chain.append(
+                        {
+                            "from": node_id,
+                            "to": target["node_id"],
+                            "edge_type": edge["edge_type"],
+                            "direction": direction,
+                            "hop": hop,
+                            "source_id": edge["source_id"],
+                            "target_id": edge["target_id"],
+                            "confidence": edge["properties"].get("confidence", 0.5),
+                            "evidence": edge["properties"].get("evidence", ""),
+                            "source": edge["properties"].get("source", ""),
+                            "target_type": target["node_type"],
+                            "target_props": target["properties"],
+                        }
+                    )
                     if target["node_id"] not in visited:
                         visited.add(target["node_id"])
                         next_frontier.append(target["node_id"])

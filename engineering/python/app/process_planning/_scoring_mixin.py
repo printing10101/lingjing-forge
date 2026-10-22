@@ -25,22 +25,42 @@ class _ScoringMixin:
         Returns:
             最优匹配的刀具
         """
-        exact = [tool for tool in tools if tool.diameter_verified and math.isclose(tool.diameter_mm, target_diameter, abs_tol=1e-6, rel_tol=0)]
+        exact = [
+            tool
+            for tool in tools
+            if tool.diameter_verified and math.isclose(tool.diameter_mm, target_diameter, abs_tol=1e-6, rel_tol=0)
+        ]
         if exact:
             return exact[0]
         for tool in tools:
             bounds = tool.diameter_range_mm
-            if len(bounds) == 2 and all(isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v) and v > 0 for v in bounds):
+            if len(bounds) == 2 and all(
+                isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v) and v > 0 for v in bounds
+            ):
                 if bounds[0] <= target_diameter <= bounds[1]:
                     return replace(tool, diameter_mm=target_diameter, diameter_verified=False)
         # A larger drill makes a larger hole; never call that a matching size.
         if tools and all(tool.series == "twist_drill" for tool in tools):
-            return ToolEntry(id="unavailable", series="twist_drill", name=f"待确认 φ{target_diameter}mm 钻头",
-                             diameter_mm=target_diameter, material="unknown", application="钻孔", diameter_verified=False)
+            return ToolEntry(
+                id="unavailable",
+                series="twist_drill",
+                name=f"待确认 φ{target_diameter}mm 钻头",
+                diameter_mm=target_diameter,
+                material="unknown",
+                application="钻孔",
+                diameter_verified=False,
+            )
         tools = [tool for tool in tools if tool.diameter_verified and tool.diameter_mm > 0]
         if not tools:
-            return ToolEntry(id="unavailable", series="center_drill", name="待确认中心钻", diameter_mm=0.0,
-                             material="unknown", application="打中心孔定位", diameter_verified=False)
+            return ToolEntry(
+                id="unavailable",
+                series="center_drill",
+                name="待确认中心钻",
+                diameter_mm=0.0,
+                material="unknown",
+                application="打中心孔定位",
+                diameter_verified=False,
+            )
         # Non-drilling tools retain their reference selection rule.
         oversize = [t for t in tools if t.diameter_mm >= target_diameter]
         if oversize:

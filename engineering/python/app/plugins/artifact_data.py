@@ -23,7 +23,7 @@ def load_artifact_data(artifact: Artifact | None) -> np.ndarray | None:
         if uri.scheme != "file":
             logger.warning("Artifact 数据仅支持 file:// 或 metadata.data: %s", artifact.uri)
             return None
-        raw_path = artifact.uri[len("file://"):]
+        raw_path = artifact.uri[len("file://") :]
         if len(raw_path) >= 2 and raw_path[1] == ":":
             # 兼容现有 file://C:\path 产物，同时支持 Path.as_uri() 的标准形式。
             path = unquote(raw_path)

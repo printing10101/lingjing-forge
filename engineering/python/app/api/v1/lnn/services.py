@@ -196,9 +196,7 @@ async def run_training_task_v2(
         )
 
         if not _training_executor._lazy_init_training_stack():
-            raise RuntimeError(
-                "[训练不可用] 训练依赖未就绪。建议操作：在科研环境安装训练依赖后重试。"
-            )
+            raise RuntimeError("[训练不可用] 训练依赖未就绪。建议操作：在科研环境安装训练依赖后重试。")
 
         await progress_updater(5.0, "Loading data...")
         X, y, input_dim = await _load_training_data(data_path)

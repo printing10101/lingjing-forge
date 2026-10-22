@@ -1,4 +1,5 @@
 """Build traceable, unreviewed candidates without promoting vendor facts to NC advice."""
+
 from __future__ import annotations
 
 import hashlib
@@ -69,17 +70,25 @@ def build_vendor_candidates(pdf: bytes, manifest: dict) -> list[dict]:
         if candidate_id in seen:
             raise ValueError("同一来源记录重复")
         seen.add(candidate_id)
-        candidates.append({
-            "candidate_id": candidate_id, "source": "manufacturer_candidate",
-            "review_status": "unreviewed", "eligible_for_recommendation": False,
-            "feature": "hole", "process": "drill", "tool": row["tool"],
-            "material": row["material_group"],
-            "conditions": {"hardness": row["hardness_condition"], "diameter_mm": diameter_mm},
-            "parameters": {"feed_per_revolution_mm": round(feed_mm, 9),
-                           "feed_min_mm_per_rev": round(minimum, 9),
-                           "feed_max_mm_per_rev": round(maximum, 9)},
-            "unresolved": ["cutting_speed_unit", "material_grade_equivalence", "machining_review"],
-            "original_record": dict(row),
-            "provenance": {"url": url, "sha256": digest, "pdf_pages": list(pages), "locator": row["locator"]},
-        })
+        candidates.append(
+            {
+                "candidate_id": candidate_id,
+                "source": "manufacturer_candidate",
+                "review_status": "unreviewed",
+                "eligible_for_recommendation": False,
+                "feature": "hole",
+                "process": "drill",
+                "tool": row["tool"],
+                "material": row["material_group"],
+                "conditions": {"hardness": row["hardness_condition"], "diameter_mm": diameter_mm},
+                "parameters": {
+                    "feed_per_revolution_mm": round(feed_mm, 9),
+                    "feed_min_mm_per_rev": round(minimum, 9),
+                    "feed_max_mm_per_rev": round(maximum, 9),
+                },
+                "unresolved": ["cutting_speed_unit", "material_grade_equivalence", "machining_review"],
+                "original_record": dict(row),
+                "provenance": {"url": url, "sha256": digest, "pdf_pages": list(pages), "locator": row["locator"]},
+            }
+        )
     return candidates

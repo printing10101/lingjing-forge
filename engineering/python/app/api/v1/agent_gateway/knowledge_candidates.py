@@ -1,4 +1,5 @@
 """Agent candidate submission and status; approval remains a human-only route."""
+
 from typing import Annotated
 import json
 
@@ -63,9 +64,17 @@ def submit_candidate(request: CandidateSubmission, agent: str = Depends(writer))
     if len(request.model_dump_json().encode()) > 64 * 1024:
         raise HTTPException(413, "候选请求超过 64KB")
     try:
-        record, created = get_process_quadruple_index().submit_candidate(agent, request.submission_id, request.content.model_dump())
-        return success(data={"created": created, "record": record, "review_url": "/process-knowledge-review",
-                             "human_review_required": not is_approved(record)})
+        record, created = get_process_quadruple_index().submit_candidate(
+            agent, request.submission_id, request.content.model_dump()
+        )
+        return success(
+            data={
+                "created": created,
+                "record": record,
+                "review_url": "/process-knowledge-review",
+                "human_review_required": not is_approved(record),
+            }
+        )
     except ReviewConflict as exc:
         raise HTTPException(409, str(exc)) from exc
     except (ValueError, TypeError) as exc:
@@ -79,8 +88,13 @@ def candidate_status(record_id: str, agent: str = Depends(reader)):
     try:
         record = get_process_quadruple_index().get_candidate_for_agent(record_id, agent)
         eligible = is_approved(record)
-        return success(data={"record": record, "eligible_for_recommendation": eligible,
-                             "next_action": "query_recommendation" if eligible else "human_review",
-                             "review_url": "/process-knowledge-review"})
+        return success(
+            data={
+                "record": record,
+                "eligible_for_recommendation": eligible,
+                "next_action": "query_recommendation" if eligible else "human_review",
+                "review_url": "/process-knowledge-review",
+            }
+        )
     except KeyError as exc:
         raise HTTPException(404, "候选记录不存在或不属于当前 Agent") from exc

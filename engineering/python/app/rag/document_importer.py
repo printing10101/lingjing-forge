@@ -133,14 +133,19 @@ def _parse_docx(file_path: Path) -> str:
 
 def _parse_spreadsheet(file_path: Path) -> str:
     from app.rag.excel_parser import parse_csv, parse_excel
+
     result = parse_csv(file_path) if file_path.suffix.lower() == ".csv" else parse_excel(file_path)
     if result["status"] != "success":
         raise ValueError(result["error"])
     blocks = []
     for table in result["tables"]:
         rows = [table["headers"], *table["rows"]]
-        blocks.append("工作表：" + table.get("sheet_name", file_path.stem) + "\n" +
-                      "\n".join("\t".join(str(value) for value in row) for row in rows))
+        blocks.append(
+            "工作表："
+            + table.get("sheet_name", file_path.stem)
+            + "\n"
+            + "\n".join("\t".join(str(value) for value in row) for row in rows)
+        )
     return "\n\n".join(blocks)
 
 
@@ -248,9 +253,12 @@ class DocumentImportService:
         except OSError:
             return self._error_result(file_path_obj.name, "Document became unreadable during parsing")
         document_id = hashlib.sha256(os.path.normcase(str(file_path_obj.resolve())).encode("utf-8")).hexdigest()
-        revision = hashlib.sha256(json.dumps(
-            [source_hash, chunk_size, chunk_overlap, chunks], ensure_ascii=False,
-        ).encode("utf-8")).hexdigest()
+        revision = hashlib.sha256(
+            json.dumps(
+                [source_hash, chunk_size, chunk_overlap, chunks],
+                ensure_ascii=False,
+            ).encode("utf-8")
+        ).hexdigest()
 
         base_meta = {
             **(additional_metadata or {}),
@@ -293,20 +301,30 @@ class DocumentImportService:
         if callable(replace_chunks):
             ids = [f"import_{document_id}_{revision}_{i}" for i in range(len(chunks))]
             entities = [extract_entities(chunk) for chunk in chunks]
-            metadatas = [{**chunk_metas[i], **base_meta, "chunk_index": i,
-                          "entity_count": len(entities[i])} for i in range(len(chunks))]
+            metadatas = [
+                {**chunk_metas[i], **base_meta, "chunk_index": i, "entity_count": len(entities[i])}
+                for i in range(len(chunks))
+            ]
             try:
                 replace_chunks(document_id, ids, chunks, embeddings, metadatas, entities)
             except (OSError, RuntimeError, ValueError, KeyError, TypeError):
                 logger.exception("Document replacement failed: %s", file_path_obj.name)
                 return self._error_result(file_path_obj.name, "Document replacement failed; retry import")
-            result = {"file_name": file_path_obj.name, "file_size": file_path_obj.stat().st_size,
-                      "document_id": document_id, "document_revision": revision,
-                      "source_sha256": source_hash, "chunk_count": len(chunks), "failed_chunks": 0,
-                      "entities_extracted": sum(map(len, entities)), "success": True,
-                      "parse_time_ms": round(parse_ms, 2), "embed_time_ms": round(embed_ms, 2),
-                      "import_time_ms": round((time.time() - import_start) * 1000, 2),
-                      "total_time_ms": round((time.time() - start_time) * 1000, 2)}
+            result = {
+                "file_name": file_path_obj.name,
+                "file_size": file_path_obj.stat().st_size,
+                "document_id": document_id,
+                "document_revision": revision,
+                "source_sha256": source_hash,
+                "chunk_count": len(chunks),
+                "failed_chunks": 0,
+                "entities_extracted": sum(map(len, entities)),
+                "success": True,
+                "parse_time_ms": round(parse_ms, 2),
+                "embed_time_ms": round(embed_ms, 2),
+                "import_time_ms": round((time.time() - import_start) * 1000, 2),
+                "total_time_ms": round((time.time() - start_time) * 1000, 2),
+            }
             self._import_history.append(result)
             return result
         # 批量写入优化：分批 add，减少与 ChromaDB 的 round-trip 次数

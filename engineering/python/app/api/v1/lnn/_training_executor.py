@@ -73,10 +73,17 @@ def _lazy_init_training_stack() -> bool:
         get_optimal_batch_size = get_device_optimal_batch_size()
         get_optimal_num_workers = get_device_optimal_num_workers()
         _HAS_TRAINING_STACK = _HAS_TORCH and all(
-            callable(item) for item in (
-                LNNConfig, LNNTrainer, detect_device,
-                mlflow_start_run, mlflow_log_params, mlflow_log_metrics, mlflow_log_model,
-                get_optimal_batch_size, get_optimal_num_workers,
+            callable(item)
+            for item in (
+                LNNConfig,
+                LNNTrainer,
+                detect_device,
+                mlflow_start_run,
+                mlflow_log_params,
+                mlflow_log_metrics,
+                mlflow_log_model,
+                get_optimal_batch_size,
+                get_optimal_num_workers,
             )
         )
     except Exception:
@@ -95,18 +102,14 @@ async def _load_training_data(data_path: str):
     非有限值，避免清洗时错位或复制标签造成数据泄漏。文件读取在线程中执行。
     """
 
-    data = await asyncio.to_thread(
-        np.loadtxt, data_path, delimiter=",", skiprows=1, dtype=float, ndmin=2
-    )
+    data = await asyncio.to_thread(np.loadtxt, data_path, delimiter=",", skiprows=1, dtype=float, ndmin=2)
     if data.shape[0] < 2 or data.shape[1] < 2:
         raise ValueError(
             "[训练数据无效] CSV 至少需要两行样本、一个特征列和一个标签列。"
             "建议操作：提供带表头的数值 CSV，最后一列作为标签。"
         )
     if not np.isfinite(data).all():
-        raise ValueError(
-            "[训练数据无效] 数据包含 NaN 或无穷值。建议操作：清洗数据后重试。"
-        )
+        raise ValueError("[训练数据无效] 数据包含 NaN 或无穷值。建议操作：清洗数据后重试。")
 
     X = data[:, :-1]
     y = data[:, -1]

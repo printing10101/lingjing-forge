@@ -166,7 +166,7 @@ def _parse_memory_to_bytes(mem_str: str) -> int:
     for unit in sorted(multipliers, key=len, reverse=True):
         mult = multipliers[unit]
         if mem_str.endswith(unit):
-            return int(float(mem_str[:-len(unit)]) * mult)
+            return int(float(mem_str[: -len(unit)]) * mult)
     if mem_str.isdigit():
         return int(mem_str)
     return 8 * 1024**3

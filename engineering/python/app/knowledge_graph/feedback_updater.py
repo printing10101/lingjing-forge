@@ -94,11 +94,16 @@ class FeedbackUpdater:
             if receipt:
                 if receipt["properties"]["payload_hash"] != payload_hash:
                     raise ValueError("record_id already processed with different content")
-                return {"process_nodes_updated": 0, "tool_material_edges_updated": 0,
-                        "process_feature_edges_updated": 0, "confidence_adjustments": 0}
+                return {
+                    "process_nodes_updated": 0,
+                    "tool_material_edges_updated": 0,
+                    "process_feature_edges_updated": 0,
+                    "confidence_adjustments": 0,
+                }
             stats = self._apply_record(record)
-            self.graph_store.add_node("feedback_record", receipt_id,
-                                      {"record_id": record_id, "payload_hash": payload_hash})
+            self.graph_store.add_node(
+                "feedback_record", receipt_id, {"record_id": record_id, "payload_hash": payload_hash}
+            )
             if self._persist_updates:
                 self.graph_store.flush_to_repository()
             return stats
@@ -199,8 +204,11 @@ class FeedbackUpdater:
             roughness_count = props.get("roughness_sample_count", 0)
             new_avg_roughness = avg_roughness if roughness_count else None
             if current_roughness is not None:
-                new_avg_roughness = ((avg_roughness * roughness_count + current_roughness) / (roughness_count + 1)
-                                     if roughness_count else current_roughness)
+                new_avg_roughness = (
+                    (avg_roughness * roughness_count + current_roughness) / (roughness_count + 1)
+                    if roughness_count
+                    else current_roughness
+                )
                 roughness_count += 1
 
             # 更新节点属性

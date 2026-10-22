@@ -157,8 +157,9 @@ class EvalReport:
 
     @property
     def dimensions_complete(self) -> bool:
-        return all((d := self.dimension(name)) is not None and d.available
-                   for name in ("syntax", "geometry", "physics"))
+        return all(
+            (d := self.dimension(name)) is not None and d.available for name in ("syntax", "geometry", "physics")
+        )
 
     @property
     def fully_validated(self) -> bool:
@@ -170,9 +171,11 @@ class EvalReport:
         if not self.dimensions_complete:
             return False
         geometry = self.dimension("geometry")
-        return (all(self.dimension(name).passed for name in ("syntax", "geometry", "physics"))
-                and geometry.detail.get("cutting_segments", 0) > 0
-                and geometry.detail.get("removed_voxel_count", 0) > 0)
+        return (
+            all(self.dimension(name).passed for name in ("syntax", "geometry", "physics"))
+            and geometry.detail.get("cutting_segments", 0) > 0
+            and geometry.detail.get("removed_voxel_count", 0) > 0
+        )
 
     def to_dict(self) -> dict[str, Any]:
         return {

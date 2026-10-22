@@ -160,7 +160,9 @@ async def send_nc_program(req: NCSendRequest):
     except OSError as exc:
         raise HTTPException(status_code=400, detail="无法读取 NC 程序，请检查文件后重试") from exc
     block_reason = get_dispatch_block_reason(
-        str(program_path), machine_id=req.machine_id, program_bytes=program_bytes,
+        str(program_path),
+        machine_id=req.machine_id,
+        program_bytes=program_bytes,
     )
     if block_reason:
         logger.warning(

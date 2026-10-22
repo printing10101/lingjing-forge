@@ -272,9 +272,13 @@ class ProcessPlanningDataManager:
     @staticmethod
     def _tool_nominal_diameter(diameter_range: list[float]) -> float:
         """Only a single size establishes a diameter; a family interval does not."""
-        if not diameter_range or len(diameter_range) not in (1, 2) or any(
-            isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0
-            for value in diameter_range
+        if (
+            not diameter_range
+            or len(diameter_range) not in (1, 2)
+            or any(
+                isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0
+                for value in diameter_range
+            )
         ):
             return 0.0
         upper = diameter_range[-1]
@@ -406,7 +410,9 @@ class ProcessPlanningDataManager:
         return [tool for tool in self._tools.values() if tool.series == tool_series]
 
     _LEGACY_PARAMETER_MATERIAL_IDS = {
-        "material_45steel": "steel_45", "material_al6061": "al_6061", "material_ss304": "ss_304",
+        "material_45steel": "steel_45",
+        "material_al6061": "al_6061",
+        "material_ss304": "ss_304",
     }
 
     @staticmethod
@@ -430,7 +436,9 @@ class ProcessPlanningDataManager:
                 aliases[legacy] = next(iter(ids))
         return aliases
 
-    def get_cutting_parameters(self, material_id: str, tool_series: str, tool_material: str | None = None) -> list[CuttingParameterEntry]:
+    def get_cutting_parameters(
+        self, material_id: str, tool_series: str, tool_material: str | None = None
+    ) -> list[CuttingParameterEntry]:
         """按材料类型和刀具类型查询推荐切削参数。
 
         Args:
@@ -454,7 +462,9 @@ class ProcessPlanningDataManager:
             candidate_material = aliases.get(param.material_id, param.material_id)
             if candidate_material != requested or param.tool_series != tool_series.strip():
                 continue
-            if tool_material is not None and self.normalize_tool_material(param.tool_material) != self.normalize_tool_material(tool_material):
+            if tool_material is not None and self.normalize_tool_material(
+                param.tool_material
+            ) != self.normalize_tool_material(tool_material):
                 continue
             results.append(param)
         return results

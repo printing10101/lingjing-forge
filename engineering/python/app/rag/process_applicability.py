@@ -1,4 +1,5 @@
 """Versioned drilling limits and pure task applicability checks."""
+
 from __future__ import annotations
 
 from typing import Literal
@@ -23,8 +24,11 @@ class DrillingLimits(BaseModel):
 
     @model_validator(mode="after")
     def ordered_bounds(self):
-        if (self.hardness_min_hrc > self.hardness_max_hrc or self.diameter_min_mm > self.diameter_max_mm
-                or (self.hardness_min_hrc == self.hardness_max_hrc and not self.hardness_max_inclusive)):
+        if (
+            self.hardness_min_hrc > self.hardness_max_hrc
+            or self.diameter_min_mm > self.diameter_max_mm
+            or (self.hardness_min_hrc == self.hardness_max_hrc and not self.hardness_max_inclusive)
+        ):
             raise ValueError("[范围错误] 下界超过上界。建议操作：核对审核范围及单位。")
         return self
 
@@ -48,8 +52,13 @@ class MachiningConditions(BaseModel):
 
 def check_applicability(record: dict, conditions: dict | None) -> dict:
     """Approval alone does not establish applicability to a machining task."""
-    result = {"record_id": record["record_id"], "revision": record["revision"],
-              "status": "matched", "missing": [], "mismatched": []}
+    result = {
+        "record_id": record["record_id"],
+        "revision": record["revision"],
+        "status": "matched",
+        "missing": [],
+        "mismatched": [],
+    }
     if record["feature"] != "hole" or record["process"] not in ("drill", "drilling"):
         return {**result, "status": "unsupported_process"}
     limits_data = record.get("review", {}).get("evidence", {}).get("constraints")

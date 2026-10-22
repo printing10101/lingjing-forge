@@ -419,8 +419,7 @@ class ReviewManager:
                     "confidence": r.confidence,
                 }
                 for r in review.relations
-                if r.status == ReviewStatus.APPROVED
-                and r.source_id in approved_ids and r.target_id in approved_ids
+                if r.status == ReviewStatus.APPROVED and r.source_id in approved_ids and r.target_id in approved_ids
             ]
 
             return {
@@ -439,9 +438,10 @@ class ReviewManager:
 
         statuses = [item.status for item in all_items if item.status != "deleted"]
         approved_ids = {e.id for e in review.entities if e.status == ReviewStatus.APPROVED}
-        if any(r.status == ReviewStatus.APPROVED and
-               (r.source_id not in approved_ids or r.target_id not in approved_ids)
-               for r in review.relations):
+        if any(
+            r.status == ReviewStatus.APPROVED and (r.source_id not in approved_ids or r.target_id not in approved_ids)
+            for r in review.relations
+        ):
             review.overall_status = ReviewStatus.NEEDS_REVISION
             return
         if not statuses:

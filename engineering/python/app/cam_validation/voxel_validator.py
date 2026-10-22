@@ -231,15 +231,11 @@ class VoxelValidator:
         if not cycle_stats.complete:
             gap: list[str] = []
             if cycle_stats.unsupported:
-                gap.append(
-                    "未支持循环 "
-                    + "/".join(f"G{k}×{v}" for k, v in sorted(cycle_stats.unsupported.items()))
-                )
+                gap.append("未支持循环 " + "/".join(f"G{k}×{v}" for k, v in sorted(cycle_stats.unsupported.items())))
             if cycle_stats.skipped_incremental:
                 gap.append(f"增量模式循环×{cycle_stats.skipped_incremental}")
             warnings.append(
-                "固定循环未完全展开（" + "，".join(gap) + "），"
-                "对应孔段不在本次体素校验覆盖范围内，须由外部 CAM 复核。"
+                "固定循环未完全展开（" + "，".join(gap) + "），对应孔段不在本次体素校验覆盖范围内，须由外部 CAM 复核。"
             )
 
         # 2. 解析 G 代码

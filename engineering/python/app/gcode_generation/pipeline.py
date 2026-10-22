@@ -284,9 +284,7 @@ class GCodeGenerationPipeline:
             recovery_applied = False
             recovery_stepdown: float | None = None
             effective_results = report.feature_results
-            if not base_result.is_valid and all(
-                "颤振预测结果为不稳定" in msg for msg in base_result.errors
-            ):
+            if not base_result.is_valid and all("颤振预测结果为不稳定" in msg for msg in base_result.errors):
                 decision = compute_stepdown_recovery(report.feature_results)
                 if decision.recoverable and decision.max_stepdown_mm is not None:
                     logger.info(
@@ -296,7 +294,9 @@ class GCodeGenerationPipeline:
                         decision.max_stepdown_mm,
                     )
                     retry_result, retry_features = await self._generate(
-                        task, operation_plan, report.feature_results,
+                        task,
+                        operation_plan,
+                        report.feature_results,
                         max_stepdown=decision.max_stepdown_mm,
                     )
                     if retry_result.is_valid:
@@ -309,7 +309,8 @@ class GCodeGenerationPipeline:
                         # stable 标记保持原样（兜底告警仍会发出，不静默洗白）。
                         effective_results = [
                             replace(f, axial_depth_mm=min(f.axial_depth_mm, decision.max_stepdown_mm))
-                            if not f.stable else f
+                            if not f.stable
+                            else f
                             for f in report.feature_results
                         ]
                         base_result.warnings.append(
@@ -475,9 +476,7 @@ class GCodeGenerationPipeline:
         task.tool_diameter_mm = operation_plan.tool_diameter_mm
         return report, operation_plan
 
-    async def _generate(
-        self, task, operation_plan, chatter_results, max_stepdown: float | None = None
-    ) -> tuple:
+    async def _generate(self, task, operation_plan, chatter_results, max_stepdown: float | None = None) -> tuple:
         """调用 GeneratorAdapter.adapt() 生成基础 G 代码（CPU 密集，转线程池）."""
         return await asyncio.to_thread(
             self._adapter.adapt,
