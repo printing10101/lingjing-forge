@@ -67,6 +67,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # 历史锚点测试（test_d_line_metrics::TestV1GitAnchor 读 ed31f09）需要
+          # 完整对象；默认 depth=1 浅克隆下 git show 退出 128。
+          # 仓库 pack 仅 ~41 MiB / 86 提交，全量检出成本可忽略。
+          fetch-depth: 0
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -488,6 +493,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # 同 unit 作业：历史锚点测试需要 ed31f09，浅克隆会 128
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
