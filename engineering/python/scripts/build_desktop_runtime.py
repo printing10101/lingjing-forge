@@ -219,6 +219,8 @@ def main() -> int:
                         help="[兼容保留] 默认即用 pip 安装 requirements.txt（无 --site-packages 时）")
     parser.add_argument("--pip-index", default="https://mirrors.aliyun.com/pypi/simple/",
                         help="--install-deps 时的 pip 源")
+    parser.add_argument("--find-links", type=Path, default=None,
+                        help="额外的本地轮子目录（如 CI 预编译的 chroma-hnswlib Windows 轮）")
     args = parser.parse_args()
 
     runtime_dir = args.runtime_dir.resolve()
@@ -309,14 +311,24 @@ def main() -> int:
         # 工程侧 torch 仅用于 RAG 嵌入（见 requirements.txt 头注释），CPU 版即够。
         log(f"安装依赖到运行时（torch 取 CPU 轮子，其余来自 {args.pip_index}）...")
         constraints = PROJECT_ROOT / "requirements-desktop-constraints.txt"
-        r = subprocess.run(
-            [str(py_exe), "-m", "pip", "install", "--no-cache-dir",
-             "--break-system-packages",  # python-build-standalone 带 PEP668 标记
-             "--target", str(sp_dst), "-r", str(req),
-             "-c", str(constraints),
-             "--index-url", args.pip_index,
-             "--extra-index-url", "https://download.pytorch.org/whl/cpu"],
-        )
+        pip_cmd = [
+            str(py_exe), "-m", "pip", "install", "--no-cache-dir",
+            "--break-system-packages",  # python-build-standalone 带 PEP668 标记
+            "--target", str(sp_dst), "-r", str(req),
+            "-c", str(constraints),
+            "--index-url", args.pip_index,
+            "--extra-index-url", "https://download.pytorch.org/whl/cpu",
+        ]
+        # Windows 上 chroma-hnswlib 只有源码包，而 python-build-standalone 的
+        # install_only 变体不带 C 头文件（Python.h），直接 pip install 会失败。
+        # 约定：调用方先用「带头文件的解释器」预编译该轮子到 --find-links 目录。
+        if args.find_links is not None:
+            if not Path(args.find_links).is_dir():
+                log(f"ERROR: --find-links 目录不存在: {args.find_links}")
+                return 2
+            pip_cmd.extend(["--find-links", str(args.find_links)])
+            log(f"附加本地轮子目录: {args.find_links}")
+        r = subprocess.run(pip_cmd)
         if r.returncode != 0:
             log("ERROR: 依赖安装失败")
             return r.returncode
