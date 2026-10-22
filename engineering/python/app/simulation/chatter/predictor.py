@@ -34,6 +34,45 @@ logger = logging.getLogger(__name__)
 _model_cache: dict[str, object] = {}
 _model_dir = os.path.join(os.path.dirname(__file__), "checkpoints")
 
+# 输入归一化尺度（单一定义：训练脚本 app/simulation/chatter/trainer.py 直接导入本函数，
+# 避免训练与推理两套尺度导致静默偏差）。
+# 2026-10-22 调整：刚度尺度由 1e7 改为 1e8 —— 预设机床 vmc_850 的 stiffness_z=2e8，
+# 原尺度会把输入放大到 20，超出 LTC 的数值舒适区。
+NORMALIZATION_SCALES: dict[str, float] = {
+    "rpm": 10000.0,
+    "stiffness": 1e8,
+    "damping": 0.05,
+    "freq": 500.0,
+    "diameter": 20.0,
+    "k_s": 2000.0,
+}
+
+
+def normalize_features(
+    spindle_rpm: float,
+    machine_stiffness: float,
+    machine_damping: float,
+    machine_freq: float,
+    tool_diameter: float,
+    tool_k_s: float,
+) -> np.ndarray:
+    """把 6 个物理量归一化为模型输入（训练与推理共用）。
+
+    Returns:
+        形状 (6,) 的 float32 数组，量级约 [0, 3]。
+    """
+    return np.array(
+        [
+            spindle_rpm / NORMALIZATION_SCALES["rpm"],
+            machine_stiffness / NORMALIZATION_SCALES["stiffness"],
+            machine_damping / NORMALIZATION_SCALES["damping"],
+            machine_freq / NORMALIZATION_SCALES["freq"],
+            tool_diameter / NORMALIZATION_SCALES["diameter"],
+            tool_k_s / NORMALIZATION_SCALES["k_s"],
+        ],
+        dtype=np.float32,
+    )
+
 
 class ChatterPredictor:
     """颤振稳定性神经网络预测器。"""
@@ -89,7 +128,10 @@ class ChatterPredictor:
         except ImportError:
             logger.warning("PyTorch 未安装，使用解析法回退")
             self.model = None
-        except (OSError, RuntimeError, ValueError, KeyError) as e:
+        except (OSError, RuntimeError, ValueError, KeyError, TypeError) as e:
+            # TypeError 覆盖「torch 与解释器版本不兼容导致模型构造失败」一类
+            # 环境错误（实测 Python 3.14 + 旧 torch 会在 nn.init 抛 TypeError）；
+            # 此类失败必须降级到解析法，不得让预测入口崩溃（2026-10-22）。
             logger.error("加载 LTC 模型失败: %s", e)
             self.model = None
 
@@ -115,17 +157,13 @@ class ChatterPredictor:
         Returns:
             归一化后的特征向量
         """
-        # 归一化范围（基于典型值）
-        return np.array(
-            [
-                spindle_rpm / 10000.0,  # 转速归一化到 [0, 1]
-                machine_stiffness / 1e7,  # 刚度归一化
-                machine_damping / 0.1,  # 阻尼比归一化
-                machine_freq / 1000.0,  # 频率归一化
-                tool_diameter / 20.0,  # 直径归一化
-                tool_k_s / 2500.0,  # 切削力系数归一化
-            ],
-            dtype=np.float32,
+        return normalize_features(
+            spindle_rpm=spindle_rpm,
+            machine_stiffness=machine_stiffness,
+            machine_damping=machine_damping,
+            machine_freq=machine_freq,
+            tool_diameter=tool_diameter,
+            tool_k_s=tool_k_s,
         )
 
     def predict(
@@ -172,6 +210,11 @@ class ChatterPredictor:
             # 转换为张量（batch_size=1, input_size=6）
             x_tensor = torch.tensor(x_norm, dtype=torch.float32).unsqueeze(0)
 
+            # LTC 是有状态网络：模块内部缓存 hidden_state。若不重置，同批次大小的
+            # 连续调用会继承上一次的隐状态，使预测结果依赖调用顺序（2026-10-22 修）。
+            if hasattr(self.model, "hidden_state"):
+                self.model.hidden_state = None
+
             # LTC 推理：forward 返回 (output, hidden_state)
             with torch.no_grad():
                 output, _hidden = self.model(x_tensor)
@@ -192,6 +235,25 @@ class ChatterPredictor:
         except (RuntimeError, ValueError, TypeError) as e:
             logger.error("LTC 推理失败: %s，调用方应回退到解析法", e)
             return True, -1.0
+
+
+# 进程级预测器缓存：每次 predict_stability 重新构造会重复 torch.load，
+# 批量预测下是纯浪费（2026-10-22 加）。
+_default_predictor: ChatterPredictor | None = None
+
+
+def get_cached_predictor() -> ChatterPredictor:
+    """获取进程级单例预测器。"""
+    global _default_predictor
+    if _default_predictor is None:
+        _default_predictor = ChatterPredictor()
+    return _default_predictor
+
+
+def reset_predictor_cache() -> None:
+    """清空预测器缓存（测试隔离或权重热更新后调用）。"""
+    global _default_predictor
+    _default_predictor = None
 
 
 def predict_stability(
@@ -238,7 +300,7 @@ def predict_stability(
     ltc_active = False
 
     try:
-        predictor = ChatterPredictor()
+        predictor = get_cached_predictor()
 
         if predictor.model is not None:
             stable, limit_depth = predictor.predict(
@@ -265,7 +327,7 @@ def predict_stability(
                 }
             else:
                 logger.info("LTC 模型不可用，回退到解析法 compute_stability_limit")
-    except (RuntimeError, ValueError, OSError) as e:
+    except (RuntimeError, ValueError, OSError, TypeError) as e:
         logger.warning("神经网络预测失败: %s，回退到解析法", e)
 
     # 回退到解析法
