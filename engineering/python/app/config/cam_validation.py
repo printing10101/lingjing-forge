@@ -123,6 +123,13 @@ class CamValidationConfig:
     # 运动段数上限：超过即拒绝仿真（fail-closed，不允许部分仿真冒充完整校验）
     voxel_max_segments: int = field(default_factory=lambda: _int_env("LNN_CAM_VOXEL_MAX_SEGMENTS", 50000))
 
+    # 钻穿超程容差（mm）：通孔必须钻到毛坯底面以下，该深度内的 Z<0 不计为过切。
+    # 默认 0.0 = 严格口径（任何低于毛坯底面的切削都算过切）；
+    # 生产链路按垫板厚度设为 2–3mm，超程超限仍判过切。
+    voxel_breakthrough_tolerance_mm: float = field(
+        default_factory=lambda: _float_env("LNN_CAM_VOXEL_BREAKTHROUGH_TOLERANCE_MM", 0.0)
+    )
+
     def __post_init__(self) -> None:
         """启动时校验配置合法性。"""
         # precision_tier 接受阶段 1-6 已有的档位
