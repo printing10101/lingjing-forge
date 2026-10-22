@@ -160,15 +160,7 @@ class CircuitBreaker:
             CircuitBreakerOpenException: 熔断器已打开，拒绝调用
             Exception: 函数执行失败，但已记录
         """
-        with self._lock:
-            current_state = self.state
-
-            if current_state == CircuitState.OPEN:
-                raise CircuitBreakerOpenException(  # type: ignore[call-arg]
-                    service=self.name,
-                    opened_at=self._opened_at.isoformat() if self._opened_at else None,
-                )
-
+        self.try_acquire_half_open()
         try:
             result = func(*args, **kwargs)
             self._record_success()
@@ -177,10 +169,12 @@ class CircuitBreaker:
             self._record_failure(e)
 
             # 调用 fallback
-            if self.fallback and isinstance(e, Exception):
+            if self.fallback:
                 return self.fallback(e)
 
             raise
+        finally:
+            self.release_half_open()
 
     async def async_execute(self, func: Callable[..., Any], *args: Any, **kwargs: Any) -> Any:
         """执行受保护的异步服务调用（await 版 execute）。
