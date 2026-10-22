@@ -1,5 +1,11 @@
 # INT8模型量化功能全面验证报告
 
+> 历史记录更新（2026-10-21）：旧 `scripts/verify_quantization.py` 已移除。
+> 它仍引用拆分前路径，将 MSE 直接称为百分比精度损失，且生成报告后删除整个
+> 输出目录；不应作为当前量化验收依据。当前量化实现位于
+> `research/quantization/quantizer.py`，回归用例为 `research/tests/test_quantization.py`，
+> 需在科研独立环境中运行。
+
 ## 测试环境信息
 
 | 项目 | 详情 |

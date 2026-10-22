@@ -5,7 +5,6 @@ Run: python setup_hooks.py
 """
 
 import subprocess
-import sys
 from pathlib import Path
 
 

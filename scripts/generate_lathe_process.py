@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -19,11 +20,8 @@ from typing import Any
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PYTHON_ROOT = PROJECT_ROOT / "engineering" / "python"
 os.environ.setdefault("PYTHONPATH", str(PYTHON_ROOT))
-import sys
-
 sys.path.insert(0, str(PYTHON_ROOT))
 
-from app.cutting_params_db import get_cutting_params  # noqa: E402
 from app.process_planning.feature_dependency import MachiningFeature  # noqa: E402
 from app.process_planning.gcode_generator import GCodeGenerator  # noqa: E402
 from app.process_planning.operation_sequencer import (  # noqa: E402
@@ -350,8 +348,6 @@ def generate_report(
 
     total_cutting = sum(t.cutting_time_min for t in times)
     total_tool_change = sum(t.tool_change_time_min for t in times)
-    operation_count = len(times)
-    unique_tools = len({t.method for t in times})
 
     # 单件时间
     clamp_align = TIME_CONSTANTS["clamp_align_min"]
@@ -387,7 +383,7 @@ def generate_report(
     lines.append(f"- **图号**：{PART_INFO['drawing_no']}")
     lines.append(f"- **材料**：{PART_INFO['material']}（{PART_INFO['hardness']}）")
     lines.append(f"- **订单数量**：{PART_INFO['quantity']:,} 件")
-    lines.append(f"- **包工包料单价**：9.0 元/件")
+    lines.append("- **包工包料单价**：9.0 元/件")
     lines.append(f"- **未注公差**：{PART_INFO['tolerance_general']}")
     lines.append(f"- **特殊公差要求**：{PART_INFO['tolerance_special']}")
     lines.append("")
@@ -514,7 +510,7 @@ def generate_report(
     lines.append(f"- **单件毛坯重量**：约 {blank_weight_kg:.2f} kg")
     lines.append(f"- **材料单价（参考）**：{blank['material_price_yuan_kg']:.1f} 元/kg")
     lines.append(f"- **单件材料成本**：约 {material_cost:.2f} 元/件")
-    lines.append(f"- **包工包料单价**：9.0 元/件")
+    lines.append("- **包工包料单价**：9.0 元/件")
     lines.append(f"- **单件毛利（未计刀具/电费/人工/场地）**：约 {9.0 - material_cost:.2f} 元/件")
     lines.append(f"- **70,000 件合同总额**：{total_contract:,.0f} 元")
     lines.append(f"- **70,000 件材料总成本（参考）**：约 {total_material:,.0f} 元")

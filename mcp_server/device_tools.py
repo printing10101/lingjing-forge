@@ -15,7 +15,8 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import Any, Callable
+from typing import Any
+from collections.abc import Callable
 
 from mcp_server.device_registry import (
     DeviceDescriptor,
