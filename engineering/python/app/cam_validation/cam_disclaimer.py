@@ -171,7 +171,9 @@ def build_cam_disclaimer(
 
     # LTC 实验性路径告知（继承阶段 5）
     if ltc_experiment_used:
-        warnings.append("阶段 5 使用了 LTC 神经网络实验性路径，稳定性判断需特别关注（chatter_model.pt 可能未充分训练）")
+        warnings.append(
+            "阶段 5 使用了 LTC 神经网络实验性路径（Tlusty 解析包络的快速代理，未做实测验证），稳定性判断仍以 CAM 二次校验为准"
+        )
 
     # CAM 后端降级告知
     if cam_backend_fallback_reason:

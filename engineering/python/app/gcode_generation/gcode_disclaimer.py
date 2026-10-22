@@ -122,7 +122,9 @@ def build_gcode_disclaimer(
             f"含 {unstable_features} 个不稳定特征，已禁止生成 G 代码，需工程师审核降低切深或主轴转速后重新生成"
         )
     if ltc_experiment_used:
-        warnings.append("阶段 5 使用了 LTC 神经网络实验性路径，稳定性判断需特别关注（chatter_model.pt 可能未充分训练）")
+        warnings.append(
+            "阶段 5 使用了 LTC 神经网络实验性路径（Tlusty 解析包络的快速代理，未做实测验证），稳定性判断仍以 CAM 二次校验为准"
+        )
     # 工业硬门槛兜底（项目记忆硬约束）：即使上述特定警告均未触发，
     # CAM 二次校验仍然是不可绕过的工业硬门槛——系统定位「工程师助手」，
     # 非「全自动 G 代码生成器」，所有产物必须经 NX/PowerMill/PyCAM 二次校验后方可上机床。
