@@ -2,13 +2,11 @@
 # 顶层 pyproject.toml（阶段2 解耦后 monorepo workspace 配置）
 # =============================================================================
 # 说明：
-#   阶段2 物理分层后项目分为三层：
-#     - shared/         零依赖契约层（仅 stdlib + typing_extensions）
+#   项目分为两个独立运行环境：
 #     - engineering/    工程侧（生产部署，依赖 onnxruntime 而非 torch）
 #     - research/       科研侧（训练栈，依赖 torch / mlflow / optuna）
-#   workspace 声明用于：
-#     - 工程侧 venv 通过 .pth 引入 shared/ 后，IDE/工具能识别三层关系
-#     - 后续若引入 uv / hatch workspace，可直接复用此声明
+#   shared/ 已移除；工程侧契约位于 engineering/python/app/contracts/。
+#   本文件提供仓库共用的静态检查配置，不声明 uv/hatch workspace。
 # =============================================================================
 
 [tool.ruff]
