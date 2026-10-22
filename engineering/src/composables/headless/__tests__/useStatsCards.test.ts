@@ -3,6 +3,8 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { ref } from 'vue'
+import { DataAnalysis } from '@element-plus/icons-vue'
 import StatsCards from '@/components/base/StatsCards.vue'
 import { useStatsCards, StatsCardItem } from '@/composables/headless/useStatsCards'
 
@@ -70,6 +72,25 @@ describe('useStatsCards', () => {
   })
 
   describe('processedCards', () => {
+    it('解析字符串图标且拒绝未知名称', () => {
+      const { processedCards } = useStatsCards([
+        { label: '已知', value: 1, icon: 'DataAnalysis' },
+        { label: '未知', value: 2, icon: '__proto__' },
+      ])
+      expect(processedCards.value[0].resolvedIcon).toBe(DataAnalysis)
+      expect(processedCards.value[1].resolvedIcon).toBeUndefined()
+    })
+
+    it('响应卡片列表替换与尺寸变化', () => {
+      const cards = ref<StatsCardItem[]>([{ label: '旧', value: 1 }])
+      const cardSize = ref<'small' | 'large'>('small')
+      const { processedCards, size } = useStatsCards(cards, { size: cardSize })
+      cards.value = [{ label: '新', value: 2 }]
+      cardSize.value = 'large'
+      expect(processedCards.value[0].label).toBe('新')
+      expect(size()).toBe('large')
+    })
+
     it('保留原始卡片数据', () => {
       const cards = [{ label: '测试', value: 1 }] as StatsCardItem[]
       const { processedCards } = useStatsCards(cards)
@@ -87,6 +108,16 @@ describe('useStatsCards', () => {
 })
 
 describe('StatsCards 组件', () => {
+  it('字符串图标实际渲染且替换卡片后更新', async () => {
+    const wrapper = mount(StatsCards, {
+      props: { cards: [{ label: '旧卡片', value: 1, icon: 'DataAnalysis' }] },
+    })
+    expect(wrapper.findComponent(DataAnalysis).exists()).toBe(true)
+    await wrapper.setProps({ cards: [{ label: '新卡片', value: 2, icon: 'DataAnalysis' }] })
+    expect(wrapper.text()).toContain('新卡片')
+    expect(wrapper.text()).not.toContain('旧卡片')
+  })
+
   it('渲染统计卡片行', () => {
     const wrapper = mount(StatsCards, {
       props: {
