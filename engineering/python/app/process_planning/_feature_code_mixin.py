@@ -116,6 +116,20 @@ class _FeatureCodeMixin:
 
             # 使用后处理器的钻孔固定循环 - 使用实际坐标
             # Z 坐标基于 stock_top_z 向下计算（避免负值触发过切误报）
+            # P1 修复（2026-10-21）：孔深必须受零件厚度约束。
+            # 原实现直接取 depth（DXF 推断值/默认 25mm），stock_top_z=10 时
+            # drill_z = -15，即钻穿零件后再扎入垫板 15mm（实测 case2/case6 均为 Z=-15）。
+            # 通孔超程按 3mm 计（工业常规 2–3mm），故孔深上限 = 毛坯厚度 + 3mm。
+            _DRILL_BREAKTHROUGH_MM = 3.0
+            max_drill_depth = float(stock_top_z) + _DRILL_BREAKTHROUGH_MM
+            if abs(float(depth)) > max_drill_depth:
+                logger.warning(
+                    "孔深 %.2fmm 超过毛坯厚度+超程上限 %.2fmm，已收敛（op=%s）",
+                    abs(float(depth)),
+                    max_drill_depth,
+                    op.feature_name,
+                )
+                depth = max_drill_depth
             drill_z = stock_top_z - abs(depth)
             lines.append(
                 postprocessor.format_cycle_drill(
@@ -451,8 +465,14 @@ class _FeatureCodeMixin:
             return None
 
         # 深度：几何 depth/z_depth 优先（与钻孔语义一致：正值向下），
-        # 其次数据库 depth_of_cut
+        # 其次毛坯全高（铣穿至底面 Z=0）。
+        # P0 修复（2026-10-21）：原回退把 depth_of_cut 当**总深度**用，而它实际是
+        # **单层**切深（见下方 stepdown）。结果 10mm 厚零件只切 5mm 就抬刀，且
+        # stock_top_z 未由零件高度驱动时刀路整体悬空（实测 case2 切削 Z=45/46/48）。
         depth = geom.get("depth", geom.get("z_depth"))
+        if depth is None:
+            stock_h = float(stock_top_z) if stock_top_z else 0.0
+            depth = abs(stock_h) if stock_h > 0 else None
         if depth is None:
             depth = float(cut_params.get("depth_of_cut", 5.0) or 5.0)
         z_top = float(stock_top_z)

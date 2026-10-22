@@ -14,6 +14,7 @@ pytestmark = pytest.mark.unit
 from app.dxf._entities import DxfCircle, DxfDimension, DxfLine, DxfParseResult
 from app.dxf.exceptions import DxfFeatureError
 from app.dxf.feature_extractor import (
+    FeatureExtractionResult,
     FeatureExtractor,
     extract_tolerance_from_text,
     is_counterbore_text,
@@ -115,8 +116,16 @@ class TestHoleFeatures:
 
     def test_depth_clamped_to_max(self):
         pr = _parse_result(circles=[_circle(0, 0, 100.0)])  # 直径 200 → 深度 600 > MAX
-        result = FeatureExtractor().extract(pr)
+        # 单独验证推断阶段的上限；完整提取随后会把通孔深度对齐板厚。
+        result = FeatureExtractionResult()
+        FeatureExtractor()._extract_hole_features(pr, result)
         assert result.holes[0].depth == FeatureExtractor.MAX_DEPTH
+
+    def test_through_hole_depth_reconciles_to_plate_thickness(self):
+        pr = _parse_result(circles=[_circle(0, 0, 100.0)])
+        result = FeatureExtractor().extract(pr)
+        assert result.holes[0].hole_type == "through_hole"
+        assert result.holes[0].depth == result.overall_height
 
     def test_diameter_dimension_overrides(self):
         dim = DxfDimension(

@@ -52,6 +52,41 @@ class FeatureExtractionConfig:
     # 最多提取多少个平面（避免过拟合噪声）
     plane_max_features: int = field(default_factory=lambda: _int_env("LNN_FE_PLANE_MAX_FEATURES", 20))
 
+    # 自适应内点下限（P1 修复，2026-10-21）
+    # 绝对阈值（plane 1000 / cylinder 500）是按摄影测量稠密网格（数万顶点）定的。
+    # DXF→STL 等轻量网格只有数百顶点，绝对阈值永远达不到 → 提取器静默返回 0 特征
+    # （实测 case2：260 顶点 / 520 面 → planes=0 cylinders=0 holes=0，status 仍为
+    # features_extracted，不报错）。有效阈值改为：
+    #     max(floor, min(absolute, ratio × 顶点数))
+    # ratio<=0 时退回纯绝对阈值（完全向后兼容）。
+    min_inliers_ratio: float = field(default_factory=lambda: _float_env("LNN_FE_MIN_INLIERS_RATIO", 0.02))
+    min_inliers_floor: int = field(default_factory=lambda: _int_env("LNN_FE_MIN_INLIERS_FLOOR", 10))
+
+    # 零特征自检（P1，2026-10-22）：输入网格顶点数达到该值却一个特征都没提取到时，
+    # 判定为「可疑空结果」并写入告警。用于拦住「阈值与网格密度不匹配」这类静默失败
+    # （实测：260 顶点 → 0 平面/0 圆柱/0 孔，status 仍 features_extracted）。
+    # 设为 0 关闭自检。
+    min_vertices_for_feature_check: int = field(
+        default_factory=lambda: _int_env("LNN_FE_MIN_VERTICES_FOR_CHECK", 50)
+    )
+
+    def effective_min_inliers(self, kind: str, vertex_count: int) -> int:
+        """按网格规模计算有效内点下限。
+
+        Args:
+            kind: ``"plane"`` 或 ``"cylinder"``（孔检测沿用 cylinder 口径）。
+            vertex_count: 参与拟合的顶点数。
+
+        Returns:
+            有效内点下限。``vertex_count`` 非正或 ``min_inliers_ratio<=0`` 时
+            返回配置的绝对阈值（保持旧行为）。
+        """
+        absolute = self.plane_min_inliers if kind == "plane" else self.cylinder_min_inliers
+        if self.min_inliers_ratio <= 0 or vertex_count <= 0:
+            return absolute
+        adaptive = int(self.min_inliers_ratio * vertex_count)
+        return max(self.min_inliers_floor, min(absolute, adaptive))
+
     # 圆柱提取参数
     # 圆柱半径范围（mm）：超出此范围的圆柱被丢弃
     cylinder_min_radius_mm: float = field(default_factory=lambda: _float_env("LNN_FE_CYLINDER_MIN_RADIUS_MM", 1.0))
@@ -64,6 +99,17 @@ class FeatureExtractionConfig:
     hole_min_radius_mm: float = field(default_factory=lambda: _float_env("LNN_FE_HOLE_MIN_RADIUS_MM", 0.5))
     hole_max_radius_mm: float = field(default_factory=lambda: _float_env("LNN_FE_HOLE_MAX_RADIUS_MM", 50.0))
     hole_max_features: int = field(default_factory=lambda: _int_env("LNN_FE_HOLE_MAX_FEATURES", 30))
+
+    # 孔轴向容差（度）：圆柱轴线与装夹主轴（Z 向）的允许夹角。
+    # 背景（2026-10-21 实测）：低密度网格（260 顶点）上 RANSAC 会过拟合出任意方向的
+    # "圆柱"，轴线如 (-0.80,-0.60,0)，而零件真实孔轴恒为 (0,0,1)。
+    # 行业口径（PowerMILL 等商业 CAM）：默认只识别垂直于装夹面的正孔，斜孔由用户
+    # 交互指定；网格特征角容忍 30–120°，实际加工垂直度控制在 0.05°–0.2°。
+    # 取 5°：比实际加工精度高 1–2 个数量级，留足网格噪声余量，同时能干净剔除
+    # 低密度网格的斜轴误检。设为 0 关闭轴向过滤（兼容斜孔/侧孔场景）。
+    hole_axis_tolerance_deg: float = field(
+        default_factory=lambda: _float_env("LNN_FE_HOLE_AXIS_TOLERANCE_DEG", 5.0)
+    )
 
     # mesh 预处理参数
     # 大 mesh 降采样目标顶点数：避免 RANSAC 在百万顶点 mesh 上过慢

@@ -130,6 +130,9 @@ class FeatureExtractionTask:
     face_count: int = 0
     # 错误信息（仅 status=failed 时填充）
     error_message: str = ""
+    # 自检告警（P1，2026-10-22）：语义上不是失败，但需要工程师注意。
+    # 例：输入网格 260 顶点却提取到 0 个特征 → 疑似阈值与网格密度不匹配。
+    selfcheck_notes: list[str] = field(default_factory=list)
     # 审核元信息
     reviewed_by: str = ""
     reviewed_at: float = 0.0

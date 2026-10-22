@@ -53,6 +53,17 @@ class ModelConversionResult:
     warnings: list[str] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
 
+    # 几何自检（P1，2026-10-21）—— 用于拦截「cut 静默无效」
+    # 本次审计中 case2 丢了 3 个孔，但 hole_count 仍上报 4、success 仍为 True：
+    # 孔圆柱落在实体外时 CadQuery 的 cut 不报错、实体体积不变。故在转换末尾
+    # 用「切孔前后体积差 vs 期望移除体积」做自洽校验。
+    base_volume_mm3: float = 0.0
+    final_volume_mm3: float = 0.0
+    removed_volume_mm3: float = 0.0
+    expected_hole_volume_mm3: float = 0.0
+    geometry_selfcheck_passed: bool = True
+    geometry_selfcheck_notes: list[str] = field(default_factory=list)
+
     @property
     def success(self) -> bool:
         return len(self.errors) == 0 and self.workplane is not None
@@ -116,25 +127,54 @@ class DxfToModelConverter:
 
         try:
             base = self._create_base_solid(length, width, height)
+            # 零件几何原点（DXF 绝对坐标下的零件中心）：box 居中于 (0,0)、圆盘
+            # 居中于 (cx,cy)，两者都等价于「外轮廓 bbox 中心」，故统一按 bbox 算。
+            origin_x, origin_y = 0.0, 0.0
+            holes_to_cut = list(feature_result.holes)
             if feature_result.contours:
                 outer = max(feature_result.contours, key=lambda ring: abs(ring.area))
-                if outer.source == "circle" and outer.radius and not any(
-                    abs(hole.diameter - 2 * outer.radius) < 0.05
-                    and abs(hole.center_x - outer.center[0]) < 0.05
-                    and abs(hole.center_y - outer.center[1]) < 0.05
-                    for hole in feature_result.holes
-                ):
+                origin_x = (float(outer.min_x) + float(outer.max_x)) / 2.0
+                origin_y = (float(outer.min_y) + float(outer.max_y)) / 2.0
+                if outer.source == "circle" and outer.radius:
                     cx, cy = outer.center
+                    # P0 修复（2026-10-21）：与外圆完全重合的「孔」其实是外轮廓本身。
+                    # 原实现在检测到重合时**不重建 base**（保持方板），随后又把这个
+                    # 大孔切掉 → 实测 case14（Ø120 圆盘）被生成成「120×120 方板挖
+                    # Ø120 洞」，体积 30948 而非 113097，且 is_watertight=False。
+                    # 正确做法：把该孔从待切列表中剔除，base 按圆盘重建。
+                    same_as_outer = [
+                        h
+                        for h in holes_to_cut
+                        if abs(h.diameter - 2 * outer.radius) < 0.05
+                        and abs(h.center_x - cx) < 0.05
+                        and abs(h.center_y - cy) < 0.05
+                    ]
+                    if same_as_outer:
+                        holes_to_cut = [h for h in holes_to_cut if h not in same_as_outer]
+                        result.warnings.append(
+                            f"外轮廓与外圆重合（半径 {outer.radius:.2f}mm），"
+                            f"已按圆盘建体并从孔列表剔除 {len(same_as_outer)} 个重合特征"
+                        )
                     base = cq.Workplane("XY").center(cx, cy).circle(outer.radius).extrude(height)
         except (ValueError, TypeError, ZeroDivisionError, OverflowError, RuntimeError, OSError) as e:
             # cadquery/OCCT 在构造基础实体时可能抛出参数错误、内部运行时错误等
             # 统一收口为 DxfModelError 向上抛出，保持业务异常类型一致
             raise DxfModelError(f"基础立方体创建失败(尺寸={length}x{width}x{height}mm): {e}") from e
 
+        # 自检基准：切孔前的实体体积（拿不到时跳过自检，不阻断转换）
+        base_volume = self._solid_volume(base)
+        expected_hole_volume = 0.0
+        for _h in holes_to_cut:
+            _r = float(_h.diameter) / 2.0
+            if _r > 0:
+                # DXF 孔默认按贯通孔处理（depth_inferred=True），期望深度取板厚；
+                # 盲孔会因此高估期望值，故自检失败只记 warning 不改 success。
+                expected_hole_volume += 3.141592653589793 * _r * _r * float(height)
+
         hole_count = 0
-        for hole in feature_result.holes:
+        for hole in holes_to_cut:
             try:
-                base = self._add_hole(base, hole, height)
+                base = self._add_hole(base, hole, height, origin_offset=(origin_x, origin_y))
                 hole_count += 1
             except (ValueError, TypeError, ZeroDivisionError, OverflowError, RuntimeError) as e:
                 # 单个孔特征失败不应阻塞整个模型转换，记录后跳过
@@ -147,6 +187,43 @@ class DxfToModelConverter:
 
         result.workplane = base
         result.hole_count = hole_count
+
+        # P1 几何自检（2026-10-21）：切孔前后体积差必须与期望移除量自洽。
+        # 拦截的正是本次审计发现的「cut 静默无效」——孔圆柱落在实体外时
+        # CadQuery 不报错、体积不变，而 hole_count 与 success 照旧为真。
+        final_volume = self._solid_volume(base)
+        result.base_volume_mm3 = round(base_volume, 3) if base_volume is not None else 0.0
+        result.final_volume_mm3 = round(final_volume, 3) if final_volume is not None else 0.0
+        result.expected_hole_volume_mm3 = round(expected_hole_volume, 3)
+        if base_volume is not None and final_volume is not None:
+            removed = base_volume - final_volume
+            result.removed_volume_mm3 = round(removed, 3)
+            if expected_hole_volume > 0:
+                deviation = abs(removed - expected_hole_volume) / expected_hole_volume
+                if deviation > 0.10:
+                    result.geometry_selfcheck_passed = False
+                    result.geometry_selfcheck_notes.append(
+                        f"体积自检失败：期望移除 {expected_hole_volume:.1f} mm³，"
+                        f"实际移除 {removed:.1f} mm³（偏差 {deviation * 100:.1f}%）。"
+                        f"孔特征可能未真正切入实体（坐标偏移或布尔失败），"
+                        f"请核对 holes={len(holes_to_cut)} 的孔位与零件外形。"
+                    )
+                    result.warnings.append(result.geometry_selfcheck_notes[-1])
+                elif deviation > 0.02:
+                    result.geometry_selfcheck_notes.append(
+                        f"体积自检通过但偏差偏大：期望 {expected_hole_volume:.1f}，"
+                        f"实际 {removed:.1f} mm³（{deviation * 100:.1f}%）"
+                    )
+            elif removed > abs(base_volume) * 0.02:
+                # 没有孔却掉了一大块材料 → 外轮廓/布尔异常
+                result.geometry_selfcheck_passed = False
+                result.geometry_selfcheck_notes.append(
+                    f"体积自检失败：无孔特征却移除了 {removed:.1f} mm³ 材料"
+                    f"（占实体 {removed / base_volume * 100 if base_volume else 0:.1f}%）"
+                )
+                result.warnings.append(result.geometry_selfcheck_notes[-1])
+        else:
+            result.geometry_selfcheck_notes.append("跳过体积自检：无法读取实体体积")
 
         logger.info(
             "3D模型转换完成: 外形=%.1fx%.1fx%.1fmm, 孔=%d/%d",
@@ -180,6 +257,18 @@ class DxfToModelConverter:
 
         return result
 
+    @staticmethod
+    def _solid_volume(workplane: Any) -> float | None:
+        """读取 Workplane 当前实体的体积（mm³）。
+
+        失败（OCCT 内部异常/句柄失效）返回 ``None``，调用方应跳过自检而不是
+        让自检本身成为新的失败源。
+        """
+        try:
+            return float(workplane.val().Volume())
+        except (AttributeError, TypeError, ValueError, RuntimeError, OSError):
+            return None
+
     def _create_base_solid(
         self,
         length: float,
@@ -199,6 +288,7 @@ class DxfToModelConverter:
         workplane: cq.Workplane,
         hole: HoleFeatureInfo,
         base_height: float,
+        origin_offset: tuple[float, float] = (0.0, 0.0),
     ) -> cq.Workplane:
         """在模型上创建孔特征（布尔减运算）。
 
@@ -220,9 +310,15 @@ class DxfToModelConverter:
             hole_depth = base_height * 1.2
         hole_depth = min(hole_depth, base_height * 1.5)
 
+        # P0 修复（2026-10-21）：base 的 XY 原点在零件中心（box 用 centered=True，
+        # 圆盘用 .center(cx, cy)），而 hole.center_x/y 是 **DXF 绝对坐标**。
+        # 原实现直接用绝对坐标定位孔，孔位整体偏移半个零件尺寸：实测 case2
+        # （板 100×100，4 孔在 25/75 格点）只有落在板内的 1 个孔被切出，其余
+        # 3 个 cut 静默无效（CadQuery 不报错），而 hole_count 仍上报 4 ——
+        # STL 体积 99214.9 = 100×100×10 − 1×π·5²·10 证明实际只有 1 孔。
         center_offset = (
-            hole.center_x,
-            hole.center_y,
+            hole.center_x - origin_offset[0],
+            hole.center_y - origin_offset[1],
         )
 
         hole_solid = (

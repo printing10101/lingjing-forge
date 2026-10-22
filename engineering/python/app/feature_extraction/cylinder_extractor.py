@@ -145,6 +145,11 @@ class CylinderExtractor:
 
         total_count = len(vertices)
         method = "pyransac3d" if self._pyransac3d is not None else "numpy_ransac"
+        # 自适应下限（同 plane_extractor）：轻量网格达不到绝对阈值 500
+        try:
+            min_inliers = int(self._cfg.effective_min_inliers("cylinder", total_count))
+        except (AttributeError, TypeError, ValueError):
+            min_inliers = int(self._cfg.cylinder_min_inliers)
 
         # 迭代提取多个圆柱
         remaining_mask = np.ones(total_count, dtype=bool)
@@ -153,7 +158,7 @@ class CylinderExtractor:
 
         for cyl_idx in range(self._cfg.cylinder_max_features):
             remaining_count = int(np.sum(remaining_mask))
-            if remaining_count < self._cfg.cylinder_min_inliers:
+            if remaining_count < min_inliers:
                 break
 
             remaining_vertices = vertices[remaining_mask]
@@ -164,7 +169,7 @@ class CylinderExtractor:
                 break
 
             inlier_count = int(np.sum(inlier_local_mask))
-            if inlier_count < self._cfg.cylinder_min_inliers:
+            if inlier_count < min_inliers:
                 break
 
             # 半径范围校验
@@ -182,6 +187,35 @@ class CylinderExtractor:
                 inlier_global_mask[inlier_global_indices] = True
                 remaining_mask = remaining_mask & (~inlier_global_mask)
                 continue
+
+            # 轴向一致性校验（P1 修复，2026-10-21）
+            # 低密度网格（数百顶点）上 RANSAC 会过拟合出任意方向的"圆柱"。实测
+            # case2（260 顶点 / 4 孔）提出 8 个圆柱，轴线如 (-0.80,-0.60,0)、
+            # (0.66,0.22,-0.72)，而真实孔轴恒为 (0,0,1)。行业口径（PowerMILL 等
+            # 商业 CAM）：默认只认垂直于装夹面的正孔，斜孔由用户交互指定。
+            # 故按「轴线与 Z 主轴夹角 ≤ hole_axis_tolerance_deg（默认 5°）」过滤；
+            # 设为 0 关闭（侧孔/斜孔场景）。测试替身未声明该配置时同样关闭。
+            try:
+                axis_tol_deg = float(self._cfg.hole_axis_tolerance_deg)
+            except (AttributeError, TypeError, ValueError):
+                axis_tol_deg = 0.0
+            if axis_tol_deg > 0:
+                _axis = np.asarray(cyl_params["axis"], dtype=np.float64)
+                _norm = float(np.linalg.norm(_axis))
+                if _norm > 1e-12:
+                    _cos = abs(float(_axis[2]) / _norm)
+                    _angle_deg = float(np.degrees(np.arccos(np.clip(_cos, -1.0, 1.0))))
+                    if _angle_deg > axis_tol_deg:
+                        logger.debug(
+                            "圆柱轴线偏离装夹主轴 %.2f° > 容差 %.2f°，判为 RANSAC 过拟合，跳过",
+                            _angle_deg,
+                            axis_tol_deg,
+                        )
+                        inlier_global_indices = remaining_global_indices[inlier_local_mask]
+                        inlier_global_mask = np.zeros(total_count, dtype=bool)
+                        inlier_global_mask[inlier_global_indices] = True
+                        remaining_mask = remaining_mask & (~inlier_global_mask)
+                        continue
 
             # 置信度
             confidence = float(inlier_count) / float(total_count)
