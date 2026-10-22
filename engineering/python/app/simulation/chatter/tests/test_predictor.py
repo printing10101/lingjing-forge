@@ -54,7 +54,7 @@ class TestChatterPredictor:
             assert all(0 <= v <= 2 for v in normalized)
 
     def test_predict_without_model(self):
-        """测试无模型时的预测（应返回默认值）。"""
+        """测试无模型时的预测：返回负值哨兵，交由上层回退解析法。"""
         with patch("os.path.exists", return_value=False):
             predictor = ChatterPredictor()
 
@@ -67,52 +67,48 @@ class TestChatterPredictor:
                 tool_k_s=2000,
             )
 
-            # 应该返回默认值
+            # 契约（2026-10-22 起）：limit_depth < 0 表示模型不可用，
+            # 调用方必须回退 compute_stability_limit；不再返回固定 5.0 误导调用方
             assert isinstance(stable, bool)
             assert isinstance(limit_depth, float)
-            assert limit_depth > 0
+            assert limit_depth == -1.0
 
 
 class TestNeuralNetworkPaths:
     """神经网络模型加载和推理路径测试。"""
 
     def test_model_load_success(self):
-        """测试模型加载成功路径。"""
-        # Mock torch 模块
-        mock_torch = MagicMock()
-        mock_nn = MagicMock()
+        """测试模型加载成功路径（research 桥接返回 LTC 工厂）。"""
 
-        # Mock ChatterNet 类
-        class MockChatterNet:
-            def __init__(self):
-                self.net = MagicMock()
-
-            def __call__(self, x):
-                return MagicMock()
-
-            def eval(self):
-                pass
+        class _FakeLTC:
+            def __init__(self, config):
+                self.config = config
+                self.hidden_state = None
 
             def load_state_dict(self, state_dict):
-                pass
+                return None
 
-        mock_nn.Module = MockChatterNet
-        mock_nn.Linear = MagicMock()
-        mock_nn.ReLU = MagicMock()
-        mock_nn.Sequential = MagicMock()
+            def eval(self):
+                return None
 
-        mock_torch.nn = mock_nn
+        class _FakeConfig:
+            def __init__(self, **kwargs):
+                self.kwargs = kwargs
+
+        mock_torch = MagicMock()
         mock_torch.load = MagicMock(return_value={"model_state_dict": {}})
-        mock_torch.no_grad = MagicMock()
-        mock_torch.tensor = MagicMock()
 
-        # Mock os.path.exists 返回 True（模型文件存在）
-        with patch.dict("sys.modules", {"torch": mock_torch, "torch.nn": mock_nn}):
-            with patch("os.path.exists", return_value=True):
-                predictor = ChatterPredictor()
+        with patch.dict("sys.modules", {"torch": mock_torch}):
+            with (
+                patch("app.ai.lnn._research_bridge.get_ltc_model_factory", return_value=_FakeLTC),
+                patch("app.ai.lnn._research_bridge.get_lnn_config_factory", return_value=_FakeConfig),
+            ):
+                with patch("os.path.exists", return_value=True):
+                    predictor = ChatterPredictor()
 
-                # 模型应该被加载
-                assert predictor.model is not None
+                    # 桥接可用 + 检查点存在 → 模型应被加载
+                    assert predictor.model is not None
+                    assert isinstance(predictor.model, _FakeLTC)
 
     def test_model_load_import_error(self):
         """测试 PyTorch 未安装时的 ImportError 处理。"""
@@ -139,24 +135,29 @@ class TestNeuralNetworkPaths:
 
     def test_predict_with_model(self):
         """测试有模型时的神经网络推理路径。"""
-        # Mock torch 模块
+
+        class _Out:
+            """模拟 LTC 输出张量：只需 squeeze(0).numpy()。"""
+
+            def squeeze(self, dim):
+                return self
+
+            def numpy(self):
+                return np.array([0.5, 10.0], dtype=np.float32)
+
+        class _StubModel:
+            """LTC 前向契约：(output, hidden_state)。"""
+
+            hidden_state = None
+
+            def __call__(self, x):
+                return _Out(), None
+
         mock_torch = MagicMock()
-
-        # Mock 模型输出
-        mock_output = MagicMock()
-        mock_output.__getitem__ = MagicMock(side_effect=lambda idx: 0.5 if idx == 0 else 10.0)
-        mock_output.squeeze = MagicMock(return_value=MagicMock(numpy=MagicMock(return_value=np.array([0.5, 10.0]))))
-
-        # Mock 模型
-        mock_model = MagicMock()
-        mock_model.return_value = MagicMock(
-            squeeze=MagicMock(return_value=MagicMock(numpy=MagicMock(return_value=np.array([0.5, 10.0]))))
-        )
-
         with patch.dict("sys.modules", {"torch": mock_torch}):
             with patch("os.path.exists", return_value=False):
                 predictor = ChatterPredictor()
-                predictor.model = mock_model  # 手动设置模型
+                predictor.model = _StubModel()  # 手动设置模型
 
                 stable, limit_depth = predictor.predict(
                     spindle_rpm=8000,
@@ -167,16 +168,17 @@ class TestNeuralNetworkPaths:
                     tool_k_s=2000,
                 )
 
-                # 应该返回推理结果
+                # 应该返回推理结果：sigmoid(0.5) > 0.5 判稳定，切深取绝对值
                 assert isinstance(stable, bool)
-                assert isinstance(limit_depth, float)
-                assert limit_depth >= 0
+                assert stable is True
+                assert limit_depth == pytest.approx(10.0)
 
     def test_predict_inference_exception(self):
-        """测试推理异常处理。"""
-        # Mock 模型但在推理时抛出异常
+        """测试推理异常处理：返回负值哨兵，由上层回退解析法。"""
+        # 用 RuntimeError 模拟 torch 推理失败（predict 的 except 已收窄到
+        # RuntimeError/ValueError/TypeError，不再吞掉 CancelledError）
         mock_model = MagicMock()
-        mock_model.side_effect = Exception("Inference failed")
+        mock_model.side_effect = RuntimeError("Inference failed")
 
         with patch("os.path.exists", return_value=False):
             predictor = ChatterPredictor()
@@ -191,9 +193,9 @@ class TestNeuralNetworkPaths:
                 tool_k_s=2000,
             )
 
-            # 异常时应该返回默认值
+            # 契约（2026-10-22 起）：推理失败返回 -1.0 哨兵
             assert stable is True
-            assert limit_depth == 5.0
+            assert limit_depth == -1.0
 
 
 class TestPredictStability:
