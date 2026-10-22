@@ -1,44 +1,35 @@
-# research/ — 科研侧代码库与成果总索引
+# research/ — 科研资产与当前状态
 
-> **科研端主研究方向（2026-09-19 确立）**：**面向自由曲面的 LLM CAD 代码生成方法**（API 检索接地 + 惯用法技能库 + 分类错误反馈，免训练）。
-> 规划与数据：`docs/paper_and_competition/F0`（v2 行动路径）～ `F5`（多条件对比）。
-> 实现与实验入口：`engineering/python/app/benchmarks/machinability_pilot/`（曲面基准、五级评估漏斗、grounding 三件套、生成/物理运行器）。
+更新：2026-10-21。以代码、冻结实验产物和决策记录为准；旧报告中的成功率不等于当前已复现或可投稿。
 
-独立科研环境（torch 训练/模型/量化），与 engineering/ 物理解耦。运行：`cd research && pytest tests/`。
+## 当前工作与保留资产
 
-## 目录速查（名称即内容）
-
-| 目录 | 内容 |
+| 路径 | 状态与用途 |
 |---|---|
-| [`experiments/`](experiments/README.md) | **实验脚本与成果**（核心库留根 + 5 个主题目录：02_LAM激光抑颤 / 03_PHM2010工具磨损 / 04_物理感知颤振 / 05_论文图件与表格 / 90_临时归档）→ 见其 README |
-| [`experiments/results/`](experiments/results/README.md) | 实验产出：训练日志 / 结果 JSON / 论文图件 / 主题结果子目录 |
-| [`tests/`](tests/) | 科研侧测试（23 个文件，覆盖标定/闭环/模型/数据/量化等） |
-| [`models/`](models/) | 模型定义：base_lnn / hybrid_lnn / ltc / cfc / parameter_models / torch_base_lnn |
-| [`training/`](training/) | 训练框架：数据集加载、trainer、evaluator、实验追踪、设备管理、可复现性种子 |
-| [`quantization/`](quantization/) | 模型量化（quantizer.py） |
-| [`datasets/`](datasets/) | 实验数据集：`piecuch_2025/`、`uniwear/`（uniwear.csv 缺失待下载） |
-| [`lab_data/`](lab_data/) | 实验室合成数据（E1/E2 预演 CSV） |
-| [`papers/`](papers/) | 论文/报告资料：综合技术文档、大创赛、论文与实验报告 |
-| [`phase1_dlnn_v2/`](phase1_dlnn_v2/) | 旧版 DLNN（v2）：训练脚本/配置/日志/PHASE2 方案 |
-| [`multimodal_jepa/`](multimodal_jepa/) | JEPA 探索：ijepa_3d / jepa_world_model / vjepa_machining |
-| [`prototypes/`](prototypes/) | 原型探索：agents_research / lnn_research / shared |
-| [`checkpoints/`](checkpoints/) | 模型检查点（当前为空） |
+| `prototypes/pointcloud_registration/` | 最新探索：叶片 STEP 采样、ICP/PCA、对称性与弯度扫描；合成点云探针，尚未确立论文贡献 |
+| `prototypes/surface_edit_*` | 方法论文路线已停止投入；保留解析探针、几何内核、强基线、原始模型响应和失败证据，供复核与复用 |
+| `prototypes/tool_conditioned_surface_gate/` | 不再按宽泛组合立项；经典球刀几何探针及查新原始记录，保留用于复核 F13/F14 |
+| `experiments/` | LAM 抑颤、工具磨损、物理感知颤振与实测验证；历史实验资产，不自动视作当前论文主线 |
+| `models/`、`training/`、`quantization/` | 仍有测试和调用的模型、训练及量化基础设施 |
+| `datasets/` | Uniwear、Piecuch、力/振动特征、文献数字化稳定性与 FRF 数据；不得混淆实测、数字化、合成和 fixture |
+| `multimodal_jepa/` | 工程 DXF 桥接仍使用其中 chamfer 模块，保留 |
+| `lab_data/` | E1/E2 合成预演数据，不是实测证据 |
+| `papers/` | 历史报告、实验脚本及论文迁出指针；最新私人稿件不以本目录为权威 |
+| `phase1_dlnn_v2/` | 已关闭；删除被替代的代码和旧计划，仅保留历史结果与训练曲线 |
+| `tests/`、`scripts/` | 科研测试、模型导出工具 |
 
-## 三条实验主线（experiments/ 内）
+F0–F6 记录早期 CAD 生成实验；F7–F14 记录复核、转向与停止判定。详见 `../docs/paper_and_competition/`。F6 的 48/50 仅为旧报告口径，旧原始生成批次未在当前仓定位。
 
-1. **LAM 激光主动抑颤**（`02_LAM激光抑颤/`，2026-08 论文主线）：热扩展 Tlusty 模型 → 文献标定 → 闭环控制 → r 鲁棒性/多材料/多模态/交叉验证 → 论文初稿与 AI 评审。
-2. **PHM2010 工具磨损深度学习**（`03_PHM2010工具磨损/`）：LNN 系列实验（消融、噪声鲁棒、迁移、不确定性等 30+ 项）。
-3. **物理感知颤振分析**（`04_物理感知颤振/`）：Tlusty 失配诊断 → 物理感知门控 → 失配增强 → 跨数据集/多场景迁移。
+2026-10-21 已关闭并移除未接入的 `prototypes/agents_research/`、`prototypes/lnn_research/`。删除依据、清单和验证见 [清理记录](../docs/reports/research_cleanup_2026-10-21.md)。停止的论文表述不等于相关领域没有研究价值。
 
-## 关键入口
+## 环境与测试
 
-- 论文初稿：`../docs/LAM_chatter_paper_draft_v1_zh.md`（→ 桌面 `LAM激光主动抑颤论文_初稿v5.docx`）
-- 论文评审：`experiments/02_LAM激光抑颤/review_paper_v1.py`（8 采样，结果在 `../docs/review_outputs/`）
-- 全量测试：`./.venv/Scripts/pytest tests/ -q`（记得 `env -u PYTHONPATH`）
-- **实验脚本运行**（无前缀 import 依赖路径注入，入口固定 `cd research/experiments`）：
-  ```bash
-  cd research/experiments
-  export PYTHONPATH="02_LAM激光抑颤;03_PHM2010工具磨损;04_物理感知颤振;05_论文图件与表格;90_临时归档;..;../..;../../engineering/python"
-  ../.venv/Scripts/python.exe 02_LAM激光抑颤/thermal_sld_model.py
-  ```
-- 环境：`.venv/`（独立 venv，依赖见 requirements.txt）
+科研侧使用独立 `.venv/`，目前 `pyvenv.cfg` 为 Python 3.12.14；保留该环境，不使用工程侧损坏的旧环境替代。工程侧测试按仓库 AGENTS.md 使用系统 Python 3.14。
+
+```powershell
+Remove-Item Env:PYTHONPATH -ErrorAction SilentlyContinue
+Set-Location 'D:\灵境制造\research'
+& '.\.venv\Scripts\python.exe' -m pytest tests/ -q
+```
+
+曲面与点云原型按各自 README/测试入口使用系统 Python 3.14。原型测试不属于默认工程 CI 收集范围。不要在清理时删除冻结产物或原始 API 响应。

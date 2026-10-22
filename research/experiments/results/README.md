@@ -1,29 +1,9 @@
-# results/ — 实验产出目录
+# results/ — 历史结构化实验结果
 
-## 子目录（主题结果）
-| 目录 | 内容 |
-|---|---|
-| `paper_figs/` | **论文图件**（Fig.1–11，论文 md 直接引用，勿动） |
-| `paper_tables/` | 论文表格产物（csv/tex） |
-| `figures/` | 其他图件（特征重要性等） |
-| `thermal_sld/` | 热 SLD 频域结果（fig1–3 + summary.json） |
-| `closed_loop/` | 时域闭环抑制结果（fig + summary.json） |
-| `r_sensitivity/` | 温差比 r 鲁棒性（fig10 + summary.json） |
-| `multi_modal/` | 双模态验证（fig11 + summary.json） |
-| `multi_material/` | 多材料增益（summary.json） |
-| `literature_validation/` | 文献交叉验证（summary.json） |
-| `lnn_mapping/` | LNN 功率映射（summary.json） |
-| `uncertainty/` | 蒙特卡洛不确定性（summary.json） |
-| `gain_strategies/` | 快速增益策略 |
-| `calibration/` | 标定结果 |
-| `logs_训练日志/` | **训练/实验日志**（ablation_v4_*.log、lomo_*.log 等，纯过程产物） |
-| `_archive_备份/` | 紧急/关机备份（_emergency_backup_*、_shutdown_backup_*，可删除） |
+更新：2026-10-21。保留现有 JSON/CSV/TeX、来源与诊断结果，用于复核历史实验；这些文件不等于当前已复现或已通过投稿门槛。
 
-## 根目录文件（被 analyze/run 脚本引用，勿动）
-- `*_results.json` / `*_results.csv` / `*.tex`：各实验的结构化结果（main_comparison、ablation、cross_condition、table1–7 等）
-- `*.bat` / `*.cmd` / `*.ps1` / `run_*.py` / `_monitor_*.py` / `_register_*.py`：训练启动/监控/注册脚本（内部含相对路径，保持原位）
-- `feature_importance.png` / `comparison_report.txt` 等散件
+主题结果包括热 SLD、闭环、温差比敏感性、多模态、多材料、文献验证、LNN 功率映射、不确定性和标定。根目录还有模型对比、消融、迁移及实测诊断结果。
 
-## 说明
-- 论文 md 只引用 8 个主题子目录（paper_figs/thermal_sld/closed_loop/r_sensitivity/multi_modal）中的图件——**这些路径是论文文档的硬依赖**。
-- 新增实验请按主题建子目录并更新本索引。
+旧索引中的 `paper_figs/`、`paper_tables/`、`figures/`、`logs_训练日志/`、`_archive_备份/` 当前均未定位，不据此声称图件已就位或尚有备份可删。后续复现应检查实际文件与相应实验脚本。
+
+不要将失败结果、校准批次或数字化数据当作垃圾删除；不要把合成和代理标签结果写成真实机床验证。
