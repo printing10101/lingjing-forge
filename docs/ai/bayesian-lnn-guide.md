@@ -1,3 +1,5 @@
+> 历史说明（2026-10-21）：旧 `research/prototypes/lnn_research/` 实现已关闭并删除；本文接口示例不代表当前可用能力。现有 LNN/论文侧不确定性实验不受影响。关闭依据见 `docs/reports/research_cleanup_2026-10-21.md`。
+
 # 贝叶斯 LNN 技术指南
 
 ## 概述
