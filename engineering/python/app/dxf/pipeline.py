@@ -354,11 +354,30 @@ class DxfProcessPipeline:
         # Stage 5: 工艺规划 + G代码生成
         stage5_start = time.time()
         try:
+            # P0 修复（2026-10-21）：毛坯顶面必须由 DXF 模型高度驱动。
+            # 原实现不传 stock_top_z → 工艺规划取默认 50.0，于是分层从 Z=50 起算，
+            # 而零件高度只有 10mm：刀路悬在毛坯上方 35–40mm 全程空切，体素校验因
+            # "无碰撞"而假通过（实测 case2 切削 Z=45/46/48，removed_voxel=0）。
+            # 现约定：毛坯外形 = 零件外形（无余量），底面 Z=0、顶面 Z=overall_height，
+            # 与 gcode_generator / cam_validation 的 "stock_top_z 以底面为 0" 语义一致。
+            part_height = float(getattr(feature_result, "overall_height", 0.0) or 0.0)
+            stock_top_z = part_height if part_height > 0 else 50.0
+            effective_safe_z = safe_z
+            if effective_safe_z <= stock_top_z:
+                effective_safe_z = stock_top_z + 30.0
+                logger.warning(
+                    "safe_z=%.1f 不高于毛坯顶面 %.1f，已提升至 %.1f",
+                    safe_z,
+                    stock_top_z,
+                    effective_safe_z,
+                )
+
             process_result = self._process_pipeline.run(
                 part_description=part_description,
                 controller_type=controller_type,
-                safe_z=safe_z,
+                safe_z=effective_safe_z,
                 program_number=program_number,
+                stock_top_z=stock_top_z,
             )
 
             status = "success" if process_result.success else "completed_with_errors"

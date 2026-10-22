@@ -134,6 +134,13 @@ class PlaneExtractor:
 
         total_count = len(vertices)
         method = "sklearn_ransac" if self._sklearn_ransac is not None else "numpy_ransac"
+        # 自适应下限：轻量网格（数百顶点）不可能达到绝对阈值 1000，
+        # 原口径会直接 break 并静默返回 0 平面（见 FeatureExtractionConfig 注释）。
+        # 配置可能是测试替身（MagicMock），此时退回绝对阈值，保持旧契约。
+        try:
+            min_inliers = int(self._cfg.effective_min_inliers("plane", total_count))
+        except (AttributeError, TypeError, ValueError):
+            min_inliers = int(self._cfg.plane_min_inliers)
 
         # 迭代提取多个平面
         remaining_mask = np.ones(total_count, dtype=bool)
@@ -142,11 +149,11 @@ class PlaneExtractor:
 
         for plane_idx in range(self._cfg.plane_max_features):
             remaining_count = int(np.sum(remaining_mask))
-            if remaining_count < self._cfg.plane_min_inliers:
+            if remaining_count < min_inliers:
                 logger.debug(
                     "平面提取停止：剩余顶点 %d < min_inliers %d",
                     remaining_count,
-                    self._cfg.plane_min_inliers,
+                    min_inliers,
                 )
                 break
 
@@ -159,11 +166,11 @@ class PlaneExtractor:
                 break
 
             inlier_count = int(np.sum(inlier_local_mask))
-            if inlier_count < self._cfg.plane_min_inliers:
+            if inlier_count < min_inliers:
                 logger.debug(
                     "平面提取停止：内点数 %d < min_inliers %d",
                     inlier_count,
-                    self._cfg.plane_min_inliers,
+                    min_inliers,
                 )
                 break
 

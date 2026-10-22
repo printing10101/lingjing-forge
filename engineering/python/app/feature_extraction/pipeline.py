@@ -32,7 +32,7 @@ import json
 import logging
 import time
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -125,6 +125,8 @@ class FeatureExtractionResult:
     boss_count: int
     total_duration_seconds: float
     error_message: str = ""
+    # 自检告警（P1，2026-10-22）：非失败，但需工程师注意（如零特征空结果）
+    selfcheck_notes: list[str] = field(default_factory=list)
     # 审核元信息
     reviewed_by: str = ""
     reviewed_at: float = 0.0
@@ -144,6 +146,7 @@ class FeatureExtractionResult:
             "boss_count": self.boss_count,
             "total_duration_seconds": self.total_duration_seconds,
             "error_message": self.error_message,
+            "selfcheck_notes": list(self.selfcheck_notes),
             "reviewed_by": self.reviewed_by,
             "reviewed_at": self.reviewed_at,
             "exported_features_path": self.exported_features_path,
@@ -328,6 +331,26 @@ class FeatureExtractionPipeline:
 
             total_duration = time.time() - t_start
 
+            # 零特征自检（P1，2026-10-22）：输入网格顶点数足够却提取到 0 个特征，
+            # 绝大多数情况是「阈值与网格密度不匹配」而非「零件真的没有特征」。
+            # 实测：case2（260 顶点 / 520 面）曾返回 0 平面 0 圆柱 0 孔，而状态仍是
+            # features_extracted、error_message 为空 —— 下游无法区分「无特征」与
+            # 「提取失败」。此处显式写入 selfcheck_notes。
+            selfcheck_notes: list[str] = []
+            try:
+                min_vertices = int(getattr(self._cfg, "min_vertices_for_feature_check", 50) or 0)
+            except (TypeError, ValueError):
+                min_vertices = 0
+            if min_vertices > 0 and not all_features and len(vertices) >= min_vertices:
+                note = (
+                    f"零特征告警：输入网格 {len(vertices)} 个顶点（≥{min_vertices}），"
+                    "但未提取到任何平面/圆柱/孔。可能原因：提取阈值与网格密度不匹配，"
+                    "或网格几何异常。请核对 LNN_FE_MIN_INLIERS_* 配置后再采信"
+                    "「该零件无特征」的结论。"
+                )
+                selfcheck_notes.append(note)
+                logger.warning("任务 %s %s", task_id, note)
+
             self._store.update(
                 task_id,
                 status=FeatureExtractionTaskStatus.FEATURES_EXTRACTED.value,
@@ -337,6 +360,7 @@ class FeatureExtractionPipeline:
                 hole_duration_seconds=hole_duration,
                 total_duration_seconds=total_duration,
                 error_message="",
+                selfcheck_notes=selfcheck_notes,
             )
             logger.info(
                 "任务 %s 特征提取完成: 共 %d 个特征（平面=%d 圆柱=%d 孔/凸台=%d）总耗时 %.1fs，等待工程师审核",
@@ -611,6 +635,7 @@ class FeatureExtractionPipeline:
             boss_count=boss_count,
             total_duration_seconds=task.total_duration_seconds,
             error_message=task.error_message,
+            selfcheck_notes=list(getattr(task, "selfcheck_notes", []) or []),
             reviewed_by=task.reviewed_by,
             reviewed_at=task.reviewed_at,
             exported_features_path=task.exported_features_path,

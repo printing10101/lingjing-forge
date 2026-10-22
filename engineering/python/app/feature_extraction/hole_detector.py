@@ -143,6 +143,11 @@ class HoleDetector:
         total_count = len(vertices)
         all_features: list[ExtractedFeature] = []
         used_global_indices: set[int] = set()
+        # 自适应下限（同 plane/cylinder 提取器）：轻量网格达不到绝对阈值 500
+        try:
+            min_inliers = int(self._cfg.effective_min_inliers("cylinder", total_count))
+        except (AttributeError, TypeError, ValueError):
+            min_inliers = int(self._cfg.cylinder_min_inliers)
 
         # 路径 A：基于已检测平面找孔
         if plane_features:
@@ -153,12 +158,12 @@ class HoleDetector:
 
                 # 取平面内点
                 sample_indices = plane.sample_vertex_indices
-                if len(sample_indices) < self._cfg.cylinder_min_inliers:
+                if len(sample_indices) < min_inliers:
                     continue
 
                 # 过滤已使用的索引
                 available_indices = [i for i in sample_indices if i not in used_global_indices]
-                if len(available_indices) < self._cfg.cylinder_min_inliers:
+                if len(available_indices) < min_inliers:
                     continue
 
                 plane_vertices = vertices[available_indices]
@@ -183,6 +188,20 @@ class HoleDetector:
             method = "global_pca"
             holes = self._detect_holes_global_pca(vertices, total_count)
             all_features.extend(holes[: self._cfg.hole_max_features])
+
+        # 通孔去重合并（P1 修复，2026-10-21）
+        # 路径 A 在**每个平面**上独立检测圆环，于是同一个通孔会在上表面（Z=10）与
+        # 下表面（Z=0）各报一次：1 个孔被算成 2 个 feature，且 depth_mm 恒为 0
+        # （实测 case2：两 feature 坐标完全相同、仅 Z 不同）。
+        # 按「同 XY + 同半径」合并为一个通孔，depth = Z_上 − Z_下。
+        merged_features = _merge_coaxial_holes(all_features)
+        if len(merged_features) != len(all_features):
+            logger.info(
+                "孔检测去重：%d → %d 个（合并同一通孔的上下圆环）",
+                len(all_features),
+                len(merged_features),
+            )
+            all_features = merged_features
 
         return HoleDetectionResult(
             success=True,
@@ -222,9 +241,14 @@ class HoleDetector:
         # 迭代 RANSAC 圆环拟合
         remaining_mask = np.ones(len(plane_vertices), dtype=bool)
         features: list[ExtractedFeature] = []
+        # 自适应下限按**平面内点数**计（原始实现误用全局绝对阈值 500）
+        try:
+            plane_min_inliers = int(self._cfg.effective_min_inliers("cylinder", len(plane_vertices)))
+        except (AttributeError, TypeError, ValueError):
+            plane_min_inliers = int(self._cfg.cylinder_min_inliers)
 
         for _ in range(self._cfg.hole_max_features):
-            if int(np.sum(remaining_mask)) < self._cfg.cylinder_min_inliers:
+            if int(np.sum(remaining_mask)) < plane_min_inliers:
                 break
 
             remaining_2d = coords_2d[remaining_mask]
@@ -236,7 +260,7 @@ class HoleDetector:
 
             cx_2d, cy_2d, radius, inlier_local_mask = result
             inlier_count = int(np.sum(inlier_local_mask))
-            if inlier_count < self._cfg.cylinder_min_inliers:
+            if inlier_count < plane_min_inliers:
                 break
 
             # 半径范围校验
@@ -566,3 +590,84 @@ def _fit_circle_kasa(
         return float(cx), float(cy), radius
     except (np.linalg.LinAlgError, ValueError):
         return None
+
+
+def _merge_coaxial_holes(
+    features: list[ExtractedFeature],
+    xy_tol_mm: float = 0.1,
+    radius_tol_ratio: float = 0.05,
+) -> list[ExtractedFeature]:
+    """把同一通孔在上下表面各检出一次的圆环合并为单个通孔。
+
+    背景（2026-10-21 实测）：``_detect_holes_in_plane`` 对每个平面独立检测，
+    通孔在上表面（Z=10）与下表面（Z=0）各产生一个 feature，坐标完全相同、
+    仅 Z 不同，且 ``depth_mm`` 恒为 0。合并后：
+
+    - ``center`` 取上表面 Z；
+    - ``depth_mm`` = Z_上 − Z_下（通孔深度）；
+    - ``merged_from`` 记录合并了几个圆环，``inlier_count`` 累加；
+    - ``sample_vertex_indices`` 合并（供下游审核回溯）。
+
+    Args:
+        features: 孔特征列表（``params`` 需含 ``center`` 与 ``radius_mm``）。
+        xy_tol_mm: 判定「同一个孔」的 XY 容差。
+        radius_tol_ratio: 半径相对容差（差值 ≤ ratio × 半径 视为同径）。
+
+    Returns:
+        合并后的特征列表。仅含一个圆环的组原样返回（盲孔/单面检出）。
+    """
+    from dataclasses import replace
+
+    groups: list[list[ExtractedFeature]] = []
+    for feat in features:
+        center = feat.params.get("center")
+        radius = float(feat.params.get("radius_mm", 0.0) or 0.0)
+        if center is None:
+            groups.append([feat])
+            continue
+        placed = False
+        for group in groups:
+            gc = group[0].params.get("center")
+            if gc is None:
+                continue
+            gr = float(group[0].params.get("radius_mm", 0.0) or 0.0)
+            same_xy = (
+                abs(float(center[0]) - float(gc[0])) <= xy_tol_mm
+                and abs(float(center[1]) - float(gc[1])) <= xy_tol_mm
+            )
+            same_r = abs(radius - gr) <= max(1e-6, radius_tol_ratio * max(radius, gr))
+            if same_xy and same_r:
+                group.append(feat)
+                placed = True
+                break
+        if not placed:
+            groups.append([feat])
+
+    merged: list[ExtractedFeature] = []
+    for group in groups:
+        if len(group) == 1:
+            merged.append(group[0])
+            continue
+        zs = [float(g.params["center"][2]) for g in group if g.params.get("center") is not None]
+        if not zs:
+            merged.extend(group)
+            continue
+        z_top, z_bottom = max(zs), min(zs)
+        base = group[0]
+        params = dict(base.params)
+        params["center"] = [float(base.params["center"][0]), float(base.params["center"][1]), z_top]
+        params["depth_mm"] = float(z_top - z_bottom)
+        params["merged_from"] = len(group)
+        params["inlier_count"] = sum(int(g.params.get("inlier_count", 0) or 0) for g in group)
+        indices: list[int] = []
+        for g in group:
+            indices.extend(list(g.sample_vertex_indices or []))
+        merged.append(
+            replace(
+                base,
+                params=params,
+                sample_vertex_indices=indices,
+                confidence=max(float(g.confidence) for g in group),
+            )
+        )
+    return merged
