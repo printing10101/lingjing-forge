@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from app.contracts.plugin import (
     BUILTIN_EXTENSION_POINTS,
@@ -65,20 +65,20 @@ class Plugin(IPlugin):
     """
 
     def __init__(self) -> None:
-        self._manifest: Optional[PluginManifest] = None
-        self._context: Optional[PluginContext] = None
+        self._manifest: PluginManifest | None = None
+        self._context: PluginContext | None = None
         self._registered_points: list[str] = []  # 已注册的扩展点（on_unload 时清理）
         # p4-2: 反馈采集器（on_load 时构造，on_unload 时 flush 落盘）
-        self._feedback_collector: Optional[FeedbackCollector] = None
+        self._feedback_collector: FeedbackCollector | None = None
         # p4-3: 模型迭代管线 WorkflowSpec 缓存（首次请求时加载 + 校验）
-        self._model_iteration_spec_cache: Optional[dict[str, Any]] = None
+        self._model_iteration_spec_cache: dict[str, Any] | None = None
         self._model_iteration_spec_loaded: bool = False
         # p4-5: HotUpdateManager 是否已在 on_load 中配置（on_unload 时据此清理）
         self._hot_update_configured: bool = False
 
     # IPlugin 契约实现
 
-    def get_feedback_collector(self) -> Optional[FeedbackCollector]:
+    def get_feedback_collector(self) -> FeedbackCollector | None:
         """返回反馈采集器实例（自进化 M0 反馈提交入口使用）.
 
         未加载 / 降级模式（dataset_store 不可用）时可能为 None，
@@ -479,7 +479,7 @@ class Plugin(IPlugin):
             "status": "ready" if spec_dict is not None else "error",
         }
 
-    def _load_model_iteration_spec(self) -> Optional[dict[str, Any]]:
+    def _load_model_iteration_spec(self) -> dict[str, Any] | None:
         """加载模型迭代管线模板并校验 DAG.
 
         首次调用时读取 ``templates/model_iteration_pipeline.yaml``，
@@ -665,7 +665,7 @@ class Plugin(IPlugin):
     # p4-2: 公开 API（供 p4-4 飞轮指标与 p4-6 前端看板使用）
 
     @property
-    def feedback_collector(self) -> Optional[FeedbackCollector]:
+    def feedback_collector(self) -> FeedbackCollector | None:
         """反馈采集器实例（供 p4-4 飞轮指标读取反馈数据）."""
         return self._feedback_collector
 
@@ -818,7 +818,7 @@ class Plugin(IPlugin):
         """处理 list_deployments 动作."""
         model_name = payload.get("filter_model_name")
         status_str = payload.get("filter_status")
-        status: Optional[DeploymentStatus] = None
+        status: DeploymentStatus | None = None
         if status_str is not None:
             try:
                 status = DeploymentStatus(status_str)
@@ -853,7 +853,7 @@ class Plugin(IPlugin):
     # p4-5: 公开 API（供 p4-6 前端看板与推理路径使用）
 
     @property
-    def hot_update_manager(self) -> Optional[HotUpdateManager]:
+    def hot_update_manager(self) -> HotUpdateManager | None:
         """HotUpdateManager 实例（供 p4-6 前端看板读取部署状态）.
 
         未配置时返回 None（插件未 on_load 或配置失败）。
