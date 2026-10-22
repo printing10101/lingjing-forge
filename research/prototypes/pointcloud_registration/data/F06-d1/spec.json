@@ -1,0 +1,23 @@
+{
+  "case_id": "F06-d1",
+  "family": "F06",
+  "family_name": "叶片支架",
+  "difficulty": "d1",
+  "surface_features": [
+    "airfoil loft",
+    "tapered blade"
+  ],
+  "params": {
+    "base_l": 70.0,
+    "base_w": 40.0,
+    "base_t": 8.0,
+    "chord": 30.0,
+    "thick": 8.0,
+    "camber": 3.0,
+    "blade_h": 24.0,
+    "tip_scale": 0.9,
+    "blade_x": -12.0
+  },
+  "units": "mm",
+  "description": "A mounting bracket with a rectangular base plate 70 x 40 x 8 mm carrying a single vertical blade: a lofted airfoil section 30 mm chord with camber 3.0 mm and thickness 8.0 mm, tapering to 90% of its section at the top, rising 24 mm above the base."
+}

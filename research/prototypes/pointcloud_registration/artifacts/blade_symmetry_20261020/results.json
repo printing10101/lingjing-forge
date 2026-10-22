@@ -1,0 +1,94 @@
+{
+  "generated_at": "2026-10-20T14:38:20+0800",
+  "config": {
+    "points": 20000,
+    "seed": 42,
+    "noise_mm": 0.02,
+    "dropout": 0.1,
+    "span_mm": 60.0,
+    "chord_mm": 40.0,
+    "flip": "source = 180deg rotation about axis + translation to overlap"
+  },
+  "cases": [
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "mesh": {
+        "vertices": 156,
+        "faces": 308,
+        "volume_mm3": 7859.18405507612
+      },
+      "rmse_before_mm": 0.2874880953116513,
+      "rmse_at_ideal_inverse_mm": 0.28619137654150434,
+      "rmse_after_mm": 0.28717030500305774,
+      "rotation_error_vs_generating_inverse_deg": 179.99963293193798,
+      "translation_error_vs_generating_inverse_mm": 59.94191032708616,
+      "rotation_error_vs_identity_deg": 0.12589075179587475,
+      "translation_error_vs_identity_mm": 0.08078593185920926,
+      "source_points": 17993,
+      "iterations": 51,
+      "ambiguity": true,
+      "local_minimum": false
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "mesh": {
+        "vertices": 156,
+        "faces": 308,
+        "volume_mm3": 7859.184055076672
+      },
+      "rmse_before_mm": 1.1550902249857982,
+      "rmse_at_ideal_inverse_mm": 0.2848674900458984,
+      "rmse_after_mm": 0.4956012189722471,
+      "rotation_error_vs_generating_inverse_deg": 179.99542766085057,
+      "translation_error_vs_generating_inverse_mm": 59.96881943248654,
+      "rotation_error_vs_identity_deg": 0.5454064110082445,
+      "translation_error_vs_identity_mm": 1.305954296867517,
+      "source_points": 17993,
+      "iterations": 100,
+      "ambiguity": false,
+      "local_minimum": true
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "mesh": {
+        "vertices": 805,
+        "faces": 1606,
+        "volume_mm3": 6058.12103637126
+      },
+      "rmse_before_mm": 6.660090367916441,
+      "rmse_at_ideal_inverse_mm": 0.2676525321479262,
+      "rmse_after_mm": 0.8880127838383127,
+      "rotation_error_vs_generating_inverse_deg": 179.21535352592431,
+      "translation_error_vs_generating_inverse_mm": 62.321595842378464,
+      "rotation_error_vs_identity_deg": 21.381292478378157,
+      "translation_error_vs_identity_mm": 3.7415538988728403,
+      "source_points": 17993,
+      "iterations": 100,
+      "ambiguity": false,
+      "local_minimum": true
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "mesh": {
+        "vertices": 156,
+        "faces": 308,
+        "volume_mm3": 7859.184055076672
+      },
+      "rmse_before_mm": 1.4739768126713937,
+      "rmse_at_ideal_inverse_mm": 0.28509252974386656,
+      "rmse_after_mm": 0.9298008278837857,
+      "rotation_error_vs_generating_inverse_deg": 179.37547794380674,
+      "translation_error_vs_generating_inverse_mm": 41.6801518147644,
+      "rotation_error_vs_identity_deg": 0.624567138532953,
+      "translation_error_vs_identity_mm": 2.1840986114287126,
+      "source_points": 17993,
+      "iterations": 100,
+      "ambiguity": false,
+      "local_minimum": true
+    }
+  ]
+}

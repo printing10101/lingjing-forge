@@ -1,0 +1,428 @@
+{
+  "generated_at": "2026-10-20T14:43:34+0800",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "method": "PCA axes + four sign candidates + ICP; choose lowest RMSE",
+  "summary": {
+    "symmetric_naca0012": {
+      "correct": 8,
+      "total": 10
+    },
+    "cambered_naca2412": {
+      "correct": 10,
+      "total": 10
+    }
+  },
+  "rows": [
+    {
+      "case": "symmetric_naca0012",
+      "seed": 42,
+      "correct": true,
+      "best_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "best_rmse_mm": 0.286057588979657,
+      "best_rotation_error_deg": 0.029410426590195635,
+      "best_translation_error_mm": 0.025782109800839836,
+      "second_signs": [
+        1,
+        1,
+        1
+      ],
+      "second_rmse_mm": 0.2871642986176025,
+      "rmse_margin_mm": 0.0011067096379455132
+    },
+    {
+      "case": "symmetric_naca0012",
+      "seed": 43,
+      "correct": true,
+      "best_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "best_rmse_mm": 0.2836633746468832,
+      "best_rotation_error_deg": 0.14122476580091453,
+      "best_translation_error_mm": 0.1018583906252552,
+      "second_signs": [
+        1,
+        1,
+        1
+      ],
+      "second_rmse_mm": 0.2843128046525082,
+      "rmse_margin_mm": 0.0006494300056250069
+    },
+    {
+      "case": "symmetric_naca0012",
+      "seed": 44,
+      "correct": true,
+      "best_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "best_rmse_mm": 0.2826768138694945,
+      "best_rotation_error_deg": 0.13300777547742548,
+      "best_translation_error_mm": 0.09584295874971804,
+      "second_signs": [
+        1,
+        1,
+        1
+      ],
+      "second_rmse_mm": 0.28465652831475186,
+      "rmse_margin_mm": 0.0019797144452573523
+    },
+    {
+      "case": "symmetric_naca0012",
+      "seed": 45,
+      "correct": false,
+      "best_signs": [
+        1,
+        1,
+        1
+      ],
+      "best_rmse_mm": 0.2826921351254388,
+      "best_rotation_error_deg": 179.99817223512468,
+      "best_translation_error_mm": 59.99059265275479,
+      "second_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "second_rmse_mm": 0.2849426110791433,
+      "rmse_margin_mm": 0.002250475953704534
+    },
+    {
+      "case": "symmetric_naca0012",
+      "seed": 46,
+      "correct": true,
+      "best_signs": [
+        1,
+        1,
+        1
+      ],
+      "best_rmse_mm": 0.2849627138739138,
+      "best_rotation_error_deg": 0.003824928423639292,
+      "best_translation_error_mm": 0.10122237695149694,
+      "second_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "second_rmse_mm": 0.2857763336811887,
+      "rmse_margin_mm": 0.0008136198072749012
+    },
+    {
+      "case": "symmetric_naca0012",
+      "seed": 47,
+      "correct": false,
+      "best_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "best_rmse_mm": 0.2857717545475346,
+      "best_rotation_error_deg": 179.99447476092016,
+      "best_translation_error_mm": 60.02163707404748,
+      "second_signs": [
+        1,
+        1,
+        1
+      ],
+      "second_rmse_mm": 0.2858002057933253,
+      "rmse_margin_mm": 2.8451245790706015e-05
+    },
+    {
+      "case": "symmetric_naca0012",
+      "seed": 48,
+      "correct": true,
+      "best_signs": [
+        1,
+        -1,
+        -1
+      ],
+      "best_rmse_mm": 0.28688129282168173,
+      "best_rotation_error_deg": 0.08794990357366238,
+      "best_translation_error_mm": 0.057806500648501034,
+      "second_signs": [
+        -1,
+        -1,
+        1
+      ],
+      "second_rmse_mm": 0.2876596955833901,
+      "rmse_margin_mm": 0.0007784027617083744
+    },
+    {
+      "case": "symmetric_naca0012",
+      "seed": 49,
+      "correct": true,
+      "best_signs": [
+        1,
+        1,
+        1
+      ],
+      "best_rmse_mm": 0.283096399881348,
+      "best_rotation_error_deg": 0.10594637384333343,
+      "best_translation_error_mm": 0.10911473394527295,
+      "second_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "second_rmse_mm": 0.2835752039893963,
+      "rmse_margin_mm": 0.0004788041080482919
+    },
+    {
+      "case": "symmetric_naca0012",
+      "seed": 50,
+      "correct": true,
+      "best_signs": [
+        1,
+        1,
+        1
+      ],
+      "best_rmse_mm": 0.28588818251354114,
+      "best_rotation_error_deg": 0.25040006713368074,
+      "best_translation_error_mm": 0.19915685894843732,
+      "second_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "second_rmse_mm": 0.2861120437696762,
+      "rmse_margin_mm": 0.00022386125613504948
+    },
+    {
+      "case": "symmetric_naca0012",
+      "seed": 51,
+      "correct": true,
+      "best_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "best_rmse_mm": 0.28726644712876365,
+      "best_rotation_error_deg": 0.15267352932040867,
+      "best_translation_error_mm": 0.07774348498828333,
+      "second_signs": [
+        1,
+        1,
+        1
+      ],
+      "second_rmse_mm": 0.2877210406769842,
+      "rmse_margin_mm": 0.00045459354822052767
+    },
+    {
+      "case": "cambered_naca2412",
+      "seed": 42,
+      "correct": true,
+      "best_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "best_rmse_mm": 0.28471068934215926,
+      "best_rotation_error_deg": 0.08133876327867905,
+      "best_translation_error_mm": 0.028748331125068687,
+      "second_signs": [
+        1,
+        1,
+        1
+      ],
+      "second_rmse_mm": 0.49563007792629715,
+      "rmse_margin_mm": 0.2109193885841379
+    },
+    {
+      "case": "cambered_naca2412",
+      "seed": 43,
+      "correct": true,
+      "best_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "best_rmse_mm": 0.2854329221877301,
+      "best_rotation_error_deg": 0.007317484489966075,
+      "best_translation_error_mm": 0.018017423440164545,
+      "second_signs": [
+        1,
+        1,
+        1
+      ],
+      "second_rmse_mm": 0.4976637328546469,
+      "rmse_margin_mm": 0.2122308106669168
+    },
+    {
+      "case": "cambered_naca2412",
+      "seed": 44,
+      "correct": true,
+      "best_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "best_rmse_mm": 0.28588435810234625,
+      "best_rotation_error_deg": 0.043869117916176655,
+      "best_translation_error_mm": 0.09374139331383502,
+      "second_signs": [
+        1,
+        1,
+        1
+      ],
+      "second_rmse_mm": 0.5007412914134463,
+      "rmse_margin_mm": 0.2148569333111
+    },
+    {
+      "case": "cambered_naca2412",
+      "seed": 45,
+      "correct": true,
+      "best_signs": [
+        1,
+        1,
+        1
+      ],
+      "best_rmse_mm": 0.2857467563782857,
+      "best_rotation_error_deg": 0.14983788543931006,
+      "best_translation_error_mm": 0.11617833092643504,
+      "second_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "second_rmse_mm": 0.49792738932645875,
+      "rmse_margin_mm": 0.21218063294817302
+    },
+    {
+      "case": "cambered_naca2412",
+      "seed": 46,
+      "correct": true,
+      "best_signs": [
+        1,
+        1,
+        1
+      ],
+      "best_rmse_mm": 0.2857869017927409,
+      "best_rotation_error_deg": 0.041053511515825356,
+      "best_translation_error_mm": 0.038171633235432864,
+      "second_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "second_rmse_mm": 0.49674644502837345,
+      "rmse_margin_mm": 0.21095954323563254
+    },
+    {
+      "case": "cambered_naca2412",
+      "seed": 47,
+      "correct": true,
+      "best_signs": [
+        1,
+        1,
+        1
+      ],
+      "best_rmse_mm": 0.2853349494539427,
+      "best_rotation_error_deg": 0.17550028786732216,
+      "best_translation_error_mm": 0.050286511028323704,
+      "second_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "second_rmse_mm": 0.4974138082724428,
+      "rmse_margin_mm": 0.21207885881850008
+    },
+    {
+      "case": "cambered_naca2412",
+      "seed": 48,
+      "correct": true,
+      "best_signs": [
+        1,
+        1,
+        1
+      ],
+      "best_rmse_mm": 0.2872294574278096,
+      "best_rotation_error_deg": 0.1694692942834242,
+      "best_translation_error_mm": 0.040630550248139115,
+      "second_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "second_rmse_mm": 0.4987251593448178,
+      "rmse_margin_mm": 0.21149570191700823
+    },
+    {
+      "case": "cambered_naca2412",
+      "seed": 49,
+      "correct": true,
+      "best_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "best_rmse_mm": 0.2847487570838088,
+      "best_rotation_error_deg": 0.14869763810515385,
+      "best_translation_error_mm": 0.13060432413824025,
+      "second_signs": [
+        1,
+        1,
+        1
+      ],
+      "second_rmse_mm": 0.49597913295324675,
+      "rmse_margin_mm": 0.21123037586943794
+    },
+    {
+      "case": "cambered_naca2412",
+      "seed": 50,
+      "correct": true,
+      "best_signs": [
+        1,
+        1,
+        1
+      ],
+      "best_rmse_mm": 0.28577975387106314,
+      "best_rotation_error_deg": 0.060850678868313614,
+      "best_translation_error_mm": 0.09954357975593296,
+      "second_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "second_rmse_mm": 0.49952613638019683,
+      "rmse_margin_mm": 0.2137463825091337
+    },
+    {
+      "case": "cambered_naca2412",
+      "seed": 51,
+      "correct": true,
+      "best_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "best_rmse_mm": 0.28680664808066914,
+      "best_rotation_error_deg": 0.041606314752099374,
+      "best_translation_error_mm": 0.09805171612944028,
+      "second_signs": [
+        1,
+        1,
+        1
+      ],
+      "second_rmse_mm": 0.4984424892946449,
+      "rmse_margin_mm": 0.21163584121397577
+    }
+  ]
+}

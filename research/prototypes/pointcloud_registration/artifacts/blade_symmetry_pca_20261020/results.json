@@ -1,0 +1,226 @@
+{
+  "generated_at": "2026-10-20T14:45:28+0800",
+  "method": "PCA axes + four sign candidates + point-to-point ICP; select lowest RMSE",
+  "cases": [
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "best_rmse_mm": 0.286057588979657,
+      "best_rotation_error_vs_generating_inverse_deg": 0.029410426590195635,
+      "best_rotation_error_vs_identity_deg": 179.99600967615643,
+      "correct": true,
+      "near_best_candidates": 2,
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.286057588979657,
+          "rotation_error_vs_generating_inverse_deg": 0.029410426590195635,
+          "translation_error_vs_generating_inverse_mm": 0.025782109800839836,
+          "rotation_error_vs_identity_deg": 179.99600967615643
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2871642986176025,
+          "rotation_error_vs_generating_inverse_deg": 179.99992452911397,
+          "translation_error_vs_generating_inverse_mm": 59.9465066602236,
+          "rotation_error_vs_identity_deg": 0.17850764020886334
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.833038644902203,
+          "rotation_error_vs_generating_inverse_deg": 179.96186422916304,
+          "translation_error_vs_generating_inverse_mm": 37.90827074480342,
+          "rotation_error_vs_identity_deg": 179.8940614047099
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8332110149688731,
+          "rotation_error_vs_generating_inverse_deg": 179.94444221629334,
+          "translation_error_vs_generating_inverse_mm": 70.92291622058005,
+          "rotation_error_vs_identity_deg": 179.97211756960283
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "best_rmse_mm": 0.28471068934215926,
+      "best_rotation_error_vs_generating_inverse_deg": 0.08133876327867905,
+      "best_rotation_error_vs_identity_deg": 179.99849829442942,
+      "correct": true,
+      "near_best_candidates": 1,
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28471068934215926,
+          "rotation_error_vs_generating_inverse_deg": 0.08133876327867905,
+          "translation_error_vs_generating_inverse_mm": 0.028748331125068687,
+          "rotation_error_vs_identity_deg": 179.99849829442942
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.49563007792629715,
+          "rotation_error_vs_generating_inverse_deg": 179.99463223233357,
+          "translation_error_vs_generating_inverse_mm": 59.93207766602596,
+          "rotation_error_vs_identity_deg": 0.5925617490586156
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8332719038877404,
+          "rotation_error_vs_generating_inverse_deg": 179.95034021823173,
+          "translation_error_vs_generating_inverse_mm": 70.89211944221252,
+          "rotation_error_vs_identity_deg": 179.93326511516827
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9298707046381409,
+          "rotation_error_vs_generating_inverse_deg": 179.3596644014863,
+          "translation_error_vs_generating_inverse_mm": 38.38191683691731,
+          "rotation_error_vs_identity_deg": 179.97134551157336
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "best_rmse_mm": 0.2675142744692156,
+      "best_rotation_error_vs_generating_inverse_deg": 0.01172296247606373,
+      "best_rotation_error_vs_identity_deg": 179.9895219767608,
+      "correct": true,
+      "near_best_candidates": 1,
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2675142744692156,
+          "rotation_error_vs_generating_inverse_deg": 0.01172296247606373,
+          "translation_error_vs_generating_inverse_mm": 0.037721561627027694,
+          "rotation_error_vs_identity_deg": 179.9895219767608
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8749452328811794,
+          "rotation_error_vs_generating_inverse_deg": 179.95217960008085,
+          "translation_error_vs_generating_inverse_mm": 29.626600595806405,
+          "rotation_error_vs_identity_deg": 170.5253463502098
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8928634626127127,
+          "rotation_error_vs_generating_inverse_deg": 179.490949017158,
+          "translation_error_vs_generating_inverse_mm": 63.25783119968848,
+          "rotation_error_vs_identity_deg": 22.14810643579701
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0184630785740316,
+          "rotation_error_vs_generating_inverse_deg": 176.30352536236634,
+          "translation_error_vs_generating_inverse_mm": 68.89663645782798,
+          "rotation_error_vs_identity_deg": 160.40177148817648
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "best_rmse_mm": 0.2849708159046482,
+      "best_rotation_error_vs_generating_inverse_deg": 0.023875559319295508,
+      "best_rotation_error_vs_identity_deg": 179.99335241794336,
+      "correct": true,
+      "near_best_candidates": 1,
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.2849708159046482,
+          "rotation_error_vs_generating_inverse_deg": 0.023875559319295508,
+          "translation_error_vs_generating_inverse_mm": 0.03423808264514358,
+          "rotation_error_vs_identity_deg": 179.99335241794336
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.4957073445737382,
+          "rotation_error_vs_generating_inverse_deg": 179.9935515332731,
+          "translation_error_vs_generating_inverse_mm": 59.90688214415964,
+          "rotation_error_vs_identity_deg": 179.74887256762239
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8332498324222487,
+          "rotation_error_vs_generating_inverse_deg": 179.96957911507482,
+          "translation_error_vs_generating_inverse_mm": 73.37336051683099,
+          "rotation_error_vs_identity_deg": 179.99951644443397
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.9298738736051138,
+          "rotation_error_vs_generating_inverse_deg": 179.36353968347862,
+          "translation_error_vs_generating_inverse_mm": 41.68955843611772,
+          "rotation_error_vs_identity_deg": 0.6373650873468375
+        }
+      ]
+    }
+  ]
+}

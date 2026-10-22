@@ -1,0 +1,1 @@
+A mounting bracket with a rectangular base plate 70 x 40 x 8 mm carrying a single vertical blade: a lofted airfoil section 30 mm chord with camber 3.0 mm and thickness 8.0 mm, tapering to 90% of its section at the top, rising 24 mm above the base.
