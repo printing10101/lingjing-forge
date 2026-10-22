@@ -37,7 +37,7 @@
 
 use std::panic::{catch_unwind, AssertUnwindSafe};
 
-use numpy::PyArrayMethods;
+use numpy::{PyArrayMethods, PyUntypedArrayMethods};
 use pyo3::exceptions::{PyRuntimeError, PyValueError};
 use pyo3::prelude::*;
 use pyo3::types::{PyDict, PyList, PyModule, PyTuple};
@@ -86,7 +86,7 @@ fn is_available() -> bool {
 ///
 /// # 返回
 /// `dict`：`{"removed": int, "skipped": int, "points": int}`
-#[pyfunction]
+#[pyfunction(name = "apply_tool_mask")]
 #[pyo3(signature = (grid, tool_mask, points, bbox_min, voxel_size, padding))]
 fn vc_apply_tool_mask(
     py: Python<'_>,
@@ -99,7 +99,7 @@ fn vc_apply_tool_mask(
 ) -> PyResult<Py<PyDict>> {
     with_panic_guard(|| {
         // 1. 校验与提取输入
-        let grid_arr: numpy::PyReadwriteArray<'_, bool, numpy::Ix3> =
+        let mut grid_arr: numpy::PyReadwriteArray<'_, bool, numpy::Ix3> =
             grid.extract().map_err(|e: pyo3::PyErr| {
                 PyValueError::new_err(format!("grid must be bool ndarray (nx,ny,nz): {e}"))
             })?;
@@ -122,7 +122,7 @@ fn vc_apply_tool_mask(
 
         // 将 grid 复制到我们的 VoxelGrid（避免直接持有 numpy 缓冲；体素规模可控）
         let mut voxel_grid = VoxelGrid::new(shape);
-        unsafe {
+        {
             let g_view = grid_arr.as_array();
             for ((x, y, z), &v) in g_view.indexed_iter() {
                 if v {
@@ -139,18 +139,21 @@ fn vc_apply_tool_mask(
             .map_err(|e| PyValueError::new_err(format!("invalid tool_mask shape: {e}")))?;
 
         let mut tool_bits = vec![0u64; tool_shape.word_count()];
-        unsafe {
+        {
             let t_view = tool_arr.as_array();
             for ((x, y, z), &v) in t_view.indexed_iter() {
                 if v {
-                    let linear = tool_shape.xyz_to_linear(x, y, z);
+                    let linear = (x * tool_shape.ny + y) * tool_shape.nz + z;
                     tool_bits[linear >> 6] |= 1u64 << (linear & 63);
                 }
             }
         }
 
         // points
-        let pts_view = unsafe { pts_arr.as_array() };
+        let pts_view = pts_arr.as_array();
+        if pts_view.shape()[1] != 3 {
+            return Err(PyValueError::new_err("points must have shape (N, 3)"));
+        }
         let n = pts_view.shape()[0];
         let mut points_flat = Vec::with_capacity(n * 3);
         for row in pts_view.rows() {
@@ -175,7 +178,7 @@ fn vc_apply_tool_mask(
             .map_err(|e| PyRuntimeError::new_err(format!("apply_tool_mask_batch failed: {e}")))?;
 
         // 3. 将结果写回 grid（就地修改）
-        unsafe {
+        {
             let mut g_view = grid_arr.as_array_mut();
             for ((x, y, z), v) in g_view.indexed_iter_mut() {
                 *v = voxel_grid.get(x, y, z);
@@ -206,7 +209,7 @@ fn vc_apply_tool_mask(
 /// `(numpy.ndarray(dtype=bool, shape=(n,n,n)), info_dict)`：
 ///   - 第一个元素是 3D 刀具掩码（**零拷贝**：`shape` 与 `bits` 来自 Rust 端）
 ///   - 第二个元素是元数据字典
-#[pyfunction]
+#[pyfunction(name = "build_tool_mask")]
 #[pyo3(signature = (tool_type, diameter, corner_radius, cutting_length, voxel_size, taper_angle_deg=0.0, form_profile=None))]
 fn vc_build_tool_mask<'py>(
     py: Python<'py>,
@@ -251,7 +254,7 @@ fn vc_build_tool_mask<'py>(
         let (shape, bits) = build_tool_mask(&geom, voxel_size)
             .map_err(|e| PyValueError::new_err(format!("build_tool_mask failed: {e}")))?;
 
-        // 把位图展开为 flat bool 数组（n×n×n）
+        // 把位图展开为 flat bool 数组（nx×ny×nz）。
         let total = shape.total();
         let mut flat = vec![false; total];
         for (word_idx, &word) in bits.iter().enumerate() {
@@ -286,7 +289,7 @@ fn vc_build_tool_mask<'py>(
 }
 
 /// 离散化直线路径。
-#[pyfunction]
+#[pyfunction(name = "discretize_linear_segment")]
 fn vc_discretize_linear_segment(
     py: Python<'_>,
     start: (f64, f64, f64),
@@ -315,7 +318,7 @@ fn vc_discretize_linear_segment(
 ///
 /// # 返回
 /// `dict`：`{elapsed_ms, removed, points}`
-#[pyfunction]
+#[pyfunction(name = "benchmark_mask_cut")]
 #[pyo3(signature = (grid_size=100, diameter=8.0, voxel_size=1.0, num_points=100))]
 fn vc_benchmark_mask_cut<'py>(
     py: Python<'py>,
@@ -440,7 +443,7 @@ fn extract_form_profile(obj: &Bound<'_, pyo3::PyAny>) -> PyResult<Vec<(f64, f64)
 /// panic 安全网：将内部 panic 转换为 `PyRuntimeError`。
 fn with_panic_guard<F, R>(f: F) -> PyResult<R>
 where
-    F: FnOnce() -> PyResult<R> + UnwindSafe,
+    F: FnOnce() -> PyResult<R>,
 {
     match catch_unwind(AssertUnwindSafe(f)) {
         Ok(r) => r,
@@ -458,6 +461,3 @@ where
         }
     }
 }
-
-// Trait alias to allow AssertUnwindSafe on closures
-use std::panic::UnwindSafe;

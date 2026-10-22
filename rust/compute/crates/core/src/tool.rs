@@ -64,7 +64,7 @@ impl ToolType {
 
 /// 刀具几何参数。
 #[derive(Debug, Clone, Copy, PartialEq)]
-pub struct ToolGeometry {
+pub struct ToolGeometry<'a> {
     pub tool_type: ToolType,
     /// 刀具直径 (mm)。
     pub diameter: f64,
@@ -75,10 +75,10 @@ pub struct ToolGeometry {
     /// 锥度半角（度）。仅 `Tapered`/`BallTapered` 使用。
     pub taper_angle_deg: f64,
     /// 成形轮廓半径序列（mm）。仅 `Form` 使用；至少 2 个采样点。
-    pub form_profile: &'static [(f64, f64)], // (z_offset_from_tip, radius)
+    pub form_profile: &'a [(f64, f64)], // (z_offset_from_tip, radius)
 }
 
-impl ToolGeometry {
+impl<'a> ToolGeometry<'a> {
     /// 构造基础几何参数（带默认 `taper_angle_deg = 0.0`、`form_profile = &[]`）。
     pub fn new(
         tool_type: ToolType,
@@ -126,7 +126,7 @@ impl ToolGeometry {
     }
 
     /// 成形刀构造。
-    pub fn form(diameter: f64, cutting_length: f64, profile: &'static [(f64, f64)]) -> Self {
+    pub fn form(diameter: f64, cutting_length: f64, profile: &'a [(f64, f64)]) -> Self {
         Self {
             tool_type: ToolType::Form,
             diameter,
@@ -160,16 +160,20 @@ impl ToolGeometry {
                 ),
             });
         }
-        if self.corner_radius > self.diameter {
+        if self.corner_radius > self.diameter * 0.5 {
             return Err(ComputeError::InvalidTool {
                 message: format!(
-                    "corner_radius ({}) cannot exceed diameter ({})",
-                    self.corner_radius, self.diameter
+                    "corner_radius ({}) cannot exceed radius ({})",
+                    self.corner_radius,
+                    self.diameter * 0.5
                 ),
             });
         }
         if matches!(self.tool_type, ToolType::Tapered | ToolType::BallTapered) {
-            if self.taper_angle_deg <= 0.0 || self.taper_angle_deg >= 90.0 {
+            if !self.taper_angle_deg.is_finite()
+                || self.taper_angle_deg <= 0.0
+                || self.taper_angle_deg >= 90.0
+            {
                 return Err(ComputeError::InvalidTool {
                     message: format!(
                         "taper_angle_deg must be in (0, 90), got {}",
@@ -200,9 +204,9 @@ impl ToolGeometry {
 ///
 /// # 性能
 /// - 时间复杂度：`O(M)`，其中 `M = nx*ny*nz` 为掩码体素数。
-/// - 内存复杂度：`O(M/64)` 字节。
+/// - 位图容量：`ceil(M/64)` 个 `u64`，约 `M/8` 字节。
 pub fn build_tool_mask(
-    geom: &ToolGeometry,
+    geom: &ToolGeometry<'_>,
     voxel_size: f64,
 ) -> ComputeResult<(VoxelGridShape, Vec<u64>)> {
     geom.validate()?;
@@ -212,18 +216,39 @@ pub fn build_tool_mask(
 
     // 选用工具最大半径作为网格半径，确保覆盖所有形状。
     let max_r = geom.diameter * 0.5;
+    let max_half = (i32::MAX / 2 - 2) as f64;
+    if (max_r / voxel_size).ceil() > max_half
+        || (geom.cutting_length / voxel_size).ceil() > max_half
+    {
+        return Err(ComputeError::InvalidTool {
+            message: "tool dimensions exceed voxel mask index capacity".to_string(),
+        });
+    }
     let grid_half = (max_r / voxel_size).ceil() as i32 + 1;
+    let grid_half_z = (geom.cutting_length / voxel_size).ceil() as i32 + 1;
     let n = (2 * grid_half + 1) as usize;
-    let shape = VoxelGridShape::new(n, n, n)?;
+    let nz = (2 * grid_half_z + 1) as usize;
+    let shape = VoxelGridShape::new(n, n, nz)?;
 
     // 仅在 (z ∈ [-cutting_length, 0]) 内生成有效位；
     // 但保持形状对称便于 PyO3 端做掩码卷积。
-    let mut bits = vec![0u64; shape.word_count()];
-    let total = shape.total();
+    let total = n
+        .checked_mul(n)
+        .and_then(|area| area.checked_mul(nz))
+        .filter(|&total| total <= usize::MAX - 63)
+        .ok_or_else(|| ComputeError::InvalidTool {
+            message: "tool voxel mask volume overflows index capacity".to_string(),
+        })?;
+    let words = (total + 63) / 64;
+    let mut bits = Vec::new();
+    bits.try_reserve_exact(words)
+        .map_err(|err| ComputeError::InvalidTool {
+            message: format!("cannot allocate tool voxel mask: {err}"),
+        })?;
+    bits.resize(words, 0u64);
 
     // 预计算成形刀轮廓查找表（z 升序，r 单调），供 Form 类型使用。
-    // 出于 API 简洁考虑，Form 在调用方传入 `form_profile` 时是 `&'static [(f64, f64)]`。
-    // 我们直接在内部把 (z, r) 转为闭式判定。
+    // 轮廓借用调用方数据，掩码构建完成后不保留该引用。
 
     for linear in 0..total {
         let (xi, yi, zi) = {
@@ -235,11 +260,7 @@ pub fn build_tool_mask(
         };
         let gx = (xi - grid_half) as f64 * voxel_size;
         let gy = (yi - grid_half) as f64 * voxel_size;
-        let gz = (zi - grid_half) as f64 * voxel_size; // z 局部坐标，0 = 中心
-
-        // 注意：上面 `grid_range` 的中心是刀尖，但我们 grid_half 是从 (max_r + 1) 算的，
-        // 实际刀尖应在 (grid_half, grid_half, grid_half) — 即坐标 z=0。
-        // 因此 `gz` 即为相对刀尖的 Z 偏移（0 = 刀尖，负值 = 刀尖下方即工件内部）。
+        let gz = (zi - grid_half_z) as f64 * voxel_size;
         if !inside_geometry(geom, gx, gy, gz) {
             continue;
         }
@@ -256,7 +277,7 @@ pub fn build_tool_mask(
 ///
 /// 坐标系约定：刀尖在 `(0, 0, 0)`，Z 轴正方向指向工件表面（上方），
 /// Z 负方向为刀具进入工件的方向。
-fn inside_geometry(geom: &ToolGeometry, x: f64, y: f64, z: f64) -> bool {
+fn inside_geometry(geom: &ToolGeometry<'_>, x: f64, y: f64, z: f64) -> bool {
     let r = geom.diameter * 0.5;
     let r_xy = (x * x + y * y).sqrt();
 
@@ -293,9 +314,10 @@ fn inside_geometry(geom: &ToolGeometry, x: f64, y: f64, z: f64) -> bool {
                 return r_xy <= r + 1e-9;
             }
             if z >= -cr + 1e-9 {
-                // 圆角区域：球心 (0, 0, -cr)
+                // 圆角截面中心位于 (r-cr, -cr)，中央保留平底盘。
                 let dz = z + cr;
-                return r_xy * r_xy + dz * dz <= cr * cr + 1e-9;
+                let corner_x = (r_xy - (r - cr)).max(0.0);
+                return corner_x * corner_x + dz * dz <= cr * cr + 1e-9;
             }
             r_xy <= r + 1e-9
         }
@@ -371,10 +393,10 @@ fn inside_geometry(geom: &ToolGeometry, x: f64, y: f64, z: f64) -> bool {
 mod tests {
     use super::*;
 
-    fn ball(d: f64) -> ToolGeometry {
+    fn ball(d: f64) -> ToolGeometry<'static> {
         ToolGeometry::new(ToolType::Ball, d, d * 0.5, 50.0)
     }
-    fn flat(d: f64) -> ToolGeometry {
+    fn flat(d: f64) -> ToolGeometry<'static> {
         ToolGeometry::new(ToolType::Flat, d, 0.0, 50.0)
     }
 
@@ -407,6 +429,35 @@ mod tests {
         assert!(g.validate().is_err());
         let g = ToolGeometry::new(ToolType::Flat, 10.0, 11.0, 50.0);
         assert!(g.validate().is_err());
+    }
+
+    #[test]
+    fn validate_rejects_corner_radius_and_nonfinite_taper() {
+        let g = ToolGeometry::new(ToolType::BullNose, 10.0, 6.0, 20.0);
+        assert!(g.validate().is_err());
+        assert!(ToolGeometry::tapered(10.0, 20.0, f64::NAN)
+            .validate()
+            .is_err());
+        assert!(ToolGeometry::tapered(10.0, 20.0, f64::INFINITY)
+            .validate()
+            .is_err());
+        assert!(build_tool_mask(&flat(f64::MAX), 1.0).is_err());
+    }
+
+    #[test]
+    fn long_flat_mask_covers_full_cutting_length() {
+        let g = ToolGeometry::new(ToolType::Flat, 4.0, 0.0, 20.0);
+        let (shape, bits) = build_tool_mask(&g, 1.0).unwrap();
+        let (cx, cy, cz) = (shape.nx / 2, shape.ny / 2, shape.nz / 2);
+        assert!(cz >= 21);
+        let occupied = |z: usize| {
+            let idx = (cx * shape.ny + cy) * shape.nz + z;
+            bits[idx >> 6] & (1u64 << (idx & 63)) != 0u64
+        };
+        assert!(occupied(cz - 20));
+        assert!(occupied(cz));
+        assert!(!occupied(cz - 21));
+        assert!(!occupied(cz + 1));
     }
 
     #[test]
@@ -448,7 +499,7 @@ mod tests {
         let r_mm = 5.0;
         let max_r_voxels = (r_mm / voxel_size).ceil() as i32;
         let z = shape.nz / 2;
-        for d in 0..=max_r_voxels + 2 {
+        for d in 0..=max_r_voxels + 1 {
             let x = cx as i32 + d;
             let y = cy;
             let idx = (x as usize * shape.ny + y) * shape.nz + z;
@@ -457,7 +508,7 @@ mod tests {
             let occupied = (bits[word] >> bit) & 1 == 1;
             if d as f64 * voxel_size <= r_mm + 1e-9 {
                 assert!(occupied, "d={} should be inside", d);
-            } else if d as f64 * voxel_size > r_mm + voxel_size {
+            } else {
                 assert!(!occupied, "d={} should be outside", d);
             }
         }
@@ -468,7 +519,6 @@ mod tests {
         let g = ToolGeometry::new(ToolType::BullNose, 10.0, 1.0, 20.0);
         let (shape, bits) = build_tool_mask(&g, 0.5).unwrap();
         // 圆角区域 z ∈ [-1, 0] 应有逐渐减小的 r
-        let cx = shape.nx / 2;
         let cy = shape.ny / 2;
         let cz_top = shape.nz / 2; // z=0 刀尖
         let r_at_top: i32 = (0..shape.nx as i32)
@@ -496,6 +546,16 @@ mod tests {
     }
 
     #[test]
+    fn bull_nose_keeps_flat_disk_inside_corner_radius() {
+        let g = ToolGeometry::new(ToolType::BullNose, 10.0, 1.0, 20.0);
+        assert!(inside_geometry(&g, 4.0, 0.0, 0.0));
+        assert!(!inside_geometry(&g, 4.5, 0.0, 0.0));
+        assert!(inside_geometry(&g, 4.5, 0.0, -0.5));
+        assert!(!inside_geometry(&g, 5.0, 0.0, -0.5));
+        assert!(inside_geometry(&g, 5.0, 0.0, -1.0));
+    }
+
+    #[test]
     fn tapered_mask_tip_is_point() {
         // 锥度刀：刀尖处 r=0
         let g = ToolGeometry::tapered(10.0, 30.0, 5.0);
@@ -504,7 +564,7 @@ mod tests {
         let cy = shape.ny / 2;
         let cz = shape.nz / 2;
         // 紧邻 z=0 平面的下一个体素（z=cz-1）应有非零 r
-        let idx_below = ((cx as i32 - 1) as usize * shape.ny + cy) * shape.nz + cz - 1;
+        let idx_below = (cx * shape.ny + cy) * shape.nz + cz - 1;
         let idx_at_tip = (cx * shape.ny + cy) * shape.nz + cz;
         // 刀尖处被占据（r≈0）
         let w_tip = idx_at_tip >> 6;
@@ -514,6 +574,9 @@ mod tests {
         let w_b = idx_below >> 6;
         let b_b = idx_below & 63;
         assert_ne!(bits[w_b] & (1u64 << b_b), 0);
+        // z=-0.5 时 r=0.5*tan(5°)≈0.044，径向相邻的 x=-0.5 仍在锥体外。
+        let idx_outside = ((cx - 1) * shape.ny + cy) * shape.nz + cz - 1;
+        assert_eq!(bits[idx_outside >> 6] & (1u64 << (idx_outside & 63)), 0);
     }
 
     #[test]

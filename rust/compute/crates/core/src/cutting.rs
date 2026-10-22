@@ -125,13 +125,10 @@ pub fn apply_tool_mask_batch(
         let mx_start = gx_min as i64 - (tip[0] - hx as i64);
         let my_start = gy_min as i64 - (tip[1] - hy as i64);
         let mz_start = gz_min as i64 - (tip[2] - hz as i64);
-        let mx_end = mx_start + (gx_max - gx_min) as i64;
-        let my_end = my_start + (gy_max - gy_min) as i64;
-        let mz_end = mz_start + (gz_max - gz_min) as i64;
 
         removed_total += apply_subregion(
             grid, tool_shape, tool_bits, gx_min, gy_min, gz_min, gx_max, gy_max, gz_max, mx_start,
-            my_start, mz_start, mx_end, my_end, mz_end,
+            my_start, mz_start,
         );
     }
 
@@ -154,9 +151,6 @@ fn apply_subregion(
     mx_start: i64,
     my_start: i64,
     mz_start: i64,
-    mx_end: i64,
-    my_end: i64,
-    mz_end: i64,
 ) -> usize {
     let mut removed = 0usize;
     let ny = grid.shape().ny;
