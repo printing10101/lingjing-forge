@@ -1,0 +1,2797 @@
+{
+  "source_files": 2416,
+  "by_top_level": {
+    "data": 4,
+    "docs-site": 2,
+    "docs": 79,
+    "engineering": 1995,
+    "mcp_server": 13,
+    "postprocessor-plugins": 2,
+    "research": 267,
+    "rust": 7,
+    "scripts": 25,
+    "tests": 20,
+    "tools": 2
+  },
+  "syntax_errors": [],
+  "identical_files": [],
+  "identical_function_bodies": [
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/base_lnn.py",
+        "line": 143,
+        "function": "_calculate_confidence",
+        "lines": 27
+      },
+      {
+        "path": "research/models/base_lnn.py",
+        "line": 110,
+        "function": "_calculate_confidence",
+        "lines": 27
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/base_lnn.py",
+        "line": 171,
+        "function": "calculate_uncertainty",
+        "lines": 27
+      },
+      {
+        "path": "research/models/base_lnn.py",
+        "line": 138,
+        "function": "calculate_uncertainty",
+        "lines": 27
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/base_lnn.py",
+        "line": 356,
+        "function": "_train_numpy_fallback",
+        "lines": 21
+      },
+      {
+        "path": "research/models/base_lnn.py",
+        "line": 319,
+        "function": "_train_numpy_fallback",
+        "lines": 21
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/base_lnn.py",
+        "line": 383,
+        "function": "_train_step",
+        "lines": 20
+      },
+      {
+        "path": "research/models/base_lnn.py",
+        "line": 346,
+        "function": "_train_step",
+        "lines": 20
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/base_lnn.py",
+        "line": 470,
+        "function": "_compute_precision",
+        "lines": 18
+      },
+      {
+        "path": "research/models/base_lnn.py",
+        "line": 436,
+        "function": "_compute_precision",
+        "lines": 18
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/base_lnn.py",
+        "line": 489,
+        "function": "_compute_recall",
+        "lines": 18
+      },
+      {
+        "path": "research/models/base_lnn.py",
+        "line": 455,
+        "function": "_compute_recall",
+        "lines": 18
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/base_lnn.py",
+        "line": 601,
+        "function": "measure_inference_time",
+        "lines": 27
+      },
+      {
+        "path": "research/models/base_lnn.py",
+        "line": 513,
+        "function": "measure_inference_time",
+        "lines": 27
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/cfc_model.py",
+        "line": 111,
+        "function": "build",
+        "lines": 20
+      },
+      {
+        "path": "research/models/cfc_model.py",
+        "line": 109,
+        "function": "build",
+        "lines": 22
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/cfc_model.py",
+        "line": 132,
+        "function": "forward",
+        "lines": 33
+      },
+      {
+        "path": "research/models/cfc_model.py",
+        "line": 132,
+        "function": "forward",
+        "lines": 33
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/cfc_model.py",
+        "line": 187,
+        "function": "_cross_entropy_loss",
+        "lines": 16
+      },
+      {
+        "path": "research/models/cfc_model.py",
+        "line": 187,
+        "function": "_cross_entropy_loss",
+        "lines": 18
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/cfc_model.py",
+        "line": 210,
+        "function": "_train_step",
+        "lines": 58
+      },
+      {
+        "path": "research/models/cfc_model.py",
+        "line": 212,
+        "function": "_train_step",
+        "lines": 62
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/cfc_model.py",
+        "line": 269,
+        "function": "_train_step_numpy",
+        "lines": 58
+      },
+      {
+        "path": "research/models/cfc_model.py",
+        "line": 275,
+        "function": "_train_step_numpy",
+        "lines": 58
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/cfc_model.py",
+        "line": 328,
+        "function": "_sync_from_torch",
+        "lines": 18
+      },
+      {
+        "path": "research/models/cfc_model.py",
+        "line": 334,
+        "function": "_sync_from_torch",
+        "lines": 17
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/hybrid_lnn.py",
+        "line": 113,
+        "function": "build",
+        "lines": 32
+      },
+      {
+        "path": "research/models/hybrid_lnn.py",
+        "line": 108,
+        "function": "build",
+        "lines": 38
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/hybrid_lnn.py",
+        "line": 146,
+        "function": "forward",
+        "lines": 39
+      },
+      {
+        "path": "research/models/hybrid_lnn.py",
+        "line": 147,
+        "function": "forward",
+        "lines": 39
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/hybrid_lnn.py",
+        "line": 186,
+        "function": "_cnn_forward",
+        "lines": 34
+      },
+      {
+        "path": "research/models/hybrid_lnn.py",
+        "line": 187,
+        "function": "_cnn_forward",
+        "lines": 34
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/hybrid_lnn.py",
+        "line": 221,
+        "function": "_fuse_features",
+        "lines": 25
+      },
+      {
+        "path": "research/models/hybrid_lnn.py",
+        "line": 222,
+        "function": "_fuse_features",
+        "lines": 25
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/hybrid_lnn.py",
+        "line": 254,
+        "function": "_attention_fusion",
+        "lines": 21
+      },
+      {
+        "path": "research/models/hybrid_lnn.py",
+        "line": 255,
+        "function": "_attention_fusion",
+        "lines": 23
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/hybrid_lnn.py",
+        "line": 276,
+        "function": "_lnn_forward",
+        "lines": 20
+      },
+      {
+        "path": "research/models/hybrid_lnn.py",
+        "line": 279,
+        "function": "_lnn_forward",
+        "lines": 20
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/hybrid_lnn.py",
+        "line": 301,
+        "function": "predict_multimodal",
+        "lines": 20
+      },
+      {
+        "path": "research/models/hybrid_lnn.py",
+        "line": 304,
+        "function": "predict_multimodal",
+        "lines": 22
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/hybrid_lnn.py",
+        "line": 411,
+        "function": "_train_step_numpy",
+        "lines": 64
+      },
+      {
+        "path": "research/models/hybrid_lnn.py",
+        "line": 418,
+        "function": "_train_step_numpy",
+        "lines": 64
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/hybrid_lnn.py",
+        "line": 508,
+        "function": "_sync_from_torch",
+        "lines": 25
+      },
+      {
+        "path": "research/models/hybrid_lnn.py",
+        "line": 511,
+        "function": "_sync_from_torch",
+        "lines": 24
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/ltc_model.py",
+        "line": 130,
+        "function": "build",
+        "lines": 29
+      },
+      {
+        "path": "research/models/ltc_model.py",
+        "line": 125,
+        "function": "build",
+        "lines": 29
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/ltc_model.py",
+        "line": 160,
+        "function": "forward",
+        "lines": 30
+      },
+      {
+        "path": "research/models/ltc_model.py",
+        "line": 155,
+        "function": "forward",
+        "lines": 30
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/ltc_model.py",
+        "line": 202,
+        "function": "_forward_sequence",
+        "lines": 20
+      },
+      {
+        "path": "research/models/ltc_model.py",
+        "line": 197,
+        "function": "_forward_sequence",
+        "lines": 20
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/ltc_model.py",
+        "line": 223,
+        "function": "_temporal_step",
+        "lines": 31
+      },
+      {
+        "path": "research/models/ltc_model.py",
+        "line": 218,
+        "function": "_temporal_step",
+        "lines": 31
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/ltc_model.py",
+        "line": 255,
+        "function": "_update_memory",
+        "lines": 22
+      },
+      {
+        "path": "research/models/ltc_model.py",
+        "line": 250,
+        "function": "_update_memory",
+        "lines": 22
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/ltc_model.py",
+        "line": 278,
+        "function": "_aggregate_temporal_states",
+        "lines": 26
+      },
+      {
+        "path": "research/models/ltc_model.py",
+        "line": 273,
+        "function": "_aggregate_temporal_states",
+        "lines": 26
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/ltc_model.py",
+        "line": 317,
+        "function": "predict_sequence",
+        "lines": 25
+      },
+      {
+        "path": "research/models/ltc_model.py",
+        "line": 312,
+        "function": "predict_sequence",
+        "lines": 25
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/ltc_model.py",
+        "line": 351,
+        "function": "_train_step",
+        "lines": 61
+      },
+      {
+        "path": "research/models/ltc_model.py",
+        "line": 346,
+        "function": "_train_step",
+        "lines": 61
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/ltc_model.py",
+        "line": 413,
+        "function": "_train_step_numpy",
+        "lines": 31
+      },
+      {
+        "path": "research/models/ltc_model.py",
+        "line": 408,
+        "function": "_train_step_numpy",
+        "lines": 31
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/ltc_model.py",
+        "line": 445,
+        "function": "_sync_from_torch",
+        "lines": 17
+      },
+      {
+        "path": "research/models/ltc_model.py",
+        "line": 440,
+        "function": "_sync_from_torch",
+        "lines": 17
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/ai/lnn/models/ltc_model.py",
+        "line": 577,
+        "function": "_assign_torch_weights",
+        "lines": 30
+      },
+      {
+        "path": "research/models/ltc_model.py",
+        "line": 528,
+        "function": "_assign_torch_weights",
+        "lines": 30
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/api/v1/lnn/_training_executor.py",
+        "line": 46,
+        "function": "_lazy_init_training_stack",
+        "lines": 33
+      },
+      {
+        "path": "engineering/python/app/api/v1/lnn/services.py",
+        "line": 46,
+        "function": "_lazy_init_training_stack",
+        "lines": 33
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/plugins/rl_agent/plugin.py",
+        "line": 446,
+        "function": "_load_artifact_data",
+        "lines": 33
+      },
+      {
+        "path": "engineering/python/app/plugins/world_model/plugin.py",
+        "line": 509,
+        "function": "_load_artifact_data",
+        "lines": 34
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/tests/e2e/test_flywheel.py",
+        "line": 73,
+        "function": "test_knowledge_graph_update",
+        "lines": 21
+      },
+      {
+        "path": "engineering/python/tests/e2e/test_flywheel_closed_loop.py",
+        "line": 132,
+        "function": "test_knowledge_graph_update",
+        "lines": 21
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/tests/e2e/test_flywheel.py",
+        "line": 127,
+        "function": "test_flywheel_metrics_collection",
+        "lines": 18
+      },
+      {
+        "path": "engineering/python/tests/e2e/test_flywheel_closed_loop.py",
+        "line": 183,
+        "function": "test_flywheel_metrics_collection",
+        "lines": 18
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/app/tests/e2e/test_flywheel.py",
+        "line": 147,
+        "function": "test_flywheel_weekly_report_generation",
+        "lines": 21
+      },
+      {
+        "path": "engineering/python/tests/e2e/test_flywheel_closed_loop.py",
+        "line": 203,
+        "function": "test_flywheel_weekly_report_generation",
+        "lines": 21
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/tests/integration/test_phase0_8_closed_loop.py",
+        "line": 149,
+        "function": "in_memory_dag_store",
+        "lines": 22
+      },
+      {
+        "path": "engineering/python/tests/integration/test_workflow_dag.py",
+        "line": 111,
+        "function": "in_memory_dag_store",
+        "lines": 27
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/tests/unit/test_data_flywheel_p44c_integration.py",
+        "line": 86,
+        "function": "create",
+        "lines": 22
+      },
+      {
+        "path": "engineering/python/tests/unit/test_feedback_collector.py",
+        "line": 81,
+        "function": "create",
+        "lines": 22
+      },
+      {
+        "path": "engineering/python/tests/unit/test_flywheel_metrics_real_sources.py",
+        "line": 107,
+        "function": "create",
+        "lines": 22
+      }
+    ],
+    [
+      {
+        "path": "engineering/python/tests/unit/test_rl_agent_contract.py",
+        "line": 674,
+        "function": "_make",
+        "lines": 16
+      },
+      {
+        "path": "engineering/python/tests/unit/test_rl_agent_contract.py",
+        "line": 746,
+        "function": "_make_metrics",
+        "lines": 16
+      }
+    ],
+    [
+      {
+        "path": "research/experiments/03_PHM2010工具磨损/exp10_ablation.py",
+        "line": 189,
+        "function": "_train_baseline",
+        "lines": 56
+      },
+      {
+        "path": "research/experiments/03_PHM2010工具磨损/exp9_cross_condition.py",
+        "line": 280,
+        "function": "_train_baseline",
+        "lines": 64
+      }
+    ],
+    [
+      {
+        "path": "research/experiments/03_PHM2010工具磨损/exp12_active_learning.py",
+        "line": 118,
+        "function": "evaluate_model",
+        "lines": 42
+      },
+      {
+        "path": "research/experiments/03_PHM2010工具磨损/exp21_hyperparameter_sensitivity.py",
+        "line": 116,
+        "function": "evaluate_model",
+        "lines": 40
+      },
+      {
+        "path": "research/experiments/03_PHM2010工具磨损/exp22_transfer_learning.py",
+        "line": 125,
+        "function": "evaluate_model",
+        "lines": 40
+      }
+    ],
+    [
+      {
+        "path": "research/experiments/03_PHM2010工具磨损/exp38_cross_device_generalization.py",
+        "line": 145,
+        "function": "train_and_evaluate",
+        "lines": 49
+      },
+      {
+        "path": "research/experiments/03_PHM2010工具磨损/exp39_signal_decomposition.py",
+        "line": 199,
+        "function": "train_and_evaluate",
+        "lines": 49
+      },
+      {
+        "path": "research/experiments/03_PHM2010工具磨损/exp41_sampling_rate_performance.py",
+        "line": 162,
+        "function": "train_and_evaluate",
+        "lines": 49
+      }
+    ],
+    [
+      {
+        "path": "research/experiments/03_PHM2010工具磨损/exp42_physical_consistency.py",
+        "line": 86,
+        "function": "forward",
+        "lines": 16
+      },
+      {
+        "path": "research/experiments/03_PHM2010工具磨损/exp43_feature_interaction.py",
+        "line": 92,
+        "function": "forward",
+        "lines": 16
+      },
+      {
+        "path": "research/experiments/03_PHM2010工具磨损/exp44_cross_validation.py",
+        "line": 55,
+        "function": "forward",
+        "lines": 16
+      }
+    ],
+    [
+      {
+        "path": "research/papers/大创赛/论文实验/aggressive_tune_dlnn.py",
+        "line": 239,
+        "function": "compute_metrics",
+        "lines": 19
+      },
+      {
+        "path": "research/papers/大创赛/论文实验/run_final_dlnn.py",
+        "line": 217,
+        "function": "compute_metrics",
+        "lines": 19
+      }
+    ],
+    [
+      {
+        "path": "research/papers/大创赛/论文实验/aggressive_tune_dlnn.py",
+        "line": 261,
+        "function": "generate_datasets",
+        "lines": 31
+      },
+      {
+        "path": "research/papers/大创赛/论文实验/run_final_dlnn.py",
+        "line": 239,
+        "function": "generate_datasets",
+        "lines": 31
+      }
+    ],
+    [
+      {
+        "path": "research/papers/大创赛/论文实验/aggressive_tune_dlnn.py",
+        "line": 294,
+        "function": "prepare_dataloaders",
+        "lines": 52
+      },
+      {
+        "path": "research/papers/大创赛/论文实验/run_final_dlnn.py",
+        "line": 272,
+        "function": "prepare_dataloaders",
+        "lines": 52
+      }
+    ],
+    [
+      {
+        "path": "research/papers/大创赛/论文实验/aggressive_tune_dlnn.py",
+        "line": 418,
+        "function": "evaluate_model",
+        "lines": 32
+      },
+      {
+        "path": "research/papers/大创赛/论文实验/run_final_dlnn.py",
+        "line": 383,
+        "function": "evaluate_model",
+        "lines": 29
+      }
+    ],
+    [
+      {
+        "path": "research/papers/大创赛/论文实验/aggressive_tune_dlnn.py",
+        "line": 90,
+        "function": "forward",
+        "lines": 24
+      },
+      {
+        "path": "research/papers/大创赛/论文实验/run_final_dlnn.py",
+        "line": 82,
+        "function": "forward",
+        "lines": 23
+      },
+      {
+        "path": "research/papers/大创赛/论文实验/train_with_v7_dataset.py",
+        "line": 170,
+        "function": "forward",
+        "lines": 23
+      }
+    ],
+    [
+      {
+        "path": "research/papers/大创赛/论文实验/aggressive_tune_dlnn.py",
+        "line": 119,
+        "function": "__init__",
+        "lines": 26
+      },
+      {
+        "path": "research/papers/大创赛/论文实验/run_final_dlnn.py",
+        "line": 110,
+        "function": "__init__",
+        "lines": 22
+      },
+      {
+        "path": "research/papers/大创赛/论文实验/train_with_v7_dataset.py",
+        "line": 198,
+        "function": "__init__",
+        "lines": 19
+      }
+    ],
+    [
+      {
+        "path": "research/papers/大创赛/论文实验/aggressive_tune_dlnn.py",
+        "line": 171,
+        "function": "__init__",
+        "lines": 43
+      },
+      {
+        "path": "research/papers/大创赛/论文实验/run_final_dlnn.py",
+        "line": 153,
+        "function": "__init__",
+        "lines": 39
+      }
+    ],
+    [
+      {
+        "path": "research/papers/大创赛/论文实验/aggressive_tune_dlnn.py",
+        "line": 215,
+        "function": "forward",
+        "lines": 21
+      },
+      {
+        "path": "research/papers/大创赛/论文实验/run_final_dlnn.py",
+        "line": 193,
+        "function": "forward",
+        "lines": 21
+      }
+    ],
+    [
+      {
+        "path": "research/prototypes/surface_edit_dialogue/artifacts/dialogue_20261010/calibration_compare.py",
+        "line": 36,
+        "function": "predict",
+        "lines": 46
+      },
+      {
+        "path": "research/prototypes/surface_edit_dialogue/compare.py",
+        "line": 37,
+        "function": "predict",
+        "lines": 46
+      }
+    ],
+    [
+      {
+        "path": "research/prototypes/surface_edit_dialogue/artifacts/dialogue_20261010/calibration_compare.py",
+        "line": 84,
+        "function": "evaluate",
+        "lines": 33
+      },
+      {
+        "path": "research/prototypes/surface_edit_dialogue/compare.py",
+        "line": 85,
+        "function": "evaluate",
+        "lines": 33
+      }
+    ]
+  ],
+  "silent_except_pass": [
+    {
+      "path": "docs/archive/scripts/baseline_analyzer.py",
+      "line": 68,
+      "exception": "Exception"
+    },
+    {
+      "path": "docs/archive/scripts/baseline_analyzer.py",
+      "line": 153,
+      "exception": "Exception"
+    },
+    {
+      "path": "docs/archive/scripts/baseline_analyzer_v2.py",
+      "line": 67,
+      "exception": "Exception"
+    },
+    {
+      "path": "docs/archive/scripts/baseline_analyzer_v2.py",
+      "line": 87,
+      "exception": "Exception"
+    },
+    {
+      "path": "docs/archive/scripts/baseline_analyzer_v2.py",
+      "line": 223,
+      "exception": "Exception"
+    },
+    {
+      "path": "docs/paper_and_competition/I10-validation/verify_vector_search.py",
+      "line": 23,
+      "exception": "httpx.HTTPError"
+    },
+    {
+      "path": "docs/paper_and_competition/I12-validation/verify_live_tool_match.py",
+      "line": 18,
+      "exception": "httpx.HTTPError"
+    },
+    {
+      "path": "docs/paper_and_competition/I13-validation/verify_live_review.py",
+      "line": 16,
+      "exception": "httpx.HTTPError"
+    },
+    {
+      "path": "docs/paper_and_competition/I14-validation/verify_http_acceptance.py",
+      "line": 26,
+      "exception": "httpx.HTTPError"
+    },
+    {
+      "path": "docs/paper_and_competition/I15-validation/verify_deployed_status.py",
+      "line": 15,
+      "exception": "httpx.HTTPError"
+    },
+    {
+      "path": "docs/paper_and_competition/I18-validation/update_nexent_skills.py",
+      "line": 33,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/app/api/v1/monitor_ws.py",
+      "line": 81,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/app/api/v1/monitor_ws.py",
+      "line": 241,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/app/api/v1/monitor_ws.py",
+      "line": 185,
+      "exception": "asyncio.TimeoutError"
+    },
+    {
+      "path": "engineering/python/app/api/v1/project_packages.py",
+      "line": 213,
+      "exception": "OSError"
+    },
+    {
+      "path": "engineering/python/app/api/v1/project_packages.py",
+      "line": 205,
+      "exception": "OSError"
+    },
+    {
+      "path": "engineering/python/app/api/v1/tests/conftest.py",
+      "line": 28,
+      "exception": "ImportError"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/metrics.py",
+      "line": 106,
+      "exception": "FileNotFoundError"
+    },
+    {
+      "path": "engineering/python/app/cad/visual_verify.py",
+      "line": 201,
+      "exception": "AttributeError"
+    },
+    {
+      "path": "engineering/python/app/config/yaml_loader.py",
+      "line": 547,
+      "exception": "ValueError"
+    },
+    {
+      "path": "engineering/python/app/config/yaml_loader.py",
+      "line": 551,
+      "exception": "ValueError"
+    },
+    {
+      "path": "engineering/python/app/config_contract_adapter.py",
+      "line": 133,
+      "exception": "ValueError"
+    },
+    {
+      "path": "engineering/python/app/config_contract_adapter.py",
+      "line": 137,
+      "exception": "ValueError"
+    },
+    {
+      "path": "engineering/python/app/core/logging_config.py",
+      "line": 128,
+      "exception": "(TypeError, ValueError, KeyError, IndexError)"
+    },
+    {
+      "path": "engineering/python/app/core/logging_config.py",
+      "line": 144,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/app/core/logging_config.py",
+      "line": 182,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/app/core/logging_config.py",
+      "line": 280,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/app/data/pipeline/pipeline.py",
+      "line": 106,
+      "exception": "ImportError"
+    },
+    {
+      "path": "engineering/python/app/database/models/_seed_rbac.py",
+      "line": 212,
+      "exception": "ValueError"
+    },
+    {
+      "path": "engineering/python/app/dnc/unified_adapter.py",
+      "line": 373,
+      "exception": "asyncio.CancelledError"
+    },
+    {
+      "path": "engineering/python/app/dreaming/memory_store.py",
+      "line": 186,
+      "exception": "(ValueError, TypeError)"
+    },
+    {
+      "path": "engineering/python/app/dreaming/memory_store.py",
+      "line": 356,
+      "exception": "(subprocess.TimeoutExpired, FileNotFoundError)"
+    },
+    {
+      "path": "engineering/python/app/dreaming/memory_store.py",
+      "line": 166,
+      "exception": "(ValueError, TypeError)"
+    },
+    {
+      "path": "engineering/python/app/dreaming/reflector.py",
+      "line": 33,
+      "exception": "(AttributeError, RuntimeError)"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/feature_store.py",
+      "line": 267,
+      "exception": "OSError"
+    },
+    {
+      "path": "engineering/python/app/heartbeat/heartbeat.py",
+      "line": 685,
+      "exception": "asyncio.CancelledError"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/task_store.py",
+      "line": 171,
+      "exception": "OSError"
+    },
+    {
+      "path": "engineering/python/app/integrations/mtconnect/cli.py",
+      "line": 230,
+      "exception": "(ConnectionError, TimeoutError, OSError, RuntimeError, ValueError)"
+    },
+    {
+      "path": "engineering/python/app/integrations/opcua/cli.py",
+      "line": 241,
+      "exception": "(RuntimeError, OSError)"
+    },
+    {
+      "path": "engineering/python/app/integrations/opcua/tests/test_server.py",
+      "line": 59,
+      "exception": "asyncio.CancelledError"
+    },
+    {
+      "path": "engineering/python/app/pipelines/machining_collector.py",
+      "line": 415,
+      "exception": "asyncio.TimeoutError"
+    },
+    {
+      "path": "engineering/python/app/pipelines/machining_collector.py",
+      "line": 350,
+      "exception": "asyncio.CancelledError"
+    },
+    {
+      "path": "engineering/python/app/pipelines/machining_collector.py",
+      "line": 394,
+      "exception": "asyncio.TimeoutError"
+    },
+    {
+      "path": "engineering/python/app/pipelines/machining_collector.py",
+      "line": 520,
+      "exception": "asyncio.TimeoutError"
+    },
+    {
+      "path": "engineering/python/app/pipelines/machining_collector.py",
+      "line": 564,
+      "exception": "asyncio.TimeoutError"
+    },
+    {
+      "path": "engineering/python/app/pipelines/machining_collector.py",
+      "line": 386,
+      "exception": "asyncio.TimeoutError"
+    },
+    {
+      "path": "engineering/python/app/plugins/rl_agent/training/trainer.py",
+      "line": 410,
+      "exception": "AttributeError"
+    },
+    {
+      "path": "engineering/python/app/plugins/world_model/geometry_features_deriver.py",
+      "line": 269,
+      "exception": "(TypeError, ValueError)"
+    },
+    {
+      "path": "engineering/python/app/services/backup_service.py",
+      "line": 156,
+      "exception": "OSError"
+    },
+    {
+      "path": "engineering/python/app/services/backup_service.py",
+      "line": 200,
+      "exception": "(json.JSONDecodeError, OSError)"
+    },
+    {
+      "path": "engineering/python/app/services/memory_cache.py",
+      "line": 66,
+      "exception": "asyncio.CancelledError"
+    },
+    {
+      "path": "engineering/python/app/services/project_sync_service/_clone.py",
+      "line": 207,
+      "exception": "GitOperationError"
+    },
+    {
+      "path": "engineering/python/app/services/project_sync_service/_git_ops.py",
+      "line": 142,
+      "exception": "GitOperationError"
+    },
+    {
+      "path": "engineering/python/app/services/project_sync_service/_git_ops.py",
+      "line": 163,
+      "exception": "GitOperationError"
+    },
+    {
+      "path": "engineering/python/app/services/project_sync_service/_git_ops.py",
+      "line": 172,
+      "exception": "GitOperationError"
+    },
+    {
+      "path": "engineering/python/app/services/project_sync_service/_manifest.py",
+      "line": 45,
+      "exception": "OSError"
+    },
+    {
+      "path": "engineering/python/app/services/project_sync_service/_project_crud.py",
+      "line": 194,
+      "exception": "GitOperationError"
+    },
+    {
+      "path": "engineering/python/app/services/tests/test_tdengine_client.py",
+      "line": 153,
+      "exception": "RuntimeError"
+    },
+    {
+      "path": "engineering/python/app/services/tests/test_tdengine_client.py",
+      "line": 138,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/app/tasks/contract_adapter.py",
+      "line": 368,
+      "exception": "(TypeError, ValueError)"
+    },
+    {
+      "path": "engineering/python/app/tasks/worker_process.py",
+      "line": 143,
+      "exception": "KeyboardInterrupt"
+    },
+    {
+      "path": "engineering/python/app/templates/template_branching.py",
+      "line": 304,
+      "exception": "FileNotFoundError"
+    },
+    {
+      "path": "engineering/python/app/training/contract_adapter.py",
+      "line": 101,
+      "exception": "KeyError"
+    },
+    {
+      "path": "engineering/python/app/utils/ring_buffer.py",
+      "line": 253,
+      "exception": "asyncio.CancelledError"
+    },
+    {
+      "path": "engineering/python/app/workflow/runner.py",
+      "line": 883,
+      "exception": "asyncio.QueueEmpty"
+    },
+    {
+      "path": "engineering/python/app/workflow/runner.py",
+      "line": 861,
+      "exception": "asyncio.QueueEmpty"
+    },
+    {
+      "path": "engineering/python/conftest.py",
+      "line": 67,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/plugins/data_flywheel/hot_update_manager.py",
+      "line": 738,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/scripts/build_desktop_runtime.py",
+      "line": 53,
+      "exception": "(AttributeError, OSError)"
+    },
+    {
+      "path": "engineering/python/scripts/build_desktop_runtime.py",
+      "line": 344,
+      "exception": "OSError"
+    },
+    {
+      "path": "engineering/python/scripts/build_desktop_runtime.py",
+      "line": 361,
+      "exception": "OSError"
+    },
+    {
+      "path": "engineering/python/scripts/build_desktop_runtime.py",
+      "line": 368,
+      "exception": "OSError"
+    },
+    {
+      "path": "engineering/python/scripts/lingjing_cli.py",
+      "line": 319,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/scripts/lingjing_cli.py",
+      "line": 328,
+      "exception": "OSError"
+    },
+    {
+      "path": "engineering/python/scripts/lingjing_cli.py",
+      "line": 339,
+      "exception": "OSError"
+    },
+    {
+      "path": "engineering/python/scripts/post_reboot_recovery.py",
+      "line": 71,
+      "exception": "ImportError"
+    },
+    {
+      "path": "engineering/python/sidecar_main.py",
+      "line": 203,
+      "exception": "KeyboardInterrupt"
+    },
+    {
+      "path": "engineering/python/start_server.py",
+      "line": 60,
+      "exception": "ImportError"
+    },
+    {
+      "path": "engineering/python/tests/api/test_auth_endpoints.py",
+      "line": 107,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/api/test_auth_endpoints.py",
+      "line": 117,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/api/test_auth_register.py",
+      "line": 105,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/api/test_auth_register.py",
+      "line": 114,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/api/test_cutting_experience_routes.py",
+      "line": 103,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/conftest.py",
+      "line": 399,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/conftest.py",
+      "line": 410,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/conftest.py",
+      "line": 419,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/conftest.py",
+      "line": 440,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/conftest.py",
+      "line": 447,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/integration/test_fault_recovery.py",
+      "line": 321,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/integration/test_fault_recovery.py",
+      "line": 338,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/integration/test_fault_recovery.py",
+      "line": 364,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/integration/test_resource_usage.py",
+      "line": 346,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/integration/test_scenario1_3view_to_nc.py",
+      "line": 502,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/integration/test_scenario1_3view_to_nc.py",
+      "line": 526,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/process_understanding/test_solution_quality.py",
+      "line": 131,
+      "exception": "(ValueError, TypeError)"
+    },
+    {
+      "path": "engineering/python/tests/process_understanding/test_solution_quality.py",
+      "line": 138,
+      "exception": "(ValueError, TypeError)"
+    },
+    {
+      "path": "engineering/python/tests/process_understanding/test_solution_quality.py",
+      "line": 145,
+      "exception": "(ValueError, TypeError)"
+    },
+    {
+      "path": "engineering/python/tests/run_cam_validation_pytest.py",
+      "line": 60,
+      "exception": "(OSError, AttributeError)"
+    },
+    {
+      "path": "engineering/python/tests/test_async_task_system.py",
+      "line": 253,
+      "exception": "asyncio.CancelledError"
+    },
+    {
+      "path": "engineering/python/tests/test_atomic_checkout.py",
+      "line": 52,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_chatter_prediction.py",
+      "line": 1389,
+      "exception": "(TypeError, OSError)"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 79,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 102,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 114,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 125,
+      "exception": "ValueError"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 136,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 175,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 188,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 210,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 221,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 267,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 277,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 434,
+      "exception": "ValueError"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 484,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_data_edge_cases.py",
+      "line": 501,
+      "exception": "ValueError"
+    },
+    {
+      "path": "engineering/python/tests/test_dxf_module.py",
+      "line": 137,
+      "exception": "AttributeError"
+    },
+    {
+      "path": "engineering/python/tests/test_dxf_module.py",
+      "line": 241,
+      "exception": "AttributeError"
+    },
+    {
+      "path": "engineering/python/tests/test_dxf_module.py",
+      "line": 250,
+      "exception": "AttributeError"
+    },
+    {
+      "path": "engineering/python/tests/test_functional_scenarios.py",
+      "line": 49,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 153,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 166,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/test_rag_optimization.py",
+      "line": 269,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tests/unit/test_sidecar_lifecycle.py",
+      "line": 171,
+      "exception": "asyncio.CancelledError"
+    },
+    {
+      "path": "engineering/python/tests/unit/test_state_manager_coverage.py",
+      "line": 190,
+      "exception": "asyncio.CancelledError"
+    },
+    {
+      "path": "engineering/python/tests/unit/test_tool_diameter_threading.py",
+      "line": 164,
+      "exception": "Exception"
+    },
+    {
+      "path": "engineering/python/tools/test_generator/runner.py",
+      "line": 112,
+      "exception": "ValueError"
+    },
+    {
+      "path": "engineering/python/tools/test_generator/runner.py",
+      "line": 120,
+      "exception": "ValueError"
+    },
+    {
+      "path": "engineering/python/tools/test_generator/runner.py",
+      "line": 128,
+      "exception": "ValueError"
+    },
+    {
+      "path": "mcp_server/factory_tools.py",
+      "line": 168,
+      "exception": "Exception"
+    },
+    {
+      "path": "mcp_server/server.py",
+      "line": 165,
+      "exception": "Exception"
+    },
+    {
+      "path": "research/experiments/03_PHM2010工具磨损/exp10_ablation.py",
+      "line": 534,
+      "exception": "(ValueError, TypeError)"
+    },
+    {
+      "path": "research/experiments/03_PHM2010工具磨损/exp10_ablation.py",
+      "line": 547,
+      "exception": "(ValueError, TypeError)"
+    },
+    {
+      "path": "research/experiments/03_PHM2010工具磨损/exp10_ablation.py",
+      "line": 555,
+      "exception": "(ValueError, TypeError)"
+    },
+    {
+      "path": "research/experiments/03_PHM2010工具磨损/optuna_search.py",
+      "line": 275,
+      "exception": "Exception"
+    },
+    {
+      "path": "research/tests/test_lnn_dataset.py",
+      "line": 576,
+      "exception": "Exception"
+    },
+    {
+      "path": "research/tests/test_lnn_trainer.py",
+      "line": 616,
+      "exception": "Exception"
+    },
+    {
+      "path": "research/tests/test_lnn_trainer.py",
+      "line": 624,
+      "exception": "Exception"
+    },
+    {
+      "path": "research/tests/test_lnn_trainer.py",
+      "line": 630,
+      "exception": "Exception"
+    },
+    {
+      "path": "research/training/experiment_tracker.py",
+      "line": 137,
+      "exception": "ImportError"
+    },
+    {
+      "path": "research/training/experiment_tracker.py",
+      "line": 161,
+      "exception": "OSError"
+    },
+    {
+      "path": "research/training/experiment_tracker.py",
+      "line": 179,
+      "exception": "OSError"
+    },
+    {
+      "path": "research/training/reproducibility.py",
+      "line": 72,
+      "exception": "ImportError"
+    },
+    {
+      "path": "research/training/tracking/mlflow_tracker.py",
+      "line": 185,
+      "exception": "ImportError"
+    },
+    {
+      "path": "scripts/soft_copyright/collect_probe.py",
+      "line": 93,
+      "exception": "Exception"
+    },
+    {
+      "path": "scripts/verify_quantization.py",
+      "line": 70,
+      "exception": "Exception"
+    },
+    {
+      "path": "tests/benchmarks/runners/render_benchmark.py",
+      "line": 57,
+      "exception": "Exception"
+    }
+  ],
+  "mutable_defaults": [
+    {
+      "path": "research/experiments/03_PHM2010工具磨损/exp9_cross_condition.py",
+      "line": 47,
+      "function": "run_lomo_protocol"
+    },
+    {
+      "path": "research/experiments/03_PHM2010工具磨损/exp9_cross_condition.py",
+      "line": 113,
+      "function": "run_loco_protocol"
+    },
+    {
+      "path": "research/experiments/05_论文图件与表格/visualize.py",
+      "line": 178,
+      "function": "plot_ablation_study"
+    }
+  ],
+  "blocking_in_async_candidates": [
+    {
+      "path": "docs/archive/scripts/verify_sse_training.py",
+      "line": 270,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "docs/archive/scripts/verify_sse_training.py",
+      "line": 275,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/agent/orchestrator.py",
+      "line": 286,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/agent/orchestrator.py",
+      "line": 292,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/agent/orchestrator.py",
+      "line": 378,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/agent/orchestrator.py",
+      "line": 813,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/agent/orchestrator.py",
+      "line": 772,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/agent/runtime/loop.py",
+      "line": 108,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/agent/runtime/loop.py",
+      "line": 116,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/llm/_router_core.py",
+      "line": 267,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/llm/_router_core.py",
+      "line": 275,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/llm/providers/cloud/anthropic_provider.py",
+      "line": 116,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/llm/providers/cloud/deepseek_provider.py",
+      "line": 99,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/llm/providers/cloud/gemini_provider.py",
+      "line": 139,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/llm/providers/cloud/openai_compatible.py",
+      "line": 103,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/llm/providers/cloud/openai_provider.py",
+      "line": 113,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/llm/providers/cloud/qwen_provider.py",
+      "line": 100,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/llm/providers/ollama.py",
+      "line": 128,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/llm/providers/openai_compat_base.py",
+      "line": 167,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/process_explainer/session_store.py",
+      "line": 187,
+      "call": "time.strftime"
+    },
+    {
+      "path": "engineering/python/app/ai/process_explainer/session_store.py",
+      "line": 208,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/process_explainer/session_store.py",
+      "line": 241,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/ai/process_understanding/engine.py",
+      "line": 105,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/ai/process_understanding/engine.py",
+      "line": 128,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/ai/process_understanding/knowledge_retriever.py",
+      "line": 164,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/ai/process_understanding/knowledge_retriever.py",
+      "line": 198,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/ai/process_understanding/prediction_explainer.py",
+      "line": 146,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/ai/process_understanding/prediction_explainer.py",
+      "line": 180,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/ai/process_understanding/solution_generator.py",
+      "line": 206,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/ai/process_understanding/solution_generator.py",
+      "line": 254,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/ai/process_understanding/task_classifier.py",
+      "line": 83,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/ai/process_understanding/task_classifier.py",
+      "line": 103,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/ai/process_understanding/task_classifier.py",
+      "line": 89,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/api/v1/agent_gateway/inference.py",
+      "line": 66,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/agent_gateway/training.py",
+      "line": 153,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/api/v1/agent_gateway/training.py",
+      "line": 156,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/api/v1/goal_alignment.py",
+      "line": 219,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/governance.py",
+      "line": 180,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/governance.py",
+      "line": 170,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/governance.py",
+      "line": 348,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/governance.py",
+      "line": 496,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/health.py",
+      "line": 349,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/health.py",
+      "line": 351,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/health.py",
+      "line": 359,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 507,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 531,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/llm_providers.py",
+      "line": 516,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/lnn/_training_executor.py",
+      "line": 253,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/api/v1/lnn/_training_executor.py",
+      "line": 301,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/api/v1/lnn/_training_executor.py",
+      "line": 231,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/lnn/services.py",
+      "line": 456,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/lnn/services.py",
+      "line": 463,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/lnn/services.py",
+      "line": 470,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/lnn/services.py",
+      "line": 475,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/lnn/services.py",
+      "line": 482,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/lnn/services.py",
+      "line": 488,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/lnn/services.py",
+      "line": 494,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/sse.py",
+      "line": 65,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/sse.py",
+      "line": 66,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/sse.py",
+      "line": 97,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/sse.py",
+      "line": 117,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/sse.py",
+      "line": 154,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/api/v1/sse.py",
+      "line": 224,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/auth/middleware.py",
+      "line": 370,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/auth/middleware.py",
+      "line": 667,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/auth/middleware.py",
+      "line": 692,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/auth/middleware.py",
+      "line": 721,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/auth/middleware.py",
+      "line": 745,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/auth/middleware.py",
+      "line": 773,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/auth/middleware.py",
+      "line": 795,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/machinability_pilot/generate_loop.py",
+      "line": 230,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/machinability_pilot/generate_loop.py",
+      "line": 268,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/machinability_pilot/generate_loop.py",
+      "line": 345,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/machinability_pilot/generate_loop.py",
+      "line": 276,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/machinability_pilot/run_generation.py",
+      "line": 95,
+      "call": "time.strftime"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/machinability_pilot/run_generation.py",
+      "line": 53,
+      "call": "time.strftime"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/machinability_pilot/run_physics.py",
+      "line": 106,
+      "call": "time.strftime"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/machinability_pilot/run_physics.py",
+      "line": 46,
+      "call": "time.strftime"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 81,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 88,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 112,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 120,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 150,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 159,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 194,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 182,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 197,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 189,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 182,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/api_bench.py",
+      "line": 189,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/concurrency_bench.py",
+      "line": 90,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/concurrency_bench.py",
+      "line": 95,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/rl_agent_bench.py",
+      "line": 144,
+      "call": "time.time_ns"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/rl_agent_bench.py",
+      "line": 251,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/rl_agent_bench.py",
+      "line": 269,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/rl_agent_bench.py",
+      "line": 261,
+      "call": "time.time_ns"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/world_model_bench.py",
+      "line": 199,
+      "call": "time.time_ns"
+    },
+    {
+      "path": "engineering/python/app/benchmarks/performance/world_model_bench.py",
+      "line": 250,
+      "call": "time.time_ns"
+    },
+    {
+      "path": "engineering/python/app/chatter_prediction/pipeline.py",
+      "line": 229,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/core/middleware.py",
+      "line": 140,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/core/middleware.py",
+      "line": 154,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/core/middleware.py",
+      "line": 172,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/cutting_parameters/pipeline.py",
+      "line": 238,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/dreaming/service.py",
+      "line": 79,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/evolution/task_handler.py",
+      "line": 139,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 209,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 248,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 267,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 282,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 301,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 269,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 284,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 307,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 329,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 352,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 366,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/feature_extraction/pipeline.py",
+      "line": 376,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/heartbeat/heartbeat.py",
+      "line": 709,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/heartbeat/heartbeat.py",
+      "line": 746,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 131,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 168,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 178,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 226,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 185,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 215,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 235,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 237,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 222,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 258,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 272,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 282,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 319,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/image_to_3d/pipeline.py",
+      "line": 410,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/middleware/metrics_middleware.py",
+      "line": 67,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/middleware/metrics_middleware.py",
+      "line": 77,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/middleware/metrics_middleware.py",
+      "line": 90,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/pipelines/machining_collector.py",
+      "line": 301,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/pipelines/machining_collector.py",
+      "line": 364,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/pipelines/synthetic_data_gen.py",
+      "line": 223,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/pipelines/synthetic_data_gen.py",
+      "line": 256,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/plugins/rl_agent/plugin.py",
+      "line": 211,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/plugins/rl_agent/plugin.py",
+      "line": 249,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/plugins/rl_agent/plugin.py",
+      "line": 324,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/plugins/world_model/plugin.py",
+      "line": 192,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/plugins/world_model/plugin.py",
+      "line": 317,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/plugins/world_model/plugin.py",
+      "line": 381,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/services/memory_cache.py",
+      "line": 98,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/services/memory_cache.py",
+      "line": 186,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/services/rl_agent_service.py",
+      "line": 388,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/services/rl_agent_service.py",
+      "line": 454,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/services/world_model_service.py",
+      "line": 305,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/services/world_model_service.py",
+      "line": 341,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/sharp/react/react_loop.py",
+      "line": 202,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/sharp/react/react_loop.py",
+      "line": 406,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/sharp/service.py",
+      "line": 419,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/sharp/service.py",
+      "line": 483,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/sharp/tools/base.py",
+      "line": 131,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/sharp/tools/base.py",
+      "line": 134,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/sharp/tools/base.py",
+      "line": 143,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/sidecar/sidecar_lifecycle.py",
+      "line": 64,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/simulation/_helpers.py",
+      "line": 118,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/simulation/api.py",
+      "line": 133,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/simulation/api.py",
+      "line": 135,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/app/simulation/api.py",
+      "line": 228,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/simulation/api.py",
+      "line": 228,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/state/manager.py",
+      "line": 188,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_engine.py",
+      "line": 67,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_engine.py",
+      "line": 68,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_engine.py",
+      "line": 62,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_engine.py",
+      "line": 96,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_engine.py",
+      "line": 97,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_engine.py",
+      "line": 124,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_engine.py",
+      "line": 153,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_engine.py",
+      "line": 154,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_engine.py",
+      "line": 182,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_engine.py",
+      "line": 262,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_execution_mixin.py",
+      "line": 48,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_execution_mixin.py",
+      "line": 113,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_execution_mixin.py",
+      "line": 74,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_execution_mixin.py",
+      "line": 98,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_execution_mixin.py",
+      "line": 144,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_execution_mixin.py",
+      "line": 245,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_execution_mixin.py",
+      "line": 209,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_executor.py",
+      "line": 56,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_executor.py",
+      "line": 67,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_executor.py",
+      "line": 73,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_executor.py",
+      "line": 78,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/_task_executor.py",
+      "line": 84,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/contract_adapter.py",
+      "line": 243,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/contract_adapter.py",
+      "line": 383,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/contract_adapter.py",
+      "line": 351,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/tasks/task_system.py",
+      "line": 244,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/utils/sqlite_pool.py",
+      "line": 245,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/utils/sqlite_pool.py",
+      "line": 246,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/workflow/runner.py",
+      "line": 306,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/workflow/runner.py",
+      "line": 415,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/workflow/runner.py",
+      "line": 466,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/workflow/runner.py",
+      "line": 431,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/workflow/runner.py",
+      "line": 449,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/workflow/runner.py",
+      "line": 723,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/app/workflow/runner.py",
+      "line": 844,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/performance/test_end_to_end_performance.py",
+      "line": 96,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/performance/test_end_to_end_performance.py",
+      "line": 387,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/tests/performance/test_end_to_end_performance.py",
+      "line": 390,
+      "call": "time.perf_counter"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 206,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 253,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 259,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 426,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 427,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 451,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 530,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 531,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 657,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 664,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 717,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 897,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 921,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 253,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 259,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 717,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_heartbeat_system.py",
+      "line": 921,
+      "call": "time.time"
+    },
+    {
+      "path": "engineering/python/tests/test_sse_training.py",
+      "line": 137,
+      "call": "time.time"
+    }
+  ],
+  "largest_files": [
+    [
+      174849,
+      "research/experiments/05_论文图件与表格/generate_comprehensive_report.py"
+    ],
+    [
+      164859,
+      "engineering/python/tests/test_postprocessor.py"
+    ],
+    [
+      152600,
+      "docs/archive/scripts/generate_research_report.py"
+    ],
+    [
+      126368,
+      "engineering/src/locales/en.ts"
+    ],
+    [
+      122708,
+      "engineering/src/locales/zh-CN.ts"
+    ],
+    [
+      80649,
+      "engineering/python/tests/unit/test_sdk_client.py"
+    ],
+    [
+      71740,
+      "engineering/python/tests/test_parametric_geometry.py"
+    ],
+    [
+      68239,
+      "engineering/python/tests/unit/test_hot_update_manager.py"
+    ],
+    [
+      59551,
+      "engineering/python/app/agent/orchestrator.py"
+    ],
+    [
+      59446,
+      "engineering/python/tests/test_chatter_prediction.py"
+    ],
+    [
+      57894,
+      "engineering/python/tests/test_cutting_parameters.py"
+    ],
+    [
+      51098,
+      "research/experiments/data_generator.py"
+    ],
+    [
+      49618,
+      "research/tests/test_lnn_trainer.py"
+    ],
+    [
+      47974,
+      "engineering/python/tests/test_cam_validation.py"
+    ],
+    [
+      47755,
+      "engineering/python/app/rag/process_quadruple.py"
+    ],
+    [
+      47265,
+      "engineering/python/tests/performance/test_critical_modules_performance.py"
+    ],
+    [
+      47129,
+      "scripts/gen-api-docs.py"
+    ],
+    [
+      47111,
+      "engineering/python/tests/unit/test_flywheel_metrics_real_sources.py"
+    ],
+    [
+      45124,
+      "engineering/python/tests/unit/test_voxel_cutter.py"
+    ],
+    [
+      43104,
+      "engineering/python/lomo/cli.py"
+    ],
+    [
+      41984,
+      "engineering/python/tests/unit/test_process_planning_pipeline.py"
+    ],
+    [
+      41435,
+      "research/papers/论文相关/脚本/lomo_loco_experiment.py"
+    ],
+    [
+      41295,
+      "engineering/python/app/gcode_generation/pipeline.py"
+    ],
+    [
+      41168,
+      "engineering/python/tests/stress/test_stress_siemens.py"
+    ],
+    [
+      40716,
+      "engineering/python/tests/test_collision_5axis.py"
+    ]
+  ],
+  "scope_note": "修复前的静态快照：Git 跟踪及非忽略的源码；不扫描第三方依赖、虚拟环境、构建产物和桌面运行时副本。源码数量不是逐行人工审查数量。",
+  "interpretation": {
+    "identical_function_bodies": "候选含测试和归档；两组生产代码重复已在本次合并，其他候选不是自动删除依据。",
+    "silent_except_pass": "大部分属于测试、预期取消和可选依赖；不是146个已确认缺陷。",
+    "mutable_defaults": "三个科研入口当前只读参数，未证实跨调用污染，本次未改动实验协议。",
+    "blocking_in_async_candidates": "原始宽松扫描包含time.time/perf_counter等非阻塞计时；不可将222个候选称为阻塞缺陷。"
+  },
+  "actual_direct_blocking_candidates": []
+}
