@@ -48,7 +48,7 @@ import logging
 import threading
 import uuid
 from datetime import datetime, timedelta, timezone
-from typing import Any, Optional
+from typing import Any
 
 from app.contracts.dataset import (
     DatasetSchema,
@@ -160,10 +160,10 @@ class FeedbackCollector:
 
     def __init__(
         self,
-        dataset_store: Optional[IDatasetStore],
+        dataset_store: IDatasetStore | None,
         *,
         owner_id: str = "plugin:data_flywheel",
-        config: Optional[dict[str, Any]] = None,
+        config: dict[str, Any] | None = None,
     ) -> None:
         """初始化反馈采集器.
 
@@ -186,8 +186,8 @@ class FeedbackCollector:
         self._buffer: list[dict[str, Any]] = []
         self._buffer_lock = threading.Lock()
         self._flush_lock = threading.Lock()
-        self._dataset_id: Optional[str] = None  # 懒注册
-        self._last_flush_at: Optional[datetime] = None
+        self._dataset_id: str | None = None  # 懒注册
+        self._last_flush_at: datetime | None = None
         self._total_recorded = 0
         self._total_flushed = 0
 
@@ -208,7 +208,7 @@ class FeedbackCollector:
             return len(self._buffer)
 
     @property
-    def dataset_id(self) -> Optional[str]:
+    def dataset_id(self) -> str | None:
         """已注册的 dataset_id（未 flush 前为 None）."""
         return self._dataset_id
 
@@ -228,11 +228,11 @@ class FeedbackCollector:
         self,
         *,
         user_id: str,
-        prediction_id: Optional[str] = None,
-        model_version: Optional[str] = None,
-        original_output: Optional[dict[str, Any]] = None,
+        prediction_id: str | None = None,
+        model_version: str | None = None,
+        original_output: dict[str, Any] | None = None,
         notes: str = "",
-        metadata: Optional[dict[str, Any]] = None,
+        metadata: dict[str, Any] | None = None,
     ) -> str:
         """记录用户标注反馈.
 
@@ -267,11 +267,11 @@ class FeedbackCollector:
         *,
         user_id: str,
         accepted: bool,
-        prediction_id: Optional[str] = None,
-        model_version: Optional[str] = None,
-        original_output: Optional[dict[str, Any]] = None,
+        prediction_id: str | None = None,
+        model_version: str | None = None,
+        original_output: dict[str, Any] | None = None,
         notes: str = "",
-        metadata: Optional[dict[str, Any]] = None,
+        metadata: dict[str, Any] | None = None,
     ) -> str:
         """记录用户采纳/拒绝反馈.
 
@@ -310,10 +310,10 @@ class FeedbackCollector:
         user_id: str,
         original_output: dict[str, Any],
         corrected_output: dict[str, Any],
-        prediction_id: Optional[str] = None,
-        model_version: Optional[str] = None,
+        prediction_id: str | None = None,
+        model_version: str | None = None,
         notes: str = "",
-        metadata: Optional[dict[str, Any]] = None,
+        metadata: dict[str, Any] | None = None,
     ) -> str:
         """记录用户修正反馈.
 
@@ -355,13 +355,13 @@ class FeedbackCollector:
         *,
         feedback_type: str,
         user_id: str,
-        prediction_id: Optional[str],
-        model_version: Optional[str],
-        original_output: Optional[dict[str, Any]],
-        corrected_output: Optional[dict[str, Any]],
-        accepted: Optional[bool],
+        prediction_id: str | None,
+        model_version: str | None,
+        original_output: dict[str, Any] | None,
+        corrected_output: dict[str, Any] | None,
+        accepted: bool | None,
         notes: str,
-        metadata: Optional[dict[str, Any]],
+        metadata: dict[str, Any] | None,
     ) -> str:
         """通用记录入口：构造反馈记录并入缓冲区，必要时触发 flush."""
         if feedback_type not in VALID_FEEDBACK_TYPES:
@@ -422,7 +422,7 @@ class FeedbackCollector:
 
     # flush：批量提交到 IDatasetStore
 
-    async def flush(self) -> Optional[DatasetVersion]:
+    async def flush(self) -> DatasetVersion | None:
         """将缓冲区中的反馈批量提交为一个新版本.
 
         - 缓冲区为空时直接返回 None（不产生空版本）
@@ -534,7 +534,7 @@ class FeedbackCollector:
 
     # 读取：供 p4-4 飞轮指标使用
 
-    async def get_recent_feedback(self, *, hours: Optional[int] = None) -> list[dict[str, Any]]:
+    async def get_recent_feedback(self, *, hours: int | None = None) -> list[dict[str, Any]]:
         """读取最近 N 小时内的反馈记录.
 
         从最新版本的反馈数据集中读取全部记录，按 timestamp 过滤时间窗口。

@@ -35,7 +35,7 @@ import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
-from typing import Any, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -89,9 +89,9 @@ class DeploymentRecord:
     baseline_metrics: dict[str, float] = field(default_factory=dict)
     canary_metrics: dict[str, float] = field(default_factory=dict)
     status: DeploymentStatus = DeploymentStatus.OBSERVING
-    rollback_reason: Optional[str] = None
-    promoted_at: Optional[datetime] = None
-    ended_at: Optional[datetime] = None
+    rollback_reason: str | None = None
+    promoted_at: datetime | None = None
+    ended_at: datetime | None = None
     # 观察期内每次 observe_deployment 的快照（用于审计）
     observation_history: list[dict[str, Any]] = field(default_factory=list)
 
@@ -142,10 +142,10 @@ class ObservationDecision:
 
     decision: str  # "continue" / "promote" / "rollback"
     reason: str
-    baseline_value: Optional[float]
-    canary_value: Optional[float]
-    drop: Optional[float]  # 指标下降比例（正数表示退化）
-    observation_remaining_hours: Optional[float]
+    baseline_value: float | None
+    canary_value: float | None
+    drop: float | None  # 指标下降比例（正数表示退化）
+    observation_remaining_hours: float | None
     deployment_status: DeploymentStatus
 
     def to_dict(self) -> dict[str, Any]:
@@ -197,7 +197,7 @@ class HotUpdateManager:
         self,
         model_registry_service: Any = None,
         snapshot_store: Any = None,
-        config: Optional[dict[str, Any]] = None,
+        config: dict[str, Any] | None = None,
     ) -> None:
         self._model_registry_service = model_registry_service
         self._snapshot_store = snapshot_store
@@ -242,14 +242,14 @@ class HotUpdateManager:
         new_model_uri: str,
         baseline_model_uri: str,
         eval_metrics: dict[str, float],
-        baseline_metrics: Optional[dict[str, float]] = None,
+        baseline_metrics: dict[str, float] | None = None,
         eval_metric: str = "f1",
-        canary_ratio: Optional[float] = None,
-        observation_hours: Optional[int] = None,
-        rollback_on_failure: Optional[bool] = None,
-        rollback_metric_drop: Optional[float] = None,
+        canary_ratio: float | None = None,
+        observation_hours: int | None = None,
+        rollback_on_failure: bool | None = None,
+        rollback_metric_drop: float | None = None,
         promote_on_success: bool = True,
-        metadata: Optional[dict[str, Any]] = None,
+        metadata: dict[str, Any] | None = None,
     ) -> DeploymentRecord:
         """以灰度比例部署新模型.
 
@@ -358,7 +358,7 @@ class HotUpdateManager:
         deployment_id: str,
         current_canary_metrics: dict[str, float],
         *,
-        now: Optional[datetime] = None,
+        now: datetime | None = None,
     ) -> ObservationDecision:
         """根据当前 canary 指标做决策.
 
@@ -406,7 +406,7 @@ class HotUpdateManager:
             )
 
             # 计算指标下降比例（正向表示退化）
-            drop: Optional[float] = None
+            drop: float | None = None
             if baseline_value is not None and canary_value is not None:
                 if baseline_value > 0:
                     drop = (baseline_value - canary_value) / baseline_value
@@ -438,7 +438,7 @@ class HotUpdateManager:
                 )
 
             # 决策 2：观察期是否结束
-            remaining_hours: Optional[float] = None
+            remaining_hours: float | None = None
             if now_dt >= record.observation_ends_at:
                 # 观察期结束且未退化
                 if record.promote_on_success:
@@ -598,8 +598,8 @@ class HotUpdateManager:
     async def list_deployments(
         self,
         *,
-        model_name: Optional[str] = None,
-        status: Optional[DeploymentStatus] = None,
+        model_name: str | None = None,
+        status: DeploymentStatus | None = None,
     ) -> list[DeploymentRecord]:
         """列出部署记录（可选过滤）."""
         with self._lock:
@@ -620,7 +620,7 @@ class HotUpdateManager:
         self,
         model_name: str,
         *,
-        rng: Optional[random.Random] = None,
+        rng: random.Random | None = None,
     ) -> str:
         """按 canary_ratio 分配流量.
 
@@ -661,7 +661,7 @@ class HotUpdateManager:
                 return canary_uri
             return production_uri
 
-    def get_production_model(self, model_name: str) -> Optional[str]:
+    def get_production_model(self, model_name: str) -> str | None:
         """获取当前 PRODUCTION 模型 URI（无则 None）."""
         with self._lock:
             stages = self._model_stages.get(model_name)
@@ -669,7 +669,7 @@ class HotUpdateManager:
                 return None
             return stages.get(ModelStage.PRODUCTION)
 
-    def get_canary_model(self, model_name: str) -> Optional[str]:
+    def get_canary_model(self, model_name: str) -> str | None:
         """获取当前 CANARY 模型 URI（无则 None）."""
         with self._lock:
             stages = self._model_stages.get(model_name)
@@ -677,7 +677,7 @@ class HotUpdateManager:
                 return None
             return stages.get(ModelStage.CANARY)
 
-    def list_model_stages(self, model_name: str) -> dict[str, Optional[str]]:
+    def list_model_stages(self, model_name: str) -> dict[str, str | None]:
         """返回模型各阶段 URI（STAGING/CANARY/PRODUCTION/ARCHIVED）."""
         with self._lock:
             stages = self._model_stages.get(model_name, {})
@@ -690,13 +690,13 @@ class HotUpdateManager:
 
     # 内部辅助
 
-    def _resolve_config(self, key: str, explicit: Optional[Any], default: Any) -> Any:
+    def _resolve_config(self, key: str, explicit: Any | None, default: Any) -> Any:
         """解析配置：显式参数 > config > 默认值."""
         if explicit is not None:
             return explicit
         return self._config.get(key, default)
 
-    def _find_active_canary(self, model_name: str) -> Optional[DeploymentRecord]:
+    def _find_active_canary(self, model_name: str) -> DeploymentRecord | None:
         """查找模型当前进行中的 canary 部署（OBSERVING 状态）."""
         for record in self._deployments.values():
             if record.model_name == model_name and record.status == DeploymentStatus.OBSERVING:
@@ -715,7 +715,7 @@ class HotUpdateManager:
         *,
         model_name: str,
         model_uri: str,
-        metadata: Optional[dict[str, Any]],
+        metadata: dict[str, Any] | None,
     ) -> None:
         """将 canary 模型注册到 ModelRegistryService.
 
@@ -755,7 +755,7 @@ class HotUpdateManager:
 # 全局单例
 
 
-_hot_update_manager: Optional[HotUpdateManager] = None
+_hot_update_manager: HotUpdateManager | None = None
 _hot_update_manager_lock = threading.Lock()
 
 
@@ -776,7 +776,7 @@ def configure_hot_update_manager(
     *,
     model_registry_service: Any = None,
     snapshot_store: Any = None,
-    config: Optional[dict[str, Any]] = None,
+    config: dict[str, Any] | None = None,
 ) -> HotUpdateManager:
     """配置全局 HotUpdateManager 单例（覆盖现有实例）.
 

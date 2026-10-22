@@ -48,6 +48,7 @@ except ImportError:  # pragma: no cover - 无 torch 时仅影响推理路径
     torch = None
 
 from app.contracts.task import Artifact, TaskContext, TaskResult, TaskStatus
+from app.plugins.artifact_data import load_artifact_data
 from app.plugins.rl_agent.policy import PolicyConfig, PolicyNet
 from app.plugins.rl_agent.safety_shield import (
     SafetyConstraints,
@@ -444,38 +445,8 @@ class RLAgentPlugin:
         return float(value_arr.reshape(-1)[0])
 
     def _load_artifact_data(self, artifact: Artifact | None) -> np.ndarray | None:
-        """从 Artifact 加载数据.
-
-        Args:
-            artifact: 输入产物.
-
-        Returns
-        -------
-        Optional[np.ndarray]
-            数据数组. None 表示产物不存在.
-        """
-        if artifact is None:
-            return None
-
-        # 优先从 metadata 加载（小数据）
-        if "data" in artifact.metadata:
-            return np.asarray(artifact.metadata["data"], dtype=np.float32)
-
-        # 从 URI 加载
-        uri = artifact.uri
-        if uri.startswith("file://"):
-            path = uri[len("file://") :]
-            try:
-                return np.load(path, allow_pickle=False)
-            except (OSError, ValueError) as exc:
-                logger.warning("加载文件失败: %s err=%s", path, exc)
-                return None
-
-        logger.warning(
-            "Artifact URI 协议未实现加载: %s（仅支持 file:// 和 metadata.data）",
-            uri,
-        )
-        return None
+        """加载插件输入；统一 URI 解析与无 pickle 数组读取。"""
+        return load_artifact_data(artifact)
 
 
 __all__ = ["RLAgentPlugin"]
