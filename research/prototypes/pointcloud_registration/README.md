@@ -51,6 +51,10 @@ PY="C:/Users/<user>/AppData/Local/Programs/Python/Python314/python.exe"
 "$PY" -m pytest test_pca.py test_registration.py test_identifiability.py -q   # 9 passed
 ```
 
+> 脚本用无前缀导入（`from pca_core import ...`），所以**必须在本目录下跑**；从仓库根跑需
+> `PYTHONPATH=research/prototypes/pointcloud_registration`，否则收集期 `ModuleNotFoundError`。
+> 这也是原型测试不进工程侧默认 CI 收集的原因（见 AGENTS.md）。
+
 ## 真实数据
 
 外部真实点云放 `data/external/`（当前只有两份**合成** smoke 文件，文件名带 `_probe`）。
