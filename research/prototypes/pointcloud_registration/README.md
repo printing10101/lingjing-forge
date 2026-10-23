@@ -35,7 +35,7 @@
 | `symmetry_probe.py` | 首个探针：翻转后从恒等起点跑 ICP，看是否被对称性骗 |
 | `pca_coarse.py` | PCA 主方向 + 四符号候选 + ICP，取最低 RMSE |
 | `seed_sweep.py` | 10 seed 重复上一个脚本，统计"回到真位姿"的比例（**旧口径，见上文警告**） |
-| `identifiability_probe.py` | **本轮的判据脚本**：基线模式（四算例 × N seed）+ dose 模式（前缘带补扫点数 vs 可辨度） |
+| `identifiability_probe.py` | **本轮的判据脚本**：基线模式（四算例 × N seed）+ dose 模式（补扫点数 × 区域 vs 可辨度）+ **real 模式（任意真实点云自检，不需名义 CAD）** |
 | `test_*.py` | 单元测试（CAD-free） |
 
 ## 运行
@@ -46,8 +46,20 @@ PY="C:/Users/<user>/AppData/Local/Programs/Python/Python314/python.exe"
 
 "$PY" identifiability_probe.py --mode baseline --seeds 20 --workers 5
 "$PY" identifiability_probe.py --mode dose --seeds 6 --workers 3
-"$PY" -m pytest test_pca.py test_registration.py test_identifiability.py -q
+# 真实点云（.pts/.txt/.xyz/.csv/.ply，逗号分隔多份）
+"$PY" identifiability_probe.py --mode real --cloud "path/a.pts,path/b.ply"
+"$PY" -m pytest test_pca.py test_registration.py test_identifiability.py -q   # 9 passed
 ```
+
+## 真实数据
+
+外部真实点云放 `data/external/`（当前只有两份**合成** smoke 文件，文件名带 `_probe`）。
+公开叶片数据检索结论见 `docs/reports/public_blade_scan_datasets_20261023.md`：
+唯一同时具备「实测 + 双侧叶面 + 名义 CAD」的是 WINSENT（DaRUS 10.18419/DARUS-3859，需申请）；
+国内为华科无锡院「风电叶片测量点云数据」（NBSDC，需盖章）。
+
+`--mode real` 的判据：在点云自身 PCA 框架下绕三条主轴各翻转 180°，比较 `翻转残差 / 点间距`。
+≈1 即该轴自对称（位姿不可辨），显著 >1 即可辨；**分辨率上限 = 点间距**。
 
 产物写在 `artifacts/identifiability_{baseline,dose}_<YYYYMMDD>/results.json`。
 

@@ -79,3 +79,49 @@ def test_binomial_test_flags_coinflip() -> None:
     assert _binomial_two_sided(8, 10) > 0.05
     assert _binomial_two_sided(10, 10) < 0.01
     assert _binomial_two_sided(5, 10) == 1.0
+
+
+def _blade_like_surface(count: int = 2000, seed: int = 5, camber: float = 0.0) -> np.ndarray:
+    """薄壁叶片样点集：上下两片曲面，厚度峰值在 30% 弦长（NACA 型）。
+
+    camber=0 时关于 x 轴 180° 翻转自对称（压/吸力面互换）；非零弯度破坏该对称。
+    """
+    rng = np.random.default_rng(seed)
+    u = rng.uniform(0.0, 1.0, count)
+    z = rng.uniform(0.0, 60.0, count)
+    t = 5 * 0.12 * (0.2969 * np.sqrt(u) - 0.1260 * u - 0.3516 * u**2 + 0.2843 * u**3 - 0.1015 * u**4)
+    yc = camber / 0.16 * (2 * 0.4 * u - u**2)
+    upper = np.column_stack([40 * u, 40 * (yc + t), z])
+    lower = np.column_stack([40 * u, 40 * (yc - t), z])
+    return np.vstack([upper, lower])
+
+
+def test_flip_residual_separates_symmetric_axis_from_others() -> None:
+    """real 模式的核心判定：对称轴的翻转残差落在点间距量级，其余轴显著高于阈值 1.25。"""
+    from identifiability_probe import cloud_spacing, flip_residual
+
+    points = _blade_like_surface()
+    centroid = points.mean(axis=0)
+    spacing = cloud_spacing(points)
+    assert spacing > 0
+
+    symmetric = flip_residual(points, np.array([1.0, 0.0, 0.0]), centroid) / spacing
+    other = flip_residual(points, np.array([0.0, 1.0, 0.0]), centroid) / spacing
+
+    assert symmetric <= 1.25, f"对称轴比值应在阈值内，实际 {symmetric:.2f}"
+    assert other > 1.25, f"非对称轴比值应超阈值，实际 {other:.2f}"
+    assert other > symmetric + 0.3, f"两类轴需可区分：对称 {symmetric:.2f} vs 其他 {other:.2f}"
+
+
+def test_cloud_loader_accepts_whitespace_pts(tmp_path=None) -> None:
+    import tempfile
+    from pathlib import Path
+
+    from identifiability_probe import load_cloud
+
+    points = _blade_like_surface()
+    target = Path(tempfile.mkdtemp()) / "cloud.pts"
+    np.savetxt(target, points, fmt="%.4f")
+    loaded = load_cloud(str(target))
+    assert loaded.shape == points.shape
+    assert np.allclose(loaded, points, atol=1e-4)

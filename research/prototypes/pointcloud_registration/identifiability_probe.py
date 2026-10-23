@@ -44,6 +44,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import pathlib
 import sys
 import time
 from concurrent.futures import ProcessPoolExecutor
@@ -291,6 +292,86 @@ def run_local_scan(
 
 
 # --------------------------------------------------------------------------- #
+# real：任意真实点云的可辨识性自检（不需要名义 CAD）
+# --------------------------------------------------------------------------- #
+def load_cloud(path: str) -> np.ndarray:
+    """读 .pts/.txt/.xyz/.csv/.ply 点云，只取前三列坐标。"""
+    path_obj = pathlib.Path(path)
+    suffix = path_obj.suffix.lower()
+    if suffix == ".ply":
+        import trimesh
+
+        mesh = trimesh.load(str(path_obj), process=False)
+        return np.asarray(mesh.vertices, dtype=np.float64)
+    raw = np.loadtxt(str(path_obj), delimiter=None, usecols=(0, 1, 2), dtype=np.float64, comments=("/", "#"))
+    if raw.ndim != 2 or raw.shape[1] != 3:
+        raise ValueError(f"{path}: 需要至少三列坐标，实际形状 {raw.shape}")
+    return raw
+
+
+def cloud_spacing(points: np.ndarray, sample: int = 4000, seed: int = 0) -> float:
+    """点间距（中位一阶近邻距离，剔除自身）——任何残差的下界刻度。"""
+    from scipy.spatial import cKDTree
+
+    rng = np.random.default_rng(seed)
+    idx = rng.choice(len(points), size=min(sample, len(points)), replace=False)
+    distances, _ = cKDTree(points).query(points[idx], k=2)
+    return float(np.median(distances[:, 1]))
+
+
+def flip_residual(points: np.ndarray, axis: np.ndarray, centroid: np.ndarray) -> float:
+    """绕轴 180° 翻转后与自身的平均最近点距离。"""
+    from scipy.spatial import cKDTree
+
+    unit = axis / np.linalg.norm(axis)
+    rotation = 2.0 * np.outer(unit, unit) - np.eye(3)  # 绕 unit 轴 180°
+    flipped = (rotation @ (points - centroid).T).T + centroid
+    distances, _ = cKDTree(points).query(flipped, k=1)
+    return float(np.mean(distances))
+
+
+def run_real_cloud(path: str) -> dict:
+    """在点云自身 PCA 框架下枚举三条主轴 180° 翻转，判定该形状在哪条轴上自对称。
+
+    判据：``flip_residual / spacing``。≈1 表示翻转把曲面映回自身（自对称 → 位姿在该轴上
+    不可辨）；显著 >1 表示翻转把曲面移出自身（可辨）。**分辨率上限 = 点间距**：小于点间距
+    的不对称这个检验看不见，须用 Δ/σ 的统计路线。
+    """
+    points = load_cloud(path)
+    if len(points) > 200_000:
+        rng = np.random.default_rng(0)
+        points = points[rng.choice(len(points), 200_000, replace=False)]
+    spacing = cloud_spacing(points)
+    centroid = points.mean(axis=0)
+    centred = points - centroid
+    eigenvalues, eigenvectors = np.linalg.eigh(np.cov(centred.T))
+    order = np.argsort(eigenvalues)[::-1]
+    axes = eigenvectors[:, order]
+
+    rows = []
+    for index, name in enumerate(("axis0_long", "axis1_mid", "axis2_thin")):
+        residual = flip_residual(points, axes[:, index], centroid)
+        rows.append(
+            {
+                "axis": name,
+                "eigenvalue": float(eigenvalues[order][index]),
+                "flip_residual_mm": residual,
+                "spacing_mm": spacing,
+                "ratio": residual / spacing if spacing > 0 else float("inf"),
+                "self_symmetric": bool(residual <= 1.25 * spacing),
+            }
+        )
+    return {
+        "cloud": str(path),
+        "points": int(len(points)),
+        "spacing_mm": spacing,
+        "extent_mm": [float(v) for v in (points.max(axis=0) - points.min(axis=0))],
+        "axes": rows,
+        "verdict": "unidentifiable-on-symmetric-axes" if any(r["self_symmetric"] for r in rows) else "identifiable",
+    }
+
+
+# --------------------------------------------------------------------------- #
 # 汇总
 # --------------------------------------------------------------------------- #
 def _binomial_two_sided(successes: int, n: int, p: float = 0.5) -> float:
@@ -391,17 +472,42 @@ def main() -> None:
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=("baseline", "dose"), default="baseline")
+    parser.add_argument("--mode", choices=("baseline", "dose", "real"), default="baseline")
     parser.add_argument("--seeds", type=int, default=20)
     parser.add_argument("--workers", type=int, default=3)
     parser.add_argument("--baseline-cases", default="", help="逗号分隔的 CASES 键；dose_m* 会自动注册")
     parser.add_argument("--dose-m", default="0.0,0.002,0.01,0.02")
     parser.add_argument("--dose-n", default="50,100,200,400,800")
+    parser.add_argument("--cloud", default="", help="real 模式：逗号分隔的点云路径")
     parser.add_argument("--band-lo", type=float, default=0.0, help="补扫带 x 下界 (mm)")
     parser.add_argument("--band-hi", type=float, default=LE_BAND_MM, help="补扫带 x 上界 (mm)")
     args = parser.parse_args()
 
     started = time.time()
+    if args.mode == "real":
+        paths = [x for x in args.cloud.split(",") if x]
+        if not paths:
+            parser.error("--mode real 需要 --cloud")
+        results = []
+        for path in paths:
+            result = run_real_cloud(path)
+            results.append(result)
+            print(f"\n== {result['cloud']}  points={result['points']}  spacing={result['spacing_mm']:.3f} mm  "
+                  f"extent={['%.1f' % v for v in result['extent_mm']]}")
+            print(f"{'axis':12} {'flip_resid':>10} {'ratio':>7} {'self_sym':>9}")
+            for row in result["axes"]:
+                print(f"{row['axis']:12} {row['flip_residual_mm']:>10.3f} {row['ratio']:>7.2f} "
+                      f"{str(row['self_symmetric']):>9}")
+            print(f"verdict: {result['verdict']}")
+        out_dir = ARTIFACT_DIR.parent / f"identifiability_real_{time.strftime('%Y%m%d')}"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        out = out_dir / "results.json"
+        out.write_text(json.dumps({"generated_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+                                   "mode": "real", "config": {"ratio_threshold": 1.25},
+                                   "results": results}, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"\nresult: {out}  ({time.time() - started:.1f}s)")
+        return
+
     if args.mode == "baseline":
         wanted = [c for c in args.baseline_cases.split(",") if c] or list(CASES)
         for case_name in wanted:

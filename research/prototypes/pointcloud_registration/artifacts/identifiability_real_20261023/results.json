@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-10-23T11:29:03+0800",
+  "mode": "real",
+  "config": {
+    "ratio_threshold": 1.25
+  },
+  "results": [
+    {
+      "cloud": "data/external/symmetric_naca0012_probe.pts",
+      "points": 20000,
+      "spacing_mm": 0.23404049551318534,
+      "extent_mm": [
+        40.0349,
+        4.905799999999999,
+        60.109100000000005
+      ],
+      "axes": [
+        {
+          "axis": "axis0_long",
+          "eigenvalue": 329.1320693189808,
+          "flip_residual_mm": 0.7974800358166256,
+          "spacing_mm": 0.23404049551318534,
+          "ratio": 3.4074446563957874,
+          "self_symmetric": false
+        },
+        {
+          "axis": "axis1_mid",
+          "eigenvalue": 133.42832644795882,
+          "flip_residual_mm": 0.26215919003603017,
+          "spacing_mm": 0.23404049551318534,
+          "ratio": 1.1201445692600693,
+          "self_symmetric": true
+        },
+        {
+          "axis": "axis2_thin",
+          "eigenvalue": 3.060683642987173,
+          "flip_residual_mm": 0.7962410642948318,
+          "spacing_mm": 0.23404049551318534,
+          "ratio": 3.402150822441637,
+          "self_symmetric": false
+        }
+      ],
+      "verdict": "unidentifiable-on-symmetric-axes"
+    },
+    {
+      "cloud": "data/external/cambered_naca2412_probe.pts",
+      "points": 20000,
+      "spacing_mm": 0.23665433651911255,
+      "extent_mm": [
+        40.0417,
+        4.9732,
+        60.109100000000005
+      ],
+      "axes": [
+        {
+          "axis": "axis0_long",
+          "eigenvalue": 327.07961186496453,
+          "flip_residual_mm": 0.8608702117765011,
+          "spacing_mm": 0.23665433651911255,
+          "ratio": 3.6376692877841097,
+          "self_symmetric": false
+        },
+        {
+          "axis": "axis1_mid",
+          "eigenvalue": 133.51132995716134,
+          "flip_residual_mm": 0.4693047839535437,
+          "spacing_mm": 0.23665433651911255,
+          "ratio": 1.9830812773449513,
+          "self_symmetric": false
+        },
+        {
+          "axis": "axis2_thin",
+          "eigenvalue": 3.116796611684478,
+          "flip_residual_mm": 0.8003579039513006,
+          "spacing_mm": 0.23665433651911255,
+          "ratio": 3.38197015834807,
+          "self_symmetric": false
+        }
+      ],
+      "verdict": "identifiable"
+    }
+  ]
+}
