@@ -1,0 +1,5753 @@
+{
+  "generated_at": "2026-10-23T11:11:20+0800",
+  "mode": "baseline",
+  "config": {
+    "points": 20000,
+    "bootstrap": 200,
+    "le_band_mm": 3.2,
+    "distinguishable_D": 2.0,
+    "seeds_per_case": 20,
+    "pose_rot_tol_deg": 1.0,
+    "pose_trans_tol_mm": 0.5
+  },
+  "summary": {
+    "symmetric_naca0012": {
+      "n": 20,
+      "strict_success": 13,
+      "strict_rate": 0.65,
+      "binomial_p_vs_coinflip": 0.26317596435546875,
+      "symmetry_residual_median_mm": 0.2846274320255556,
+      "sampling_floor_median_mm": 0.2850278107660847,
+      "symmetry_floor_ratio_median": 0.9979841675275682,
+      "delta_fixed_median_mm": 0.0004382978137112718,
+      "D_median": 0.28786588886009895,
+      "p_truth_better_median": 0.5925,
+      "distinguishable_rate": 0.0,
+      "mate_candidate_rate": 1.0
+    },
+    "cambered_naca2412": {
+      "n": 20,
+      "strict_success": 20,
+      "strict_rate": 1.0,
+      "binomial_p_vs_coinflip": 1.9073486328125e-06,
+      "symmetry_residual_median_mm": 1.1572922662614067,
+      "sampling_floor_median_mm": 0.2851560863140026,
+      "symmetry_floor_ratio_median": 4.063598596328223,
+      "delta_fixed_median_mm": 0.8707411180927389,
+      "D_median": 274.43092135171594,
+      "p_truth_better_median": 1.0,
+      "distinguishable_rate": 1.0,
+      "mate_candidate_rate": 0.0
+    },
+    "twisted_tapered_naca2412": {
+      "n": 20,
+      "strict_success": 20,
+      "strict_rate": 1.0,
+      "binomial_p_vs_coinflip": 1.9073486328125e-06,
+      "symmetry_residual_median_mm": 6.670969720338933,
+      "sampling_floor_median_mm": 0.2671765487662714,
+      "symmetry_floor_ratio_median": 24.992441762004702,
+      "delta_fixed_median_mm": 6.408240330457804,
+      "D_median": 247.80707951675504,
+      "p_truth_better_median": 1.0,
+      "distinguishable_rate": 1.0,
+      "mate_candidate_rate": 0.0
+    },
+    "cambered_naca2412_yaw_control": {
+      "n": 20,
+      "strict_success": 20,
+      "strict_rate": 1.0,
+      "binomial_p_vs_coinflip": 1.9073486328125e-06,
+      "symmetry_residual_median_mm": 1.4695056383305416,
+      "sampling_floor_median_mm": 0.2851560863140026,
+      "symmetry_floor_ratio_median": 5.158507894351096,
+      "delta_fixed_median_mm": 1.1834945742437992,
+      "D_median": 231.49069816155662,
+      "p_truth_better_median": 1.0,
+      "distinguishable_rate": 1.0,
+      "mate_candidate_rate": 0.0
+    }
+  },
+  "rows": [
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 42,
+      "symmetry_residual_mm": 0.2859656002725545,
+      "sampling_floor_mm": 0.28466823725608564,
+      "symmetry_floor_ratio": 1.004557456177669,
+      "delta_fixed_mm": 0.0012268800955747138,
+      "sigma_mm": 0.0015449552079596202,
+      "D": 0.7941201720631245,
+      "p_truth_better": 0.775,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.286057588979657,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.286057588979657,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.029410426590195635,
+          "translation_error_vs_generating_inverse_mm": 0.025782109800839836,
+          "rotation_error_vs_identity_deg": 179.99600967615643
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2871642986176025,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99992452911397,
+          "translation_error_vs_generating_inverse_mm": 59.9465066602236,
+          "rotation_error_vs_identity_deg": 0.17850764020886334
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.833038644902203,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.96186422916304,
+          "translation_error_vs_generating_inverse_mm": 37.90827074480342,
+          "rotation_error_vs_identity_deg": 179.8940614047099
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8332110149688731,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.94444221629334,
+          "translation_error_vs_generating_inverse_mm": 70.92291622058005,
+          "rotation_error_vs_identity_deg": 179.97211756960283
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 43,
+      "symmetry_residual_mm": 0.2846383861552626,
+      "sampling_floor_mm": 0.2848165950717366,
+      "symmetry_floor_ratio": 0.9993743029038419,
+      "delta_fixed_mm": 0.0006250796994957194,
+      "sigma_mm": 0.0014304363141618645,
+      "D": 0.4369853402819771,
+      "p_truth_better": 0.675,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2836633746468832,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2836633746468832,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.14122476580091453,
+          "translation_error_vs_generating_inverse_mm": 0.1018583906252552,
+          "rotation_error_vs_identity_deg": 179.99900586279875
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2843128046525082,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.9951599423635,
+          "translation_error_vs_generating_inverse_mm": 59.975346097766995,
+          "rotation_error_vs_identity_deg": 0.09670711203461484
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8333716841510228,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.67150902916532,
+          "translation_error_vs_generating_inverse_mm": 70.97363072841402,
+          "rotation_error_vs_identity_deg": 179.9924055625687
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8339259373295309,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.992078502499,
+          "translation_error_vs_generating_inverse_mm": 37.94293439067169,
+          "rotation_error_vs_identity_deg": 179.85122410146477
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 44,
+      "symmetry_residual_mm": 0.281156872876261,
+      "sampling_floor_mm": 0.28521638338340966,
+      "symmetry_floor_ratio": 0.9857669098142531,
+      "delta_fixed_mm": 0.0013759821029659955,
+      "sigma_mm": 0.0014671626470181586,
+      "D": 0.9378524635714539,
+      "p_truth_better": 0.81,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2826768138694945,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2826768138694945,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.13300777547742548,
+          "translation_error_vs_generating_inverse_mm": 0.09584295874971804,
+          "rotation_error_vs_identity_deg": 179.99813369064722
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.28465652831475186,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99709815236181,
+          "translation_error_vs_generating_inverse_mm": 59.94856323911473,
+          "rotation_error_vs_identity_deg": 0.13385646392859732
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8314036019688068,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.949658179434,
+          "translation_error_vs_generating_inverse_mm": 70.94595851982582,
+          "rotation_error_vs_identity_deg": 179.98690006850458
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8315238911418603,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98358677344427,
+          "translation_error_vs_generating_inverse_mm": 37.82720708313833,
+          "rotation_error_vs_identity_deg": 179.98605256610858
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 45,
+      "symmetry_residual_mm": 0.28328629379496645,
+      "sampling_floor_mm": 0.2865651810297475,
+      "symmetry_floor_ratio": 0.9885579705706093,
+      "delta_fixed_mm": -0.0019298397044640095,
+      "sigma_mm": 0.0014818055520960892,
+      "D": -1.3023569129796775,
+      "p_truth_better": 0.1,
+      "distinguishable": false,
+      "best_class": "mate",
+      "best_rmse_mm": 0.2826921351254388,
+      "strict_success": false,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2826921351254388,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99817223512468,
+          "translation_error_vs_generating_inverse_mm": 59.99059265275479,
+          "rotation_error_vs_identity_deg": 0.014518797919519173
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2849426110791433,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.26290192083946595,
+          "translation_error_vs_generating_inverse_mm": 0.10949610769026812,
+          "rotation_error_vs_identity_deg": 179.99955634155432
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.833356944910408,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9635588218945,
+          "translation_error_vs_generating_inverse_mm": 37.980428441506106,
+          "rotation_error_vs_identity_deg": 179.824192166389
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8338850002485934,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.92583352167026,
+          "translation_error_vs_generating_inverse_mm": 70.96308702977059,
+          "rotation_error_vs_identity_deg": 179.95665949303825
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 46,
+      "symmetry_residual_mm": 0.2858947148604876,
+      "sampling_floor_mm": 0.2820956848225675,
+      "symmetry_floor_ratio": 1.0134671682068075,
+      "delta_fixed_mm": 0.0006985619582999411,
+      "sigma_mm": 0.0014957006144666262,
+      "D": 0.46704664793432044,
+      "p_truth_better": 0.7,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2849627138739138,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2849627138739138,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.003824928423639292,
+          "translation_error_vs_generating_inverse_mm": 0.10122237695149694,
+          "rotation_error_vs_identity_deg": 179.9996424675679
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2857763336811887,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.9983853770125,
+          "translation_error_vs_generating_inverse_mm": 60.0033893566364,
+          "rotation_error_vs_identity_deg": 0.08340876320438038
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8260905484076523,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9947912793093,
+          "translation_error_vs_generating_inverse_mm": 37.80575993620432,
+          "rotation_error_vs_identity_deg": 179.9940487682393
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8264232514048213,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.94005155071372,
+          "translation_error_vs_generating_inverse_mm": 70.88093804410454,
+          "rotation_error_vs_identity_deg": 179.9958527801218
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 47,
+      "symmetry_residual_mm": 0.2861963069910944,
+      "sampling_floor_mm": 0.28410676874599555,
+      "symmetry_floor_ratio": 1.0073547640357945,
+      "delta_fixed_mm": -2.494719517309285e-05,
+      "sigma_mm": 0.0015617823720999295,
+      "D": -0.015973541268460817,
+      "p_truth_better": 0.485,
+      "distinguishable": false,
+      "best_class": "mate",
+      "best_rmse_mm": 0.2857717545475346,
+      "strict_success": false,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2857717545475346,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99447476092016,
+          "translation_error_vs_generating_inverse_mm": 60.02163707404748,
+          "rotation_error_vs_identity_deg": 0.04158326116786213
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2858002057933253,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.07048506910948499,
+          "translation_error_vs_generating_inverse_mm": 0.020525233704856576,
+          "rotation_error_vs_identity_deg": 179.9979972934198
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8305438153961966,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.73793406082106,
+          "translation_error_vs_generating_inverse_mm": 70.9458669590019,
+          "rotation_error_vs_identity_deg": 179.99278379816366
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8312946682785122,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.972432870051,
+          "translation_error_vs_generating_inverse_mm": 38.04593246559626,
+          "rotation_error_vs_identity_deg": 179.7395777543583
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 48,
+      "symmetry_residual_mm": 0.28488878709757093,
+      "sampling_floor_mm": 0.2855117122228614,
+      "symmetry_floor_ratio": 0.9978182151602795,
+      "delta_fixed_mm": 0.0004485238952275383,
+      "sigma_mm": 0.0014607405474014936,
+      "D": 0.30705240299204123,
+      "p_truth_better": 0.585,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28688129282168173,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.28688129282168173,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.08794990357366238,
+          "translation_error_vs_generating_inverse_mm": 0.057806500648501034,
+          "rotation_error_vs_identity_deg": 179.99945552932718
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.2876596955833901,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.9997125063824,
+          "translation_error_vs_generating_inverse_mm": 59.95378383631632,
+          "rotation_error_vs_identity_deg": 0.1427366747733568
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8338592517447462,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.988592527763,
+          "translation_error_vs_generating_inverse_mm": 70.92142480766107,
+          "rotation_error_vs_identity_deg": 179.9940717240253
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.835135100611484,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.97842757550475,
+          "translation_error_vs_generating_inverse_mm": 37.81880323696383,
+          "rotation_error_vs_identity_deg": 179.99464896973674
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 49,
+      "symmetry_residual_mm": 0.28353675951014995,
+      "sampling_floor_mm": 0.28455862596731707,
+      "symmetry_floor_ratio": 0.9964089422568252,
+      "delta_fixed_mm": 0.0005952322470097232,
+      "sigma_mm": 0.0014561219649945935,
+      "D": 0.408779114194554,
+      "p_truth_better": 0.62,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.283096399881348,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.283096399881348,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.10594637384333343,
+          "translation_error_vs_generating_inverse_mm": 0.10911473394527295,
+          "rotation_error_vs_identity_deg": 179.9999528952103
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2835752039893963,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99988903898364,
+          "translation_error_vs_generating_inverse_mm": 59.94736747398261,
+          "rotation_error_vs_identity_deg": 0.1078866181873545
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8333366181544462,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99516629590033,
+          "translation_error_vs_generating_inverse_mm": 37.82636936155876,
+          "rotation_error_vs_identity_deg": 179.9944270745482
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8346489068626813,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.82033631909633,
+          "translation_error_vs_generating_inverse_mm": 70.9968388648689,
+          "rotation_error_vs_identity_deg": 179.99717693808282
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 50,
+      "symmetry_residual_mm": 0.2882192718271227,
+      "sampling_floor_mm": 0.2865111594447556,
+      "symmetry_floor_ratio": 1.0059617656278288,
+      "delta_fixed_mm": 0.0006502508120092177,
+      "sigma_mm": 0.0015548276494948157,
+      "D": 0.4182140780815757,
+      "p_truth_better": 0.685,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28588818251354114,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.28588818251354114,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.25040006713368074,
+          "translation_error_vs_generating_inverse_mm": 0.19915685894843732,
+          "rotation_error_vs_identity_deg": 179.99989892964254
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2861120437696762,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99723333177772,
+          "translation_error_vs_generating_inverse_mm": 60.05662996565651,
+          "rotation_error_vs_identity_deg": 0.2023267434998128
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8321465666285837,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.94966435179353,
+          "translation_error_vs_generating_inverse_mm": 70.94557792372719,
+          "rotation_error_vs_identity_deg": 179.97287405543236
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8328824391950006,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98935184411837,
+          "translation_error_vs_generating_inverse_mm": 37.867726213806094,
+          "rotation_error_vs_identity_deg": 179.9964747752309
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 51,
+      "symmetry_residual_mm": 0.286725933355885,
+      "sampling_floor_mm": 0.2848392381487597,
+      "symmetry_floor_ratio": 1.0066237194685232,
+      "delta_fixed_mm": -0.00033029921876986864,
+      "sigma_mm": 0.0015526215233459268,
+      "D": -0.21273646784057712,
+      "p_truth_better": 0.41,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28726644712876365,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28726644712876365,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.15267352932040867,
+          "translation_error_vs_generating_inverse_mm": 0.07774348498828333,
+          "rotation_error_vs_identity_deg": 179.99593131232865
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2877210406769842,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99966225616686,
+          "translation_error_vs_generating_inverse_mm": 60.051517662781556,
+          "rotation_error_vs_identity_deg": 0.26666293635697946
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8306292031762477,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98347577205826,
+          "translation_error_vs_generating_inverse_mm": 37.6553988951745,
+          "rotation_error_vs_identity_deg": 179.67954233916404
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8315114418953361,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.84578521981518,
+          "translation_error_vs_generating_inverse_mm": 70.95362216589245,
+          "rotation_error_vs_identity_deg": 179.9928365726983
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 52,
+      "symmetry_residual_mm": 0.2838480523413802,
+      "sampling_floor_mm": 0.28460520276520346,
+      "symmetry_floor_ratio": 0.99733964658247,
+      "delta_fixed_mm": 0.00042807173219500534,
+      "sigma_mm": 0.0015932437412738436,
+      "D": 0.2686793747281567,
+      "p_truth_better": 0.58,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28521184903282804,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.28521184903282804,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.09991473631734042,
+          "translation_error_vs_generating_inverse_mm": 0.08124772796687371,
+          "rotation_error_vs_identity_deg": 179.99969224450183
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28553867513017767,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.9977907267714,
+          "translation_error_vs_generating_inverse_mm": 60.105657781481895,
+          "rotation_error_vs_identity_deg": 0.2594081315309307
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8319352661289587,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99646687069853,
+          "translation_error_vs_generating_inverse_mm": 37.64652271033642,
+          "rotation_error_vs_identity_deg": 179.7300932963508
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8321551490772189,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.88350607704953,
+          "translation_error_vs_generating_inverse_mm": 70.99661147293894,
+          "rotation_error_vs_identity_deg": 179.99058515260526
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 53,
+      "symmetry_residual_mm": 0.2838825883964398,
+      "sampling_floor_mm": 0.28543028275829746,
+      "symmetry_floor_ratio": 0.994577679891211,
+      "delta_fixed_mm": 0.0010673996532266383,
+      "sigma_mm": 0.001447624216603708,
+      "D": 0.7373458118370525,
+      "p_truth_better": 0.765,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.282830440411169,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.282830440411169,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.059507064782320755,
+          "translation_error_vs_generating_inverse_mm": 0.03939229757940928,
+          "rotation_error_vs_identity_deg": 179.9952429879158
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2838449017270329,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99652687672008,
+          "translation_error_vs_generating_inverse_mm": 60.026452115743254,
+          "rotation_error_vs_identity_deg": 0.06703061683618977
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.832216717354044,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.924079362067,
+          "translation_error_vs_generating_inverse_mm": 70.98518581630488,
+          "rotation_error_vs_identity_deg": 179.99644759579866
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8323466143260813,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99883543083902,
+          "translation_error_vs_generating_inverse_mm": 37.83884295827091,
+          "rotation_error_vs_identity_deg": 179.98557853177945
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 54,
+      "symmetry_residual_mm": 0.2846496891338472,
+      "sampling_floor_mm": 0.28567427237313586,
+      "symmetry_floor_ratio": 0.9964134563789125,
+      "delta_fixed_mm": -0.0004372990311758601,
+      "sigma_mm": 0.0015746729576955273,
+      "D": -0.277707843421551,
+      "p_truth_better": 0.38,
+      "distinguishable": false,
+      "best_class": "mate",
+      "best_rmse_mm": 0.28484105386141534,
+      "strict_success": false,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.28484105386141534,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.9981964300991,
+          "translation_error_vs_generating_inverse_mm": 59.966839065677135,
+          "rotation_error_vs_identity_deg": 0.07846200234493002
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2850381502096914,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.15754583153377413,
+          "translation_error_vs_generating_inverse_mm": 0.03192833309997392,
+          "rotation_error_vs_identity_deg": 179.9974653709281
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8307730502318822,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.95529886208863,
+          "translation_error_vs_generating_inverse_mm": 37.75501163473389,
+          "rotation_error_vs_identity_deg": 179.77310080202955
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8308861469805726,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.8189756436468,
+          "translation_error_vs_generating_inverse_mm": 70.96450756188788,
+          "rotation_error_vs_identity_deg": 179.9434169553201
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 55,
+      "symmetry_residual_mm": 0.2846164778958487,
+      "sampling_floor_mm": 0.2837464935167123,
+      "symmetry_floor_ratio": 1.0030660621329763,
+      "delta_fixed_mm": 0.0003862662609449355,
+      "sigma_mm": 0.0015449566781957451,
+      "D": 0.2500175353758339,
+      "p_truth_better": 0.6,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2867516664807616,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2867516664807616,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.016123480981113505,
+          "translation_error_vs_generating_inverse_mm": 0.009837519977442675,
+          "rotation_error_vs_identity_deg": 179.99846649299707
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28693842154700866,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99965321442258,
+          "translation_error_vs_generating_inverse_mm": 59.97433222578623,
+          "rotation_error_vs_identity_deg": 0.0832884555792317
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8295955821235923,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9710184688701,
+          "translation_error_vs_generating_inverse_mm": 37.958992960012566,
+          "rotation_error_vs_identity_deg": 179.81955924876252
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8297938191778835,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.75010147131383,
+          "translation_error_vs_generating_inverse_mm": 70.9497750428573,
+          "rotation_error_vs_identity_deg": 179.96896439353918
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 56,
+      "symmetry_residual_mm": 0.28554283635057054,
+      "sampling_floor_mm": 0.28556144381779536,
+      "symmetry_floor_ratio": 0.999934839007059,
+      "delta_fixed_mm": 0.0013814363463715753,
+      "sigma_mm": 0.001343533654845598,
+      "D": 1.0282111961909381,
+      "p_truth_better": 0.855,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28569370209664796,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28569370209664796,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.023192630151575015,
+          "translation_error_vs_generating_inverse_mm": 0.05392131987085426,
+          "rotation_error_vs_identity_deg": 179.99930779383493
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.28708989195911405,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99869168165478,
+          "translation_error_vs_generating_inverse_mm": 59.954290192272666,
+          "rotation_error_vs_identity_deg": 0.19265073864749888
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.828452168355712,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98710583885546,
+          "translation_error_vs_generating_inverse_mm": 37.74289136309068,
+          "rotation_error_vs_identity_deg": 179.84476058639711
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8284697107262669,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.97725554250462,
+          "translation_error_vs_generating_inverse_mm": 70.89824908736223,
+          "rotation_error_vs_identity_deg": 179.9977069969897
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 57,
+      "symmetry_residual_mm": 0.28388643072347497,
+      "sampling_floor_mm": 0.28727364910381864,
+      "symmetry_floor_ratio": 0.9882090877777671,
+      "delta_fixed_mm": 0.0009181898318340792,
+      "sigma_mm": 0.001503236120835564,
+      "D": 0.6108087871941963,
+      "p_truth_better": 0.725,
+      "distinguishable": false,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28434719067479136,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.28434719067479136,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.07832895580409062,
+          "translation_error_vs_generating_inverse_mm": 0.1001023484577277,
+          "rotation_error_vs_identity_deg": 179.99870890679165
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28503031870278234,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99719130321583,
+          "translation_error_vs_generating_inverse_mm": 60.02573344992221,
+          "rotation_error_vs_identity_deg": 0.13816513300339822
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8277949184556654,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.81590763067655,
+          "translation_error_vs_generating_inverse_mm": 70.95643306575403,
+          "rotation_error_vs_identity_deg": 179.9699194179455
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8287144524780508,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.96082848954822,
+          "translation_error_vs_generating_inverse_mm": 37.84875798221438,
+          "rotation_error_vs_identity_deg": 179.96336697685794
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 58,
+      "symmetry_residual_mm": 0.28540425537805303,
+      "sampling_floor_mm": 0.2859331975115295,
+      "symmetry_floor_ratio": 0.998150119894857,
+      "delta_fixed_mm": -0.00022857545369637356,
+      "sigma_mm": 0.0014276946449112793,
+      "D": -0.1601010793947314,
+      "p_truth_better": 0.45,
+      "distinguishable": false,
+      "best_class": "mate",
+      "best_rmse_mm": 0.28425007370587946,
+      "strict_success": false,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.28425007370587946,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99729821376968,
+          "translation_error_vs_generating_inverse_mm": 59.991494802028505,
+          "rotation_error_vs_identity_deg": 0.020722251539792035
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28519179097567643,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.2614389529038316,
+          "translation_error_vs_generating_inverse_mm": 0.1542624754079014,
+          "rotation_error_vs_identity_deg": 179.99758286653395
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8276125723946999,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99573032246707,
+          "translation_error_vs_generating_inverse_mm": 37.85187634360752,
+          "rotation_error_vs_identity_deg": 179.87604697027953
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8283868532590721,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.73463071277905,
+          "translation_error_vs_generating_inverse_mm": 70.86100330372604,
+          "rotation_error_vs_identity_deg": 179.99514624868715
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 59,
+      "symmetry_residual_mm": 0.283588640652143,
+      "sampling_floor_mm": 0.28144748190853686,
+      "symmetry_floor_ratio": 1.0076076670826353,
+      "delta_fixed_mm": -0.001278324838126972,
+      "sigma_mm": 0.0014209635409950403,
+      "D": -0.899618323234258,
+      "p_truth_better": 0.18,
+      "distinguishable": false,
+      "best_class": "mate",
+      "best_rmse_mm": 0.28558318655226483,
+      "strict_success": false,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28558318655226483,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99935024852525,
+          "translation_error_vs_generating_inverse_mm": 59.97535030518817,
+          "rotation_error_vs_identity_deg": 0.029617757648981027
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.28713874634004133,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.34702741404274196,
+          "translation_error_vs_generating_inverse_mm": 0.15873742271931576,
+          "rotation_error_vs_identity_deg": 179.99695738477854
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8289990405066864,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.97406493392947,
+          "translation_error_vs_generating_inverse_mm": 37.87826597303315,
+          "rotation_error_vs_identity_deg": 179.88978160322074
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8295583292094998,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9105566266832,
+          "translation_error_vs_generating_inverse_mm": 70.95814497373843,
+          "rotation_error_vs_identity_deg": 179.95714781339012
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 60,
+      "symmetry_residual_mm": 0.2826672737705474,
+      "sampling_floor_mm": 0.2864804405807098,
+      "symmetry_floor_ratio": 0.9866896085386041,
+      "delta_fixed_mm": -0.001605809679703998,
+      "sigma_mm": 0.0014423876069121564,
+      "D": -1.1132996928209147,
+      "p_truth_better": 0.155,
+      "distinguishable": false,
+      "best_class": "mate",
+      "best_rmse_mm": 0.2843811879923968,
+      "strict_success": false,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2843811879923968,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.9961927763198,
+          "translation_error_vs_generating_inverse_mm": 60.00889753477154,
+          "rotation_error_vs_identity_deg": 0.024300772225195697
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2857111757964338,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.2765411756460312,
+          "translation_error_vs_generating_inverse_mm": 0.15873224406378628,
+          "rotation_error_vs_identity_deg": 179.99942578533233
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8344309215442985,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.82695058580072,
+          "translation_error_vs_generating_inverse_mm": 70.90565756787623,
+          "rotation_error_vs_identity_deg": 179.97667221331017
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8344532701673136,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98572966446454,
+          "translation_error_vs_generating_inverse_mm": 37.98754753972832,
+          "rotation_error_vs_identity_deg": 179.710197616808
+        }
+      ]
+    },
+    {
+      "case": "symmetric_naca0012",
+      "axis": "x",
+      "seed": 61,
+      "symmetry_residual_mm": 0.2829192824775036,
+      "sampling_floor_mm": 0.28450718163163885,
+      "symmetry_floor_ratio": 0.9944187730340278,
+      "delta_fixed_mm": -0.0028611137717119393,
+      "sigma_mm": 0.0014518440249342375,
+      "D": -1.9706757217542952,
+      "p_truth_better": 0.025,
+      "distinguishable": false,
+      "best_class": "mate",
+      "best_rmse_mm": 0.283418710488411,
+      "strict_success": false,
+      "class_counts": {
+        "truth": 1,
+        "mate": 1,
+        "other": 2
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.283418710488411,
+          "class": "mate",
+          "rotation_error_vs_generating_inverse_deg": 179.99557186456585,
+          "translation_error_vs_generating_inverse_mm": 59.98985274513161,
+          "rotation_error_vs_identity_deg": 0.019445906645222128
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.28641799486554154,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.024534765305757815,
+          "translation_error_vs_generating_inverse_mm": 0.07679610788044025,
+          "rotation_error_vs_identity_deg": 179.99418970700617
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8340484670379626,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.90578910516467,
+          "translation_error_vs_generating_inverse_mm": 70.9170485053318,
+          "rotation_error_vs_identity_deg": 179.9668510563028
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8342179750773342,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9719643499909,
+          "translation_error_vs_generating_inverse_mm": 37.8008097891331,
+          "rotation_error_vs_identity_deg": 179.89755815740932
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 42,
+      "symmetry_residual_mm": 1.1621554516930546,
+      "sampling_floor_mm": 0.28562451445135034,
+      "symmetry_floor_ratio": 4.068822502597204,
+      "delta_fixed_mm": 0.8699747007209061,
+      "sigma_mm": 0.003135992598583759,
+      "D": 277.4160567578489,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28471068934215926,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28471068934215926,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.08133876327867905,
+          "translation_error_vs_generating_inverse_mm": 0.028748331125068687,
+          "rotation_error_vs_identity_deg": 179.99849829442942
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.49563007792629715,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99463223233357,
+          "translation_error_vs_generating_inverse_mm": 59.93207766602596,
+          "rotation_error_vs_identity_deg": 0.5925617490586156
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8332719038877404,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.95034021823173,
+          "translation_error_vs_generating_inverse_mm": 70.89211944221252,
+          "rotation_error_vs_identity_deg": 179.93326511516827
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9298707046381409,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.3596644014863,
+          "translation_error_vs_generating_inverse_mm": 38.38191683691731,
+          "rotation_error_vs_identity_deg": 179.97134551157336
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 43,
+      "symmetry_residual_mm": 1.1558766662003312,
+      "sampling_floor_mm": 0.2866145953545333,
+      "symmetry_floor_ratio": 4.032860450705757,
+      "delta_fixed_mm": 0.8699374687680975,
+      "sigma_mm": 0.003091396811928892,
+      "D": 281.4059539077081,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2854329221877301,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2854329221877301,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.007317484489966075,
+          "translation_error_vs_generating_inverse_mm": 0.018017423440164545,
+          "rotation_error_vs_identity_deg": 179.9965758362931
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.4976637328546469,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9970287159735,
+          "translation_error_vs_generating_inverse_mm": 59.94942915020019,
+          "rotation_error_vs_identity_deg": 0.5869536742354174
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8373992864931581,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.97950339840565,
+          "translation_error_vs_generating_inverse_mm": 70.98155745455752,
+          "rotation_error_vs_identity_deg": 179.98627597396242
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9279712735190019,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.70084404498868,
+          "translation_error_vs_generating_inverse_mm": 38.18885352743654,
+          "rotation_error_vs_identity_deg": 179.94841780784208
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 44,
+      "symmetry_residual_mm": 1.1542030734976296,
+      "sampling_floor_mm": 0.2840947311090362,
+      "symmetry_floor_ratio": 4.062740160621437,
+      "delta_fixed_mm": 0.8722763271675646,
+      "sigma_mm": 0.003448279501070185,
+      "D": 252.95986792742605,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28588435810234625,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28588435810234625,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.043869117916176655,
+          "translation_error_vs_generating_inverse_mm": 0.09374139331383502,
+          "rotation_error_vs_identity_deg": 179.996852697462
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.5007412914134463,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99646084068203,
+          "translation_error_vs_generating_inverse_mm": 59.95573166567582,
+          "rotation_error_vs_identity_deg": 0.5639779587962077
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8320043667052992,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.97494823913158,
+          "translation_error_vs_generating_inverse_mm": 70.94980308800896,
+          "rotation_error_vs_identity_deg": 179.9698321044823
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9304397163022557,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.6445388181291,
+          "translation_error_vs_generating_inverse_mm": 38.201702292042484,
+          "rotation_error_vs_identity_deg": 179.91744236448386
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 45,
+      "symmetry_residual_mm": 1.1579405382295316,
+      "sampling_floor_mm": 0.28410310366833286,
+      "symmetry_floor_ratio": 4.075775742250716,
+      "delta_fixed_mm": 0.8718737704941262,
+      "sigma_mm": 0.003278695635192861,
+      "D": 265.92092328900804,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2857467563782857,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2857467563782857,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.14983788543931006,
+          "translation_error_vs_generating_inverse_mm": 0.11617833092643504,
+          "rotation_error_vs_identity_deg": 179.99640455369538
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.49792738932645875,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99698704538247,
+          "translation_error_vs_generating_inverse_mm": 60.01313957258145,
+          "rotation_error_vs_identity_deg": 0.48275593464885475
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8319242519160612,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.8521179653222,
+          "translation_error_vs_generating_inverse_mm": 70.96200727264808,
+          "rotation_error_vs_identity_deg": 179.92642458146773
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.9283881628876082,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5849638669223,
+          "translation_error_vs_generating_inverse_mm": 38.28812882400172,
+          "rotation_error_vs_identity_deg": 179.850555947676
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 46,
+      "symmetry_residual_mm": 1.1585092707277662,
+      "sampling_floor_mm": 0.2840006737382604,
+      "symmetry_floor_ratio": 4.079248318246833,
+      "delta_fixed_mm": 0.8724312283898829,
+      "sigma_mm": 0.002816941969606488,
+      "D": 309.70862651876246,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2857869017927409,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2857869017927409,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.041053511515825356,
+          "translation_error_vs_generating_inverse_mm": 0.038171633235432864,
+          "rotation_error_vs_identity_deg": 179.99777081744654
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.49674644502837345,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98288046981222,
+          "translation_error_vs_generating_inverse_mm": 60.01440431303954,
+          "rotation_error_vs_identity_deg": 0.49022214703983974
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8297847197777194,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.88858657244802,
+          "translation_error_vs_generating_inverse_mm": 70.91766958706955,
+          "rotation_error_vs_identity_deg": 179.95791211645667
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.9226544022877456,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.59083206886018,
+          "translation_error_vs_generating_inverse_mm": 38.273857944803574,
+          "rotation_error_vs_identity_deg": 179.91418090061026
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 47,
+      "symmetry_residual_mm": 1.158937129645301,
+      "sampling_floor_mm": 0.28462696565965645,
+      "symmetry_floor_ratio": 4.071775585139405,
+      "delta_fixed_mm": 0.8728697926169889,
+      "sigma_mm": 0.0033108648672413666,
+      "D": 263.6380002256841,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2853349494539427,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2853349494539427,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.17550028786732216,
+          "translation_error_vs_generating_inverse_mm": 0.050286511028323704,
+          "rotation_error_vs_identity_deg": 179.99937351395295
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.4974138082724428,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99052719166275,
+          "translation_error_vs_generating_inverse_mm": 60.01659262720865,
+          "rotation_error_vs_identity_deg": 0.48598041480967513
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8312972781920543,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9174994639199,
+          "translation_error_vs_generating_inverse_mm": 70.97589424457927,
+          "rotation_error_vs_identity_deg": 179.94722792702754
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.9276966262038251,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.52381629456588,
+          "translation_error_vs_generating_inverse_mm": 38.31429656063101,
+          "rotation_error_vs_identity_deg": 179.9701906357326
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 48,
+      "symmetry_residual_mm": 1.1587878706172452,
+      "sampling_floor_mm": 0.2851027484074689,
+      "symmetry_floor_ratio": 4.06445703203501,
+      "delta_fixed_mm": 0.8689128632320614,
+      "sigma_mm": 0.0029634779387581944,
+      "D": 293.20713067166196,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2872294574278096,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2872294574278096,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.1694692942834242,
+          "translation_error_vs_generating_inverse_mm": 0.040630550248139115,
+          "rotation_error_vs_identity_deg": 179.99581104602171
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.4987251593448178,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9900766041025,
+          "translation_error_vs_generating_inverse_mm": 59.97060826432607,
+          "rotation_error_vs_identity_deg": 0.5405699425275392
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8339237261172879,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9750454010155,
+          "translation_error_vs_generating_inverse_mm": 70.94445296072976,
+          "rotation_error_vs_identity_deg": 179.96377506325112
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.9282804565092693,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.66507174653435,
+          "translation_error_vs_generating_inverse_mm": 38.22860583616633,
+          "rotation_error_vs_identity_deg": 179.87013395671266
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 49,
+      "symmetry_residual_mm": 1.1559495653626566,
+      "sampling_floor_mm": 0.28539999084799894,
+      "symmetry_floor_ratio": 4.050278915314694,
+      "delta_fixed_mm": 0.8707207317022401,
+      "sigma_mm": 0.0034803508403961894,
+      "D": 250.18188442264076,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2847487570838088,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2847487570838088,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.14869763810515385,
+          "translation_error_vs_generating_inverse_mm": 0.13060432413824025,
+          "rotation_error_vs_identity_deg": 179.9960610418373
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.49597913295324675,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99672824024216,
+          "translation_error_vs_generating_inverse_mm": 60.01516099502518,
+          "rotation_error_vs_identity_deg": 0.5144513057053182
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.835366515282112,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9920945783607,
+          "translation_error_vs_generating_inverse_mm": 71.00537686725139,
+          "rotation_error_vs_identity_deg": 179.98067858445285
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9274585466313107,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.7755213273933,
+          "translation_error_vs_generating_inverse_mm": 38.14488170367756,
+          "rotation_error_vs_identity_deg": 179.98122828139572
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 50,
+      "symmetry_residual_mm": 1.1561165554575723,
+      "sampling_floor_mm": 0.28579994839949513,
+      "symmetry_floor_ratio": 4.045195116136048,
+      "delta_fixed_mm": 0.8725522344146167,
+      "sigma_mm": 0.003378884823621521,
+      "D": 258.2367496857756,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28577975387106314,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.28577975387106314,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.060850678868313614,
+          "translation_error_vs_generating_inverse_mm": 0.09954357975593296,
+          "rotation_error_vs_identity_deg": 179.9959665544349
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.49952613638019683,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98153053988574,
+          "translation_error_vs_generating_inverse_mm": 59.91932055559143,
+          "rotation_error_vs_identity_deg": 0.5683883671207095
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8345241019723616,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.88268095036508,
+          "translation_error_vs_generating_inverse_mm": 70.94360508791719,
+          "rotation_error_vs_identity_deg": 179.94582683203944
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.929233634365299,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5789690539774,
+          "translation_error_vs_generating_inverse_mm": 38.23970558922576,
+          "rotation_error_vs_identity_deg": 179.95448974927234
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 51,
+      "symmetry_residual_mm": 1.1571901935202182,
+      "sampling_floor_mm": 0.28204326540930075,
+      "symmetry_floor_ratio": 4.102881846304345,
+      "delta_fixed_mm": 0.8702586478708925,
+      "sigma_mm": 0.0031796041469333413,
+      "D": 273.70031225749847,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28680664808066914,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28680664808066914,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.041606314752099374,
+          "translation_error_vs_generating_inverse_mm": 0.09805171612944028,
+          "rotation_error_vs_identity_deg": 179.99912331372377
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.4984424892946449,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99799187283872,
+          "translation_error_vs_generating_inverse_mm": 59.98464726433687,
+          "rotation_error_vs_identity_deg": 0.48314783646107506
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8329563120515157,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.8451288912011,
+          "translation_error_vs_generating_inverse_mm": 70.9088712676905,
+          "rotation_error_vs_identity_deg": 179.97633154394026
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9285585583913373,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.79562709643628,
+          "translation_error_vs_generating_inverse_mm": 37.94900203996739,
+          "rotation_error_vs_identity_deg": 179.70873470936436
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 52,
+      "symmetry_residual_mm": 1.1576104775005127,
+      "sampling_floor_mm": 0.28603137966473524,
+      "symmetry_floor_ratio": 4.047145033028816,
+      "delta_fixed_mm": 0.8716059652519674,
+      "sigma_mm": 0.003126168731304222,
+      "D": 278.8096357448812,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2858116023008334,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2858116023008334,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.0478963096487274,
+          "translation_error_vs_generating_inverse_mm": 0.07660454668238248,
+          "rotation_error_vs_identity_deg": 179.99888101506218
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.49628318099050706,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99511236875475,
+          "translation_error_vs_generating_inverse_mm": 60.0512856215662,
+          "rotation_error_vs_identity_deg": 0.5246107514134694
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8351828856384793,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9638836739649,
+          "translation_error_vs_generating_inverse_mm": 70.97261422392097,
+          "rotation_error_vs_identity_deg": 179.9827662766095
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.9288315296083587,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5369990901279,
+          "translation_error_vs_generating_inverse_mm": 38.14020731221301,
+          "rotation_error_vs_identity_deg": 179.90951718345286
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 53,
+      "symmetry_residual_mm": 1.1573943390025954,
+      "sampling_floor_mm": 0.28574039322893335,
+      "symmetry_floor_ratio": 4.05051006588102,
+      "delta_fixed_mm": 0.8707615044832376,
+      "sigma_mm": 0.0030285523571848155,
+      "D": 287.5174016448744,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2829923797100177,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.2829923797100177,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.14222254698570405,
+          "translation_error_vs_generating_inverse_mm": 0.08087577524825168,
+          "rotation_error_vs_identity_deg": 179.99888460526154
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.4969305688622686,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99306075574185,
+          "translation_error_vs_generating_inverse_mm": 59.990687817957856,
+          "rotation_error_vs_identity_deg": 0.6369379196885332
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8350360913816364,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.88081758290272,
+          "translation_error_vs_generating_inverse_mm": 70.96546276008178,
+          "rotation_error_vs_identity_deg": 179.97855777735407
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.9265060192498573,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.66108020425523,
+          "translation_error_vs_generating_inverse_mm": 38.332020732073104,
+          "rotation_error_vs_identity_deg": 179.97317341219906
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 54,
+      "symmetry_residual_mm": 1.152360007192198,
+      "sampling_floor_mm": 0.2861567144202054,
+      "symmetry_floor_ratio": 4.027024176340034,
+      "delta_fixed_mm": 0.871121391482977,
+      "sigma_mm": 0.003227836900130511,
+      "D": 269.87775976157747,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28615407767292783,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28615407767292783,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.02697326898776293,
+          "translation_error_vs_generating_inverse_mm": 0.012232057664357044,
+          "rotation_error_vs_identity_deg": 179.9986129465009
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.5004549207261018,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99434287868036,
+          "translation_error_vs_generating_inverse_mm": 59.99177247680212,
+          "rotation_error_vs_identity_deg": 0.579036186978024
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8309992906378874,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.93877345191575,
+          "translation_error_vs_generating_inverse_mm": 70.96561427752648,
+          "rotation_error_vs_identity_deg": 179.92467272111486
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9274245338632023,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.39101872727358,
+          "translation_error_vs_generating_inverse_mm": 38.31075775335743,
+          "rotation_error_vs_identity_deg": 179.86932843229454
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 55,
+      "symmetry_residual_mm": 1.1588464292810277,
+      "sampling_floor_mm": 0.2827269618036563,
+      "symmetry_floor_ratio": 4.098818244599554,
+      "delta_fixed_mm": 0.8774869339314947,
+      "sigma_mm": 0.0031703730238930926,
+      "D": 276.7771890936592,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2839060711689188,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2839060711689188,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.00911406923385026,
+          "translation_error_vs_generating_inverse_mm": 0.03958209841925719,
+          "rotation_error_vs_identity_deg": 179.99778800511623
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.49596875650291194,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98334670329535,
+          "translation_error_vs_generating_inverse_mm": 60.03258167026364,
+          "rotation_error_vs_identity_deg": 0.5685826217801369
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8302763371348283,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9948797597087,
+          "translation_error_vs_generating_inverse_mm": 70.98305521898628,
+          "rotation_error_vs_identity_deg": 179.94573983858587
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9261382334841259,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.49089372658622,
+          "translation_error_vs_generating_inverse_mm": 38.319026023546236,
+          "rotation_error_vs_identity_deg": 179.9849459934157
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 56,
+      "symmetry_residual_mm": 1.1627367630593763,
+      "sampling_floor_mm": 0.28406718747942367,
+      "symmetry_floor_ratio": 4.093175186393532,
+      "delta_fixed_mm": 0.882147471290265,
+      "sigma_mm": 0.003106658938251368,
+      "D": 283.9537550867414,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2845172417045879,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2845172417045879,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.17678761067149334,
+          "translation_error_vs_generating_inverse_mm": 0.08058105944351787,
+          "rotation_error_vs_identity_deg": 179.99762359455602
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.4988026352053595,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98630746330215,
+          "translation_error_vs_generating_inverse_mm": 60.00733126001861,
+          "rotation_error_vs_identity_deg": 0.5766716257347615
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.830390761295183,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.94188131621377,
+          "translation_error_vs_generating_inverse_mm": 70.92003661824792,
+          "rotation_error_vs_identity_deg": 179.9720146988786
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.926745540162755,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.4681113546992,
+          "translation_error_vs_generating_inverse_mm": 38.170326696601265,
+          "rotation_error_vs_identity_deg": 179.8380481603061
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 57,
+      "symmetry_residual_mm": 1.164500185784037,
+      "sampling_floor_mm": 0.2852094242205362,
+      "symmetry_floor_ratio": 4.082965312126556,
+      "delta_fixed_mm": 0.8693428586192397,
+      "sigma_mm": 0.003403192294308174,
+      "D": 255.44923220272102,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28597191879824974,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.28597191879824974,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.02780947505104899,
+          "translation_error_vs_generating_inverse_mm": 0.009762167653117576,
+          "rotation_error_vs_identity_deg": 179.99704649399303
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.5005521113298131,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.991525002443,
+          "translation_error_vs_generating_inverse_mm": 60.06931082244472,
+          "rotation_error_vs_identity_deg": 0.5717279883392633
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8292491124576038,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.85614045811542,
+          "translation_error_vs_generating_inverse_mm": 70.88465954690366,
+          "rotation_error_vs_identity_deg": 179.99703994497443
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.9267075432904932,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.58824329412656,
+          "translation_error_vs_generating_inverse_mm": 38.12356853021013,
+          "rotation_error_vs_identity_deg": 179.77395544552814
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 58,
+      "symmetry_residual_mm": 1.1560075913020402,
+      "sampling_floor_mm": 0.28595097674697634,
+      "symmetry_floor_ratio": 4.042677540230727,
+      "delta_fixed_mm": 0.8688117629665177,
+      "sigma_mm": 0.0032166931698827807,
+      "D": 270.0946957269717,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2857493029272177,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2857493029272177,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.04496671725804666,
+          "translation_error_vs_generating_inverse_mm": 0.03610608556973317,
+          "rotation_error_vs_identity_deg": 179.99688353579342
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.49683699217350036,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99935251470558,
+          "translation_error_vs_generating_inverse_mm": 60.12711844387129,
+          "rotation_error_vs_identity_deg": 0.5875011592417405
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8286810003847964,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.8248710906215,
+          "translation_error_vs_generating_inverse_mm": 70.90627007118209,
+          "rotation_error_vs_identity_deg": 179.95320042317874
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.9273201511607042,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.66521795970294,
+          "translation_error_vs_generating_inverse_mm": 38.06872001905821,
+          "rotation_error_vs_identity_deg": 179.88783943214898
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 59,
+      "symmetry_residual_mm": 1.1569563224097001,
+      "sampling_floor_mm": 0.2830425158532344,
+      "symmetry_floor_ratio": 4.087570798054999,
+      "delta_fixed_mm": 0.8693362472165415,
+      "sigma_mm": 0.0034120955451929155,
+      "D": 254.78074564509015,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2850195630864968,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2850195630864968,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.017674377262469974,
+          "translation_error_vs_generating_inverse_mm": 0.059881557946932874,
+          "rotation_error_vs_identity_deg": 179.99984580933042
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.4975700562755607,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98184019007365,
+          "translation_error_vs_generating_inverse_mm": 60.01187798378069,
+          "rotation_error_vs_identity_deg": 0.5096171226503177
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8326926848041374,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.96073127566075,
+          "translation_error_vs_generating_inverse_mm": 71.00468478740696,
+          "rotation_error_vs_identity_deg": 179.9201085938124
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.9251601640510441,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5421610043751,
+          "translation_error_vs_generating_inverse_mm": 38.16654410132702,
+          "rotation_error_vs_identity_deg": 179.84041919891712
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 60,
+      "symmetry_residual_mm": 1.1550720416361249,
+      "sampling_floor_mm": 0.2863185650164076,
+      "symmetry_floor_ratio": 4.034219861258151,
+      "delta_fixed_mm": 0.8688942280645034,
+      "sigma_mm": 0.0031577605585212175,
+      "D": 275.16153044593335,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2856585619224825,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2856585619224825,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.058861789254538825,
+          "translation_error_vs_generating_inverse_mm": 0.050005690263397976,
+          "rotation_error_vs_identity_deg": 179.99850666495706
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.4980118937320176,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9953951056899,
+          "translation_error_vs_generating_inverse_mm": 60.04527419475384,
+          "rotation_error_vs_identity_deg": 0.4911221100254093
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8358287545472353,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.8987000807415,
+          "translation_error_vs_generating_inverse_mm": 70.92876278700085,
+          "rotation_error_vs_identity_deg": 179.93910941690223
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9303548820096054,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.50162109878403,
+          "translation_error_vs_generating_inverse_mm": 38.24076237230721,
+          "rotation_error_vs_identity_deg": 179.92643352959084
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412",
+      "axis": "x",
+      "seed": 61,
+      "symmetry_residual_mm": 1.154160510451363,
+      "sampling_floor_mm": 0.28458305411039375,
+      "symmetry_floor_ratio": 4.055619242892965,
+      "delta_fixed_mm": 0.8667993784428478,
+      "sigma_mm": 0.0029674152859374228,
+      "D": 292.10585473176235,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28585637885154036,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.28585637885154036,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.07951482839092275,
+          "translation_error_vs_generating_inverse_mm": 0.0810890722875748,
+          "rotation_error_vs_identity_deg": 179.99827695913189
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.4974707998633226,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9829819037676,
+          "translation_error_vs_generating_inverse_mm": 60.02066624080493,
+          "rotation_error_vs_identity_deg": 0.4944716035652561
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8342308570861972,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.8352007386633,
+          "translation_error_vs_generating_inverse_mm": 70.90079960210441,
+          "rotation_error_vs_identity_deg": 179.92969943250148
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9313507190744892,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.55808258237815,
+          "translation_error_vs_generating_inverse_mm": 38.08989808938286,
+          "rotation_error_vs_identity_deg": 179.77534974348023
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 42,
+      "symmetry_residual_mm": 6.6431423563661305,
+      "sampling_floor_mm": 0.2685610229065293,
+      "symmetry_floor_ratio": 24.736062904698677,
+      "delta_fixed_mm": 6.397414306870353,
+      "sigma_mm": 0.02685004224318867,
+      "D": 238.26459001170662,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2675142744692156,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2675142744692156,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.01172296247606373,
+          "translation_error_vs_generating_inverse_mm": 0.037721561627027694,
+          "rotation_error_vs_identity_deg": 179.9895219767608
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8749452328811794,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.95217960008085,
+          "translation_error_vs_generating_inverse_mm": 29.626600595806405,
+          "rotation_error_vs_identity_deg": 170.5253463502098
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8928634626127127,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.490949017158,
+          "translation_error_vs_generating_inverse_mm": 63.25783119968848,
+          "rotation_error_vs_identity_deg": 22.14810643579701
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0184630785740316,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.30352536236634,
+          "translation_error_vs_generating_inverse_mm": 68.89663645782798,
+          "rotation_error_vs_identity_deg": 160.40177148817648
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 43,
+      "symmetry_residual_mm": 6.668426602305752,
+      "sampling_floor_mm": 0.2675577645767688,
+      "symmetry_floor_ratio": 24.92331557955,
+      "delta_fixed_mm": 6.408276581925236,
+      "sigma_mm": 0.026034477139571018,
+      "D": 246.1457761402474,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.26764016125752865,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.26764016125752865,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.0184900180689248,
+          "translation_error_vs_generating_inverse_mm": 0.050737191137127595,
+          "rotation_error_vs_identity_deg": 179.9848741514703
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8724806060561279,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99640227666796,
+          "translation_error_vs_generating_inverse_mm": 29.41658004226743,
+          "rotation_error_vs_identity_deg": 170.14530964505818
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8989921134271368,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.47108181261183,
+          "translation_error_vs_generating_inverse_mm": 63.20079523334717,
+          "rotation_error_vs_identity_deg": 22.117688445643367
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0295812534981388,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.38156831586167,
+          "translation_error_vs_generating_inverse_mm": 68.93177264184797,
+          "rotation_error_vs_identity_deg": 160.487610571284
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 44,
+      "symmetry_residual_mm": 6.68901940380192,
+      "sampling_floor_mm": 0.2657063116854528,
+      "symmetry_floor_ratio": 25.174484419927833,
+      "delta_fixed_mm": 6.371198196570978,
+      "sigma_mm": 0.028358091033246734,
+      "D": 224.66950222782805,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2663688919467868,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2663688919467868,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.047937045015480254,
+          "translation_error_vs_generating_inverse_mm": 0.03929402414739606,
+          "rotation_error_vs_identity_deg": 179.98634500343613
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8782848753834149,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9501264152573,
+          "translation_error_vs_generating_inverse_mm": 29.475682979593127,
+          "rotation_error_vs_identity_deg": 170.23475096949835
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9018581161098925,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5010082909251,
+          "translation_error_vs_generating_inverse_mm": 63.35092983280755,
+          "rotation_error_vs_identity_deg": 22.23745671154359
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0217622334352026,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.28139330469327,
+          "translation_error_vs_generating_inverse_mm": 69.0202793100217,
+          "rotation_error_vs_identity_deg": 160.39212215818156
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 45,
+      "symmetry_residual_mm": 6.638830095424988,
+      "sampling_floor_mm": 0.2663136885666494,
+      "symmetry_floor_ratio": 24.928610058147694,
+      "delta_fixed_mm": 6.413179458878313,
+      "sigma_mm": 0.024652179891055614,
+      "D": 260.1465463589759,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.26980351843801403,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.26980351843801403,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.10506803472223103,
+          "translation_error_vs_generating_inverse_mm": 0.10407293755577048,
+          "rotation_error_vs_identity_deg": 179.97450350528908
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8768728646057727,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.79898960422054,
+          "translation_error_vs_generating_inverse_mm": 29.666672452030532,
+          "rotation_error_vs_identity_deg": 170.41774837597885
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9012649188031837,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.4746642173232,
+          "translation_error_vs_generating_inverse_mm": 63.36757322676645,
+          "rotation_error_vs_identity_deg": 22.138246249204347
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0219552841891884,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.3890996133235,
+          "translation_error_vs_generating_inverse_mm": 69.00674965983184,
+          "rotation_error_vs_identity_deg": 160.37177422652567
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 46,
+      "symmetry_residual_mm": 6.683481026775281,
+      "sampling_floor_mm": 0.2667898143341857,
+      "symmetry_floor_ratio": 25.051484980620113,
+      "delta_fixed_mm": 6.411103206052339,
+      "sigma_mm": 0.02469839181688516,
+      "D": 259.5757348731249,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2655037419439527,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2655037419439527,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.055482533144175866,
+          "translation_error_vs_generating_inverse_mm": 0.05122430840344402,
+          "rotation_error_vs_identity_deg": 179.98271979200558
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8657048356496794,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.84723183993142,
+          "translation_error_vs_generating_inverse_mm": 29.85805765995995,
+          "rotation_error_vs_identity_deg": 170.729387498858
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8748170672646632,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.4965726354318,
+          "translation_error_vs_generating_inverse_mm": 63.20095746948688,
+          "rotation_error_vs_identity_deg": 22.038938749140826
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.009238540616792,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.7849290900689,
+          "translation_error_vs_generating_inverse_mm": 68.98543119789156,
+          "rotation_error_vs_identity_deg": 160.3949494600487
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 47,
+      "symmetry_residual_mm": 6.672999378184475,
+      "sampling_floor_mm": 0.2669759542208905,
+      "symmetry_floor_ratio": 24.994758039757283,
+      "delta_fixed_mm": 6.4327402954452415,
+      "sigma_mm": 0.023920858267230862,
+      "D": 268.91762091402217,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2664502414320071,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2664502414320071,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.032913810405821274,
+          "translation_error_vs_generating_inverse_mm": 0.044330186679618036,
+          "rotation_error_vs_identity_deg": 179.99240103064216
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8746574902410827,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9482905014682,
+          "translation_error_vs_generating_inverse_mm": 29.609307015152183,
+          "rotation_error_vs_identity_deg": 170.39838246303924
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8903047643153505,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.50414796434302,
+          "translation_error_vs_generating_inverse_mm": 63.33037066103472,
+          "rotation_error_vs_identity_deg": 22.382664429178163
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0177477097243341,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.17832171119417,
+          "translation_error_vs_generating_inverse_mm": 69.00160897272698,
+          "rotation_error_vs_identity_deg": 160.3859646731951
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 48,
+      "symmetry_residual_mm": 6.695948151759235,
+      "sampling_floor_mm": 0.26767815214139556,
+      "symmetry_floor_ratio": 25.014922204865776,
+      "delta_fixed_mm": 6.3735059448629325,
+      "sigma_mm": 0.026682622705037247,
+      "D": 238.86354858436454,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2667705443974984,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2667705443974984,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.03680206892967982,
+          "translation_error_vs_generating_inverse_mm": 0.057705273896948864,
+          "rotation_error_vs_identity_deg": 179.97828259807818
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8716306308076072,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9505547853858,
+          "translation_error_vs_generating_inverse_mm": 29.677363708198765,
+          "rotation_error_vs_identity_deg": 170.52317213765744
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8935772907540086,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5291310377457,
+          "translation_error_vs_generating_inverse_mm": 63.32513691437931,
+          "rotation_error_vs_identity_deg": 22.112484945028267
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0248172133492919,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.7057338415885,
+          "translation_error_vs_generating_inverse_mm": 69.00826274072838,
+          "rotation_error_vs_identity_deg": 160.4221950371503
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 49,
+      "symmetry_residual_mm": 6.635028389967904,
+      "sampling_floor_mm": 0.26781275187915043,
+      "symmetry_floor_ratio": 24.774878505269747,
+      "delta_fixed_mm": 6.392295671743078,
+      "sigma_mm": 0.025883126006590238,
+      "D": 246.96768350606112,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.26577549318184146,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.26577549318184146,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.013248485342470726,
+          "translation_error_vs_generating_inverse_mm": 0.023977331567770207,
+          "rotation_error_vs_identity_deg": 179.9981018785708
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8682191201216546,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99863286017523,
+          "translation_error_vs_generating_inverse_mm": 29.526154030182497,
+          "rotation_error_vs_identity_deg": 170.36145815972196
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8864914626118771,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.47256915596552,
+          "translation_error_vs_generating_inverse_mm": 63.21554390296877,
+          "rotation_error_vs_identity_deg": 22.116401259573664
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0167710203758502,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.20822753445304,
+          "translation_error_vs_generating_inverse_mm": 68.93519140411452,
+          "rotation_error_vs_identity_deg": 160.43708704549923
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 50,
+      "symmetry_residual_mm": 6.659558580250466,
+      "sampling_floor_mm": 0.2664621905694122,
+      "symmetry_floor_ratio": 24.992508565734695,
+      "delta_fixed_mm": 6.399277957447833,
+      "sigma_mm": 0.026265687362519587,
+      "D": 243.63641693913658,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2688167517683671,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2688167517683671,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.100770658420337,
+          "translation_error_vs_generating_inverse_mm": 0.07889920092577637,
+          "rotation_error_vs_identity_deg": 179.97763872019527
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8747885727935322,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.91131627831166,
+          "translation_error_vs_generating_inverse_mm": 29.679413922924482,
+          "rotation_error_vs_identity_deg": 170.47145361122554
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9050872863444163,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5110469778521,
+          "translation_error_vs_generating_inverse_mm": 63.20865443034103,
+          "rotation_error_vs_identity_deg": 22.09626678482366
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0233551360036202,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.22824301755983,
+          "translation_error_vs_generating_inverse_mm": 68.94770498289111,
+          "rotation_error_vs_identity_deg": 160.39816604198413
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 51,
+      "symmetry_residual_mm": 6.672454241337083,
+      "sampling_floor_mm": 0.2664826018331444,
+      "symmetry_floor_ratio": 25.03898639324671,
+      "delta_fixed_mm": 6.401467336462056,
+      "sigma_mm": 0.026133975032139312,
+      "D": 244.94809261084825,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2677860259348881,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2677860259348881,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.03932857912749568,
+          "translation_error_vs_generating_inverse_mm": 0.07493524634862198,
+          "rotation_error_vs_identity_deg": 179.99839296801247
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8723904544619497,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99165879453503,
+          "translation_error_vs_generating_inverse_mm": 29.709076861183338,
+          "rotation_error_vs_identity_deg": 170.62628706227878
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9006458813482436,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.4955739287739,
+          "translation_error_vs_generating_inverse_mm": 63.16161609443671,
+          "rotation_error_vs_identity_deg": 21.983263853380176
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0271988200285311,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.61067777871068,
+          "translation_error_vs_generating_inverse_mm": 68.94404886051886,
+          "rotation_error_vs_identity_deg": 160.44571317342584
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 52,
+      "symmetry_residual_mm": 6.669485199340783,
+      "sampling_floor_mm": 0.26623014727938027,
+      "symmetry_floor_ratio": 25.051577619952507,
+      "delta_fixed_mm": 6.447698068242836,
+      "sigma_mm": 0.024125907327936746,
+      "D": 267.2520448910406,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2683490983561867,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2683490983561867,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.02909657120423798,
+          "translation_error_vs_generating_inverse_mm": 0.04708780340700056,
+          "rotation_error_vs_identity_deg": 179.99003837338196
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.869673727210924,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.95089282244697,
+          "translation_error_vs_generating_inverse_mm": 29.456135405217783,
+          "rotation_error_vs_identity_deg": 170.2853304095118
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8765841253978011,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.51228528722638,
+          "translation_error_vs_generating_inverse_mm": 63.2181760510517,
+          "rotation_error_vs_identity_deg": 22.07053152804127
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0118141445748576,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.44211943019465,
+          "translation_error_vs_generating_inverse_mm": 68.95452151096005,
+          "rotation_error_vs_identity_deg": 160.5096813081367
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 53,
+      "symmetry_residual_mm": 6.70627697594389,
+      "sampling_floor_mm": 0.26599017268685277,
+      "symmetry_floor_ratio": 25.212499049125075,
+      "delta_fixed_mm": 6.450471899764451,
+      "sigma_mm": 0.02516523563010993,
+      "D": 256.3247169458859,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2689233017455222,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2689233017455222,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.1890963297076472,
+          "translation_error_vs_generating_inverse_mm": 0.11730155258286533,
+          "rotation_error_vs_identity_deg": 179.96077479448255
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8677429673491412,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.96512387784304,
+          "translation_error_vs_generating_inverse_mm": 29.746649114010086,
+          "rotation_error_vs_identity_deg": 170.50734797677237
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8958768343299599,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.51915293501938,
+          "translation_error_vs_generating_inverse_mm": 63.318662040161186,
+          "rotation_error_vs_identity_deg": 22.225594207522764
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.018676875737766,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.42741752353774,
+          "translation_error_vs_generating_inverse_mm": 68.97430064902426,
+          "rotation_error_vs_identity_deg": 160.41369357391653
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 54,
+      "symmetry_residual_mm": 6.723369709340863,
+      "sampling_floor_mm": 0.26747534396266204,
+      "symmetry_floor_ratio": 25.136409247049723,
+      "delta_fixed_mm": 6.4210788591128685,
+      "sigma_mm": 0.026047588288740292,
+      "D": 246.51337344304298,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2663177049284322,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2663177049284322,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.03686017070070665,
+          "translation_error_vs_generating_inverse_mm": 0.013222689611769187,
+          "rotation_error_vs_identity_deg": 179.99780911251665
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8712099490069223,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.8289134864739,
+          "translation_error_vs_generating_inverse_mm": 29.645176781748674,
+          "rotation_error_vs_identity_deg": 170.40393589362043
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9030768747815985,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5003138808989,
+          "translation_error_vs_generating_inverse_mm": 63.196557112166325,
+          "rotation_error_vs_identity_deg": 22.14254226873537
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0230145072169337,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.4964791136899,
+          "translation_error_vs_generating_inverse_mm": 68.93787295386144,
+          "rotation_error_vs_identity_deg": 160.3657390527181
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 55,
+      "symmetry_residual_mm": 6.6726160315388965,
+      "sampling_floor_mm": 0.2688091097376852,
+      "symmetry_floor_ratio": 24.82287909829509,
+      "delta_fixed_mm": 6.408204078990373,
+      "sigma_mm": 0.02577235034358228,
+      "D": 248.64647552744898,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2694502688820104,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2694502688820104,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.05619616542604065,
+          "translation_error_vs_generating_inverse_mm": 0.10951615260033283,
+          "rotation_error_vs_identity_deg": 179.96705586490518
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8740704658171142,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.85697436558507,
+          "translation_error_vs_generating_inverse_mm": 29.721816910886876,
+          "rotation_error_vs_identity_deg": 170.49695738972366
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8996790130894325,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.48042409450505,
+          "translation_error_vs_generating_inverse_mm": 63.22996193587318,
+          "rotation_error_vs_identity_deg": 22.01607204618074
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0174432826645123,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.56018553332277,
+          "translation_error_vs_generating_inverse_mm": 68.99635526055762,
+          "rotation_error_vs_identity_deg": 160.46417625717197
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 56,
+      "symmetry_residual_mm": 6.679989326128175,
+      "sampling_floor_mm": 0.2691180340032455,
+      "symmetry_floor_ratio": 24.821782571611738,
+      "delta_fixed_mm": 6.395655155564948,
+      "sigma_mm": 0.02466060317287486,
+      "D": 259.34706911791085,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.26517473161736677,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.26517473161736677,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.1819609663758833,
+          "translation_error_vs_generating_inverse_mm": 0.13578523577066637,
+          "rotation_error_vs_identity_deg": 179.95517069041136
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8696129458577111,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.95604034750562,
+          "translation_error_vs_generating_inverse_mm": 29.557452582545384,
+          "rotation_error_vs_identity_deg": 170.33896860566497
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9116499139312533,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.53415063891399,
+          "translation_error_vs_generating_inverse_mm": 63.37926767788297,
+          "rotation_error_vs_identity_deg": 22.248092546135172
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0253175935293914,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.4668244116056,
+          "translation_error_vs_generating_inverse_mm": 68.93853347609667,
+          "rotation_error_vs_identity_deg": 160.43540823689315
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 57,
+      "symmetry_residual_mm": 6.665404945165637,
+      "sampling_floor_mm": 0.2680213474940795,
+      "symmetry_floor_ratio": 24.868933043898203,
+      "delta_fixed_mm": 6.3936544647167075,
+      "sigma_mm": 0.025166698676572927,
+      "D": 254.05217215352945,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2670981632715692,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2670981632715692,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.02464442901129306,
+          "translation_error_vs_generating_inverse_mm": 0.05097218234463292,
+          "rotation_error_vs_identity_deg": 179.98782231498654
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8730331537893116,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98107183786846,
+          "translation_error_vs_generating_inverse_mm": 29.383413885894157,
+          "rotation_error_vs_identity_deg": 170.12716616687956
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9028248832114242,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.55649565272495,
+          "translation_error_vs_generating_inverse_mm": 63.41597271430462,
+          "rotation_error_vs_identity_deg": 22.271796596810166
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0180311605958965,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.10241697196886,
+          "translation_error_vs_generating_inverse_mm": 68.86342663502596,
+          "rotation_error_vs_identity_deg": 160.41983550488035
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 58,
+      "symmetry_residual_mm": 6.6650356806365405,
+      "sampling_floor_mm": 0.26737714331165224,
+      "symmetry_floor_ratio": 24.927469858064264,
+      "delta_fixed_mm": 6.402005336490211,
+      "sigma_mm": 0.026096778092825547,
+      "D": 245.31784397746142,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.27052346624239115,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.27052346624239115,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.26763929906044154,
+          "translation_error_vs_generating_inverse_mm": 0.10408742321910587,
+          "rotation_error_vs_identity_deg": 179.96040907369726
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.873462539068213,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99765307765156,
+          "translation_error_vs_generating_inverse_mm": 29.39290680945516,
+          "rotation_error_vs_identity_deg": 170.22109600596156
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8991407363265678,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5267903829261,
+          "translation_error_vs_generating_inverse_mm": 63.392222728067274,
+          "rotation_error_vs_identity_deg": 22.256802851640288
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.029015747473641,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.60033125362057,
+          "translation_error_vs_generating_inverse_mm": 68.99189851791509,
+          "rotation_error_vs_identity_deg": 160.47411485904664
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 59,
+      "symmetry_residual_mm": 6.655921173612145,
+      "sampling_floor_mm": 0.2653431574282449,
+      "symmetry_floor_ratio": 25.084201296624975,
+      "delta_fixed_mm": 6.417221065704996,
+      "sigma_mm": 0.026108173126820067,
+      "D": 245.79356949003818,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2645949701252756,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2645949701252756,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.013856288223470731,
+          "translation_error_vs_generating_inverse_mm": 0.035096929417723445,
+          "rotation_error_vs_identity_deg": 179.9978318795217
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8698938433917922,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.92941939554063,
+          "translation_error_vs_generating_inverse_mm": 29.557138229493123,
+          "rotation_error_vs_identity_deg": 170.33558275151222
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8939672951409672,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.49457439328435,
+          "translation_error_vs_generating_inverse_mm": 63.38508693163856,
+          "rotation_error_vs_identity_deg": 22.36553527674255
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0077808196205862,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 175.92986329020704,
+          "translation_error_vs_generating_inverse_mm": 68.88301472761206,
+          "rotation_error_vs_identity_deg": 160.34720501289857
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 60,
+      "symmetry_residual_mm": 6.659886313520556,
+      "sampling_floor_mm": 0.2664767283877333,
+      "symmetry_floor_ratio": 24.99237495827471,
+      "delta_fixed_mm": 6.433456470957983,
+      "sigma_mm": 0.025770380884454748,
+      "D": 249.64537776152093,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2676788617823853,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2676788617823853,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.1785662938231917,
+          "translation_error_vs_generating_inverse_mm": 0.09400830240302925,
+          "rotation_error_vs_identity_deg": 179.97786367004758
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8776402094482956,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.95050552728304,
+          "translation_error_vs_generating_inverse_mm": 29.639990311885537,
+          "rotation_error_vs_identity_deg": 170.39590065145734
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.900291306872261,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.46383504329492,
+          "translation_error_vs_generating_inverse_mm": 63.33473059228514,
+          "rotation_error_vs_identity_deg": 22.293748795478894
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.021107626884815,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.13449947715984,
+          "translation_error_vs_generating_inverse_mm": 68.93758706645077,
+          "rotation_error_vs_identity_deg": 160.39356768321554
+        }
+      ]
+    },
+    {
+      "case": "twisted_tapered_naca2412",
+      "axis": "x",
+      "seed": 61,
+      "symmetry_residual_mm": 6.705712278953468,
+      "sampling_floor_mm": 0.26835903153091856,
+      "symmetry_floor_ratio": 24.98783901812107,
+      "delta_fixed_mm": 6.417282564307199,
+      "sigma_mm": 0.02487128321666336,
+      "D": 258.01976152190343,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2678217765022107,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2678217765022107,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.04385636716697148,
+          "translation_error_vs_generating_inverse_mm": 0.023705222608872676,
+          "rotation_error_vs_identity_deg": 179.99451656007466
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8784537695123952,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.93094822303578,
+          "translation_error_vs_generating_inverse_mm": 29.60778672722957,
+          "rotation_error_vs_identity_deg": 170.44271323865675
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.907774496758584,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.53646571030654,
+          "translation_error_vs_generating_inverse_mm": 63.46938204115173,
+          "rotation_error_vs_identity_deg": 22.441444373714134
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 1.0173483841129713,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 176.31635055289115,
+          "translation_error_vs_generating_inverse_mm": 68.95385345659975,
+          "rotation_error_vs_identity_deg": 160.40584391820246
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 42,
+      "symmetry_residual_mm": 1.4735522829841883,
+      "sampling_floor_mm": 0.28562451445135034,
+      "symmetry_floor_ratio": 5.159053962208747,
+      "delta_fixed_mm": 1.1890598745481722,
+      "sigma_mm": 0.005038163935907018,
+      "D": 236.01055655885608,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2849708159046482,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.2849708159046482,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.023875559319295508,
+          "translation_error_vs_generating_inverse_mm": 0.03423808264514358,
+          "rotation_error_vs_identity_deg": 179.99335241794336
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.4957073445737382,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9935515332731,
+          "translation_error_vs_generating_inverse_mm": 59.90688214415964,
+          "rotation_error_vs_identity_deg": 179.74887256762239
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8332498324222487,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.96957911507482,
+          "translation_error_vs_generating_inverse_mm": 73.37336051683099,
+          "rotation_error_vs_identity_deg": 179.99951644443397
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.9298738736051138,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.36353968347862,
+          "translation_error_vs_generating_inverse_mm": 41.68955843611772,
+          "rotation_error_vs_identity_deg": 0.6373650873468375
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 43,
+      "symmetry_residual_mm": 1.473587343253276,
+      "sampling_floor_mm": 0.2866145953545333,
+      "symmetry_floor_ratio": 5.141354861675814,
+      "delta_fixed_mm": 1.184464324672145,
+      "sigma_mm": 0.004925869012381032,
+      "D": 240.4579418768602,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28529091689406233,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.28529091689406233,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.09073130927774863,
+          "translation_error_vs_generating_inverse_mm": 0.048426578955198966,
+          "rotation_error_vs_identity_deg": 179.9876675301317
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.4973823927065894,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9966883585065,
+          "translation_error_vs_generating_inverse_mm": 59.945504509312684,
+          "rotation_error_vs_identity_deg": 179.86400129406422
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8373653722830218,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9822006792946,
+          "translation_error_vs_generating_inverse_mm": 73.28519158711461,
+          "rotation_error_vs_identity_deg": 179.98995928214592
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.9282310608426528,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.6848958601516,
+          "translation_error_vs_generating_inverse_mm": 41.755252721035205,
+          "rotation_error_vs_identity_deg": 0.32589433778185883
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 44,
+      "symmetry_residual_mm": 1.4697799925147956,
+      "sampling_floor_mm": 0.2840947311090362,
+      "symmetry_floor_ratio": 5.173555971197124,
+      "delta_fixed_mm": 1.183566656191759,
+      "sigma_mm": 0.004880869393798406,
+      "D": 242.49095001304266,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28647077860209724,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.28647077860209724,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.04775129643027095,
+          "translation_error_vs_generating_inverse_mm": 0.0328460263005815,
+          "rotation_error_vs_identity_deg": 179.9912437496711
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.500650966282546,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99605625493106,
+          "translation_error_vs_generating_inverse_mm": 59.90289986951808,
+          "rotation_error_vs_identity_deg": 179.72753612308048
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8317788717581264,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.88321087292536,
+          "translation_error_vs_generating_inverse_mm": 73.3027659630252,
+          "rotation_error_vs_identity_deg": 179.99675228107222
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.9302343340498521,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.64894944409647,
+          "translation_error_vs_generating_inverse_mm": 41.92525801050236,
+          "rotation_error_vs_identity_deg": 0.36446974109602753
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 45,
+      "symmetry_residual_mm": 1.4724244294537678,
+      "sampling_floor_mm": 0.28410310366833286,
+      "symmetry_floor_ratio": 5.182711524238408,
+      "delta_fixed_mm": 1.18396173458975,
+      "sigma_mm": 0.0051663670167139955,
+      "D": 229.16717506895094,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28585973687826854,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.28585973687826854,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.12402461052006894,
+          "translation_error_vs_generating_inverse_mm": 0.06702980135934826,
+          "rotation_error_vs_identity_deg": 179.9965425845068
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.4978623166684234,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9957462082002,
+          "translation_error_vs_generating_inverse_mm": 60.02016623903775,
+          "rotation_error_vs_identity_deg": 179.96225312762766
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8318272901994844,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.85390497992296,
+          "translation_error_vs_generating_inverse_mm": 73.28877897123184,
+          "rotation_error_vs_identity_deg": 179.9633727947538
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.9283809682528844,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.60723464079655,
+          "translation_error_vs_generating_inverse_mm": 41.92599283989328,
+          "rotation_error_vs_identity_deg": 0.4319495250217012
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 46,
+      "symmetry_residual_mm": 1.4692562392349164,
+      "sampling_floor_mm": 0.2840006737382604,
+      "symmetry_floor_ratio": 5.173425189086019,
+      "delta_fixed_mm": 1.181307688339568,
+      "sigma_mm": 0.005278278850615774,
+      "D": 223.80547177831545,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2851766310809338,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2851766310809338,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.10844713275544417,
+          "translation_error_vs_generating_inverse_mm": 0.09663532369077621,
+          "rotation_error_vs_identity_deg": 179.99638511663426
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.4968350854095862,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98209710867565,
+          "translation_error_vs_generating_inverse_mm": 60.03382819107095,
+          "rotation_error_vs_identity_deg": 179.9877177523625
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8294685943978392,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9083674515632,
+          "translation_error_vs_generating_inverse_mm": 73.37372353106032,
+          "rotation_error_vs_identity_deg": 179.99248740572804
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.9226951247677693,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.56674730631792,
+          "translation_error_vs_generating_inverse_mm": 41.85102819843203,
+          "rotation_error_vs_identity_deg": 0.4440068644162804
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 47,
+      "symmetry_residual_mm": 1.4685798078407197,
+      "sampling_floor_mm": 0.28462696565965645,
+      "symmetry_floor_ratio": 5.159665052947859,
+      "delta_fixed_mm": 1.1826321875166683,
+      "sigma_mm": 0.005423227079109482,
+      "D": 218.06798245130125,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28512955621935976,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.28512955621935976,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.18315161495996948,
+          "translation_error_vs_generating_inverse_mm": 0.15626530864765145,
+          "rotation_error_vs_identity_deg": 179.99729635107
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.49745794051186853,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99150184452952,
+          "translation_error_vs_generating_inverse_mm": 59.95337688252466,
+          "rotation_error_vs_identity_deg": 179.92276900787613
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8310133447641236,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9462322272999,
+          "translation_error_vs_generating_inverse_mm": 73.28714306399543,
+          "rotation_error_vs_identity_deg": 179.97752065985108
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.9276246554482446,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.53178466773295,
+          "translation_error_vs_generating_inverse_mm": 41.735097552364984,
+          "rotation_error_vs_identity_deg": 0.46947230879957896
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 48,
+      "symmetry_residual_mm": 1.4696626027131054,
+      "sampling_floor_mm": 0.2851027484074689,
+      "symmetry_floor_ratio": 5.1548524555528425,
+      "delta_fixed_mm": 1.1847508435281597,
+      "sigma_mm": 0.005130928255488512,
+      "D": 230.90380230143376,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2881802940338341,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2881802940338341,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.3054660239304073,
+          "translation_error_vs_generating_inverse_mm": 0.2996420415509224,
+          "rotation_error_vs_identity_deg": 179.97728092148233
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.4986176084090893,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98898450407322,
+          "translation_error_vs_generating_inverse_mm": 59.87104113014273,
+          "rotation_error_vs_identity_deg": 179.82162974055058
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8338943930109382,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99150604738676,
+          "translation_error_vs_generating_inverse_mm": 73.35079171154239,
+          "rotation_error_vs_identity_deg": 179.999290841404
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.928111997456218,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.67151852003138,
+          "translation_error_vs_generating_inverse_mm": 41.96619437749669,
+          "rotation_error_vs_identity_deg": 0.36279042367393505
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 49,
+      "symmetry_residual_mm": 1.469040211332009,
+      "sampling_floor_mm": 0.28539999084799894,
+      "symmetry_floor_ratio": 5.147302937772007,
+      "delta_fixed_mm": 1.1786332982184937,
+      "sigma_mm": 0.005113394950418454,
+      "D": 230.49917122518383,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28419401040309966,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.28419401040309966,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.191032175855944,
+          "translation_error_vs_generating_inverse_mm": 0.10343405447647819,
+          "rotation_error_vs_identity_deg": 179.99404911463353
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.49570121632527636,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99572981767088,
+          "translation_error_vs_generating_inverse_mm": 60.00547857569165,
+          "rotation_error_vs_identity_deg": 179.97939550587134
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8352788702298745,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99310886407872,
+          "translation_error_vs_generating_inverse_mm": 73.2562725282313,
+          "rotation_error_vs_identity_deg": 179.97240166734812
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.9274716374350641,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.76720732759586,
+          "translation_error_vs_generating_inverse_mm": 41.898846050562,
+          "rotation_error_vs_identity_deg": 0.2389236287774903
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 50,
+      "symmetry_residual_mm": 1.4665581681604252,
+      "sampling_floor_mm": 0.28579994839949513,
+      "symmetry_floor_ratio": 5.131415090776888,
+      "delta_fixed_mm": 1.1826916481509822,
+      "sigma_mm": 0.005224718718898745,
+      "D": 226.36465459336102,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2858646007134204,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2858646007134204,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.013044229628968276,
+          "translation_error_vs_generating_inverse_mm": 0.05770078626881637,
+          "rotation_error_vs_identity_deg": 179.9916451706207
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.49948141888640196,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.97532725806656,
+          "translation_error_vs_generating_inverse_mm": 59.952656402404116,
+          "rotation_error_vs_identity_deg": 179.78211151158408
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8345447230723124,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.8698850396811,
+          "translation_error_vs_generating_inverse_mm": 73.3298157733704,
+          "rotation_error_vs_identity_deg": 179.99849731909006
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.9292682698753916,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5837059184013,
+          "translation_error_vs_generating_inverse_mm": 41.752480087746434,
+          "rotation_error_vs_identity_deg": 0.4201370129630874
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 51,
+      "symmetry_residual_mm": 1.4693486739479777,
+      "sampling_floor_mm": 0.28204326540930075,
+      "symmetry_floor_ratio": 5.209657007110811,
+      "delta_fixed_mm": 1.1797573014983975,
+      "sigma_mm": 0.0046851044547246215,
+      "D": 251.81024519286638,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28696438379410366,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.28696438379410366,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.11149476317556688,
+          "translation_error_vs_generating_inverse_mm": 0.027820891696555047,
+          "rotation_error_vs_identity_deg": 179.988912092062
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.4985999422424469,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9988786997044,
+          "translation_error_vs_generating_inverse_mm": 60.09446229663997,
+          "rotation_error_vs_identity_deg": 179.88540902519807
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8329474721488686,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.8635705136759,
+          "translation_error_vs_generating_inverse_mm": 73.3474349301569,
+          "rotation_error_vs_identity_deg": 179.98358212381655
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.9287166916723972,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.78419668588265,
+          "translation_error_vs_generating_inverse_mm": 41.75877204896698,
+          "rotation_error_vs_identity_deg": 0.38845507918596284
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 52,
+      "symmetry_residual_mm": 1.4684271287321013,
+      "sampling_floor_mm": 0.28603137966473524,
+      "symmetry_floor_ratio": 5.133797314313145,
+      "delta_fixed_mm": 1.1850000990987666,
+      "sigma_mm": 0.005149514085300578,
+      "D": 230.11881887679075,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2855670803240906,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2855670803240906,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.008935571823131495,
+          "translation_error_vs_generating_inverse_mm": 0.04201501008814262,
+          "rotation_error_vs_identity_deg": 179.99288679332872
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.49617760672951267,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9944036475777,
+          "translation_error_vs_generating_inverse_mm": 60.09626158804564,
+          "rotation_error_vs_identity_deg": 179.8119816446023
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8350671800491791,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9866439209371,
+          "translation_error_vs_generating_inverse_mm": 73.31967438814299,
+          "rotation_error_vs_identity_deg": 179.99784910135278
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9288183800532228,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.54004579335682,
+          "translation_error_vs_generating_inverse_mm": 41.797579547048755,
+          "rotation_error_vs_identity_deg": 0.47009293543949127
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 53,
+      "symmetry_residual_mm": 1.4705968499581048,
+      "sampling_floor_mm": 0.28574039322893335,
+      "symmetry_floor_ratio": 5.146618695872908,
+      "delta_fixed_mm": 1.1870601115538826,
+      "sigma_mm": 0.004951520664977592,
+      "D": 239.73647529132438,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2831523449606591,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2831523449606591,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.13658531433416926,
+          "translation_error_vs_generating_inverse_mm": 0.10541577028675335,
+          "rotation_error_vs_identity_deg": 179.9990764560339
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.4971241588772276,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99434579959947,
+          "translation_error_vs_generating_inverse_mm": 59.901965969558894,
+          "rotation_error_vs_identity_deg": 179.78174393546684
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8350258360003531,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.87299216721183,
+          "translation_error_vs_generating_inverse_mm": 73.30861099670658,
+          "rotation_error_vs_identity_deg": 179.97635705132285
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9263272192952559,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.68556519176872,
+          "translation_error_vs_generating_inverse_mm": 41.72331039759111,
+          "rotation_error_vs_identity_deg": 0.31518233057489686
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 54,
+      "symmetry_residual_mm": 1.469707117406013,
+      "sampling_floor_mm": 0.2861567144202054,
+      "symmetry_floor_ratio": 5.136021778778984,
+      "delta_fixed_mm": 1.1749821705360914,
+      "sigma_mm": 0.005063844017965461,
+      "D": 232.0336421041999,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2861607426393734,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.2861607426393734,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.022559874808779124,
+          "translation_error_vs_generating_inverse_mm": 0.032185151917137486,
+          "rotation_error_vs_identity_deg": 179.99440555711988
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.5001444011079867,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99449620038544,
+          "translation_error_vs_generating_inverse_mm": 60.00879646163784,
+          "rotation_error_vs_identity_deg": 179.96204451716468
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8308893286082216,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9477954166529,
+          "translation_error_vs_generating_inverse_mm": 73.28338493819545,
+          "rotation_error_vs_identity_deg": 179.97714789912195
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.9273128584400815,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.37965103667398,
+          "translation_error_vs_generating_inverse_mm": 41.58002020233484,
+          "rotation_error_vs_identity_deg": 0.634565102696773
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 55,
+      "symmetry_residual_mm": 1.461179728596381,
+      "sampling_floor_mm": 0.2827269618036563,
+      "symmetry_floor_ratio": 5.168165495341466,
+      "delta_fixed_mm": 1.1880737033036788,
+      "sigma_mm": 0.004962217844283664,
+      "D": 239.42393111022048,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.28389243962661315,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.28389243962661315,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.03167201364000402,
+          "translation_error_vs_generating_inverse_mm": 0.0792394117369789,
+          "rotation_error_vs_identity_deg": 179.99409405895247
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.49576844041764884,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.985192980499,
+          "translation_error_vs_generating_inverse_mm": 60.04225175937315,
+          "rotation_error_vs_identity_deg": 179.97289135204315
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.8302288761645656,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9793634333231,
+          "translation_error_vs_generating_inverse_mm": 73.2903890121428,
+          "rotation_error_vs_identity_deg": 179.9971564059028
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.9262191197338496,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.4959271461283,
+          "translation_error_vs_generating_inverse_mm": 41.70487223983581,
+          "rotation_error_vs_identity_deg": 0.5053187339470716
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 56,
+      "symmetry_residual_mm": 1.4747247950604419,
+      "sampling_floor_mm": 0.28406718747942367,
+      "symmetry_floor_ratio": 5.191464766296752,
+      "delta_fixed_mm": 1.1900328668001214,
+      "sigma_mm": 0.005152822857381413,
+      "D": 230.94775421891336,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2847023056281705,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.2847023056281705,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.17358729242734003,
+          "translation_error_vs_generating_inverse_mm": 0.15276370040787382,
+          "rotation_error_vs_identity_deg": 179.99494783529596
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.4985470969772784,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98840679390517,
+          "translation_error_vs_generating_inverse_mm": 59.98355264006554,
+          "rotation_error_vs_identity_deg": 179.93233587808623
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.830332604486069,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9166511269035,
+          "translation_error_vs_generating_inverse_mm": 73.36037326793756,
+          "rotation_error_vs_identity_deg": 179.98599102974492
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.9264699173564372,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.50361761680435,
+          "translation_error_vs_generating_inverse_mm": 41.71641354884878,
+          "rotation_error_vs_identity_deg": 0.5246691687081266
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 57,
+      "symmetry_residual_mm": 1.4742950282543708,
+      "sampling_floor_mm": 0.2852094242205362,
+      "symmetry_floor_ratio": 5.169166594980334,
+      "delta_fixed_mm": 1.1871615877441257,
+      "sigma_mm": 0.0050712814662800835,
+      "D": 234.0949907114778,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.286357221265909,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.286357221265909,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.04236286069117551,
+          "translation_error_vs_generating_inverse_mm": 0.04002077454569606,
+          "rotation_error_vs_identity_deg": 179.99921925866101
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.5005590756012838,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99130302042238,
+          "translation_error_vs_generating_inverse_mm": 60.133274867118,
+          "rotation_error_vs_identity_deg": 179.74570977543425
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8294851502084307,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.8530339609862,
+          "translation_error_vs_generating_inverse_mm": 73.38591047392372,
+          "rotation_error_vs_identity_deg": 179.9872270458419
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.926940933845363,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.59158486559994,
+          "translation_error_vs_generating_inverse_mm": 41.69492069516093,
+          "rotation_error_vs_identity_deg": 0.45323471955322736
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 58,
+      "symmetry_residual_mm": 1.4749242223094186,
+      "sampling_floor_mm": 0.28595097674697634,
+      "symmetry_floor_ratio": 5.157961826493445,
+      "delta_fixed_mm": 1.1718205196698965,
+      "sigma_mm": 0.005276563167502318,
+      "D": 222.08025990989555,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2864987473074669,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.2864987473074669,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.05892546215323528,
+          "translation_error_vs_generating_inverse_mm": 0.07464031168699163,
+          "rotation_error_vs_identity_deg": 179.9871939553104
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.4970404873379179,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.99932669134574,
+          "translation_error_vs_generating_inverse_mm": 60.0856243004079,
+          "rotation_error_vs_identity_deg": 179.8068285582477
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.8288622206317257,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.8247219682491,
+          "translation_error_vs_generating_inverse_mm": 73.37118804326249,
+          "rotation_error_vs_identity_deg": 179.9933229695411
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.9273422926027212,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.67179087797345,
+          "translation_error_vs_generating_inverse_mm": 41.824855586608585,
+          "rotation_error_vs_identity_deg": 0.3718961272696501
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 59,
+      "symmetry_residual_mm": 1.461441169170062,
+      "sampling_floor_mm": 0.2830425158532344,
+      "symmetry_floor_ratio": 5.163327370676216,
+      "delta_fixed_mm": 1.178407510831117,
+      "sigma_mm": 0.004975683305523445,
+      "D": 236.8333027793351,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2852955021482123,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.2852955021482123,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.01606262093229601,
+          "translation_error_vs_generating_inverse_mm": 0.027736645504104793,
+          "rotation_error_vs_identity_deg": 179.99223607378002
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.4975787551288581,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9812488755115,
+          "translation_error_vs_generating_inverse_mm": 60.12268513624939,
+          "rotation_error_vs_identity_deg": 179.82667243377747
+        },
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.8328113967220636,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.91861909984854,
+          "translation_error_vs_generating_inverse_mm": 73.28606125012857,
+          "rotation_error_vs_identity_deg": 179.98748530461512
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.9252801376457794,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.54526926594218,
+          "translation_error_vs_generating_inverse_mm": 41.69280230362022,
+          "rotation_error_vs_identity_deg": 0.4877096867147208
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 60,
+      "symmetry_residual_mm": 1.4654295431178066,
+      "sampling_floor_mm": 0.2863185650164076,
+      "symmetry_floor_ratio": 5.118178568105877,
+      "delta_fixed_mm": 1.1754894905819695,
+      "sigma_mm": 0.004962457393599005,
+      "D": 236.87649028447373,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2857131555964029,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.2857131555964029,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.018472549825605065,
+          "translation_error_vs_generating_inverse_mm": 0.030271770679496306,
+          "rotation_error_vs_identity_deg": 179.99540957104176
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.49809161808924374,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.9938036038421,
+          "translation_error_vs_generating_inverse_mm": 60.051762542246145,
+          "rotation_error_vs_identity_deg": 179.88782489664425
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8355315049042912,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.91844317481656,
+          "translation_error_vs_generating_inverse_mm": 73.34833763888051,
+          "rotation_error_vs_identity_deg": 179.96810493277908
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.9301821085332777,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5090480554395,
+          "translation_error_vs_generating_inverse_mm": 41.71893459938783,
+          "rotation_error_vs_identity_deg": 0.5003640089280433
+        }
+      ]
+    },
+    {
+      "case": "cambered_naca2412_yaw_control",
+      "axis": "z",
+      "seed": 61,
+      "symmetry_residual_mm": 1.4645157861612619,
+      "sampling_floor_mm": 0.28458305411039375,
+      "symmetry_floor_ratio": 5.146180578950269,
+      "delta_fixed_mm": 1.1834224922958394,
+      "sigma_mm": 0.005382859258464199,
+      "D": 219.8501642848982,
+      "p_truth_better": 1.0,
+      "distinguishable": true,
+      "best_class": "truth",
+      "best_rmse_mm": 0.2860950244331959,
+      "strict_success": true,
+      "class_counts": {
+        "truth": 1,
+        "mate": 0,
+        "other": 3
+      },
+      "candidates": [
+        {
+          "signs": [
+            -1,
+            -1,
+            1
+          ],
+          "rmse_mm": 0.2860950244331959,
+          "class": "truth",
+          "rotation_error_vs_generating_inverse_deg": 0.11678281699438285,
+          "translation_error_vs_generating_inverse_mm": 0.04860023650270692,
+          "rotation_error_vs_identity_deg": 179.9926741617038
+        },
+        {
+          "signs": [
+            1,
+            -1,
+            -1
+          ],
+          "rmse_mm": 0.4973800667870456,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.98061446483115,
+          "translation_error_vs_generating_inverse_mm": 60.039476762716895,
+          "rotation_error_vs_identity_deg": 179.89837422673514
+        },
+        {
+          "signs": [
+            1,
+            1,
+            1
+          ],
+          "rmse_mm": 0.8342011170425915,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.86561802496863,
+          "translation_error_vs_generating_inverse_mm": 73.35244515629522,
+          "rotation_error_vs_identity_deg": 179.97242980009665
+        },
+        {
+          "signs": [
+            -1,
+            1,
+            -1
+          ],
+          "rmse_mm": 0.9313816289057418,
+          "class": "other",
+          "rotation_error_vs_generating_inverse_deg": 179.5696624092393,
+          "translation_error_vs_generating_inverse_mm": 41.71436193845558,
+          "rotation_error_vs_identity_deg": 0.48519210700397747
+        }
+      ]
+    }
+  ]
+}
