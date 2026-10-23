@@ -263,7 +263,9 @@ $py = "<用户主目录>\AppData\Local\Programs\Python\Python314\python.exe"
 C 修复后，**含孔件的铣削段与钻孔段均进入体素校验**，§8.4 的「含孔件不得声称已覆盖」限制**已解除**，但仍有两个前置条件必须同时成立：
 
 1. `voxel_breakthrough_tolerance_mm > 0` 且与实际垫板厚度匹配（默认 0 会把正常超程判成过切）；
-2. 程序中的循环属于 G73/G81/G82/G83；若含 G84 攻丝或 G85–G89 镗孔，`ExpandStats.complete=False` 会让 `warnings` 明确写出「该段不在校验覆盖内」。
+2. 程序中的循环属于 **G73/G81/G82/G83（钻孔）或 G74/G84（攻丝）或 G85/G86/G88/G89（镗孔）**；仅当含 **G76 精镗（让刀偏置）或 G87 反镗（方向相反）** 或增量模式（G91）时，`ExpandStats.complete=False` 会让 `warnings` 明确写出「该段不在校验覆盖内」。
+
+> **2026-10-23 覆盖度扩充**：原条件 2 只列 G73/G81–G83，攻击丝与镗孔一律计入缺口。实测发现后处理器的 `tap`（G84）与 `boring`（G86/G89）生成器**会产出这些循环码**，即自产程序同样对体素闸不可见——这是闭环漏洞而非外部输入问题。现已展开 G74/G84（几何等价 G81；攻丝的 F 是螺距 mm/rev，展开后按数值写成进给率并给出告警：轨迹正确、进给速度不等价）与 G85/G86/G88/G89（退刀方式与主轴动作对材料去除无影响）。**仍不支持 G76/G87**：前者带主轴定向与让刀偏置，直上直下会低估孔壁去除；后者进给方向为 Z→R，几何不可复用。测试 19 → 31 项。
 
 两条都满足时，才能说「钻孔段已过体素校验」。
 
@@ -683,7 +685,7 @@ assert mr.removed_volume_mm3 == pytest.approx(0.0, abs=1.0)
 | 1 | 刀路悬空 38mm | 体素去除量（空切即 fail） | `voxel_validator` |
 | 2 | 体素闸对空切报 passed | 空切检测 fail-closed | `voxel_validator` |
 | 3 | 钻孔扎穿垫板 15mm | 孔深夹紧至「板厚 + 3mm」 | `_feature_code_mixin` |
-| 4 | 体素闸对固定循环盲 | G73/G81–G83 展开 | `fixed_cycle_expander` |
+| 4 | 体素闸对固定循环盲 | G73/G81–G83 展开（**2026-10-23 扩至 G74/G84 攻丝、G85/G86/G88/G89 镗孔**；G76/G87 仍不支持） | `fixed_cycle_expander` |
 | 5 | 特征提取全 0 | 零特征告警 | `feature_extraction/pipeline` |
 | 6 | STL 丢孔 / 非闭合 | 体积自洽校验 | `dxf_to_model` |
 

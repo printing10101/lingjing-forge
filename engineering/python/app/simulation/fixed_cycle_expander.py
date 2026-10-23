@@ -16,9 +16,19 @@
 - ``G82`` 带停顿钻孔：同 G81（停顿时长对几何校验无影响）
 - ``G73`` 高速深孔钻：按 Q 步长啄钻，每步退回 R
 - ``G83`` 深孔啄钻：按 Q 步长啄钻，每步退回 R
+- ``G84`` / ``G74`` 右旋 / 左旋攻丝：进给到 Z 后回退。**材料去除几何与 G81 一致**，
+  差异仅在主轴反转与退刀方式；但攻丝的 ``F`` 是螺距（mm/rev）而非进给率（mm/min），
+  展开后按数值写出并给出告警——轨迹正确、进给速度不等价（2026-10-23 新增）。
+- ``G85`` / ``G86`` / ``G88`` / ``G89`` 镗孔：进给到 Z 后回退（G85 进给退、G86 主轴停
+  快退、G88 手动退、G89 进给退）。四者的 **材料去除几何与 G81 一致**，退刀方式与
+  主轴动作对体素去除无影响（2026-10-23 新增）。
 
-不支持的循环（``G84``/``G74`` 攻丝、``G85``–``G89`` 镗孔等）**原样保留**并计入
-``unsupported``，避免用错误几何冒充校验覆盖。
+仍不支持的循环
+==============
+- ``G76`` 精镗：带主轴定向与让刀偏置（``P``），退刀时刀尖让开孔壁，直上直下的
+  展开会低估孔壁去除，故不冒充覆盖。
+- ``G87`` 反镗：进给方向为 Z→R（自孔底向上），与 G81 的 R→Z 相反，几何不可复用。
+两者**原样保留**并计入 ``unsupported``，避免用错误几何冒充校验覆盖。
 
 语义约定
 ========
@@ -40,10 +50,11 @@ logger = logging.getLogger(__name__)
 
 _WORD_RE = re.compile(r"([A-Z])\s*(-?\d*\.?\d+)")
 # 支持展开的循环
-_SUPPORTED_CYCLES = {"73", "81", "82", "83"}
+_SUPPORTED_CYCLES = {"73", "81", "82", "83", "74", "84", "85", "86", "88", "89"}
 # 识别出但暂不展开的循环（原样保留）
-_KNOWN_UNSUPPORTED = {"74", "76", "84", "85", "86", "87", "88", "89"}
+_KNOWN_UNSUPPORTED = {"76", "87"}
 _DRILL_CYCLES = {"73", "83"}  # 需要 Q 啄钻
+_TAPPING_CYCLES = {"74", "84"}  # F 语义为螺距
 
 
 @dataclass
@@ -231,6 +242,11 @@ def expand_fixed_cycles(gcode: str) -> tuple[str, ExpandStats]:
         if is_cycle_line:
             active_cycle = cycle_code
             stats.expanded_cycles += 1
+            if cycle_code in _TAPPING_CYCLES and "F" in words:
+                stats.warnings.append(
+                    f"攻丝循环 G{cycle_code} 的 F 是螺距（mm/rev），展开后按数值写成 G01 进给率；"
+                    "轨迹几何与真实攻丝一致，进给速度不等价，涉及进给率复核时须人工确认"
+                )
         cycle = active_cycle
         assert cycle is not None
 

@@ -83,13 +83,7 @@ class TestG82:
 
 class TestModalRepeat:
     def test_xy_only_line_repeats_cycle_with_previous_params(self):
-        src = (
-            "G90\n"
-            "G81 X10 Y10 Z-3 R2 F100\n"
-            "X30 Y10\n"
-            "X50 Y10\n"
-            "G80\n"
-        )
+        src = "G90\nG81 X10 Y10 Z-3 R2 F100\nX30 Y10\nX50 Y10\nG80\n"
         out, stats = expand_fixed_cycles(src)
         assert stats.expanded_cycles == 1
         assert stats.expanded_holes == 3
@@ -101,11 +95,7 @@ class TestModalRepeat:
         assert moves.count("G01 Z-3.000 F100.000") == 3
 
     def test_g80_terminates_modal_repeat(self):
-        src = (
-            "G81 X10 Y10 Z-3 R2 F100\n"
-            "G80\n"
-            "X40 Y40\n"
-        )
+        src = "G81 X10 Y10 Z-3 R2 F100\nG80\nX40 Y40\n"
         out, stats = expand_fixed_cycles(src)
         assert stats.expanded_holes == 1
         # G80 之后的纯 XY 行不再触发循环，原样保留
@@ -122,11 +112,20 @@ class TestSafetyGuards:
         assert "G81 X1 Y1 Z-3 R2 F100" in out
 
     def test_unsupported_cycle_kept_verbatim_and_reported(self):
-        src = "G90\nG84 X10 Y10 Z-5 R2 F100\nG80"
+        # G76 精镗带让刀偏置、G87 反镗方向相反，两者仍不展开（2026-10-23 起
+        # G84 已支持，故此处改用 G76 作未支持样本）。
+        src = "G90\nG76 X10 Y10 Z-5 R2 F100\nG80"
         out, stats = expand_fixed_cycles(src)
-        assert stats.unsupported == {"84": 1}
+        assert stats.unsupported == {"76": 1}
         assert stats.complete is False
-        assert "G84 X10 Y10 Z-5 R2 F100" in out
+        assert "G76 X10 Y10 Z-5 R2 F100" in out
+
+    def test_g87_back_boring_kept_verbatim(self):
+        src = "G90\nG87 X10 Y10 Z-5 R2 F100\nG80"
+        out, stats = expand_fixed_cycles(src)
+        assert stats.unsupported == {"87": 1}
+        assert stats.complete is False
+        assert "G87 X10 Y10 Z-5 R2 F100" in out
 
     def test_missing_r_or_z_kept_verbatim(self):
         src = "G90\nG81 X10 Y10 F100\nG80"
@@ -151,16 +150,7 @@ class TestPassThrough:
         assert "G05.1 Q1" in out
 
     def test_non_cycle_lines_are_preserved(self):
-        src = (
-            "%\n"
-            "O1000 (PROGRAM 1000)\n"
-            "G21 G17 G40 G49 G80 G90\n"
-            "G00 Z80.000\n"
-            "G81 X1 Y1 Z-1 R1 F50\n"
-            "G80\n"
-            "M30\n"
-            "%\n"
-        )
+        src = "%\nO1000 (PROGRAM 1000)\nG21 G17 G40 G49 G80 G90\nG00 Z80.000\nG81 X1 Y1 Z-1 R1 F50\nG80\nM30\n%\n"
         out, _ = expand_fixed_cycles(src)
         for expected in ("%", "O1000 (PROGRAM 1000)", "G21 G17 G40 G49 G80 G90", "G00 Z80.000", "M30"):
             assert expected in out
@@ -180,6 +170,60 @@ class TestPassThrough:
         src = "G90\nG81 X1 Y1 Z-1 R1 F50\nG80"
         _, stats = expand_fixed_cycles(src)
         assert stats.complete is True
+
+
+class TestTappingCycles:
+    """G84/G74 攻丝：材料去除几何等价 G81，但 F 是螺距，必须告警。"""
+
+    def test_g84_expands_to_feed_then_retract(self):
+        src = "G90\nG84 X10 Y10 Z-5 R2 F1.25\nG80"
+        out, stats = expand_fixed_cycles(src)
+
+        assert stats.expanded_cycles == 1
+        assert stats.expanded_holes == 1
+        assert stats.complete is True
+
+        moves = _moves(out)
+        assert "G00 X10.000 Y10.000" in moves
+        assert "G00 Z2.000" in moves
+        assert "G01 Z-5.000 F1.250" in moves
+        assert not any(m.startswith("G84") for m in moves)
+
+    def test_g84_warns_that_f_is_pitch_not_feed_rate(self):
+        src = "G90\nG84 X10 Y10 Z-5 R2 F1.25\nG80"
+        _, stats = expand_fixed_cycles(src)
+        assert any("螺距" in w for w in stats.warnings)
+
+    def test_g74_left_hand_tap_also_expands(self):
+        src = "G90\nG74 X1 Y1 Z-3 R1 F1.0\nG80"
+        out, stats = expand_fixed_cycles(src)
+        assert stats.expanded_holes == 1
+        assert stats.complete is True
+        assert "G01 Z-3.000 F1.000" in _moves(out)
+
+
+class TestBoringCycles:
+    """G85/G86/G88/G89 镗孔：进给到孔底后回退，几何同 G81。"""
+
+    @pytest.mark.parametrize("code", ["85", "86", "88", "89"])
+    def test_boring_cycle_expands_like_a_drill(self, code):
+        src = f"G90\nG{code} X5 Y5 Z-8 R2 F80\nG80"
+        out, stats = expand_fixed_cycles(src)
+
+        assert stats.expanded_holes == 1
+        assert stats.complete is True  # 覆盖度完整，不再计入 unsupported
+
+        moves = _moves(out)
+        assert "G01 Z-8.000 F80.000" in moves
+        assert not any(m.startswith(f"G{code}") for m in moves)
+
+    @pytest.mark.parametrize("code", ["85", "86", "88", "89"])
+    def test_boring_cycle_does_not_peck_without_q(self, code):
+        """镗孔不是啄钻循环：给了 Q 也不应产生多段下刀。"""
+        src = f"G90\nG{code} X5 Y5 Z-8 R2 Q2 F80\nG80"
+        out, _ = expand_fixed_cycles(src)
+        plunge = [m for m in _moves(out) if m.startswith("G01 Z")]
+        assert len(plunge) == 1
 
 
 class TestMultiHoleRealShape:
