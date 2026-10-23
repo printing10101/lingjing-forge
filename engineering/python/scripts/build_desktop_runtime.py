@@ -27,6 +27,7 @@
 
 依赖来源：显式 --site-packages 参数复制；否则默认 pip 安装 requirements.txt（CI 与本机一致，避免宿主 venv 污染）。
 """
+
 from __future__ import annotations
 
 import argparse
@@ -41,7 +42,7 @@ import time
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]  # engineering/python
-ENGINEERING = PROJECT_ROOT.parent                    # engineering
+ENGINEERING = PROJECT_ROOT.parent  # engineering
 
 # CI Windows runner 的 stdout 默认是 cp1252，中文日志会 UnicodeEncodeError；
 # 本地旧控制台同理。统一重配置为 UTF-8（errors=replace 兜底）。
@@ -102,7 +103,6 @@ def copy_tree(src: Path, dst: Path, ignore: tuple[str, ...] = ()) -> int:
     return count
 
 
-
 def clear_dir(target: Path, *, allowed_root: Path) -> None:
     """清空目录内容（保留目录本身）。
 
@@ -130,7 +130,9 @@ def clear_dir(target: Path, *, allowed_root: Path) -> None:
 
 
 def validate_build_paths(
-    python_src: Path, runtime_dir: Path, backend_src: Path,
+    python_src: Path,
+    runtime_dir: Path,
+    backend_src: Path,
     site_packages: Path | None = None,
 ) -> None:
     """Reject source/output overlap before any cleanup, including linked paths."""
@@ -179,9 +181,15 @@ def validate_runtime(python_exe: Path) -> dict:
     """Readiness requires imports, native operations AND a clean process exit."""
     env = dict(os.environ, PYTHONIOENCODING="utf-8")
     env.pop("PYTHONPATH", None)
-    probe = subprocess.run([str(python_exe), "-X", "faulthandler", "-c", RUNTIME_VALIDATION_CODE],
-                           capture_output=True, text=True, encoding="utf-8", errors="replace",
-                           timeout=180, env=env)
+    probe = subprocess.run(
+        [str(python_exe), "-X", "faulthandler", "-c", RUNTIME_VALIDATION_CODE],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=180,
+        env=env,
+    )
     if probe.returncode != 0:
         raise RuntimeError(f"Runtime validation failed (exit={probe.returncode}): {probe.stderr[-4000:]}")
     try:
@@ -189,38 +197,57 @@ def validate_runtime(python_exe: Path) -> dict:
     except (IndexError, ValueError) as exc:
         raise RuntimeError("Runtime validation returned no valid report") from exc
     required_imports = {
-        "fastapi", "uvicorn", "pydantic", "ezdxf", "cadquery", "onnxruntime",
-        "torch", "sentence_transformers", "chromadb",
+        "fastapi",
+        "uvicorn",
+        "pydantic",
+        "ezdxf",
+        "cadquery",
+        "onnxruntime",
+        "torch",
+        "sentence_transformers",
+        "chromadb",
     }
     if not isinstance(result, dict):
         raise RuntimeError("Runtime validation report is incomplete")
     volume = result.get("cad_volume")
     imports = result.get("imports")
-    if (not isinstance(imports, dict) or set(imports) != required_imports
-            or not isinstance(volume, (int, float)) or isinstance(volume, bool)
-            or not math.isfinite(volume) or abs(volume - 6.0) > 1e-8
-            or not str(result.get("python", "")).startswith("3.12.")):
+    if (
+        not isinstance(imports, dict)
+        or set(imports) != required_imports
+        or not isinstance(volume, (int, float))
+        or isinstance(volume, bool)
+        or not math.isfinite(volume)
+        or abs(volume - 6.0) > 1e-8
+        or not str(result.get("python", "")).startswith("3.12.")
+    ):
         raise RuntimeError("Runtime validation report is incomplete")
     return result
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="构建桌面端嵌入式 Python 运行时")
-    parser.add_argument("--runtime-dir", type=Path,
-                        default=PROJECT_ROOT / "desktop_runtime",
-                        help="运行时输出目录（默认 engineering/python/desktop_runtime）")
-    parser.add_argument("--python-src", type=Path, default=None,
-                        help="完整版 Python 目录（默认自动探测 uv 安装）")
-    parser.add_argument("--site-packages", type=Path, default=None,
-                        help="已安装依赖的 site-packages 目录（默认相邻 venv）")
-    parser.add_argument("--backend-src", type=Path, default=PROJECT_ROOT,
-                        help="后端源码根（默认 engineering/python）")
-    parser.add_argument("--install-deps", action="store_true",
-                        help="[兼容保留] 默认即用 pip 安装 requirements.txt（无 --site-packages 时）")
-    parser.add_argument("--pip-index", default="https://mirrors.aliyun.com/pypi/simple/",
-                        help="--install-deps 时的 pip 源")
-    parser.add_argument("--find-links", type=Path, default=None,
-                        help="额外的本地轮子目录（如 CI 预编译的 chroma-hnswlib Windows 轮）")
+    parser.add_argument(
+        "--runtime-dir",
+        type=Path,
+        default=PROJECT_ROOT / "desktop_runtime",
+        help="运行时输出目录（默认 engineering/python/desktop_runtime）",
+    )
+    parser.add_argument("--python-src", type=Path, default=None, help="完整版 Python 目录（默认自动探测 uv 安装）")
+    parser.add_argument(
+        "--site-packages", type=Path, default=None, help="已安装依赖的 site-packages 目录（默认相邻 venv）"
+    )
+    parser.add_argument("--backend-src", type=Path, default=PROJECT_ROOT, help="后端源码根（默认 engineering/python）")
+    parser.add_argument(
+        "--install-deps",
+        action="store_true",
+        help="[兼容保留] 默认即用 pip 安装 requirements.txt（无 --site-packages 时）",
+    )
+    parser.add_argument(
+        "--pip-index", default="https://mirrors.aliyun.com/pypi/simple/", help="--install-deps 时的 pip 源"
+    )
+    parser.add_argument(
+        "--find-links", type=Path, default=None, help="额外的本地轮子目录（如 CI 预编译的 chroma-hnswlib Windows 轮）"
+    )
     args = parser.parse_args()
 
     runtime_dir = args.runtime_dir.resolve()
@@ -246,8 +273,7 @@ def main() -> int:
     # 2. 复制 Python 运行时（排除冗余目录）
     log("复制 Python 运行时（含标准库）...")
     clear_dir(runtime_py, allowed_root=runtime_dir)
-    n = copy_tree(python_src, runtime_py,
-                  ignore=("__pycache__", "include", "libs", "tcl"))
+    n = copy_tree(python_src, runtime_py, ignore=("__pycache__", "include", "libs", "tcl"))
     log(f"复制 Python 文件 {n} 个")
 
     # 2.5 裁剪 Tk/Tcl：后端为 headless FastAPI（UI 由 Tauri WebView 承载），
@@ -312,12 +338,22 @@ def main() -> int:
         log(f"安装依赖到运行时（torch 取 CPU 轮子，其余来自 {args.pip_index}）...")
         constraints = PROJECT_ROOT / "requirements-desktop-constraints.txt"
         pip_cmd = [
-            str(py_exe), "-m", "pip", "install", "--no-cache-dir",
+            str(py_exe),
+            "-m",
+            "pip",
+            "install",
+            "--no-cache-dir",
             "--break-system-packages",  # python-build-standalone 带 PEP668 标记
-            "--target", str(sp_dst), "-r", str(req),
-            "-c", str(constraints),
-            "--index-url", args.pip_index,
-            "--extra-index-url", "https://download.pytorch.org/whl/cpu",
+            "--target",
+            str(sp_dst),
+            "-r",
+            str(req),
+            "-c",
+            str(constraints),
+            "--index-url",
+            args.pip_index,
+            "--extra-index-url",
+            "https://download.pytorch.org/whl/cpu",
         ]
         # Windows 上 chroma-hnswlib 只有源码包，而 python-build-standalone 的
         # install_only 变体不带 C 头文件（Python.h），直接 pip install 会失败。
@@ -382,14 +418,44 @@ def main() -> int:
         if pyc_n:
             log(f"清理 {pyc_n} 个 .pyc 字节码缓存（__pycache__ 目录一并移除，首次导入按需重建）")
 
+        # d) torch 的 Windows 导入库与 C++ 头文件（≈810MB，2026-10-23）：
+        #    torch/lib/*.lib 是 MSVC 链接期产物（dnnl.lib 单文件 676MB），
+        #    torch/include 是编译 C++ 扩展用的头文件；运行时只加载 .dll/.pyd，
+        #    两者对 Python 侧推理均无用。这是安装包数据量跨过 makensis
+        #    2GB 上限（Internal compiler error #12345: error mmapping file
+        #    2059651802 ... is out of range，run 39806316961）的直接原因。
+        torch_lib = sp_dst / "torch" / "lib"
+        stripped = 0
+        freed = 0
+        if torch_lib.is_dir():
+            for p in list(torch_lib.glob("*.lib")) + list(torch_lib.glob("*.exp")):
+                try:
+                    size = p.stat().st_size
+                    p.unlink()
+                    stripped += 1
+                    freed += size
+                except OSError:
+                    pass
+        torch_inc = sp_dst / "torch" / "include"
+        if torch_inc.is_dir():
+            try:
+                for p in torch_inc.rglob("*"):
+                    if p.is_file():
+                        freed += p.stat().st_size
+                shutil.rmtree(torch_inc, ignore_errors=True)
+                stripped += 1
+            except OSError:
+                pass
+        if freed:
+            log(f"移除 torch 导入库/头文件（{stripped} 项，释放 {freed // (1024 * 1024)} MB；运行时仅需 dll/pyd）")
+
     # 4. 后端代码
     log("复制后端代码...")
     clear_dir(backend_dst, allowed_root=runtime_dir)
     for sub in ("app", "alembic", "config"):
         s = args.backend_src / sub
         if s.is_dir():
-            n = copy_tree(s, backend_dst / sub,
-                          ignore=("__pycache__", "tests", "data", ".pyc"))
+            n = copy_tree(s, backend_dst / sub, ignore=("__pycache__", "tests", "data", ".pyc"))
             log(f"复制 {sub}/ {n} 个文件")
     for f in ("start_server.py", "alembic.ini", "requirements.txt", "requirements-desktop-constraints.txt"):
         s = args.backend_src / f
@@ -416,7 +482,9 @@ def main() -> int:
         return 1
     info["python"] = info["validation"]["python"]
     info["requirements_sha256"] = hashlib.sha256((PROJECT_ROOT / "requirements.txt").read_bytes()).hexdigest()
-    info["constraints_sha256"] = hashlib.sha256((PROJECT_ROOT / "requirements-desktop-constraints.txt").read_bytes()).hexdigest()
+    info["constraints_sha256"] = hashlib.sha256(
+        (PROJECT_ROOT / "requirements-desktop-constraints.txt").read_bytes()
+    ).hexdigest()
     (runtime_dir / "runtime.json").write_text(json.dumps(info, ensure_ascii=False, indent=2), encoding="utf-8")
     log(f"运行时 Python: {info['validation']['python']}（依赖与原生计算验证通过）")
 
