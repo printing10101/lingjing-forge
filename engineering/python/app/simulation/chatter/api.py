@@ -363,36 +363,51 @@ def _compute_unstable_ranges(
 ) -> list[dict]:
     """计算给定切深下的不稳定转速区间。
 
-    对每个叶图，找出 limit_depth < assumed_depth 的转速区间。
+    稳定性由**下包络**判定：某一转速下的实际极限切深是覆盖该转速的所有
+    叶瓣的最小 limit_depth，而不是逐叶瓣各自判断。
+
+    2026-10-23 修正：原实现逐叶瓣独立扫描并分别报区间，导致两类错误。
+    ① 同一转速被多个叶瓣重复报（实测 vmc_850/d10、depth=40 mm 时
+    lobe5 的 1000–1062 与 lobe4 的 1000–1274 完全重叠，输出 6 个区间
+    而实际只有 4 段不同转速）；② 重叠转速段上若一个叶瓣稳定、另一个
+    不稳定，逐叶瓣输出会同时给出"稳定"与"不稳定"两个互相矛盾的结论
+    （lobe5 限深最低 30.3 mm，而 lobe0–4 均低至 10.5 mm，同一转速下
+    取 lobe5 会把真实的不稳定段误判为安全）。
+
+    叶瓣覆盖不到高于其最高转速、低于其最低转速的区间（频率搜索窗限制），
+    这些转速点视为"未计算"而非"稳定"，不产生区间。
     """
-    unstable_ranges = []
-    for idx, (speeds, depths) in enumerate(lobe_data["lobes"]):
-        if not speeds:
+    lobes = [(np.asarray(s, dtype=float), np.asarray(d, dtype=float)) for s, d in lobe_data["lobes"] if len(s)]
+    if not lobes:
+        return []
+
+    # 统一转速网格：所有叶瓣转速的并集（保留原始分辨率，不引入额外采样误差）
+    grid = np.unique(np.concatenate([s for s, _ in lobes]))
+
+    # 逐叶瓣插值到网格；范围外用 inf 表示"该叶瓣不覆盖此转速"
+    stack = np.vstack([np.interp(grid, s, d, left=np.inf, right=np.inf) for s, d in lobes])
+    envelope = stack.min(axis=0)  # 该转速下的真实稳定极限
+    covered = np.isfinite(envelope)  # 至少一个叶瓣覆盖
+    unstable = covered & (envelope < assumed_depth)
+
+    ranges: list[dict] = []
+    i, n = 0, len(grid)
+    while i < n:
+        if not unstable[i]:
+            i += 1
             continue
-        in_unstable = False
-        range_start: float | None = None
-        for s, d in zip(speeds, depths):
-            if d < assumed_depth and not in_unstable:
-                in_unstable = True
-                range_start = s
-            elif d >= assumed_depth and in_unstable:
-                in_unstable = False
-                unstable_ranges.append(
-                    {
-                        "lobe": idx,
-                        "speed_start": round(range_start or 0.0, 1),
-                        "speed_end": round(s, 1),
-                    }
-                )
-        if in_unstable:
-            unstable_ranges.append(
-                {
-                    "lobe": idx,
-                    "speed_start": round(range_start or 0.0, 1),
-                    "speed_end": round(speeds[-1], 1),
-                }
-            )
-    return unstable_ranges
+        j = i
+        while j + 1 < n and unstable[j + 1]:
+            j += 1
+        ranges.append(
+            {
+                "lobe": -1,  # -1 = 下包络合并结果，不隶属单一叶瓣
+                "speed_start": round(float(grid[i]), 1),
+                "speed_end": round(float(grid[j]), 1),
+            }
+        )
+        i = j + 1
+    return ranges
 
 
 def identify_modal_parameters(
