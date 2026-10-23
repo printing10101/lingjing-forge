@@ -128,10 +128,12 @@ class ChatterPredictor:
         except ImportError:
             logger.warning("PyTorch 未安装，使用解析法回退")
             self.model = None
-        except (OSError, RuntimeError, ValueError, KeyError, TypeError) as e:
-            # TypeError 覆盖「torch 与解释器版本不兼容导致模型构造失败」一类
-            # 环境错误（实测 Python 3.14 + 旧 torch 会在 nn.init 抛 TypeError）；
-            # 此类失败必须降级到解析法，不得让预测入口崩溃（2026-10-22）。
+        except Exception as e:  # noqa: BLE001 — 见下方说明，加载失败必须 fail-safe
+            # 权重文件来自磁盘，损坏形式不可穷举：EOFError / UnpicklingError /
+            # zipfile.BadZipFile / AttributeError（结构不匹配）/ RuntimeError（版本不兼容）
+            # 等。白名单式捕获（原为 OSError/RuntimeError/ValueError/KeyError/TypeError）
+            # 会让未列举的异常直接冒泡，使整个预测入口崩溃——而本模块始终有解析法兜底，
+            # 模型加载失败绝不应升级为服务不可用（2026-10-23 由合并测试暴露）。
             logger.error("加载 LTC 模型失败: %s", e)
             self.model = None
 
@@ -261,6 +263,7 @@ def predict_stability(
     machine: str = "vmc_850",
     tool: str = "endmill_d10",
     workpiece: str = "aluminum",
+    force_analytical: bool = False,
 ) -> dict[str, object]:
     """预测颤振稳定性。
 
@@ -271,6 +274,9 @@ def predict_stability(
         machine: 机床标识 (如 'vmc_850')
         tool: 刀具标识 (如 'endmill_d10')
         workpiece: 工件材料 (如 'aluminum')
+        force_analytical: 强制走解析法，跳过神经路径。用于运维在权重可疑时显式降级，
+            以及测试中构造"无神经路径"的确定性场景（缓存单例存在时仅删除权重文件
+            无法触发回退，必须经此开关）。
 
     Returns:
         包含以下键的字典：
@@ -300,9 +306,9 @@ def predict_stability(
     ltc_active = False
 
     try:
-        predictor = get_cached_predictor()
+        predictor = None if force_analytical else get_cached_predictor()
 
-        if predictor.model is not None:
+        if predictor is not None and predictor.model is not None:
             stable, limit_depth = predictor.predict(
                 spindle_rpm=spindle_rpm,
                 machine_stiffness=machine_params.stiffness_z,

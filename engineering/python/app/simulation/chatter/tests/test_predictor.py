@@ -19,8 +19,10 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "..
 
 from app.simulation.chatter.predictor import (
     ChatterPredictor,
+    get_cached_predictor,
     predict_stability,
     predict_stability_batch,
+    reset_predictor_cache,
 )
 
 
@@ -264,18 +266,58 @@ class TestPredictStability:
             assert float(result["limit_depth"]) > 0  # type: ignore[arg-type]
 
     def test_analytical_method_fallback(self):
-        """测试解析法回退。"""
-        # 强制使用解析法（模型不存在）
-        with patch("os.path.exists", return_value=False):
-            result = predict_stability(
-                spindle_rpm=8000,
-                machine="vmc_850",
-                tool="endmill_d10",
-            )
+        """测试解析法回退。
 
-            # 应该使用解析法
-            assert result["method"] == "analytical"
-            assert float(result["limit_depth"]) > 0  # type: ignore[arg-type]
+        2026-10-23：``predict_stability`` 现持有进程级单例，仅把
+        ``os.path.exists`` patch 成 False 已不能触发回退——已建立的实例不会因
+        权重文件"消失"而重建，前序测试留下的实例会让本条恒为 neural_network
+        （合并跑暴露）。改用显式 ``force_analytical`` 开关，语义也更贴近运维
+        在权重可疑时强制降级的真实用法。
+        """
+        result = predict_stability(
+            spindle_rpm=8000,
+            machine="vmc_850",
+            tool="endmill_d10",
+            force_analytical=True,
+        )
+
+        # 应该使用解析法
+        assert result["method"] == "analytical"
+        assert float(result["limit_depth"]) > 0  # type: ignore[arg-type]
+
+    def test_force_analytical_overrides_cached_predictor(self):
+        """单例缓存已建立时，force_analytical 仍必须降级到解析法。
+
+        这是 force_analytical 存在的理由：缓存命中后仅删除权重文件不会让入口
+        回退，运维需要一个运行时的显式开关。
+        """
+        reset_predictor_cache()
+        cached = get_cached_predictor()  # 建立单例（无论权重是否存在）
+        assert cached is not None
+
+        result = predict_stability(spindle_rpm=8000, force_analytical=True)
+        assert result["method"] == "analytical"
+        assert float(result["limit_depth"]) > 0  # type: ignore[arg-type]
+
+        # 不传开关时行为不受影响（有模型则走神经路径，无模型则解析法）
+        normal = predict_stability(spindle_rpm=8000)
+        assert normal["method"] in {"analytical", "neural_network"}
+        reset_predictor_cache()
+
+    def test_model_load_raises_generic_exception_does_not_crash(self):
+        """权重加载抛任意异常都必须回退，而不是让预测入口崩溃。
+
+        权重来自磁盘，损坏形式不可穷举（EOFError/UnpicklingError/BadZipFile/
+        AttributeError…）。白名单式捕获会让未列举的异常冒泡，把"模型不可用"
+        升级成"功能不可用"。
+        """
+        for exc in (Exception("generic"), EOFError("truncated"), EOFError("bad zip")):
+            mock_torch = MagicMock()
+            mock_torch.load = MagicMock(side_effect=exc)
+            with patch.dict("sys.modules", {"torch": mock_torch}):
+                with patch("os.path.exists", return_value=True):
+                    predictor = ChatterPredictor()
+            assert predictor.model is None, f"{type(exc).__name__} 未被兜底"
 
     def test_result_structure(self):
         """测试结果结构完整性。"""
