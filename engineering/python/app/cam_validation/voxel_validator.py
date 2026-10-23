@@ -218,8 +218,11 @@ class VoxelValidator:
         # ToolpathParser 对 G73/G81–G89 只生成「定位到 (X, Y, R 平面)」的 rapid 段，
         # 循环内部的钻深轨迹完全不生成。于是一份 Z=-15 钻穿垫板的程序在体素闸里
         # 报 collision_count=0（实测 case2/case6）——钻孔段对强制校验**完全不可见**。
-        # 体素闸的职责是完整校验，故在解析前展开为显式 G00/G01 序列；
-        # 不支持的循环（攻丝/镗孔）与增量模式保留原样，并把覆盖度缺口如实写进报告。
+        # 体素闸的职责是完整校验，故在解析前展开为显式 G00/G01 序列。
+        # 覆盖范围（2026-10-23）：G73/G81/G82/G83 钻孔 + G74/G84 攻丝 + G85/G86/G88/G89
+        # 镗孔均已展开（后处理器的 tap 与 boring 生成器会产出这些码，此前对自产程序
+        # 同样不可见）；仅 G76（让刀偏置）与 G87（反向镗）与增量模式保留原样，
+        # 并把覆盖度缺口如实写进报告。
         expanded_text, cycle_stats = expand_fixed_cycles(gcode_text)
         if cycle_stats.expanded_holes:
             logger.info(
