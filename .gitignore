@@ -632,3 +632,6 @@ research/prototypes/**/coverage.json
 # 仅放行这两个文件，last_model.pt 等其余检查点继续忽略
 !/engineering/python/app/simulation/chatter/checkpoints/chatter_model.pt
 !/engineering/python/app/simulation/cutting_force/checkpoints/best_model.pt
+
+# 临时工作区：PDF 转报告过程中的中间件，正式产物在 docs/reports/
+/tmp/
