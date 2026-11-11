@@ -1,0 +1,241 @@
+{
+  "summary": {
+    "configurations": 14,
+    "runs": 98,
+    "by_policy": {
+      "legacy_uniform": {
+        "displacement_budget_conflict": 4,
+        "verified": 7,
+        "budget_unknown": 2,
+        "protected_point_conflict": 1
+      },
+      "legacy_targeted": {
+        "displacement_budget_conflict": 4,
+        "verified": 9,
+        "protected_point_conflict": 1
+      },
+      "uniform": {
+        "displacement_budget_conflict": 4,
+        "verified_quality": 9,
+        "protected_point_conflict": 1
+      },
+      "dual_local": {
+        "displacement_budget_conflict": 4,
+        "verified_quality": 9,
+        "protected_point_conflict": 1
+      },
+      "evidence": {
+        "displacement_budget_conflict": 4,
+        "verified_budget_only": 4,
+        "verified_quality": 5,
+        "protected_point_conflict": 1
+      },
+      "direct_13": {
+        "displacement_budget_conflict": 4,
+        "verified_budget_only": 9,
+        "protected_point_conflict": 1
+      },
+      "direct_21": {
+        "displacement_budget_conflict": 4,
+        "verified_budget_only": 9,
+        "protected_point_conflict": 1
+      }
+    },
+    "exact_replayed": 45,
+    "step_exported": true,
+    "caveat": "Exploratory synthetic geometry only; no ANSYS, NN, full machining or established patent novelty."
+  },
+  "representative": [
+    {
+      "policy": "legacy_uniform",
+      "status": "verified",
+      "controls": 13,
+      "change_upper_mm": 0.11044379096017039,
+      "lp_calls": 41,
+      "elapsed_s": 0.3871198000001641,
+      "global_gap_upper_mm": 0.0024635396479145283
+    },
+    {
+      "policy": "legacy_targeted",
+      "status": "verified",
+      "controls": 13,
+      "change_upper_mm": 0.11019931054911089,
+      "lp_calls": 33,
+      "elapsed_s": 0.24561480000011215,
+      "global_gap_upper_mm": 0.002219059236855031
+    },
+    {
+      "policy": "uniform",
+      "status": "verified_quality",
+      "controls": 13,
+      "change_upper_mm": 0.10798261004922832,
+      "lp_calls": 38,
+      "elapsed_s": 1.153529400000025,
+      "global_gap_upper_mm": 2.358736972463138e-06
+    },
+    {
+      "policy": "dual_local",
+      "status": "verified_quality",
+      "controls": 14,
+      "change_upper_mm": 0.10798190612309427,
+      "lp_calls": 107,
+      "elapsed_s": 3.6777751999998145,
+      "global_gap_upper_mm": 1.6548108384140114e-06
+    },
+    {
+      "policy": "evidence",
+      "status": "verified_quality",
+      "controls": 13,
+      "change_upper_mm": 0.10798261004922832,
+      "lp_calls": 38,
+      "elapsed_s": 1.1807214999998905,
+      "global_gap_upper_mm": 2.358736972463138e-06
+    },
+    {
+      "policy": "direct_13",
+      "status": "verified_budget_only",
+      "controls": 13,
+      "change_upper_mm": 0.10798261004922832,
+      "lp_calls": 18,
+      "elapsed_s": 0.6535156999998435,
+      "global_gap_upper_mm": 2.358736972463138e-06
+    },
+    {
+      "policy": "direct_21",
+      "status": "verified_budget_only",
+      "controls": 21,
+      "change_upper_mm": 0.10798140340131226,
+      "lp_calls": 24,
+      "elapsed_s": 2.3910358000002816,
+      "global_gap_upper_mm": 1.1520890564054032e-06
+    }
+  ],
+  "quality_counts": {
+    "legacy_uniform": 0,
+    "legacy_targeted": 0,
+    "uniform": 9,
+    "dual_local": 9,
+    "evidence": 5,
+    "direct_13": 9,
+    "direct_21": 9
+  },
+  "costs": {
+    "legacy_uniform": {
+      "lp_calls": 346,
+      "elapsed_s": 3.755087500000627
+    },
+    "legacy_targeted": {
+      "lp_calls": 211,
+      "elapsed_s": 1.5647579999995287
+    },
+    "uniform": {
+      "lp_calls": 312,
+      "elapsed_s": 9.822802799999408
+    },
+    "dual_local": {
+      "lp_calls": 525,
+      "elapsed_s": 15.451524299999619
+    },
+    "evidence": {
+      "lp_calls": 783,
+      "elapsed_s": 24.72867980000001
+    },
+    "direct_13": {
+      "lp_calls": 165,
+      "elapsed_s": 6.355410200000279
+    },
+    "direct_21": {
+      "lp_calls": 198,
+      "elapsed_s": 18.4730612999997
+    }
+  },
+  "coupling": {
+    "single_gain_upper_mm": 2.220321423242955e-06,
+    "pair_gain_lower_mm": 0.00461956451380577,
+    "best_pair": [
+      -1,
+      1
+    ],
+    "single_gain_upper_rational": "6848152994085975782668385082045410385/3084307038790675122530644131541190535282688",
+    "pair_gain_lower_rational": "334615627524920177250370939/72434452755212477117635756032",
+    "complementary_gain_certified": true,
+    "scope": "One related analytic section. Does not establish general refinement theory or patent inventiveness."
+  },
+  "source_hashes_match": true,
+  "representative_contact": {
+    "lower_mm": 0.10798025131225586,
+    "upper_mm": 0.10798031091690063,
+    "lower_rational": "226451/2097152",
+    "upper_rational": "1811609/16777216",
+    "status": "bounded",
+    "iterations": 26
+  },
+  "interaction_targets": [
+    {
+      "insertions": [
+        -3,
+        -1
+      ],
+      "synergy_lower_mm": 0.000812909426149519,
+      "synergy_upper_mm": 0.0008237722298144131,
+      "lower_rational": "30045213218285339177961196147805292028507717877/36960099430264327428943404555394260011689653043200",
+      "upper_rational": "8700315392309349534555350248693938006697743247759693913847841/10561554611120401012761160089025275097204402409195975462281543680",
+      "positive_synergy_certified": true
+    },
+    {
+      "insertions": [
+        -3,
+        1
+      ],
+      "synergy_lower_mm": 0.0042460005210578,
+      "synergy_upper_mm": 0.0042551194334172725,
+      "lower_rational": "9764695200664472061331857076061551952461009403/2299739520105335928912034061224531734060689522688",
+      "upper_rational": "146002747576422177100265694481279768627138109617865438955738495923/34312256062614872217161140218569476190090539369412826851339877220352",
+      "positive_synergy_certified": true
+    },
+    {
+      "insertions": [
+        -3,
+        3
+      ],
+      "synergy_lower_mm": 0.004616948964128026,
+      "synergy_upper_mm": 0.0046271367848830704,
+      "lower_rational": "8074130002481117927642701819337239126779103/1748802090994312794474875222583855033505284096",
+      "upper_rational": "834987075110275964349770990106247/180454374687645286282553174934945792",
+      "positive_synergy_certified": true
+    },
+    {
+      "insertions": [
+        -1,
+        1
+      ],
+      "synergy_lower_mm": 0.004617375682458215,
+      "synergy_upper_mm": 0.004625948428230669,
+      "lower_rational": "5351313291585384476666728909/1158951244083399633882172096512",
+      "upper_rational": "40157738305528692061388081487903/8680974059386175628012240177725440",
+      "positive_synergy_certified": true
+    },
+    {
+      "insertions": [
+        -1,
+        3
+      ],
+      "synergy_lower_mm": 0.004246000521057809,
+      "synergy_upper_mm": 0.004255119433417309,
+      "lower_rational": "39233150359812687085551381787875639150969012079/9240024857566081857235851138848565002922413260800",
+      "upper_rational": "1548473986502212198548325572415334398993338354256505605323156642547/363908466197533861760669235771989110044992790961313254038170668892160",
+      "positive_synergy_certified": true
+    },
+    {
+      "insertions": [
+        1,
+        3
+      ],
+      "synergy_lower_mm": 0.0008129094261495041,
+      "synergy_upper_mm": 0.0008237722298144495,
+      "lower_rational": "902558205077275109605101973917199675232047673203/1110281386885140395965459872844043570751157177417728",
+      "upper_rational": "2559467068124336993558164292438345198298586655009180736712385889/3107008194122838732220756895141921166452826533501471295756329549824",
+      "positive_synergy_certified": true
+    }
+  ]
+}

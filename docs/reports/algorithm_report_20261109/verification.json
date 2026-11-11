@@ -1,0 +1,12 @@
+{
+  "current_run_source_unchanged": true,
+  "prior_run_source_unchanged": true,
+  "probe_source_unchanged": true,
+  "mutation_source_unchanged": true,
+  "mutation_all_caught": true,
+  "observed_tests_passed": 54,
+  "coverage_percent": 96.72514619883042,
+  "every_module_at_least_80": true,
+  "pdf_pages": 10,
+  "pdf_sha256": "8fc0ca615770862b675272e33604a20bf869381638e869ee5f885fcd6e44bc9a"
+}
