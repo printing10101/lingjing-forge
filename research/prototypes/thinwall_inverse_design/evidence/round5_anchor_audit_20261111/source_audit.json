@@ -200,7 +200,9 @@
       "status": "open_but_required_for_parameter_work",
       "detail": "anomaly A2 makes this anchor unusable for parameter-level reproduction, so O1 is now the only route to any reproduce-SLD work: need a public thin-wall milling dataset stating free height, mode direction and signed force coefficients",
       "search_2026_11_11": {
-        "rounds": 1,
+        "rounds": 2,
+        "round2_query": "Zenodo Dryad dataset thin wall milling stability lobe experimental modal parameters workpiece free length repository",
+        "round2_result": "no public dataset found; all hits are ordinary papers on 2A12 thin-wall milling with no data deposit. Conclusion: this class of experimental data is essentially not published openly.",
         "candidate": "Wang et al. 2026, Coatings 16(2):216, doi 10.3390/coatings16020216",
         "candidate_gains": [
           "workpiece modes explicitly assigned to the wall-thickness (Y) direction",
@@ -213,7 +215,8 @@
           "data available only on request, not a public dataset"
         ],
         "record": "candidate_anchors_20261111.md",
-        "next_action": "request Table 2 and raw data from the corresponding author (data availability statement permits reasonable requests)"
+        "next_action": "two drafts ready in correspondence_draft.md (letter A to Ma 2022, letter B to Wang 2026); sending is a user-executed outward action, not automated",
+        "conclusion": "open search is exhausted after two rounds; the remaining routes are author correspondence or in-house measurement"
       }
     },
     {
