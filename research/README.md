@@ -1,11 +1,13 @@
 # research/ — 科研资产与当前状态
 
-更新：2026-10-21。以代码、冻结实验产物和决策记录为准；旧报告中的成功率不等于当前已复现或可投稿。
+更新：2026-11-11（新增薄壁探索台账，其余条目沿用既有记录）。以代码、冻结实验产物和决策记录为准；旧报告中的成功率不等于当前已复现或可投稿。
 
 ## 当前工作与保留资产
 
 | 路径 | 状态与用途 |
 |---|---|
+| `prototypes/thinwall_inverse_design/` | 四轮薄壁最终结构探索已阶段收束，第五轮完成公开锚点（Micromachines 2022）验收：判**不满足完整可复核条件**，但 Fig.8 数字化得 **13 个带标签实验点**（正文只报 4 个）、A–D 偏差 ≤10 rpm。梁条/分片板/再生切削与来源诊断可复用，76项原型检查通过；25点标签仍暂定、1个数值情况未决，尚未证明新设计优势或外部物理有效性。总入口：[F17台账](../docs/paper_and_competition/F17-薄壁最终结构逆设计探索台账-2026-11-11.md) |
+| `prototypes/contact_repair_evidence/` | 受限子问题探索：连续刀球验证、实际几何 minimax、精确锁定/上下界回放及协同精化诊断；98次冻结比较、54项测试；尚未确立专利或论文贡献，见 F15/F16 |
 | `prototypes/pointcloud_registration/` | 最新探索：叶片 STEP 采样、ICP/PCA、对称性与弯度扫描；合成点云探针，尚未确立论文贡献 |
 | `prototypes/surface_edit_*` | 方法论文路线已停止投入；保留解析探针、几何内核、强基线、原始模型响应和失败证据，供复核与复用 |
 | `prototypes/tool_conditioned_surface_gate/` | 不再按宽泛组合立项；经典球刀几何探针及查新原始记录，保留用于复核 F13/F14 |
@@ -31,5 +33,9 @@ Remove-Item Env:PYTHONPATH -ErrorAction SilentlyContinue
 Set-Location 'D:\灵境制造\research'
 & '.\.venv\Scripts\python.exe' -m pytest tests/ -q
 ```
+
+`research/pytest.ini` 默认排除 `benchmark` 标记的 7 个用例。它们在 CPU 上以 `epochs=50` 跑 Uniwear 全量训练，2026-11-11 实测 `test_model_benchmark.py` 单文件 >300 s 未完成（1 项通过、6 项未执行），属精度基准而非回归门禁。要跑基准须显式 `-m benchmark` 并留足 30 分钟。
+
+实测基线（2026-11-11，`.venv` Python 3.12.14）：`468 passed, 14 skipped, 7 deselected`，耗时 **624 s**。最慢单文件 `test_lnn_cross_validation.py` 约 282 s。此前无 `research/pytest.ini` 时全量运行会卡在 benchmark 上不返回，故不得把「跑不完」当成用例失败。
 
 曲面与点云原型按各自 README/测试入口使用系统 Python 3.14。原型测试不属于默认工程 CI 收集范围。不要在清理时删除冻结产物或原始 API 响应。

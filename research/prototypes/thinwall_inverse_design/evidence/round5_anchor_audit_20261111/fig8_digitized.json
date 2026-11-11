@@ -1,0 +1,189 @@
+{
+  "source_doi": "10.3390/mi13020160",
+  "figure": "Fig.8 Stability lobe diagrams at the measured point 2",
+  "image_px": {
+    "width": 2188,
+    "height": 1348
+  },
+  "axis_px_used": {
+    "x_left": 176,
+    "x_right": 2121,
+    "y_bottom": 1171,
+    "y_top": 26
+  },
+  "axis_px_detected": {
+    "x_left": 172,
+    "x_right": 2124,
+    "y_top": 23,
+    "y_bottom": 1173
+  },
+  "axis_drift_px": {
+    "x_left": -4,
+    "x_right": 3,
+    "y_bottom": 2,
+    "y_top": -3
+  },
+  "marker_count": {
+    "stable": 6,
+    "unstable": 7
+  },
+  "markers": {
+    "stable": [
+      {
+        "rpm": 1491,
+        "ap_mm": 0.172,
+        "area_px": 677
+      },
+      {
+        "rpm": 2493,
+        "ap_mm": 0.172,
+        "area_px": 671
+      },
+      {
+        "rpm": 2493,
+        "ap_mm": 0.382,
+        "area_px": 682
+      },
+      {
+        "rpm": 3010,
+        "ap_mm": 0.162,
+        "area_px": 689
+      },
+      {
+        "rpm": 3989,
+        "ap_mm": 0.162,
+        "area_px": 694
+      },
+      {
+        "rpm": 3989,
+        "ap_mm": 0.403,
+        "area_px": 687
+      }
+    ],
+    "unstable": [
+      {
+        "rpm": 1491,
+        "ap_mm": 0.403,
+        "area_px": 1105
+      },
+      {
+        "rpm": 1491,
+        "ap_mm": 0.59,
+        "area_px": 1122
+      },
+      {
+        "rpm": 2506,
+        "ap_mm": 0.624,
+        "area_px": 1097
+      },
+      {
+        "rpm": 3010,
+        "ap_mm": 0.403,
+        "area_px": 1109
+      },
+      {
+        "rpm": 3010,
+        "ap_mm": 0.623,
+        "area_px": 1126
+      },
+      {
+        "rpm": 3989,
+        "ap_mm": 0.623,
+        "area_px": 1121
+      },
+      {
+        "rpm": 3989,
+        "ap_mm": 0.811,
+        "area_px": 1112
+      }
+    ]
+  },
+  "paper_points_vs_figure": [
+    {
+      "paper": {
+        "name": "A",
+        "rpm": 1500,
+        "ap_mm": 0.2,
+        "label": "stable"
+      },
+      "nearest_marker": {
+        "rpm": 1491,
+        "ap_mm": 0.172,
+        "area_px": 677
+      },
+      "drift_rpm": -9,
+      "drift_ap_mm": -0.028
+    },
+    {
+      "paper": {
+        "name": "B",
+        "rpm": 1500,
+        "ap_mm": 0.6,
+        "label": "chatter"
+      },
+      "nearest_marker": {
+        "rpm": 1491,
+        "ap_mm": 0.59,
+        "area_px": 1122
+      },
+      "drift_rpm": -9,
+      "drift_ap_mm": -0.01
+    },
+    {
+      "paper": {
+        "name": "C",
+        "rpm": 2500,
+        "ap_mm": 0.4,
+        "label": "stable"
+      },
+      "nearest_marker": {
+        "rpm": 2493,
+        "ap_mm": 0.382,
+        "area_px": 682
+      },
+      "drift_rpm": -7,
+      "drift_ap_mm": -0.018
+    },
+    {
+      "paper": {
+        "name": "D",
+        "rpm": 3000,
+        "ap_mm": 0.4,
+        "label": "chatter"
+      },
+      "nearest_marker": {
+        "rpm": 3010,
+        "ap_mm": 0.403,
+        "area_px": 1109
+      },
+      "drift_rpm": 10,
+      "drift_ap_mm": 0.003
+    }
+  ],
+  "curve_sampled_ap_mm": {
+    "1100": 0.239,
+    "1300": 0.386,
+    "1500": 1.967,
+    "1700": 0.547,
+    "1900": 0.643,
+    "2100": 0.524,
+    "2300": 0.238,
+    "2500": 1.967,
+    "2700": 0.362,
+    "2900": 0.629,
+    "3100": 0.201,
+    "3300": 0.714,
+    "3500": 1.967,
+    "3700": 0.159,
+    "3900": 0.386,
+    "4100": 0.952,
+    "4300": 1.387,
+    "4500": 1.967,
+    "4700": 0.159,
+    "4900": 0.271
+  },
+  "notes": [
+    "标记点总数见 marker_count；正文 §6.3 只描述 A-D 四点，图内含更多点与一组 4000 rpm 数据。",
+    "curve_sampled_ap_mm 为叶瓣曲线高度抽样，被文字标注遮挡的列返回 null，不做插值。"
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "anchor_id": "ma2022_thinwall_point2",
+  "created": "2026-11-11",
+  "created_by": "round5 O3 landing",
+  "purpose": "把 I06 验收结果固化为可复用数据集，明确每条字段的来源与可信度，防止后续误用",
+  "source": {
+    "doi": "10.3390/mi13020160",
+    "pmcid": "PMC8879075",
+    "title": "A Novel Updated Full-Discretization Method for Prediction of Milling Stability",
+    "journal": "Micromachines 2022, 13(2):160",
+    "audit": "evidence/round5_anchor_audit_20261111/source_audit.md",
+    "audit_json": "evidence/round5_anchor_audit_20261111/source_audit.json",
+    "digitized_figure": "evidence/round5_anchor_audit_20261111/fig8_digitized.json"
+  },
+  "provenance_legend": {
+    "text": "正文明确陈述",
+    "table": "Table 1 / Table 2 明确列出",
+    "figure_digitized": "Fig.8 像素数字化，误差约 ±10 rpm / ±0.03 mm（见 source_audit.json artifacts）",
+    "derived": "由公开值代数反算，非论文声明"
+  },
+  "identity": {
+    "verdict": "not_verified_but_partially_usable",
+    "hard_gaps": 3,
+    "parameter_level": "unusable_for_sld_reproduction",
+    "usable_scope": "方向性对照 + 13 点带标签数据",
+    "not_usable_scope": "外部验证、复现声明、绝对切深外推、由参数重算 SLD"
+  },
+  "workpiece": {
+    "geometry_mm": {"value": [80, 40, 3], "provenance": "text", "status": "verified", "note": "总尺寸，非自由高度"},
+    "free_height_mm": {
+      "value": null,
+      "provenance": null,
+      "status": "unresolved",
+      "detail": "正文只给总尺寸；Fig.6 为现场照片，无尺寸标注、无悬伸箭头",
+      "consequence": "575/1820 Hz 无法由几何独立复算；任何由几何推刚度或由刚度反推几何的步骤都缺输入",
+      "inferred_estimate_mm": {
+        "value": 63.9,
+        "method": "按悬臂一阶弯曲 f=(1.8751^2/2pi)*sqrt(EI/(rho*A*L^4)) 反解 L，取 I=b*t^3/12=9.0e-11 m4、rhoA=0.552 kg/m、EI=9.72 N m2、f=575 Hz",
+        "status": "derived_not_declared",
+        "uncertainty": "边界是否为理想固支、宽 40 与厚 3 的弯曲方向归属、夹具柔度均未证实；仅作量级先验",
+        "crosscheck_failed": "同一模型给出的 80 mm 全悬臂频率为 366.9 Hz；用 1820 Hz 反解得 35.9 mm，与 63.9 mm 不一致，两阶之比 3.17 也不等于均匀悬臂的 6.27"
+      }
+    },
+    "material": {
+      "name": "Ti-6Al-4V",
+      "density_g_cm3": {"value": 4.6, "provenance": "table", "status": "verified"},
+      "poisson": {"value": 0.34, "provenance": "table", "status": "verified"},
+      "youngs_modulus_GPa": {"value": 108, "provenance": "table", "status": "verified"}
+    }
+  },
+  "modes": {
+    "workpiece": [
+      {"label": "Mode no.1", "frequency_hz": 575, "zeta": 0.007, "stiffness_N_m": 1.19e6, "direction": null, "provenance": "table", "status": "value_verified_direction_unresolved"},
+      {"label": "Mode no.2", "frequency_hz": 1820, "zeta": 0.012, "stiffness_N_m": 1.31e7, "direction": null, "provenance": "table", "status": "value_verified_direction_unresolved"}
+    ],
+    "tool": [
+      {"label": "Cutter X", "frequency_hz": 2126, "zeta": 0.036, "stiffness_N_m": 1.45e8, "direction": "X", "provenance": "table", "status": "verified"},
+      {"label": "Cutter Y", "frequency_hz": 2134, "zeta": 0.033, "stiffness_N_m": 1.47e8, "direction": "Y", "provenance": "table", "status": "verified"}
+    ],
+    "normalization": {
+      "declared": null,
+      "status": "unresolved",
+      "derived_modal_mass_kg": {"mode1": 0.09117, "mode2": 0.10018},
+      "derivation": "m = k / omega^2，omega = 2*pi*f：mode1 1.19e6/1.305255e7=0.09117 kg；mode2 1.31e7/1.307683e8=0.10018 kg。仅为反算，不是论文声明的归一化口径",
+      "warning": "两阶模态质量相差约 10%（0.0912 vs 0.1002 kg），与板总质量 44.2 g 同量级，说明 Table 2 的 k 与「质量归一化」相容；但这仍是反算结论，不是论文陈述，使用时必须显式声明"
+    }
+  },
+  "tool": {
+    "diameter_mm": {"value": 12, "provenance": "table", "status": "verified"},
+    "flutes": {"value": 2, "provenance": "table", "status": "verified"},
+    "helix_deg": {"value": 30, "provenance": "table", "status": "verified"},
+    "flute_length_mm": {"value": 75, "provenance": "table", "status": "verified"},
+    "axial_discretization": {"value": null, "status": "unresolved", "detail": "螺旋刃在轴向上的离散层数未声明"}
+  },
+  "force_coefficients": {
+    "Ktc_N_mm2": {"value": 1120.8, "provenance": "text", "status": "verified"},
+    "Krc_N_mm2": {"value": 2285.6, "provenance": "text", "status": "value_verified_ratio_flagged"},
+    "Kte_N_mm": {"value": 9.16, "provenance": "text", "status": "verified"},
+    "Kre_N_mm": {"value": 13.21, "provenance": "text", "status": "verified"},
+    "calibration": "槽铣，1000 rpm，轴向 0.5 mm，进给 40/80/120/160/200 mm/min，Kistler 9257B，线性回归分离刃口分量",
+    "projection_to_XY": {
+      "value": null,
+      "status": "unresolved",
+      "detail": "式(60)的力方向投影与符号约定未在可及文本中重现",
+      "warning": "Krc/Ktc=2.04，与 Ti-6Al-4V 常见 0.2-0.5 相反；未核清投影定义前不得代入方向系数矩阵"
+    }
+  },
+  "process": {
+    "radial_immersion_a_over_D": {"value": 0.1, "provenance": "text", "status": "verified"},
+    "discrete_number_m": {"value": 40, "provenance": "text", "status": "verified"},
+    "measured_point": {"value": 2, "provenance": "text（Fig.8 图注）", "status": "verified_but_isolated", "detail": "模态参数随测点位置变化，仅 2 号测点给出"},
+    "feed_direction": {"value": null, "status": "unresolved"},
+    "milling_type": {"value": null, "status": "unresolved", "detail": "顺铣/逆铣未声明"}
+  },
+  "experimental_points": {
+    "count": 13,
+    "provenance": "figure_digitized",
+    "source_file": "fig8_digitized.json",
+    "note": "全部为 Fig.8 图内标记的数字化坐标；正文 §6.3 只描述其中 4 个（A-D）",
+    "points": [
+      {"id": "A", "rpm": 1491, "ap_mm": 0.172, "label": "stable", "reported_in_text": true},
+      {"id": null, "rpm": 1491, "ap_mm": 0.403, "label": "unstable", "reported_in_text": false},
+      {"id": "B", "rpm": 1491, "ap_mm": 0.590, "label": "unstable", "reported_in_text": true},
+      {"id": null, "rpm": 2493, "ap_mm": 0.172, "label": "stable", "reported_in_text": false},
+      {"id": "C", "rpm": 2493, "ap_mm": 0.382, "label": "stable", "reported_in_text": true},
+      {"id": null, "rpm": 2506, "ap_mm": 0.624, "label": "unstable", "reported_in_text": false},
+      {"id": null, "rpm": 3010, "ap_mm": 0.162, "label": "stable", "reported_in_text": false},
+      {"id": "D", "rpm": 3010, "ap_mm": 0.403, "label": "unstable", "reported_in_text": true},
+      {"id": null, "rpm": 3010, "ap_mm": 0.623, "label": "unstable", "reported_in_text": false},
+      {"id": null, "rpm": 3989, "ap_mm": 0.162, "label": "stable", "reported_in_text": false},
+      {"id": null, "rpm": 3989, "ap_mm": 0.403, "label": "stable", "reported_in_text": false},
+      {"id": null, "rpm": 3989, "ap_mm": 0.623, "label": "unstable", "reported_in_text": false},
+      {"id": null, "rpm": 3989, "ap_mm": 0.811, "label": "unstable", "reported_in_text": false}
+    ],
+    "label_evidence": {
+      "type": "加速度频谱 + 表面形貌（Fig.9 / Fig.10）",
+      "criterion": "稳定点仅出现齿通过族 w_t；不稳定点出现颤振峰 w_c",
+      "verified": true,
+      "limitation": "无切削力或位移直接测量；单一测点"
+    }
+  },
+  "usage_allowed": [
+    "作为方向性对照：检查本原型计算的稳定域形状/叶瓣位置与 Fig.8 是否同向",
+    "作为带标签分类数据：13 点的 rpm/ap/稳定标签可用于检验判据的区分能力（不得用于拟合后称复现）",
+    "作为参数来源：几何、材料、刀具、Table 2 频率阻尼刚度、四个力系数的量级"
+  ],
+  "usage_forbidden": [
+    "❌ 由参数复现 SLD：Table 2 的刚度、频率与 Table 1 几何三者不能同时自洽（见 crosscheck_failed 与 source_audit.md §6），参数层不可用",
+    "称本锚点为「已复现」或「外部物理验证」",
+    "用绝对切深数值外推至上机参数",
+    "在未核清式(60)投影定义前，把 Ktc/Krc 直接代入方向系数矩阵",
+    "把 575/1820 Hz 当作可由 80×40×3 几何独立推出的结果",
+    "以「4 个点」描述该锚点的实验规模（实为 13 点）"
+  ],
+  "required_disclosures": [
+    "自由高度未声明，悬臂刚度不可独立复现",
+    "工件两阶模态的 X/Y 归属为假设，非论文陈述",
+    "模态质量为 k/omega^2 反算，非论文声明的归一化",
+    "实验点坐标为图像数字化值，误差 ±10 rpm / ±0.03 mm",
+    "力系数比值异常（Krc/Ktc=2.04）未解释"
+  ],
+  "changelog": [
+    {"date": "2026-11-11", "change": "创建；由 I06 验收 r2 + Fig.8 数字化结果生成"}
+  ]
+}

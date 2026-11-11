@@ -1,0 +1,238 @@
+{
+  "audit_id": "round5_anchor_audit_20261111",
+  "audit_date": "2026-11-11",
+  "revision": 2,
+  "revision_note": "r2 = 加入图 6/8/9 像素级判读与 Fig.8 数字化；据此下调 r1 对正文频率列表的严厉判定，并新增 13 点标记事实",
+  "scope": "I06 verification only; no new stability computation",
+  "target": {
+    "doi": "10.3390/mi13020160",
+    "pmcid": "PMC8879075",
+    "title": "A Novel Updated Full-Discretization Method for Prediction of Milling Stability",
+    "journal": "Micromachines 2022, 13(2):160",
+    "access": "open access, full text via PMC",
+    "retrieved": "2026-11-11",
+    "figures_obtained": [
+      "https://pub.mdpi-res.com/micromachines/micromachines-13-00160/article_deploy/html/images/micromachines-13-00160-g006.png",
+      "https://pub.mdpi-res.com/micromachines/micromachines-13-00160/article_deploy/html/images/micromachines-13-00160-g008.png",
+      "https://pub.mdpi-res.com/micromachines/micromachines-13-00160/article_deploy/html/images/micromachines-13-00160-g009.png",
+      "https://pub.mdpi-res.com/micromachines/micromachines-13-00160/article_deploy/html/images/micromachines-13-00160-g010.png"
+    ],
+    "figure_policy": "PNG not committed (repo .gitignore excludes *.png); the URIs above are the retrieval path; the digitization script is committed"
+  },
+  "fields": [
+    {
+      "id": "F1",
+      "name": "clamp_and_free_height",
+      "required_by": "F17 I06 item 1",
+      "value": null,
+      "status": "unresolved",
+      "text_quote": "The dimension of the plate used in modal test and machining experiments is 80 x 40 x 3 mm",
+      "figure_checked": true,
+      "figure_finding": "Fig.6 is a workshop photograph (VMC-850E, laptop, DAQ, hammer, cutter, workpiece, fixture, dynamometer). No dimension number, no overhang label, no feed-direction arrow. Workpiece clamped vertically at its lower end.",
+      "impact": "free overhang decides cantilever stiffness; neither text nor figure supplies it, so 575/1820 Hz cannot be reproduced from geometry"
+    },
+    {
+      "id": "F2",
+      "name": "workpiece_mode_direction",
+      "required_by": "F17 I06 item 2",
+      "value": null,
+      "status": "unresolved",
+      "text_quote": "the four degree of freedom in the X and Y direction for the milling cutter and workpiece in the X and Y direction for thin-walled section are considered",
+      "figure_checked": false,
+      "impact": "four-DOF structure confirmed; which of mode 1 / mode 2 belongs to X or Y is never stated, and no figure carries a mode-shape plot"
+    },
+    {
+      "id": "F3",
+      "name": "modal_normalization",
+      "required_by": "F17 I06 item 2",
+      "value": "stiffness only: 1.19e6 and 1.31e7 N/m, with frequency and damping ratio",
+      "status": "partial",
+      "text_quote": "Workpiece (Mode no.1) 575 0.007 1.19x10^6; Workpiece (Mode no.2) 1820 0.012 1.31x10^7",
+      "impact": "modal mass can be back-computed as k/omega^2, but mass normalization is not declared; the prototype uses mass-normalized participation factors, so the conversion must be explicit"
+    },
+    {
+      "id": "F4",
+      "name": "force_coefficients",
+      "required_by": "F17 I06 item 3",
+      "value": {
+        "Ktc_N_mm2": 1120.8,
+        "Krc_N_mm2": 2285.6,
+        "Kte_N_mm": 9.16,
+        "Kre_N_mm": 13.21,
+        "calibration": "slot milling, 1000 rpm, axial depth 0.5 mm, feed 40-200 mm/min, Kistler 9257B"
+      },
+      "status": "resolved",
+      "impact": "values and units explicit; projection onto X/Y still depends on the sign convention of Eq.(60)"
+    },
+    {
+      "id": "F5",
+      "name": "cutting_direction_and_force_sign",
+      "required_by": "F17 I06 item 3",
+      "value": null,
+      "status": "unresolved",
+      "text_quote": "not stated",
+      "figure_checked": true,
+      "figure_finding": "Fig.6 carries no feed-direction arrow and no down/up-milling label",
+      "impact": "directional factor matrix sign and helix/axial discretization cannot be matched to mechanics.py"
+    },
+    {
+      "id": "F6",
+      "name": "tool_geometry",
+      "required_by": "F17 I06 item 3",
+      "value": {"diameter_mm": 12, "flutes": 2, "helix_deg": 30, "flute_length_mm": 75},
+      "status": "resolved",
+      "text_quote": "Cutter Diameter (mm) 12; Number of Flutes 2; Helix Angle (deg) 30; Length (mm) 75",
+      "impact": "sufficient to rebuild the tool side"
+    },
+    {
+      "id": "F7",
+      "name": "radial_immersion_and_discretization",
+      "required_by": "F17 I06 item 3",
+      "value": {"a_over_D": 0.1, "discrete_number_m": 40, "measured_point": 2},
+      "status": "partial",
+      "text_quote": "the stability lobe diagram with the discrete number m = 40 at the a/D = 0.1 is calculated",
+      "impact": "Fig.8 caption says 'at the measured point 2', so modal parameters are position-dependent and only point 2 is documented"
+    },
+    {
+      "id": "F8",
+      "name": "experiment_label_evidence",
+      "required_by": "F17 I06 item 4",
+      "value": {
+        "A": {"rpm": 1500, "ap_mm": 0.2, "label": "stable"},
+        "B": {"rpm": 1500, "ap_mm": 0.6, "label": "chatter"},
+        "C": {"rpm": 2500, "ap_mm": 0.4, "label": "stable"},
+        "D": {"rpm": 3000, "ap_mm": 0.4, "label": "chatter"}
+      },
+      "status": "figure_verified",
+      "figure_finding": "Fig.8 digitized: all four labels agree with the nearest plotted marker within 10 rpm and 0.028 mm. Fig.9 spectra show only w_t peaks at stable points and w_c peaks at unstable points. Fig.10 shows rough surface at B and D.",
+      "evidence_type": "acceleration spectrum plus surface morphology; no force or displacement measurement; single measurement point",
+      "impact": "labels are usable as a directional check; not external physical validation"
+    },
+    {
+      "id": "F9",
+      "name": "marker_population",
+      "required_by": "new in r2",
+      "value": {
+        "total_markers": 13,
+        "stable": 6,
+        "unstable": 7,
+        "rpm_groups": [1491, 2493, 3010, 3989]
+      },
+      "status": "resolved",
+      "figure_finding": "Fig.8 contains 13 labelled experimental points while Section 6.3 describes only four. A whole 4000 rpm group (0.162 stable, 0.403 stable, 0.623 unstable, 0.811 unstable) is never mentioned in the text.",
+      "impact": "the anchor carries three times more labelled data than the text reports; usable as a directional dataset if the free-height gap is accepted"
+    }
+  ],
+  "contradictions": [
+    {
+      "id": "X1",
+      "severity": "downgraded_in_r2",
+      "where": "Section 6.3, sentence about Figure 9a,c",
+      "text": "there is only the tool tooth passing frequency (i.e., 200 Hz, 400 Hz, 600 Hz, 650 Hz, 666 Hz, 833 Hz, 875 Hz, and 917 Hz.)",
+      "r1_claim": "text is self-contradictory; 1500 rpm should give a 50 Hz tooth-passing base that is missing",
+      "r2_correction": "The list mixes higher harmonics while Fig.9 annotates only the two dominant peaks per point. 600=12x50 and 650=13x50 for A, 833=10x83.3 for C, 900=9x100 for D all check out. The r1 wording was too strong and is withdrawn.",
+      "remaining_defect": "Four numbers in the text list (200, 400, 666, 917) appear nowhere in Fig.9, and 666 Hz is not an integer multiple of either 50 Hz or 83.3 Hz, so the list is not citable. Separately, C's 875 Hz is annotated as w_t but equals 21x41.67 Hz (spindle frequency), not an integer multiple of the 83.3 Hz tooth-passing rate."
+    }
+  ],
+  "anomalies": [
+    {
+      "id": "A1",
+      "observation": "Krc / Ktc = 2.04",
+      "problem": "radial coefficient twice the tangential one is unusual for Ti-6Al-4V (typical Kr/Kt about 0.2-0.5)",
+      "possible_causes": [
+        "different force projection convention in Eq.(60)",
+        "collinearity in the slot-milling regression",
+        "typographical error in the published values"
+      ],
+      "required_action": "do not substitute into mechanics.py before Eq.(60) sign convention is resolved"
+    },
+    {
+      "id": "A2",
+      "severity": "blocking_for_parameter_reproduction",
+      "observation": "Table 2 stiffness, Table 2 frequency and Table 1 geometry cannot be reconciled by a single cantilever single-DOF model",
+      "checks": [
+        {
+          "path": "geometry + material -> frequency",
+          "computation": "I=b*t^3/12=9.0e-11 m4, rhoA=0.552 kg/m, EI=9.72 N m2, f1=(1.8751^2/2pi)*sqrt(EI/(rhoA*L^4))",
+          "result": "L=80 mm gives 366.9 Hz versus reported 575 Hz (57% low); L=63.9 mm would be needed to hit 575 Hz"
+        },
+        {
+          "path": "interpret k as static stiffness 3EI/L^3",
+          "result": "L=29.0 mm, whose f1 would be 2783 Hz, a factor 5 away from 575 Hz"
+        },
+        {
+          "path": "interpret k as modal stiffness omega^2*m",
+          "result": "m=91.2 g (mode 1) and 100.2 g (mode 2), while the whole plate weighs 44.2 g and a cantilever mode-1 modal mass is about 0.24x total = 10.6 g; modal mass exceeding total mass is not physical"
+        }
+      ],
+      "conclusion": "no self-consistent explanation yields 80x40x3 mm, 1.19e6 N/m and 575 Hz at once; adding a free height as a free parameter would fix the frequency but void the stiffness column",
+      "candidate_causes": [
+        "the Stiffness column includes fixture interface stiffness",
+        "boundary is not ideally clamped",
+        "575 Hz is not the whole-plate cantilever first bending mode",
+        "unit or definition typographical error"
+      ],
+      "required_action": "check supplementary material or third-party restatement for the definition of Stiffness; if absent, the anchor is unusable at the parameter level and O1 becomes mandatory rather than optional"
+    }
+  ],
+  "verdict": {
+    "I06": "not_verified",
+    "hard_gaps": 3,
+    "hard_gap_items": ["free height", "mode direction assignment", "force projection sign"],
+    "verified_items": ["geometry", "material", "tool", "Table 2 frequencies/damping/stiffness", "four force coefficients", "a/D=0.1", "m=40", "labels A-D"],
+    "partial_items": ["modal normalization", "figure-level evidence"],
+    "new_findings": ["13 markers instead of 4", "unreported 4000 rpm group", "text frequency list not citable", "Table 2 stiffness-frequency-geometry inconsistency"],
+    "parameter_level": "unusable for SLD reproduction (see anomaly A2); directional comparison and 13-point classification remain open",
+    "usable_as": "directional comparison plus a 13-point labelled dataset, with the free-height gap declared",
+    "not_usable_as": "external validation, reproduction claim, or absolute depth-of-cut prediction",
+    "rule_applied": "F17 section 6: replace the anchor when fields are missing; do not fit to a satisfactory result"
+  },
+  "next_options": [
+    {
+      "id": "O2",
+      "action": "add figure-level evidence",
+      "status": "done_2026-11-11",
+      "outcome": "Fig.6 has no free height; Fig.8 reproduced and extended to 13 points; Fig.9 criteria hold; the three hard gaps cannot be closed by figures alone"
+    },
+    {
+      "id": "O1",
+      "action": "switch anchor",
+      "status": "open_but_required_for_parameter_work",
+      "detail": "anomaly A2 makes this anchor unusable for parameter-level reproduction, so O1 is now the only route to any reproduce-SLD work: need a public thin-wall milling dataset stating free height, mode direction and signed force coefficients",
+      "search_2026_11_11": {
+        "rounds": 1,
+        "candidate": "Wang et al. 2026, Coatings 16(2):216, doi 10.3390/coatings16020216",
+        "candidate_gains": [
+          "workpiece modes explicitly assigned to the wall-thickness (Y) direction",
+          "Kt=12.6e8, Kr=4.9e8 N/m2, ratio 0.389 (normal), which confirms Ma's 2.04 is a convention or typographic issue",
+          "tool overhang 100 mm stated"
+        ],
+        "candidate_gaps": [
+          "Table 2 modal values not obtainable from HTML (deferred/table rendered as image) and PDF link returns a 406-byte HTML page",
+          "workpiece free height still not stated; the 100 mm overhang belongs to the tool",
+          "data available only on request, not a public dataset"
+        ],
+        "record": "candidate_anchors_20261111.md",
+        "next_action": "request Table 2 and raw data from the corresponding author (data availability statement permits reasonable requests)"
+      }
+    },
+    {
+      "id": "O3",
+      "action": "accept the boundary and use the 13 points as directional data",
+      "status": "open",
+      "detail": "declare free height unknown and X/Y mode assignment assumed; absolute depth values not extrapolable; no reproduction claim"
+    }
+  ],
+  "artifacts": {
+    "digitizer": "digitize_fig8.py",
+    "digitized_output": "fig8_digitized.json",
+    "axis_drift_px_max": 4,
+    "label_match_error": {"rpm_max": 10, "ap_mm_max": 0.028}
+  },
+  "boundaries": {
+    "new_numerical_runs": 0,
+    "modified_configs": [],
+    "modified_labels": [],
+    "affected_conclusions": "none; C01-C07 unchanged"
+  }
+}
