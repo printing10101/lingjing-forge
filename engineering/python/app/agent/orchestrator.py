@@ -133,6 +133,9 @@ class PipelineResult:
     planning_prompt_id: str = ""
     planning_prompt_version: int = 0
     memory_used: int = 0
+    # 自进化 M1：本次执行归属的 harness 快照 ID（trace 落盘，供 A/B 对照抽样）。
+    # 空串表示未登记快照，属正常状态（未启用 M1 时恒为空）。
+    harness_id: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -152,6 +155,7 @@ class PipelineResult:
             "planning_prompt_id": self.planning_prompt_id,
             "planning_prompt_version": self.planning_prompt_version,
             "memory_used": self.memory_used,
+            "harness_id": self.harness_id,
         }
 
 
@@ -291,6 +295,9 @@ class AgentOrchestrator:
             trace_id=trace_id,
             timestamp=time.time(),
         )
+        # 自进化 M1：在管线开始前钉住当前 harness 快照，使 trace 与失败案例
+        # 都能归属到「哪一版配置产出的结果」；A/B 对照依赖这条归属。
+        result.harness_id = self._current_harness_id()
 
         try:
             # 2026-09 全量升格：CONDITIONAL 模式由 LLM 规划器在安全不变量
@@ -583,6 +590,29 @@ class AgentOrchestrator:
                 )
         except (RuntimeError, ValueError, TypeError, KeyError) as e:
             logger.debug("记忆写入失败（跳过）: %s", e)
+
+    # ------------------------------------------------------------------
+    # 自进化 M1：harness 快照归属
+    # ------------------------------------------------------------------
+
+    def _current_harness_id(self) -> str:
+        """读取当前生效的 harness 快照 ID。
+
+        M1 的 A/B 对照需要回答「这个失败案例是哪版配置产出的」，否则统计
+        无法配对。此方法只读、失败静默：注册表缺失/损坏一律返回空串，与
+        ``failure_recorder`` 的旁路观测同一取向——归属信息不得击穿主流程。
+
+        快照注册表是 KB 级 JSON，每次管线执行读一次，换取快照热切换后
+        立刻生效（缓存会让切换后的第一批执行归错版本）。
+        """
+        try:
+            from app.agent.harness.snapshot import get_harness_registry
+
+            current = get_harness_registry().current()
+            return current.harness_id if current else ""
+        except Exception:  # noqa: BLE001 - 归属失败不影响管线
+            logger.debug("harness 归属读取失败，按未登记处理", exc_info=False)
+            return ""
 
     # ------------------------------------------------------------------
     # 自进化 M0：成败入册（执行留痕）
