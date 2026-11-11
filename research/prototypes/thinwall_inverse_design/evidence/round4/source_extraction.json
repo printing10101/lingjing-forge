@@ -1,0 +1,37 @@
+{
+  "pdf_sha256": "a5c82b029477f7958829a7bb891b6459f934b2ab91ce7fddfd23733d1d01e7c7",
+  "primary_source_url": "https://web.fs.uni-lj.si/lasin/www/~gradisek/gradisek2005.pdf",
+  "page_index": 8,
+  "images": [
+    {
+      "xref": 76,
+      "path": "page9_image_76.jpeg",
+      "width": 636,
+      "height": 1355,
+      "rects": [
+        [
+          310.7337951660156,
+          71.22219848632812,
+          539.7037963867188,
+          558.6677856445312
+        ]
+      ],
+      "sha256": "fec49415825f8b936c391a5a3e9363a85f9cf49926267fbaa2f43a21b86754a5"
+    },
+    {
+      "xref": 77,
+      "path": "page9_image_77.png",
+      "width": 1922,
+      "height": 1432,
+      "rects": [
+        [
+          46.77159881591797,
+          71.22221374511719,
+          277.4088134765625,
+          243.001708984375
+        ]
+      ],
+      "sha256": "a024409a52bc4be132386f757a15f28005660641d1067726da817f6f374ccf19"
+    }
+  ]
+}

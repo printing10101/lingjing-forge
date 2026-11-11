@@ -1,0 +1,791 @@
+{
+  "design_count": 61,
+  "scenario_count": 3477,
+  "elapsed_seconds": 96.34399999999732,
+  "all_designs": [
+    {
+      "design_id": 0,
+      "thickness_mm": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0010788320593782565,
+      "minimum_boundary_mm": 0.00011594755196175247,
+      "mean_boundary_mm": 0.012515972391721593
+    },
+    {
+      "design_id": 1,
+      "thickness_mm": [
+        1.0,
+        2.25,
+        2.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.001065318921107979,
+      "minimum_boundary_mm": 0.00011631723337244799,
+      "mean_boundary_mm": 0.012433692011944435
+    },
+    {
+      "design_id": 2,
+      "thickness_mm": [
+        1.0,
+        2.5,
+        2.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0010571580953124364,
+      "minimum_boundary_mm": 0.00011837795281030203,
+      "mean_boundary_mm": 0.011698954858888897
+    },
+    {
+      "design_id": 3,
+      "thickness_mm": [
+        1.0,
+        2.75,
+        2.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0010524108816735468,
+      "minimum_boundary_mm": 0.0001228115032262158,
+      "mean_boundary_mm": 0.011020752973374163
+    },
+    {
+      "design_id": 4,
+      "thickness_mm": [
+        1.0,
+        3.0,
+        2.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0010502371154271768,
+      "minimum_boundary_mm": 0.00012031056470144151,
+      "mean_boundary_mm": 0.010244121412008169
+    },
+    {
+      "design_id": 5,
+      "thickness_mm": [
+        1.25,
+        1.75,
+        3.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0005998342493468251,
+      "minimum_boundary_mm": 0.00021000260726417177,
+      "mean_boundary_mm": 0.011851572767452655
+    },
+    {
+      "design_id": 6,
+      "thickness_mm": [
+        1.25,
+        2.0,
+        2.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0005770746121424603,
+      "minimum_boundary_mm": 0.0002173561809191206,
+      "mean_boundary_mm": 0.010868569674112632
+    },
+    {
+      "design_id": 7,
+      "thickness_mm": [
+        1.25,
+        2.25,
+        2.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0005638252612956886,
+      "minimum_boundary_mm": 0.00022064762295432813,
+      "mean_boundary_mm": 0.00940886596097435
+    },
+    {
+      "design_id": 8,
+      "thickness_mm": [
+        1.25,
+        2.5,
+        2.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0005560911371324526,
+      "minimum_boundary_mm": 0.0002280305797957017,
+      "mean_boundary_mm": 0.008217893191040158
+    },
+    {
+      "design_id": 9,
+      "thickness_mm": [
+        1.25,
+        2.75,
+        2.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0005520708554399796,
+      "minimum_boundary_mm": 0.0002267904201249693,
+      "mean_boundary_mm": 0.008047056866948104
+    },
+    {
+      "design_id": 10,
+      "thickness_mm": [
+        1.25,
+        3.0,
+        1.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.000551218017819273,
+      "minimum_boundary_mm": 0.00022778521528645198,
+      "mean_boundary_mm": 0.0068881498701712975
+    },
+    {
+      "design_id": 11,
+      "thickness_mm": [
+        1.5,
+        1.5,
+        3.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00041939251421611526,
+      "minimum_boundary_mm": 0.00030174977284367797,
+      "mean_boundary_mm": 0.009342407238459739
+    },
+    {
+      "design_id": 12,
+      "thickness_mm": [
+        1.5,
+        1.75,
+        2.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0003783835077349148,
+      "minimum_boundary_mm": 0.0003332298314182028,
+      "mean_boundary_mm": 0.00821461479600333
+    },
+    {
+      "design_id": 13,
+      "thickness_mm": [
+        1.5,
+        2.0,
+        2.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00035588765824583554,
+      "minimum_boundary_mm": 0.0003510579623032537,
+      "mean_boundary_mm": 0.007299599949585966
+    },
+    {
+      "design_id": 14,
+      "thickness_mm": [
+        1.5,
+        2.25,
+        2.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00034306500898301706,
+      "minimum_boundary_mm": 0.0003676352714734129,
+      "mean_boundary_mm": 0.007590672365327001
+    },
+    {
+      "design_id": 15,
+      "thickness_mm": [
+        1.5,
+        2.5,
+        2.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00033605781697752546,
+      "minimum_boundary_mm": 0.0003738977675724071,
+      "mean_boundary_mm": 0.006308280513808129
+    },
+    {
+      "design_id": 16,
+      "thickness_mm": [
+        1.5,
+        2.75,
+        1.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00033335846368849875,
+      "minimum_boundary_mm": 0.00037937576065296525,
+      "mean_boundary_mm": 0.0070255683494546105
+    },
+    {
+      "design_id": 17,
+      "thickness_mm": [
+        1.5,
+        3.0,
+        1.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0003351126788140553,
+      "minimum_boundary_mm": 0.000382385924331321,
+      "mean_boundary_mm": 0.005958507088552824
+    },
+    {
+      "design_id": 18,
+      "thickness_mm": [
+        1.75,
+        1.25,
+        3.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.000388265395665114,
+      "minimum_boundary_mm": 0.0003246303577823163,
+      "mean_boundary_mm": 0.00869168820597531
+    },
+    {
+      "design_id": 19,
+      "thickness_mm": [
+        1.75,
+        1.5,
+        2.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0003070563001096704,
+      "minimum_boundary_mm": 0.0004110684251667102,
+      "mean_boundary_mm": 0.007575862919550975
+    },
+    {
+      "design_id": 20,
+      "thickness_mm": [
+        1.75,
+        1.75,
+        2.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00026631108149863134,
+      "minimum_boundary_mm": 0.0004738781007422818,
+      "mean_boundary_mm": 0.007336754577667028
+    },
+    {
+      "design_id": 21,
+      "thickness_mm": [
+        1.75,
+        2.0,
+        2.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0002442419335255987,
+      "minimum_boundary_mm": 0.0005169080895177224,
+      "mean_boundary_mm": 0.009129769056080973
+    },
+    {
+      "design_id": 22,
+      "thickness_mm": [
+        1.75,
+        2.25,
+        2.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00023214621641079428,
+      "minimum_boundary_mm": 0.0005466670083682856,
+      "mean_boundary_mm": 0.010211242578842527
+    },
+    {
+      "design_id": 23,
+      "thickness_mm": [
+        1.75,
+        2.5,
+        1.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0002264599527981772,
+      "minimum_boundary_mm": 0.0005636652734499658,
+      "mean_boundary_mm": 0.009564229956407499
+    },
+    {
+      "design_id": 24,
+      "thickness_mm": [
+        1.75,
+        2.75,
+        1.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00022636765224853851,
+      "minimum_boundary_mm": 0.0005721789865660628,
+      "mean_boundary_mm": 0.011151420212511925
+    },
+    {
+      "design_id": 25,
+      "thickness_mm": [
+        1.75,
+        3.0,
+        1.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00023386473724550618,
+      "minimum_boundary_mm": 0.0005683917912303726,
+      "mean_boundary_mm": 0.011899984789953534
+    },
+    {
+      "design_id": 26,
+      "thickness_mm": [
+        2.0,
+        1.0,
+        3.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0005099431706418947,
+      "minimum_boundary_mm": 0.00024734372349742556,
+      "mean_boundary_mm": 0.011040665693977077
+    },
+    {
+      "design_id": 27,
+      "thickness_mm": [
+        2.0,
+        1.25,
+        2.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00032546318346960107,
+      "minimum_boundary_mm": 0.0003866737685060196,
+      "mean_boundary_mm": 0.010220024289900443
+    },
+    {
+      "design_id": 28,
+      "thickness_mm": [
+        2.0,
+        1.5,
+        2.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00024451787576089417,
+      "minimum_boundary_mm": 0.0005149878099231893,
+      "mean_boundary_mm": 0.009914536661849141
+    },
+    {
+      "design_id": 29,
+      "thickness_mm": [
+        2.0,
+        1.75,
+        2.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00020419935867160618,
+      "minimum_boundary_mm": 0.0006190458292123713,
+      "mean_boundary_mm": 0.012202640657100361
+    },
+    {
+      "design_id": 30,
+      "thickness_mm": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00018285714285837086,
+      "minimum_boundary_mm": 0.0006964510683284662,
+      "mean_boundary_mm": 0.0138703228750981
+    },
+    {
+      "design_id": 31,
+      "thickness_mm": [
+        2.0,
+        2.25,
+        1.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00017208235412791736,
+      "minimum_boundary_mm": 0.0007461921293888342,
+      "mean_boundary_mm": 0.01644578359175725
+    },
+    {
+      "design_id": 32,
+      "thickness_mm": [
+        2.0,
+        2.5,
+        1.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00016900314324964924,
+      "minimum_boundary_mm": 0.0007742034115103155,
+      "mean_boundary_mm": 0.01861789838404159
+    },
+    {
+      "design_id": 33,
+      "thickness_mm": [
+        2.0,
+        2.75,
+        1.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00017465371256999748,
+      "minimum_boundary_mm": 0.0007813191102426526,
+      "mean_boundary_mm": 0.02063631174391206
+    },
+    {
+      "design_id": 34,
+      "thickness_mm": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0001969037820887201,
+      "minimum_boundary_mm": 0.0007442993797533156,
+      "mean_boundary_mm": 0.02040335572974746
+    },
+    {
+      "design_id": 35,
+      "thickness_mm": [
+        2.25,
+        1.0,
+        2.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00047223859776657597,
+      "minimum_boundary_mm": 0.000265305737781075,
+      "mean_boundary_mm": 0.014682315375303739
+    },
+    {
+      "design_id": 36,
+      "thickness_mm": [
+        2.25,
+        1.25,
+        2.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00028802239844056697,
+      "minimum_boundary_mm": 0.000437631634202351,
+      "mean_boundary_mm": 0.01118944791924211
+    },
+    {
+      "design_id": 37,
+      "thickness_mm": [
+        2.25,
+        1.5,
+        2.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0002075037922562038,
+      "minimum_boundary_mm": 0.0006082942755129714,
+      "mean_boundary_mm": 0.013192315656158015
+    },
+    {
+      "design_id": 38,
+      "thickness_mm": [
+        2.25,
+        1.75,
+        2.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00016791220732162784,
+      "minimum_boundary_mm": 0.0007592191446284588,
+      "mean_boundary_mm": 0.017557392328127534
+    },
+    {
+      "design_id": 39,
+      "thickness_mm": [
+        2.25,
+        2.0,
+        1.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00014789091989486912,
+      "minimum_boundary_mm": 0.0008904918081621727,
+      "mean_boundary_mm": 0.022983908097117915
+    },
+    {
+      "design_id": 40,
+      "thickness_mm": [
+        2.25,
+        2.25,
+        1.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00013972318389391563,
+      "minimum_boundary_mm": 0.0009883104078564188,
+      "mean_boundary_mm": 0.030556558650002584
+    },
+    {
+      "design_id": 41,
+      "thickness_mm": [
+        2.25,
+        2.5,
+        1.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0001423868428881416,
+      "minimum_boundary_mm": 0.0009790094036143445,
+      "mean_boundary_mm": 0.027929206941447553
+    },
+    {
+      "design_id": 42,
+      "thickness_mm": [
+        2.25,
+        2.75,
+        1.0
+      ],
+      "mass_kg": 0.008639999999999998,
+      "tip_compliance_m_n": 0.00016279039672808968,
+      "minimum_boundary_mm": 0.0009189994518260703,
+      "mean_boundary_mm": 0.030465280673919272
+    },
+    {
+      "design_id": 43,
+      "thickness_mm": [
+        2.5,
+        1.0,
+        2.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00044860952385150703,
+      "minimum_boundary_mm": 0.00027859398586913,
+      "mean_boundary_mm": 0.011118646084890604
+    },
+    {
+      "design_id": 44,
+      "thickness_mm": [
+        2.5,
+        1.25,
+        2.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0002648200259829205,
+      "minimum_boundary_mm": 0.00047557949589114586,
+      "mean_boundary_mm": 0.012341134180170011
+    },
+    {
+      "design_id": 45,
+      "thickness_mm": [
+        2.5,
+        1.5,
+        2.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00018502835195214484,
+      "minimum_boundary_mm": 0.0006852976708657212,
+      "mean_boundary_mm": 0.01743557563102476
+    },
+    {
+      "design_id": 46,
+      "thickness_mm": [
+        2.5,
+        1.75,
+        1.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0001467576954058085,
+      "minimum_boundary_mm": 0.000935259573239787,
+      "mean_boundary_mm": 0.028138300755456692
+    },
+    {
+      "design_id": 47,
+      "thickness_mm": [
+        2.5,
+        2.0,
+        1.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00012934346070930352,
+      "minimum_boundary_mm": 0.0010250065568485449,
+      "mean_boundary_mm": 0.03415173131918088
+    },
+    {
+      "design_id": 48,
+      "thickness_mm": [
+        2.5,
+        2.25,
+        1.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00012691859458108506,
+      "minimum_boundary_mm": 0.0010852722845109614,
+      "mean_boundary_mm": 0.04691018141648461
+    },
+    {
+      "design_id": 49,
+      "thickness_mm": [
+        2.5,
+        2.5,
+        1.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0001443352380953517,
+      "minimum_boundary_mm": 0.0010329544195500924,
+      "mean_boundary_mm": 0.03075257514724854
+    },
+    {
+      "design_id": 50,
+      "thickness_mm": [
+        2.75,
+        1.0,
+        2.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0004335144794099395,
+      "minimum_boundary_mm": 0.00028794581623941445,
+      "mean_boundary_mm": 0.010368902821566994
+    },
+    {
+      "design_id": 51,
+      "thickness_mm": [
+        2.75,
+        1.25,
+        2.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0002504519137096067,
+      "minimum_boundary_mm": 0.000503415187106903,
+      "mean_boundary_mm": 0.015016449958737936
+    },
+    {
+      "design_id": 52,
+      "thickness_mm": [
+        2.75,
+        1.5,
+        1.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00017198116805944739,
+      "minimum_boundary_mm": 0.000740492704734493,
+      "mean_boundary_mm": 0.02535654689519933
+    },
+    {
+      "design_id": 53,
+      "thickness_mm": [
+        2.75,
+        1.75,
+        1.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0001363175642434404,
+      "minimum_boundary_mm": 0.0009594391771927936,
+      "mean_boundary_mm": 0.03370129643857633
+    },
+    {
+      "design_id": 54,
+      "thickness_mm": [
+        2.75,
+        2.0,
+        1.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0001246461994205182,
+      "minimum_boundary_mm": 0.0010938177797400572,
+      "mean_boundary_mm": 0.03783658622924898
+    },
+    {
+      "design_id": 55,
+      "thickness_mm": [
+        2.75,
+        2.25,
+        1.0
+      ],
+      "mass_kg": 0.008639999999999998,
+      "tip_compliance_m_n": 0.0001369743178114645,
+      "minimum_boundary_mm": 0.0010905413799336633,
+      "mean_boundary_mm": 0.03065671586060871
+    },
+    {
+      "design_id": 56,
+      "thickness_mm": [
+        3.0,
+        1.0,
+        2.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0004241583382518988,
+      "minimum_boundary_mm": 0.00029430644283258027,
+      "mean_boundary_mm": 0.013688752026401761
+    },
+    {
+      "design_id": 57,
+      "thickness_mm": [
+        3.0,
+        1.25,
+        1.75
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0002424167009558727,
+      "minimum_boundary_mm": 0.0005209020501029107,
+      "mean_boundary_mm": 0.018109393617726503
+    },
+    {
+      "design_id": 58,
+      "thickness_mm": [
+        3.0,
+        1.5,
+        1.5
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00016655300803735998,
+      "minimum_boundary_mm": 0.0008000800347118716,
+      "mean_boundary_mm": 0.03185960851611024
+    },
+    {
+      "design_id": 59,
+      "thickness_mm": [
+        3.0,
+        1.75,
+        1.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00013663227409243742,
+      "minimum_boundary_mm": 0.000977381976677034,
+      "mean_boundary_mm": 0.03653093110927541
+    },
+    {
+      "design_id": 60,
+      "thickness_mm": [
+        3.0,
+        2.0,
+        1.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00013971389378804495,
+      "minimum_boundary_mm": 0.00101702614123649,
+      "mean_boundary_mm": 0.0381693233163472
+    }
+  ],
+  "selected": {
+    "uniform": {
+      "design_id": 30,
+      "thickness_mm": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00018285714285837086,
+      "minimum_boundary_mm": 0.0006964510683284662,
+      "mean_boundary_mm": 0.0138703228750981
+    },
+    "static_best_on_grid": {
+      "design_id": 54,
+      "thickness_mm": [
+        2.75,
+        2.0,
+        1.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0001246461994205182,
+      "minimum_boundary_mm": 0.0010938177797400572,
+      "mean_boundary_mm": 0.03783658622924898
+    },
+    "worst_boundary_best_on_grid": {
+      "design_id": 54,
+      "thickness_mm": [
+        2.75,
+        2.0,
+        1.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.0001246461994205182,
+      "minimum_boundary_mm": 0.0010938177797400572,
+      "mean_boundary_mm": 0.03783658622924898
+    },
+    "mean_boundary_best_on_grid": {
+      "design_id": 48,
+      "thickness_mm": [
+        2.5,
+        2.25,
+        1.25
+      ],
+      "mass_kg": 0.00864,
+      "tip_compliance_m_n": 0.00012691859458108506,
+      "minimum_boundary_mm": 0.0010852722845109614,
+      "mean_boundary_mm": 0.04691018141648461
+    }
+  },
+  "model": "constant-mean scalar regenerative DDE screening proxy",
+  "not_independent_samples": true
+}

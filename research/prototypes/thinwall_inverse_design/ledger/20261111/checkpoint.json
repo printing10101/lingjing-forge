@@ -1,0 +1,34 @@
+{
+  "research_id": "F17",
+  "date": "2026-11-11",
+  "git_head": "b3b8aa98cb19ba2b870623f05dfac22c5b5bf9d7",
+  "authority_document": {
+    "path": "docs/paper_and_competition/F17-薄壁最终结构逆设计探索台账-2026-11-11.md",
+    "sha256": "9e87eb92bcac1bbc1e316f982745e915aebcc54115c71541b427687227a97f5e"
+  },
+  "machine_ledger": {
+    "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/ledger.json",
+    "sha256": "3ba5f885cac836e389f662dd0f320ff6feb5eabfee2a17a5cac37a60f70a6690"
+  },
+  "asset_manifest": {
+    "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/asset_manifest.json",
+    "sha256": "6ff1fc759a7487dcc329fd613dbb8b45e82a34082196080839243a1d885eaa64"
+  },
+  "file_count": 202,
+  "validation": {
+    "raw_csv_hash_unchanged": true,
+    "current_review_revision": 2,
+    "default_reference_hash_matches": true,
+    "existing76_test_log_validated_no_rerun": true,
+    "archived_screenshot_copies_match_originals": 8,
+    "new_scientific_runs_during_consolidation": 0,
+    "production_code_changed_during_consolidation": false,
+    "fingerprinted_files_verified": 202,
+    "historical_snapshot_hashes_verified": 41,
+    "authority_relative_links_verified": 9,
+    "index_links_verified": 4,
+    "runs_registered": 11,
+    "open_issues_registered": 9
+  },
+  "validated_utc": "2026-11-11T09:50:45.775529+00:00"
+}

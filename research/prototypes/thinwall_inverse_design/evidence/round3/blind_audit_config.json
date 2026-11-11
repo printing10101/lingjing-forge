@@ -1,0 +1,7 @@
+{
+  "date": "2026-11-11",
+  "seed": 20261111,
+  "per_immersion": 8,
+  "selection": "Stratified random rows selected without looking at model predictions; class labels are hidden during visual inspection. Exclude nothing until annotation; ambiguous points remain ambiguous.",
+  "not_independent_experiments": true
+}

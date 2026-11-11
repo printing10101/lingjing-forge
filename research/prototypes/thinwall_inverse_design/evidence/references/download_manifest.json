@@ -1,0 +1,23 @@
+[
+  {
+    "file": "Corson2024_preform.pdf",
+    "url": "https://mtrc.utk.edu/wp-content/uploads/sites/45/2023/11/preform-cost-optimization.pdf",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "file": "Kienast2024_stock_shape.pdf",
+    "url": "https://publica-rest.fraunhofer.de/server/api/core/bitstreams/d412aba6-7ece-4487-8269-b3c14ebfe295/content",
+    "status": "failed",
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1081)>"
+  },
+  {
+    "file": "Kienast2024_stock_shape.pdf",
+    "url": "https://publica-rest.fraunhofer.de/server/api/core/bitstreams/d412aba6-7ece-4487-8269-b3c14ebfe295/content",
+    "status": "verified_pdf",
+    "pages": 6,
+    "sha256": "0f886bda23429915b127782d22bfab08689b99010363981cc8d980b2604e9d9a",
+    "transport": "PowerShell Invoke-WebRequest using normal Windows certificate verification",
+    "first_page_title_verified": true
+  }
+]

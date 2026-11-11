@@ -1,0 +1,37 @@
+{
+  "status": "single_rater_reviewed_subset_check_no_fitting_not_population_accuracy",
+  "source_doi": "10.1016/j.ijmachtools.2004.11.015",
+  "source_local_pdf": "research/datasets/measured_stability/literature_pdfs/Gradisek_2005_stability_prediction.pdf",
+  "source_csv": "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_02/reviewed_points.csv",
+  "expected_reference_sha256": "e8679e786d38b477184f95eea282d9ccd6a79cfec5756513b657b6f3d2c669fe",
+  "reference_status": "single_assistant_visual_audit_revision2_subset_25_of_32_stratified_rows",
+  "parameter_location": "Published Table 1 (p774); Sec3 (p773); force convention Eqs2-7; Fig7 p776 up-milling labels digitized in existing repository CSV",
+  "mass_kg": [
+    0.0201,
+    0.0199
+  ],
+  "damping_n_s_m": [
+    1.56,
+    1.6
+  ],
+  "stiffness_n_m": [
+    414000,
+    409000
+  ],
+  "milling": {
+    "tangential_pa": 644000000,
+    "radial_ratio": 0.37,
+    "teeth": 1,
+    "diameter_m": 0.008,
+    "helix_deg": 45.0
+  },
+  "steps": [
+    80,
+    160
+  ],
+  "delay_rule": "midpoint",
+  "evaluation": "Only25 visually resolved rows from fixed-seed32-row stratified audit, after correcting the assistants own three premature cross identifications. All resolved rows retained regardless of model agreement. No fitting, no full516 accuracy claim.",
+  "uncertainty": "Same-assistant review, some prior exposure, revision2 corrected annotation mistakes. Not independent blinded annotation. Coordinates inherited. Old516 CSV contains at least one clear wrong label and boundary markers;68.41% is old-label agreement only. Current25-row subset is provisional.",
+  "limits": "Stationary diagonal modal parameters; paper reports speed-dependent frequency and likely cutting-coefficient variation. No process damping, tool runout, mode coupling in measured FRF, or nonlinear contact. Constant coefficients not fitted to improve accuracy.",
+  "budget_seconds": 240
+}

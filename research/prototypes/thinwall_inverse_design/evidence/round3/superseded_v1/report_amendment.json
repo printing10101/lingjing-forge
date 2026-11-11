@@ -1,0 +1,7 @@
+{
+  "date": "2026-11-11",
+  "file": "D:\\灵境制造\\docs\\reports\\thinwall_plate_and_external_validation_20261110.md",
+  "old_sha256": "31cb5c38f431da67b90f70023154e788431b9d82d059df374cff57216d55add6",
+  "new_sha256": "9daedfc36010111f17b4185d1933448908e135b065d822e1902221ad0551ba9a",
+  "reason": "Confirmed source-label errors; retain raw results but withdraw experimental-accuracy interpretation. Earlier analysis manifest refers to the historical report version."
+}

@@ -1,0 +1,40 @@
+{
+  "by_variant": {
+    "stationary": {
+      "max_relative_radius_difference_160_320": 0.011777268782813505,
+      "nearest_threshold_original_row": 320,
+      "nearest_radius_320": 1.0088893266653691
+    },
+    "observed_frequency_fixed_mass": {
+      "max_relative_radius_difference_160_320": 0.008145251833289006,
+      "nearest_threshold_original_row": 320,
+      "nearest_radius_320": 0.9896899589665468
+    },
+    "observed_frequency_fixed_static_compliance": {
+      "max_relative_radius_difference_160_320": 0.008974881406817488,
+      "nearest_threshold_original_row": 342,
+      "nearest_radius_320": 1.0076436081876399
+    },
+    "observed_frequency_static_compliance_0p75": {
+      "max_relative_radius_difference_160_320": 0.020736673434756176,
+      "nearest_threshold_original_row": 358,
+      "nearest_radius_320": 0.9868329457699746
+    },
+    "fixed_static_compliance_minus0p5Hz": {
+      "max_relative_radius_difference_160_320": 0.009690240308649314,
+      "nearest_threshold_original_row": 342,
+      "nearest_radius_320": 1.0081256128548457
+    },
+    "fixed_static_compliance_plus0p5Hz": {
+      "max_relative_radius_difference_160_320": 0.008301064489615503,
+      "nearest_threshold_original_row": 342,
+      "nearest_radius_320": 1.0071392990495913
+    }
+  },
+  "same_frequency_different_compliance_changed_rows": [
+    53,
+    293,
+    342,
+    358
+  ]
+}

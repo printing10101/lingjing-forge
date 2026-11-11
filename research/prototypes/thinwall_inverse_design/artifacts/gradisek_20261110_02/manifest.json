@@ -1,0 +1,14 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "source_doi": "10.1016/j.ijmachtools.2004.11.015",
+  "dataset_sha256": "cc830a9d65eb4be10196f76149c29ec9585910912200537be13e7cbb3ebf3863",
+  "pdf_sha256": "a5c82b029477f7958829a7bb891b6459f934b2ab91ce7fddfd23733d1d01e7c7",
+  "code_sha256": {
+    "benchmark.py": "cdd9e6a9c3d707491cc22fa1f0efd6c2909e98d716967c82d3fc21949431d98b",
+    "benchmark_config.json": "d0e773d7804078cf3678b0f40e32f2153aab98e80f800eb65e3d275be45c8d2a",
+    "coupled_milling.py": "cec8fdf513619ad65d090a514cf3c0f5d7a71f72104f7a1e48620f23eb9a579b",
+    "mechanics.py": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1"
+  },
+  "parameters_fitted": false,
+  "digitization_independently_repeated": false
+}

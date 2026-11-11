@@ -1,0 +1,54 @@
+{
+  "baseline_passed": true,
+  "source_unchanged": true,
+  "source_sha256": {
+    "analyze_bounds.py": "9a3bd30060bd89c4ce4316b51944786b3b3675c69a2619a6954d2ffc3d870571",
+    "cad_adapter.py": "a4ba61324c0dc0341f5c04dc42b6655bb51a45c030633c96af1cf8dbcf745c0d",
+    "coupling_probe.py": "92cc2ab0a52b5df37bbf6dab1ea8da2aaa7c3163b008d674cce7ab8fa2c02c07",
+    "envelope_experiment.py": "929494f9a74961212a7d8bbf42051137bf545cfd8a464f6a8be74cd5f8e988c7",
+    "envelope_policy.py": "d129aec71933953e1f0c3f964a957e3347dbb52a223e634eee805735e90ba597",
+    "envelope_solver.py": "6e806a6a6cfefeae319e860585235e14e62f42ca7431b2efd2f04870a4d093f0",
+    "experiment.py": "51701d98cb56996dc3da103176a876b4b7e4b4221e3fb41bd13b14ed38ecc0f0",
+    "repair.py": "7543d567cc8ba22defbd5d3079f2694445217b256223d200633b5bb1ac1c1cc6",
+    "test_contact.py": "1c616000099b8871132b36519f5c9cada610e40291be65eec4aacefff62a6358",
+    "test_envelope.py": "8d3e956f526554cb6340d451c284429f93afab43bca3496c5deb5d76c7dbfe59",
+    "verification.py": "bd0496b556cf35087d1becf6d5c2603b504984e2f6ef1ad493ea7c85e82c694d"
+  },
+  "results": [
+    {
+      "name": "negative_dual",
+      "test": "test_dual_witness_is_exact_not_a_numerical_residual",
+      "caught": true,
+      "exit_code": 1,
+      "tail": "                                                                    [100%]\n================================== FAILURES ===================================\n_____________ test_dual_witness_is_exact_not_a_numerical_residual _____________\n\n    def test_dual_witness_is_exact_not_a_numerical_residual():\n        # min t subject to -t<=-2, -t<=0: exact optimum 2.\n        matrix, rhs = [[F(-1)], [F(-1)]], [F(-2), F(0)]\n        witness = reconstruct_dual(matrix, rhs, [1.0000001, 0])\n        assert witness['lower_rational'] == '2' and witness['weights'] == ['1']\n        assert reconstruct_dual(matrix, rhs, [0, 0]) is None\n        assert reconstruct_dual(matrix, rhs, []) is None\n        assert reconstruct_dual([[F(0)]], [F(0)], [1]) is None\n>       assert reconstruct_dual([[F(1)]], [F(0)], [1]) is None\nE       AssertionError: assert {'lower_rational': '0', 'lower_mm': 0.0, 'support': [0], 'weights': ['-1']} is None\nE        +  where {'lower_rational': '0', 'lower_mm': 0.0, 'support': [0], 'weights': ['-1']} = reconstruct_dual([[Fraction(1, 1)]], [Fraction(0, 1)], [1])\n\ntest_envelope.py:74: AssertionError\n=========================== short test summary info ===========================\nFAILED test_envelope.py::test_dual_witness_is_exact_not_a_numerical_residual\n1 failed, 16 deselected in 2.92s\n"
+    },
+    {
+      "name": "exact_dual_balance",
+      "test": "test_tampered_certificates_and_geometry_are_rejected",
+      "caught": true,
+      "exit_code": 1,
+      "tail": "_____ test_tampered_certificates_and_geometry_are_rejected _____________\n\n    def test_tampered_certificates_and_geometry_are_rejected():\n        s, q = rich(), Request(); record, candidate = solve_fixed(s, q)\n        dual = record['dual']\n        for field, value in [('lower_rational', '900'), ('weights', ['-1']*len(dual['weights'])),\n                             ('support', [9999]*len(dual['support']))]:\n            bad = {**dual, field:value}\n>           assert not replay_certificate(s, q, bad)\nE           AssertionError: assert not True\nE            +  where True = replay_certificate(Section(knots=(Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), F...376151711744), Fraction(29745374818856651, 36028797018963968), Fraction(7493989779944505, 9007199254740992)), degree=5), Request(radius=8.0, displacement_budget=0.6, lock_order=2, protected_x=(), max_controls=30, max_solves=40, tolerance=1e-06), {'lower_rational': '900', 'lower_mm': 0.10798021021421034, 'support': [52, 53], 'weights': ['1', '1'], ...})\n\ntest_envelope.py:115: AssertionError\n=========================== short test summary info ===========================\nFAILED test_envelope.py::test_tampered_certificates_and_geometry_are_rejected\n1 failed, 16 deselected in 3.62s\n"
+    },
+    {
+      "name": "geometric_budget",
+      "test": "test_tampered_certificates_and_geometry_are_rejected",
+      "caught": true,
+      "exit_code": 1,
+      "tail": "tion(-4, 1), Fraction(-4, 1), F...376151711744), Fraction(29745374818856651, 36028797018963968), Fraction(7493989779944505, 9007199254740992)), degree=5), Section(knots=(Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), F...376151711744), Fraction(29745374818856651, 36028797018963968), Fraction(7493989779944505, 9007199254740992)), degree=5), Request(radius=8.0, displacement_budget=0.01, lock_order=2, protected_x=(), max_controls=30, max_solves=40, tolerance=1e-06), {'status': 'verified', 'iterations': 6, 'history': [{'iteration': 0, 'points': 9, 'sample_objective_mm': 0.09796619241... 'points': 22, 'sample_objective_mm': 0.10798071021421034, 'lower_mm': 0.10798021021421034, ...}], 'lp_calls': 18, ...})\nE        +    where Request(radius=8.0, displacement_budget=0.01, lock_order=2, protected_x=(), max_controls=30, max_solves=40, tolerance=1e-06) = replace(Request(radius=8.0, displacement_budget=0.6, lock_order=2, protected_x=(), max_controls=30, max_solves=40, tolerance=1e-06), displacement_budget=0.01)\n\ntest_envelope.py:125: AssertionError\n=========================== short test summary info ===========================\nFAILED test_envelope.py::test_tampered_certificates_and_geometry_are_rejected\n1 failed, 16 deselected in 3.69s\n"
+    },
+    {
+      "name": "exact_design_locks",
+      "test": "test_tampered_certificates_and_geometry_are_rejected",
+      "caught": true,
+      "exit_code": 1,
+      "tail": "ert verify_ball(tiny_drift.knots, tiny_drift.controls, 5, 8).status == 'pass'\n>       assert not replay_solution(s, tiny_drift, q, record)\nE       AssertionError: assert not True\nE        +  where True = replay_solution(Section(knots=(Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), F...376151711744), Fraction(29745374818856651, 36028797018963968), Fraction(7493989779944505, 9007199254740992)), degree=5), Section(knots=(Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), Fraction(-4, 1), F...11619286897878390941547, 14073748835532800000000), Fraction(2927339722606450176793, 3518437208883200000000)), degree=5), Request(radius=8.0, displacement_budget=0.6, lock_order=2, protected_x=(), max_controls=30, max_solves=40, tolerance=1e-06), {'status': 'verified', 'iterations': 6, 'history': [{'iteration': 0, 'points': 9, 'sample_objective_mm': 0.09796619241... 'points': 22, 'sample_objective_mm': 0.10798071021421034, 'lower_mm': 0.10798021021421034, ...}], 'lp_calls': 18, ...})\n\ntest_envelope.py:124: AssertionError\n=========================== short test summary info ===========================\nFAILED test_envelope.py::test_tampered_certificates_and_geometry_are_rejected\n1 failed, 16 deselected in 3.37s\n"
+    },
+    {
+      "name": "readback_budget",
+      "test": "test_readback_budget_checked_even_if_contact_and_design_pass",
+      "caught": true,
+      "exit_code": 1,
+      "tail": "control row: avoids the ball, preserves endpoint C2\n            # and origin locks, yet makes the edit exceed the authorized 0.11 mm.\n            restored[1].poles[3, :, 2] -= .5\n            return restored, step\n        monkeypatch.setattr(cad_adapter, 'roundtrip', too_much_removal)\n>       with pytest.raises(RuntimeError, match='READBACK_BUDGET'):\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       Failed: DID NOT RAISE RuntimeError\n\ntest_envelope.py:229: Failed\n---------------------------- Captured stdout call -----------------------------\n\n*******************************************************************\n******        Statistics on Transfer (Write)                 ******\n\n*******************************************************************\n******        Transfer Mode = 0  I.E.  As Is       ******\n******        Transferring Shape, ShapeType = 0                      ******\n** WorkSession : Sending all data\n Step File Name : C:\\Users\\Lenovo\\AppData\\Local\\Temp\\pytest-of-Lenovo\\pytest-228\\test_readback_budget_checked_e0\\excess_removal.step(437 ents)  Write  Done\n=========================== short test summary info ===========================\nFAILED test_envelope.py::test_readback_budget_checked_even_if_contact_and_design_pass\n1 failed, 16 deselected in 4.76s\n"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "source_doi": "10.1016/j.ijmachtools.2004.11.015",
+  "dataset_sha256": "e8679e786d38b477184f95eea282d9ccd6a79cfec5756513b657b6f3d2c669fe",
+  "pdf_sha256": "a5c82b029477f7958829a7bb891b6459f934b2ab91ce7fddfd23733d1d01e7c7",
+  "code_sha256": {
+    "benchmark.py": "8a7b8d4b7603ac652dc3d19987080665e40bbd0441e26800bbe8dd3e1a5ca43b",
+    "benchmark_config.json": "cf63ac9b4603e6b3f234aba0f5d478b1b22b5f0649cb9c8a3f0eb29263142d8a",
+    "coupled_milling.py": "cec8fdf513619ad65d090a514cf3c0f5d7a71f72104f7a1e48620f23eb9a579b",
+    "mechanics.py": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1"
+  },
+  "parameters_fitted": false,
+  "digitization_independently_repeated": false,
+  "reference_status": "single_assistant_visual_audit_revision2_subset_25_of_32_stratified_rows",
+  "population_experimental_accuracy_supported": false
+}

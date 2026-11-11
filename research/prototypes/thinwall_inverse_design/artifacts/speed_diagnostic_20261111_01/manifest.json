@@ -1,0 +1,17 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "sha256": {
+    "benchmark.py": "8a7b8d4b7603ac652dc3d19987080665e40bbd0441e26800bbe8dd3e1a5ca43b",
+    "coupled_milling.py": "cec8fdf513619ad65d090a514cf3c0f5d7a71f72104f7a1e48620f23eb9a579b",
+    "fig8_frequency.csv": "b9d2b37d2e3db320c07cd0134ac4bc8447cdd1c67966df961d832ab5dc2a6215",
+    "mechanics.py": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+    "reviewed_points.csv": "e8679e786d38b477184f95eea282d9ccd6a79cfec5756513b657b6f3d2c669fe",
+    "speed_config.json": "9a9cb214a4e9a9f1057aaac2060b75d6f24be0c50cfceeb47c1d5a2d976f96c5",
+    "speed_diagnostic.py": "66ad7a719a2aa2c781ad365c9ca2edb5f20713fb313cb1ad2279bb2a95a79b8b",
+    "speed_dynamics.py": "326ed042a7da1e07e77fbb814a7009d2bf30e4074c385ea0d0ba0e62d0f3f6d1"
+  },
+  "parameters_fitted": false,
+  "reference_status": "single_assistant_visual_audit_revision2_subset_25_of_32_stratified_rows",
+  "static_compliance_and_operating_damping_measured": false,
+  "population_accuracy_supported": false
+}

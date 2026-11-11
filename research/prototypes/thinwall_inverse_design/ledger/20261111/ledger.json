@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "research_id": "F17",
+  "date": "2026-11-11",
+  "captured_utc": "2026-11-11T09:49:45.252159+00:00",
+  "status": "consolidated_at_user_request_no_new_simulations",
+  "authority_document": "docs/paper_and_competition/F17-薄壁最终结构逆设计探索台账-2026-11-11.md",
+  "objective": "最终薄壁零件壁厚/加强筋的加工反馈引导设计",
+  "actual_implemented_structures": [
+    "three_zone_beam_thickness",
+    "four_patch_Kirchhoff_Love_plate"
+  ],
+  "rib_geometry_implemented": false,
+  "new_cutting_experiments": 0,
+  "new_network_training": false,
+  "independent_thinwall_design_validation_complete": false,
+  "new_design_rule_advantage_established": false,
+  "publication_tier_commitment": false,
+  "original_reference_paper_pdf_obtained": false,
+  "git": {
+    "branch": "main",
+    "head": "b3b8aa98cb19ba2b870623f05dfac22c5b5bf9d7",
+    "task_committed_or_pushed": false,
+    "storage_scope": "Local working tree, not external backup"
+  },
+  "runs": [
+    {
+      "run_id": "run_20261110_01",
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01",
+      "status": "frozen_exploratory_beam",
+      "current_interpretation": "梁条61方案/3477场景；最差平均稳定性与静柔度选中同一方案",
+      "key_files": [
+        "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/screening_summary.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/verification.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/manifest.json"
+      ]
+    },
+    {
+      "run_id": "plate_20261110_01",
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01",
+      "status": "diagnostic_false_feasibility",
+      "current_interpretation": "低阶全局板产生假可行，不能当合格设计",
+      "key_files": [
+        "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/screening.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/verification.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/manifest.json"
+      ]
+    },
+    {
+      "run_id": "spline_20261110_01",
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01",
+      "status": "current_exploratory_plate",
+      "current_interpretation": "85候选、最细43示例可行；平均模型优势未通过另一组周期最差性能复核",
+      "key_files": [
+        "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/screening.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/verification.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/manifest.json"
+      ]
+    },
+    {
+      "run_id": "gradisek_20261110_01",
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_01",
+      "status": "historical_unverified_labels",
+      "current_interpretation": "早期延迟离散变体；旧标签一致性而非实验准确率",
+      "key_files": [
+        "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_01/results.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_01/manifest.json"
+      ]
+    },
+    {
+      "run_id": "gradisek_20261110_02",
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02",
+      "status": "historical_unverified_labels",
+      "current_interpretation": "353/516只与未核验旧CSV一致，准确率解释撤回",
+      "key_files": [
+        "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/results.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/refinement_320.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/manifest.json"
+      ]
+    },
+    {
+      "run_id": "reviewed_reference_20261111_01",
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_01",
+      "status": "superseded_do_not_use",
+      "current_interpretation": "助手第一版标注被更正；当前不得用27点版本",
+      "key_files": [
+        "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_01/reviewed_points.csv",
+        "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_01/SUPERSEDED.md",
+        "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_01/manifest.json"
+      ]
+    },
+    {
+      "run_id": "gradisek_reviewed_20261111_01",
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01",
+      "status": "superseded_do_not_use",
+      "current_interpretation": "依赖已撤回的第一版27点标签",
+      "key_files": [
+        "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01/results.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01/SUPERSEDED.md",
+        "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01/manifest.json"
+      ]
+    },
+    {
+      "run_id": "reviewed_reference_20261111_02",
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_02",
+      "status": "current_provisional_reference",
+      "current_interpretation": "当前单助手第二版25点；不是独立真值或总体样本",
+      "key_files": [
+        "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_02/reviewed_points.csv",
+        "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_02/manifest.json"
+      ]
+    },
+    {
+      "run_id": "gradisek_reviewed_20261111_02",
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_02",
+      "status": "current_reference_agreement_only",
+      "current_interpretation": "固定参数21/25，4处残余偏差",
+      "key_files": [
+        "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_02/results.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_02/manifest.json"
+      ]
+    },
+    {
+      "run_id": "helix_diagnostic_20261111_01",
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/helix_diagnostic_20261111_01",
+      "status": "fixed_parameter_diagnostic",
+      "current_interpretation": "0度/45度在320步逐点分类相同；4处偏差保留",
+      "key_files": [
+        "research/prototypes/thinwall_inverse_design/artifacts/helix_diagnostic_20261111_01/results.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/helix_diagnostic_20261111_01/plan.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/helix_diagnostic_20261111_01/manifest.json"
+      ]
+    },
+    {
+      "run_id": "speed_diagnostic_20261111_01",
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01",
+      "status": "exploratory_one_numerical_case_unresolved",
+      "current_interpretation": "六个固定假设、全部25点；1个alpha0.75情况未决",
+      "key_files": [
+        "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/results.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/refinement_640.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/refinement_1280.json",
+        "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/manifest.json"
+      ]
+    }
+  ],
+  "reports": [
+    {
+      "path": "docs/reports/thinwall_final_design_feasibility_20261110.md",
+      "sha256": "2747435662d230a7fcbbe0fa087369096d3d41625f6aa7c2667b4cf46ae410ed"
+    },
+    {
+      "path": "docs/reports/thinwall_plate_and_external_validation_20261110.md",
+      "sha256": "7ad06d504f4aa081d70dd35fc6def15c0d643563aa46c060c125139cd5c4b0f1"
+    },
+    {
+      "path": "docs/reports/thinwall_reference_audit_20261111.md",
+      "sha256": "d817a9f64ef9fe66639664b8764a52c023e6bf31b1f06d20661be036dc8fffa2"
+    },
+    {
+      "path": "docs/reports/thinwall_speed_dynamics_diagnostic_20261111.md",
+      "sha256": "5a6be43e9d880c2f1407cc735681d821b4b12e96b682d6d6c189782314823e8b"
+    }
+  ],
+  "current_reference": {
+    "raw_csv": {
+      "path": "research/datasets/measured_stability/gradisek2005_digitized_points.csv",
+      "sha256": "cc830a9d65eb4be10196f76149c29ec9585910912200537be13e7cbb3ebf3863",
+      "rows": 516,
+      "status": "unverified_original_unchanged"
+    },
+    "review": {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/blind_audit_review.json",
+      "sha256": "7be79380f557a24e8b82d99a13472d812e406a40839096be3a2b0b51a6e18254",
+      "revision": 2,
+      "sampled": 32,
+      "provisionally_resolved": 25,
+      "excluded_boundary_or_ambiguous": 7,
+      "definite_old_label_changes": 1,
+      "rater": "same_assistant_not_independent_blind_review"
+    },
+    "export": {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_02/reviewed_points.csv",
+      "sha256": "e8679e786d38b477184f95eea282d9ccd6a79cfec5756513b657b6f3d2c669fe",
+      "stable": 16,
+      "chatter": 9,
+      "population_accuracy_supported": false
+    },
+    "default_benchmark_config": "research/prototypes/thinwall_inverse_design/benchmark_config.json"
+  },
+  "current_claims": [
+    {
+      "id": "C01",
+      "statement": "梁条/板与再生切削计算链可运行，部分解析与离散检查通过",
+      "scope": "numerical_implementation_only"
+    },
+    {
+      "id": "C02",
+      "statement": "平均模型相对一阶频率基线约7.2%收益未保持周期最差性能优势",
+      "scope": "no_general_design_improvement_proven"
+    },
+    {
+      "id": "C03",
+      "statement": "旧516行表不等于已核验真值",
+      "scope": "at_least_one_clear_label_error_and_boundary_nodes"
+    },
+    {
+      "id": "C04",
+      "statement": "当前固定参数模型符合21/25",
+      "scope": "provisional_subset_agreement_only"
+    },
+    {
+      "id": "C05",
+      "statement": "螺旋角单项改变不能解释全部4个偏差",
+      "scope": "declared25_rows_at320steps"
+    },
+    {
+      "id": "C06",
+      "statement": "频率曲线不能单独识别模态幅值；不同闭合改变预测",
+      "scope": "exploratory_model_family_not_novel_physics"
+    },
+    {
+      "id": "C07",
+      "statement": "76项原型检查通过，第四轮两模块覆盖率100%",
+      "scope": "not_all_repository_coverage_or_physical_validation"
+    }
+  ],
+  "withdrawals": [
+    {
+      "id": "D01",
+      "claim": "低阶板赢家可行",
+      "current_status": "false_feasibility_identified_keep_failure_record"
+    },
+    {
+      "id": "D02",
+      "claim": "68.41%是实验准确率",
+      "current_status": "withdrawn_interpretation_raw_agreement_preserved"
+    },
+    {
+      "id": "D03",
+      "claim": "4处明确错标签",
+      "current_status": "assistant_annotation_v1_corrected_only1_clear_change_retained"
+    },
+    {
+      "id": "D04",
+      "claim": "27点第一版可以当前验证",
+      "current_status": "superseded_by_revision2_25_points"
+    },
+    {
+      "id": "D05",
+      "claim": "分母改变后的81/84%证明模型提升",
+      "current_status": "invalid_comparison"
+    },
+    {
+      "id": "D06",
+      "claim": "平均模型约7%可以作稳健抗颤振收益",
+      "current_status": "generalization_not_supported"
+    }
+  ],
+  "open_issues": [
+    {
+      "id": "I01",
+      "issue": "真实几何、夹持与最终功能未定义",
+      "resume_requirement": "明确几何、质量及服役/应力/屈曲/可达性约束",
+      "status": "open"
+    },
+    {
+      "id": "I02",
+      "issue": "加强筋及完整去材未实现",
+      "resume_requirement": "机械问题明确后选择实现范围",
+      "status": "open"
+    },
+    {
+      "id": "I03",
+      "issue": "25点单助手暂定标签",
+      "resume_requirement": "独立核查或采用参数完整公开锚点",
+      "status": "open"
+    },
+    {
+      "id": "I04",
+      "issue": "旋转模态幅值/阻尼未识别",
+      "resume_requirement": "独立测量或文献数值，不拟合到测试标签",
+      "status": "open"
+    },
+    {
+      "id": "I05",
+      "issue": "alpha0.75原行293数值未决",
+      "resume_requirement": "仅继续使用该假设时再核查离散，当前不支持关键结论",
+      "status": "open"
+    },
+    {
+      "id": "I06",
+      "issue": "Micromachines2022薄壁候选未验收",
+      "resume_requirement": "核查夹持自由高度、模态方向/归一化、力符号与实切图像",
+      "status": "open"
+    },
+    {
+      "id": "I07",
+      "issue": "新设计贡献和查新未完成",
+      "resume_requirement": "直接先例与相称强基线证据",
+      "status": "open"
+    },
+    {
+      "id": "I08",
+      "issue": "最初PKEANet全文未取得",
+      "resume_requirement": "保留截图来源，需要全文时另行取得",
+      "status": "open"
+    },
+    {
+      "id": "I09",
+      "issue": "模态/频率/再入区覆盖有限",
+      "resume_requirement": "定义适用域，不能声称全局稳定性最优",
+      "status": "open"
+    }
+  ],
+  "latest_test_record": {
+    "path": "research/prototypes/thinwall_inverse_design/evidence/round4/tests_research.xml",
+    "sha256": "f882d8eeab2f53009257bff144ceb054c5a6e2dd629df8761899cf0111f016e6",
+    "passed": 76,
+    "scope": "prototype_tests_only",
+    "rerun_during_consolidation": false
+  },
+  "coverage_records": [
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round2/coverage.json",
+      "percent": 97.58308157099698,
+      "scope": "six_modules_at_round2"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/coverage.json",
+      "percent": 100.0,
+      "scope": "two_new_modules_at_round4"
+    }
+  ],
+  "unresolved_numerical_cases": [
+    {
+      "original_row": 293,
+      "variant": "observed_frequency_static_compliance_0p75",
+      "final_steps": 1280,
+      "rho_final": 0.979062895515264,
+      "previous_radius": 0.9886814712965584
+    }
+  ],
+  "attachments": {
+    "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/context.json",
+    "count": 8
+  },
+  "resume_order": [
+    "Audit I06 source and mechanical definitions before any new trial",
+    "Select or reject the candidate without tuning to outcome labels",
+    "Then compare same_function structures with contact_FRF and periodic_regenerative_feedback",
+    "Resolve I05 only if using its illustrative closure; no automatic larger parameter search"
+  ],
+  "asset_manifest": "research/prototypes/thinwall_inverse_design/ledger/20261111/asset_manifest.json"
+}

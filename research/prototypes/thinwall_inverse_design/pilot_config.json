@@ -1,0 +1,23 @@
+{
+  "status": "exploratory_verification_pilot_not_confirmatory",
+  "scope": "final_part_thickness_distribution_not_sacrificial_allowance",
+  "question": "Can equal-mass static-compliance and regenerative-stability rankings disagree in a clamped thin strip? This known distinction is a solver check, not claimed novelty.",
+  "hypotheses": {
+    "H0": "The static-compliance optimum is also best in the chosen sampled stability objective.",
+    "H1": "A different equal-mass profile has a larger sampled stability objective; any benefit may depend on speed, contact point, damping and modeling approximation."
+  },
+  "geometry": {"length_m": 0.08, "width_m": 0.02, "young_pa": 70000000000, "density_kg_m3": 2700},
+  "profile": {"zones": 3, "mean_thickness_mm": 2.0, "min_mm": 1.0, "max_mm": 3.0, "grid_step_mm": 0.25},
+  "screening": {"elements": 24, "modes": 4, "damping_ratio": 0.01, "contacts": [0.5, 0.75, 1.0], "rpm_min": 3000, "rpm_max": 12000, "rpm_count": 19, "frequency_resolution": 600},
+  "cutting": {"tangential_pa": 700000000, "radial_ratio": 0.3, "teeth": 2, "immersion": 0.5},
+  "parameter_provenance": "All geometry, material, damping and cutting numbers are declared illustrative scenario assumptions, not measured or calibrated parameters of the user's part.",
+  "selection": "Grid-search static tip compliance and the minimum averaged-DDE boundary over all screening contacts and speeds. Also retain the best mean-boundary profile. No algorithm training.",
+  "verification": {"mesh_elements": [12, 24, 48], "mode_counts": [2, 4, 6], "damping_ratios": [0.005, 0.01, 0.02], "floquet_steps": [40, 80, 160], "off_grid_rpms": [3750, 6750, 9750]},
+  "project_gates": {
+    "numerical": "Uniform beam first-mode error <0.1%, static compliance error <0.01%; selected boundaries change <5% at finest step refinements, or mark unresolved.",
+    "signal": "For a future research decision require >=10% robust objective benefit beyond numerical error and a genuine advance over closest literature. These are project gates, not publication thresholds.",
+    "stop": "No ranking difference, loss under periodic verification, sensitivity to arbitrary damping, or no substantive literature gap: do not launch a large optimizer or neural network. Preserve null/negative results."
+  },
+  "budget": "Bounded CPU pilot only; no GPU training, software install, production changes, or unattended long experiments.",
+  "independence": "All grid points are deterministic scenario evaluations, not independent experimental samples. Averaged vs periodic and frequency vs RK4 comparisons are model/numerical checks, not real-world validation."
+}

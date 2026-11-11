@@ -1,0 +1,19 @@
+{
+  "status": "adaptive_spatial_verification_after_global_ritz_constraint_failure",
+  "plate": {"length_m":0.08,"width_m":0.06,"young_pa":70000000000,"density_kg_m3":2700,"poisson":0.33,"segments_x":4,"segments_y":4,"quadrature":5},
+  "thickness_mm": {"min":1.0,"max":3.0,"step":0.5,"mean":2.0},
+  "modes":6,
+  "damping_ratio":0.01,
+  "cutting": {"tangential_pa":700000000,"radial_ratio":0.3,"teeth":2,"immersion":0.5},
+  "service_constraints": {"normal_pressure":1.0,"free_edge_uniform":1.0,"free_edge_left_half":1.0},
+  "screen_contacts": [[0.85,0.2],[0.85,0.5],[0.85,0.8]],
+  "screen_rpms": [4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000,10500],
+  "mesh_levels": [4,6,8],
+  "verification_contacts": [[0.65,0.35],[0.95,0.65]],
+  "verification_rpms": [4750,6750,9750],
+  "floquet_steps": [160,320],
+  "budget_seconds_per_stage":240,
+  "hypothesis": "After resolving thickness interfaces, a final-part stability objective may or may not differ from both service-static and first-frequency strong baselines. No positive outcome is required.",
+  "selection": "Re-evaluate all85 same-mass designs at each of4/6/8 spatial subdivisions. At each level recalculate service constraints relative to that level's uniform plate. Select on finest level; no declaring a failed coarse optimum feasible.",
+  "interpretation": "Exploration, not preregistered confirmation. Already observed global-polynomial failure motivated this discretization. No measured plate parameters, process removal, stresses, buckling, ribs or real toolpath included."
+}

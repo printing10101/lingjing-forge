@@ -1,0 +1,38 @@
+{
+  "source_raster_sha256": "a024409a52bc4be132386f757a15f28005660641d1067726da817f6f374ccf19",
+  "table_sha256": "b9d2b37d2e3db320c07cd0134ac4bc8447cdd1c67966df961d832ab5dc2a6215",
+  "method": "Median white pixel at prespecified marker rpm; linear axis calibration",
+  "x_axis_tick_centers": [
+    230.5,
+    327.5,
+    425.5,
+    524,
+    622,
+    720,
+    817.5,
+    915.5,
+    1013.5,
+    1111.5,
+    1209.5,
+    1307.5,
+    1405.5,
+    1502.5,
+    1601,
+    1699.5,
+    1797.5,
+    1895.5
+  ],
+  "y_axis_tick_centers": [
+    18,
+    226,
+    434,
+    641.5,
+    848.5,
+    1057.5,
+    1264.5
+  ],
+  "source": "Gradisek2005 Fig8, p777, independently measured rotating-tool frequency",
+  "limitations": "Single-curve raster digitization; not a full operating FRF. No measured compliance or damping table.",
+  "frequency_perturbation_hz_for_diagnostic": 0.5,
+  "perturbation_is_statistical_confidence_interval": false
+}

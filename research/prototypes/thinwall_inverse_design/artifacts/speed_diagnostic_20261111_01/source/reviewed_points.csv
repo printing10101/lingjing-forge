@@ -1,0 +1,26 @@
+fig,ae_label,ae_mm,n_rpm,ap_mm,result,review,margin,px,py,original_row,old_label,review_reason,source_doi
+Fig7,D,8.0,14491,0.288,chatter,VISUAL_SINGLE_RATER,0.369,175,209,40,chatter,cross; green line overlaps but arms visible,10.1016/j.ijmachtools.2004.11.015
+Fig7,D,8.0,20951,0.395,stable,VISUAL_SINGLE_RATER,0.39,314,198,47,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,D,8.0,15002,0.288,chatter,VISUAL_SINGLE_RATER,0.356,186,209,48,chatter,clear cross,10.1016/j.ijmachtools.2004.11.015
+Fig7,D,8.0,23971,0.288,chatter,VISUAL_SINGLE_RATER,0.265,379,209,50,chatter,clear cross,10.1016/j.ijmachtools.2004.11.015
+Fig7,D,8.0,20951,0.201,stable,VISUAL_SINGLE_RATER,0.433,314,218,53,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.5D,4.0,19928,0.101,stable,VISUAL_SINGLE_RATER,0.588,292,480,63,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.5D,4.0,13934,0.198,stable,VISUAL_SINGLE_RATER,0.513,163,470,81,stable,Closed round ring with a visible light center; previous cross identification was wrong.,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.5D,4.0,9983,0.295,chatter,VISUAL_SINGLE_RATER,0.275,78,460,93,chatter,clear cross,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.5D,4.0,15978,0.295,chatter,VISUAL_SINGLE_RATER,0.246,207,460,112,chatter,clear cross,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.1D,0.8,19928,0.401,stable,VISUAL_SINGLE_RATER,0.618,292,701,189,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.1D,0.8,17419,0.198,stable,VISUAL_SINGLE_RATER,0.513,238,722,208,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.1D,0.8,19928,0.198,stable,VISUAL_SINGLE_RATER,0.556,292,722,223,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.1D,0.8,19928,0.604,stable,VISUAL_SINGLE_RATER,0.57,292,680,242,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.1D,0.8,20904,0.401,stable,VISUAL_SINGLE_RATER,0.449,313,701,290,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.1D,0.8,28479,0.797,chatter,VISUAL_SINGLE_RATER,0.313,476,660,293,chatter,hollow diamond; periodic chatter per caption,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.1D,0.8,31965,0.797,chatter,VISUAL_SINGLE_RATER,0.07,551,660,314,chatter,clear cross,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.1D,0.8,26992,0.787,chatter,VISUAL_SINGLE_RATER,0.193,444,661,320,chatter,clear cross,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.05D,0.4,19928,1.403,stable,VISUAL_SINGLE_RATER,0.618,292,849,324,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.05D,0.4,14909,0.603,stable,VISUAL_SINGLE_RATER,0.543,184,932,342,stable,round ring; adjacent curve does not hide center,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.05D,0.4,21927,0.806,stable,VISUAL_SINGLE_RATER,0.527,335,911,358,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.05D,0.4,19928,0.401,stable,VISUAL_SINGLE_RATER,0.511,292,953,385,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.05D,0.4,17930,0.198,stable,VISUAL_SINGLE_RATER,0.452,249,974,392,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.05D,0.4,11285,0.401,chatter,VISUAL_SINGLE_RATER,0.318,106,953,407,stable,clear cross,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.05D,0.4,14909,0.208,stable,VISUAL_SINGLE_RATER,0.495,184,973,411,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015
+Fig7,0.05D,0.4,24947,0.401,stable,VISUAL_SINGLE_RATER,0.39,400,953,436,stable,closed round ring,10.1016/j.ijmachtools.2004.11.015

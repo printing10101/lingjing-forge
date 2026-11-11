@@ -1,0 +1,16 @@
+{
+  "revision": 2,
+  "report_sha256": "d817a9f64ef9fe66639664b8764a52c023e6bf31b1f06d20661be036dc8fffa2",
+  "review_sha256": "7be79380f557a24e8b82d99a13472d812e406a40839096be3a2b0b51a6e18254",
+  "status": "provisional_single_assistant_source_audit_not_full_dataset_validation",
+  "superseded_revision": "superseded_v1/",
+  "source_csv_sha256": "cc830a9d65eb4be10196f76149c29ec9585910912200537be13e7cbb3ebf3863",
+  "review_export": "artifacts/reviewed_reference_20261111_02",
+  "diagnostic_results_sha256": "30fac82ca9f4082d8a3accf4f0b5851a1e51625917c0786d0dcb4f05959f04d2",
+  "checks": {
+    "prototype_research_passed": 60,
+    "focused_coverage_checks_passed": 13,
+    "focused_coverage_percent": 98.26,
+    "reference_export_coverage_percent": 100
+  }
+}

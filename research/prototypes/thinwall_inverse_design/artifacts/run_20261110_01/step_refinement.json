@@ -1,0 +1,25 @@
+{
+  "criterion": "relative change <=5%, heuristic numerical tolerance not a rigorous error bound",
+  "refinements": [
+    {
+      "design": "static_best_on_grid",
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_mm": 0.002387552110938887,
+      "previous_160_boundary_mm": 0.0024749844321809494,
+      "relative_change": 0.03662006824541329,
+      "purpose": "adaptive numerical refinement after failed 80/160 check; not new confirmatory evidence"
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_mm": 0.002387552110938887,
+      "previous_160_boundary_mm": 0.0024749844321809494,
+      "relative_change": 0.03662006824541329,
+      "purpose": "adaptive numerical refinement after failed 80/160 check; not new confirmatory evidence",
+      "reused_identical_profile": true
+    }
+  ],
+  "all_refined_checks_below_5_percent": true
+}

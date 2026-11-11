@@ -1,0 +1,11 @@
+{
+  "report": "D:\\灵境制造\\docs\\reports\\thinwall_plate_and_external_validation_20261110.md",
+  "report_sha256": "31cb5c38f431da67b90f70023154e788431b9d82d059df374cff57216d55add6",
+  "inputs": {
+    "artifacts\\spline_20261110_01\\screening.json": "e8093c08cdb9a6a51b3ec98d7f0081877dcdd22ee55fa8605d6b971af4bb809c",
+    "artifacts\\spline_20261110_01\\verification.json": "c35c4dfaf273b04c8548b1854005aaa7f7924ce6f14461e7274780cfd7d5b1e6",
+    "artifacts\\gradisek_20261110_02\\refinement_320.json": "1886bd921a4442210b89b69d145605c326e85b564b0de60bb635ccf434f1f5eb",
+    "evidence\\round2\\coverage.json": "5e89d90bb5320bc4464209941224550a8e9ec17462e438a8608442feb5233bf6"
+  },
+  "scope": "exploratory_no_thinwall_experimental_validation"
+}

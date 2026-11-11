@@ -1,0 +1,145 @@
+{
+  "by_variant_finest_available": {
+    "stationary": {
+      "n": 25,
+      "accuracy": 0.84,
+      "balanced_accuracy": 0.8020833333333333,
+      "counts": {
+        "stable_as_stable": 15,
+        "stable_as_chatter": 1,
+        "chatter_as_stable": 3,
+        "chatter_as_chatter": 6
+      }
+    },
+    "observed_frequency_fixed_mass": {
+      "n": 25,
+      "accuracy": 0.72,
+      "balanced_accuracy": 0.7083333333333333,
+      "counts": {
+        "stable_as_stable": 12,
+        "stable_as_chatter": 4,
+        "chatter_as_stable": 3,
+        "chatter_as_chatter": 6
+      }
+    },
+    "observed_frequency_fixed_static_compliance": {
+      "n": 25,
+      "accuracy": 0.72,
+      "balanced_accuracy": 0.7083333333333333,
+      "counts": {
+        "stable_as_stable": 12,
+        "stable_as_chatter": 4,
+        "chatter_as_stable": 3,
+        "chatter_as_chatter": 6
+      }
+    },
+    "observed_frequency_static_compliance_0p75": {
+      "n": 25,
+      "accuracy": 0.8,
+      "balanced_accuracy": 0.7465277777777778,
+      "counts": {
+        "stable_as_stable": 15,
+        "stable_as_chatter": 1,
+        "chatter_as_stable": 4,
+        "chatter_as_chatter": 5
+      }
+    },
+    "fixed_static_compliance_minus0p5Hz": {
+      "n": 25,
+      "accuracy": 0.72,
+      "balanced_accuracy": 0.7083333333333333,
+      "counts": {
+        "stable_as_stable": 12,
+        "stable_as_chatter": 4,
+        "chatter_as_stable": 3,
+        "chatter_as_chatter": 6
+      }
+    },
+    "fixed_static_compliance_plus0p5Hz": {
+      "n": 25,
+      "accuracy": 0.72,
+      "balanced_accuracy": 0.7083333333333333,
+      "counts": {
+        "stable_as_stable": 12,
+        "stable_as_chatter": 4,
+        "chatter_as_stable": 3,
+        "chatter_as_chatter": 6
+      }
+    }
+  },
+  "baseline_error_rows": [
+    47,
+    293,
+    314,
+    407
+  ],
+  "all_error_rows_finest": {
+    "stationary": [
+      47,
+      293,
+      314,
+      407
+    ],
+    "observed_frequency_fixed_mass": [
+      47,
+      53,
+      314,
+      320,
+      342,
+      358,
+      407
+    ],
+    "observed_frequency_fixed_static_compliance": [
+      47,
+      53,
+      314,
+      320,
+      342,
+      358,
+      407
+    ],
+    "observed_frequency_static_compliance_0p75": [
+      47,
+      293,
+      314,
+      320,
+      407
+    ],
+    "fixed_static_compliance_minus0p5Hz": [
+      47,
+      53,
+      314,
+      320,
+      342,
+      358,
+      407
+    ],
+    "fixed_static_compliance_plus0p5Hz": [
+      47,
+      53,
+      314,
+      320,
+      342,
+      358,
+      407
+    ]
+  },
+  "same_frequency_compliance_changes_finest": [
+    53,
+    293,
+    342,
+    358
+  ],
+  "threshold_cases_not_resolved_by_heuristic": [
+    {
+      "original_row": 293,
+      "variant": "observed_frequency_static_compliance_0p75",
+      "final_steps": 1280,
+      "rho_final": 0.979062895515264,
+      "previous_radius": 0.9886814712965584
+    }
+  ],
+  "heuristic_is_rigorous_error_bound": false,
+  "population_accuracy_supported": false,
+  "parameters_fitted": false
+}

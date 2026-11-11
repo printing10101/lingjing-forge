@@ -1,0 +1,46 @@
+{
+  "status": "posthoc_numerical_refinement_not_parameter_search",
+  "rule": "Refine if distance to rho=1 <=3 times160/320 difference OR relative radius difference>2percent",
+  "steps": 640,
+  "budget_seconds": 180,
+  "flagged": [
+    {
+      "original_row": 320,
+      "variant": "stationary",
+      "rho_160": 1.020771287437619,
+      "rho_320": 1.0088893266653691
+    },
+    {
+      "original_row": 320,
+      "variant": "observed_frequency_fixed_mass",
+      "rho_160": 0.9977512329192068,
+      "rho_320": 0.9896899589665468
+    },
+    {
+      "original_row": 320,
+      "variant": "observed_frequency_fixed_static_compliance",
+      "rho_160": 0.9891732441403492,
+      "rho_320": 0.981573237668844
+    },
+    {
+      "original_row": 293,
+      "variant": "observed_frequency_static_compliance_0p75",
+      "rho_160": 0.9532669987683655,
+      "rho_320": 0.9734531794547436
+    },
+    {
+      "original_row": 320,
+      "variant": "fixed_static_compliance_minus0p5Hz",
+      "rho_160": 0.9887679931987464,
+      "rho_320": 0.9812566302056305
+    },
+    {
+      "original_row": 320,
+      "variant": "fixed_static_compliance_plus0p5Hz",
+      "rho_160": 0.9895871427130392,
+      "rho_320": 0.9818996264485527
+    }
+  ],
+  "no_new_parameter_variants": true,
+  "interpretation": "Report all selected cases; if classifications change, base inference on refined cases and disclose selection."
+}

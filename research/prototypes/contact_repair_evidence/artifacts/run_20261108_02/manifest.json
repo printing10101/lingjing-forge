@@ -1,0 +1,133 @@
+{
+  "date": "2026-11-08",
+  "phase": "exploratory_prototype",
+  "configurations": [
+    {
+      "radius": 4.1,
+      "displacement_budget": 0.03,
+      "lock_order": 0
+    },
+    {
+      "radius": 4.1,
+      "displacement_budget": 0.03,
+      "lock_order": 2
+    },
+    {
+      "radius": 4.1,
+      "displacement_budget": 0.15,
+      "lock_order": 0
+    },
+    {
+      "radius": 4.1,
+      "displacement_budget": 0.15,
+      "lock_order": 2
+    },
+    {
+      "radius": 4.1,
+      "displacement_budget": 0.6,
+      "lock_order": 0
+    },
+    {
+      "radius": 4.1,
+      "displacement_budget": 0.6,
+      "lock_order": 2
+    },
+    {
+      "radius": 6.0,
+      "displacement_budget": 0.03,
+      "lock_order": 0
+    },
+    {
+      "radius": 6.0,
+      "displacement_budget": 0.03,
+      "lock_order": 2
+    },
+    {
+      "radius": 6.0,
+      "displacement_budget": 0.15,
+      "lock_order": 0
+    },
+    {
+      "radius": 6.0,
+      "displacement_budget": 0.15,
+      "lock_order": 2
+    },
+    {
+      "radius": 6.0,
+      "displacement_budget": 0.6,
+      "lock_order": 0
+    },
+    {
+      "radius": 6.0,
+      "displacement_budget": 0.6,
+      "lock_order": 2
+    },
+    {
+      "radius": 8.0,
+      "displacement_budget": 0.03,
+      "lock_order": 0
+    },
+    {
+      "radius": 8.0,
+      "displacement_budget": 0.03,
+      "lock_order": 2
+    },
+    {
+      "radius": 8.0,
+      "displacement_budget": 0.15,
+      "lock_order": 0
+    },
+    {
+      "radius": 8.0,
+      "displacement_budget": 0.15,
+      "lock_order": 2
+    },
+    {
+      "radius": 8.0,
+      "displacement_budget": 0.6,
+      "lock_order": 0
+    },
+    {
+      "radius": 8.0,
+      "displacement_budget": 0.6,
+      "lock_order": 2
+    },
+    {
+      "radius": 6.0,
+      "displacement_budget": 0.6,
+      "lock_order": 2,
+      "protected_x": [
+        2.0
+      ]
+    },
+    {
+      "radius": 8.0,
+      "displacement_budget": 0.6,
+      "lock_order": 2,
+      "protected_x": [
+        2.0
+      ]
+    }
+  ],
+  "policies": [
+    "fixed",
+    "uniform",
+    "targeted"
+  ],
+  "max_controls": 30,
+  "max_solves": 40,
+  "tolerance_mm": 1e-06,
+  "primary": "continuous contact verification and failure classification",
+  "secondary": "solver attempts, parameter count, actual geometry change and elapsed time",
+  "independent_geometry_families": 1,
+  "source_sha256": {
+    "cad_adapter.py": "a0b8d25d98ef29ac12803541aac00b400d303c1325841d1c36615cf978aa1d4c",
+    "experiment.py": "51701d98cb56996dc3da103176a876b4b7e4b4221e3fb41bd13b14ed38ecc0f0",
+    "repair.py": "7543d567cc8ba22defbd5d3079f2694445217b256223d200633b5bb1ac1c1cc6",
+    "test_contact.py": "1c858987d9d0632aad9a01a3944e619283f40a41c86911c7c7c23ad59beaac7f",
+    "verification.py": "dcde419b9d945006a57cf10af0d5d07f53583c1d7e6e8d1f8e40908177c43ebd"
+  },
+  "python": "3.14.4",
+  "numpy": "2.5.1",
+  "scipy": "1.18.1"
+}

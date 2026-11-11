@@ -1,0 +1,43 @@
+{
+  "source_csv_sha256": "cc830a9d65eb4be10196f76149c29ec9585910912200537be13e7cbb3ebf3863",
+  "source_total_rows": 516,
+  "reviewed_rows": 32,
+  "exported_rows": 27,
+  "excluded": [
+    {
+      "row": 11,
+      "label": "ambiguous",
+      "reason": "symbol intersects black boundary line"
+    },
+    {
+      "row": 25,
+      "label": "boundary",
+      "reason": "filled square lies on black boundary curve"
+    },
+    {
+      "row": 74,
+      "label": "ambiguous",
+      "reason": "peak marker obscured by black and green curves"
+    },
+    {
+      "row": 89,
+      "label": "ambiguous",
+      "reason": "boundary marker and adjacent ring overlap"
+    },
+    {
+      "row": 90,
+      "label": "boundary",
+      "reason": "filled square on sloping black curve"
+    }
+  ],
+  "definite_label_changes": 4,
+  "label_counts": {
+    "chatter": 12,
+    "stable": 15
+  },
+  "reference_status": "visually_reviewed_single_rater_subset",
+  "full_set_experimental_accuracy_supported": false,
+  "source_doi": "10.1016/j.ijmachtools.2004.11.015",
+  "limitations": "Stratified32-row audit, ambiguous/boundary markers excluded; same assistant rater, some prior exposure. No independent redigitization or population accuracy claim.",
+  "export_csv_sha256": "ae01b9901443c2200d6ef85aa9fb8818a1a0760c5b0ca1a0d4195b46edc45338"
+}

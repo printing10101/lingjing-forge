@@ -1,0 +1,20 @@
+{
+  "status": "round_2_exploratory_not_confirmatory",
+  "scope": "final_part_four_patch_symmetric_midsurface_thickness_plate_no_ribs_yet",
+  "plate": {"length_m": 0.08, "width_m": 0.06, "young_pa": 70000000000, "density_kg_m3": 2700, "poisson": 0.33, "order_x": 6, "order_y": 5, "quadrature": 12, "boundary": "cantilever"},
+  "thickness_mm": {"min": 1.0, "max": 3.0, "step": 0.5, "mean": 2.0},
+  "modes": 6,
+  "damping_ratio": 0.01,
+  "cutting": {"tangential_pa": 700000000, "radial_ratio": 0.3, "teeth": 2, "immersion": 0.5},
+  "service_constraints": {"normal_pressure": 1.0, "free_edge_uniform": 1.0, "free_edge_left_half": 1.0},
+  "service_constraint_definition": "Each unit-resultant load compliance must be no greater than the uniform plate. These are illustrative rigidity constraints, not real product function/stress/buckling requirements.",
+  "screen_contacts": [[0.85,0.2],[0.85,0.5],[0.85,0.8]],
+  "screen_rpms": [4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000,10500],
+  "verification_contacts": [[0.65,0.35],[0.95,0.65]],
+  "verification_rpms": [4750,6750,9750],
+  "selection": "Enumerate the same mass-constrained grid; retain feasible static minimax normalized service compliance, first-frequency maximum, worst sampled averaged boundary maximum, and mean boundary maximum; all share identical service constraints.",
+  "checks": {"ritz_orders": [[6,5],[8,7],[10,9]], "quadratures": [12,16], "modes": [4,6,10], "floquet_steps": [80,160]},
+  "falsification": "No benefit over both static and frequency baselines, disappearance under Ritz/periodic checks, constraint violations on refined model, or absence of distinct literature contribution prevents a method claim.",
+  "budget": "85 small deterministic designs, no training; at most 240 seconds initial screening; bounded selected-profile checks. No independent-sample significance test.",
+  "limitations": "Illustrative material/cutting/damping. Kirchhoff-Love Ritz plate not full shell/solid FE. Four piecewise thickness patches centered on common midsurface; no eccentricity, stress, ribs, material-removal stages, real toolpath or measured plate validation. Point cutting contacts and scalar transverse loop remain approximations."
+}

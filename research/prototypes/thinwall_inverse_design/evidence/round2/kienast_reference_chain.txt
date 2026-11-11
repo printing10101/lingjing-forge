@@ -1,0 +1,89 @@
+Pascal Kienast  et al. / Procedia CIRP 126 (2024) 372–377
+377
+5.4. Achieved blade surface quality 
+Fig. 14 shows the suction side surface of machined case 0 
+(reference), case 6 (linear group, and case 9 (sinusoidal group). 
+It can be overserved that surface irregularities occurred at top 
+sections along a toolpath of the blade for case 0 (Fig. 14a). 
+Chatter-free surface was achieved for case 6 (Fig. 14b). 
+Vibrations affected the machined surface for case 9 (Fig. 14c) 
+at the top section close to the leading edge and one path slightly 
+further down than for case 0. It can be concluded that the best 
+surface quality was achieved for case 6. 
+Fig. 14. Suction side surface of machined (a) case 0 “reference”, (b) case 6 
+“linear”, (c) case 9 “sinusoidal”. 
+6. Conclusion and outlook 
+This paper further elaborated the proposed approach by 
+Tunç et al. [13] to select the thickness and shape of the stock 
+for improved stability in 5-axis milling of thin-wall workpieces 
+to an application-oriented use case. Coupled process 
+simulation, which includes material removal, FEA, and stability 
+simulations, was used to analyze the effect of stock shape on 
+process dynamics. The proposed methodology enables the 
+comprehensive evaluation of dynamic process stability, 
+considering the continuously changing workpiece dynamics 
+during the machining process using FE simulations. Based on 
+the varying IPW FRF for selected CLs, spindle speeds were 
+optimized along the toolpath for the merged semi-/finishing 
+processes. Finally, the proposed methodology was successfully 
+demonstrated in machining experiments. 
+Comprehensive analysis of the acquired process data stands 
+as future work, where data-based evaluation of dynamic 
+process stability of semi-finishing and finishing and its 
+correlation with the simulations should be performed. 
+Furthermore, detailed analysis of the effect of thickness and 
+stock shape on the damping ratio is another issue, which is 
+crucial for the accuracy of FE simulations to predict IPW 
+dynamics and hence chatter stability. Better understanding the 
+relationship between the variable stock shape and damping ratio 
+would enable further improvement in stock shape design. 
+Acknowledgements 
+The work has been part of the dynaTWIN Project (E! 115498) 
+funded by the BMBF (Germany), Tübitak (Türkiye), and CDTI 
+(Spain) within the Eurostars (Eureka) program. 
+References 
+[1] Quintana, G., Ciurana, J., 2011. Chatter in machining processes: A review. 
+International Journal of Machine Tools and Manufacture 51 (5), 363–376. 
+[2] Budak, E., Tunç, L., Alan, S., özgüven, H.N., 2012. Prediction of 
+workpiece dynamics and its effects on chatter stability in milling. CIRP 
+Annals 61 (1), 339–342. 
+[3] Altintas, Y., Stepan, G., Merdol, D., Dombovari, Z., 2008. Chatter stability 
+of milling in frequency and discrete time domain. CIRP Journal of 
+Manufacturing Science and Technology 1 (1), 35–44. 
+[4] Munoa, J., Beudaert, X., Dombovari, Z., Altintas, Y., Budak, E., Brecher, 
+C., Stepan, G., 2016. Chatter suppression techniques in metal cutting. CIRP 
+Annals 65 (2), 785–808. 
+[5] Maslo, S., 2022. Simulation of the dynamic vibration behaviour and spindle 
+speed optimization during the milling process of turbomachinery 
+components. Dissertation, 1. Auflage ed., Aachen. 
+[6] Kolluru, K., Axinte, D., 2013. Coupled interaction of dynamic responses 
+of tool and workpiece in thin wall milling. Journal of Materials Processing 
+Technology 213 (9), 1565–1574. 
+[7] Thevenot, V., Arnaud, L., Dessein, G., Cazenave–Larroche, G., 2006. 
+Influence of material removal on the dynamic behavior of thin-walled 
+structures in peripheral milling. Machining Science and Technology 10 (3), 
+275–287. 
+[8] Maslo, S., Menezes, B., Kienast, P., Ganser, P., Bergs, T., 2020. Improving 
+dynamic process stability in milling of thin-walled workpieces by 
+optimization of spindle speed based on a linear parameter-varying model. 
+Procedia CIRP 93, 850–855. 
+[9] Petráček, P., Falta, J., Stejskal, M., Šimůnek, A., Kupka, P., Sulitka, M., 
+2022. Chatter-free milling strategy of a slender Blisk blade via stock 
+distribution optimization and continuous spindle speed change. 
+International Journal of Advanced Manufacturing Technology. 
+[10] Koike, Y., Matsubara, A., Yamaji, I., 2013. Design method of material 
+removal process for minimizing workpiece displacement at cutting point. 
+CIRP Annals 62 (1), 419–422. 
+[11] Smith, S., Wilhelm, R., Dutterer, B., Cherukuri, H., Goel, G., 2012. 
+Sacrificial structure preforms for thin part machining. CIRP Annals 61 (1), 
+379–382. 
+[12] Tunç, L.T., Ozkirimli, O.M., Budak, E., 2016. Machining strategy 
+development and parameter selection in 5-axis milling based on process 
+simulations. Int J Adv Manuf Technol 85 (5-8), 1483–1500. 
+[13] Tunç, L.T., Zatarain, M., 2019. Stability optimal selection of stock shape 
+and tool axis in finishing of thin-wall parts. CIRP Annals 68 (1), 401–404. 
+[14] Rudel, V., Kienast, P., Vinogradov, G., Ganser, P., Bergs, T., 2022. 
+Cloud-based process design in a digital twin framework with integrated and 
+coupled technology models for blisk milling. Front. Manuf. Technol. 2. 
+[15] Altintaş, Y., Budak, E., 1995. Analytical Prediction of Stability Lobes in 
+Milling. CIRP Annals 44 (1), 357–362. 

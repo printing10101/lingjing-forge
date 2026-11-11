@@ -1,0 +1,1229 @@
+{
+  "schema_version": 1,
+  "research_id": "F17",
+  "date": "2026-11-11",
+  "file_count": 202,
+  "bytes_total": 15723473,
+  "scope": "Current prototype source/config/tests, all retained runs/evidence, reports, indexes, original Gradisek inputs and user screenshot copies. Not full repository or external backup.",
+  "excluded": [
+    "__pycache__",
+    ".pytest_cache",
+    ".coverage*",
+    "asset_manifest.json itself",
+    "checkpoint.json"
+  ],
+  "assets": [
+    {
+      "path": "docs/paper_and_competition/F17-薄壁最终结构逆设计探索台账-2026-11-11.md",
+      "bytes": 13632,
+      "sha256": "9e87eb92bcac1bbc1e316f982745e915aebcc54115c71541b427687227a97f5e",
+      "role": "authority_ledger"
+    },
+    {
+      "path": "docs/reports/thinwall_final_design_feasibility_20261110.md",
+      "bytes": 14474,
+      "sha256": "2747435662d230a7fcbbe0fa087369096d3d41625f6aa7c2667b4cf46ae410ed",
+      "role": "research_report"
+    },
+    {
+      "path": "docs/reports/thinwall_plate_and_external_validation_20261110.md",
+      "bytes": 14825,
+      "sha256": "7ad06d504f4aa081d70dd35fc6def15c0d643563aa46c060c125139cd5c4b0f1",
+      "role": "research_report"
+    },
+    {
+      "path": "docs/reports/thinwall_reference_audit_20261111.md",
+      "bytes": 8116,
+      "sha256": "d817a9f64ef9fe66639664b8764a52c023e6bf31b1f06d20661be036dc8fffa2",
+      "role": "research_report"
+    },
+    {
+      "path": "docs/reports/thinwall_speed_dynamics_diagnostic_20261111.md",
+      "bytes": 8368,
+      "sha256": "5a6be43e9d880c2f1407cc735681d821b4b12e96b682d6d6c189782314823e8b",
+      "role": "research_report"
+    },
+    {
+      "path": "research/README.md",
+      "bytes": 3370,
+      "sha256": "f74d3a9d818717b1a1f77d78e04db82b6ba424980cd40ab6b5d50774624e44fe",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/datasets/measured_stability/README_gradisek_label_audit_20261111.md",
+      "bytes": 1261,
+      "sha256": "3b6c1486fc450352a561a36279fb5601823d23ff3b392eef2e92369a3476efa0",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/datasets/measured_stability/gradisek2005_digitized_points.csv",
+      "bytes": 25450,
+      "sha256": "cc830a9d65eb4be10196f76149c29ec9585910912200537be13e7cbb3ebf3863",
+      "role": "original_reference_input"
+    },
+    {
+      "path": "research/datasets/measured_stability/literature_pdfs/Gradisek_2005_stability_prediction.pdf",
+      "bytes": 873021,
+      "sha256": "a5c82b029477f7958829a7bb891b6459f934b2ab91ce7fddfd23733d1d01e7c7",
+      "role": "original_reference_input"
+    },
+    {
+      "path": "research/prototypes/README.md",
+      "bytes": 1922,
+      "sha256": "d146956e217c84748215282648ac36e70dade305d1c317355d9487b41a8c21e4",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/README.md",
+      "bytes": 9999,
+      "sha256": "ae0d7202d0d99fd9fbae5665ebd39ce27769d84921bf92bbdd17d8c31684d39b",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/__init__.py",
+      "bytes": 75,
+      "sha256": "3608bc8e661409cf008a6beddf9b34c93aa1593b433db9614cbac55b025dba6a",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_01/manifest.json",
+      "bytes": 789,
+      "sha256": "cc68196865dd2258e0e205192def60edb386746e6c7fff8fdc2ed3bf03af7a8c",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_01/predictions.csv",
+      "bytes": 43277,
+      "sha256": "2d53fa4d00d7c3dd7b06b4436513ed03d3787910692e5dc51dc38fd85b25f5a4",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_01/results.json",
+      "bytes": 167128,
+      "sha256": "5e9b8a78057480212d13fb64e6d64834805f93bd502f9c0d36dcbd46c349f9bb",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_01/source/benchmark.py",
+      "bytes": 5279,
+      "sha256": "286cb3ed23811067f2463ed24a3f6ce07fbe0bdb885538732a7b0ad7052c3b61",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_01/source/benchmark_config.json",
+      "bytes": 1480,
+      "sha256": "df0e3d0a8d6abfa4e379a7cef48e6efde7931128ada244163c6fd07e02209406",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_01/source/coupled_milling.py",
+      "bytes": 4487,
+      "sha256": "5f01589dc0e692821bad31df35078d6fbf9fe47e1775e0f89bc1c5d3d670af90",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_01/source/mechanics.py",
+      "bytes": 13573,
+      "sha256": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/agreement_by_immersion.png",
+      "bytes": 38206,
+      "sha256": "36bf865994de5479b459553cf0b308bf0005acd638c4da8d6698eb3c3cb9563b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/manifest.json",
+      "bytes": 789,
+      "sha256": "436baf4c5d70135872678993ec20e3d0dd65614906ab05fa54cb2221630407de",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/predictions.csv",
+      "bytes": 43265,
+      "sha256": "3e8fd539f3784c0f5a844c926df84a6fdde5534fd5cbcfaa33617887a05f291d",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/refinement_320.json",
+      "bytes": 199792,
+      "sha256": "1886bd921a4442210b89b69d145605c326e85b564b0de60bb635ccf434f1f5eb",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/refinement_320.py",
+      "bytes": 2084,
+      "sha256": "b5dd3707f2687e578f2ff8f4e14fa4cde930d87a56be64ddbb61091f9057e749",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/results.json",
+      "bytes": 167097,
+      "sha256": "48fb3db0000cde491ff4d3775c0aff75a734258f86821d2fa6f34c391a1d3959",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/source/benchmark.py",
+      "bytes": 5300,
+      "sha256": "cdd9e6a9c3d707491cc22fa1f0efd6c2909e98d716967c82d3fc21949431d98b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/source/benchmark_config.json",
+      "bytes": 1508,
+      "sha256": "d0e773d7804078cf3678b0f40e32f2153aab98e80f800eb65e3d275be45c8d2a",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/source/coupled_milling.py",
+      "bytes": 4796,
+      "sha256": "cec8fdf513619ad65d090a514cf3c0f5d7a71f72104f7a1e48620f23eb9a579b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_20261110_02/source/mechanics.py",
+      "bytes": 13573,
+      "sha256": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01/SUPERSEDED.md",
+      "bytes": 518,
+      "sha256": "95565e5f9c7742498b5276d67815c2fdd0fb1c77a76537cd75603dc837684428",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01/manifest.json",
+      "bytes": 934,
+      "sha256": "b0ad17e2be1dd1d87cd06bc12b953229d3fd86075e464a1e15b2cee050dcc5ca",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01/predictions.csv",
+      "bytes": 2827,
+      "sha256": "8860c5338552f88aabb5172dabc241ac690601ad586db7ea1cd0365bfa9db663",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01/results.json",
+      "bytes": 11838,
+      "sha256": "7bda9a2367d073315776cc9dc5b6c7bbd171663f9199c3755f573097b561d0b9",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01/source/benchmark.py",
+      "bytes": 6007,
+      "sha256": "8a7b8d4b7603ac652dc3d19987080665e40bbd0441e26800bbe8dd3e1a5ca43b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01/source/benchmark_config.json",
+      "bytes": 1973,
+      "sha256": "312a0c9c94700cd05a3d0e6d3a0a2824cd2404245d6d52ba944e0d8d61e7bdb2",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01/source/coupled_milling.py",
+      "bytes": 4796,
+      "sha256": "cec8fdf513619ad65d090a514cf3c0f5d7a71f72104f7a1e48620f23eb9a579b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_01/source/mechanics.py",
+      "bytes": 13573,
+      "sha256": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_02/manifest.json",
+      "bytes": 943,
+      "sha256": "19c04b293c0cef28dcbeaeea089c25be15ef71af9ce4679f56841ada86817e8b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_02/predictions.csv",
+      "bytes": 2622,
+      "sha256": "e09a634dd1c736911199a14b626c1da35915094bb3033a9c0be81fe00743b2d6",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_02/results.json",
+      "bytes": 11159,
+      "sha256": "07dc1183e904eb513e8e588583370e6051752ac4f79798e0f7e9fbd7268010fc",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_02/source/benchmark.py",
+      "bytes": 6007,
+      "sha256": "8a7b8d4b7603ac652dc3d19987080665e40bbd0441e26800bbe8dd3e1a5ca43b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_02/source/benchmark_config.json",
+      "bytes": 1978,
+      "sha256": "cf63ac9b4603e6b3f234aba0f5d478b1b22b5f0649cb9c8a3f0eb29263142d8a",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_02/source/coupled_milling.py",
+      "bytes": 4796,
+      "sha256": "cec8fdf513619ad65d090a514cf3c0f5d7a71f72104f7a1e48620f23eb9a579b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/gradisek_reviewed_20261111_02/source/mechanics.py",
+      "bytes": 13573,
+      "sha256": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/helix_diagnostic_20261111_01/coupled_milling.py",
+      "bytes": 4796,
+      "sha256": "cec8fdf513619ad65d090a514cf3c0f5d7a71f72104f7a1e48620f23eb9a579b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/helix_diagnostic_20261111_01/manifest.json",
+      "bytes": 600,
+      "sha256": "e4c565f06a54f7f4231d9f549a8c5f8146141b08350bd6ae9a9a490ca23708cf",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/helix_diagnostic_20261111_01/mechanics.py",
+      "bytes": 13573,
+      "sha256": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/helix_diagnostic_20261111_01/plan.json",
+      "bytes": 2903,
+      "sha256": "b24027e9dc19860881cf300ecab0adc5b1013bc9921fb9f749b87355de32fa81",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/helix_diagnostic_20261111_01/results.json",
+      "bytes": 12577,
+      "sha256": "30fac82ca9f4082d8a3accf4f0b5851a1e51625917c0786d0dcb4f05959f04d2",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/helix_diagnostic_20261111_01/run_diagnostic.py",
+      "bytes": 2877,
+      "sha256": "1b0367c920ac01c6da7e314213ffb299809cec9b5bde61330a671538063475c3",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/designs.csv",
+      "bytes": 20086,
+      "sha256": "b74967483617691b91b0dc086615c25b24f1c8360daf02d366b68091fcb3f7a4",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/manifest.json",
+      "bytes": 663,
+      "sha256": "2efef3073b989024d0c404c5db021a5cab5563dbabff28e3b2692cc13cf4ac8d",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/screening.json",
+      "bytes": 403389,
+      "sha256": "f6b2d3274e11c77e909db2a8117b1b83fe26e9e2b670b0042cd849b2b554eac2",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/source/mechanics.py",
+      "bytes": 13573,
+      "sha256": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/source/plate.py",
+      "bytes": 6468,
+      "sha256": "3ee61327f903561ecf19420645bb00895accec10907fa20b24ef946eacc6ba18",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/source/plate_config.json",
+      "bytes": 2216,
+      "sha256": "a3e337c35dd58c28315c9715e1504983f056485202012e0291ab76e374a68a09",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/source/plate_pilot.py",
+      "bytes": 9074,
+      "sha256": "563c4264d9978f8d6446cfd1f96fa9f5006b71968544ed8ba4e3757bb66a6d55",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/verification.json",
+      "bytes": 37541,
+      "sha256": "b16d8a89020dd1e868f03a1ba8cda978a8abd5e3e73a0b13699542655471a362",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/plate_20261110_01/verification_progress.json",
+      "bytes": 86,
+      "sha256": "b2c7071935fbc4ce749a41ca8388ca09a8015c26b6b58460d85799e240b368df",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_01/SUPERSEDED.md",
+      "bytes": 518,
+      "sha256": "95565e5f9c7742498b5276d67815c2fdd0fb1c77a76537cd75603dc837684428",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_01/manifest.json",
+      "bytes": 1350,
+      "sha256": "2e65ac0c14d3c1ea5f885e8e6d1b94679e4fbccadac347473903e5441e0b2d21",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_01/reviewed_points.csv",
+      "bytes": 3687,
+      "sha256": "ae01b9901443c2200d6ef85aa9fb8818a1a0760c5b0ca1a0d4195b46edc45338",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_02/manifest.json",
+      "bytes": 1898,
+      "sha256": "bb5f2e366e6637070d0aede9088bbadf5df9b7a8412ef3e5cc2f9f73a947e449",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_02/reviewed_points.csv",
+      "bytes": 3489,
+      "sha256": "e8679e786d38b477184f95eea282d9ccd6a79cfec5756513b657b6f3d2c669fe",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/analysis_manifest.json",
+      "bytes": 907,
+      "sha256": "b5bd513187a47492947067d19c7314e2315a961a632f3de24b36cca6bee254ab",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/manifest.json",
+      "bytes": 716,
+      "sha256": "6c62508319d344d328e5ae29d4b232c935ac4b4812fbfc83190a27c13487de07",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/periodic_checks.png",
+      "bytes": 97045,
+      "sha256": "3f836196516b34eb39b3c54d55f96dff9558268d7eb4acbf554fc93b125c97df",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/screening.csv",
+      "bytes": 285042,
+      "sha256": "75f9ccd21bc23557adea6f1aafd82cb4776b0aba41de16fd535cf1e99d6b9d5b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/screening.png",
+      "bytes": 139871,
+      "sha256": "581fc4d7ff4dc9cda04a6f54106085838c8f2005c63aa0fbd2a6a1dea5f49b38",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/screening_summary.json",
+      "bytes": 19628,
+      "sha256": "617430b20093a940f57a9af75f000e022fec9ff6490beeaeb7a27c82c75e311e",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/source/mechanics.py",
+      "bytes": 13573,
+      "sha256": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/source/pilot.py",
+      "bytes": 10956,
+      "sha256": "01400a89543b595240018624bc60683fe483af96e1f64781b23c59421dcfd943",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/source/pilot_config.json",
+      "bytes": 2636,
+      "sha256": "265e89d0abf8202d6cb7a2716b2ff085baf9f3813eae0824b74ff27725b3358c",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/step_refinement.json",
+      "bytes": 926,
+      "sha256": "ade210be4667e8d74400f4ab6668acb374e80e358e2d953f2002993196f2e234",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/verification.json",
+      "bytes": 43385,
+      "sha256": "9975eda2f11d6e4d30d45d4308f8a939588ac43b09194ebc94d50046d0fe912d",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/run_20261110_01/verification_progress.json",
+      "bytes": 5142,
+      "sha256": "04353209e711260557dbe50c1ed12550492578eb32e90addb028d9e95ed47e7e",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/manifest.json",
+      "bytes": 1087,
+      "sha256": "e5698af894893da89d2563c8ad3cdc18c8fd992def53210e4d2431316cb1b1ba",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/predictions.csv",
+      "bytes": 25535,
+      "sha256": "3e1f4da1f09e268c8b272323762081517d76acfff1c5fb9d5dfb7698bb7fd3dd",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/refine_1280.py",
+      "bytes": 2857,
+      "sha256": "aa4a011b9cbf7d50f31e4d5b899897d1a1a36187bb9e0ad8ee6b2ab43210b3ff",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/refine_640.py",
+      "bytes": 2787,
+      "sha256": "5c294aa8216edb0bd17f5796e5fb14b072e881b7094de87497e35b5091022044",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/refinement_1280.json",
+      "bytes": 1498,
+      "sha256": "abd0f8a650e51b4ba2bfe52a4916ce24403f9859ca51c24afa1fce099eb71fa7",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/refinement_640.json",
+      "bytes": 2105,
+      "sha256": "fba830ce6d4c5b32dfeb6e9096f0f3cf1ce1691f62e0fefa4f6e56221e371121",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/refinement_plan.json",
+      "bytes": 1441,
+      "sha256": "60f4391644269c90848b6d78b2cce270375991b43de39a52c979dde704db221b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/refinement_plan_1280.json",
+      "bytes": 1174,
+      "sha256": "52dea195c6d35dac3539e648ced70d2c207237fb0212fc1200bca0aec26da282",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/results.json",
+      "bytes": 88520,
+      "sha256": "998d93f999fa26e11da243ee29de9942df512d92d7d2d7ff890855da8000888b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/source/benchmark.py",
+      "bytes": 6007,
+      "sha256": "8a7b8d4b7603ac652dc3d19987080665e40bbd0441e26800bbe8dd3e1a5ca43b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/source/coupled_milling.py",
+      "bytes": 4796,
+      "sha256": "cec8fdf513619ad65d090a514cf3c0f5d7a71f72104f7a1e48620f23eb9a579b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/source/fig8_frequency.csv",
+      "bytes": 1060,
+      "sha256": "b9d2b37d2e3db320c07cd0134ac4bc8447cdd1c67966df961d832ab5dc2a6215",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/source/mechanics.py",
+      "bytes": 13573,
+      "sha256": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/source/reviewed_points.csv",
+      "bytes": 3489,
+      "sha256": "e8679e786d38b477184f95eea282d9ccd6a79cfec5756513b657b6f3d2c669fe",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/source/speed_config.json",
+      "bytes": 3300,
+      "sha256": "9a9cb214a4e9a9f1057aaac2060b75d6f24be0c50cfceeb47c1d5a2d976f96c5",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/source/speed_diagnostic.py",
+      "bytes": 7485,
+      "sha256": "66ad7a719a2aa2c781ad365c9ca2edb5f20713fb313cb1ad2279bb2a95a79b8b",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/speed_diagnostic_20261111_01/source/speed_dynamics.py",
+      "bytes": 2508,
+      "sha256": "326ed042a7da1e07e77fbb814a7009d2bf30e4074c385ea0d0ba0e62d0f3f6d1",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/analysis_manifest.json",
+      "bytes": 758,
+      "sha256": "707b63125a046917aa739d442700d88e56474316329c2bdfb4649f2d762b82b1",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/manifest.json",
+      "bytes": 609,
+      "sha256": "1d1877301ddbab610e9059cee1e7b45fe741c3cbf27c7cefddb477503321064d",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/screen_vs_periodic.png",
+      "bytes": 96495,
+      "sha256": "56d0dce4e7bcdd7f1d4a292cb9477f21b1b559d65571f41beeefd8cb3ee2ea53",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/screening.json",
+      "bytes": 1360718,
+      "sha256": "e8093c08cdb9a6a51b3ec98d7f0081877dcdd22ee55fa8605d6b971af4bb809c",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/screening_progress.json",
+      "bytes": 1324576,
+      "sha256": "3cb115ef83663c6300eb3a0041fbecfd3509a41eecc74e0249fed96c41c9ffff",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/selected_plate_profiles.png",
+      "bytes": 95506,
+      "sha256": "8f0b5ebf5e42012bd13c4f6ad6ebc0554072c10f12b3efa9540dcf364213871f",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/source/mechanics.py",
+      "bytes": 13573,
+      "sha256": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/source/plate.py",
+      "bytes": 6468,
+      "sha256": "3ee61327f903561ecf19420645bb00895accec10907fa20b24ef946eacc6ba18",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/source/plate_spline.py",
+      "bytes": 5071,
+      "sha256": "323ff09f810906049edb3ae0dc87650afad0a7a78e8216064901cba781834ba2",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/source/spline_config.json",
+      "bytes": 1548,
+      "sha256": "9442aefcc82fd91911bddae8707e7b6f0f57de03e609a94ea13fab9c70663d77",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/source/spline_pilot.py",
+      "bytes": 7101,
+      "sha256": "2e86554d7b853e824b905305c21f2cf2a333493c4f33249d298b20a6d9d43c87",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/artifacts/spline_20261110_01/verification.json",
+      "bytes": 11686,
+      "sha256": "c35c4dfaf273b04c8548b1854005aaa7f7924ce6f14461e7274780cfd7d5b1e6",
+      "role": "frozen_run_or_snapshot"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/backlog.md",
+      "bytes": 4508,
+      "sha256": "ce7da06eaa92fea47847d6272727c3124b36d282b6ead19ede0586bd7437947a",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/benchmark.py",
+      "bytes": 6007,
+      "sha256": "8a7b8d4b7603ac652dc3d19987080665e40bbd0441e26800bbe8dd3e1a5ca43b",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/benchmark_config.json",
+      "bytes": 1978,
+      "sha256": "cf63ac9b4603e6b3f234aba0f5d478b1b22b5f0649cb9c8a3f0eb29263142d8a",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/collect_evidence.py",
+      "bytes": 4956,
+      "sha256": "5a569a0059d7f2516d2458ff38ea896fc48e96748a45e77014628e42d55548b1",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/coupled_milling.py",
+      "bytes": 4796,
+      "sha256": "cec8fdf513619ad65d090a514cf3c0f5d7a71f72104f7a1e48620f23eb9a579b",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/coverage.ini",
+      "bytes": 179,
+      "sha256": "2db754e9e5f46ef4a4decd39941ab82b7219373ee09a103747ddc55a56b6c8f2",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/inventory_and_metadata.json",
+      "bytes": 326233,
+      "sha256": "6c0c3cc7c8c8677e3e35fd7b6413bb268ca925a5bb740961142d34eb4bfe8731",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/references/Kienast2024_stock_shape.pdf",
+      "bytes": 1097006,
+      "sha256": "0f886bda23429915b127782d22bfab08689b99010363981cc8d980b2604e9d9a",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/references/download_manifest.json",
+      "bytes": 1018,
+      "sha256": "133e6fef0ccd259baf6cf9664fedf3ae707471d673ab6e127c6d1df3fad1e5e3",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/research_test_results.xml",
+      "bytes": 3974,
+      "sha256": "40cbeb3bfe7f05544b87504c0775c49616e670063e83d0eb2c0cdde823ac15e1",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round2/coverage.json",
+      "bytes": 44391,
+      "sha256": "5e89d90bb5320bc4464209941224550a8e9ec17462e438a8608442feb5233bf6",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round2/crossref.json",
+      "bytes": 64198,
+      "sha256": "a478d8ebbc3c5f2e6fb61b7a9df45e636173d77f317d7eff072d48092e08f4f7",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round2/gradisek_figure7_page.png",
+      "bytes": 423790,
+      "sha256": "2fd10b2fcc397b05fda15009beed607343b565ac74bd5dcc692ae2bb67c77204",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round2/kienast_reference_chain.txt",
+      "bytes": 5441,
+      "sha256": "e33913ebe6e83276b19a6449caf4283006d3c58d65793d49fdf660d7538fd9ed",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round2/tests_python314.xml",
+      "bytes": 8020,
+      "sha256": "21e2d8ff39bdab975d0054b14233bf1278157bc2d1803b14113389aca430e137",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round2/tests_research.xml",
+      "bytes": 8208,
+      "sha256": "e3ee77c73e4a95b7c7e59535cb44b54e42487cc262a924f6eaca110937dc1963",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/analysis_manifest.json",
+      "bytes": 771,
+      "sha256": "c813d44202323f48fe0d7282b082bd7ea368bcda63795a5505b0f579294a1b10",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/audit_selection.json",
+      "bytes": 15931,
+      "sha256": "98bd903d57ec2cadb6f797d9d3fd2684431b7b94d12d43f45d7b97d35b6ed926",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/audit_sheet_1.png",
+      "bytes": 108349,
+      "sha256": "d341c7ef89044281f05675bf5f17b18313980e1a34f3b99ee3209e98acd6b8e5",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/audit_sheet_2.png",
+      "bytes": 100263,
+      "sha256": "1def75de7e1cb5b0d5a6c1c9e718a851c5d5b392699927fa77c4afc23d2947a5",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/blind_audit_config.json",
+      "bytes": 320,
+      "sha256": "001005d9bc5efb7c692bc7be7ad313b092d8366d431e626660114635552e3515",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/blind_audit_review.json",
+      "bytes": 12532,
+      "sha256": "7be79380f557a24e8b82d99a13472d812e406a40839096be3a2b0b51a6e18254",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/blind_audit_selection.json",
+      "bytes": 4514,
+      "sha256": "3848bf53d89b765c39add1209ec041e6814c60cd97d71dcce219b379bbf2923e",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/blind_sheet_1.png",
+      "bytes": 94644,
+      "sha256": "09ff4f0266096970a6552bd316f3068f9d65bbf66157cd371ed59a5c9a0ffad8",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/blind_sheet_2.png",
+      "bytes": 80918,
+      "sha256": "b961a3ad0f4467467888ef38441e5ccd1a588f970955c0a2deaec400807fbb27",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/confirmed_label_errors.WITHDRAWN.md",
+      "bytes": 518,
+      "sha256": "95565e5f9c7742498b5276d67815c2fdd0fb1c77a76537cd75603dc837684428",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/confirmed_label_errors.png",
+      "bytes": 42709,
+      "sha256": "6a345f546d5792d79e399d60f0fb34051f133f8a808618b94cf57def6e22a6d3",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/coverage.json",
+      "bytes": 10577,
+      "sha256": "bdf3e0ed014b4a1d9d2e501425316e87809f845868a1300c2ebba99d5c3d9f94",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/coverage_revision2.json",
+      "bytes": 10577,
+      "sha256": "a52e90e6e5bab85c3fb011ca58545debd8e6de35eb2c11de11188956d04c65ed",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/figure7_image_68.jpeg",
+      "bytes": 99674,
+      "sha256": "1528e82e0ea89d848bacf92917c222156b5a255c248f025883aaa67c92e5b08a",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/report_amendment.json",
+      "bytes": 678,
+      "sha256": "9805b1e1a7b25b6c5b346f51695f5cb03db265e98ca9336ab983707091107630",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/source_review_revision2.png",
+      "bytes": 53926,
+      "sha256": "f342e8beae93bf7b23f7d71b0a9d737955a187f6b61109fc7eac20e98534cc63",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/superseded_v1/WITHDRAWN.md",
+      "bytes": 518,
+      "sha256": "95565e5f9c7742498b5276d67815c2fdd0fb1c77a76537cd75603dc837684428",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/superseded_v1/analysis_manifest.json",
+      "bytes": 249,
+      "sha256": "9717d3be316621ae4162e93a3c0c728f9fcd384a7aaeae66dae533ab6f65128a",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/superseded_v1/blind_audit_review.json",
+      "bytes": 12100,
+      "sha256": "27f2457e231793ea238491d188415dfc8e071258baf53afd2ac8d1ae2161e4bf",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/superseded_v1/confirmed_label_errors.png",
+      "bytes": 42709,
+      "sha256": "6a345f546d5792d79e399d60f0fb34051f133f8a808618b94cf57def6e22a6d3",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/superseded_v1/report_amendment.json",
+      "bytes": 480,
+      "sha256": "c32890ea6aa71cf85281bfeedab022f213df8f9442c5c06bf8c10d58cf8be8f4",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/superseded_v1/report_v1.md",
+      "bytes": 7689,
+      "sha256": "a04970bf5cd748e952b05e4667999a71eaddcda5746f2f439913b121b14df9a8",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/superseded_v1/visually_verified_subset.csv",
+      "bytes": 3315,
+      "sha256": "b3761346d8aca850528a2408ba573c40b28ec5ec0bcc797d399f43433758f33e",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/tests_research.xml",
+      "bytes": 9804,
+      "sha256": "91c3ee8cdec09e12634fadfcb0c49556a67bd9fef897a9b85978b7c142efc15a",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/tests_research_revision2.xml",
+      "bytes": 9804,
+      "sha256": "d97e19ddd5de3b6e14a7fe601e0f71b56fd733e30ba4f4d7aca9cf6ba7b166c8",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/visually_verified_subset.WITHDRAWN.md",
+      "bytes": 518,
+      "sha256": "95565e5f9c7742498b5276d67815c2fdd0fb1c77a76537cd75603dc837684428",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round3/visually_verified_subset.csv",
+      "bytes": 3315,
+      "sha256": "b3761346d8aca850528a2408ba573c40b28ec5ec0bcc797d399f43433758f33e",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/all25_classification_comparison.png",
+      "bytes": 110951,
+      "sha256": "eed6cc33b267eb4be08254ff197aae2de6c49e7867b447660030f4e32efca8e6",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/analysis_manifest.json",
+      "bytes": 692,
+      "sha256": "cbb318d4abf51b726df8eab06f85aaa70eaf10d54b9949b3a02a2961a9030f09",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/analyze_results.py",
+      "bytes": 6080,
+      "sha256": "d6b7555b451864cfe567d133b9555f2f3772336218052b76b25a2d0260838968",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/consolidated_analysis.json",
+      "bytes": 3165,
+      "sha256": "8c510995599d8531e302d925eabc7ae714def9326062e8e16c17a36f2956ab09",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/consolidated_predictions.csv",
+      "bytes": 32642,
+      "sha256": "db55ba5a5c1c49ec0de9b0f0e7298a24a5dc223c5c9e629cf9f5d7e0da740a0e",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/coverage.json",
+      "bytes": 10485,
+      "sha256": "fba3cf2e98d2b001ae095b4cbd2373c562062148a082790b1e0c139bb78306c7",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/diagnostic_plan.json",
+      "bytes": 3300,
+      "sha256": "9a9cb214a4e9a9f1057aaac2060b75d6f24be0c50cfceeb47c1d5a2d976f96c5",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/digitize_frequency.py",
+      "bytes": 3172,
+      "sha256": "5e851eaf00b4d3f8d3a5cdd2196b7be2ac8f93fb1dfc5cc59c49b88e2c9368e4",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/fig8_frequency.csv",
+      "bytes": 1060,
+      "sha256": "b9d2b37d2e3db320c07cd0134ac4bc8447cdd1c67966df961d832ab5dc2a6215",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/frequency_and_modal_closures.png",
+      "bytes": 110393,
+      "sha256": "326849383f554fb89ed36ed053b5849a16a75a7181a2e98ec561fa99b4b55a0b",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/frequency_digitization.json",
+      "bytes": 958,
+      "sha256": "19fa67b43a97fe6c4e62651da7c69c1cbc03ca12447d35f9fd822e95936a617b",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/frequency_digitization_overlay.png",
+      "bytes": 121987,
+      "sha256": "4373275221c2a80eca3e7c07e979c1c113096068c8a2eb481af3ea1f7e1e5627",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/numerical_summary.json",
+      "bytes": 1421,
+      "sha256": "13ff6191c4feed601e4bcab6998b19e0fbd3c0ffc3e58f8859ecc09adb7e4914",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/page9_image_76.jpeg",
+      "bytes": 115517,
+      "sha256": "fec49415825f8b936c391a5a3e9363a85f9cf49926267fbaa2f43a21b86754a5",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/page9_image_77.png",
+      "bytes": 21617,
+      "sha256": "a024409a52bc4be132386f757a15f28005660641d1067726da817f6f374ccf19",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/primary_sources_and_next_anchor.json",
+      "bytes": 3036,
+      "sha256": "e5c9e8dd2304d7240424ab0e960302e812ba2b54f978c43623c459e9282c72e7",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/published_dynamic_limitations.txt",
+      "bytes": 7704,
+      "sha256": "e4d09863ab20f522175d9416e1a0959d8f9a8158b22ca6f0329c5ab5c61b09f5",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/source_extraction.json",
+      "bytes": 955,
+      "sha256": "c41353d8d5a73ec1c94599395555123f2788818860328e5fae491544f035a3f0",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/tests_research.xml",
+      "bytes": 12606,
+      "sha256": "f882d8eeab2f53009257bff144ceb054c5a6e2dd629df8761899cf0111f016e6",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/round4/tests_research_focused.xml",
+      "bytes": 3054,
+      "sha256": "c21fd1719fe2abd5c90301f97a8e742dd16c2a0f9537da67263d316a813a8670",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/evidence/test_coverage.json",
+      "bytes": 35551,
+      "sha256": "b69fe0561b3e2eef93e1ffabf0deb3b4248ceee01f1f1c81c0d5c104e826394d",
+      "role": "evidence_or_analysis"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/ledger.json",
+      "bytes": 15457,
+      "sha256": "3ba5f885cac836e389f662dd0f320ff6feb5eabfee2a17a5cac37a60f70a6690",
+      "role": "machine_ledger"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-1ffb6d9a-5895-4b04-bd66-2348bcb7e6eb.png",
+      "bytes": 811029,
+      "sha256": "0f69b3409f5a402d27518bc6ce3c6d26c585eea6d5b4168005e27b1bf75bd3ca",
+      "role": "user_background_archive"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-225a2ad3-2242-4f1a-b120-f9277290dc7c.png",
+      "bytes": 665180,
+      "sha256": "64654336f499aceba495408e46dd4964bdc3fa4b199895fbc3f3fd5586913e2a",
+      "role": "user_background_archive"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-678cc257-680c-4b96-9370-3f12baeb2aa5.png",
+      "bytes": 774854,
+      "sha256": "d672a255dffce1375bfadebbd50482704e227a8822feeea5f47308d2d0e0aef4",
+      "role": "user_background_archive"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-8ea3a576-48d3-4361-af7e-ea0fc94aed5c.png",
+      "bytes": 78344,
+      "sha256": "4b9dde84557a1c75f065db31ca3a74f6a97794c9cf2322ada6c11561ddb9ed4d",
+      "role": "user_background_archive"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-bbbad65a-0f0a-4966-84de-3a227ff16008.png",
+      "bytes": 1010812,
+      "sha256": "d17f975c8201cadb6a2f5744f52e40b0227fe579772ad72bf6623f1af38883b1",
+      "role": "user_background_archive"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-bd599fdd-3650-441e-91b4-28cf30638466.png",
+      "bytes": 872940,
+      "sha256": "e8b371774c500c2d565b5b952bc531490a935fde7b476aec56ff16aaefa44b91",
+      "role": "user_background_archive"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-dadcd048-89d3-43d3-8f9e-11183d2e6da3.png",
+      "bytes": 1121632,
+      "sha256": "a465b7f4230f4c6fa5cd9f0aee5f999a6b8016edd3ca7c0b658737ebdaa6b1e9",
+      "role": "user_background_archive"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-f65973e5-b301-46de-aec6-22819a4e9d44.png",
+      "bytes": 890804,
+      "sha256": "a7b8c70b48c3bbe69ca593338d885a913d222617b2eaff93126250043fdce7d9",
+      "role": "user_background_archive"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/context.json",
+      "bytes": 4754,
+      "sha256": "6976226a6923acd9229064a18d7378526e5483e5d959cba5a6d73ba6fe04b529",
+      "role": "user_background_archive"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/mechanics.py",
+      "bytes": 13573,
+      "sha256": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/pilot.py",
+      "bytes": 10956,
+      "sha256": "01400a89543b595240018624bc60683fe483af96e1f64781b23c59421dcfd943",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/pilot_config.json",
+      "bytes": 2636,
+      "sha256": "265e89d0abf8202d6cb7a2716b2ff085baf9f3813eae0824b74ff27725b3358c",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/plate.py",
+      "bytes": 6468,
+      "sha256": "3ee61327f903561ecf19420645bb00895accec10907fa20b24ef946eacc6ba18",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/plate_config.json",
+      "bytes": 2216,
+      "sha256": "a3e337c35dd58c28315c9715e1504983f056485202012e0291ab76e374a68a09",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/plate_pilot.py",
+      "bytes": 9074,
+      "sha256": "563c4264d9978f8d6446cfd1f96fa9f5006b71968544ed8ba4e3757bb66a6d55",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/plate_spline.py",
+      "bytes": 5071,
+      "sha256": "323ff09f810906049edb3ae0dc87650afad0a7a78e8216064901cba781834ba2",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/reference_audit.py",
+      "bytes": 4694,
+      "sha256": "a60eb1b07d1737a50901ff7962969073c108b8fa5e86bb3a975abbb97aa829f9",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/refine.py",
+      "bytes": 2648,
+      "sha256": "eeacdd2b2bfcdd03f5218b4b4e7a8c49be8f311bec2adff9ea7446636b986d0d",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/speed_config.json",
+      "bytes": 3300,
+      "sha256": "9a9cb214a4e9a9f1057aaac2060b75d6f24be0c50cfceeb47c1d5a2d976f96c5",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/speed_diagnostic.py",
+      "bytes": 7485,
+      "sha256": "66ad7a719a2aa2c781ad365c9ca2edb5f20713fb313cb1ad2279bb2a95a79b8b",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/speed_dynamics.py",
+      "bytes": 2508,
+      "sha256": "326ed042a7da1e07e77fbb814a7009d2bf30e4074c385ea0d0ba0e62d0f3f6d1",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/spline_config.json",
+      "bytes": 1548,
+      "sha256": "9442aefcc82fd91911bddae8707e7b6f0f57de03e609a94ea13fab9c70663d77",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/spline_pilot.py",
+      "bytes": 7101,
+      "sha256": "2e86554d7b853e824b905305c21f2cf2a333493c4f33249d298b20a6d9d43c87",
+      "role": "current_source_config_or_index"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/tests/test_coupled_milling.py",
+      "bytes": 2341,
+      "sha256": "54cfbfe2dd667550bd32c02511024de2c851cedcb4f2f909e4d3ab4f362c51be",
+      "role": "test_source"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/tests/test_evidence_and_refinement.py",
+      "bytes": 3375,
+      "sha256": "8ccb2f4ce1a34d1b4c5b404eb7ff966f3ee2b40952d4015a447e2cae8187e5a8",
+      "role": "test_source"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/tests/test_mechanics.py",
+      "bytes": 5408,
+      "sha256": "e2075dc32bfd91a82ffd7e5596e214ca5555e6dc45ba394edc3c9acac57045ce",
+      "role": "test_source"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/tests/test_pilot.py",
+      "bytes": 2216,
+      "sha256": "fce3cb26a3c2e022e9053c4cb071e2abb9ade822e19a555396c0b70c4aec7d53",
+      "role": "test_source"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/tests/test_plate.py",
+      "bytes": 3181,
+      "sha256": "ff4715006e70ce3c43b76a3dcdb05ec018c193341bd174478fbde71193532730",
+      "role": "test_source"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/tests/test_plate_spline.py",
+      "bytes": 2876,
+      "sha256": "16ee0b442be634102fc1c3510c21fe16dee5372ced1e63553e4d8e8d41be5542",
+      "role": "test_source"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/tests/test_reference_audit.py",
+      "bytes": 2845,
+      "sha256": "1798ec78d912f26b8cade6e6cd907ddbf8d779b1f9ff64abf13cca046a27acc4",
+      "role": "test_source"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/tests/test_round2_runners.py",
+      "bytes": 5416,
+      "sha256": "5bbbebfca8f3335884b5875cfcd1fa15af3d87ab19f37e0f620b7c3444317ad4",
+      "role": "test_source"
+    },
+    {
+      "path": "research/prototypes/thinwall_inverse_design/tests/test_speed_dynamics.py",
+      "bytes": 7278,
+      "sha256": "46286abd50fcb43f8c29d9eaa9fe9d50f8fcdaeeeb22689d2a8c6d3fa251647a",
+      "role": "test_source"
+    }
+  ]
+}

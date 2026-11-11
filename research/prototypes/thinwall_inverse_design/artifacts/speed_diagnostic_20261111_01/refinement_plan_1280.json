@@ -1,0 +1,38 @@
+{
+  "status": "additional_posthoc_numerical_refinement_no_parameter_change",
+  "rule": "From the six640-step checks, refine only if threshold distance<=3 times320/640 difference",
+  "steps": 1280,
+  "budget_seconds": 150,
+  "flagged": [
+    {
+      "original_row": 320,
+      "variant": "stationary",
+      "rho_160": 1.020771287437619,
+      "rho_320": 1.0088893266653691,
+      "rho_640": 1.0153184247528957,
+      "stable_640": false,
+      "stable_true": false,
+      "classification_changed_320_640": false
+    },
+    {
+      "original_row": 320,
+      "variant": "observed_frequency_fixed_mass",
+      "rho_160": 0.9977512329192068,
+      "rho_320": 0.9896899589665468,
+      "rho_640": 0.9938886560637666,
+      "stable_640": true,
+      "stable_true": false,
+      "classification_changed_320_640": false
+    },
+    {
+      "original_row": 293,
+      "variant": "observed_frequency_static_compliance_0p75",
+      "rho_160": 0.9532669987683655,
+      "rho_320": 0.9734531794547436,
+      "rho_640": 0.9886814712965584,
+      "stable_640": true,
+      "stable_true": false,
+      "classification_changed_320_640": false
+    }
+  ]
+}

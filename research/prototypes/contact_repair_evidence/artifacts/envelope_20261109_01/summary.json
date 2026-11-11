@@ -1,0 +1,46 @@
+{
+  "configurations": 14,
+  "runs": 98,
+  "by_policy": {
+    "legacy_uniform": {
+      "displacement_budget_conflict": 4,
+      "verified": 7,
+      "budget_unknown": 2,
+      "protected_point_conflict": 1
+    },
+    "legacy_targeted": {
+      "displacement_budget_conflict": 4,
+      "verified": 9,
+      "protected_point_conflict": 1
+    },
+    "uniform": {
+      "displacement_budget_conflict": 4,
+      "verified_quality": 9,
+      "protected_point_conflict": 1
+    },
+    "dual_local": {
+      "displacement_budget_conflict": 4,
+      "verified_quality": 9,
+      "protected_point_conflict": 1
+    },
+    "evidence": {
+      "displacement_budget_conflict": 4,
+      "verified_budget_only": 4,
+      "verified_quality": 5,
+      "protected_point_conflict": 1
+    },
+    "direct_13": {
+      "displacement_budget_conflict": 4,
+      "verified_budget_only": 9,
+      "protected_point_conflict": 1
+    },
+    "direct_21": {
+      "displacement_budget_conflict": 4,
+      "verified_budget_only": 9,
+      "protected_point_conflict": 1
+    }
+  },
+  "exact_replayed": 45,
+  "step_exported": true,
+  "caveat": "Exploratory synthetic geometry only; no ANSYS, NN, full machining or established patent novelty."
+}

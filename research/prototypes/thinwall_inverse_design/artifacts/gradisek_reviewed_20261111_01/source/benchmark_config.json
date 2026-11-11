@@ -1,0 +1,19 @@
+{
+  "status": "single_rater_reviewed_subset_check_no_fitting_not_population_accuracy",
+  "source_doi": "10.1016/j.ijmachtools.2004.11.015",
+  "source_local_pdf": "research/datasets/measured_stability/literature_pdfs/Gradisek_2005_stability_prediction.pdf",
+  "source_csv": "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_01/reviewed_points.csv",
+  "expected_reference_sha256": "ae01b9901443c2200d6ef85aa9fb8818a1a0760c5b0ca1a0d4195b46edc45338",
+  "reference_status": "visually_reviewed_single_rater_subset_27_of_32_stratified_rows",
+  "parameter_location": "Published Table 1 (p774); Sec3 (p773); force convention Eqs2-7; Fig7 p776 up-milling labels digitized in existing repository CSV",
+  "mass_kg": [0.0201,0.0199],
+  "damping_n_s_m": [1.56,1.60],
+  "stiffness_n_m": [414000,409000],
+  "milling": {"tangential_pa":644000000,"radial_ratio":0.37,"teeth":1,"diameter_m":0.008,"helix_deg":45.0},
+  "steps": [80,160],
+  "delay_rule": "midpoint",
+  "evaluation": "Only27 visually resolved rows from fixed-seed32-row stratified audit; ambiguous and boundary-curve markers not used as labels. All resolved labels retained regardless of model agreement. No parameter or threshold fitting. rho<1 predicts stable. Do not extrapolate this subset's agreement to all516 points or real machining.",
+  "uncertainty": "Same-assistant visual review, some prior exposure; not independent double-blind annotation. Numeric coordinates inherited, not independently redigitized. Original516-row CSV contains confirmed label errors and boundary markers; old68.41% is agreement with that CSV only. No new cutting experiment or population accuracy estimate.",
+  "limits": "Stationary diagonal modal parameters; paper reports speed-dependent frequency and likely cutting-coefficient variation. No process damping, tool runout, mode coupling in measured FRF, or nonlinear contact. Constant coefficients not fitted to improve accuracy.",
+  "budget_seconds": 240
+}

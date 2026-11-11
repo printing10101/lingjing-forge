@@ -1,0 +1,1813 @@
+[
+  {
+    "doi": "10.1016/j.procir.2026.01.116",
+    "metadata": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            8,
+            31
+          ]
+        ],
+        "date-time": "2026-08-31T14:08:21Z",
+        "timestamp": 1788185301968,
+        "version": "build-2803163510"
+      },
+      "reference-count": 34,
+      "publisher": "Elsevier BV",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2026,
+                1,
+                1
+              ]
+            ],
+            "date-time": "2026-01-01T00:00:00Z",
+            "timestamp": 1767225600000
+          },
+          "content-version": "tdm",
+          "delay-in-days": 0,
+          "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2026,
+                1,
+                1
+              ]
+            ],
+            "date-time": "2026-01-01T00:00:00Z",
+            "timestamp": 1767225600000
+          },
+          "content-version": "tdm",
+          "delay-in-days": 0,
+          "URL": "https://www.elsevier.com/legal/tdmrep-license"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2026,
+                1,
+                25
+              ]
+            ],
+            "date-time": "2026-01-25T00:00:00Z",
+            "timestamp": 1769299200000
+          },
+          "content-version": "vor",
+          "delay-in-days": 24,
+          "URL": "http://creativecommons.org/licenses/by-nc-nd/4.0/"
+        }
+      ],
+      "funder": [
+        {
+          "DOI": "10.13039/501100001659",
+          "name": "German Research Foundation",
+          "doi-asserted-by": "publisher",
+          "id": [
+            {
+              "id": "10.13039/501100001659",
+              "id-type": "DOI",
+              "asserted-by": "publisher"
+            }
+          ]
+        }
+      ],
+      "content-domain": {
+        "domain": [
+          "elsevier.com",
+          "sciencedirect.com"
+        ],
+        "crossmark-restriction": true
+      },
+      "short-container-title": [
+        "Procedia CIRP"
+      ],
+      "published-print": {
+        "date-parts": [
+          [
+            2026
+          ]
+        ]
+      },
+      "DOI": "10.1016/j.procir.2026.01.116",
+      "type": "journal-article",
+      "created": {
+        "date-parts": [
+          [
+            2026,
+            2,
+            12
+          ]
+        ],
+        "date-time": "2026-02-12T16:34:56Z",
+        "timestamp": 1770914096000
+      },
+      "page": "674-679",
+      "update-policy": "https://doi.org/10.1016/elsevier_cm_policy",
+      "source": "Crossref",
+      "is-referenced-by-count": 2,
+      "special_numbering": "C",
+      "title": [
+        "Design guidelines for additively manufactured stiffening structures to reduce vibrations in milling"
+      ],
+      "prefix": "10.1016",
+      "volume": "138",
+      "author": [
+        {
+          "given": "Jens",
+          "family": "Niedermeyer",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Fabian",
+          "family": "Schlenker",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Julia",
+          "family": "Huuk",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Tobias",
+          "family": "Ehlers",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Berend",
+          "family": "Denkena",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Roland",
+          "family": "Lachmayer",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "member": "78",
+      "reference": [
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib1",
+          "series-title": "Design for Additive Manufacturing",
+          "author": "Lachmayer",
+          "year": "2024"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib2",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Wahl, J.P., Niedermeyer, J., Bernhard, R., Hermsdorf, J. et al., 2022. Design of additively manufacturable injection molds with conformal cooling 111, p. 97.",
+          "DOI": "10.1016/j.procir.2022.08.146"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib3",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Ehlers, T., Meyer, I., Oel, M., Bode, B. et al. Effect-Engineering by Additive Manufacturing, p. 1.",
+          "DOI": "10.1007/978-3-031-05918-6_1"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib4",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Campbell, I., Bourell, D., Gibson, I., 2012. Additive manufacturing: rapid prototyping comes of age 18, p. 255.",
+          "DOI": "10.1108/13552541211231563"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib5",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Niedermeyer, J., Ehlers, T., Lachmayer, R., 2023. Potential of additively manufactured particle damped compressor blades: A literature review 119, p. 570.",
+          "DOI": "10.1016/j.procir.2023.02.151"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib6",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Abdulhameed, O., Al-Ahmari, A., Ameen, W., Mian, S.H., 2019. Additive manufacturing: Challenges, trends, and applications 11, 168781401882288.",
+          "DOI": "10.1177/1687814018822880"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib7",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Mugwagwa, L., Dimitrov, D., Matope, S., Yadroitsev, I., 2018. Influence of process parameters on residual stress related distortions in selective laser melting 21, p. 92.",
+          "DOI": "10.1016/j.promfg.2018.02.099"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib8",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Simonelli, M., Tse, Y.Y., Tuck, C., 2014. Effect of the build orientation on the mechanical properties and fracture modes of SLM Ti–6Al–4V 616, p. 1.",
+          "DOI": "10.1016/j.msea.2014.07.086"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib9",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Leary, M., 2017. Surface roughness optimisation for selective laser melting (SLM), in Laser Additive Manufacturing, Elsevier, p. 99.",
+          "DOI": "10.1016/B978-0-08-100433-3.00004-X"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib10",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Rott, S., Ladewig, A., Friedberger, K., Casper, J. et al., 2020. Surface roughness in laser powder bed fusion–Interdependency of surface orientation and laser incidence 36, p. 101437.",
+          "DOI": "10.1016/j.addma.2020.101437"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib11",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Brinksmeier, E., Levy, G., Meyer, D., Spierings, A.B., 2010. Surface integrity of selective-laser-melted components 59, p. 601.",
+          "DOI": "10.1016/j.cirp.2010.03.131"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib12",
+          "series-title": "Improved Machining of Additive Manufactured Workpieces Using a Systematic Clamping Concept and Automated Process Planning, in",
+          "author": "Waldschmidt",
+          "year": "2020"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib13",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Du, W., Bai, Q., Zhang, B., 2016. A Novel Method for Additive/Subtractive Hybrid Manufacturing of Metallic Parts 5, p. 1018.",
+          "DOI": "10.1016/j.promfg.2016.08.067"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib14",
+          "series-title": "Hybrid Manufacturing Processes: Physical Fundamentals, Modelling and Rational Applications, 1st edn",
+          "author": "GRZESIK",
+          "year": "2021"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib15",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Choi, D.-S., Lee, S., Shin, B., Whang, K. et al., 2001. Development of a direct metal freeform fabrication technique using CO2 laser welding and milling technology 113, p. 273.",
+          "DOI": "10.1016/S0924-0136(01)00652-5"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib16",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Ding, D., Shen, C., Pan, Z., Cuiuri, D. et al., 2016. Towards an automated robotic arc-welding-based additive manufacturing system from CAD to finished part 73, p. 66.",
+          "DOI": "10.1016/j.cad.2015.12.003"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib17",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Jiménez, A., Bidare, P., Hassanin, H., Tarlochan, F. et al., 2021. Powder-based laser hybrid additive manufacturing of metals: a review 114, p. 63.",
+          "DOI": "10.1007/s00170-021-06855-4"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib18",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Maslo, S., Menezes, B., Kienast, P., Ganser, P. et al., 2020. Improving dynamic process stability in milling of thin-walled workpieces by optimization of spindle speed based on a linear parameter-varying model 93, p. 850.",
+          "DOI": "10.1016/j.procir.2020.03.092"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib19",
+          "series-title": "Fertigungsverfahren 1",
+          "author": "Klocke",
+          "year": "2018"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib20",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Michalik, P., Zajac, J., Hatala, M., Mital, D. et al., 2014. Monitoring surface roughness of thin-walled components from steel C45 machining down and up milling 58, p. 416.",
+          "DOI": "10.1016/j.measurement.2014.09.008"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib21",
+          "series-title": "Spanen: Grundlagen, 3rd edn",
+          "author": "Denkena",
+          "year": "2011"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib22",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Altintas, Y., Kersting, P., Biermann, D., Budak, E. et al., 2014. Virtual process systems for part machining operations 63, p. 585.",
+          "DOI": "10.1016/j.cirp.2014.05.007"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib23",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Seguy, S., Dessein, G., Arnaud, L., 2008. Surface roughness variation of thin wall milling, related to modal interactions 48, p. 261.",
+          "DOI": "10.1016/j.ijmachtools.2007.09.005"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib24",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Byrne, G., Dornfeld, D., Denkena, B., 2003. Advancing Cutting Technology 52, p. 483.",
+          "DOI": "10.1016/S0007-8506(07)60200-5"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib25",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Abele, E., Dohnal, F., Feulner, M., Sielaff, T. et al., 2018. Numerical investigation of chatter suppression via parametric anti-resonance in a motorized spindle unit during milling 12, p. 309.",
+          "DOI": "10.1007/s11740-018-0789-0"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib26",
+          "series-title": "Entwicklungsmethodik für die Additive Fertigung",
+          "author": "Lachmayer",
+          "year": "2022"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib27",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Manogharan, G., Wysk, R., Harrysson, O., Aman, R., 2015. AIMS–A Metal Additive-hybrid Manufacturing System: System Architecture and Attributes 1, p. 273.",
+          "DOI": "10.1016/j.promfg.2015.09.021"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib28",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Beutler, P., Ferchow, J., Schlüssel, M., Meboldt, M., 2023. Semi-Automated Design Workflow for Bolt Clamping Interfaces to Post-Process Additive Manufactured Parts 119, p. 596.",
+          "DOI": "10.1016/j.procir.2023.01.013"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib29",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Maucher, C., Kordmann, L., Möhring, H.-C., 2023. Design Rules for the Additive-Subtractive Process Chain 119, p. 1115.",
+          "DOI": "10.1016/j.procir.2023.03.153"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib30",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Didier, P., Le Coz, G., Robin, G., Lohmuller, P. et al., 2021. Consideration of SLM additive manufacturing supports on the stability of flexible structures in finish milling 62, p. 213.",
+          "DOI": "10.1016/j.jmapro.2020.12.027"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib31",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Smith, S., Wilhelm, R., Dutterer, B., Cherukuri, H. et al., 2012. Sacrificial structure preforms for thin part machining 61, p. 379.",
+          "DOI": "10.1016/j.cirp.2012.03.142"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib32",
+          "series-title": "Machining Dynamics",
+          "author": "Schmitz",
+          "year": "2019"
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib33",
+          "unstructured": "m4p material solutions GmbH, 2024. m4p 316L: Technical Data Sheet."
+        },
+        {
+          "key": "10.1016/j.procir.2026.01.116_bib34",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Thevenot, V., Arnaud, L., Dessein, G., Cazenave-Larroche, G., 2006. Integration of dynamic behaviour variations in the stability lobes method: 3D lobes construction and application to thin-walled structure milling 27, p. 638.",
+          "DOI": "10.1007/s00170-004-2241-1"
+        }
+      ],
+      "container-title": [
+        "Procedia CIRP"
+      ],
+      "original-title": [],
+      "language": "en",
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S2212827126001162?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S2212827126001162?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2026,
+            5,
+            1
+          ]
+        ],
+        "date-time": "2026-05-01T08:51:11Z",
+        "timestamp": 1777625471000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2212827126001162"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2026
+          ]
+        ]
+      },
+      "references-count": 34,
+      "alternative-id": [
+        "S2212827126001162"
+      ],
+      "URL": "https://doi.org/10.1016/j.procir.2026.01.116",
+      "relation": {},
+      "ISSN": [
+        "2212-8271"
+      ],
+      "issn-type": [
+        {
+          "value": "2212-8271",
+          "type": "print"
+        }
+      ],
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2026
+          ]
+        ]
+      },
+      "assertion": [
+        {
+          "value": "Elsevier",
+          "name": "publisher",
+          "label": "This article is maintained by"
+        },
+        {
+          "value": "Design guidelines for additively manufactured stiffening structures to reduce vibrations in milling",
+          "name": "articletitle",
+          "label": "Article Title"
+        },
+        {
+          "value": "Procedia CIRP",
+          "name": "journaltitle",
+          "label": "Journal Title"
+        },
+        {
+          "value": "https://doi.org/10.1016/j.procir.2026.01.116",
+          "name": "articlelink",
+          "label": "CrossRef DOI link to publisher maintained version"
+        },
+        {
+          "value": "article",
+          "name": "content_type",
+          "label": "Content Type"
+        },
+        {
+          "value": "© 2026 The Author(s). Published by Elsevier B.V.",
+          "name": "copyright",
+          "label": "Copyright"
+        }
+      ]
+    },
+    "status": "ok"
+  },
+  {
+    "doi": "10.20944/preprints202412.0405.v1",
+    "metadata": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            5,
+            15
+          ]
+        ],
+        "date-time": "2026-05-15T23:15:40Z",
+        "timestamp": 1778886940751,
+        "version": "3.51.4"
+      },
+      "posted": {
+        "date-parts": [
+          [
+            2024,
+            12,
+            5
+          ]
+        ]
+      },
+      "group-title": "Engineering",
+      "reference-count": 0,
+      "publisher": "MDPI AG",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2024,
+                12,
+                5
+              ]
+            ],
+            "date-time": "2024-12-05T00:00:00Z",
+            "timestamp": 1733356800000
+          },
+          "content-version": "unspecified",
+          "delay-in-days": 0,
+          "URL": "http://creativecommons.org/licenses/by/4.0"
+        }
+      ],
+      "content-domain": {
+        "domain": [],
+        "crossmark-restriction": false
+      },
+      "short-container-title": [],
+      "accepted": {
+        "date-parts": [
+          [
+            2024,
+            12,
+            3
+          ]
+        ]
+      },
+      "abstract": "<jats:p>Hybrid processes of additive and subtractive manufacturing offer designers the potential to develop complex, lightweight parts by additive manufacturing coupled with superior surface quality and tolerance by subsequent machining. The thin-walled additive structures tend  to deflect while machining due to static and dynamic effects. With the design for additive manufacturing, additional stiffening structures can be included to reduce vibrations. This work investigates the design of additively manufactured stiffening structures for vibration reduction in the milling of thin-walled parts. A vibration analysis of a probe geometry is simulatively performed to identify significant design parameters. From the outer dimensions, the height of a stiffening structure shows the highest influence, followed by the length. With larger stiffening structures, the mass rises, so a tradeoff between deformation reduction and additional material is necessary. Over the parameters length, width, and height, the deformation can be reduced by a factor of 800 while a mass increase of 4.82 %. Stiffening structures shall be positioned against the excitation direction of the milling force. Over the parameters quantity, position, and distance, a deformation reduction of 185 for a mass increase of 7.11 % can be realized. The paper concludes with design guidelines for additively manufactured stiffening structures.</jats:p>",
+      "DOI": "10.20944/preprints202412.0405.v1",
+      "type": "posted-content",
+      "created": {
+        "date-parts": [
+          [
+            2024,
+            12,
+            5
+          ]
+        ],
+        "date-time": "2024-12-05T01:38:46Z",
+        "timestamp": 1733362726000
+      },
+      "source": "Crossref",
+      "is-referenced-by-count": 2,
+      "title": [
+        "Design Guidelines for Additively Manufactured Stiffening Structures to Reduce Vibrations in Milling"
+      ],
+      "prefix": "10.20944",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-7234-5839",
+          "authenticated-orcid": false,
+          "given": "Jens",
+          "family": "Niedermeyer",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0009-0004-1707-6527",
+          "authenticated-orcid": false,
+          "given": "Fabian",
+          "family": "Schlenker",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Julia",
+          "family": "Huuk",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-4811-2186",
+          "authenticated-orcid": false,
+          "given": "Tobias",
+          "family": "Ehlers",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-9763-6248",
+          "authenticated-orcid": false,
+          "given": "Berend",
+          "family": "Denkena",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-3181-6323",
+          "authenticated-orcid": false,
+          "given": "Roland",
+          "family": "Lachmayer",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "member": "1968",
+      "container-title": [],
+      "original-title": [],
+      "deposited": {
+        "date-parts": [
+          [
+            2026,
+            3,
+            11
+          ]
+        ],
+        "date-time": "2026-03-11T01:11:02Z",
+        "timestamp": 1773191462000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://www.preprints.org/manuscript/202412.0405/v1"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            12,
+            5
+          ]
+        ]
+      },
+      "references-count": 0,
+      "URL": "https://doi.org/10.20944/preprints202412.0405.v1",
+      "relation": {
+        "is-preprint-of": [
+          {
+            "id-type": "doi",
+            "id": "10.1016/j.procir.2026.01.116",
+            "asserted-by": "subject"
+          }
+        ]
+      },
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2024,
+            12,
+            5
+          ]
+        ]
+      },
+      "subtype": "preprint"
+    },
+    "status": "ok"
+  },
+  {
+    "doi": "10.3390/jmmp4040117",
+    "metadata": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            11,
+            5
+          ]
+        ],
+        "date-time": "2026-11-05T06:28:37Z",
+        "timestamp": 1793860117500,
+        "version": "4.6.1"
+      },
+      "reference-count": 32,
+      "publisher": "MDPI AG",
+      "issue": "4",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2020,
+                12,
+                10
+              ]
+            ],
+            "date-time": "2020-12-10T00:00:00Z",
+            "timestamp": 1607558400000
+          },
+          "content-version": "vor",
+          "delay-in-days": 0,
+          "URL": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      ],
+      "content-domain": {
+        "domain": [],
+        "crossmark-restriction": false
+      },
+      "short-container-title": [
+        "JMMP"
+      ],
+      "abstract": "<jats:p>Chatter vibrations arising during machining operations are detrimental for cutting process performance, since they may cause poor surface quality of the machined part and severe damages to machine tool elements. Passive approaches for chatter suppression are based on the integration of special mechanical components with high-damping properties within the machining system. They represent a good solution to this problem thanks to their intrinsic simplicity. Recently, the application of metallic lattice structures inside 3D printed parts obtained from the Selective Laser Melting technology have proven superior damping properties with respect to the same full density material. Here, this idea is further explored by considering the novel configuration where the unmelted powder grains are retained inside the lattice structure by an external shell, acting as a multiplicity of microscopic mechanical dampers. This concept is applied for passive chatter suppression of thin-walled parts that are of particular relevance for industry. Preliminary experimental investigation was first carried out on simple beam-like specimens, and then on thin-walled benchmarks that were identified through modal analysis and tested under real cutting conditions. The main conclusion is that the novel proposed configuration (lattice plus unmelted powder) has higher damping properties with respect to the full density and lattice alternatives. Accordingly, it may be successfully applied for passive chatter suppression in real machining operations.</jats:p>",
+      "DOI": "10.3390/jmmp4040117",
+      "type": "journal-article",
+      "created": {
+        "date-parts": [
+          [
+            2020,
+            12,
+            10
+          ]
+        ],
+        "date-time": "2020-12-10T08:59:34Z",
+        "timestamp": 1607590774000
+      },
+      "page": "117",
+      "update-policy": "https://doi.org/10.3390/mdpi_crossmark_policy",
+      "source": "Crossref",
+      "is-referenced-by-count": 14,
+      "title": [
+        "Passive Chatter Suppression of Thin-Walled Parts by Means of High-Damping Lattice Structures Obtained from Selective Laser Melting"
+      ],
+      "prefix": "10.3390",
+      "volume": "4",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-7319-4059",
+          "authenticated-orcid": false,
+          "given": "Federico",
+          "family": "Scalzo",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Polytechnic Department of Engineering and Architecture, University of Udine, Via Delle Scienze 206, 33100 Udine, Italy"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-2474-7489",
+          "authenticated-orcid": false,
+          "given": "Giovanni",
+          "family": "Totis",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Polytechnic Department of Engineering and Architecture, University of Udine, Via Delle Scienze 206, 33100 Udine, Italy"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-8361-7828",
+          "authenticated-orcid": false,
+          "given": "Emanuele",
+          "family": "Vaglio",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Polytechnic Department of Engineering and Architecture, University of Udine, Via Delle Scienze 206, 33100 Udine, Italy"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-3802-7730",
+          "authenticated-orcid": false,
+          "given": "Marco",
+          "family": "Sortino",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Polytechnic Department of Engineering and Architecture, University of Udine, Via Delle Scienze 206, 33100 Udine, Italy"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "member": "1968",
+      "published-online": {
+        "date-parts": [
+          [
+            2020,
+            12,
+            10
+          ]
+        ]
+      },
+      "reference": [
+        {
+          "key": "ref_1",
+          "doi-asserted-by": "crossref",
+          "first-page": "215",
+          "DOI": "10.1016/j.cja.2018.11.007",
+          "article-title": "A review of chatter vibration research in milling",
+          "volume": "32",
+          "author": "Yue",
+          "year": "2019",
+          "journal-title": "Chin. J. Aeronaut."
+        },
+        {
+          "key": "ref_2",
+          "doi-asserted-by": "crossref",
+          "first-page": "106840",
+          "DOI": "10.1016/j.ymssp.2020.106840",
+          "article-title": "Recent progress of chatter prediction, detection and suppression in milling",
+          "volume": "143",
+          "author": "Zhu",
+          "year": "2020",
+          "journal-title": "Mech. Syst. Signal Process."
+        },
+        {
+          "key": "ref_3",
+          "doi-asserted-by": "crossref",
+          "first-page": "459",
+          "DOI": "10.1115/1.1765139",
+          "article-title": "Multi frequency solution of chatter stability for low immersion milling",
+          "volume": "126",
+          "author": "Merdol",
+          "year": "2004",
+          "journal-title": "J. Manuf. Sci. Eng. Trans. ASME"
+        },
+        {
+          "key": "ref_4",
+          "doi-asserted-by": "crossref",
+          "first-page": "117",
+          "DOI": "10.1002/nme.1061",
+          "article-title": "Updated semi-discretization method for periodic delay-differential equations with discrete delay",
+          "volume": "61",
+          "author": "Insperger",
+          "year": "2004",
+          "journal-title": "Int. J. Numer. Methods Eng."
+        },
+        {
+          "key": "ref_5",
+          "doi-asserted-by": "crossref",
+          "first-page": "502",
+          "DOI": "10.1016/j.ijmachtools.2010.01.003",
+          "article-title": "A full-discretization method for prediction of milling stability",
+          "volume": "50",
+          "author": "Ding",
+          "year": "2010",
+          "journal-title": "Int. J. Mach. Tools Manuf."
+        },
+        {
+          "key": "ref_6",
+          "doi-asserted-by": "crossref",
+          "first-page": "646",
+          "DOI": "10.1016/j.jsv.2013.09.043",
+          "article-title": "Efficient evaluation of process stability in milling with Spindle Speed Variation by using the Chebyshev Collocation Method",
+          "volume": "333",
+          "author": "Totis",
+          "year": "2014",
+          "journal-title": "J. Sound Vib."
+        },
+        {
+          "key": "ref_7",
+          "doi-asserted-by": "crossref",
+          "first-page": "37",
+          "DOI": "10.1016/j.ijmachtools.2019.01.002",
+          "article-title": "Symmetry breaking in milling dynamics",
+          "volume": "139",
+          "author": "Totis",
+          "year": "2019",
+          "journal-title": "Int. J. Mach. Tools Manuf."
+        },
+        {
+          "key": "ref_8",
+          "doi-asserted-by": "crossref",
+          "first-page": "403",
+          "DOI": "10.1016/j.cirp.2010.03.078",
+          "article-title": "Identification and modeling of process damping in turning and milling using a new approach",
+          "volume": "59",
+          "author": "Budak",
+          "year": "2010",
+          "journal-title": "CIRP Ann."
+        },
+        {
+          "key": "ref_9",
+          "doi-asserted-by": "crossref",
+          "first-page": "313",
+          "DOI": "10.1016/j.cirp.2020.04.081",
+          "article-title": "Tuneable clamping table for chatter avoidance in thin-walled part milling",
+          "volume": "69",
+          "author": "Munoa",
+          "year": "2020",
+          "journal-title": "CIRP Ann."
+        },
+        {
+          "key": "ref_10",
+          "doi-asserted-by": "crossref",
+          "first-page": "834",
+          "DOI": "10.1016/j.ijmachtools.2010.04.011",
+          "article-title": "Optimization of multiple tuned mass dampers to suppress machine tool chatter",
+          "volume": "50",
+          "author": "Yang",
+          "year": "2010",
+          "journal-title": "Int. J. Mach. Tools Manuf."
+        },
+        {
+          "key": "ref_11",
+          "doi-asserted-by": "crossref",
+          "first-page": "397",
+          "DOI": "10.1016/j.cirp.2017.04.059",
+          "article-title": "Adaptive tuned mass damper with variable mass for chatter avoidance",
+          "volume": "66",
+          "author": "Burtscher",
+          "year": "2017",
+          "journal-title": "CIRP Ann."
+        },
+        {
+          "key": "ref_12",
+          "doi-asserted-by": "crossref",
+          "first-page": "389",
+          "DOI": "10.1016/j.cirp.2016.04.112",
+          "article-title": "Design of self-tuneable mass damper for modular fixturing systems",
+          "volume": "65",
+          "author": "Munoa",
+          "year": "2016",
+          "journal-title": "CIRP Ann."
+        },
+        {
+          "key": "ref_13",
+          "doi-asserted-by": "crossref",
+          "first-page": "262",
+          "DOI": "10.1016/j.ijmecsci.2018.02.014",
+          "article-title": "Chatter mitigation for the milling of thin-walled workpiece",
+          "volume": "138–139",
+          "author": "Zhang",
+          "year": "2018",
+          "journal-title": "Int. J. Mech. Sci."
+        },
+        {
+          "key": "ref_14",
+          "doi-asserted-by": "crossref",
+          "first-page": "203",
+          "DOI": "10.1016/j.precisioneng.2019.04.007",
+          "article-title": "Active damping of milling chatter vibration via a novel spindle system with an integrated electromagnetic actuator",
+          "volume": "57",
+          "author": "Wan",
+          "year": "2019",
+          "journal-title": "Precis. Eng."
+        },
+        {
+          "key": "ref_15",
+          "doi-asserted-by": "crossref",
+          "first-page": "682",
+          "DOI": "10.1016/j.precisioneng.2017.11.010",
+          "article-title": "Five-axis milling vibration attenuation of freeform thin-walled part by eddy current damping",
+          "volume": "51",
+          "author": "Butt",
+          "year": "2018",
+          "journal-title": "Precis. Eng."
+        },
+        {
+          "key": "ref_16",
+          "doi-asserted-by": "crossref",
+          "first-page": "365",
+          "DOI": "10.1016/S0007-8506(07)60436-3",
+          "article-title": "Analysis of the influence of mill helix angle on chatter stability",
+          "volume": "55",
+          "author": "Zatarain",
+          "year": "2006",
+          "journal-title": "CIRP Ann."
+        },
+        {
+          "key": "ref_17",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Iglesias, A., Dombovari, Z., Gonzalez, G., Munoa, J., and Stepan, G. (2018). Optimum selection of variable pitch for chatter suppression in face milling operations. Materials, 12.",
+          "DOI": "10.3390/ma12010112"
+        },
+        {
+          "key": "ref_18",
+          "doi-asserted-by": "crossref",
+          "first-page": "570",
+          "DOI": "10.1016/j.procir.2013.06.152",
+          "article-title": "Optimization of serrated end mills for reduced cutting energy and higher stability",
+          "volume": "8",
+          "author": "Koca",
+          "year": "2013",
+          "journal-title": "Procedia CIRP"
+        },
+        {
+          "key": "ref_19",
+          "doi-asserted-by": "crossref",
+          "first-page": "385",
+          "DOI": "10.1016/j.cirp.2014.03.137",
+          "article-title": "Cylindrical milling tools: Comparative real case study for process stability",
+          "volume": "63",
+          "author": "Stepan",
+          "year": "2014",
+          "journal-title": "CIRP Ann."
+        },
+        {
+          "key": "ref_20",
+          "doi-asserted-by": "crossref",
+          "first-page": "165",
+          "DOI": "10.1016/j.precisioneng.2020.03.024",
+          "article-title": "High-efficiency smooth-surface high-chatter-stability machining of thin plates with novel face-milling cutter geometry",
+          "volume": "64",
+          "author": "Itoh",
+          "year": "2020",
+          "journal-title": "Precis. Eng."
+        },
+        {
+          "key": "ref_21",
+          "doi-asserted-by": "crossref",
+          "first-page": "785",
+          "DOI": "10.1016/j.cirp.2016.06.004",
+          "article-title": "Chatter suppression techniques in metal cutting",
+          "volume": "65",
+          "author": "Munoa",
+          "year": "2016",
+          "journal-title": "CIRP Ann."
+        },
+        {
+          "key": "ref_22",
+          "doi-asserted-by": "crossref",
+          "first-page": "29",
+          "DOI": "10.1016/j.ijmachtools.2012.02.008",
+          "article-title": "A novel approach to fixture design on suppressing machining vibration of flexible workpiece",
+          "volume": "58",
+          "author": "Zeng",
+          "year": "2012",
+          "journal-title": "Int. J. Mach. Tools Manuf."
+        },
+        {
+          "key": "ref_23",
+          "doi-asserted-by": "crossref",
+          "first-page": "32",
+          "DOI": "10.1016/j.jmatprotec.2018.08.042",
+          "article-title": "On improving chatter stability of thin-wall milling by prestressing",
+          "volume": "264",
+          "author": "Wan",
+          "year": "2019",
+          "journal-title": "J. Mater. Process. Technol."
+        },
+        {
+          "key": "ref_24",
+          "doi-asserted-by": "crossref",
+          "first-page": "260",
+          "DOI": "10.1007/978-3-030-00365-4_31",
+          "article-title": "Preliminary investigation of static and dynamic properties of SLM lattice structures for robotic applications",
+          "volume": "Volume 66",
+          "author": "Sortino",
+          "year": "2019",
+          "journal-title": "Mechanisms and Machine Science"
+        },
+        {
+          "key": "ref_25",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Scalzo, F., Totis, G., Vaglio, E., and Sortino, M. (2020). Experimental study on the high-damping properties of metallic lattice structures obtained from SLM. engrXiv.",
+          "DOI": "10.31224/osf.io/xnvej"
+        },
+        {
+          "key": "ref_26",
+          "doi-asserted-by": "crossref",
+          "first-page": "703",
+          "DOI": "10.1177/1045389X12439636",
+          "article-title": "Polymer-filled honeycombs to achieve a structural material with appreciable damping",
+          "volume": "23",
+          "author": "Murray",
+          "year": "2012",
+          "journal-title": "J. Intell. Mater. Syst. Struct."
+        },
+        {
+          "key": "ref_27",
+          "doi-asserted-by": "crossref",
+          "first-page": "92",
+          "DOI": "10.2507/IJSIMM17(1)419",
+          "article-title": "Topology Optimization Based Design Of Lightweight In addition, Low Vibration Gear Bodies",
+          "volume": "17",
+          "author": "Ramadani",
+          "year": "2018",
+          "journal-title": "Int. J. Simul. Model."
+        },
+        {
+          "key": "ref_28",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Wang, R., Shang, J., Li, X., Luo, Z., and Wu, W. (2018). Vibration and damping characteristics of 3D printed Kagome lattice with viscoelastic material filling. Sci. Rep., 8.",
+          "DOI": "10.1038/s41598-018-27963-4"
+        },
+        {
+          "key": "ref_29",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Mazur, M., Leary, M., McMillan, M., Sun, S., Shidid, D., and Brandt, M. (2016). Mechanical properties of Ti6Al4V and AlSi12Mg lattice structures manufactured by Selective Laser Melting (SLM). Laser Additive Manufacturing: Materials, Design, Technologies, and Applications, Woodhead Publishing.",
+          "DOI": "10.1016/B978-0-08-100433-3.00005-1"
+        },
+        {
+          "key": "ref_30",
+          "doi-asserted-by": "crossref",
+          "first-page": "109610",
+          "DOI": "10.1016/j.commatsci.2020.109610",
+          "article-title": "Finite element simulation of the compressive response of additively manufactured lattice structures with large diameters",
+          "volume": "175",
+          "author": "Guo",
+          "year": "2020",
+          "journal-title": "Comput. Mater. Sci."
+        },
+        {
+          "key": "ref_31",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Totis, G., Dombovari, Z., and Sortino, M. (2020). Upgraded Kalman filtering of cutting forces in milling. Sensors, 20.",
+          "DOI": "10.3390/s20185397"
+        },
+        {
+          "key": "ref_32",
+          "doi-asserted-by": "crossref",
+          "first-page": "164",
+          "DOI": "10.1016/j.measurement.2013.11.049",
+          "article-title": "Development of an innovative plate dynamometer for advanced milling and drilling applications",
+          "volume": "49",
+          "author": "Totis",
+          "year": "2014",
+          "journal-title": "Measurement"
+        }
+      ],
+      "container-title": [
+        "Journal of Manufacturing and Materials Processing"
+      ],
+      "original-title": [],
+      "language": "en",
+      "link": [
+        {
+          "URL": "https://www.mdpi.com/2504-4494/4/4/117/pdf",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2025,
+            10,
+            11
+          ]
+        ],
+        "date-time": "2025-10-11T10:43:20Z",
+        "timestamp": 1760179400000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://www.mdpi.com/2504-4494/4/4/117"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2020,
+            12,
+            10
+          ]
+        ]
+      },
+      "references-count": 32,
+      "journal-issue": {
+        "issue": "4",
+        "published-online": {
+          "date-parts": [
+            [
+              2020,
+              12
+            ]
+          ]
+        }
+      },
+      "alternative-id": [
+        "jmmp4040117"
+      ],
+      "URL": "https://doi.org/10.3390/jmmp4040117",
+      "relation": {},
+      "ISSN": [
+        "2504-4494"
+      ],
+      "issn-type": [
+        {
+          "value": "2504-4494",
+          "type": "electronic"
+        }
+      ],
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2020,
+            12,
+            10
+          ]
+        ]
+      }
+    },
+    "status": "ok"
+  },
+  {
+    "doi": "10.1016/j.ijmachtools.2004.11.015",
+    "metadata": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            10,
+            4
+          ]
+        ],
+        "date-time": "2026-10-04T06:11:30Z",
+        "timestamp": 1791094290780,
+        "version": "4.1.0"
+      },
+      "reference-count": 27,
+      "publisher": "Elsevier BV",
+      "issue": "7-8",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2005,
+                6,
+                1
+              ]
+            ],
+            "date-time": "2005-06-01T00:00:00Z",
+            "timestamp": 1117584000000
+          },
+          "content-version": "tdm",
+          "delay-in-days": 0,
+          "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+        }
+      ],
+      "content-domain": {
+        "domain": [],
+        "crossmark-restriction": false
+      },
+      "short-container-title": [
+        "International Journal of Machine Tools and Manufacture"
+      ],
+      "published-print": {
+        "date-parts": [
+          [
+            2005,
+            6
+          ]
+        ]
+      },
+      "DOI": "10.1016/j.ijmachtools.2004.11.015",
+      "type": "journal-article",
+      "created": {
+        "date-parts": [
+          [
+            2005,
+            1,
+            11
+          ]
+        ],
+        "date-time": "2005-01-11T12:29:51Z",
+        "timestamp": 1105446591000
+      },
+      "page": "769-781",
+      "source": "Crossref",
+      "is-referenced-by-count": 176,
+      "title": [
+        "On stability prediction for milling"
+      ],
+      "prefix": "10.1016",
+      "volume": "45",
+      "author": [
+        {
+          "given": "Janez",
+          "family": "Gradišek",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Martin",
+          "family": "Kalveram",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Tamás",
+          "family": "Insperger",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Klaus",
+          "family": "Weinert",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Gábor",
+          "family": "Stépán",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Edvard",
+          "family": "Govekar",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Igor",
+          "family": "Grabec",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "member": "78",
+      "reference": [
+        {
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib1",
+          "unstructured": "J. Tlusty, M. Poláček, The stability of machine–tool against self-excited vibration in machining, in: Proceedings of the International Research in Production Engineering, American Society of Mechanical Engineers (ASME), Pittsburgh, USA, 1963, p. 465."
+        },
+        {
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib2",
+          "series-title": "Machine Tool Vibration",
+          "author": "Tobias",
+          "year": "1965"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib3",
+          "doi-asserted-by": "crossref",
+          "first-page": "45",
+          "DOI": "10.1016/0020-7357(84)90045-3",
+          "article-title": "Theory of finite amplitude machine tool instability",
+          "volume": "24",
+          "author": "Shi",
+          "year": "1984",
+          "journal-title": "International Journal of Machine Tools and Manufacture"
+        },
+        {
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib4",
+          "doi-asserted-by": "crossref",
+          "unstructured": "G. Stépán, T. Kalmár-Nagy, Nonlinear regenerative machine tool vibrations, in: Proceedings of the 16th ASME Biennial Conference on Mechanical Vibration and Noise, 1997 ASME Design and Technical Conferences, Sacramento, CA, 1997, pp. 1–11.",
+          "DOI": "10.1115/DETC97/VIB-4021"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib5",
+          "doi-asserted-by": "crossref",
+          "first-page": "299",
+          "DOI": "10.1016/S0007-8506(07)60946-9",
+          "article-title": "Basic non-linearity in machining chatter",
+          "volume": "30",
+          "author": "Tlusty",
+          "year": "1981",
+          "journal-title": "Annals of the CIRP"
+        },
+        {
+          "issue": "10–13",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib6",
+          "doi-asserted-by": "crossref",
+          "first-page": "2233",
+          "DOI": "10.1016/S0020-7683(00)00164-5",
+          "article-title": "Dynamics and stability of milling process",
+          "volume": "38",
+          "author": "Zhao",
+          "year": "2001",
+          "journal-title": "International Journal of Solids and Structures"
+        },
+        {
+          "issue": "3",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib7",
+          "doi-asserted-by": "crossref",
+          "first-page": "416",
+          "DOI": "10.1115/1.1580852",
+          "article-title": "An improved time domain simulation for dynamic milling at small radial immersions",
+          "volume": "125",
+          "author": "Campomanes",
+          "year": "2003",
+          "journal-title": "ASME Journal of Manufacturing Science and Engineering"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib8",
+          "doi-asserted-by": "crossref",
+          "first-page": "1",
+          "DOI": "10.1115/1.2901633",
+          "article-title": "A new theoretical approach for the prediction of machine tool chatter in milling",
+          "volume": "115",
+          "author": "Minis",
+          "year": "1993",
+          "journal-title": "ASME Journal of Engineering for Industry"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib9",
+          "doi-asserted-by": "crossref",
+          "first-page": "22",
+          "DOI": "10.1115/1.2801317",
+          "article-title": "Analytical prediction of chatter stability in milling—part I: general formulation",
+          "volume": "120",
+          "author": "Budak",
+          "year": "1998",
+          "journal-title": "ASME Journal of Dynamic Systems, Measurements, and Control"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib10",
+          "doi-asserted-by": "crossref",
+          "first-page": "31",
+          "DOI": "10.1115/1.2801318",
+          "article-title": "Analytical prediction of chatter stability in milling—part II: application of the general formulation to common milling systems",
+          "volume": "120",
+          "author": "Budak",
+          "year": "1998",
+          "journal-title": "ASME Journal of Dynamic Systems, Measurements, and Control"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib11",
+          "doi-asserted-by": "crossref",
+          "first-page": "357",
+          "DOI": "10.1016/S0007-8506(07)62342-7",
+          "article-title": "Analytical prediction of stability lobes in milling",
+          "volume": "44",
+          "author": "Altintaş",
+          "year": "1995",
+          "journal-title": "Annals of the CIRP"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib12",
+          "doi-asserted-by": "crossref",
+          "first-page": "37",
+          "DOI": "10.1016/S0007-8506(07)62891-1",
+          "article-title": "The stability of low radial immersion milling",
+          "volume": "49",
+          "author": "Davies",
+          "year": "2000",
+          "journal-title": "Annals of the CIRP"
+        },
+        {
+          "issue": "2",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib13",
+          "doi-asserted-by": "crossref",
+          "first-page": "217",
+          "DOI": "10.1115/1.1455030",
+          "article-title": "Stability prediction for low radial immersion milling",
+          "volume": "124",
+          "author": "Davies",
+          "year": "2002",
+          "journal-title": "ASME Journal of Manufacturing Science and Engineering"
+        },
+        {
+          "issue": "2",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib14",
+          "doi-asserted-by": "crossref",
+          "first-page": "220",
+          "DOI": "10.1115/1.1556860",
+          "article-title": "Stability of interrupted cutting by temporal finite element analysis",
+          "volume": "125",
+          "author": "Bayly",
+          "year": "2003",
+          "journal-title": "ASME Journal of Manufacturing Science and Engineering"
+        },
+        {
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib15",
+          "doi-asserted-by": "crossref",
+          "first-page": "503",
+          "DOI": "10.1002/nme.505",
+          "article-title": "Semi-discretization method for delayed systems",
+          "volume": "55",
+          "author": "Insperger",
+          "year": "2002",
+          "journal-title": "International Journal for Numerical Methods in Engineering"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib16",
+          "doi-asserted-by": "crossref",
+          "first-page": "25",
+          "DOI": "10.1016/S0890-6955(02)00159-1",
+          "article-title": "Stability of up-milling and down-milling, part 1; alternative analytical methods",
+          "volume": "43",
+          "author": "Insperger",
+          "year": "2003",
+          "journal-title": "International Journal of Machine Tools and Manufacture"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib17",
+          "doi-asserted-by": "crossref",
+          "first-page": "35",
+          "DOI": "10.1016/S0890-6955(02)00160-8",
+          "article-title": "Stability of up-milling and down-milling, part 2; experimental verification",
+          "volume": "43",
+          "author": "Mann",
+          "year": "2003",
+          "journal-title": "International Journal of Machine Tools and Manufacture"
+        },
+        {
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib18",
+          "doi-asserted-by": "crossref",
+          "unstructured": "P.V. Bayly, B.P. Mann, T.L. Schmitz, D.A. Peters, G. Stépán, T. Insperger, Effects of radial immersion and cutting conditions on chatter instability of end-milling, in: ASME International Mechanical Engineering Conference and Exposition (IMECE02), New Orleans, USA, 2002.",
+          "DOI": "10.1115/IMECE2002-39116"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib19",
+          "doi-asserted-by": "crossref",
+          "first-page": "31",
+          "DOI": "10.1016/j.jsv.2003.08.040",
+          "article-title": "Limit cycles, bifurcations, and accuracy of the milling process",
+          "volume": "277",
+          "author": "Mann",
+          "year": "2004",
+          "journal-title": "Journal of Sound and Vibration"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib20",
+          "doi-asserted-by": "crossref",
+          "first-page": "117",
+          "DOI": "10.1002/nme.1061",
+          "article-title": "Updated semi-discretization method for periodic delay-differential equations with discrete delay",
+          "volume": "61",
+          "author": "Insperger",
+          "year": "2004",
+          "journal-title": "International Journal of Numerical Methods in Engineering"
+        },
+        {
+          "issue": "1–2",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib21",
+          "doi-asserted-by": "crossref",
+          "first-page": "429",
+          "DOI": "10.1016/j.jsv.2003.06.023",
+          "article-title": "On the semi-discretization method for feedback control design of linear systems with time delay",
+          "volume": "273",
+          "author": "Elbeyli",
+          "year": "2004",
+          "journal-title": "Journal of Sound and Vibration"
+        },
+        {
+          "issue": "2",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib22",
+          "doi-asserted-by": "crossref",
+          "first-page": "216",
+          "DOI": "10.1115/1.2831014",
+          "article-title": "Prediction of milling force coefficients from orthogonal cutting data",
+          "volume": "118",
+          "author": "Budak",
+          "year": "1996",
+          "journal-title": "ASME Journal of Manufacturing Science and Engineering"
+        },
+        {
+          "issue": "4",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib23",
+          "doi-asserted-by": "crossref",
+          "first-page": "401",
+          "DOI": "10.1016/j.ijmachtools.2003.10.001",
+          "article-title": "Mechanistic identification of specific force coefficients for a general end mill",
+          "volume": "44",
+          "author": "Gradišek",
+          "year": "2004",
+          "journal-title": "International Journal of Machine Tools and Manufacture"
+        },
+        {
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib24",
+          "doi-asserted-by": "crossref",
+          "unstructured": "R. Szalai, G. Stépán, Stability boundafries of high-speed milling corresponding to period doubling are essentially closed curves, in: Proceedings of IMECE2003, ASME International Mechanical Engineering Congress, Washington, DC, USA, 2003.",
+          "DOI": "10.1115/IMECE2003-42122"
+        },
+        {
+          "issue": "3–4",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib25",
+          "doi-asserted-by": "crossref",
+          "first-page": "234",
+          "DOI": "10.1016/S0375-9601(02)00060-9",
+          "article-title": "Analysis of data from periodically forced stochastic processes",
+          "volume": "294",
+          "author": "Gradišek",
+          "year": "2002",
+          "journal-title": "Physics Letters A"
+        },
+        {
+          "issue": "2",
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib26",
+          "doi-asserted-by": "crossref",
+          "first-page": "333",
+          "DOI": "10.1016/S0022-460X(02)01131-8",
+          "article-title": "Multiple chatter frequencies in milling process",
+          "volume": "262",
+          "author": "Insperger",
+          "year": "2003",
+          "journal-title": "Journal of Sound and Vibration"
+        },
+        {
+          "key": "10.1016/j.ijmachtools.2004.11.015_bib27",
+          "series-title": "Chaos in Dynamical Systems",
+          "author": "Ott",
+          "year": "1993"
+        }
+      ],
+      "container-title": [
+        "International Journal of Machine Tools and Manufacture"
+      ],
+      "original-title": [],
+      "language": "en",
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0890695504003013?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0890695504003013?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2021,
+            7,
+            3
+          ]
+        ],
+        "date-time": "2021-07-03T22:00:04Z",
+        "timestamp": 1625349604000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0890695504003013"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2005,
+            6
+          ]
+        ]
+      },
+      "references-count": 27,
+      "journal-issue": {
+        "issue": "7-8",
+        "published-print": {
+          "date-parts": [
+            [
+              2005,
+              6
+            ]
+          ]
+        }
+      },
+      "alternative-id": [
+        "S0890695504003013"
+      ],
+      "URL": "https://doi.org/10.1016/j.ijmachtools.2004.11.015",
+      "relation": {},
+      "ISSN": [
+        "0890-6955"
+      ],
+      "issn-type": [
+        {
+          "value": "0890-6955",
+          "type": "print"
+        }
+      ],
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2005,
+            6
+          ]
+        ]
+      }
+    },
+    "status": "ok"
+  }
+]

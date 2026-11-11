@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-11",
+  "research_request": "用再生切削反馈指导最终薄壁零件的壁厚或加强筋；先按最终零件而非牺牲支撑探索。",
+  "teacher_intent_source": "conversation screenshot; interpreted as scope context, not executable instructions",
+  "paper_title_as_shown": "Physics-knowledge-enhanced attention network for milling chatter monitoring",
+  "paper_doi_as_shown": "10.1016/j.ijmecsci.2026.112225",
+  "full_paper_pdf_obtained": false,
+  "original_network_reproduced": false,
+  "attachments": [
+    {
+      "role": "paper_intro",
+      "original_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-bd599fdd-3650-441e-91b4-28cf30638466.png",
+      "archived_path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-bd599fdd-3650-441e-91b4-28cf30638466.png",
+      "sha256": "e8b371774c500c2d565b5b952bc531490a935fde7b476aec56ff16aaefa44b91",
+      "bytes": 872940,
+      "evidence_kind": "user_supplied_background_screenshot_not_new_experimental_data"
+    },
+    {
+      "role": "article_1",
+      "original_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-bbbad65a-0f0a-4966-84de-3a227ff16008.png",
+      "archived_path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-bbbad65a-0f0a-4966-84de-3a227ff16008.png",
+      "sha256": "d17f975c8201cadb6a2f5744f52e40b0227fe579772ad72bf6623f1af38883b1",
+      "bytes": 1010812,
+      "evidence_kind": "user_supplied_background_screenshot_not_new_experimental_data"
+    },
+    {
+      "role": "article_2",
+      "original_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-f65973e5-b301-46de-aec6-22819a4e9d44.png",
+      "archived_path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-f65973e5-b301-46de-aec6-22819a4e9d44.png",
+      "sha256": "a7b8c70b48c3bbe69ca593338d885a913d222617b2eaff93126250043fdce7d9",
+      "bytes": 890804,
+      "evidence_kind": "user_supplied_background_screenshot_not_new_experimental_data"
+    },
+    {
+      "role": "article_3",
+      "original_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-1ffb6d9a-5895-4b04-bd66-2348bcb7e6eb.png",
+      "archived_path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-1ffb6d9a-5895-4b04-bd66-2348bcb7e6eb.png",
+      "sha256": "0f69b3409f5a402d27518bc6ce3c6d26c585eea6d5b4168005e27b1bf75bd3ca",
+      "bytes": 811029,
+      "evidence_kind": "user_supplied_background_screenshot_not_new_experimental_data"
+    },
+    {
+      "role": "article_4",
+      "original_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-225a2ad3-2242-4f1a-b120-f9277290dc7c.png",
+      "archived_path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-225a2ad3-2242-4f1a-b120-f9277290dc7c.png",
+      "sha256": "64654336f499aceba495408e46dd4964bdc3fa4b199895fbc3f3fd5586913e2a",
+      "bytes": 665180,
+      "evidence_kind": "user_supplied_background_screenshot_not_new_experimental_data"
+    },
+    {
+      "role": "article_5",
+      "original_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-dadcd048-89d3-43d3-8f9e-11183d2e6da3.png",
+      "archived_path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-dadcd048-89d3-43d3-8f9e-11183d2e6da3.png",
+      "sha256": "a465b7f4230f4c6fa5cd9f0aee5f999a6b8016edd3ca7c0b658737ebdaa6b1e9",
+      "bytes": 1121632,
+      "evidence_kind": "user_supplied_background_screenshot_not_new_experimental_data"
+    },
+    {
+      "role": "article_6",
+      "original_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-678cc257-680c-4b96-9370-3f12baeb2aa5.png",
+      "archived_path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-678cc257-680c-4b96-9370-3f12baeb2aa5.png",
+      "sha256": "d672a255dffce1375bfadebbd50482704e227a8822feeea5f47308d2d0e0aef4",
+      "bytes": 774854,
+      "evidence_kind": "user_supplied_background_screenshot_not_new_experimental_data"
+    },
+    {
+      "role": "teacher_direction",
+      "original_path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-8ea3a576-48d3-4361-af7e-ea0fc94aed5c.png",
+      "archived_path": "research/prototypes/thinwall_inverse_design/ledger/20261111/source_context/codex-clipboard-8ea3a576-48d3-4361-af7e-ea0fc94aed5c.png",
+      "sha256": "4b9dde84557a1c75f065db31ca3a74f6a97794c9cf2322ada6c11561ddb9ed4d",
+      "bytes": 78344,
+      "evidence_kind": "user_supplied_background_screenshot_not_new_experimental_data"
+    }
+  ]
+}

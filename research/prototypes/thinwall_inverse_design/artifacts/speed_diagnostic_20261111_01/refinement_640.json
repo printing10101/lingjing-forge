@@ -1,0 +1,68 @@
+{
+  "posthoc_numerical_refinement": true,
+  "records": [
+    {
+      "original_row": 320,
+      "variant": "stationary",
+      "rho_160": 1.020771287437619,
+      "rho_320": 1.0088893266653691,
+      "rho_640": 1.0153184247528957,
+      "stable_640": false,
+      "stable_true": false,
+      "classification_changed_320_640": false
+    },
+    {
+      "original_row": 320,
+      "variant": "observed_frequency_fixed_mass",
+      "rho_160": 0.9977512329192068,
+      "rho_320": 0.9896899589665468,
+      "rho_640": 0.9938886560637666,
+      "stable_640": true,
+      "stable_true": false,
+      "classification_changed_320_640": false
+    },
+    {
+      "original_row": 320,
+      "variant": "observed_frequency_fixed_static_compliance",
+      "rho_160": 0.9891732441403492,
+      "rho_320": 0.981573237668844,
+      "rho_640": 0.9855374368629678,
+      "stable_640": true,
+      "stable_true": false,
+      "classification_changed_320_640": false
+    },
+    {
+      "original_row": 293,
+      "variant": "observed_frequency_static_compliance_0p75",
+      "rho_160": 0.9532669987683655,
+      "rho_320": 0.9734531794547436,
+      "rho_640": 0.9886814712965584,
+      "stable_640": true,
+      "stable_true": false,
+      "classification_changed_320_640": false
+    },
+    {
+      "original_row": 320,
+      "variant": "fixed_static_compliance_minus0p5Hz",
+      "rho_160": 0.9887679931987464,
+      "rho_320": 0.9812566302056305,
+      "rho_640": 0.9851719516078106,
+      "stable_640": true,
+      "stable_true": false,
+      "classification_changed_320_640": false
+    },
+    {
+      "original_row": 320,
+      "variant": "fixed_static_compliance_plus0p5Hz",
+      "rho_160": 0.9895871427130392,
+      "rho_320": 0.9818996264485527,
+      "rho_640": 0.9859121574315922,
+      "stable_640": true,
+      "stable_true": false,
+      "classification_changed_320_640": false
+    }
+  ],
+  "classification_changes": 0,
+  "elapsed_seconds": 18.391000000000076,
+  "plan_sha256": "60f4391644269c90848b6d78b2cce270375991b43de39a52c979dde704db221b"
+}

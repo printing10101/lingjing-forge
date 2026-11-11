@@ -1,0 +1,222 @@
+{
+  "completed_design": "mean_boundary_best_on_grid",
+  "elapsed_seconds": 24.906999999999243,
+  "periodic": [
+    {
+      "design": "uniform",
+      "rpm": 3750,
+      "steps": 40,
+      "boundary_mm": 0.009224069670146424
+    },
+    {
+      "design": "uniform",
+      "rpm": 3750,
+      "steps": 80,
+      "boundary_mm": 0.008971103813724367
+    },
+    {
+      "design": "uniform",
+      "rpm": 3750,
+      "steps": 160,
+      "boundary_mm": 0.008994357350795163
+    },
+    {
+      "design": "uniform",
+      "rpm": 6750,
+      "steps": 40,
+      "boundary_mm": 0.01312523079795732
+    },
+    {
+      "design": "uniform",
+      "rpm": 6750,
+      "steps": 80,
+      "boundary_mm": 0.013053038608554451
+    },
+    {
+      "design": "uniform",
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_mm": 0.013061664797271184
+    },
+    {
+      "design": "uniform",
+      "rpm": 9750,
+      "steps": 40,
+      "boundary_mm": 0.0007495255312938421
+    },
+    {
+      "design": "uniform",
+      "rpm": 9750,
+      "steps": 80,
+      "boundary_mm": 0.0007416194042426796
+    },
+    {
+      "design": "uniform",
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_mm": 0.0007379836038853061
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 3750,
+      "steps": 40,
+      "boundary_mm": 0.0019874295252849993
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 3750,
+      "steps": 80,
+      "boundary_mm": 0.0021741875149166863
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 3750,
+      "steps": 160,
+      "boundary_mm": 0.0022862534984559235
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 6750,
+      "steps": 40,
+      "boundary_mm": 0.0032134972107938434
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 6750,
+      "steps": 80,
+      "boundary_mm": 0.002674854638539542
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_mm": 0.0024749844321809494
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 9750,
+      "steps": 40,
+      "boundary_mm": 0.007553387513383995
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 9750,
+      "steps": 80,
+      "boundary_mm": 0.007604051409487359
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_mm": 0.007652521172793773
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 40,
+      "boundary_mm": 0.0019874295252849993
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 80,
+      "boundary_mm": 0.0021741875149166863
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 160,
+      "boundary_mm": 0.0022862534984559235
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 40,
+      "boundary_mm": 0.0032134972107938434
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 80,
+      "boundary_mm": 0.002674854638539542
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_mm": 0.0024749844321809494
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 40,
+      "boundary_mm": 0.007553387513383995
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 80,
+      "boundary_mm": 0.007604051409487359
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_mm": 0.007652521172793773
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 40,
+      "boundary_mm": 0.005020816656705811
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 80,
+      "boundary_mm": 0.0056055463884016245
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 160,
+      "boundary_mm": 0.005833307138666528
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 40,
+      "boundary_mm": 0.0012488803282503767
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 80,
+      "boundary_mm": 0.0012063974784438125
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_mm": 0.0011887209048145446
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 40,
+      "boundary_mm": 0.013299714557572364
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 80,
+      "boundary_mm": 0.013300960729357655
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_mm": 0.01334127637407544
+    }
+  ]
+}

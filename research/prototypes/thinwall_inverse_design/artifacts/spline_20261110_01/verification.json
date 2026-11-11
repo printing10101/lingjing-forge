@@ -1,0 +1,607 @@
+{
+  "periodic": [
+    {
+      "design": "uniform",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 4750,
+      "steps": 160,
+      "boundary_m": 8.569076896018657e-06
+    },
+    {
+      "design": "uniform",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 4750,
+      "steps": 320,
+      "boundary_m": 8.60248073990034e-06
+    },
+    {
+      "design": "uniform",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_m": 0.0001356569048201318
+    },
+    {
+      "design": "uniform",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_m": 0.00013593694634523747
+    },
+    {
+      "design": "uniform",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_m": 9.291192271965633e-06
+    },
+    {
+      "design": "uniform",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 9750,
+      "steps": 320,
+      "boundary_m": 9.252231030543165e-06
+    },
+    {
+      "design": "uniform",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 4750,
+      "steps": 160,
+      "boundary_m": 2.7029197607454865e-06
+    },
+    {
+      "design": "uniform",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 4750,
+      "steps": 320,
+      "boundary_m": 2.7133604645570744e-06
+    },
+    {
+      "design": "uniform",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_m": 4.1120785870426154e-05
+    },
+    {
+      "design": "uniform",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_m": 4.120570956034321e-05
+    },
+    {
+      "design": "uniform",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_m": 2.9340937440364815e-06
+    },
+    {
+      "design": "uniform",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 9750,
+      "steps": 320,
+      "boundary_m": 2.921765332840243e-06
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 4750,
+      "steps": 160,
+      "boundary_m": 5.911975231489322e-05
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 4750,
+      "steps": 320,
+      "boundary_m": 6.039752786801698e-05
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_m": 1.665928092915688e-05
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_m": 1.6740135577075668e-05
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_m": 0.0002864396472080256
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 9750,
+      "steps": 320,
+      "boundary_m": 0.0002868965259032691
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 4750,
+      "steps": 160,
+      "boundary_m": 1.5922254592678148e-05
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 4750,
+      "steps": 320,
+      "boundary_m": 1.627576783205724e-05
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_m": 4.385082735371913e-06
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_m": 4.40698731678684e-06
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_m": 8.675173554456632e-05
+    },
+    {
+      "design": "static_service",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 9750,
+      "steps": 320,
+      "boundary_m": 8.693525932724375e-05
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 4750,
+      "steps": 160,
+      "boundary_m": 2.5370089893206254e-05
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 4750,
+      "steps": 320,
+      "boundary_m": 2.5053210635367542e-05
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_m": 0.0001616022122817306
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_m": 0.0001422231493828401
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_m": 0.00018823482338754436
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 9750,
+      "steps": 320,
+      "boundary_m": 0.00019011914601807715
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 4750,
+      "steps": 160,
+      "boundary_m": 3.813654849842295e-06
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 4750,
+      "steps": 320,
+      "boundary_m": 3.7658144286229985e-06
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_m": 2.43180556562574e-05
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_m": 2.1407537526452985e-05
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_m": 1.864505605797755e-05
+    },
+    {
+      "design": "first_frequency",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 9750,
+      "steps": 320,
+      "boundary_m": 1.87879995711424e-05
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 4750,
+      "steps": 160,
+      "boundary_m": 4.0699112317894885e-05
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 4750,
+      "steps": 320,
+      "boundary_m": 4.1659727592804964e-05
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_m": 1.6415979686250728e-05
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_m": 1.6417801405150255e-05
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_m": 0.00029590068366469184
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 9750,
+      "steps": 320,
+      "boundary_m": 0.000296569248841125
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 4750,
+      "steps": 160,
+      "boundary_m": 9.169681669832092e-06
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 4750,
+      "steps": 320,
+      "boundary_m": 9.379191717383655e-06
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_m": 3.7486873390556726e-06
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_m": 3.7487719344285106e-06
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_m": 6.132398296387937e-05
+    },
+    {
+      "design": "worst_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 9750,
+      "steps": 320,
+      "boundary_m": 6.145272764618377e-05
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 4750,
+      "steps": 160,
+      "boundary_m": 0.00011911487833307996
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 4750,
+      "steps": 320,
+      "boundary_m": 0.0001210374909319696
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_m": 2.5525671855720513e-05
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_m": 2.5982528220667757e-05
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_m": 0.00011216185989895574
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.65,
+        0.35
+      ],
+      "rpm": 9750,
+      "steps": 320,
+      "boundary_m": 0.00011281145721304363
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 4750,
+      "steps": 160,
+      "boundary_m": 4.251858790297814e-05
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 4750,
+      "steps": 320,
+      "boundary_m": 4.3179021363471e-05
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_m": 8.84618692035122e-06
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 6750,
+      "steps": 320,
+      "boundary_m": 8.995558338066739e-06
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_m": 0.00010208943305773802
+    },
+    {
+      "design": "mean_stability",
+      "contact": [
+        0.95,
+        0.65
+      ],
+      "rpm": 9750,
+      "steps": 320,
+      "boundary_m": 0.00010198026923180175
+    }
+  ],
+  "elapsed_seconds": 30.09400000000096,
+  "plate_physical_validation": false,
+  "new_contribution_established": false
+}

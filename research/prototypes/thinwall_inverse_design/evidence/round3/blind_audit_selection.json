@@ -1,0 +1,258 @@
+[
+  {
+    "row": 4,
+    "ae_label": "D",
+    "px": 163,
+    "py": 198,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 11,
+    "ae_label": "D",
+    "px": 249,
+    "py": 233,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 25,
+    "ae_label": "D",
+    "px": 356,
+    "py": 218,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 40,
+    "ae_label": "D",
+    "px": 175,
+    "py": 209,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 47,
+    "ae_label": "D",
+    "px": 314,
+    "py": 198,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 48,
+    "ae_label": "D",
+    "px": 186,
+    "py": 209,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 50,
+    "ae_label": "D",
+    "px": 379,
+    "py": 209,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 53,
+    "ae_label": "D",
+    "px": 314,
+    "py": 218,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 63,
+    "ae_label": "0.5D",
+    "px": 292,
+    "py": 480,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 74,
+    "ae_label": "0.5D",
+    "px": 314,
+    "py": 417,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 81,
+    "ae_label": "0.5D",
+    "px": 163,
+    "py": 470,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 89,
+    "ae_label": "0.5D",
+    "px": 141,
+    "py": 485,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 90,
+    "ae_label": "0.5D",
+    "px": 335,
+    "py": 439,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 93,
+    "ae_label": "0.5D",
+    "px": 78,
+    "py": 460,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 97,
+    "ae_label": "0.5D",
+    "px": 356,
+    "py": 470,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 112,
+    "ae_label": "0.5D",
+    "px": 207,
+    "py": 460,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 189,
+    "ae_label": "0.1D",
+    "px": 292,
+    "py": 701,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 208,
+    "ae_label": "0.1D",
+    "px": 238,
+    "py": 722,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 223,
+    "ae_label": "0.1D",
+    "px": 292,
+    "py": 722,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 242,
+    "ae_label": "0.1D",
+    "px": 292,
+    "py": 680,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 290,
+    "ae_label": "0.1D",
+    "px": 313,
+    "py": 701,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 293,
+    "ae_label": "0.1D",
+    "px": 476,
+    "py": 660,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 314,
+    "ae_label": "0.1D",
+    "px": 551,
+    "py": 660,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 320,
+    "ae_label": "0.1D",
+    "px": 444,
+    "py": 661,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 324,
+    "ae_label": "0.05D",
+    "px": 292,
+    "py": 849,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 342,
+    "ae_label": "0.05D",
+    "px": 184,
+    "py": 932,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 358,
+    "ae_label": "0.05D",
+    "px": 335,
+    "py": 911,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 385,
+    "ae_label": "0.05D",
+    "px": 292,
+    "py": 953,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 392,
+    "ae_label": "0.05D",
+    "px": 249,
+    "py": 974,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 407,
+    "ae_label": "0.05D",
+    "px": 106,
+    "py": 953,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 411,
+    "ae_label": "0.05D",
+    "px": 184,
+    "py": 973,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  },
+  {
+    "row": 436,
+    "ae_label": "0.05D",
+    "px": 400,
+    "py": 953,
+    "visual_label": "PENDING",
+    "reason": "PENDING"
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "continuous_check",
+    "test": "test_coarse_sample_acceptance_is_not_a_continuous_proof",
+    "exit_code": 1,
+    "caught": true,
+    "tail": "F                                                                        [100%]\n================================== FAILURES ===================================\n___________ test_coarse_sample_acceptance_is_not_a_continuous_proof ___________\n\n    def test_coarse_sample_acceptance_is_not_a_continuous_proof():\n        from repair import ball_height\n        original=initial_curve()\n        for k in (0,-2,2,-3,3):original=original.insert_knot(k)\n        points=np.linspace(-4,4,9)\n        candidate,_=solve_samples(original,Request(),points)\n        assert candidate is not None\n        assert np.min(ball_height(points,8)-candidate(points))>=-1e-6\n>       assert verify_ball(candidate.t,candidate.c,candidate.k,8).status=='fail'\nE       AssertionError: assert 'pass' == 'fail'\nE         \nE         - fail\nE         + pass\n\ntest_contact.py:192: AssertionError\n=========================== short test summary info ===========================\nFAILED test_contact.py::test_coarse_sample_acceptance_is_not_a_continuous_proof\n1 failed, 36 deselected in 2.60s\n"
+  },
+  {
+    "name": "unknown_is_not_safe",
+    "test": "test_budget_exhaustion_is_unknown_not_pass",
+    "exit_code": 1,
+    "caught": true,
+    "tail": "F                                                                        [100%]\n================================== FAILURES ===================================\n_________________ test_budget_exhaustion_is_unknown_not_pass __________________\n\n    def test_budget_exhaustion_is_unknown_not_pass():\n        t,c,p=quadratic()\n>       assert verify_ball(t,c,p,8,max_boxes=1).status=='unknown'\nE       AssertionError: assert 'pass' == 'unknown'\nE         \nE         - unknown\nE         + pass\n\ntest_contact.py:33: AssertionError\n=========================== short test summary info ===========================\nFAILED test_contact.py::test_budget_exhaustion_is_unknown_not_pass - Assertio...\n1 failed, 36 deselected in 2.31s\n"
+  },
+  {
+    "name": "protected_lock",
+    "test": "test_protected_point_conflict_does_not_get_relaxed",
+    "exit_code": 1,
+    "caught": true,
+    "tail": "F                                                                        [100%]\n================================== FAILURES ===================================\n_____________ test_protected_point_conflict_does_not_get_relaxed ______________\n\n    def test_protected_point_conflict_does_not_get_relaxed():\n        outcome,curve=repair(initial_curve(),Request(protected_x=(2.,)))\n>       assert curve is None and outcome['status']=='protected_point_conflict'\nE       AssertionError: assert (None is None and 'budget_unknown' == 'protected_point_conflict'\nE         \nE         - protected_point_conflict\nE         + budget_unknown)\n\ntest_contact.py:93: AssertionError\n=========================== short test summary info ===========================\nFAILED test_contact.py::test_protected_point_conflict_does_not_get_relaxed - ...\n1 failed, 36 deselected in 2.57s\n"
+  },
+  {
+    "name": "budget_certificate",
+    "test": "test_budget_impossibility_uses_continuous_lower_envelope",
+    "exit_code": 1,
+    "caught": true,
+    "tail": "F                                                                        [100%]\n================================== FAILURES ===================================\n__________ test_budget_impossibility_uses_continuous_lower_envelope ___________\n\n    def test_budget_impossibility_uses_continuous_lower_envelope():\n        result,candidate=repair(initial_curve(),Request(displacement_budget=.03))\n>       assert candidate is None and result['status']=='displacement_budget_conflict'\nE       AssertionError: assert (None is None and 'budget_unknown' == 'displacement_budget_conflict'\nE         \nE         - displacement_budget_conflict\nE         + budget_unknown)\n\ntest_contact.py:144: AssertionError\n=========================== short test summary info ===========================\nFAILED test_contact.py::test_budget_impossibility_uses_continuous_lower_envelope\n1 failed, 36 deselected in 2.71s\n"
+  },
+  {
+    "name": "readback_gate",
+    "test": "test_readback_contact_is_checked_even_when_design_audit_passes",
+    "exit_code": 1,
+    "caught": true,
+    "tail": "                                      [100%]\n================================== FAILURES ===================================\n_______ test_readback_contact_is_checked_even_when_design_audit_passes ________\n\ntmp_path = WindowsPath('C:/Users/Lenovo/AppData/Local/Temp/pytest-of-Lenovo/pytest-220/test_readback_contact_is_check0')\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001EE70E263F0>\n\n    def test_readback_contact_is_checked_even_when_design_audit_passes(tmp_path,monkeypatch):\n        import cad_adapter\n        request=Request();_,candidate=repair(initial_curve(),request)\n        def lost_edit(edited,path):\n            return [edited[0],cad_adapter.graph_patch(initial_curve()),edited[2]],{'passed':True}\n        monkeypatch.setattr(cad_adapter,'roundtrip',lost_edit)\n>       with pytest.raises(RuntimeError,match='READBACK_REJECTED'):\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       Failed: DID NOT RAISE RuntimeError\n\ntest_contact.py:201: Failed\n=========================== short test summary info ===========================\nFAILED test_contact.py::test_readback_contact_is_checked_even_when_design_audit_passes\n1 failed, 36 deselected in 4.07s\n"
+  }
+]

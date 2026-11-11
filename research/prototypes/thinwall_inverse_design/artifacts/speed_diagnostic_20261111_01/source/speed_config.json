@@ -1,0 +1,79 @@
+{
+  "mass_kg": [
+    0.0201,
+    0.0199
+  ],
+  "damping_n_s_m": [
+    1.56,
+    1.6
+  ],
+  "stiffness_n_m": [
+    414000,
+    409000
+  ],
+  "milling": {
+    "tangential_pa": 644000000,
+    "radial_ratio": 0.37,
+    "teeth": 1,
+    "diameter_m": 0.008,
+    "helix_deg": 45.0
+  },
+  "delay_rule": "midpoint",
+  "status": "post_audit_exploratory_frequency_and_residue_identifiability_diagnostic",
+  "reference_csv": "research/prototypes/thinwall_inverse_design/artifacts/reviewed_reference_20261111_02/reviewed_points.csv",
+  "reference_sha256": "e8679e786d38b477184f95eea282d9ccd6a79cfec5756513b657b6f3d2c669fe",
+  "reference_status": "single_assistant_visual_audit_revision2_subset_25_of_32_stratified_rows",
+  "frequency_csv": "research/prototypes/thinwall_inverse_design/evidence/round4/fig8_frequency.csv",
+  "frequency_sha256": "b9d2b37d2e3db320c07cd0134ac4bc8447cdd1c67966df961d832ab5dc2a6215",
+  "reference_frequency_hz": 722.2107,
+  "steps": [
+    160,
+    320
+  ],
+  "budget_seconds": 180,
+  "variants": [
+    {
+      "name": "stationary",
+      "closure": "stationary"
+    },
+    {
+      "name": "observed_frequency_fixed_mass",
+      "closure": "fixed_mass"
+    },
+    {
+      "name": "observed_frequency_fixed_static_compliance",
+      "closure": "specified_static_compliance",
+      "static_compliance_ratio": 1.0
+    },
+    {
+      "name": "observed_frequency_static_compliance_0p75",
+      "closure": "specified_static_compliance",
+      "static_compliance_ratio": 0.75
+    },
+    {
+      "name": "fixed_static_compliance_minus0p5Hz",
+      "closure": "specified_static_compliance",
+      "static_compliance_ratio": 1.0,
+      "frequency_offset_hz": -0.5
+    },
+    {
+      "name": "fixed_static_compliance_plus0p5Hz",
+      "closure": "specified_static_compliance",
+      "static_compliance_ratio": 1.0,
+      "frequency_offset_hz": 0.5
+    }
+  ],
+  "question": "Does the independent frequency curve explain the four baseline errors under each explicitly stated modal-residue closure?",
+  "discriminating_rule": "Report all25 rows in all variants, including newly introduced errors. If fixed-frequency closures give different signs, frequency alone is insufficient. Do not choose a closure by label agreement or call a changed score independent validation.",
+  "assumptions": "Both directional mode frequencies scale by the same Fig8 ratio; per-mode zeta is held constant and is NOT measured during rotation. Static modal compliance is not identified by Fig8. Ratio0.75 is an illustrative intervention, not a measured bound or confidence interval. Fixed-mass closure implies increasing static flexibility when frequency drops. No use of labels in frequency digitization or parameter fitting.",
+  "independent_unit": "One published apparatus/figure;25 provisional digitized settings are not independent studies.",
+  "stop": "No additional parameter search after these variants. Record unresolved inputs and all failures; budget180seconds. Default benchmark stays stationary.",
+  "readouts": [
+    "spectral radius160/320",
+    "all original-row classifications",
+    "four baseline errors remaining",
+    "new errors",
+    "effect of graph-frequency perturbation"
+  ],
+  "new_experimental_validation": false
+}

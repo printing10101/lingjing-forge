@@ -1,0 +1,17 @@
+{
+  "status": "external_source_check_no_fitting",
+  "source_doi": "10.1016/j.ijmachtools.2004.11.015",
+  "source_local_pdf": "research/datasets/measured_stability/literature_pdfs/Gradisek_2005_stability_prediction.pdf",
+  "source_csv": "research/datasets/measured_stability/gradisek2005_digitized_points.csv",
+  "parameter_location": "Published Table 1 (p774); Sec3 (p773); force convention Eqs2-7; Fig7 p776 up-milling labels digitized in existing repository CSV",
+  "mass_kg": [0.0201,0.0199],
+  "damping_n_s_m": [1.56,1.60],
+  "stiffness_n_m": [414000,409000],
+  "milling": {"tangential_pa":644000000,"radial_ratio":0.37,"teeth":1,"diameter_m":0.008,"helix_deg":45.0},
+  "steps": [80,160],
+  "delay_rule": "midpoint",
+  "evaluation": "All 516 existing digitized rows, per immersion and overall confusion counts; keep review flags visible. Secondary set excludes CHECK rows only. No fitting, no label-guided subset or threshold tuning. rho<1 predicts stable.",
+  "uncertainty": "Existing digitization coordinates/labels are not independently redigitized. At most a source-traceable external comparison, not an independent new experiment. Points on one chart are not independent experimental replicates.",
+  "limits": "Stationary diagonal modal parameters; paper reports speed-dependent frequency and likely cutting-coefficient variation. No process damping, tool runout, mode coupling in measured FRF, or nonlinear contact. Constant coefficients not fitted to improve accuracy.",
+  "budget_seconds": 240
+}

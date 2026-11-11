@@ -1,0 +1,41 @@
+{
+  "analysis": "post_hoc_not_preregistered",
+  "contact_necessary_change": {
+    "lower_mm": 0.10798022747039794,
+    "upper_mm": 0.10798029899597168,
+    "lower_rational": "8158755312301558267435/75557863725914323419136",
+    "upper_rational": "4079380358310555556015/37778931862957161709568",
+    "status": "bounded",
+    "iterations": 24
+  },
+  "candidate_comparison": [
+    {
+      "policy": "uniform",
+      "geometric_change_bound": {
+        "lower_mm": 0.11044378680886402,
+        "upper_mm": 0.11044384828001996,
+        "lower_rational": "38708342592233956381722359234679023/350480037951100864925808502222356480",
+        "upper_rational": "28839978677516447402740711/261127977036759901736534016",
+        "boxes": 17,
+        "status": "bounded"
+      },
+      "optimality_gap_upper_mm": 0.002463620809622022,
+      "candidate_source_sha256": "cb6160d0fa3190de3f339a3e2ab3baf9e83dea95487694c1452822d6ee9f0cd9"
+    },
+    {
+      "policy": "targeted",
+      "geometric_change_bound": {
+        "lower_mm": 0.22556617085899877,
+        "upper_mm": 0.2255662408835558,
+        "lower_rational": "160840739182833643585177783589/713053462628379038341895553024",
+        "upper_rational": "643363156456346036364199294855/2852213850513516153367582212096",
+        "boxes": 9,
+        "status": "bounded"
+      },
+      "optimality_gap_upper_mm": 0.11758601341315787,
+      "candidate_source_sha256": "af73ba08bc82facbfab7ee4bb21743ebf3445ded695b849e3bab39ff1540e054"
+    }
+  ],
+  "scope": "vertical_Linf_change_fixed_ball_pose_one_quartic_family",
+  "caveat": "Known bounding and subdivision methods; not a novelty or patentability certificate."
+}

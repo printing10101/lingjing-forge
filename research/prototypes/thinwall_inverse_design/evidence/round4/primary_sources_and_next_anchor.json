@@ -1,0 +1,90 @@
+{
+  "sources": [
+    {
+      "doi": "10.1016/j.ijmachtools.2004.11.015",
+      "url": "https://web.fs.uni-lj.si/lasin/www/~gradisek/gradisek2005.pdf",
+      "role": "Current tool-model diagnostic",
+      "locations": "Fig8 p777; limitations in Sec3.3 pp776-777",
+      "facts": "Frequency is measured versus spindle speed; operating FRFs were not usable directly for quantitative stability prediction. Full compliance/damping table absent."
+    },
+    {
+      "doi": "10.3390/mi13020160",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8879075/",
+      "role": "Thin-wall benchmark candidate, NOT verified or selected by agreement",
+      "locations": "Sec6, Tables1-2; Sec6.3 pointsA-D",
+      "reported_geometry_mm": [
+        80,
+        40,
+        3
+      ],
+      "reported_material": "Ti-6Al-4V",
+      "workpiece_modes": [
+        {
+          "frequency_hz": 575,
+          "zeta": 0.007,
+          "stiffness_n_m": 1190000.0
+        },
+        {
+          "frequency_hz": 1820,
+          "zeta": 0.012,
+          "stiffness_n_m": 13100000.0
+        }
+      ],
+      "tool_modes": [
+        {
+          "direction": "X",
+          "frequency_hz": 2126,
+          "zeta": 0.036,
+          "stiffness_n_m": 145000000.0
+        },
+        {
+          "direction": "Y",
+          "frequency_hz": 2134,
+          "zeta": 0.033,
+          "stiffness_n_m": 147000000.0
+        }
+      ],
+      "reported_points": [
+        {
+          "name": "A",
+          "rpm": 1500,
+          "depth_mm": 0.2,
+          "reported_label": "stable"
+        },
+        {
+          "name": "B",
+          "rpm": 1500,
+          "depth_mm": 0.6,
+          "reported_label": "chatter"
+        },
+        {
+          "name": "C",
+          "rpm": 2500,
+          "depth_mm": 0.4,
+          "reported_label": "stable"
+        },
+        {
+          "name": "D",
+          "rpm": 3000,
+          "depth_mm": 0.4,
+          "reported_label": "chatter"
+        }
+      ],
+      "pending": [
+        "Free height/clamp geometry, beyond total80mm dimension",
+        "Workpiece modal directions and normalization: mode1/mode2 cannot silently be assigned toX/Y",
+        "Cutting direction, force sign, helix and axial line-contact convention",
+        "Figure-based validation of each stated experimental regime; four points are a limited check, not a population dataset"
+      ]
+    },
+    {
+      "doi": "10.3390/eng7090487",
+      "url": "https://www.mdpi.com/2673-4117/7/9/487",
+      "role": "Recent novelty warning only; publisher abstract indexed, full evidence not audited",
+      "title": "Effects of Multi-Modality on the Dynamic Stability in Milling of Typical Thin-Walled Structural Components",
+      "implication": "Multimodality, material removal, tool-position dependence and nodal effects already appear in closely related work; not an established empty niche."
+    }
+  ],
+  "date": "2026-11-11",
+  "no_new_independent_cutting_experiment": true
+}

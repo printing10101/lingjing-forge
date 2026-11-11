@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-11",
+  "report_sha256": "5a6be43e9d880c2f1407cc735681d821b4b12e96b682d6d6c189782314823e8b",
+  "analysis_sha256": "8c510995599d8531e302d925eabc7ae714def9326062e8e16c17a36f2956ab09",
+  "scope": "Exploratory fixed-source parameter-identifiability diagnostic; no fitted model and no population accuracy",
+  "prototype_checks_passed": 76,
+  "new_modules_coverage_percent": 100,
+  "unresolved_threshold_cases": [
+    {
+      "original_row": 293,
+      "variant": "observed_frequency_static_compliance_0p75",
+      "final_steps": 1280,
+      "rho_final": 0.979062895515264,
+      "previous_radius": 0.9886814712965584
+    }
+  ],
+  "source_csv_unchanged": true
+}

@@ -1,0 +1,11 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "scope": "adaptive_exploratory_recheck",
+  "source_sha256": {
+    "spline_config.json": "9442aefcc82fd91911bddae8707e7b6f0f57de03e609a94ea13fab9c70663d77",
+    "spline_pilot.py": "2e86554d7b853e824b905305c21f2cf2a333493c4f33249d298b20a6d9d43c87",
+    "plate_spline.py": "323ff09f810906049edb3ae0dc87650afad0a7a78e8216064901cba781834ba2",
+    "plate.py": "3ee61327f903561ecf19420645bb00895accec10907fa20b24ef946eacc6ba18",
+    "mechanics.py": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1"
+  }
+}

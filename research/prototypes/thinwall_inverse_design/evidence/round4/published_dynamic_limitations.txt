@@ -1,0 +1,135 @@
+3.3. Experimental stability charts
+The predicted stability boundaries were veriﬁed
+experimentally by cutting tests conducted at a series of
+spindle speeds n and depths of cut ap. During each cut, a
+100 mm long straight path was machined. A stable cut
+was performed before each recorded cut in order to assure
+the same reference surface for all cuts. Stability of cutting
+was assessed based on the recorded tool deﬂections, sound
+emitted during cutting, and roughness of the machined
+surface. The experimental and predicted stability charts
+for up-milling with aeZD, 0.5D, 0.10D and 0.05D are
+compared in Fig. 7. The results for down-milling are
+qualitatively similar (not shown).
+For aeZD and 0.5D, the predicted and experimental
+stability boundaries agree very well. In both cases, a ﬂip
+bifurcation is found at nZ29 krpm, as predicted by the SD
+method. For aeZ0.5D, a slight increase of the experimental
+stability minima at higher spindle speeds is observed. Such a
+systematic increase of stability minima with spindle speed is
+observed also for lower radial immersions and for both
+milling directions. This phenomenon could be caused by a
+decrease of speciﬁc cutting force coefﬁcients at higher
+spindle speeds.
+For aeZ0.1D and 0.05D, the predictions and experiments
+agree only qualitatively, i.e. with respect to the structure of
+the stability boundary. Several ﬂip bifurcation lobes are
+found, all slightly below the predicted spindle speeds. Note
+that the ﬂip lobes at nZ17 and 28.5 krpm for aeZ0.1D and at
+nZ12and 17 krpm for aeZ0.05D appear to be bounded from
+above by the Hopf lobe. This indicates that the ﬂip lobes
+might indeed be closed curves as predicted. The largest
+quantitative discrepancies between the predicted and exper-
+imental stability boundaries are observed at the stability
+maxima, which are signiﬁcantly overestimated, while the
+stability minima are overestimated at low spindle speeds. It is
+presently not clear what causes these discrepancies. Possible
+reasons could be: (a) the variation of the radial immersion
+due to tool deﬂections and (b) the effect of the edge forces.
+The tool deﬂections during cutting affect the actual radial
+depth of cut ae. Depending on the phase of vibrations, the tool
+deﬂections may either add or subtract from the nominal ae,
+and thus either decrease or increase the actual stability
+boundary. The edge forces are caused by ploughing and
+rubbing of the tool [22] and are not accounted for in the
+simpliﬁed analytical model (Eq. (3)) used to predict the
+stability boundaries. According to the recent time domain
+simulations [7], the nonlinear effects of the edge forces may
+either decrease or increase the stability boundary.
+Comparison of all four experimental stability charts in
+Fig. 7 also reveals that the locations of stability maximum
+at nZ(ft/2)60z21 krpm and the ﬂip bifurcation lobe at
+nZ(2ft/3)60z29 krpm are shifted toward lower spindle
+speeds, nz20 and 27.5 krpm, respectively, as radial
+immersion is decreased. Such a shift could be explained
+by variation of the dominant eigen-frequency of the tool
+with spindle speed, which becomes more pronounced at
+low radial immersions. In order to verify this assumption,
+the tool response to the impulse excitation was measured
+by the laser optical sensors at a series of spindle speeds.
+Due to the limitations of the experimental setup, these
+FRFs could not be used directly for stability prediction,
+but they do illustrate the inﬂuence of spindle speed on
+modal properties of the tool. The experiments show that
+the frequency and compliance of the dominant vibration
+mode both decrease as spindle speed is increased. Fig. 8
+depicts the variation of the mode frequency ft for the
+spindle speed range considered. At its minimum at
+nZ23 krpm, ftz684 Hz is approximately 5% lower than
+ftz722 Hz at zero spindle speed. If ftZ684 Hz is used to
+calculate the location of the second ﬂip bifurcation lobe,
+nZ(2ft/3)60z27.4 krpm is obtained, which agrees very
+well with the location of the ﬂip lobe in the experimental
+stability chart for aeZ0.05D (bottom panel in Fig. 7).
+Fig. 7. Experimental and predicted stability boundaries for up-milling at
+various radial immersions. Circles—stable cutting, crosses—quasi-periodic
+chatter, diamonds—periodic chatter. Stability boundaries (lines): exper-
+imental (black), predicted by the SD (grey solid) and ZOA methods (grey
+dashed).
+J. Gradisˇek et al. / International Journal of Machine Tools & Manufacture 45 (2005) 769–781
+776
+
+Decrease of the mode compliance with the increasing
+spindle speed (not shown) could also explain the
+systematic increase of the experimental stability minima
+with spindle speed, which was observed experimentally
+for all ae.
+3.4. Tool motion in X–Y plane
+Three different types of tool motion corresponding to
+three cutting regimes were predicted by the SD method and
+observed experimentally: periodic chatter-free regime,
+quasi-periodic chatter and periodic chatter regimes.
+Typical examples of tool motion in X–Y plane for the
+three regimes are shown in Fig. 9, together with the
+stroboscopically sampled deﬂection in the feed (X)
+direction and the amplitude spectrum of X-deﬂection.
+Frequency of the stroboscope was set at the tooth passing
+frequency fTPZ1/TZNn, which is for a cutter with a single
+tooth (NZ1) equal to the spindle speed, fTPZn. For the
+two periodic cases, the noise-free trajectories of the tool
+motion are shown superimposed on the recorded trajec-
+tories, providing a detailed picture of the path followed by
+the tool. The noise-free trajectories were obtained by a
+nonlinear ﬁltering technique suitable for periodically
+forced processes [25]. All examples shown in Fig. 9 were
+taken from the up-milling cuts with aeZ0.05D.
+In chatter-free regime (top panels in Fig. 9), the tool
+oscillates periodically with the tooth passing frequency fTP
+which means that the tool motion repeats itself after each
+tooth pass. This is conﬁrmed by the stroboscopically
+sampled data points which are grouped in one compact
+cloud and their values remain approximately constant as
+cutting progresses (top panel B). The amplitude spectrum of
+the deﬂection contains peaks only at the multiples of fTP (top
+panel C). In quasi-periodic chatter regime (middle panels),
+the tool moves on a torus deﬁned by the tooth passing
+frequency fTP and the dominant eigen-frequency ft of the
+machine–tool system. The two frequencies usually have
+incommensurate values. The stroboscopically sampled data
+points form an ellipse and their values oscillate in time
+(middle panel B). Peaks in the deﬂection spectrum are found
+at the two frequencies, fTP and ft, at their sums and
+differences, and multiples thereof (middle panel C). Tool
+motion in periodic chatter regime (bottom panels) is also
+periodic, but with twice the tooth passing period, 2T (or half
+the tooth passing frequency fTP/2). This means that the tool
+Fig. 9. Recorded tool motion (grey lines) in X–Y plane, with strobo-
+scopically sampled data (dark dots) and the ﬁltered tool motion (black lines)
+superimposed (A). Stroboscopically sampled X-deﬂection vs. time (B).
+Amplitude spectra of X-deﬂection; the grey vertical lines denote multiples
+of fTP (C). Stable cutting (top), quasi-periodic chatter (middle), periodic
+chatter with period 2T (bottom); up-milling, aeZ0.05D (all).
+Fig. 8. Frequency of the dominant vibration mode of the rotating tool vs.
+spindle speed.
+J. Gradisˇek et al. / International Journal of Machine Tools & Manufacture 45 (2005) 769–781
+777

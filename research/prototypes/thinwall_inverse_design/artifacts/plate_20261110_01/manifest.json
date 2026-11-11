@@ -1,0 +1,14 @@
+{
+  "created_utc": "2026-11-10T14:00:20.562165+00:00",
+  "source_sha256": {
+    "plate.py": "3ee61327f903561ecf19420645bb00895accec10907fa20b24ef946eacc6ba18",
+    "plate_pilot.py": "563c4264d9978f8d6446cfd1f96fa9f5006b71968544ed8ba4e3757bb66a6d55",
+    "plate_config.json": "a3e337c35dd58c28315c9715e1504983f056485202012e0291ab76e374a68a09",
+    "mechanics.py": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1"
+  },
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.5.3",
+  "scipy": "1.17.1",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "status": "exploratory_no_physical_validation"
+}

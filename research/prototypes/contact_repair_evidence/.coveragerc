@@ -1,0 +1,4 @@
+[run]
+source = verification,repair,cad_adapter,experiment,analyze_bounds,envelope_solver,envelope_policy,envelope_experiment,coupling_probe
+[report]
+fail_under = 80

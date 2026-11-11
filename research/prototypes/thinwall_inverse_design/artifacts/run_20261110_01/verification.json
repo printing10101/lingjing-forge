@@ -1,0 +1,1601 @@
+{
+  "elapsed_seconds": 24.92199999999866,
+  "numerical_convergence": [
+    {
+      "design": "uniform",
+      "elements": 12,
+      "modes": 4,
+      "tip_compliance_m_n": 0.00018285714285738407,
+      "first_frequency_hz": 257.0381578024274,
+      "averaged_6750_boundary_mm": 0.013222052904170051
+    },
+    {
+      "design": "uniform",
+      "elements": 24,
+      "modes": 4,
+      "tip_compliance_m_n": 0.00018285714285837086,
+      "first_frequency_hz": 257.0380592883204,
+      "averaged_6750_boundary_mm": 0.013222063756195786
+    },
+    {
+      "design": "uniform",
+      "elements": 48,
+      "modes": 4,
+      "tip_compliance_m_n": 0.00018285714289450783,
+      "first_frequency_hz": 257.0380617577112,
+      "averaged_6750_boundary_mm": 0.01322206322800073
+    },
+    {
+      "design": "uniform",
+      "elements": 48,
+      "modes": 2,
+      "averaged_6750_boundary_mm": 0.013178833635821416
+    },
+    {
+      "design": "uniform",
+      "elements": 48,
+      "modes": 4,
+      "averaged_6750_boundary_mm": 0.01322206322800073
+    },
+    {
+      "design": "uniform",
+      "elements": 48,
+      "modes": 6,
+      "averaged_6750_boundary_mm": 0.013226791738962004
+    },
+    {
+      "design": "static_best_on_grid",
+      "elements": 12,
+      "modes": 4,
+      "tip_compliance_m_n": 0.0001246461994204252,
+      "first_frequency_hz": 431.3119388095072,
+      "averaged_6750_boundary_mm": 0.002290230792056711
+    },
+    {
+      "design": "static_best_on_grid",
+      "elements": 24,
+      "modes": 4,
+      "tip_compliance_m_n": 0.0001246461994205182,
+      "first_frequency_hz": 431.3108841001806,
+      "averaged_6750_boundary_mm": 0.002290122841473907
+    },
+    {
+      "design": "static_best_on_grid",
+      "elements": 48,
+      "modes": 4,
+      "tip_compliance_m_n": 0.00012464619942345926,
+      "first_frequency_hz": 431.31082154643275,
+      "averaged_6750_boundary_mm": 0.0022901165101578383
+    },
+    {
+      "design": "static_best_on_grid",
+      "elements": 48,
+      "modes": 2,
+      "averaged_6750_boundary_mm": 0.0022896405539562597
+    },
+    {
+      "design": "static_best_on_grid",
+      "elements": 48,
+      "modes": 4,
+      "averaged_6750_boundary_mm": 0.0022901165101578383
+    },
+    {
+      "design": "static_best_on_grid",
+      "elements": 48,
+      "modes": 6,
+      "averaged_6750_boundary_mm": 0.0022901698605762555
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "elements": 12,
+      "modes": 4,
+      "tip_compliance_m_n": 0.0001246461994204252,
+      "first_frequency_hz": 431.3119388095072,
+      "averaged_6750_boundary_mm": 0.002290230792056711
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "elements": 24,
+      "modes": 4,
+      "tip_compliance_m_n": 0.0001246461994205182,
+      "first_frequency_hz": 431.3108841001806,
+      "averaged_6750_boundary_mm": 0.002290122841473907
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "elements": 48,
+      "modes": 4,
+      "tip_compliance_m_n": 0.00012464619942345926,
+      "first_frequency_hz": 431.31082154643275,
+      "averaged_6750_boundary_mm": 0.0022901165101578383
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "elements": 48,
+      "modes": 2,
+      "averaged_6750_boundary_mm": 0.0022896405539562597
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "elements": 48,
+      "modes": 4,
+      "averaged_6750_boundary_mm": 0.0022901165101578383
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "elements": 48,
+      "modes": 6,
+      "averaged_6750_boundary_mm": 0.0022901698605762555
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "elements": 12,
+      "modes": 4,
+      "tip_compliance_m_n": 0.00012691859458127886,
+      "first_frequency_hz": 403.9951055015118,
+      "averaged_6750_boundary_mm": 0.0011560881645288528
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "elements": 24,
+      "modes": 4,
+      "tip_compliance_m_n": 0.00012691859458108506,
+      "first_frequency_hz": 403.99429362029036,
+      "averaged_6750_boundary_mm": 0.0011560830321731268
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "elements": 48,
+      "modes": 4,
+      "tip_compliance_m_n": 0.0001269185945819955,
+      "first_frequency_hz": 403.99425099927777,
+      "averaged_6750_boundary_mm": 0.0011560828472599184
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "elements": 48,
+      "modes": 2,
+      "averaged_6750_boundary_mm": 0.0011556413432577592
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "elements": 48,
+      "modes": 4,
+      "averaged_6750_boundary_mm": 0.0011560828472599184
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "elements": 48,
+      "modes": 6,
+      "averaged_6750_boundary_mm": 0.0011561354036606394
+    }
+  ],
+  "off_grid_sensitivity": [
+    {
+      "design": "uniform",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.03512100497013634
+    },
+    {
+      "design": "uniform",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.05358666752090629
+    },
+    {
+      "design": "uniform",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.0014764031117564043
+    },
+    {
+      "design": "uniform",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.012266939792994645
+    },
+    {
+      "design": "uniform",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.018573646376365632
+    },
+    {
+      "design": "uniform",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.0005229885036771622
+    },
+    {
+      "design": "uniform",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.008513660844428797
+    },
+    {
+      "design": "uniform",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.012973147261908968
+    },
+    {
+      "design": "uniform",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.00035873441309797877
+    },
+    {
+      "design": "uniform",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.03587045057699179
+    },
+    {
+      "design": "uniform",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.054622672003033064
+    },
+    {
+      "design": "uniform",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.002980990505215348
+    },
+    {
+      "design": "uniform",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.012521406593450272
+    },
+    {
+      "design": "uniform",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.018916891918055775
+    },
+    {
+      "design": "uniform",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.0010554993291989083
+    },
+    {
+      "design": "uniform",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.00869447655066409
+    },
+    {
+      "design": "uniform",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.013222063228000716
+    },
+    {
+      "design": "uniform",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.0007242646610009337
+    },
+    {
+      "design": "uniform",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.03743982835146791
+    },
+    {
+      "design": "uniform",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.05673250305517921
+    },
+    {
+      "design": "uniform",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.006076920695647379
+    },
+    {
+      "design": "uniform",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.01305425746913951
+    },
+    {
+      "design": "uniform",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.019615414046271554
+    },
+    {
+      "design": "uniform",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.002149818589303576
+    },
+    {
+      "design": "uniform",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.009073110095478194
+    },
+    {
+      "design": "uniform",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.01372891472264934
+    },
+    {
+      "design": "uniform",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.0014762418738116438
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.010683201474934382
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.007008771309933805
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.05265645725548419
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.0027639052219336486
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0018272062909235024
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.01329040251239021
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.001693931997791768
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0011123259620860143
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.008324092621714548
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.014371625354462451
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.01443144898528039
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.05643535367993194
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.00370718627340827
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0037592026584699467
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.014186365144210206
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.0022779610256098027
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.002290116510157384
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.008916884714802571
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.02072210543806159
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.030549022088483903
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.06362157074449275
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.005321344488184505
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.007939487963349897
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.01587782967809692
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.003282756993643586
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.004846494081971665
+    },
+    {
+      "design": "static_best_on_grid",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.010043083425883084
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.010683201474934382
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.007008771309933805
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.05265645725548419
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.0027639052219336486
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0018272062909235024
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.01329040251239021
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.001693931997791768
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0011123259620860143
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.008324092621714548
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.014371625354462451
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.01443144898528039
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.05643535367993194
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.00370718627340827
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0037592026584699467
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.014186365144210206
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.0022779610256098027
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.002290116510157384
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.008916884714802571
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.02072210543806159
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.030549022088483903
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.06362157074449275
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.005321344488184505
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.007939487963349897
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.01587782967809692
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.003282756993643586
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.004846494081971665
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.010043083425883084
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.0260881184166196
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0029305958481533655
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.06789054656159622
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.007875402539210607
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0008940337150301147
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.020136528200466988
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.0050891803260253955
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0005674559838846074
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.005,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.01341390068271396
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.02796502478353939
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.005967120120595578
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.07039106779859206
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.008430704604737067
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0018189043401955392
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.02083618925910082
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.005460567715920813
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0011560828472599184
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.01,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.01392901008542993
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.031744170166435555
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.012377856623001653
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.625,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.07536877503817793
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.009547089815234153
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.0037669128372336733
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 0.875,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.02222488618811351
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 3750,
+      "averaged_boundary_mm": 0.006209216816087914
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 6750,
+      "averaged_boundary_mm": 0.00240085985677762
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "damping": 0.02,
+      "contact": 1.0,
+      "rpm": 9750,
+      "averaged_boundary_mm": 0.014956926190418215
+    }
+  ],
+  "periodic_boundaries": [
+    {
+      "design": "uniform",
+      "rpm": 3750,
+      "steps": 40,
+      "boundary_mm": 0.009224069670146424
+    },
+    {
+      "design": "uniform",
+      "rpm": 3750,
+      "steps": 80,
+      "boundary_mm": 0.008971103813724367
+    },
+    {
+      "design": "uniform",
+      "rpm": 3750,
+      "steps": 160,
+      "boundary_mm": 0.008994357350795163
+    },
+    {
+      "design": "uniform",
+      "rpm": 6750,
+      "steps": 40,
+      "boundary_mm": 0.01312523079795732
+    },
+    {
+      "design": "uniform",
+      "rpm": 6750,
+      "steps": 80,
+      "boundary_mm": 0.013053038608554451
+    },
+    {
+      "design": "uniform",
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_mm": 0.013061664797271184
+    },
+    {
+      "design": "uniform",
+      "rpm": 9750,
+      "steps": 40,
+      "boundary_mm": 0.0007495255312938421
+    },
+    {
+      "design": "uniform",
+      "rpm": 9750,
+      "steps": 80,
+      "boundary_mm": 0.0007416194042426796
+    },
+    {
+      "design": "uniform",
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_mm": 0.0007379836038853061
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 3750,
+      "steps": 40,
+      "boundary_mm": 0.0019874295252849993
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 3750,
+      "steps": 80,
+      "boundary_mm": 0.0021741875149166863
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 3750,
+      "steps": 160,
+      "boundary_mm": 0.0022862534984559235
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 6750,
+      "steps": 40,
+      "boundary_mm": 0.0032134972107938434
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 6750,
+      "steps": 80,
+      "boundary_mm": 0.002674854638539542
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_mm": 0.0024749844321809494
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 9750,
+      "steps": 40,
+      "boundary_mm": 0.007553387513383995
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 9750,
+      "steps": 80,
+      "boundary_mm": 0.007604051409487359
+    },
+    {
+      "design": "static_best_on_grid",
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_mm": 0.007652521172793773
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 40,
+      "boundary_mm": 0.0019874295252849993
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 80,
+      "boundary_mm": 0.0021741875149166863
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 160,
+      "boundary_mm": 0.0022862534984559235
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 40,
+      "boundary_mm": 0.0032134972107938434
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 80,
+      "boundary_mm": 0.002674854638539542
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_mm": 0.0024749844321809494
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 40,
+      "boundary_mm": 0.007553387513383995
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 80,
+      "boundary_mm": 0.007604051409487359
+    },
+    {
+      "design": "worst_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_mm": 0.007652521172793773
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 40,
+      "boundary_mm": 0.005020816656705811
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 80,
+      "boundary_mm": 0.0056055463884016245
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 3750,
+      "steps": 160,
+      "boundary_mm": 0.005833307138666528
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 40,
+      "boundary_mm": 0.0012488803282503767
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 80,
+      "boundary_mm": 0.0012063974784438125
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 6750,
+      "steps": 160,
+      "boundary_mm": 0.0011887209048145446
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 40,
+      "boundary_mm": 0.013299714557572364
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 80,
+      "boundary_mm": 0.013300960729357655
+    },
+    {
+      "design": "mean_boundary_best_on_grid",
+      "rpm": 9750,
+      "steps": 160,
+      "boundary_mm": 0.01334127637407544
+    }
+  ],
+  "time_domain_checks": [
+    {
+      "design": "uniform",
+      "modes": 1,
+      "rpm": 6750,
+      "boundary_ratio": 0.75,
+      "depth_mm": 0.009304442177464244,
+      "floquet_radius": 0.6451845327841457,
+      "rk4_log_growth_per_tooth": -0.4643290401582314,
+      "consistent_growth_sign": true,
+      "amplitude_by_tooth_m": [
+        9.993562034386262e-07,
+        8.281638746426769e-07,
+        5.963415944781799e-07,
+        3.897327335634075e-07,
+        2.9120680312088496e-07,
+        1.272700195066584e-07,
+        1.0127934037544753e-07,
+        6.17712092406705e-08,
+        2.6127624373177865e-08,
+        2.3255266432306602e-08,
+        1.050406909316886e-08,
+        9.11559866844463e-09,
+        4.674214728072903e-09,
+        3.488497024067642e-09,
+        1.7055029638349711e-09,
+        1.0879291177065501e-09,
+        7.507584259689344e-10,
+        4.1201709228154136e-10,
+        2.5683363225551253e-10,
+        1.524142195687389e-10,
+        9.9922390418997e-11,
+        7.40507489516577e-11,
+        4.604058241540514e-11,
+        3.026994434879491e-11,
+        1.5811104380396723e-11,
+        9.6247139314463e-12,
+        7.0438408859887565e-12,
+        3.778606057823371e-12,
+        2.356929253922223e-12,
+        1.4626171028895035e-12,
+        1.05158636526878e-12,
+        6.96605862196321e-13,
+        4.4178982183269305e-13,
+        2.6355445921455677e-13,
+        1.4789589348569785e-13,
+        1.0128515824029142e-13,
+        6.168395079322894e-14,
+        3.4725956282553205e-14,
+        2.2371213157358893e-14,
+        1.511240160357901e-14,
+        1.056501751726995e-14,
+        6.669304376428708e-15,
+        4.125040079879345e-15,
+        2.2709937388533303e-15,
+        1.4939084439776534e-15,
+        9.81325956067527e-16,
+        5.328855966952451e-16,
+        3.3314861406107606e-16,
+        2.2500092154242806e-16,
+        1.5497683825934655e-16,
+        1.0320045735494317e-16,
+        6.291371374932194e-17,
+        3.69717507816199e-17,
+        2.2606249107929698e-17,
+        1.457896877943562e-17,
+        8.779926711520642e-18,
+        4.933227400816156e-18,
+        3.33879863684984e-18,
+        2.286650685352571e-18,
+        1.554976103670811e-18,
+        9.795958108149278e-19,
+        5.783365296163738e-19,
+        3.294857251896373e-19,
+        2.2454011398095374e-19,
+        1.366232944241656e-19,
+        7.637049487140875e-20,
+        4.872338717341716e-20,
+        3.402252299419319e-20,
+        2.301128574678566e-20,
+        1.511656462666787e-20,
+        9.00231396260261e-21,
+        5.1107011310865346e-21,
+        3.372840336580197e-21,
+        2.138358298630869e-21,
+        1.2215895658545214e-21,
+        7.3388738156287e-22,
+        5.034504703635303e-22,
+        3.4726866746625073e-22,
+        2.2983741846214315e-22,
+        1.4292282421996206e-22,
+        8.270374882440728e-23,
+        5.130308166273978e-23,
+        3.307981353333362e-23,
+        1.980866271698726e-23,
+        1.1281759261531451e-23,
+        7.494559386113927e-24,
+        5.268775024308323e-24,
+        3.4851269634506884e-24,
+        2.251865350897436e-24,
+        1.296896571598071e-24,
+        7.399745318651086e-25,
+        5.239502070137968e-25,
+        3.0527552313336833e-25,
+        1.7834810531464718e-25,
+        1.1193640364057711e-25,
+        7.750396639648936e-26,
+        5.375619253766965e-26,
+        3.3781389751171766e-26,
+        2.0891574584274498e-26,
+        1.1377738839536462e-26
+      ]
+    },
+    {
+      "design": "uniform",
+      "modes": 1,
+      "rpm": 6750,
+      "boundary_ratio": 1.25,
+      "depth_mm": 0.015507403629107071,
+      "floquet_radius": 1.2783421610575383,
+      "rk4_log_growth_per_tooth": 0.22434904277698722,
+      "consistent_growth_sign": true,
+      "amplitude_by_tooth_m": [
+        1.0005977035483065e-06,
+        1.1360287520761882e-06,
+        9.797367545736785e-07,
+        1.4891259301115736e-06,
+        1.5102516955407138e-06,
+        2.1056548235362334e-06,
+        2.416696977607587e-06,
+        3.1505923275363135e-06,
+        3.820645073465991e-06,
+        4.8546311742767315e-06,
+        6.007708101627375e-06,
+        7.559770538110661e-06,
+        9.427063385912677e-06,
+        1.1823137537139807e-05,
+        1.4783662878154447e-05,
+        1.8493306569596885e-05,
+        2.3163743077258482e-05,
+        2.9002175653205642e-05,
+        3.6311258153894744e-05,
+        4.5402411676936115e-05,
+        5.680628570048357e-05,
+        7.117012861286504e-05,
+        8.909378213868426e-05,
+        0.00011156509266256789,
+        0.00013948522736455924,
+        0.00017479522370046678,
+        0.00021881873001822877,
+        0.00027400940755036886,
+        0.00034311185380757526,
+        0.00042963553818151735,
+        0.0005380030579103648,
+        0.0006736852144434617,
+        0.0008436092345673123,
+        0.0010563781245880263,
+        0.0013228258892635874,
+        0.001653995257165755,
+        0.0020727470336564533,
+        0.002594834537863996,
+        0.003249356878853939,
+        0.004068837505891977,
+        0.005094927480551946,
+        0.006380042617046758,
+        0.007989088239387626,
+        0.009989244620870596,
+        0.012518161738349496,
+        0.015647825218614266,
+        0.019580222285156216,
+        0.024493344577448534,
+        0.03063920300346335,
+        0.03838588597370669,
+        0.04805137076209941,
+        0.06016919382998642,
+        0.07533939610659043,
+        0.09419684730154554,
+        0.11786549223246406,
+        0.1474405783982918,
+        0.18444156647179058,
+        0.23107097245749847,
+        0.28882433191138746,
+        0.36193427537707656,
+        0.45306630015089755,
+        0.567322263189592,
+        0.7103867974964823,
+        0.8895126000315686,
+        1.112206131825836,
+        1.3916548330363863,
+        1.7435212942522937,
+        2.1794019850324466,
+        2.7270502378191197,
+        3.4163406265843026,
+        4.2767860296953035,
+        5.347334790818716,
+        6.690605099573975,
+        8.381971015287146,
+        10.493137406939098,
+        13.119717642800362,
+        16.415581684776384,
+        20.53433168125173,
+        25.687276876108733,
+        32.13248832777801,
+        40.2548431408132,
+        50.31603982802949,
+        63.05134628654416,
+        78.92733444530784,
+        98.83067755259935,
+        123.56811524819041,
+        154.61061135586073,
+        193.41036958865564,
+        242.3069967628782,
+        302.8811141504419,
+        379.54271505184255,
+        474.40535816508606,
+        594.4906419028964,
+        743.0911636210759,
+        931.1808420139504,
+        1163.95736928085,
+        1458.5679279427645,
+        1825.935094393885,
+        2286.350805944298,
+        2863.003411930609
+      ]
+    },
+    {
+      "design": "static_best_on_grid",
+      "modes": 1,
+      "rpm": 6750,
+      "boundary_ratio": 0.75,
+      "depth_mm": 0.0018494546308527161,
+      "floquet_radius": 0.9749179396803034,
+      "rk4_log_growth_per_tooth": -0.019775999241913034,
+      "consistent_growth_sign": true,
+      "amplitude_by_tooth_m": [
+        9.981879107679444e-07,
+        9.446110596265276e-07,
+        9.257761174027521e-07,
+        9.011358165253728e-07,
+        8.862663466902266e-07,
+        8.680539126397661e-07,
+        8.509793795198412e-07,
+        8.368702116940905e-07,
+        8.223204081124959e-07,
+        8.017743743769676e-07,
+        7.865857687148242e-07,
+        7.70653486298988e-07,
+        7.551410060565784e-07,
+        7.421137773723563e-07,
+        7.296777553918877e-07,
+        7.13453829862101e-07,
+        6.980516796152533e-07,
+        6.847147567159543e-07,
+        6.701867543131573e-07,
+        6.581990957008465e-07,
+        6.47769468945492e-07,
+        6.344789870708092e-07,
+        6.187670752351119e-07,
+        6.079624052706118e-07,
+        5.952674447444298e-07,
+        5.836675939899157e-07,
+        5.744428332716999e-07,
+        5.638914441531335e-07,
+        5.490538748148397e-07,
+        5.394593067529542e-07,
+        5.285726335302645e-07,
+        5.179912997001249e-07,
+        5.091671066390994e-07,
+        5.005580137276347e-07,
+        4.886787172695677e-07,
+        4.787680459784666e-07,
+        4.6944152928705464e-07,
+        4.597809647379623e-07,
+        4.51709695209467e-07,
+        4.443510129482696e-07,
+        4.346825353664109e-07,
+        4.2472581270363437e-07,
+        4.1693204337216496e-07,
+        4.0812805084323984e-07,
+        4.00498456792128e-07,
+        3.9422474908944526e-07,
+        3.8666071813804335e-07,
+        3.7644224663102144e-07,
+        3.7034512774552095e-07,
+        3.628322538945646e-07,
+        3.556296819001202e-07,
+        3.497756841171878e-07,
+        3.4366732623803367e-07,
+        3.351812155432853e-07,
+        3.2882157099399134e-07,
+        3.223162903515593e-07,
+        3.158763249583919e-07,
+        3.104237086011782e-07,
+        3.05244675928418e-07,
+        2.98387141553222e-07,
+        2.9194819715049863e-07,
+        2.86355274724198e-07,
+        2.8029863564030795e-07,
+        2.7528919171754395e-07,
+        2.709174142876608e-07,
+        2.6541448670115557e-07,
+        2.5887891637001246e-07,
+        2.543445156247259e-07,
+        2.4909834718728445e-07,
+        2.4423585337875095e-07,
+        2.4040178457898436e-07,
+        2.360236775018068e-07,
+        2.2989111571249478e-07,
+        2.2589985662736621e-07,
+        2.2133049561386329e-07,
+        2.1689210231090528e-07,
+        2.1319288575709277e-07,
+        2.0964197097898826e-07,
+        2.0472916904266223e-07,
+        2.005709448635544e-07,
+        1.9665377349852358e-07,
+        1.9262950265046664e-07,
+        1.8924915290940882e-07,
+        1.8615791161699647e-07,
+        1.8210657690623642e-07,
+        1.7794891462945886e-07,
+        1.7474153489960497e-07,
+        1.7109356926007772e-07,
+        1.6791118263026319e-07,
+        1.6527511860152315e-07,
+        1.6205577192242465e-07,
+        1.5779029574782273e-07,
+        1.5522771862554829e-07,
+        1.5202431050490673e-07,
+        1.4902387526705675e-07,
+        1.4658595491263886e-07,
+        1.4402065434050823e-07,
+        1.4040367771781244e-07,
+        1.37743162443221e-07,
+        1.3498071993345249e-07
+      ]
+    },
+    {
+      "design": "static_best_on_grid",
+      "modes": 1,
+      "rpm": 6750,
+      "boundary_ratio": 1.25,
+      "depth_mm": 0.0030824243847545267,
+      "floquet_radius": 1.0228129885335573,
+      "rk4_log_growth_per_tooth": 0.030520723326273223,
+      "consistent_growth_sign": true,
+      "amplitude_by_tooth_m": [
+        1.0149739445398827e-06,
+        9.976598403812694e-07,
+        1.0337929366539388e-06,
+        1.0628193846508506e-06,
+        1.0801330771328767e-06,
+        1.112433977197926e-06,
+        1.148159125250709e-06,
+        1.1888365780251229e-06,
+        1.2360329235197672e-06,
+        1.2798146097059788e-06,
+        1.309933647175828e-06,
+        1.3335898061405352e-06,
+        1.3768781665394834e-06,
+        1.4216555871698943e-06,
+        1.474833292269916e-06,
+        1.533207980541754e-06,
+        1.5818369930596066e-06,
+        1.611779465002915e-06,
+        1.6516702066861707e-06,
+        1.703822389369106e-06,
+        1.7619668302102272e-06,
+        1.8308041363449392e-06,
+        1.9003698682285998e-06,
+        1.9514730347717754e-06,
+        1.9824410001024164e-06,
+        2.0452114974921092e-06,
+        2.110025879771378e-06,
+        2.1859868686280878e-06,
+        2.2737832850280334e-06,
+        2.352462864123047e-06,
+        2.4042356474760728e-06,
+        2.451887483070849e-06,
+        2.5300922861889145e-06,
+        2.613612598688736e-06,
+        2.7131769019472303e-06,
+        2.820485990304242e-06,
+        2.9057449959127693e-06,
+        2.9572523142922197e-06,
+        3.035582852414447e-06,
+        3.131734216233198e-06,
+        3.240475151677184e-06,
+        3.3688011594499777e-06,
+        3.4934494871494055e-06,
+        3.5838516425824184e-06,
+        3.638104345062385e-06,
+        3.758139948829243e-06,
+        3.8808882427489845e-06,
+        4.022945497667662e-06,
+        4.1840304037207034e-06,
+        4.323368894056015e-06,
+        4.4144582403583694e-06,
+        4.507393604977722e-06,
+        4.6531291756484885e-06,
+        4.808609617670723e-06,
+        4.993375073192283e-06,
+        5.187659352700351e-06,
+        5.339592044876467e-06,
+        5.432860683035602e-06,
+        5.584697193044666e-06,
+        5.7649125799076065e-06,
+        5.966986399058696e-06,
+        6.2040061665815524e-06,
+        6.426760272307912e-06,
+        6.585369300501833e-06,
+        6.692752536372656e-06,
+        6.9178091479582385e-06,
+        7.143746174012215e-06,
+        7.407760780806408e-06,
+        7.7021559175486e-06,
+        7.951347725546037e-06,
+        8.113039767150458e-06,
+        8.298502025106008e-06,
+        8.56696737830698e-06,
+        8.856763312199367e-06,
+        9.200182393022743e-06,
+        9.551062713914759e-06,
+        9.827712606314224e-06,
+        9.99407503919424e-06,
+        1.029083841163005e-05,
+        1.0620973343780156e-05,
+        1.0997721984479278e-05,
+        1.1435375189826943e-05,
+        1.1842015768504583e-05,
+        1.212078300977443e-05,
+        1.2338988484630889e-05,
+        1.2739272272401224e-05,
+        1.3156312455893403e-05,
+        1.36476533574806e-05,
+        1.4188277503799164e-05,
+        1.4644267695116993e-05,
+        1.4921597337320549e-05,
+        1.52892933848536e-05,
+        1.577797815937366e-05,
+        1.6313268280610903e-05,
+        1.695283481237248e-05,
+        1.7600759950139192e-05,
+        1.8074715504951925e-05,
+        1.8349268741973814e-05,
+        1.8931315402233118e-05,
+        1.95307242767179e-05
+      ]
+    }
+  ],
+  "physical_external_validation": "NOT PERFORMED",
+  "new_contribution_established": false
+}

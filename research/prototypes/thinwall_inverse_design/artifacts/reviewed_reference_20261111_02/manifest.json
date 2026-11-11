@@ -1,0 +1,56 @@
+{
+  "source_csv_sha256": "cc830a9d65eb4be10196f76149c29ec9585910912200537be13e7cbb3ebf3863",
+  "review_sha256": "7be79380f557a24e8b82d99a13472d812e406a40839096be3a2b0b51a6e18254",
+  "review_revision": 2,
+  "raster_sha256": "1528e82e0ea89d848bacf92917c222156b5a255c248f025883aaa67c92e5b08a",
+  "source_total_rows": 516,
+  "reviewed_rows": 32,
+  "exported_rows": 25,
+  "excluded": [
+    {
+      "row": 4,
+      "label": "ambiguous",
+      "reason": "Peak overlaps the black boundary vertex; cannot distinguish an experimental cross from the curve node."
+    },
+    {
+      "row": 11,
+      "label": "ambiguous",
+      "reason": "symbol intersects black boundary line"
+    },
+    {
+      "row": 25,
+      "label": "boundary",
+      "reason": "filled square lies on black boundary curve"
+    },
+    {
+      "row": 74,
+      "label": "ambiguous",
+      "reason": "peak marker obscured by black and green curves"
+    },
+    {
+      "row": 89,
+      "label": "ambiguous",
+      "reason": "boundary marker and adjacent ring overlap"
+    },
+    {
+      "row": 90,
+      "label": "boundary",
+      "reason": "filled square on sloping black curve"
+    },
+    {
+      "row": 97,
+      "label": "ambiguous",
+      "reason": "Green curve overlaps the black marker; cannot reliably distinguish ring from cross."
+    }
+  ],
+  "definite_label_changes": 1,
+  "label_counts": {
+    "chatter": 9,
+    "stable": 16
+  },
+  "reference_status": "visually_reviewed_single_rater_subset",
+  "full_set_experimental_accuracy_supported": false,
+  "source_doi": "10.1016/j.ijmachtools.2004.11.015",
+  "limitations": "Stratified32-row audit, ambiguous/boundary markers excluded; same assistant rater, some prior exposure. No independent redigitization or population accuracy claim.",
+  "export_csv_sha256": "e8679e786d38b477184f95eea282d9ccd6a79cfec5756513b657b6f3d2c669fe"
+}

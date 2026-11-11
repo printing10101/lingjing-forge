@@ -1,0 +1,34 @@
+{
+  "configurations": 20,
+  "runs": 60,
+  "by_policy": {
+    "fixed": {
+      "verified": 8,
+      "representation_unresolved": 8,
+      "displacement_budget_conflict": 2,
+      "protected_point_conflict": 2
+    },
+    "uniform": {
+      "verified": 16,
+      "displacement_budget_conflict": 2,
+      "protected_point_conflict": 2
+    },
+    "targeted": {
+      "verified": 16,
+      "displacement_budget_conflict": 2,
+      "protected_point_conflict": 2
+    }
+  },
+  "sparse_sampling_ablation": {
+    "sample_count": 9,
+    "fit_available": true,
+    "independent_continuous_check": {
+      "status": "fail",
+      "boxes": 4,
+      "witness_x": 2.75,
+      "witness_rational": "11/4"
+    }
+  },
+  "step_exported": true,
+  "caveat": "One synthetic quartic family; no neural network, ANSYS or complete machining validation; no patent novelty established."
+}

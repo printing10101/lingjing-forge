@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-11-10T13:42:09.881215+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "D:\\灵境制造\\research\\.venv\\Scripts\\python.exe",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "numpy": "2.5.3",
+  "scipy": "1.17.1",
+  "matplotlib": "3.10.0",
+  "source_sha256": {
+    "mechanics.py": "5135a2ae75d603dde5aeaf8c3e7add25942a6c4234af63ddeab5bf1f87b835b1",
+    "pilot.py": "01400a89543b595240018624bc60683fe483af96e1f64781b23c59421dcfd943",
+    "pilot_config.json": "265e89d0abf8202d6cb7a2716b2ff085baf9f3813eae0824b74ff27725b3358c"
+  },
+  "scope": "illustrative simulation only; not experimental or novel contribution evidence"
+}
