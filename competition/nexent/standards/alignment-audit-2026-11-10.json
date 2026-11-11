@@ -1,0 +1,140 @@
+{
+  "as_of": "2026-11-10",
+  "verified_at": "2026-11-10",
+  "verification_source": "全国标准信息公共服务平台 std.samr.gov.cn / openstd.samr.gov.cn（公开元数据）",
+  "counts": {
+    "total": 6,
+    "usable": 3,
+    "blocked": 1,
+    "gaps": 2,
+    "clause_level_unverified": 4
+  },
+  "results": [
+    {
+      "rule_id": "R-TERM-01",
+      "rule_name": "切削速度、进给量的术语与计量口径",
+      "spec_ref": "docs/user-guide/工艺规范-铣削加工.md#1",
+      "alignment": "direct",
+      "topic": "terminology",
+      "as_of": "2026-11-10",
+      "usable": true,
+      "state": "current",
+      "standard": {
+        "code": "GB/T 12204-2010",
+        "title": "金属切削 基本术语",
+        "status_declared": "current",
+        "status_as_of": "current",
+        "effective": "2011-03-01",
+        "replaced_by": null,
+        "url": "https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=18859EB3791D97BDE693C255E4D43670",
+        "scope_summary": "规定了金属切削用基本术语和定义、部分术语的符号；适用于金属切削专业中正式出版发行的标准和书刊。"
+      },
+      "clause_ref": null,
+      "clause_level": "unverified",
+      "may_claim_compliance": false,
+      "message": "全文未获取，条款号待补；当前只能引用标准适用范围，不得声称符合具体条款"
+    },
+    {
+      "rule_id": "R-SAFE-01",
+      "rule_name": "数控机床运行安全防护（防护罩、急停、联锁）",
+      "spec_ref": "docs/user-guide/工艺规范-铣削加工.md#5",
+      "alignment": "direct",
+      "topic": "safety",
+      "as_of": "2026-11-10",
+      "usable": true,
+      "state": "current",
+      "standard": {
+        "code": "GB 15760-2025",
+        "title": "金属切削机床 安全防护通用技术规范",
+        "status_declared": "current",
+        "status_as_of": "current",
+        "effective": "2026-08-01",
+        "replaced_by": null,
+        "url": "https://std.samr.gov.cn/gb/search/gbDetailed?id=Cnm32%2FETj8E%3D&mode=p",
+        "scope_summary": "金属切削机床安全防护的通用技术规范；全部代替 8 项旧标准（含 GB 15760-2004）。"
+      },
+      "clause_ref": null,
+      "clause_level": "unverified",
+      "may_claim_compliance": false,
+      "message": "全文未获取；本标准为强制性国标，2026-08-01 起实施"
+    },
+    {
+      "rule_id": "R-SAFE-02",
+      "rule_name": "历史文档中沿用的机床安全防护条款",
+      "spec_ref": "docs/user-guide/工艺规范-铣削加工.md#5",
+      "alignment": "direct",
+      "topic": "safety",
+      "as_of": "2026-11-10",
+      "usable": false,
+      "state": "repealed",
+      "standard": {
+        "code": "GB 15760-2004",
+        "title": "金属切削机床 安全防护通用技术条件",
+        "status_declared": "repealed",
+        "status_as_of": "repealed",
+        "effective": "2005-07-01",
+        "replaced_by": "GB 15760-2025",
+        "url": "https://std.samr.gov.cn/search/stdPage?q=15760&tid=",
+        "scope_summary": "已被 GB 15760-2025 全部代替；2026-08-01 起不再有效。"
+      },
+      "clause_ref": null,
+      "clause_level": "unverified",
+      "may_claim_compliance": false,
+      "message": "GB 15760-2004 已废止，由 GB 15760-2025 代替；不得作为现行依据引用"
+    },
+    {
+      "rule_id": "R-SURF-01",
+      "rule_name": "精加工表面粗糙度判据与数值系列",
+      "spec_ref": "docs/user-guide/工艺规范-铣削加工.md#1",
+      "alignment": "direct",
+      "topic": "surface_texture",
+      "as_of": "2026-11-10",
+      "usable": true,
+      "state": "current",
+      "standard": {
+        "code": "GB/T 1031-2009",
+        "title": "产品几何技术规范(GPS) 表面结构 轮廓法 表面粗糙度参数及其数值",
+        "status_declared": "current",
+        "status_as_of": "current",
+        "effective": "2009-11-01",
+        "replaced_by": null,
+        "url": "https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=66E973C5E04B389708207C2F28DE6A1F",
+        "scope_summary": "规定了评定表面粗糙度参数及其数值系列，以及规定表面粗糙度时的一般规则；适用于工业制品表面粗糙度评定。"
+      },
+      "clause_ref": null,
+      "clause_level": "unverified",
+      "may_claim_compliance": false,
+      "message": "全文未获取；标准规定 Ra 等参数系列，本项目当前只用数值区间，未做条款级引用"
+    },
+    {
+      "rule_id": "R-CHATTER-01",
+      "rule_name": "颤振安全域判据（切深比 < 1.0）",
+      "spec_ref": "docs/user-guide/工艺规范-铣削加工.md#2",
+      "alignment": "none",
+      "topic": "stability",
+      "as_of": "2026-11-10",
+      "usable": false,
+      "state": "gap",
+      "standard": null,
+      "clause_ref": null,
+      "clause_level": "n/a",
+      "may_claim_compliance": false,
+      "message": "无直接对应的国家标准判据；切深比阈值来自本项目叶瓣图解析模型与企业规范，不得包装成『符合国标』"
+    },
+    {
+      "rule_id": "R-KIN-01",
+      "rule_name": "NC 程序级运动学校验（K001–K009）",
+      "spec_ref": "docs/user-guide/工艺规范-铣削加工.md#4",
+      "alignment": "none",
+      "topic": "verification",
+      "as_of": "2026-11-10",
+      "usable": false,
+      "state": "gap",
+      "standard": null,
+      "clause_ref": null,
+      "clause_level": "n/a",
+      "may_claim_compliance": false,
+      "message": "K 码是本项目自定义校验编号，不是国标条款号；对外表述必须区分"
+    }
+  ]
+}

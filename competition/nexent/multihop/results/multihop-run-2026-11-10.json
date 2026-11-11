@@ -1,0 +1,1018 @@
+{
+  "generated_at": "2026-11-10",
+  "tasks_file": "competition/nexent/multihop/tasks.json",
+  "task_count": 6,
+  "passed": 6,
+  "sources_unavailable": {},
+  "reports": [
+    {
+      "id": "MH-01",
+      "question": "45#钢，HSS 麻花钻，钻 φ8 深 40mm 的通孔，能否直接给出参数并生成 NC？",
+      "hops": [
+        {
+          "source": "cutting_params",
+          "op": "param_lookup",
+          "locators": [
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_hss_drill"
+          ],
+          "payload": [
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_hss_drill",
+              "material_name": "45#钢",
+              "tool_series": "twist_drill",
+              "tool_material": "HSS",
+              "speed_mpm": [
+                20,
+                30
+              ],
+              "feed_mmpr": [
+                0.1,
+                0.2
+              ],
+              "source": "repo_seed_v1"
+            }
+          ]
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "locators": [
+            "docs/user-guide/工艺规范-铣削加工.md#L9-L18"
+          ],
+          "payload": [
+            {
+              "locator": "docs/user-guide/工艺规范-铣削加工.md#L9-L18",
+              "clause": "1. 切削参数选择原则",
+              "matched_keywords": [
+                "优先查库",
+                "区间语义"
+              ],
+              "excerpt": "1. 优先查库：切参推荐先查切参数据库（材料 × 刀具系列 × 刀具材料），命中则取区间中庸值起步，按仿真反馈微调。",
+              "text": "## 1. 切削参数选择原则\n\n对应模块：`app/data/cutting_parameters.json`、`app/process_planning/`\n\n1. 优先查库：切参推荐先查切参数据库（材料 × 刀具系列 × 刀具材料），命中则取区间中庸值起步，按仿真反馈微调。\n2. 区间语义：库内速度/进给均为常用推荐区间（非最优点），保守工况取区间下限 1/3 处，高效粗加工可取 2/3 处，精加工取下限附近。\n3. 溯源纪律：每条参数带 `source` 字段（handbook_common_range / repo_seed_v1）。若推荐值无库内出处，必须声明\"保守推荐，建议试切\"（与 B5 决策智能体口径一致）。\n4. 材料类别差异：钛合金/不锈钢按\"低速度-低进给-充分冷却\"；铝合金按\"高速度-大进给\"；铸铁注意陶瓷刀具仅适用车削类工序。\n5. 镍基合金（Inconel 718 等）：进给取 superalloy 类区间（防止加工硬化），速度取区间下限，避免停刀滞留。\n"
+            }
+          ]
+        },
+        {
+          "source": "candidates",
+          "op": "candidate_lookup",
+          "locators": [
+            "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#507addfd69d9",
+            "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#7ea9183699d7",
+            "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#ef253f7d0f98"
+          ],
+          "payload": [
+            {
+              "locator": "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#507addfd69d9",
+              "candidate_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+              "material": "dormer_amg_1_3",
+              "tool": "Dormer Pramet R10A HSS",
+              "conditions": {
+                "hardness": "<24 HRC",
+                "diameter_mm": 7.9375
+              },
+              "parameters": {
+                "feed_per_revolution_mm": 0.16002,
+                "feed_min_mm_per_rev": 0.120015,
+                "feed_max_mm_per_rev": 0.200025
+              },
+              "review_status": "unreviewed",
+              "eligible_for_recommendation": false,
+              "unresolved": [
+                "cutting_speed_unit",
+                "material_grade_equivalence",
+                "machining_review"
+              ]
+            },
+            {
+              "locator": "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#7ea9183699d7",
+              "candidate_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+              "material": "dormer_amg_1_4",
+              "tool": "Dormer Pramet R10A HSS",
+              "conditions": {
+                "hardness": "<24 HRC",
+                "diameter_mm": 7.9375
+              },
+              "parameters": {
+                "feed_per_revolution_mm": 0.13716,
+                "feed_min_mm_per_rev": 0.10287,
+                "feed_max_mm_per_rev": 0.17145
+              },
+              "review_status": "unreviewed",
+              "eligible_for_recommendation": false,
+              "unresolved": [
+                "cutting_speed_unit",
+                "material_grade_equivalence",
+                "machining_review"
+              ]
+            },
+            {
+              "locator": "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#ef253f7d0f98",
+              "candidate_id": "ef253f7d0f986072b6f206c18f7b4af1b82af79d64e48d0a2774750e4b9c4913",
+              "material": "dormer_amg_2_2",
+              "tool": "Dormer Pramet R10A HSS",
+              "conditions": {
+                "hardness": "<24 HRC",
+                "diameter_mm": 7.9375
+              },
+              "parameters": {
+                "feed_per_revolution_mm": 0.16002,
+                "feed_min_mm_per_rev": 0.120015,
+                "feed_max_mm_per_rev": 0.200025
+              },
+              "review_status": "unreviewed",
+              "eligible_for_recommendation": false,
+              "unresolved": [
+                "cutting_speed_unit",
+                "material_grade_equivalence",
+                "machining_review"
+              ]
+            }
+          ]
+        }
+      ],
+      "derivation": {
+        "flags": [
+          "params_are_range_not_optimum",
+          "exceeds_candidate_scope"
+        ],
+        "detail": {
+          "ld_ratio": 5.0,
+          "candidate_scope_limit": 4.0,
+          "reason": "深径比 5.00 > 候选适用上限 4.0"
+        },
+        "verdict": "可给参考区间但不得套用厂商候选值；深孔需降进给并分段排屑，物理校验后再谈上机"
+      },
+      "checks": {
+        "passed": true,
+        "failures": [],
+        "sources_used": [
+          "candidates",
+          "cutting_params",
+          "spec"
+        ],
+        "flags": [
+          "exceeds_candidate_scope",
+          "params_are_range_not_optimum"
+        ]
+      }
+    },
+    {
+      "id": "MH-02",
+      "question": "本件轴向切深 2.0mm，叶瓣图极限切深 1.6mm，能否放行生成 G 代码？",
+      "hops": [
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "locators": [
+            "docs/user-guide/工艺规范-铣削加工.md#L19-L27"
+          ],
+          "payload": [
+            {
+              "locator": "docs/user-guide/工艺规范-铣削加工.md#L19-L27",
+              "clause": "2. 颤振安全域",
+              "matched_keywords": [
+                "切深比",
+                "不稳定域"
+              ],
+              "excerpt": "1. 单一判据：以 `axial_depth_mm / limit_depth_mm`（切深比）为核心——< 1.0 为稳定域，≥ 1.0 为不稳定域，一律不得放行不稳定特征直接生成 G 代码。",
+              "text": "## 2. 颤振安全域\n\n对应模块：`app/simulation/chatter/`（叶瓣图 + LNN 时序预测）、ChatterReport 契约\n\n1. 单一判据：以 `axial_depth_mm / limit_depth_mm`（切深比）为核心——< 1.0 为稳定域，≥ 1.0 为不稳定域，一律不得放行不稳定特征直接生成 G 代码。\n2. 裕度分级：`stability_margin ≥ 0.15` 正常加工；`0.02 ~ 0.15` 为低裕度边缘案例（需在决策中标注风险等级\"中\"）；`< 0.02` 视同临界，建议降切深一档。\n3. 预测方法声明：`method=analytical`（Kienzle/T-lusty 解析解）时结论为解析近似；`ltc_active=true`（LNN）时才可宣称模型预测。二者不得混称。\n4. 不稳定域行为：超限特征触发 `UNSTABLE_FEATURES` 失败（case 库实证：216 例），正确响应是降切深/降切宽重规划，不是绕过校验。\n"
+            }
+          ]
+        },
+        {
+          "source": "cases",
+          "op": "case_dist",
+          "locators": [
+            "engineering/python/data/failure_cases.db#rows=216"
+          ],
+          "payload": {
+            "locator": "engineering/python/data/failure_cases.db#rows=216",
+            "row_count": 216,
+            "distinct_cases": 216,
+            "error_code_distribution": {
+              "UNSTABLE_FEATURES": 216
+            },
+            "unstable_features_sum": 216,
+            "sample_case_ids": [
+              "fc_c3b71a73-9018-4553-a494-1c85188e1e88",
+              "fc_653db9a1-426c-4b2e-b245-6a0aa55cfc12",
+              "fc_9b36ee41-4a1d-4543-bc40-e5887396633e"
+            ]
+          }
+        }
+      ],
+      "derivation": {
+        "flags": [
+          "unstable_domain",
+          "must_replan_not_bypass"
+        ],
+        "detail": {
+          "depth_ratio": 1.25,
+          "threshold": 1.0,
+          "reason": "切深比 1.25 ≥ 1.0，落在不稳定域",
+          "unstable_feature_cases_in_library": 216
+        },
+        "verdict": "不可直接生成 NC，需按下列理由重规划或补条件"
+      },
+      "checks": {
+        "passed": true,
+        "failures": [],
+        "sources_used": [
+          "cases",
+          "spec"
+        ],
+        "flags": [
+          "must_replan_not_bypass",
+          "unstable_domain"
+        ]
+      }
+    },
+    {
+      "id": "MH-03",
+      "question": "上个月 45#钢 的失败集中在什么原因？下一步该怎么改参数？",
+      "hops": [
+        {
+          "source": "cases",
+          "op": "case_dist",
+          "locators": [
+            "engineering/python/data/failure_cases.db#rows=54"
+          ],
+          "payload": {
+            "locator": "engineering/python/data/failure_cases.db#rows=54",
+            "row_count": 54,
+            "distinct_cases": 54,
+            "error_code_distribution": {
+              "UNSTABLE_FEATURES": 48,
+              "ChatterReportLoadError": 6
+            },
+            "unstable_features_sum": 48,
+            "sample_case_ids": [
+              "fc_c3b71a73-9018-4553-a494-1c85188e1e88",
+              "fc_653db9a1-426c-4b2e-b245-6a0aa55cfc12",
+              "fc_9b36ee41-4a1d-4543-bc40-e5887396633e"
+            ]
+          }
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "locators": [
+            "docs/user-guide/工艺规范-铣削加工.md#L19-L27"
+          ],
+          "payload": [
+            {
+              "locator": "docs/user-guide/工艺规范-铣削加工.md#L19-L27",
+              "clause": "2. 颤振安全域",
+              "matched_keywords": [
+                "不稳定域行为",
+                "裕度分级"
+              ],
+              "excerpt": "2. 裕度分级：`stability_margin ≥ 0.15` 正常加工；`0.02 ~ 0.15` 为低裕度边缘案例（需在决策中标注风险等级\"中\"）；`< 0.02` 视同临界，建议降切深一档。",
+              "text": "## 2. 颤振安全域\n\n对应模块：`app/simulation/chatter/`（叶瓣图 + LNN 时序预测）、ChatterReport 契约\n\n1. 单一判据：以 `axial_depth_mm / limit_depth_mm`（切深比）为核心——< 1.0 为稳定域，≥ 1.0 为不稳定域，一律不得放行不稳定特征直接生成 G 代码。\n2. 裕度分级：`stability_margin ≥ 0.15` 正常加工；`0.02 ~ 0.15` 为低裕度边缘案例（需在决策中标注风险等级\"中\"）；`< 0.02` 视同临界，建议降切深一档。\n3. 预测方法声明：`method=analytical`（Kienzle/T-lusty 解析解）时结论为解析近似；`ltc_active=true`（LNN）时才可宣称模型预测。二者不得混称。\n4. 不稳定域行为：超限特征触发 `UNSTABLE_FEATURES` 失败（case 库实证：216 例），正确响应是降切深/降切宽重规划，不是绕过校验。\n"
+            }
+          ]
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "locators": [
+            "docs/user-guide/工艺规范-铣削加工.md#L65-L75"
+          ],
+          "payload": [
+            {
+              "locator": "docs/user-guide/工艺规范-铣削加工.md#L65-L75",
+              "clause": "7. 数据口径（答辩/汇报引用规范）",
+              "matched_keywords": [
+                "数据口径"
+              ],
+              "excerpt": "## 7. 数据口径（答辩/汇报引用规范）",
+              "text": "## 7. 数据口径（答辩/汇报引用规范）\n\n1. 切参数据库：609 条（2026-10-14，三路来源带溯源；uniwear 派生路因无工况列未启用）。\n2. 失败案例库：641 行（success 419 / failure 222；unstable_features 216 + pipeline_exception 6），one_pass_rate 0.6537；B/C 轴含同参数复跑案例，统计计入分母（口径披露见 I1 §2）。\n3. 切削力模型：v1 合成 R²=0.998 / v2 真实数据口径 B R²=0.542（信息论上限 0.411，已如实标注）——引用 v2 指标时必须带口径说明。\n4. 磨损预测：uniwear 真实数据 R²=0.823 / MAPE=15.23%。\n5. 本文档数值与仓库实现冲突时，以仓库代码 + manifest 为准；更新本文需同步知识库重灌。\n\n---\n\n*本文为 Nexent 知识库 `lingjing_machining_kb` 的\"工艺规范\"类灌入源文档（I1 §5 B4 缺口项）。*"
+            }
+          ]
+        }
+      ],
+      "derivation": {
+        "flags": [
+          "dominant_error_is_unstable_features",
+          "remedy_is_reduce_depth"
+        ],
+        "detail": {
+          "distribution": {
+            "UNSTABLE_FEATURES": 48,
+            "ChatterReportLoadError": 6
+          },
+          "unstable_features_sum": 48,
+          "dominant_code": "UNSTABLE_FEATURES"
+        },
+        "verdict": "主因是不稳定特征触发；下一步降切深/降切宽重规划，不是调高转速去试"
+      },
+      "checks": {
+        "passed": true,
+        "failures": [],
+        "sources_used": [
+          "cases",
+          "spec"
+        ],
+        "flags": [
+          "dominant_error_is_unstable_features",
+          "remedy_is_reduce_depth"
+        ]
+      }
+    },
+    {
+      "id": "MH-04",
+      "question": "能不能把 Dormer R10A 的进给值直接写进 45#钢 的正式知识库？",
+      "hops": [
+        {
+          "source": "candidates",
+          "op": "candidate_lookup",
+          "locators": [
+            "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#507addfd69d9",
+            "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#7ea9183699d7",
+            "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#ef253f7d0f98"
+          ],
+          "payload": [
+            {
+              "locator": "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#507addfd69d9",
+              "candidate_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+              "material": "dormer_amg_1_3",
+              "tool": "Dormer Pramet R10A HSS",
+              "conditions": {
+                "hardness": "<24 HRC",
+                "diameter_mm": 7.9375
+              },
+              "parameters": {
+                "feed_per_revolution_mm": 0.16002,
+                "feed_min_mm_per_rev": 0.120015,
+                "feed_max_mm_per_rev": 0.200025
+              },
+              "review_status": "unreviewed",
+              "eligible_for_recommendation": false,
+              "unresolved": [
+                "cutting_speed_unit",
+                "material_grade_equivalence",
+                "machining_review"
+              ]
+            },
+            {
+              "locator": "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#7ea9183699d7",
+              "candidate_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+              "material": "dormer_amg_1_4",
+              "tool": "Dormer Pramet R10A HSS",
+              "conditions": {
+                "hardness": "<24 HRC",
+                "diameter_mm": 7.9375
+              },
+              "parameters": {
+                "feed_per_revolution_mm": 0.13716,
+                "feed_min_mm_per_rev": 0.10287,
+                "feed_max_mm_per_rev": 0.17145
+              },
+              "review_status": "unreviewed",
+              "eligible_for_recommendation": false,
+              "unresolved": [
+                "cutting_speed_unit",
+                "material_grade_equivalence",
+                "machining_review"
+              ]
+            },
+            {
+              "locator": "competition/nexent/knowledge-candidates/dormer-drill-candidates.json#ef253f7d0f98",
+              "candidate_id": "ef253f7d0f986072b6f206c18f7b4af1b82af79d64e48d0a2774750e4b9c4913",
+              "material": "dormer_amg_2_2",
+              "tool": "Dormer Pramet R10A HSS",
+              "conditions": {
+                "hardness": "<24 HRC",
+                "diameter_mm": 7.9375
+              },
+              "parameters": {
+                "feed_per_revolution_mm": 0.16002,
+                "feed_min_mm_per_rev": 0.120015,
+                "feed_max_mm_per_rev": 0.200025
+              },
+              "review_status": "unreviewed",
+              "eligible_for_recommendation": false,
+              "unresolved": [
+                "cutting_speed_unit",
+                "material_grade_equivalence",
+                "machining_review"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "cutting_params",
+          "op": "param_lookup",
+          "locators": [
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_hss_drill",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_endmill",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_ballnose_5axis",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_HSS_endmill",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_HSS_ball_nose",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_HSS_taper_ball",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_HSS_turning_tool",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_HSS_boring_bar",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_twist_drill",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_taper_ball",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_turning_tool",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_boring_bar",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_twist_drill",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_endmill",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_ball_nose",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_taper_ball",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_turning_tool",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_boring_bar",
+            "engineering/python/app/data/cutting_parameters.json#param_45steel_ceramic_turning_tool"
+          ],
+          "payload": [
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_hss_drill",
+              "material_name": "45#钢",
+              "tool_series": "twist_drill",
+              "tool_material": "HSS",
+              "speed_mpm": [
+                20,
+                30
+              ],
+              "feed_mmpr": [
+                0.1,
+                0.2
+              ],
+              "source": "repo_seed_v1"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_endmill",
+              "material_name": "45#钢",
+              "tool_series": "endmill",
+              "tool_material": "carbide",
+              "speed_mpm": [
+                80,
+                120
+              ],
+              "feed_mmpr": [
+                0.05,
+                0.1
+              ],
+              "source": "repo_seed_v1"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_ballnose_5axis",
+              "material_name": "45#钢",
+              "tool_series": "ball_nose",
+              "tool_material": "carbide",
+              "speed_mpm": [
+                80,
+                120
+              ],
+              "feed_mmpr": [
+                0.03,
+                0.08
+              ],
+              "source": "repo_seed_v1"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_HSS_endmill",
+              "material_name": "45#钢",
+              "tool_series": "endmill",
+              "tool_material": "HSS",
+              "speed_mpm": [
+                20,
+                30
+              ],
+              "feed_mmpr": [
+                0.05,
+                0.12
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_HSS_ball_nose",
+              "material_name": "45#钢",
+              "tool_series": "ball_nose",
+              "tool_material": "HSS",
+              "speed_mpm": [
+                20,
+                30
+              ],
+              "feed_mmpr": [
+                0.03,
+                0.08
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_HSS_taper_ball",
+              "material_name": "45#钢",
+              "tool_series": "taper_ball",
+              "tool_material": "HSS",
+              "speed_mpm": [
+                20,
+                30
+              ],
+              "feed_mmpr": [
+                0.03,
+                0.08
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_HSS_turning_tool",
+              "material_name": "45#钢",
+              "tool_series": "turning_tool",
+              "tool_material": "HSS",
+              "speed_mpm": [
+                20,
+                30
+              ],
+              "feed_mmpr": [
+                0.15,
+                0.35
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_HSS_boring_bar",
+              "material_name": "45#钢",
+              "tool_series": "boring_bar",
+              "tool_material": "HSS",
+              "speed_mpm": [
+                20,
+                30
+              ],
+              "feed_mmpr": [
+                0.06,
+                0.18
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_twist_drill",
+              "material_name": "45#钢",
+              "tool_series": "twist_drill",
+              "tool_material": "carbide",
+              "speed_mpm": [
+                80,
+                120
+              ],
+              "feed_mmpr": [
+                0.12,
+                0.25
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_taper_ball",
+              "material_name": "45#钢",
+              "tool_series": "taper_ball",
+              "tool_material": "carbide",
+              "speed_mpm": [
+                80,
+                120
+              ],
+              "feed_mmpr": [
+                0.03,
+                0.08
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_turning_tool",
+              "material_name": "45#钢",
+              "tool_series": "turning_tool",
+              "tool_material": "carbide",
+              "speed_mpm": [
+                80,
+                120
+              ],
+              "feed_mmpr": [
+                0.15,
+                0.35
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_carbide_boring_bar",
+              "material_name": "45#钢",
+              "tool_series": "boring_bar",
+              "tool_material": "carbide",
+              "speed_mpm": [
+                80,
+                120
+              ],
+              "feed_mmpr": [
+                0.06,
+                0.18
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_twist_drill",
+              "material_name": "45#钢",
+              "tool_series": "twist_drill",
+              "tool_material": "coated_carbide",
+              "speed_mpm": [
+                120,
+                180
+              ],
+              "feed_mmpr": [
+                0.12,
+                0.25
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_endmill",
+              "material_name": "45#钢",
+              "tool_series": "endmill",
+              "tool_material": "coated_carbide",
+              "speed_mpm": [
+                120,
+                180
+              ],
+              "feed_mmpr": [
+                0.05,
+                0.12
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_ball_nose",
+              "material_name": "45#钢",
+              "tool_series": "ball_nose",
+              "tool_material": "coated_carbide",
+              "speed_mpm": [
+                120,
+                180
+              ],
+              "feed_mmpr": [
+                0.03,
+                0.08
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_taper_ball",
+              "material_name": "45#钢",
+              "tool_series": "taper_ball",
+              "tool_material": "coated_carbide",
+              "speed_mpm": [
+                120,
+                180
+              ],
+              "feed_mmpr": [
+                0.03,
+                0.08
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_turning_tool",
+              "material_name": "45#钢",
+              "tool_series": "turning_tool",
+              "tool_material": "coated_carbide",
+              "speed_mpm": [
+                120,
+                180
+              ],
+              "feed_mmpr": [
+                0.15,
+                0.35
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_coated_carbide_boring_bar",
+              "material_name": "45#钢",
+              "tool_series": "boring_bar",
+              "tool_material": "coated_carbide",
+              "speed_mpm": [
+                120,
+                180
+              ],
+              "feed_mmpr": [
+                0.06,
+                0.18
+              ],
+              "source": "handbook_common_range"
+            },
+            {
+              "locator": "engineering/python/app/data/cutting_parameters.json#param_45steel_ceramic_turning_tool",
+              "material_name": "45#钢",
+              "tool_series": "turning_tool",
+              "tool_material": "ceramic",
+              "speed_mpm": [
+                200,
+                350
+              ],
+              "feed_mmpr": [
+                0.15,
+                0.35
+              ],
+              "source": "handbook_common_range"
+            }
+          ]
+        },
+        {
+          "source": "ontology",
+          "op": "ontology_registry",
+          "locators": [
+            "data/ontology/ontology.sqlite#proposals=4"
+          ],
+          "payload": {
+            "locator": "data/ontology/ontology.sqlite#proposals=4",
+            "approved": [],
+            "pending_count": 4,
+            "pending_sample": [
+              "property_key:feed_max_mm_per_rev",
+              "property_key:feed_min_mm_per_rev",
+              "property_key:feed_per_revolution_mm",
+              "property_key:hardness"
+            ]
+          }
+        }
+      ],
+      "derivation": {
+        "flags": [
+          "material_group_mismatch",
+          "candidate_pending_no_approval"
+        ],
+        "detail": {
+          "candidate_count": 3,
+          "candidate_materials": [
+            "dormer_amg_1_3",
+            "dormer_amg_1_4",
+            "dormer_amg_2_2"
+          ],
+          "pending": true,
+          "approval_eligible": false,
+          "material_note": "候选材料组为 dormer_amg_1_3，目标为 material_45steel，不得互推牌号"
+        },
+        "verdict": "不得写入正式知识库：候选待审、材料组不对应、适用条件受限"
+      },
+      "checks": {
+        "passed": true,
+        "failures": [],
+        "sources_used": [
+          "candidates",
+          "cutting_params",
+          "ontology"
+        ],
+        "flags": [
+          "candidate_pending_no_approval",
+          "material_group_mismatch"
+        ]
+      }
+    },
+    {
+      "id": "MH-05",
+      "question": "NC 下发前必须通过哪些校验？哪些失败是硬闸、哪些只是建议？",
+      "hops": [
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "locators": [
+            "docs/user-guide/工艺规范-铣削加工.md#L28-L35"
+          ],
+          "payload": [
+            {
+              "locator": "docs/user-guide/工艺规范-铣削加工.md#L28-L35",
+              "clause": "3. 参数越界处理（clamp 语义）",
+              "matched_keywords": [
+                "参数越界处理",
+                "clamp"
+              ],
+              "excerpt": "## 3. 参数越界处理（clamp 语义）",
+              "text": "## 3. 参数越界处理（clamp 语义）\n\n对应模块：G 代码生成参数校验（B 轴 48 例实证）\n\n1. 进给/转速越界时产品行为是 L1 clamp 建议（warning）而非拒绝：越界值被夹到安全边界并附带建议说明。\n2. 极端值（0 进给、负进给、99000 m/min）同样被 clamp 兜住，不产生危险 NC 输出。\n3. 决策链路引用 clamp 后值时，须在依据中注明\"原值越界，已按 L1 建议收紧\"。\n"
+            }
+          ]
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "locators": [
+            "docs/user-guide/工艺规范-铣削加工.md#L36-L48"
+          ],
+          "payload": [
+            {
+              "locator": "docs/user-guide/工艺规范-铣削加工.md#L36-L48",
+              "clause": "4. 程序级运动学校验（DNC 闸门）",
+              "matched_keywords": [
+                "运动学校验",
+                "K009"
+              ],
+              "excerpt": "## 4. 程序级运动学校验（DNC 闸门）",
+              "text": "## 4. 程序级运动学校验（DNC 闸门）\n\n对应模块：`app/simulation/kinematics/`（K001–K009）\n\nNC 代码下发前必须通过运动学校验，任一失败即阻断 DNC：\n\n| 码 | 校验项 |\n|---|---|\n| K001–K003 | 3 轴行程极限（X/Y/Z） |\n| K004–K006 | 主轴转速 / 进给 / 快移上限 |\n| K007–K008 | 扎刀（快速移动碰撞）/ 装刀干涉 |\n| K009 | 程序级综合校验 |\n"
+            }
+          ]
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "locators": [
+            "docs/user-guide/工艺规范-铣削加工.md#L49-L56"
+          ],
+          "payload": [
+            {
+              "locator": "docs/user-guide/工艺规范-铣削加工.md#L49-L56",
+              "clause": "5. 体素仿真强制校验 + DNC 硬闸",
+              "matched_keywords": [
+                "体素仿真强制校验"
+              ],
+              "excerpt": "## 5. 体素仿真强制校验 + DNC 硬闸",
+              "text": "## 5. 体素仿真强制校验 + DNC 硬闸\n\n对应模块：`app/cam_validation/`、Rust compute-core 体素切削\n\n1. 所有 AI 产出的 NC 代码必经体素仿真强制校验才可上机（产品叙事硬承诺，无例外通道）。\n2. DNC 下发为硬闸兜底：校验未通过的任务在下发层直接拒绝。\n3. 校验结果入案例库（`failure_cases.db`）：失败带 `source` 分类（unstable_features / pipeline_exception），成功仅记计数要素。\n"
+            }
+          ]
+        },
+        {
+          "source": "cases",
+          "op": "case_dist",
+          "locators": [
+            "engineering/python/data/failure_cases.db#rows=6"
+          ],
+          "payload": {
+            "locator": "engineering/python/data/failure_cases.db#rows=6",
+            "row_count": 6,
+            "distinct_cases": 6,
+            "error_code_distribution": {
+              "ChatterReportLoadError": 6
+            },
+            "unstable_features_sum": 0,
+            "sample_case_ids": [
+              "fc_6df6d07b-8545-4aed-9eb6-55c447d2ac12",
+              "fc_4b2be589-cec7-40e4-8166-0db8d76178b1",
+              "fc_c1e8aa15-46e2-4dd6-aedd-45667af596a9"
+            ]
+          }
+        }
+      ],
+      "derivation": {
+        "flags": [
+          "clamp_is_warning_not_gate",
+          "voxel_and_kinematics_are_hard_gates"
+        ],
+        "detail": {
+          "clauses_used": [
+            "3. 参数越界处理（clamp 语义）",
+            "4. 程序级运动学校验（DNC 闸门）",
+            "5. 体素仿真强制校验 + DNC 硬闸"
+          ],
+          "pipeline_exception_cases": 6
+        },
+        "verdict": "越界只产生 clamp 建议；体素仿真与运动学校验是硬闸，任一失败阻断下发"
+      },
+      "checks": {
+        "passed": true,
+        "failures": [],
+        "sources_used": [
+          "cases",
+          "spec"
+        ],
+        "flags": [
+          "clamp_is_warning_not_gate",
+          "voxel_and_kinematics_are_hard_gates"
+        ]
+      }
+    },
+    {
+      "id": "MH-06",
+      "question": "工艺规范第 5 章的机床安全防护要求，能否引用 GB 15760-2004？能否写『符合第 X 条』？",
+      "hops": [
+        {
+          "source": "standards",
+          "op": "standard_resolve",
+          "locators": [
+            "competition/nexent/standards/rule_map.json#R-SAFE-01@2026-11-10",
+            "competition/nexent/standards/rule_map.json#R-SAFE-02@2026-11-10",
+            "competition/nexent/standards/rule_map.json#R-CHATTER-01@2026-11-10"
+          ],
+          "payload": [
+            {
+              "rule_id": "R-SAFE-01",
+              "rule_name": "数控机床运行安全防护（防护罩、急停、联锁）",
+              "spec_ref": "docs/user-guide/工艺规范-铣削加工.md#5",
+              "alignment": "direct",
+              "topic": "safety",
+              "as_of": "2026-11-10",
+              "usable": true,
+              "state": "current",
+              "standard": {
+                "code": "GB 15760-2025",
+                "title": "金属切削机床 安全防护通用技术规范",
+                "status_declared": "current",
+                "status_as_of": "current",
+                "effective": "2026-08-01",
+                "replaced_by": null,
+                "url": "https://std.samr.gov.cn/gb/search/gbDetailed?id=Cnm32%2FETj8E%3D&mode=p",
+                "scope_summary": "金属切削机床安全防护的通用技术规范；全部代替 8 项旧标准（含 GB 15760-2004）。"
+              },
+              "clause_ref": null,
+              "clause_level": "unverified",
+              "may_claim_compliance": false,
+              "message": "全文未获取；本标准为强制性国标，2026-08-01 起实施",
+              "locator": "competition/nexent/standards/rule_map.json#R-SAFE-01@2026-11-10"
+            },
+            {
+              "rule_id": "R-SAFE-02",
+              "rule_name": "历史文档中沿用的机床安全防护条款",
+              "spec_ref": "docs/user-guide/工艺规范-铣削加工.md#5",
+              "alignment": "direct",
+              "topic": "safety",
+              "as_of": "2026-11-10",
+              "usable": false,
+              "state": "repealed",
+              "standard": {
+                "code": "GB 15760-2004",
+                "title": "金属切削机床 安全防护通用技术条件",
+                "status_declared": "repealed",
+                "status_as_of": "repealed",
+                "effective": "2005-07-01",
+                "replaced_by": "GB 15760-2025",
+                "url": "https://std.samr.gov.cn/search/stdPage?q=15760&tid=",
+                "scope_summary": "已被 GB 15760-2025 全部代替；2026-08-01 起不再有效。"
+              },
+              "clause_ref": null,
+              "clause_level": "unverified",
+              "may_claim_compliance": false,
+              "message": "GB 15760-2004 已废止，由 GB 15760-2025 代替；不得作为现行依据引用",
+              "locator": "competition/nexent/standards/rule_map.json#R-SAFE-02@2026-11-10"
+            },
+            {
+              "rule_id": "R-CHATTER-01",
+              "rule_name": "颤振安全域判据（切深比 < 1.0）",
+              "spec_ref": "docs/user-guide/工艺规范-铣削加工.md#2",
+              "alignment": "none",
+              "topic": "stability",
+              "as_of": "2026-11-10",
+              "usable": false,
+              "state": "gap",
+              "standard": null,
+              "clause_ref": null,
+              "clause_level": "n/a",
+              "may_claim_compliance": false,
+              "message": "无直接对应的国家标准判据；切深比阈值来自本项目叶瓣图解析模型与企业规范，不得包装成『符合国标』",
+              "locator": "competition/nexent/standards/rule_map.json#R-CHATTER-01@2026-11-10"
+            }
+          ]
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "locators": [
+            "docs/user-guide/工艺规范-铣削加工.md#L49-L56"
+          ],
+          "payload": [
+            {
+              "locator": "docs/user-guide/工艺规范-铣削加工.md#L49-L56",
+              "clause": "5. 体素仿真强制校验 + DNC 硬闸",
+              "matched_keywords": [
+                "体素仿真强制校验"
+              ],
+              "excerpt": "## 5. 体素仿真强制校验 + DNC 硬闸",
+              "text": "## 5. 体素仿真强制校验 + DNC 硬闸\n\n对应模块：`app/cam_validation/`、Rust compute-core 体素切削\n\n1. 所有 AI 产出的 NC 代码必经体素仿真强制校验才可上机（产品叙事硬承诺，无例外通道）。\n2. DNC 下发为硬闸兜底：校验未通过的任务在下发层直接拒绝。\n3. 校验结果入案例库（`failure_cases.db`）：失败带 `source` 分类（unstable_features / pipeline_exception），成功仅记计数要素。\n"
+            }
+          ]
+        }
+      ],
+      "derivation": {
+        "flags": [
+          "repealed_reference_blocked",
+          "gap_recorded",
+          "clause_claim_forbidden"
+        ],
+        "detail": {
+          "states": {
+            "R-SAFE-01": "current",
+            "R-SAFE-02": "repealed",
+            "R-CHATTER-01": "gap"
+          },
+          "clause_levels": {
+            "R-SAFE-01": "unverified",
+            "R-SAFE-02": "unverified",
+            "R-CHATTER-01": "n/a"
+          },
+          "may_claim_compliance": {
+            "R-SAFE-01": false,
+            "R-SAFE-02": false,
+            "R-CHATTER-01": false
+          },
+          "repealed_note": "废止标准引用必须拦截并改引替代标准",
+          "gap_note": "无直接国标的规则记为缺口，不得硬凑映射"
+        },
+        "verdict": "不得引用已废止的 GB 15760-2004，改引 GB 15760-2025；全文未取得，只能写主题对齐，不得写符合某条款"
+      },
+      "checks": {
+        "passed": true,
+        "failures": [],
+        "sources_used": [
+          "spec",
+          "standards"
+        ],
+        "flags": [
+          "clause_claim_forbidden",
+          "gap_recorded",
+          "repealed_reference_blocked"
+        ]
+      }
+    }
+  ]
+}

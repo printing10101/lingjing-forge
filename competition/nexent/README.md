@@ -55,3 +55,123 @@ I16 补充了三条厂商候选的材料分组、进给选表规则、R10A规格
 这些技能可以由同一智能体按任务阶段选择，当前没有新增“技能调用技能”的工具或验证嵌套执行。
 赛题中的知识构建、完整检索推理双驱动、动态本体和校验反馈写入仍需进一步实现与联运。
 打包与本地 Nexent SDK 解析记录见 `docs/paper_and_competition/I8-validation/skills-package.json`。
+## I20 本体扩展提案（2026-11-10）
+
+补上赛题任务要求②中"本体支持概念、关系、属性扩展"这一环。此前只有固定本体
+（Material / Tool / Feature / Process / FailureMode / Controller + 5 类关系），
+新概念无法进入本体，只能改代码。
+
+新增三个 MCP 工具（`mcp_server/ontology_tools.py`）：
+
+| 工具 | 权限 | 作用 |
+|---|---|---|
+| `cam_propose_ontology_extension` | B（写待审队列） | 扫描一份知识候选，检出固定本体之外的类型/关系/属性键，登记为待审提案 |
+| `cam_list_ontology_proposals` | R | 列出提案，默认只返回 pending |
+| `cam_get_ontology_registry` | R | 列出**已生效**的类型，仅含已人工批准项 |
+
+**不提供审批工具**：批准是知识治理动作，只能由人经
+`python -m mcp_server.ontology_review approve <proposal_id> --reviewer <name>`
+或审核界面完成。智能体可以把提案摆到人面前，不能替人拍板——与
+`cam_submit_knowledge_candidate` 同一条设计原则。
+
+真机检出结果（3 条 Dormer 候选，证据 `ontology-evidence/pilot-scan-2026-11-10.json`）：
+检出 4 个未登记属性键 —— `feed_per_revolution_mm`、`feed_min_mm_per_rev`、
+`feed_max_mm_per_rev`、`hardness`（规范写法为 `hardness_hrc`）。扫描后注册表不变，
+4 条全部 pending。其中三个 `feed_*` 属单位后缀别名，预期人工拒绝；`hardness` 属
+规范键名不一致，预期批准并把同义词表补进 schema —— 这正是"必须有人工审核"的例证，
+不是噪声缺陷。
+
+验证：
+- `python -m unittest discover -s app/knowledge_graph/tests -p "test_ontology_proposal.py"` → 7 passed
+- `python -m unittest mcp_server.tests.test_ontology_tools` → 6 passed
+
+包级改动：`app/knowledge_graph/__init__.py` 改为惰性导出（PEP 562），使
+`ontology_proposal` 的零依赖特性不被 networkx / SQLAlchemy 破坏；`from app.knowledge_graph
+import KnowledgeGraphQueryAPI` 用法不变。
+
+平台侧还需一步人工动作：重启 MCP 服务后在 Nexent 中刷新工具列表，确认三个新工具
+可见并配置权限；当前只完成代码与本地验证，尚未在 Nexent 内实调。
+
+## I21 行业标准对齐（2026-11-10）
+
+补上赛题任务要求②后半段"行业规范对齐"。目录 `standards/`：
+
+- `standards.json`：4 项标准元数据（GB/T 12204-2010、GB 15760-2025、GB 15760-2004
+  〔已废止〕、GB/T 1031-2009），只取全国标准信息公共服务平台的公开信息，全文未获取。
+- `rule_map.json`：6 条内部规则 → 标准的映射，强度分 direct / none。
+- `standard_alignment.py`：日期感知的有效性判定、废止引用阻断、条款级缺失显式化、
+  合规表述检测。零第三方依赖。
+- `alignment-audit-2026-11-10.json`：审计结果。
+
+审计计数：total 6 / usable 3 / blocked 1 / gaps 2 / clause_level_unverified 4。
+单测 7 项通过。
+
+两个刻意的设计：
+
+1. **有效性按查询日期判定**，不是写死状态。GB 15760-2025 实施日 2026-08-01，
+   在 2026-07-01 查询应为"尚未实施"。赛季内正好发生这次换版，这条能被评委当场验证。
+2. **无国标的规则记为缺口**。颤振切深比判据、K001–K009 校验编号没有直接对应国标，
+   记为 gap 而不是硬凑——K 码是本项目自定义编号，若包装成国标条款就是造假。
+
+## I22 自主编排验收协议（阻塞中）
+
+`acceptance/` 下两份：
+
+- `agent-orchestration-acceptance.md`：三组对话用例（阶段切换 / 越权诱饵 / 三源多跳）
+  加判据表，可照抄执行。
+- `check_env.py`：前置只读检查。
+
+**当前阻塞（已定位）**：不是用户加的黑名单，是代理沙箱的内置命令预设拦了 wsl.exe。
+证据：Docker 后端日志 `fork/exec C://Program Files\WSL\wsl.exe: Access is denied`；
+`~/.workbuddy/settings.json` 里 `sandbox.orderedRules.command` 为 `customized:false, rules:[]`；
+而 WSL 本身正常（注册表有 `docker-desktop` 发行版，`wslservice` 在跑）。
+成因：Docker 由沙箱内启动时，`com.docker.backend` 继承限制，执行 `wsl --version` 被拒。
+
+解法：在桌面手动双击 Docker Desktop（沙箱外启动），或移除 wsl.exe 黑名单后重跑
+`check_env.py`。该脚本已内置日志根因诊断。
+
+未验收就不写"已验收"：第 9.2 节第 3 条维持"模型自主编排未验收"。
+
+## I23 Skill 契约校验与新技能（2026-11-10）
+
+契约校验暴露一个真实遗漏：本体提案的 3 个工具没有任何 Skill 绑定——工具在服务端存在，
+但智能体按 Skill 编排时调不到。补第 5 个技能：
+
+- `skills/manufacturing-ontology-maintain/SKILL.md`（打包 `dist/manufacturing-ontology-maintain-i18.zip`）
+- 绑 3 个本体工具；边界写明：不批准提案、不写工艺参数、不把别名当缺口上报
+
+`acceptance/skills_contract_check.py` 查四件事：工具存在性、审批/下发类工具禁令、
+边界声明、未覆盖工具是否登记理由。当前结果：
+
+- 服务端 20 个工具，5 个 Skill 覆盖 11 个
+- 9 个有意排除，逐条写明理由（LNN 训练类、gcode job 写类）
+- 错误 0、警告 0
+
+关键：校验器带 `--self-test`。注入一个坏 Skill（工具名不存在、绑定审批工具、无边界声明、
+描述过短），确认 5 类缺陷全部命中。没有这个反向自检，"零错误"可能只是"什么都没检查"。
+
+仍未验收：模型在 Nexent 里自主选 Skill。Docker 引擎仍因 wsl.exe 被安全策略阻止而起不来，
+`check_env.py` 依旧 2 项 BLOCK。契约层已自洽，模型层待环境放行。
+
+## I24 自主编排实测与收束（2026-11-10 22:25）
+
+环境全部打通（后端 8765 / MCP 8088 / 模型 8080 / 转发 9080 / 向量 8090），Nexent 侧
+62 工具、5 Skill 全绑定，随后跑了用例 A 两轮：
+
+| 轮次 | 耗时 | 工具调用 | 结果 |
+|---|---|---|---|
+| 第一次 | 1193 s | 14 次（含 process_plan_run） | 答案 0 字符，finish_reason=length |
+| 第二次（token 上限提到 8192 后） | 1080 s | 11 次 | 同上 + 3 次 Context size exceeded |
+
+**判定：部分验证。** 行为证据成立——模型两次主动 `read_skill_md` 再决定调哪个工具，
+单轮覆盖证据整理、草案生成、失败复盘三类，是自主编排而非人指定。结果质量不成立——
+本地 27B 在 16 GB 显存下被 16k 上下文与 4096 输出上限卡死。
+
+两个待修的配置点已定位：模型 `max_output_tokens` 改了但运行时仍按 4096 截断（需重启
+`nexent-runtime` 才可能生效）；llama-server 要开 32k 上下文，27B 权重下大概率 OOM。
+
+B 用例 20 分 53 秒未完成，中止；C 未开始。8B 模型下载实测 100 KB/s（走代理）/ 26 KB/s
+（绕过代理），当天不具备可操作性。
+
+服务已于 22:25 全部停止，五个端口释放，显存回到 2.1 GB。复原命令见
+`acceptance/runs/2026-11-10/README.md`。

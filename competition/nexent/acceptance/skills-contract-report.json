@@ -1,0 +1,77 @@
+{
+  "skills": [
+    {
+      "skill": "hole-process-draft",
+      "allowed_tools": [
+        "cam_recommend_process",
+        "process_plan_run"
+      ],
+      "has_boundary": true
+    },
+    {
+      "skill": "manufacturing-evidence-review",
+      "allowed_tools": [
+        "dxf_describe_file",
+        "cam_recommend_process",
+        "cam_get_quadruple_stats"
+      ],
+      "has_boundary": true
+    },
+    {
+      "skill": "manufacturing-failure-review",
+      "allowed_tools": [
+        "gcode_get_failure_stats",
+        "gcode_list_failure_cases",
+        "cam_get_quadruple_stats"
+      ],
+      "has_boundary": true
+    },
+    {
+      "skill": "manufacturing-knowledge-update",
+      "allowed_tools": [
+        "cam_submit_knowledge_candidate",
+        "cam_get_knowledge_candidate",
+        "cam_recommend_process"
+      ],
+      "has_boundary": true
+    },
+    {
+      "skill": "manufacturing-ontology-maintain",
+      "allowed_tools": [
+        "cam_propose_ontology_extension",
+        "cam_list_ontology_proposals",
+        "cam_get_ontology_registry"
+      ],
+      "has_boundary": true
+    }
+  ],
+  "server_tool_count": 20,
+  "covered_tool_count": 11,
+  "unbound_tools": [
+    "gcode_create_job",
+    "gcode_get_job_status",
+    "gcode_list_jobs",
+    "lnn_get_model_info",
+    "lnn_get_train_status",
+    "lnn_list_models",
+    "lnn_predict",
+    "lnn_train",
+    "lnn_wait_for_training"
+  ],
+  "unbound_intentional": {
+    "gcode_create_job": "写入类且触发长任务，交人工在桌面端发起",
+    "gcode_get_job_status": "仅服务于 create_job 之后的状态轮询",
+    "gcode_list_jobs": "同上，非决策必需",
+    "lnn_get_model_info": "科研侧模型管理，不在工艺决策链路",
+    "lnn_get_train_status": "训练状态查询，随训练一同排除",
+    "lnn_list_models": "科研侧模型管理，不在工艺决策链路",
+    "lnn_predict": "科研侧推理接口，比赛链路不直接调用",
+    "lnn_train": "训练为写操作且耗时长，禁止模型自行触发",
+    "lnn_wait_for_training": "长等待阻塞，禁止模型进入"
+  },
+  "unbound_undocumented": [],
+  "governance_tools_on_server": [],
+  "findings": [],
+  "errors": 0,
+  "warnings": 0
+}

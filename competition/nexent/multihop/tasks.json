@@ -1,0 +1,272 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-10",
+  "purpose": "跨文档多跳任务集：每个任务必须联合两份以上资料才能回答，用于验证『多跳推理 + 决策链路可溯源』（赛题任务要求④）",
+  "sources": {
+    "cutting_params": {
+      "type": "json",
+      "path": "engineering/python/app/data/cutting_parameters.json",
+      "note": "切参知识库 609 条，每条带 source 溯源字段"
+    },
+    "spec": {
+      "type": "markdown",
+      "path": "docs/user-guide/工艺规范-铣削加工.md",
+      "note": "工艺规范 7 章，按『## N. 标题』切条款"
+    },
+    "cases": {
+      "type": "sqlite",
+      "path": "engineering/python/data/failure_cases.db",
+      "table": "failure_cases",
+      "note": "失败案例库 641 行（成功 419 / 失败 222）"
+    },
+    "candidates": {
+      "type": "json",
+      "path": "competition/nexent/knowledge-candidates/dormer-drill-candidates.json",
+      "note": "厂商候选，全部待审"
+    },
+    "ontology": {
+      "type": "sqlite",
+      "path": "data/ontology/ontology.sqlite",
+      "optional": true,
+      "note": "本体注册表（提案库）；缺失时该项记为不可用，不阻断其它来源"
+    },
+    "standards": {
+      "type": "standards_dir",
+      "path": "competition/nexent/standards",
+      "note": "国家标准元数据与规则映射；含日期感知有效性判定"
+    }
+  },
+  "tasks": [
+    {
+      "id": "MH-01",
+      "question": "45#钢，HSS 麻花钻，钻 φ8 深 40mm 的通孔，能否直接给出参数并生成 NC？",
+      "hops": [
+        {
+          "source": "cutting_params",
+          "op": "param_lookup",
+          "material_id": "material_45steel",
+          "tool_series": "twist_drill",
+          "tool_material": "HSS"
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "keywords": [
+            "优先查库",
+            "区间语义"
+          ]
+        },
+        {
+          "source": "candidates",
+          "op": "candidate_lookup",
+          "feature": "hole"
+        }
+      ],
+      "derivation": {
+        "kind": "depth_ratio",
+        "diameter_mm": 8.0,
+        "depth_mm": 40.0,
+        "candidate_limit_ratio": 4.0
+      },
+      "expect": {
+        "min_sources": 3,
+        "must_flag": [
+          "exceeds_candidate_scope",
+          "params_are_range_not_optimum"
+        ],
+        "block_ready_claim": true
+      }
+    },
+    {
+      "id": "MH-02",
+      "question": "本件轴向切深 2.0mm，叶瓣图极限切深 1.6mm，能否放行生成 G 代码？",
+      "hops": [
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "keywords": [
+            "切深比",
+            "不稳定域"
+          ]
+        },
+        {
+          "source": "cases",
+          "op": "case_dist",
+          "where": {
+            "source": "unstable_features"
+          }
+        }
+      ],
+      "derivation": {
+        "kind": "stability",
+        "axial_depth_mm": 2.0,
+        "limit_depth_mm": 1.6
+      },
+      "expect": {
+        "min_sources": 2,
+        "must_flag": [
+          "unstable_domain",
+          "must_replan_not_bypass"
+        ],
+        "block_ready_claim": true
+      }
+    },
+    {
+      "id": "MH-03",
+      "question": "上个月 45#钢 的失败集中在什么原因？下一步该怎么改参数？",
+      "hops": [
+        {
+          "source": "cases",
+          "op": "case_dist",
+          "where": {
+            "material_name": "45#钢",
+            "outcome": "failure"
+          }
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "keywords": [
+            "不稳定域行为",
+            "裕度分级"
+          ]
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "keywords": [
+            "数据口径"
+          ]
+        }
+      ],
+      "derivation": {
+        "kind": "error_attribution",
+        "material_name": "45#钢"
+      },
+      "expect": {
+        "min_sources": 2,
+        "must_flag": [
+          "dominant_error_is_unstable_features",
+          "remedy_is_reduce_depth"
+        ],
+        "block_ready_claim": true
+      }
+    },
+    {
+      "id": "MH-04",
+      "question": "能不能把 Dormer R10A 的进给值直接写进 45#钢 的正式知识库？",
+      "hops": [
+        {
+          "source": "candidates",
+          "op": "candidate_lookup",
+          "feature": "hole"
+        },
+        {
+          "source": "cutting_params",
+          "op": "param_lookup",
+          "material_id": "material_45steel"
+        },
+        {
+          "source": "ontology",
+          "op": "ontology_registry"
+        }
+      ],
+      "derivation": {
+        "kind": "eligibility",
+        "candidate_material": "dormer_amg_1_3",
+        "target_material": "material_45steel",
+        "candidate_max_ld": 4.0
+      },
+      "expect": {
+        "min_sources": 2,
+        "must_flag": [
+          "material_group_mismatch",
+          "candidate_pending_no_approval"
+        ],
+        "block_ready_claim": true
+      }
+    },
+    {
+      "id": "MH-05",
+      "question": "NC 下发前必须通过哪些校验？哪些失败是硬闸、哪些只是建议？",
+      "hops": [
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "keywords": [
+            "参数越界处理",
+            "clamp"
+          ]
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "keywords": [
+            "运动学校验",
+            "K009"
+          ]
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "keywords": [
+            "体素仿真强制校验"
+          ]
+        },
+        {
+          "source": "cases",
+          "op": "case_dist",
+          "where": {
+            "source": "pipeline_exception"
+          }
+        }
+      ],
+      "derivation": {
+        "kind": "gate_classification"
+      },
+      "expect": {
+        "min_sources": 2,
+        "must_flag": [
+          "clamp_is_warning_not_gate",
+          "voxel_and_kinematics_are_hard_gates"
+        ],
+        "block_ready_claim": true
+      }
+    },
+    {
+      "id": "MH-06",
+      "question": "工艺规范第 5 章的机床安全防护要求，能否引用 GB 15760-2004？能否写『符合第 X 条』？",
+      "hops": [
+        {
+          "source": "standards",
+          "op": "standard_resolve",
+          "rule_ids": [
+            "R-SAFE-01",
+            "R-SAFE-02",
+            "R-CHATTER-01"
+          ],
+          "as_of": "2026-11-10"
+        },
+        {
+          "source": "spec",
+          "op": "clause_search",
+          "keywords": [
+            "体素仿真强制校验"
+          ]
+        }
+      ],
+      "derivation": {
+        "kind": "standard_validity"
+      },
+      "expect": {
+        "min_sources": 2,
+        "must_flag": [
+          "repealed_reference_blocked",
+          "clause_claim_forbidden",
+          "gap_recorded"
+        ],
+        "block_ready_claim": true
+      }
+    }
+  ]
+}

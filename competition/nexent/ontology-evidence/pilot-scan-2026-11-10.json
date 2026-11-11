@@ -1,0 +1,370 @@
+{
+  "generated_at": "2026-11-10T17:22:00+08:00",
+  "source_file": "competition/nexent/knowledge-candidates/dormer-drill-candidates.json",
+  "candidates_scanned": 3,
+  "tools": [
+    "cam_propose_ontology_extension",
+    "cam_list_ontology_proposals",
+    "cam_get_ontology_registry"
+  ],
+  "unique_proposals": [
+    {
+      "kind": "property_key",
+      "name": "feed_max_mm_per_rev",
+      "occurrences": 3
+    },
+    {
+      "kind": "property_key",
+      "name": "feed_min_mm_per_rev",
+      "occurrences": 3
+    },
+    {
+      "kind": "property_key",
+      "name": "feed_per_revolution_mm",
+      "occurrences": 3
+    },
+    {
+      "kind": "property_key",
+      "name": "hardness",
+      "occurrences": 3
+    }
+  ],
+  "registry_entity_types": [
+    "Controller",
+    "FailureMode",
+    "Feature",
+    "Material",
+    "Process",
+    "Tool"
+  ],
+  "registry_note": "扫描后注册表未变化：提案全部处于 pending，未自动生效",
+  "per_candidate": [
+    {
+      "candidate_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+      "result": {
+        "proposals": [
+          {
+            "proposal_id": "131a30596c504849b4a4920946653474",
+            "kind": "property_key",
+            "name": "feed_per_revolution_mm",
+            "status": "pending",
+            "occurrences": 1,
+            "rationale": "parameters 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.parameters.feed_per_revolution_mm",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          },
+          {
+            "proposal_id": "bf64d6f9994d4738a33faf566fa8a237",
+            "kind": "property_key",
+            "name": "feed_min_mm_per_rev",
+            "status": "pending",
+            "occurrences": 1,
+            "rationale": "parameters 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.parameters.feed_min_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          },
+          {
+            "proposal_id": "59b0566b1f5d4f49814da1bba422fb8c",
+            "kind": "property_key",
+            "name": "feed_max_mm_per_rev",
+            "status": "pending",
+            "occurrences": 1,
+            "rationale": "parameters 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.parameters.feed_max_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          },
+          {
+            "proposal_id": "9271d11435e8412a97b8110230c75e38",
+            "kind": "property_key",
+            "name": "hardness",
+            "status": "pending",
+            "occurrences": 1,
+            "rationale": "conditions 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.conditions.hardness",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          }
+        ],
+        "message": "已登记为待审提案，尚未生效；需人工在审核入口批准后该类型才被认可。",
+        "requires_human_review": true
+      }
+    },
+    {
+      "candidate_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+      "result": {
+        "proposals": [
+          {
+            "proposal_id": "131a30596c504849b4a4920946653474",
+            "kind": "property_key",
+            "name": "feed_per_revolution_mm",
+            "status": "pending",
+            "occurrences": 2,
+            "rationale": "parameters 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.parameters.feed_per_revolution_mm",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+                "field": "content.parameters.feed_per_revolution_mm",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          },
+          {
+            "proposal_id": "bf64d6f9994d4738a33faf566fa8a237",
+            "kind": "property_key",
+            "name": "feed_min_mm_per_rev",
+            "status": "pending",
+            "occurrences": 2,
+            "rationale": "parameters 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.parameters.feed_min_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+                "field": "content.parameters.feed_min_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          },
+          {
+            "proposal_id": "59b0566b1f5d4f49814da1bba422fb8c",
+            "kind": "property_key",
+            "name": "feed_max_mm_per_rev",
+            "status": "pending",
+            "occurrences": 2,
+            "rationale": "parameters 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.parameters.feed_max_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+                "field": "content.parameters.feed_max_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          },
+          {
+            "proposal_id": "9271d11435e8412a97b8110230c75e38",
+            "kind": "property_key",
+            "name": "hardness",
+            "status": "pending",
+            "occurrences": 2,
+            "rationale": "conditions 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.conditions.hardness",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+                "field": "content.conditions.hardness",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          }
+        ],
+        "message": "已登记为待审提案，尚未生效；需人工在审核入口批准后该类型才被认可。",
+        "requires_human_review": true
+      }
+    },
+    {
+      "candidate_id": "ef253f7d0f986072b6f206c18f7b4af1b82af79d64e48d0a2774750e4b9c4913",
+      "result": {
+        "proposals": [
+          {
+            "proposal_id": "131a30596c504849b4a4920946653474",
+            "kind": "property_key",
+            "name": "feed_per_revolution_mm",
+            "status": "pending",
+            "occurrences": 3,
+            "rationale": "parameters 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.parameters.feed_per_revolution_mm",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+                "field": "content.parameters.feed_per_revolution_mm",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "ef253f7d0f986072b6f206c18f7b4af1b82af79d64e48d0a2774750e4b9c4913",
+                "field": "content.parameters.feed_per_revolution_mm",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          },
+          {
+            "proposal_id": "bf64d6f9994d4738a33faf566fa8a237",
+            "kind": "property_key",
+            "name": "feed_min_mm_per_rev",
+            "status": "pending",
+            "occurrences": 3,
+            "rationale": "parameters 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.parameters.feed_min_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+                "field": "content.parameters.feed_min_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "ef253f7d0f986072b6f206c18f7b4af1b82af79d64e48d0a2774750e4b9c4913",
+                "field": "content.parameters.feed_min_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          },
+          {
+            "proposal_id": "59b0566b1f5d4f49814da1bba422fb8c",
+            "kind": "property_key",
+            "name": "feed_max_mm_per_rev",
+            "status": "pending",
+            "occurrences": 3,
+            "rationale": "parameters 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.parameters.feed_max_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+                "field": "content.parameters.feed_max_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "ef253f7d0f986072b6f206c18f7b4af1b82af79d64e48d0a2774750e4b9c4913",
+                "field": "content.parameters.feed_max_mm_per_rev",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          },
+          {
+            "proposal_id": "9271d11435e8412a97b8110230c75e38",
+            "kind": "property_key",
+            "name": "hardness",
+            "status": "pending",
+            "occurrences": 3,
+            "rationale": "conditions 出现未登记的属性键",
+            "evidence": [
+              {
+                "source_id": "507addfd69d9e3a5d8fd437a654bab9b26ccff88d2ed508843c0f78c387f56f6",
+                "field": "content.conditions.hardness",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "7ea9183699d7b959bfcd0733ff66e228477ea521668120647366c9ec2e0e4986",
+                "field": "content.conditions.hardness",
+                "excerpt": "",
+                "doc_sha256": ""
+              },
+              {
+                "source_id": "ef253f7d0f986072b6f206c18f7b4af1b82af79d64e48d0a2774750e4b9c4913",
+                "field": "content.conditions.hardness",
+                "excerpt": "",
+                "doc_sha256": ""
+              }
+            ],
+            "first_seen": "2026-11-10T09:16:35+00:00",
+            "last_seen": "2026-11-10T09:16:35+00:00",
+            "reviewer": ""
+          }
+        ],
+        "message": "已登记为待审提案，尚未生效；需人工在审核入口批准后该类型才被认可。",
+        "requires_human_review": true
+      }
+    }
+  ]
+}
