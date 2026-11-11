@@ -311,6 +311,15 @@ def register_tools(server) -> None:
         from mcp_server.knowledge_candidate_tools import register_knowledge_candidate_tools
         register_knowledge_candidate_tools(server)
 
+    # 本体扩展提案（赛题三任务要求②）：检出 → 待审 → 人工批准。
+    # 注册失败仅告警，不影响既有工具；默认开启，LINGJING_MCP_ONTOLOGY_TOOLS=0 可关。
+    if os.environ.get("LINGJING_MCP_ONTOLOGY_TOOLS", "1").strip().lower() not in {"0", "false", "no", "off"}:
+        try:
+            from mcp_server.ontology_tools import register_ontology_tools
+            register_ontology_tools(server)
+        except Exception:  # noqa: BLE001 - 单个工具组异常不得拖垮服务
+            logger.exception("Ontology tool registration failed; 本体提案工具不可用")
+
     @server.tool(name="lnn_list_models", description="列出所有已注册的LNN模型及其基本元数据")
     async def lnn_list_models() -> list[dict]:
         try:
