@@ -1,0 +1,1005 @@
+{
+  "kind": "exploratory_residual_factorial",
+  "independent_final_test_established": false,
+  "seed": 42,
+  "epochs_per_run": 20,
+  "groups": {
+    "c1": {
+      "train_windows": 226,
+      "val_windows": 113,
+      "datasets_sha256": {
+        "train": "ffd8c7a5c8accd50a4e283a40e605c65a7be456c135876152ae69496d40d9a4d",
+        "val": "7d667bdb4ed310e251735d55372a848a5ebfd650f1c32da848c541578829e3eb"
+      },
+      "ridge_lambdas_by_channel": {
+        "chatter_probability": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "tool_wear": [
+          100.0,
+          100.0,
+          100.0,
+          100.0,
+          100.0
+        ],
+        "surface_roughness": [
+          100.0,
+          100.0,
+          100.0,
+          100.0,
+          100.0
+        ],
+        "vibration_rms": [
+          0.0001,
+          10.0,
+          0.0001,
+          100.0,
+          0.0001
+        ],
+        "temperature_over_100c": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "cutting_force_norm": [
+          1.0,
+          100.0,
+          0.0001,
+          10.0,
+          10.0
+        ],
+        "mrr_norm": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "confidence": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ]
+      },
+      "arms": {
+        "control": {
+          "arm": "control",
+          "group": "c1",
+          "version": "residual-c1-control-s42",
+          "run": {
+            "version": "residual-c1-control-s42",
+            "checkpoint": "D:\\灵境制造\\reports\\wm_residual_pilot_20261112\\models\\world_model\\residual-c1-control-s42.pt",
+            "checkpoint_sha256": "7dd3d6949280e1b61f77e505a76f4250b626f95199506949ea07a2ff27694812",
+            "initial_parameters_sha256": "96291bf86607d86cef8fa3b370f3851a9227b890ed988d868898092497a434b9",
+            "selected_epoch": 15,
+            "elapsed_seconds": 16.09921989999566
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0007053804608572901,
+              "mse": 1.1011096119021595e-06
+            },
+            "tool_wear": {
+              "mae": 0.0001498522022656635,
+              "mse": 7.524149716842318e-08
+            },
+            "surface_roughness": {
+              "mae": 0.0005134061374495515,
+              "mse": 6.714510219460186e-07
+            },
+            "vibration_rms": {
+              "mae": 0.07685787010674192,
+              "mse": 0.009391454022089614
+            },
+            "temperature_over_100c": {
+              "mae": 0.0004004634059635939,
+              "mse": 3.6608579516018183e-07
+            },
+            "cutting_force_norm": {
+              "mae": 0.12312943860694671,
+              "mse": 0.03123854774033304
+            },
+            "mrr_norm": {
+              "mae": 0.0007124084430186293,
+              "mse": 8.937286295483784e-07
+            },
+            "confidence": {
+              "mae": 0.00100704959008546,
+              "mse": 1.484272712867798e-06
+            }
+          },
+          "ridge_alone_metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.0001695265517908191,
+              "mse": 7.395833270854651e-08
+            },
+            "surface_roughness": {
+              "mae": 0.0005085832856779186,
+              "mse": 6.656232141318588e-07
+            },
+            "vibration_rms": {
+              "mae": 0.08261793450273205,
+              "mse": 0.009948743653009968
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.09997196291554115,
+              "mse": 0.02059430145502203
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          },
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.17659734225530244,
+            "surface_roughness": 0.18355827534287206,
+            "vibration_rms": 0.31545964326639553,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.3135624307898389,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "ridge_alone_r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.19063960704730876,
+            "surface_roughness": 0.19064451887702127,
+            "vibration_rms": 0.27483896388524076,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.547459685134009,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "persistence_mse": {
+            "chatter_probability": 0.0,
+            "tool_wear": 9.137873974624988e-08,
+            "surface_roughness": 8.224114491796711e-07,
+            "vibration_rms": 0.013719357711651161,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.04550821391707508,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "persistence_mae": {
+            "chatter_probability": 0.0,
+            "tool_wear": 0.00012265884243281542,
+            "surface_roughness": 0.0003679796657731048,
+            "vibration_rms": 0.09041515206835703,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.14219513171147302,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "audit_path": "reports\\wm_residual_pilot_20261112\\residual-c1-control-s42.audit.json",
+          "audit_sha256": "ca6433ac21863a6477fb0f2ab6e3f40f205bb9c6737153b5815cb36d227e16a9"
+        },
+        "residual": {
+          "arm": "residual",
+          "group": "c1",
+          "version": "residual-c1-residual-s42",
+          "run": {
+            "version": "residual-c1-residual-s42",
+            "checkpoint": "D:\\灵境制造\\reports\\wm_residual_pilot_20261112\\models\\world_model\\residual-c1-residual-s42.pt",
+            "checkpoint_sha256": "f8a1931cea6d2d77396b7f77ac266c45c5dd85907ed25938869953478ff4de47",
+            "initial_parameters_sha256": "96291bf86607d86cef8fa3b370f3851a9227b890ed988d868898092497a434b9",
+            "selected_epoch": 20,
+            "elapsed_seconds": 3.129812800005311
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.000168590669610859,
+              "mse": 4.28746741153383e-08
+            },
+            "tool_wear": {
+              "mae": 0.00017165438068828488,
+              "mse": 7.415784952509657e-08
+            },
+            "surface_roughness": {
+              "mae": 0.0005198484936346407,
+              "mse": 6.689056938488528e-07
+            },
+            "vibration_rms": {
+              "mae": 0.07758929074522258,
+              "mse": 0.009487409559184302
+            },
+            "temperature_over_100c": {
+              "mae": 6.767611587997031e-05,
+              "mse": 8.50146199888113e-09
+            },
+            "cutting_force_norm": {
+              "mae": 0.10013554386670247,
+              "mse": 0.02053102389961511
+            },
+            "mrr_norm": {
+              "mae": 9.887372545354003e-05,
+              "mse": 1.6312892641491357e-08
+            },
+            "confidence": {
+              "mae": 0.00012179433771994262,
+              "mse": 2.2230208347875017e-08
+            }
+          },
+          "ridge_alone_metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.0001695265517908191,
+              "mse": 7.395833270854651e-08
+            },
+            "surface_roughness": {
+              "mae": 0.0005085832856779186,
+              "mse": 6.656232141318588e-07
+            },
+            "vibration_rms": {
+              "mae": 0.08261793450273205,
+              "mse": 0.009948743653009968
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.09997196291554115,
+              "mse": 0.02059430145502203
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          },
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.18845620183616107,
+            "surface_roughness": 0.1866532323740573,
+            "vibration_rms": 0.30846547202956,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.5488501496229521,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "ridge_alone_r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.19063960704730876,
+            "surface_roughness": 0.19064451887702127,
+            "vibration_rms": 0.27483896388524076,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.547459685134009,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "persistence_mse": {
+            "chatter_probability": 0.0,
+            "tool_wear": 9.137873974624988e-08,
+            "surface_roughness": 8.224114491796711e-07,
+            "vibration_rms": 0.013719357711651161,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.04550821391707508,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "persistence_mae": {
+            "chatter_probability": 0.0,
+            "tool_wear": 0.00012265884243281542,
+            "surface_roughness": 0.0003679796657731048,
+            "vibration_rms": 0.09041515206835703,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.14219513171147302,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "audit_path": "reports\\wm_residual_pilot_20261112\\residual-c1-residual-s42.audit.json",
+          "audit_sha256": "f3deb7504314027ca5af8b84fdecfc4315a1bc5a838c2d523a9182fb0ea9991b"
+        }
+      }
+    },
+    "c4": {
+      "train_windows": 226,
+      "val_windows": 113,
+      "datasets_sha256": {
+        "train": "0b9cf46c00bc014b4d4ebfeac5caa697d469f557122b2bc86ab16d915f602985",
+        "val": "db554787be0e8377a83324bdb885a4bcb0a967aec3b477bc5d1deb9b5ca6e247"
+      },
+      "ridge_lambdas_by_channel": {
+        "chatter_probability": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "tool_wear": [
+          100.0,
+          100.0,
+          100.0,
+          100.0,
+          100.0
+        ],
+        "surface_roughness": [
+          100.0,
+          100.0,
+          100.0,
+          100.0,
+          100.0
+        ],
+        "vibration_rms": [
+          0.0001,
+          100.0,
+          0.0001,
+          100.0,
+          0.0001
+        ],
+        "temperature_over_100c": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "cutting_force_norm": [
+          100.0,
+          10.0,
+          100.0,
+          0.0001,
+          100.0
+        ],
+        "mrr_norm": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "confidence": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ]
+      },
+      "arms": {
+        "control": {
+          "arm": "control",
+          "group": "c4",
+          "version": "residual-c4-control-s42",
+          "run": {
+            "version": "residual-c4-control-s42",
+            "checkpoint": "D:\\灵境制造\\reports\\wm_residual_pilot_20261112\\models\\world_model\\residual-c4-control-s42.pt",
+            "checkpoint_sha256": "58d2613291de750bcd78c67a2f169e1e192744d995b600c38369aa631fc083b7",
+            "initial_parameters_sha256": "96291bf86607d86cef8fa3b370f3851a9227b890ed988d868898092497a434b9",
+            "selected_epoch": 18,
+            "elapsed_seconds": 3.160168000002159
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0015918779689653784,
+              "mse": 3.4870213490102216e-06
+            },
+            "tool_wear": {
+              "mae": 0.0002145802684589825,
+              "mse": 1.690586735300574e-07
+            },
+            "surface_roughness": {
+              "mae": 0.0007042159021428201,
+              "mse": 1.4201605457920593e-06
+            },
+            "vibration_rms": {
+              "mae": 0.06930676133977662,
+              "mse": 0.009045048126670355
+            },
+            "temperature_over_100c": {
+              "mae": 0.00073840351758805,
+              "mse": 7.124588846283872e-07
+            },
+            "cutting_force_norm": {
+              "mae": 0.13253461626956892,
+              "mse": 0.03207310418608929
+            },
+            "mrr_norm": {
+              "mae": 0.0010254175499709018,
+              "mse": 2.060089881469319e-06
+            },
+            "confidence": {
+              "mae": 0.0014382888785505717,
+              "mse": 3.0181794480413434e-06
+            }
+          },
+          "ridge_alone_metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.00021683004051483958,
+              "mse": 1.702943595123818e-07
+            },
+            "surface_roughness": {
+              "mae": 0.0006504939743472999,
+              "mse": 1.5326294549114128e-06
+            },
+            "vibration_rms": {
+              "mae": 0.11544561462322993,
+              "mse": 0.019890238380214413
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.14392591617695477,
+              "mse": 0.028136416347001748
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          },
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.13746119348060348,
+            "surface_roughness": 0.19492318621444904,
+            "vibration_rms": 0.2825988284434856,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.24491641571364153,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "ridge_alone_r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.13115671296995202,
+            "surface_roughness": 0.13116552777784884,
+            "vibration_rms": -0.5775792584706729,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.33759619957578424,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "persistence_mse": {
+            "chatter_probability": 0.0,
+            "tool_wear": 1.9600123757012162e-07,
+            "surface_roughness": 1.7640062680656815e-06,
+            "vibration_rms": 0.012608075488705578,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.04247623025257805,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "persistence_mae": {
+            "chatter_probability": 0.0,
+            "tool_wear": 0.00018392196007534467,
+            "surface_roughness": 0.0005517668428674208,
+            "vibration_rms": 0.08443682976664596,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.13489061922674064,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "audit_path": "reports\\wm_residual_pilot_20261112\\residual-c4-control-s42.audit.json",
+          "audit_sha256": "a98426ee5e962300b2fb79c21df0c8cfe6724e05df283390e1483dde4e77398a"
+        },
+        "residual": {
+          "arm": "residual",
+          "group": "c4",
+          "version": "residual-c4-residual-s42",
+          "run": {
+            "version": "residual-c4-residual-s42",
+            "checkpoint": "D:\\灵境制造\\reports\\wm_residual_pilot_20261112\\models\\world_model\\residual-c4-residual-s42.pt",
+            "checkpoint_sha256": "61115d7311e46e0213ebdf35c2ab3804b5ba8d6c9119a7d2a36af81167618257",
+            "initial_parameters_sha256": "96291bf86607d86cef8fa3b370f3851a9227b890ed988d868898092497a434b9",
+            "selected_epoch": 18,
+            "elapsed_seconds": 3.189473700003873
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0004403541573381002,
+              "mse": 2.409870620429409e-07
+            },
+            "tool_wear": {
+              "mae": 0.00021728019404501105,
+              "mse": 1.6993925411959032e-07
+            },
+            "surface_roughness": {
+              "mae": 0.0006500912151440796,
+              "mse": 1.5246980983280729e-06
+            },
+            "vibration_rms": {
+              "mae": 0.11970686116405597,
+              "mse": 0.020991065550977753
+            },
+            "temperature_over_100c": {
+              "mae": 0.00021739662748522463,
+              "mse": 6.313700702195061e-08
+            },
+            "cutting_force_norm": {
+              "mae": 0.14888413418843605,
+              "mse": 0.030502785251791606
+            },
+            "mrr_norm": {
+              "mae": 0.0002498146495781839,
+              "mse": 8.703196285269751e-08
+            },
+            "confidence": {
+              "mae": 7.752675925735878e-05,
+              "mse": 1.1593895385531704e-08
+            }
+          },
+          "ridge_alone_metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.00021683004051483958,
+              "mse": 1.702943595123818e-07
+            },
+            "surface_roughness": {
+              "mae": 0.0006504939743472999,
+              "mse": 1.5326294549114128e-06
+            },
+            "vibration_rms": {
+              "mae": 0.11544561462322993,
+              "mse": 0.019890238380214413
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.14392591617695477,
+              "mse": 0.028136416347001748
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          },
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.13296846373843596,
+            "surface_roughness": 0.13566174569210665,
+            "vibration_rms": -0.6648905354176955,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.28188577304502516,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "ridge_alone_r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.13115671296995202,
+            "surface_roughness": 0.13116552777784884,
+            "vibration_rms": -0.5775792584706729,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.33759619957578424,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "persistence_mse": {
+            "chatter_probability": 0.0,
+            "tool_wear": 1.9600123757012162e-07,
+            "surface_roughness": 1.7640062680656815e-06,
+            "vibration_rms": 0.012608075488705578,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.04247623025257805,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "persistence_mae": {
+            "chatter_probability": 0.0,
+            "tool_wear": 0.00018392196007534467,
+            "surface_roughness": 0.0005517668428674208,
+            "vibration_rms": 0.08443682976664596,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.13489061922674064,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "audit_path": "reports\\wm_residual_pilot_20261112\\residual-c4-residual-s42.audit.json",
+          "audit_sha256": "7de5acc2c8dfc7dcd93f80303e03f6a96d1692326e143a253862780a46138177"
+        }
+      }
+    },
+    "c6": {
+      "train_windows": 226,
+      "val_windows": 113,
+      "datasets_sha256": {
+        "train": "31c078f82ead89c8da22dc459b6a1235b6ffe8f0b406a68ac592639bbe7abbc0",
+        "val": "0ef6509c96027b444b2c30c8032ff567882769a3dadd2dc6373787b896818031"
+      },
+      "ridge_lambdas_by_channel": {
+        "chatter_probability": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "tool_wear": [
+          0.0001,
+          100.0,
+          100.0,
+          100.0,
+          100.0
+        ],
+        "surface_roughness": [
+          0.0001,
+          100.0,
+          100.0,
+          100.0,
+          100.0
+        ],
+        "vibration_rms": [
+          100.0,
+          100.0,
+          10.0,
+          0.0001,
+          100.0
+        ],
+        "temperature_over_100c": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "cutting_force_norm": [
+          10.0,
+          1.0,
+          100.0,
+          0.0001,
+          100.0
+        ],
+        "mrr_norm": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "confidence": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ]
+      },
+      "arms": {
+        "control": {
+          "arm": "control",
+          "group": "c6",
+          "version": "residual-c6-control-s42",
+          "run": {
+            "version": "residual-c6-control-s42",
+            "checkpoint": "D:\\灵境制造\\reports\\wm_residual_pilot_20261112\\models\\world_model\\residual-c6-control-s42.pt",
+            "checkpoint_sha256": "e6cc8e8aff27596fb0c32a9d02eb66781684b9ca181d55a0d2105548eb8acba5",
+            "initial_parameters_sha256": "96291bf86607d86cef8fa3b370f3851a9227b890ed988d868898092497a434b9",
+            "selected_epoch": 20,
+            "elapsed_seconds": 3.17937879999954
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.00045352352173191256,
+              "mse": 4.005837880899006e-07
+            },
+            "tool_wear": {
+              "mae": 0.00020608299337657152,
+              "mse": 1.3325030978155263e-07
+            },
+            "surface_roughness": {
+              "mae": 0.0006582420484154626,
+              "mse": 1.1362563149993218e-06
+            },
+            "vibration_rms": {
+              "mae": 0.16957883161855283,
+              "mse": 0.05643091499808006
+            },
+            "temperature_over_100c": {
+              "mae": 0.000405298687715446,
+              "mse": 2.19722250181908e-07
+            },
+            "cutting_force_norm": {
+              "mae": 0.12068757746131438,
+              "mse": 0.02491079702137224
+            },
+            "mrr_norm": {
+              "mae": 0.0006151155518178325,
+              "mse": 5.587298055030588e-07
+            },
+            "confidence": {
+              "mae": 0.00042257446103391395,
+              "mse": 2.9714047211106957e-07
+            }
+          },
+          "ridge_alone_metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.00022794976499785222,
+              "mse": 1.2332827049921647e-07
+            },
+            "surface_roughness": {
+              "mae": 0.0006838511218506115,
+              "mse": 1.109957405234004e-06
+            },
+            "vibration_rms": {
+              "mae": 0.14133108959027482,
+              "mse": 0.041368103582748686
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.11117309446653446,
+              "mse": 0.020400996360106033
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          },
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.1851947384769692,
+            "surface_roughness": 0.22799988713956942,
+            "vibration_rms": 0.1485111305821315,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.2090506059332754,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "ridge_alone_r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.2458664909519862,
+            "surface_roughness": 0.24586800460472402,
+            "vibration_rms": 0.3757946375522284,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.35224249567208576,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "persistence_mse": {
+            "chatter_probability": 0.0,
+            "tool_wear": 1.6353638847702293e-07,
+            "surface_roughness": 1.4718343897505944e-06,
+            "vibration_rms": 0.06627322684401006,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.031494805114258374,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "persistence_mae": {
+            "chatter_probability": 0.0,
+            "tool_wear": 0.00017911004545414342,
+            "surface_roughness": 0.0005373319693371258,
+            "vibration_rms": 0.18378931743966465,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.1160282837693936,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "audit_path": "reports\\wm_residual_pilot_20261112\\residual-c6-control-s42.audit.json",
+          "audit_sha256": "e37e0fb5335e625fdeea3839f96f0026f804d3855052174052084f51d41b77da"
+        },
+        "residual": {
+          "arm": "residual",
+          "group": "c6",
+          "version": "residual-c6-residual-s42",
+          "run": {
+            "version": "residual-c6-residual-s42",
+            "checkpoint": "D:\\灵境制造\\reports\\wm_residual_pilot_20261112\\models\\world_model\\residual-c6-residual-s42.pt",
+            "checkpoint_sha256": "315d6b5f2f98c262eee695416a9350f0f952c9f6e3e759cf08f5f300e9f2d09e",
+            "initial_parameters_sha256": "96291bf86607d86cef8fa3b370f3851a9227b890ed988d868898092497a434b9",
+            "selected_epoch": 12,
+            "elapsed_seconds": 3.0361334000044735
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 9.964332808699227e-05,
+              "mse": 1.6028192720013718e-08
+            },
+            "tool_wear": {
+              "mae": 0.00023095322179380692,
+              "mse": 1.229942121997712e-07
+            },
+            "surface_roughness": {
+              "mae": 0.000690214227165871,
+              "mse": 1.1070531718464282e-06
+            },
+            "vibration_rms": {
+              "mae": 0.140845185035701,
+              "mse": 0.04097979973338282
+            },
+            "temperature_over_100c": {
+              "mae": 0.00017018827189386418,
+              "mse": 5.012246283113776e-08
+            },
+            "cutting_force_norm": {
+              "mae": 0.118035779821745,
+              "mse": 0.022211958255980362
+            },
+            "mrr_norm": {
+              "mae": 0.00012345124294659932,
+              "mse": 2.7520380285486687e-08
+            },
+            "confidence": {
+              "mae": 7.465086152068282e-05,
+              "mse": 1.0811496928005579e-08
+            }
+          },
+          "ridge_alone_metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.00022794976499785222,
+              "mse": 1.2332827049921647e-07
+            },
+            "surface_roughness": {
+              "mae": 0.0006838511218506115,
+              "mse": 1.109957405234004e-06
+            },
+            "vibration_rms": {
+              "mae": 0.14133108959027482,
+              "mse": 0.041368103582748686
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.11117309446653446,
+              "mse": 0.020400996360106033
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          },
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.24790920635347125,
+            "surface_roughness": 0.2478412112425089,
+            "vibration_rms": 0.3816537735541593,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.29474215905134993,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "ridge_alone_r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.2458664909519862,
+            "surface_roughness": 0.24586800460472402,
+            "vibration_rms": 0.3757946375522284,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.35224249567208576,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "persistence_mse": {
+            "chatter_probability": 0.0,
+            "tool_wear": 1.6353638847702293e-07,
+            "surface_roughness": 1.4718343897505944e-06,
+            "vibration_rms": 0.06627322684401006,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.031494805114258374,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "persistence_mae": {
+            "chatter_probability": 0.0,
+            "tool_wear": 0.00017911004545414342,
+            "surface_roughness": 0.0005373319693371258,
+            "vibration_rms": 0.18378931743966465,
+            "temperature_over_100c": 0.0,
+            "cutting_force_norm": 0.1160282837693936,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "audit_path": "reports\\wm_residual_pilot_20261112\\residual-c6-residual-s42.audit.json",
+          "audit_sha256": "e4dbf426915671f460f66701b632b32a6b32394cf7f30e54aa74a92723c69edd"
+        }
+      }
+    }
+  },
+  "lambda_grid": [
+    0.0001,
+    0.001,
+    0.01,
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "arms": [
+    {
+      "group": "c1",
+      "arm": "control",
+      "version": "residual-c1-control-s42",
+      "checkpoint_sha256": "7dd3d6949280e1b61f77e505a76f4250b626f95199506949ea07a2ff27694812",
+      "audit_sha256": "ca6433ac21863a6477fb0f2ab6e3f40f205bb9c6737153b5815cb36d227e16a9"
+    },
+    {
+      "group": "c1",
+      "arm": "residual",
+      "version": "residual-c1-residual-s42",
+      "checkpoint_sha256": "f8a1931cea6d2d77396b7f77ac266c45c5dd85907ed25938869953478ff4de47",
+      "audit_sha256": "f3deb7504314027ca5af8b84fdecfc4315a1bc5a838c2d523a9182fb0ea9991b"
+    },
+    {
+      "group": "c4",
+      "arm": "control",
+      "version": "residual-c4-control-s42",
+      "checkpoint_sha256": "58d2613291de750bcd78c67a2f169e1e192744d995b600c38369aa631fc083b7",
+      "audit_sha256": "a98426ee5e962300b2fb79c21df0c8cfe6724e05df283390e1483dde4e77398a"
+    },
+    {
+      "group": "c4",
+      "arm": "residual",
+      "version": "residual-c4-residual-s42",
+      "checkpoint_sha256": "61115d7311e46e0213ebdf35c2ab3804b5ba8d6c9119a7d2a36af81167618257",
+      "audit_sha256": "7de5acc2c8dfc7dcd93f80303e03f6a96d1692326e143a253862780a46138177"
+    },
+    {
+      "group": "c6",
+      "arm": "control",
+      "version": "residual-c6-control-s42",
+      "checkpoint_sha256": "e6cc8e8aff27596fb0c32a9d02eb66781684b9ca181d55a0d2105548eb8acba5",
+      "audit_sha256": "e37e0fb5335e625fdeea3839f96f0026f804d3855052174052084f51d41b77da"
+    },
+    {
+      "group": "c6",
+      "arm": "residual",
+      "version": "residual-c6-residual-s42",
+      "checkpoint_sha256": "315d6b5f2f98c262eee695416a9350f0f952c9f6e3e759cf08f5f300e9f2d09e",
+      "audit_sha256": "e4dbf426915671f460f66701b632b32a6b32394cf7f30e54aa74a92723c69edd"
+    }
+  ],
+  "status": "completed",
+  "elapsed_seconds": 35.276574399998935
+}
