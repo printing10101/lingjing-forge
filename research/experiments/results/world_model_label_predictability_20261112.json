@@ -1,0 +1,968 @@
+{
+  "kind": "exploratory_label_predictability_probe",
+  "independent_final_test_established": false,
+  "groups": {
+    "c1": {
+      "per_channel": {
+        "chatter_probability": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        },
+        "tool_wear": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 100.0
+            }
+          ],
+          "mae": {
+            "ridge": 0.00016952655179081907,
+            "train_drift": 0.00019222564878873527,
+            "persistence": 0.00012265884215594268
+          },
+          "mse": {
+            "ridge": 7.395833270854638e-08,
+            "train_drift": 7.720276773426349e-08,
+            "persistence": 9.13787268075339e-08
+          },
+          "ridge_vs_persistence_r2": 0.1906394924464111,
+          "ridge_beats_persistence": true
+        },
+        "surface_roughness": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 100.0
+            }
+          ],
+          "mae": {
+            "ridge": 0.0005085832856779186,
+            "train_drift": 0.0005766816961113363,
+            "persistence": 0.00036797966895392166
+          },
+          "mse": {
+            "ridge": 6.656232141318662e-07,
+            "train_drift": 6.948237029291704e-07,
+            "persistence": 8.224113599908378e-07
+          },
+          "ridge_vs_persistence_r2": 0.1906444311040626,
+          "ridge_beats_persistence": true
+        },
+        "vibration_rms": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 10.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.08261793437580844,
+            "train_drift": 0.09082253724336624,
+            "persistence": 0.09041515439748764
+          },
+          "mse": {
+            "ridge": 0.00994874364331157,
+            "train_drift": 0.013800898008048535,
+            "persistence": 0.013719358667731284
+          },
+          "ridge_vs_persistence_r2": 0.2748390151274648,
+          "ridge_beats_persistence": true
+        },
+        "temperature_over_100c": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        },
+        "cutting_force_norm": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 1.0
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 10.0
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 10.0
+            }
+          ],
+          "mae": {
+            "ridge": 0.09997196287008896,
+            "train_drift": 0.1435630977153778,
+            "persistence": 0.14219512939453124
+          },
+          "mse": {
+            "ridge": 0.020594301360166645,
+            "train_drift": 0.04557996019721031,
+            "persistence": 0.04550821259617806
+          },
+          "ridge_vs_persistence_r2": 0.5474596740831735,
+          "ridge_beats_persistence": true
+        },
+        "mrr_norm": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        },
+        "confidence": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        }
+      },
+      "channels": [
+        "chatter_probability",
+        "tool_wear",
+        "surface_roughness",
+        "vibration_rms",
+        "temperature_over_100c",
+        "cutting_force_norm",
+        "mrr_norm",
+        "confidence"
+      ],
+      "horizon": 5,
+      "train_windows": 226,
+      "val_windows": 113,
+      "datasets_sha256": {
+        "train": "ffd8c7a5c8accd50a4e283a40e605c65a7be456c135876152ae69496d40d9a4d",
+        "val": "7d667bdb4ed310e251735d55372a848a5ebfd650f1c32da848c541578829e3eb"
+      }
+    },
+    "c4": {
+      "per_channel": {
+        "chatter_probability": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        },
+        "tool_wear": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 100.0
+            }
+          ],
+          "mae": {
+            "ridge": 0.00021683004051483928,
+            "train_drift": 0.00024046975740930066,
+            "persistence": 0.00018392196070635692
+          },
+          "mse": {
+            "ridge": 1.702943595123818e-07,
+            "train_drift": 1.552782840974487e-07,
+            "persistence": 1.9600122058704983e-07
+          },
+          "ridge_vs_persistence_r2": 0.1311566376866049,
+          "ridge_beats_persistence": true
+        },
+        "surface_roughness": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 100.0
+            }
+          ],
+          "mae": {
+            "ridge": 0.0006504939743473022,
+            "train_drift": 0.0007214050856418908,
+            "persistence": 0.0005517668352695182
+          },
+          "mse": {
+            "ridge": 1.5326294549114295e-06,
+            "train_drift": 1.397499249833345e-06,
+            "persistence": 1.7640063731505507e-06
+          },
+          "ridge_vs_persistence_r2": 0.13116557953579122,
+          "ridge_beats_persistence": true
+        },
+        "vibration_rms": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.11544561462714478,
+            "train_drift": 0.08472757190465927,
+            "persistence": 0.08443683087825775
+          },
+          "mse": {
+            "ridge": 0.019890238436125328,
+            "train_drift": 0.012742270529270173,
+            "persistence": 0.012608074955642224
+          },
+          "ridge_vs_persistence_r2": -0.5775793296044986,
+          "ridge_beats_persistence": false
+        },
+        "temperature_over_100c": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        },
+        "cutting_force_norm": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 10.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 100.0
+            }
+          ],
+          "mae": {
+            "ridge": 0.14392591612194078,
+            "train_drift": 0.13603589981794356,
+            "persistence": 0.13489061295986177
+          },
+          "mse": {
+            "ridge": 0.028136416322204816,
+            "train_drift": 0.0424362525343895,
+            "persistence": 0.04247623048722744
+          },
+          "ridge_vs_persistence_r2": 0.33759620381885336,
+          "ridge_beats_persistence": true
+        },
+        "mrr_norm": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        },
+        "confidence": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        }
+      },
+      "channels": [
+        "chatter_probability",
+        "tool_wear",
+        "surface_roughness",
+        "vibration_rms",
+        "temperature_over_100c",
+        "cutting_force_norm",
+        "mrr_norm",
+        "confidence"
+      ],
+      "horizon": 5,
+      "train_windows": 226,
+      "val_windows": 113,
+      "datasets_sha256": {
+        "train": "0b9cf46c00bc014b4d4ebfeac5caa697d469f557122b2bc86ab16d915f602985",
+        "val": "db554787be0e8377a83324bdb885a4bcb0a967aec3b477bc5d1deb9b5ca6e247"
+      }
+    },
+    "c6": {
+      "per_channel": {
+        "chatter_probability": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        },
+        "tool_wear": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 100.0
+            }
+          ],
+          "mae": {
+            "ridge": 0.00022794976499785203,
+            "train_drift": 0.00022621252719545737,
+            "persistence": 0.0001791100512491539
+          },
+          "mse": {
+            "ridge": 1.2332827049921618e-07,
+            "train_drift": 1.2428331359615185e-07,
+            "persistence": 1.6353638372379463e-07
+          },
+          "ridge_vs_persistence_r2": 0.24586646903289777,
+          "ridge_beats_persistence": true
+        },
+        "surface_roughness": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 100.0
+            }
+          ],
+          "mae": {
+            "ridge": 0.0006838511218506087,
+            "train_drift": 0.0006786392652429641,
+            "persistence": 0.0005373319610953331
+          },
+          "mse": {
+            "ridge": 1.1099574052340042e-06,
+            "train_drift": 1.1185547919012606e-06,
+            "persistence": 1.4718344232278469e-06
+          },
+          "ridge_vs_persistence_r2": 0.2458680217576501,
+          "ridge_beats_persistence": true
+        },
+        "vibration_rms": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 10.0
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 100.0
+            }
+          ],
+          "mae": {
+            "ridge": 0.14133108993849058,
+            "train_drift": 0.18382388651371,
+            "persistence": 0.18378932178020477
+          },
+          "mse": {
+            "ridge": 0.04136810397598139,
+            "train_drift": 0.06630388721823692,
+            "persistence": 0.0662732295691967
+          },
+          "ridge_vs_persistence_r2": 0.37579465728634165,
+          "ridge_beats_persistence": true
+        },
+        "temperature_over_100c": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        },
+        "cutting_force_norm": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 10.0
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 1.0
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 100.0
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 100.0
+            }
+          ],
+          "mae": {
+            "ridge": 0.11117309457779867,
+            "train_drift": 0.1182809591293335,
+            "persistence": 0.1160282850265503
+          },
+          "mse": {
+            "ridge": 0.02040099642546055,
+            "train_drift": 0.031818195804953577,
+            "persistence": 0.03149480670690537
+          },
+          "ridge_vs_persistence_r2": 0.3522425263531608,
+          "ridge_beats_persistence": true
+        },
+        "mrr_norm": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        },
+        "confidence": {
+          "steps": [
+            {
+              "step": 1,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 2,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 3,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 4,
+              "ridge_lambda": 0.0001
+            },
+            {
+              "step": 5,
+              "ridge_lambda": 0.0001
+            }
+          ],
+          "mae": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "mse": {
+            "ridge": 0.0,
+            "train_drift": 0.0,
+            "persistence": 0.0
+          },
+          "ridge_vs_persistence_r2": null,
+          "ridge_beats_persistence": false
+        }
+      },
+      "channels": [
+        "chatter_probability",
+        "tool_wear",
+        "surface_roughness",
+        "vibration_rms",
+        "temperature_over_100c",
+        "cutting_force_norm",
+        "mrr_norm",
+        "confidence"
+      ],
+      "horizon": 5,
+      "train_windows": 226,
+      "val_windows": 113,
+      "datasets_sha256": {
+        "train": "31c078f82ead89c8da22dc459b6a1235b6ffe8f0b406a68ac592639bbe7abbc0",
+        "val": "0ef6509c96027b444b2c30c8032ff567882769a3dadd2dc6373787b896818031"
+      }
+    }
+  },
+  "feature_names": [
+    "init_chatter_probability",
+    "init_tool_wear",
+    "init_surface_roughness",
+    "init_vibration_rms",
+    "init_temperature_over_100c",
+    "init_cutting_force_norm",
+    "init_mrr_norm",
+    "init_confidence",
+    "dyn_spindle_speed",
+    "dyn_feed_rate",
+    "dyn_depth_of_cut",
+    "dyn_tool_wear",
+    "dyn_vibration_rms",
+    "dyn_temperature",
+    "future_action_mean_spindle_speed",
+    "future_action_mean_feed_rate",
+    "future_action_mean_depth_of_cut",
+    "future_action_mean_width_of_cut"
+  ],
+  "lambda_grid": [
+    0.0001,
+    0.001,
+    0.01,
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "caveats": [
+    "窗口stride小于窗口长度，训练折内部存在重叠，绝对分数受影响",
+    "验证组即 pilots 的选模验证组，本探针为诊断而非独立终测",
+    "岭回归只是线性条件基线，不能排除非线性可学信号"
+  ],
+  "status": "completed"
+}
