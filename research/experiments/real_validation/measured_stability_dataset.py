@@ -8,7 +8,7 @@
     3. a_lim_physics 通道是**模型预测**（TlustyAnalyticalModel 在相同参数下
        的解析预测），明确标注为模型输出，不是测量值。
     4. 使用方式：evaluate_stability_classification() 将任何 a_lim 预测器的
-       稳定性判定（ap > a_lim_pred）与实测 stable 标签对比，输出
+       稳定性判定（ap < a_lim_pred，临界点保守记为非稳定）与实测 stable 标签对比，输出
        Accuracy / BalancedAccuracy / MCC / ROC-AUC —— 这是论文可报告的
        "真实数据验证"指标，且不依赖任何设备。
 
@@ -19,7 +19,7 @@
 
 import os
 import sys
-from typing import Callable, Dict, Optional, Tuple
+from collections.abc import Callable
 
 import numpy as np
 import torch
@@ -34,7 +34,8 @@ except ImportError:  # pragma: no cover
         sys.path.insert(0, _EXP_DIR)
     from data_generator import build_physics_features_7d, TlustyAnalyticalModel
 
-from .schema import FEATURE_KEY_COLUMNS, NUMERIC_COLUMNS, load_rows, to_float, validate_schema
+from .schema import load_rows, to_float, validate_schema
+from .stability_rule import classify_stability
 
 DEFAULT_CSV = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
@@ -61,7 +62,7 @@ class MeasuredStabilityPointsDataset(Dataset):
 
     def __init__(
         self,
-        csv_path: Optional[str] = None,
+        csv_path: str | None = None,
         tlusty_stiffness: float = 0.9e6,
         tlusty_modal_mass: float = 95.0,
         tlusty_damping_ratio: float = 0.048,
@@ -163,7 +164,7 @@ class MeasuredStabilityPointsDataset(Dataset):
     def __len__(self) -> int:
         return len(self._rows)
 
-    def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         features = torch.from_numpy(self.features[idx])
         a_lim = torch.from_numpy(np.array([self.a_lim_measured[idx]], dtype=np.float32))
         a_lim_physics = torch.from_numpy(np.array([self.a_lim_physics[idx]], dtype=np.float32))
@@ -174,7 +175,7 @@ class MeasuredStabilityPointsDataset(Dataset):
         """有实测边界值 a_lim_measured 的行索引（可用于回归验证）。"""
         return np.where(~np.isnan(self.a_lim_measured))[0]
 
-    def stability_summary(self) -> Dict[str, int]:
+    def stability_summary(self) -> dict[str, int]:
         """稳定/失稳样本统计。"""
         return {
             "total": int(len(self._rows)),
@@ -187,7 +188,7 @@ def evaluate_stability_classification(
     predict_a_lim: Callable[[np.ndarray], np.ndarray],
     dataset: MeasuredStabilityPointsDataset,
     return_details: bool = False,
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """将任意 a_lim 预测器与实测稳定性标签对比（分类验证，主验证通道）。
 
     Args:
@@ -215,9 +216,9 @@ def evaluate_stability_classification(
     # 切深 ap 低于极限切深 a_lim 才是稳定，超过则发生颤振。
     # 原实现写作 (ap > a_lim) 并把结果标为"稳定"，方向与物理相反，
     # 直接导致所有模型（含 Tlusty 基线）的 MCC 为负值。
-    y_pred = (dataset.ap < a_lim_pred).astype(int)
+    y_pred = classify_stability(dataset.ap, a_lim_pred)
 
-    metrics: Dict[str, float] = {
+    metrics: dict[str, float] = {
         "accuracy": float(accuracy_score(y_true, y_pred)),
         "balanced_accuracy": float(balanced_accuracy_score(y_true, y_pred)),
         "mcc": float(matthews_corrcoef(y_true, y_pred)),

@@ -1,5 +1,7 @@
 # real_validation/ — SLD/LNN 引擎的"实测数据"真实验证包（零设备方案）
 
+2026-11-12：统一稳定标签为 `ap < a_lim`（等号保守记非稳定）；旧独立7点脚本及旧结果已更正。运行 `run_real_points_validation.py --output <全新JSON路径>`，禁止覆盖历史JSON。当前复算为 `results/real_points_validation_corrected_20261112.json`（相对 `experiments/`），详细说明见 `docs/reports/research_reliability_fixes_20261112.md`。
+
 > **解决的问题**：引擎（7 维切削参数 → 极限切深 a_lim）此前只被合成数据
 > （"自采 6061-T6"、"NIST" 为 data_generator.py 中的合成占位）与自洽文献验证
 > 检验过。审稿人会问："你的预测和**真实测量**对得上吗？"

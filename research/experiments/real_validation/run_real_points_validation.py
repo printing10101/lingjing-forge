@@ -7,10 +7,11 @@
   C. DL-LNN（合成 7 维切削参数空间训练后推理）
 
 数据：measured_stability_points.csv 的 7 个真实点（Ji 2024 SciRep，DOI 10.1038/s41598-024-76165-8）
-输出：results/real_points_validation_results.json + 控制台逐点对比表
+输出：--output 指定的全新 JSON + 控制台逐点对比表；不覆盖历史结果。
 """
 
 import csv
+import argparse
 import json
 import os
 import sys
@@ -18,19 +19,26 @@ import time
 
 import numpy as np
 import torch
+from torch.utils.data import DataLoader, Subset
 
 # 路径注入（脚本可独立运行）
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 _EXP_DIR = os.path.dirname(_SCRIPT_DIR)
 _RESEARCH_DIR = os.path.dirname(_EXP_DIR)
-for p in (_EXP_DIR, _RESEARCH_DIR, _SCRIPT_DIR):
-    if p not in sys.path:
-        sys.path.insert(0, p)
-
-from data_generator import TlustyAnalyticalModel, SyntheticChatterDataset, build_physics_features_7d
-from config import get_config
-from trainer import DLLNNTrainer
-from torch.utils.data import DataLoader, Subset
+if __package__:
+    from ..data_generator import TlustyAnalyticalModel, SyntheticChatterDataset, build_physics_features_7d
+    from ..config import get_config
+    from .stability_rule import classify_stability
+else:
+    for p in (_EXP_DIR, _RESEARCH_DIR, _SCRIPT_DIR):
+        if p not in sys.path:
+            sys.path.insert(0, p)
+    _ENGINEERING_PY = os.path.join(os.path.dirname(_RESEARCH_DIR), "engineering", "python")
+    if _ENGINEERING_PY not in sys.path:
+        sys.path.append(_ENGINEERING_PY)
+    from data_generator import TlustyAnalyticalModel, SyntheticChatterDataset, build_physics_features_7d
+    from config import get_config
+    from real_validation.stability_rule import classify_stability
 
 RESULTS_DIR = os.path.join(_EXP_DIR, "results")
 FRF_CSV = os.path.join(_RESEARCH_DIR, "datasets", "measured_stability", "measured_frf_11496886.csv")
@@ -101,7 +109,26 @@ def metrics(y_true, y_pred):
     return m
 
 
+def evaluate_points(points, boundary_predictor):
+    """所有模型共用标签语义；先保留全精度边界，再计算分类。"""
+    boundaries = [float(boundary_predictor(point)) for point in points]
+    labels = classify_stability([point["ap"] for point in points], boundaries).tolist()
+    return {
+        "metrics": metrics([point["stable"] for point in points], labels),
+        "predicted_stable": labels,
+        "a_lim_mm": boundaries,
+    }
+
+
 def main():
+    from trainer import DLLNNTrainer
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", required=True, help="全新结果文件路径；不会覆盖历史结果")
+    args = parser.parse_args()
+    out_path = os.path.abspath(args.output)
+    if os.path.exists(out_path):
+        parser.error(f"输出已存在，请选择新路径: {out_path}")
     pts = load_points()
     frf = load_frf()
     print(f"真实点: {len(pts)} | 模态参数: {len(frf)} 组 mode-1")
@@ -116,7 +143,7 @@ def main():
     def pred_A(pt):
         m = TlustyAnalyticalModel(stiffness=0.9e6, modal_mass=95.0, damping_ratio=0.048, num_teeth=pt["z"])
         a = tlusty_a_lim(m, pt["n"], pt["H"], pt["D"], pt["z"], pt["ae"])
-        return 1 if pt["ap"] > a else 0, a
+        return a
 
     # 模型 B: 真实模态 Tlusty
     def pred_B(pt):
@@ -127,7 +154,7 @@ def main():
         k = fm["m"] * (2 * np.pi * fm["f"]) ** 2
         m = TlustyAnalyticalModel(stiffness=k, modal_mass=fm["m"], damping_ratio=fm["zeta"], num_teeth=pt["z"])
         a = tlusty_a_lim(m, pt["n"], pt["H"], pt["D"], pt["z"], pt["ae"])
-        return 1 if pt["ap"] > a else 0, a
+        return a
 
     # ---- 模型 C: DL-LNN（合成 7 维空间训练）----
     print("\n[训练 DL-LNN 于合成 7 维空间（快速轮数）...]")
@@ -161,21 +188,13 @@ def main():
         )
         with torch.no_grad():
             y_pred, _ = trainer.model(torch.from_numpy(feats))
-        a = float(trainer.denormalize(y_pred.numpy())[0])
-        return 1 if pt["ap"] > a else 0, a
+        return float(np.asarray(trainer.denormalize(y_pred.numpy())).item())
 
     # 逐点评估
-    rows_out = []
-    yt = [p["stable"] for p in pts]
     models = {"A_default_tlusty": pred_A, "B_real_modal_tlusty": pred_B, "C_dlnn": pred_C}
     results = {}
     for mname, fn in models.items():
-        preds, alims = [], []
-        for pt in pts:
-            s, a = fn(pt)
-            preds.append(s)
-            alims.append(round(a, 4))
-        results[mname] = {"metrics": metrics(yt, preds), "predicted_stable": preds, "a_lim_mm": alims}
+        results[mname] = evaluate_points(pts, fn)
 
     # 逐点表
     print("\n=== 逐点对比（实测 vs 各模型预测）===")
@@ -200,6 +219,7 @@ def main():
 
     out = {
         "experiment": "real_points_validation",
+        "stability_rule": "stable iff ap < a_lim; equality is not stable",
         "n_points": len(pts),
         "points": [
             {"source": p["source"], "n_rpm": p["n"], "ap_mm": p["ap"], "measured_stable": p["stable"]} for p in pts
@@ -212,9 +232,8 @@ def main():
             "feed 未报告: A/B 用默认参数, C 用 0.25 mm/tooth 假设",
         ],
     }
-    os.makedirs(RESULTS_DIR, exist_ok=True)
-    out_path = os.path.join(RESULTS_DIR, "real_points_validation_results.json")
-    with open(out_path, "w", encoding="utf-8") as f:
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    with open(out_path, "x", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
     print(f"\n结果已保存: {out_path}")
 

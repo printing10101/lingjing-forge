@@ -46,18 +46,29 @@ def compute_r2(y_true, y_pred):
     return 1 - ss_res / (ss_tot + 1e-10)
 
 
-def cv_fold_evaluate(model_class, config_class, config_kwargs, X_train, y_train, X_test, y_test, epochs=80):
-    """单折训练和评估"""
+def inner_validation_split(n_samples, seed=42):
+    """仅从外层训练折划出早停验证集，外层测试折不参与选模。"""
+    if n_samples < 2:
+        raise ValueError("训练折至少需要两个样本，才能隔离早停验证集")
+    indices = np.random.default_rng(seed).permutation(n_samples)
+    n_val = min(200, max(1, n_samples // 5))
+    return indices[n_val:], indices[:n_val]
+
+
+def cv_fold_evaluate(model_class, config_class, config_kwargs, X_train, y_train, X_test, y_test, epochs=80, seed=42):
+    """内层验证用于早停；外层测试折仅在训练完成后评分一次。"""
     from training.trainer import LNNTrainer
 
+    torch.manual_seed(seed)
     config = config_class(**config_kwargs)
     model = model_class(config)
 
+    fit_idx, val_idx = inner_validation_split(len(X_train), seed)
     train_dataset = TensorDataset(
-        torch.FloatTensor(X_train), torch.FloatTensor(y_train)
+        torch.FloatTensor(X_train[fit_idx]), torch.FloatTensor(y_train[fit_idx])
     )
     val_dataset = TensorDataset(
-        torch.FloatTensor(X_test[:200]), torch.FloatTensor(y_test[:200])
+        torch.FloatTensor(X_train[val_idx]), torch.FloatTensor(y_train[val_idx])
     )
     train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
@@ -84,6 +95,50 @@ def cv_fold_evaluate(model_class, config_class, config_kwargs, X_train, y_train,
         preds = preds.cpu().numpy()
 
     return compute_r2(y_test, preds)
+
+
+class TestCrossValidationIsolation:
+    def test_inner_split_is_disjoint_complete_and_reproducible(self):
+        fit_idx, val_idx = inner_validation_split(2400)
+        assert len(val_idx) == 200
+        assert set(fit_idx).isdisjoint(val_idx)
+        assert set(fit_idx) | set(val_idx) == set(range(2400))
+        repeated = inner_validation_split(2400)
+        assert np.array_equal(fit_idx, repeated[0])
+        assert np.array_equal(val_idx, repeated[1])
+
+    def test_small_training_fold(self):
+        fit_idx, val_idx = inner_validation_split(2)
+        assert len(fit_idx) == len(val_idx) == 1
+        with pytest.raises(ValueError, match="至少"):
+            inner_validation_split(1)
+
+    @pytest.mark.skipif(not HAS_TORCH, reason="PyTorch not available")
+    def test_early_stopping_never_receives_outer_test_rows(self, monkeypatch):
+        from training.trainer import LNNTrainer
+
+        captured = {}
+
+        def inspect_fit(self, train_loader, val_loader):
+            captured["train"] = set(train_loader.dataset.tensors[0][:, 0].tolist())
+            captured["val"] = set(val_loader.dataset.tensors[0][:, 0].tolist())
+
+        monkeypatch.setattr(LNNTrainer, "fit", inspect_fit)
+
+        class ProbeModel(torch.nn.Module):
+            def __init__(self, config):
+                super().__init__()
+                self.linear = torch.nn.Linear(1, 1)
+
+            def forward(self, x, dt=0.1):
+                return self.linear(x)
+
+        x_train = np.arange(20, dtype=np.float32).reshape(-1, 1)
+        x_test = np.arange(100, 105, dtype=np.float32).reshape(-1, 1)
+        cv_fold_evaluate(ProbeModel, dict, {}, x_train, x_train, x_test, x_test, epochs=1)
+        assert captured["train"].isdisjoint(captured["val"])
+        assert captured["train"] | captured["val"] == set(range(20))
+        assert (captured["train"] | captured["val"]).isdisjoint(range(100, 105))
 
 
 @pytest.mark.skipif(not HAS_TORCH, reason="PyTorch not available")
