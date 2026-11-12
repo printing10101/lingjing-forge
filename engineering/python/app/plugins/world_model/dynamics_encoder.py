@@ -22,8 +22,8 @@
 工程现实约束
 ============
 物理量纲差异较大（rpm / mm·min⁻¹ / mm / g / °C），训练前必须在数据预处理
-阶段做标准化（z-score 或 min-max）。本模块假设输入已标准化，不做内置归一化，
-避免与数据加载器的归一化逻辑重复或冲突。
+阶段拟合尺度。本编码器不做内置归一化：WorldModelNet在checkpoint声明
+input_normalization时统一处理原单位输入，调用方不能再次标准化。旧权重不补变换。
 """
 
 from __future__ import annotations

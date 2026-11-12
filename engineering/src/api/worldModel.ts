@@ -4,9 +4,21 @@
 // - POST /preview  物理预演（轨迹预测 + 阈值带 + 安全盾裁决 + 主权决策）
 
 import http from "@/utils/http";
+import { unwrap } from '@/utils/response';
+import type { WorldModelGeometryInput, WorldModelInputRequirements } from '@/contracts/world_model';
 import { API_CONFIG } from "@/config/api";
 
 const BASE = `${API_CONFIG.V1}/world-model`;
+
+export async function getInputRequirements(modelUri: string): Promise<WorldModelInputRequirements> {
+  return unwrap(await http.get(`${BASE}/input-requirements`, { params: { model_uri: modelUri } }));
+}
+
+export async function prepareGeometry(featureTaskId: string, scale?: number): Promise<WorldModelGeometryInput> {
+  return unwrap(await http.post(`${BASE}/prepare-geometry`, {
+    feature_task_id: featureTaskId, millimeters_per_unit: scale,
+  }));
+}
 
 export interface PreviewBands {
   chatter_probability: { safe_below: number; danger_at: number };

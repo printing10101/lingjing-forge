@@ -403,6 +403,7 @@ class TestWorldModelInfo:
             "training_data_size",
             "prediction_horizon",
             "uncertainty_estimate",
+            "weights_source",
         }
 
 

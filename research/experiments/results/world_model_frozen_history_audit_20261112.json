@@ -1,0 +1,4897 @@
+{
+  "date": "2026-11-12",
+  "kind": "exploratory_validation_reanalysis",
+  "independent_final_test_established": false,
+  "protocol": {
+    "path": "docs\\reports\\world_model_frozen_history_protocol_20261112.md",
+    "sha256": "3d5d4fff6f427548e8ec26e79f3a114a3685294554041d488a3dd020927d1e1b"
+  },
+  "experiment_groups": 3,
+  "independent_source_provenance_verified": false,
+  "checkpoint_evaluations": 6,
+  "finding": "temporal history benefit not established for these checkpoints on reused validation groups",
+  "train_mean_beats_model_force_count": 5,
+  "all_repeat_last_changes_exactly_zero": true,
+  "all_shuffle_past_changes_exactly_zero": true,
+  "all_local_history_gradient_probes_zero": true,
+  "records": [
+    {
+      "checkpoint": {
+        "path": "D:\\灵境制造\\data\\models\\world_model\\cv-c1.pt",
+        "sha256": "b6325f8bd77278b5bbd2ed8c518832064dac31ce938aa156e6592deb014bf026",
+        "config": {
+          "state_dim": 8,
+          "action_dim": 4,
+          "hidden_dim": 64,
+          "num_lstm_layers": 2,
+          "num_ltc_layers": 2,
+          "dropout": 0.1,
+          "max_trajectory_length": 100,
+          "seed": 42,
+          "use_fusion": true,
+          "feature_dim": 32,
+          "d_model": 64,
+          "fused_dim": 128,
+          "delta_prediction": false
+        },
+        "state_feedback": false,
+        "model_selection": null,
+        "input_contract": null
+      },
+      "dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c1_val.npz",
+        "sha256": "7d667bdb4ed310e251735d55372a848a5ebfd650f1c32da848c541578829e3eb",
+        "n_windows": 113,
+        "history_steps": 20,
+        "horizon": 5,
+        "duplicate_windows": 0,
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c1.meta.json",
+          "sha256": "62802dc15fe94be8c833bb90285e8a8a303fa93ead4a2d62fea4b225cffc70c9",
+          "content": {
+            "generated_at": "2026-10-21T13:02:00.287425+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c4",
+                "c6"
+              ],
+              "val": [
+                "c1"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              },
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              }
+            }
+          }
+        }
+      },
+      "train_dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c1_train.npz",
+        "sha256": "ffd8c7a5c8accd50a4e283a40e605c65a7be456c135876152ae69496d40d9a4d",
+        "n_windows": 226,
+        "exact_window_overlap": 0,
+        "mean_baseline_fit_scope": "train_targets_only",
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c1.meta.json",
+          "sha256": "62802dc15fe94be8c833bb90285e8a8a303fa93ead4a2d62fea4b225cffc70c9",
+          "content": {
+            "generated_at": "2026-10-21T13:02:00.287425+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c4",
+                "c6"
+              ],
+              "val": [
+                "c1"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              },
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              }
+            }
+          }
+        }
+      },
+      "protocol": {
+        "shuffle_seed": 42,
+        "batch_size": 64,
+        "torch": "2.7.1+cpu",
+        "independent_units": "experiment groups; windows and horizon steps are repeated measurements",
+        "feedback_control": "latest state fixed across all model ablations",
+        "last_only_limit": "changes history length; out-of-distribution diagnostic, not retrained baseline",
+        "train_mean_information": "fit using only training targets; no validation-target fitting",
+        "cross_channel_aggregate": "not reported because dimensions have different units",
+        "endpoint_scope": "wear, vibration and normalized force; other channels include proxies/constants"
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nonzero_fraction": 0.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 4505.81201171875,
+          "first_step_gate_affine_max_abs": 5212.17724609375,
+          "first_step_gate_affine_abs_gt20_fraction": 1.0,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.12426342964172363,
+            "wear_mm": 0.02772733477496468,
+            "Ra_um": 0.34059722275860543,
+            "vib_rms": 0.09718685723610421,
+            "temp/100": 0.006037035584449768,
+            "force_norm": 0.11393717833208328,
+            "mrr_norm": 0.013442826794926078,
+            "confidence": 0.008185482025146485
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.007195131298145784,
+            "wear_mm": 0.0162768406650597,
+            "Ra_um": 0.0187484706807407,
+            "vib_rms": 0.014535857262662617,
+            "temp/100": 0.0062279704906546525,
+            "force_norm": 0.022053766137972833,
+            "mrr_norm": 0.014365285117190586,
+            "confidence": 0.008746934914781034
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -22505.24738781219,
+            "Ra_um": -92458.70756962335,
+            "vib_rms": -7.489568963648409,
+            "temp/100": null,
+            "force_norm": 19.872658816989407,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.0818059116601944,
+            "wear_mm": 0.02779437712995352,
+            "Ra_um": 0.22749224320977135,
+            "vib_rms": 0.0806606302202671,
+            "temp/100": 0.005405494570732116,
+            "force_norm": 0.10889226324014459,
+            "mrr_norm": 0.012529362516943365,
+            "confidence": 0.23600268363952637
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.03478363049395,
+            "wear_mm": 0.01711615896069959,
+            "Ra_um": 0.2610489549585024,
+            "vib_rms": 0.038313443155205344,
+            "temp/100": 0.006653580472026017,
+            "force_norm": 0.023742836299729682,
+            "mrr_norm": 0.010876834089765095,
+            "confidence": 0.13363224162063492
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -22559.904967860333,
+            "Ra_um": -61721.960387898835,
+            "vib_rms": 10.78859198369226,
+            "temp/100": null,
+            "force_norm": 23.42054054206512,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.08833371847867966,
+            "wear_mm": 0.013599082827568054,
+            "Ra_um": 0.9413213729858398,
+            "vib_rms": 0.1306423917412758,
+            "temp/100": 0.016238883137702942,
+            "force_norm": 0.056008778512477875,
+            "mrr_norm": 0.023443913087248802,
+            "confidence": 0.4554176330566406
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.12426342964172363,
+            "wear_mm": 0.02772733477496468,
+            "Ra_um": 0.34059722275860543,
+            "vib_rms": 0.09718685723610421,
+            "temp/100": 0.006037035584449768,
+            "force_norm": 0.11393717833208328,
+            "mrr_norm": 0.013442826794926078,
+            "confidence": 0.008185482025146485
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.007195131298145784,
+            "wear_mm": 0.0162768406650597,
+            "Ra_um": 0.0187484706807407,
+            "vib_rms": 0.014535857262662617,
+            "temp/100": 0.0062279704906546525,
+            "force_norm": 0.022053766137972833,
+            "mrr_norm": 0.014365285117190586,
+            "confidence": 0.008746934914781034
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -22505.24738781219,
+            "Ra_um": -92458.70756962335,
+            "vib_rms": -7.489568963648409,
+            "temp/100": null,
+            "force_norm": 19.872658816989407,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.12426342964172363,
+            "wear_mm": 0.02772733477496468,
+            "Ra_um": 0.34059722275860543,
+            "vib_rms": 0.09718685723610421,
+            "temp/100": 0.006037035584449768,
+            "force_norm": 0.11393717833208328,
+            "mrr_norm": 0.013442826794926078,
+            "confidence": 0.008185482025146485
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.007195131298145784,
+            "wear_mm": 0.0162768406650597,
+            "Ra_um": 0.0187484706807407,
+            "vib_rms": 0.014535857262662617,
+            "temp/100": 0.0062279704906546525,
+            "force_norm": 0.022053766137972833,
+            "mrr_norm": 0.014365285117190586,
+            "confidence": 0.008746934914781034
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -22505.24738781219,
+            "Ra_um": -92458.70756962335,
+            "vib_rms": -7.489568963648409,
+            "temp/100": null,
+            "force_norm": 19.872658816989407,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00012265884243281542,
+            "Ra_um": 0.0003679796657731048,
+            "vib_rms": 0.09041515206835703,
+            "temp/100": 0.0,
+            "force_norm": 0.14219513171147302,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.027482211085497008,
+            "Ra_um": 0.08244662970974827,
+            "vib_rms": 0.08522688387500381,
+            "temp/100": 0.0,
+            "force_norm": 0.16212765070050938,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.027482211085496974,
+              0.08244662970974821,
+              0.08522688387500378,
+              0.0,
+              0.16212765070050925,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.027482211085496974,
+              0.08244662970974821,
+              0.08522688387500378,
+              0.0,
+              0.16212765070050925,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.027482211085496974,
+              0.08244662970974821,
+              0.08522688387500378,
+              0.0,
+              0.16212765070050925,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.027482211085496974,
+              0.08244662970974821,
+              0.08522688387500378,
+              0.0,
+              0.16212765070050925,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.027482211085496974,
+              0.08244662970974821,
+              0.08522688387500378,
+              0.0,
+              0.16212765070050925,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.13250884413719177,
+            "wear_mm": 0.08962249383330345,
+            "Ra_um": 0.5523073673248291,
+            "vib_rms": 0.24532175064086914,
+            "temp/100": 0.00908881425857544,
+            "force_norm": 0.5600883178412914,
+            "mrr_norm": 0.02286150789586827,
+            "confidence": 0.01315617561340332
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.13795838970690966,
+            "wear_mm": 0.025270849795849534,
+            "Ra_um": 0.37225660043479875,
+            "vib_rms": 0.09496836293743384,
+            "temp/100": 0.0,
+            "force_norm": 0.11306164269185905,
+            "mrr_norm": 4.8593763494864106e-05,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 4.579669976578771e-16,
+            "Ra_um": 1.1102230246251565e-14,
+            "vib_rms": 2.248201624865942e-15,
+            "temp/100": 0.0,
+            "force_norm": 7.632783294297951e-16,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              1.6653345369377348e-16,
+              2.6645352591003757e-15,
+              4.996003610813204e-16,
+              0.0,
+              8.326672684688674e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              2.6645352591003757e-15,
+              4.996003610813204e-16,
+              0.0,
+              8.326672684688674e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              2.6645352591003757e-15,
+              4.996003610813204e-16,
+              0.0,
+              8.326672684688674e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              2.6645352591003757e-15,
+              4.996003610813204e-16,
+              0.0,
+              8.326672684688674e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              2.6645352591003757e-15,
+              4.996003610813204e-16,
+              0.0,
+              8.326672684688674e-17,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -20502.550370301487,
+            "Ra_um": -101062.27472860718,
+            "vib_rms": -5.035893613975703,
+            "temp/100": null,
+            "force_norm": 20.488387098039684,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.02487227041274309,
+            "wear_mm": 0.027289944244301423,
+            "Ra_um": 0.05533815727824676,
+            "vib_rms": 0.029328230839630626,
+            "temp/100": 0.00908881425857544,
+            "force_norm": 0.03508083449954279,
+            "mrr_norm": 0.022812914132373407,
+            "confidence": 0.01315617561340332
+          }
+        }
+      },
+      "local_detail_report": {
+        "path": "reports\\wm_history_mechanism_cv_c1_20261112.json",
+        "sha256": "310e2af523c09f859e7b4707d8574fcd4105781917dec606194132be5710c864"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c"
+    },
+    {
+      "checkpoint": {
+        "path": "D:\\灵境制造\\data\\models\\world_model\\cv-c4.pt",
+        "sha256": "d327e6886482b0a83d38e8bdeb550a8bef532f32b2f2949bbc8c7f13fadaf3f9",
+        "config": {
+          "state_dim": 8,
+          "action_dim": 4,
+          "hidden_dim": 64,
+          "num_lstm_layers": 2,
+          "num_ltc_layers": 2,
+          "dropout": 0.1,
+          "max_trajectory_length": 100,
+          "seed": 42,
+          "use_fusion": true,
+          "feature_dim": 32,
+          "d_model": 64,
+          "fused_dim": 128,
+          "delta_prediction": false
+        },
+        "state_feedback": false,
+        "model_selection": null,
+        "input_contract": null
+      },
+      "dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c4_val.npz",
+        "sha256": "db554787be0e8377a83324bdb885a4bcb0a967aec3b477bc5d1deb9b5ca6e247",
+        "n_windows": 113,
+        "history_steps": 20,
+        "horizon": 5,
+        "duplicate_windows": 0,
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c4.meta.json",
+          "sha256": "a42d757370eb16ea4db0a8177577bce3b9994ac15c2f1fac09fa372f9a71dfe6",
+          "content": {
+            "generated_at": "2026-10-21T13:03:01.636401+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c1",
+                "c6"
+              ],
+              "val": [
+                "c4"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              },
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              }
+            }
+          }
+        }
+      },
+      "train_dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c4_train.npz",
+        "sha256": "0b9cf46c00bc014b4d4ebfeac5caa697d469f557122b2bc86ab16d915f602985",
+        "n_windows": 226,
+        "exact_window_overlap": 0,
+        "mean_baseline_fit_scope": "train_targets_only",
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c4.meta.json",
+          "sha256": "a42d757370eb16ea4db0a8177577bce3b9994ac15c2f1fac09fa372f9a71dfe6",
+          "content": {
+            "generated_at": "2026-10-21T13:03:01.636401+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c1",
+                "c6"
+              ],
+              "val": [
+                "c4"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              },
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              }
+            }
+          }
+        }
+      },
+      "protocol": {
+        "shuffle_seed": 42,
+        "batch_size": 64,
+        "torch": "2.7.1+cpu",
+        "independent_units": "experiment groups; windows and horizon steps are repeated measurements",
+        "feedback_control": "latest state fixed across all model ablations",
+        "last_only_limit": "changes history length; out-of-distribution diagnostic, not retrained baseline",
+        "train_mean_information": "fit using only training targets; no validation-target fitting",
+        "cross_channel_aggregate": "not reported because dimensions have different units",
+        "endpoint_scope": "wear, vibration and normalized force; other channels include proxies/constants"
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nonzero_fraction": 0.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 4505.8193359375,
+          "first_step_gate_affine_max_abs": 5212.1865234375,
+          "first_step_gate_affine_abs_gt20_fraction": 1.0,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.33842807412147524,
+            "wear_mm": 0.0508659719959297,
+            "Ra_um": 0.8357193318088497,
+            "vib_rms": 0.1162566953901185,
+            "temp/100": 0.04111809134483337,
+            "force_norm": 0.10463260082693861,
+            "mrr_norm": 0.016939220996573568,
+            "confidence": 0.04713624715805054
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.03861387169288753,
+            "wear_mm": 0.03794537446645723,
+            "Ra_um": 0.054930074870343855,
+            "vib_rms": 0.0282440789662717,
+            "temp/100": 0.016275924830974908,
+            "force_norm": 0.0395149448094828,
+            "mrr_norm": 0.016827815266624243,
+            "confidence": 0.022488071600373322
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -27556.27985646313,
+            "Ra_um": -151362.40529166,
+            "vib_rms": -37.68481800111584,
+            "temp/100": null,
+            "force_norm": 22.431521608586184,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.3511351354420185,
+            "wear_mm": 0.03986739878237775,
+            "Ra_um": 1.2557793107707944,
+            "vib_rms": 0.07941454150281287,
+            "temp/100": 0.028913778066635133,
+            "force_norm": 0.0985138997928532,
+            "mrr_norm": 0.012597612151876093,
+            "confidence": 0.28238425254821775
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.02313784781103704,
+            "wear_mm": 0.022478597030507384,
+            "Ra_um": 0.18063277114248524,
+            "vib_rms": 0.035074288228574856,
+            "temp/100": 0.02179674654526989,
+            "force_norm": 0.01806336459080768,
+            "mrr_norm": 0.012803731689339733,
+            "confidence": 0.12780841377323884
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -21576.25810753966,
+            "Ra_um": -227492.38381283716,
+            "vib_rms": 5.947982980546466,
+            "temp/100": null,
+            "force_norm": 26.967567976495832,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.07037084549665451,
+            "wear_mm": 0.03816938400268555,
+            "Ra_um": 0.8269497752189636,
+            "vib_rms": 0.13875523954629898,
+            "temp/100": 0.04107421636581421,
+            "force_norm": 0.05852276459336281,
+            "mrr_norm": 0.01893449854105711,
+            "confidence": 0.4563547968864441
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.33842807412147524,
+            "wear_mm": 0.0508659719959297,
+            "Ra_um": 0.8357193318088497,
+            "vib_rms": 0.1162566953901185,
+            "temp/100": 0.04111809134483337,
+            "force_norm": 0.10463260082693861,
+            "mrr_norm": 0.016939220996573568,
+            "confidence": 0.04713624715805054
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.03861387169288753,
+            "wear_mm": 0.03794537446645723,
+            "Ra_um": 0.054930074870343855,
+            "vib_rms": 0.0282440789662717,
+            "temp/100": 0.016275924830974908,
+            "force_norm": 0.0395149448094828,
+            "mrr_norm": 0.016827815266624243,
+            "confidence": 0.022488071600373322
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -27556.27985646313,
+            "Ra_um": -151362.40529166,
+            "vib_rms": -37.68481800111584,
+            "temp/100": null,
+            "force_norm": 22.431521608586184,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.33842807412147524,
+            "wear_mm": 0.0508659719959297,
+            "Ra_um": 0.8357193318088497,
+            "vib_rms": 0.1162566953901185,
+            "temp/100": 0.04111809134483337,
+            "force_norm": 0.10463260082693861,
+            "mrr_norm": 0.016939220996573568,
+            "confidence": 0.04713624715805054
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.03861387169288753,
+            "wear_mm": 0.03794537446645723,
+            "Ra_um": 0.054930074870343855,
+            "vib_rms": 0.0282440789662717,
+            "temp/100": 0.016275924830974908,
+            "force_norm": 0.0395149448094828,
+            "mrr_norm": 0.016827815266624243,
+            "confidence": 0.022488071600373322
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -27556.27985646313,
+            "Ra_um": -151362.40529166,
+            "vib_rms": -37.68481800111584,
+            "temp/100": null,
+            "force_norm": 22.431521608586184,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00018392196007534467,
+            "Ra_um": 0.0005517668428674208,
+            "vib_rms": 0.08443682976664596,
+            "temp/100": 0.0,
+            "force_norm": 0.13489061922674064,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.03801304136433594,
+            "Ra_um": 0.11403912369981627,
+            "vib_rms": 0.09543307468944895,
+            "temp/100": 0.0,
+            "force_norm": 0.15386189792529112,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.03801304136433597,
+              0.11403912369981614,
+              0.09543307468944899,
+              0.0,
+              0.1538618979252913,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.03801304136433597,
+              0.11403912369981614,
+              0.09543307468944899,
+              0.0,
+              0.1538618979252913,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.03801304136433597,
+              0.11403912369981614,
+              0.09543307468944899,
+              0.0,
+              0.1538618979252913,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.03801304136433597,
+              0.11403912369981614,
+              0.09543307468944899,
+              0.0,
+              0.1538618979252913,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.03801304136433597,
+              0.11403912369981614,
+              0.09543307468944899,
+              0.0,
+              0.1538618979252913,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.3720328137278557,
+            "wear_mm": 0.13528934121131897,
+            "Ra_um": 1.2041102647781372,
+            "vib_rms": 0.33557960391044617,
+            "temp/100": 0.05703991651535034,
+            "force_norm": 0.7166829891502857,
+            "mrr_norm": 0.020903669530525804,
+            "confidence": 0.08753371238708496
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.3730437783524394,
+            "wear_mm": 0.03892832667067845,
+            "Ra_um": 0.8709867708450981,
+            "vib_rms": 0.092639862532443,
+            "temp/100": 0.0,
+            "force_norm": 0.11052317721510187,
+            "mrr_norm": 0.0006803125143051147,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 3.0531133177191805e-16,
+            "Ra_um": 1.9761969838327786e-14,
+            "vib_rms": 8.326672684688674e-17,
+            "temp/100": 0.0,
+            "force_norm": 4.0245584642661925e-16,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              1.6653345369377348e-16,
+              4.218847493575595e-15,
+              8.326672684688674e-17,
+              0.0,
+              2.7755575615628914e-16,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              4.218847493575595e-15,
+              8.326672684688674e-17,
+              0.0,
+              2.7755575615628914e-16,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              4.218847493575595e-15,
+              8.326672684688674e-17,
+              0.0,
+              2.7755575615628914e-16,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              4.218847493575595e-15,
+              8.326672684688674e-17,
+              0.0,
+              2.7755575615628914e-16,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              4.218847493575595e-15,
+              8.326672684688674e-17,
+              0.0,
+              2.7755575615628914e-16,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -21065.676276357233,
+            "Ra_um": -157754.13387994753,
+            "vib_rms": -9.714993787032704,
+            "temp/100": null,
+            "force_norm": 18.064593484205897,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.10960085969418287,
+            "wear_mm": 0.05365635136521496,
+            "Ra_um": 0.12766055121886,
+            "vib_rms": 0.0830492310940939,
+            "temp/100": 0.05703991651535034,
+            "force_norm": 0.10429487151298344,
+            "mrr_norm": 0.021234305342659354,
+            "confidence": 0.08753371238708496
+          }
+        }
+      },
+      "local_detail_report": {
+        "path": "reports\\wm_history_mechanism_cv_c4_20261112.json",
+        "sha256": "c7c979c65637f52ef43bfdf0d3dde195d4d16bc950f9999badb600a1cfed66e9"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c"
+    },
+    {
+      "checkpoint": {
+        "path": "D:\\灵境制造\\data\\models\\world_model\\cv-c6.pt",
+        "sha256": "e9d77fd63296e31b650829acaf92ab307c9219a27b9e78ec6328fbe96223d110",
+        "config": {
+          "state_dim": 8,
+          "action_dim": 4,
+          "hidden_dim": 64,
+          "num_lstm_layers": 2,
+          "num_ltc_layers": 2,
+          "dropout": 0.1,
+          "max_trajectory_length": 100,
+          "seed": 42,
+          "use_fusion": true,
+          "feature_dim": 32,
+          "d_model": 64,
+          "fused_dim": 128,
+          "delta_prediction": false
+        },
+        "state_feedback": false,
+        "model_selection": null,
+        "input_contract": null
+      },
+      "dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c6_val.npz",
+        "sha256": "0ef6509c96027b444b2c30c8032ff567882769a3dadd2dc6373787b896818031",
+        "n_windows": 113,
+        "history_steps": 20,
+        "horizon": 5,
+        "duplicate_windows": 0,
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c6.meta.json",
+          "sha256": "4a6efced5f26b645a490a82b5f15e014d9c7582580f75311abd0b08693edb86b",
+          "content": {
+            "generated_at": "2026-10-21T13:03:51.039456+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c1",
+                "c4"
+              ],
+              "val": [
+                "c6"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              },
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              }
+            }
+          }
+        }
+      },
+      "train_dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c6_train.npz",
+        "sha256": "31c078f82ead89c8da22dc459b6a1235b6ffe8f0b406a68ac592639bbe7abbc0",
+        "n_windows": 226,
+        "exact_window_overlap": 0,
+        "mean_baseline_fit_scope": "train_targets_only",
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c6.meta.json",
+          "sha256": "4a6efced5f26b645a490a82b5f15e014d9c7582580f75311abd0b08693edb86b",
+          "content": {
+            "generated_at": "2026-10-21T13:03:51.039456+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c1",
+                "c4"
+              ],
+              "val": [
+                "c6"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              },
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              }
+            }
+          }
+        }
+      },
+      "protocol": {
+        "shuffle_seed": 42,
+        "batch_size": 64,
+        "torch": "2.7.1+cpu",
+        "independent_units": "experiment groups; windows and horizon steps are repeated measurements",
+        "feedback_control": "latest state fixed across all model ablations",
+        "last_only_limit": "changes history length; out-of-distribution diagnostic, not retrained baseline",
+        "train_mean_information": "fit using only training targets; no validation-target fitting",
+        "cross_channel_aggregate": "not reported because dimensions have different units",
+        "endpoint_scope": "wear, vibration and normalized force; other channels include proxies/constants"
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nonzero_fraction": 0.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 4505.80517578125,
+          "first_step_gate_affine_max_abs": 5212.17041015625,
+          "first_step_gate_affine_abs_gt20_fraction": 1.0,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.24169240556657315,
+            "wear_mm": 0.04145744195026634,
+            "Ra_um": 0.5206946438392707,
+            "vib_rms": 0.15550678676958568,
+            "temp/100": 0.007017993927001953,
+            "force_norm": 0.10783879054088014,
+            "mrr_norm": 0.014322068111505359,
+            "confidence": 0.01370532512664795
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.00954780475973561,
+            "wear_mm": 0.017585806186883962,
+            "Ra_um": 0.02537675818431039,
+            "vib_rms": 0.017442853795407314,
+            "temp/100": 0.007754216151345144,
+            "force_norm": 0.02711845613800243,
+            "mrr_norm": 0.015262439732224239,
+            "confidence": 0.013772075483046304
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -23046.352202160804,
+            "Ra_um": -96803.715682806,
+            "vib_rms": 15.388560697693274,
+            "temp/100": null,
+            "force_norm": 7.058186988950121,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.18780609034001827,
+            "wear_mm": 0.040126752233610744,
+            "Ra_um": 0.26938836004881733,
+            "vib_rms": 0.17871198890178538,
+            "temp/100": 0.004636019468307495,
+            "force_norm": 0.09902712917717718,
+            "mrr_norm": 0.011493436235468835,
+            "confidence": 0.22623372077941895
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.03931445164488045,
+            "wear_mm": 0.01762672636824134,
+            "Ra_um": 0.2858951545406197,
+            "vib_rms": 0.029051937486728595,
+            "temp/100": 0.005432222870639854,
+            "force_norm": 0.022553260757815993,
+            "mrr_norm": 0.007177219874141481,
+            "confidence": 0.1390597398276304
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -22303.406873057927,
+            "Ra_um": -50034.43744676974,
+            "vib_rms": 2.7625808771753415,
+            "temp/100": null,
+            "force_norm": 14.652595074151264,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.11496144533157349,
+            "wear_mm": 0.019628360867500305,
+            "Ra_um": 0.9782453775405884,
+            "vib_rms": 0.11103451997041702,
+            "temp/100": 0.012748777866363525,
+            "force_norm": 0.07226312533020973,
+            "mrr_norm": 0.026708317920565605,
+            "confidence": 0.4514644742012024
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.24169240556657315,
+            "wear_mm": 0.04145744195026634,
+            "Ra_um": 0.5206946438392707,
+            "vib_rms": 0.15550678676958568,
+            "temp/100": 0.007017993927001953,
+            "force_norm": 0.10783879054088014,
+            "mrr_norm": 0.014322068111505359,
+            "confidence": 0.01370532512664795
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.00954780475973561,
+            "wear_mm": 0.017585806186883962,
+            "Ra_um": 0.02537675818431039,
+            "vib_rms": 0.017442853795407314,
+            "temp/100": 0.007754216151345144,
+            "force_norm": 0.02711845613800243,
+            "mrr_norm": 0.015262439732224239,
+            "confidence": 0.013772075483046304
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -23046.352202160804,
+            "Ra_um": -96803.715682806,
+            "vib_rms": 15.388560697693274,
+            "temp/100": null,
+            "force_norm": 7.058186988950121,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.24169240556657315,
+            "wear_mm": 0.04145744195026634,
+            "Ra_um": 0.5206946438392707,
+            "vib_rms": 0.15550678676958568,
+            "temp/100": 0.007017993927001953,
+            "force_norm": 0.10783879054088014,
+            "mrr_norm": 0.014322068111505359,
+            "confidence": 0.01370532512664795
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.00954780475973561,
+            "wear_mm": 0.017585806186883962,
+            "Ra_um": 0.02537675818431039,
+            "vib_rms": 0.017442853795407314,
+            "temp/100": 0.007754216151345144,
+            "force_norm": 0.02711845613800243,
+            "mrr_norm": 0.015262439732224239,
+            "confidence": 0.013772075483046304
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -23046.352202160804,
+            "Ra_um": -96803.715682806,
+            "vib_rms": 15.388560697693274,
+            "temp/100": null,
+            "force_norm": 7.058186988950121,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00017911004545414342,
+            "Ra_um": 0.0005373319693371258,
+            "vib_rms": 0.18378931743966465,
+            "temp/100": 0.0,
+            "force_norm": 0.1160282837693936,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.046535344845109454,
+            "Ra_um": 0.1396060328867639,
+            "vib_rms": 0.199627768150294,
+            "temp/100": 0.0,
+            "force_norm": 0.11498004163700697,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.046535344845109454,
+              0.13960603288676396,
+              0.19962776815029398,
+              0.0,
+              0.11498004163700704,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.046535344845109454,
+              0.13960603288676396,
+              0.19962776815029398,
+              0.0,
+              0.11498004163700704,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.046535344845109454,
+              0.13960603288676396,
+              0.19962776815029398,
+              0.0,
+              0.11498004163700704,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.046535344845109454,
+              0.13960603288676396,
+              0.19962776815029398,
+              0.0,
+              0.11498004163700704,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.046535344845109454,
+              0.13960603288676396,
+              0.19962776815029398,
+              0.0,
+              0.11498004163700704,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.2549864109605551,
+            "wear_mm": 0.14946896582841873,
+            "Ra_um": 0.7764372825622559,
+            "vib_rms": 0.8785629123449326,
+            "temp/100": 0.013604670763015747,
+            "force_norm": 0.44355885311961174,
+            "mrr_norm": 0.02187915303511545,
+            "confidence": 0.023878812789916992
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.23508538864552975,
+            "wear_mm": 0.03818543252435034,
+            "Ra_um": 0.4987301704102863,
+            "vib_rms": 0.1559809120138315,
+            "temp/100": 0.0,
+            "force_norm": 0.10323173200272055,
+            "mrr_norm": 0.0006317187508102506,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 8.049116928532385e-16,
+            "Ra_um": 7.993605777301127e-15,
+            "vib_rms": 6.938893903907228e-16,
+            "temp/100": 0.0,
+            "force_norm": 4.579669976578771e-16,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              4.163336342344337e-17,
+              3.1086244689504383e-15,
+              3.608224830031759e-16,
+              0.0,
+              5.551115123125783e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              4.163336342344337e-17,
+              3.1086244689504383e-15,
+              3.608224830031759e-16,
+              0.0,
+              5.551115123125783e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              4.163336342344337e-17,
+              3.1086244689504383e-15,
+              3.608224830031759e-16,
+              0.0,
+              5.551115123125783e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              4.163336342344337e-17,
+              3.1086244689504383e-15,
+              3.608224830031759e-16,
+              0.0,
+              5.551115123125783e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              4.163336342344337e-17,
+              3.1086244689504383e-15,
+              3.608224830031759e-16,
+              0.0,
+              5.551115123125783e-17,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -21219.537063110594,
+            "Ra_um": -92716.02414714682,
+            "vib_rms": 15.130588552820676,
+            "temp/100": null,
+            "force_norm": 11.028821034797183,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.01990102231502533,
+            "wear_mm": 0.02534613680523054,
+            "Ra_um": 0.053515214624658025,
+            "vib_rms": 0.030515648699592196,
+            "temp/100": 0.013604670763015747,
+            "force_norm": 0.040184039877380826,
+            "mrr_norm": 0.0225108717859257,
+            "confidence": 0.023878812789916992
+          }
+        }
+      },
+      "local_detail_report": {
+        "path": "reports\\wm_history_mechanism_cv_c6_20261112.json",
+        "sha256": "2cd02f53a266c031da36e030aad597cfb6ee8d884227c03cd0948b48e098c774"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c"
+    },
+    {
+      "checkpoint": {
+        "path": "D:\\灵境制造\\data\\models\\world_model\\cvsf-c1.pt",
+        "sha256": "4fa2f88ff64e39a28faa1d507eb9ddf960f5f0580823675bd91be3c478d9d154",
+        "config": {
+          "state_dim": 8,
+          "action_dim": 4,
+          "hidden_dim": 64,
+          "num_lstm_layers": 2,
+          "num_ltc_layers": 2,
+          "dropout": 0.1,
+          "max_trajectory_length": 100,
+          "seed": 42,
+          "use_fusion": true,
+          "feature_dim": 32,
+          "d_model": 64,
+          "fused_dim": 128,
+          "delta_prediction": true
+        },
+        "state_feedback": true,
+        "model_selection": null,
+        "input_contract": null
+      },
+      "dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c1_val.npz",
+        "sha256": "7d667bdb4ed310e251735d55372a848a5ebfd650f1c32da848c541578829e3eb",
+        "n_windows": 113,
+        "history_steps": 20,
+        "horizon": 5,
+        "duplicate_windows": 0,
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c1.meta.json",
+          "sha256": "62802dc15fe94be8c833bb90285e8a8a303fa93ead4a2d62fea4b225cffc70c9",
+          "content": {
+            "generated_at": "2026-10-21T13:02:00.287425+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c4",
+                "c6"
+              ],
+              "val": [
+                "c1"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              },
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              }
+            }
+          }
+        }
+      },
+      "train_dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c1_train.npz",
+        "sha256": "ffd8c7a5c8accd50a4e283a40e605c65a7be456c135876152ae69496d40d9a4d",
+        "n_windows": 226,
+        "exact_window_overlap": 0,
+        "mean_baseline_fit_scope": "train_targets_only",
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c1.meta.json",
+          "sha256": "62802dc15fe94be8c833bb90285e8a8a303fa93ead4a2d62fea4b225cffc70c9",
+          "content": {
+            "generated_at": "2026-10-21T13:02:00.287425+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c4",
+                "c6"
+              ],
+              "val": [
+                "c1"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              },
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              }
+            }
+          }
+        }
+      },
+      "protocol": {
+        "shuffle_seed": 42,
+        "batch_size": 64,
+        "torch": "2.7.1+cpu",
+        "independent_units": "experiment groups; windows and horizon steps are repeated measurements",
+        "feedback_control": "latest state fixed across all model ablations",
+        "last_only_limit": "changes history length; out-of-distribution diagnostic, not retrained baseline",
+        "train_mean_information": "fit using only training targets; no validation-target fitting",
+        "cross_channel_aggregate": "not reported because dimensions have different units",
+        "endpoint_scope": "wear, vibration and normalized force; other channels include proxies/constants"
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nonzero_fraction": 0.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 3319.421630859375,
+          "first_step_gate_affine_max_abs": 3644.3330078125,
+          "first_step_gate_affine_abs_gt20_fraction": 0.98828125,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.010069211618562715,
+            "wear_mm": 0.009635809472704355,
+            "Ra_um": 0.018999270633258653,
+            "vib_rms": 0.08439487117647597,
+            "temp/100": 0.018455437089489626,
+            "force_norm": 0.1285146972169341,
+            "mrr_norm": 0.0196197140214973,
+            "confidence": 0.010770056521998042
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.006030335808733429,
+            "wear_mm": 0.026586861751140993,
+            "Ra_um": 0.09753354614398918,
+            "vib_rms": 0.06374579271773698,
+            "temp/100": 0.026636666766297352,
+            "force_norm": 0.11509971034736302,
+            "mrr_norm": 0.026338611576086184,
+            "confidence": 0.014992173356180891
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.002706834509060414,
+              0.024958104435849907,
+              0.08959008291833313,
+              0.07705184437825528,
+              0.010201256585665378,
+              0.14384273269505055,
+              0.010010207272376987,
+              0.004209553531638628
+            ],
+            [
+              0.004145711207181667,
+              0.02541642556737321,
+              0.09307987220152306,
+              0.06674135801248031,
+              0.017363937780054784,
+              0.12727179858266874,
+              0.017336190891828602,
+              0.00869321587223815
+            ],
+            [
+              0.00548022681028006,
+              0.02521164888704416,
+              0.09717117374303033,
+              0.06014120768056419,
+              0.023580499680147287,
+              0.11148307129505206,
+              0.022197493417568364,
+              0.012452876949089316
+            ],
+            [
+              0.006266447927084755,
+              0.025432702100802073,
+              0.10112407424068996,
+              0.05316782110832276,
+              0.028758609987501915,
+              0.0957009671266057,
+              0.02981887991161336,
+              0.015861951422929527
+            ],
+            [
+              0.006441093914380737,
+              0.025639011577592782,
+              0.10512679833442991,
+              0.04773337384240682,
+              0.03539298449187076,
+              0.08412598661635691,
+              0.03249922867092211,
+              0.019222910310537057
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -7755.780538596089,
+            "Ra_um": -5063.1305749849635,
+            "vib_rms": 6.658486718387106,
+            "temp/100": null,
+            "force_norm": 9.62088809221527,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.01139655800256054,
+            "wear_mm": 0.03746850069249626,
+            "Ra_um": 0.042646054883973786,
+            "vib_rms": 0.0835109153432788,
+            "temp/100": 0.03347221386116163,
+            "force_norm": 0.1317943540962907,
+            "mrr_norm": 0.027225028851329127,
+            "confidence": 0.026897535809373433
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.007478497856070519,
+            "wear_mm": 0.02857250010107102,
+            "Ra_um": 0.09619715404036083,
+            "vib_rms": 0.063512066139633,
+            "temp/100": 0.028262334828277787,
+            "force_norm": 0.11369616387562388,
+            "mrr_norm": 0.025698083387997936,
+            "confidence": 0.016454538363848987
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.003646987879444285,
+              0.026147574765383437,
+              0.08893383422723239,
+              0.07705833266703947,
+              0.011413001757489565,
+              0.14284108531237427,
+              0.009426768908789936,
+              0.006451864040513836
+            ],
+            [
+              0.004739776729225412,
+              0.027006711352983014,
+              0.09173577172170819,
+              0.06579735810769825,
+              0.01720086769032842,
+              0.1266989201899812,
+              0.017495214892874426,
+              0.011332316498175624
+            ],
+            [
+              0.005595987037474108,
+              0.02710560331661939,
+              0.09569934428548682,
+              0.059851488393652764,
+              0.023698903498579862,
+              0.11032941797191462,
+              0.022771716004183724,
+              0.015326417953748922
+            ],
+            [
+              0.00599354029892637,
+              0.027544996521186183,
+              0.09923154593538518,
+              0.053157445451416235,
+              0.028963068995346047,
+              0.09456806750170257,
+              0.03089329676067215,
+              0.018954816739068306
+            ],
+            [
+              0.006357535286028051,
+              0.0278755391229509,
+              0.10398744500622012,
+              0.048109081744943646,
+              0.03562488732511021,
+              0.08260526877073275,
+              0.03320022923461721,
+              0.021921713848371875
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -30446.92181121722,
+            "Ra_um": -11489.242246409676,
+            "vib_rms": 7.636150099994725,
+            "temp/100": null,
+            "force_norm": 7.314440016333649,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.019364990293979645,
+            "wear_mm": 0.07017774879932404,
+            "Ra_um": 0.06086838245391846,
+            "vib_rms": 0.0798376202583313,
+            "temp/100": 0.04000045359134674,
+            "force_norm": 0.025997061282396317,
+            "mrr_norm": 0.029814647510647774,
+            "confidence": 0.04182863235473633
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.010069211618562715,
+            "wear_mm": 0.009635809472704355,
+            "Ra_um": 0.018999270633258653,
+            "vib_rms": 0.08439487117647597,
+            "temp/100": 0.018455437089489626,
+            "force_norm": 0.1285146972169341,
+            "mrr_norm": 0.0196197140214973,
+            "confidence": 0.010770056521998042
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.006030335808733429,
+            "wear_mm": 0.026586861751140993,
+            "Ra_um": 0.09753354614398918,
+            "vib_rms": 0.06374579271773698,
+            "temp/100": 0.026636666766297352,
+            "force_norm": 0.11509971034736302,
+            "mrr_norm": 0.026338611576086184,
+            "confidence": 0.014992173356180891
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.002706834509060414,
+              0.024958104435849907,
+              0.08959008291833313,
+              0.07705184437825528,
+              0.010201256585665378,
+              0.14384273269505055,
+              0.010010207272376987,
+              0.004209553531638628
+            ],
+            [
+              0.004145711207181667,
+              0.02541642556737321,
+              0.09307987220152306,
+              0.06674135801248031,
+              0.017363937780054784,
+              0.12727179858266874,
+              0.017336190891828602,
+              0.00869321587223815
+            ],
+            [
+              0.00548022681028006,
+              0.02521164888704416,
+              0.09717117374303033,
+              0.06014120768056419,
+              0.023580499680147287,
+              0.11148307129505206,
+              0.022197493417568364,
+              0.012452876949089316
+            ],
+            [
+              0.006266447927084755,
+              0.025432702100802073,
+              0.10112407424068996,
+              0.05316782110832276,
+              0.028758609987501915,
+              0.0957009671266057,
+              0.02981887991161336,
+              0.015861951422929527
+            ],
+            [
+              0.006441093914380737,
+              0.025639011577592782,
+              0.10512679833442991,
+              0.04773337384240682,
+              0.03539298449187076,
+              0.08412598661635691,
+              0.03249922867092211,
+              0.019222910310537057
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -7755.780538596089,
+            "Ra_um": -5063.1305749849635,
+            "vib_rms": 6.658486718387106,
+            "temp/100": null,
+            "force_norm": 9.62088809221527,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.010069211618562715,
+            "wear_mm": 0.009635809472704355,
+            "Ra_um": 0.018999270633258653,
+            "vib_rms": 0.08439487117647597,
+            "temp/100": 0.018455437089489626,
+            "force_norm": 0.1285146972169341,
+            "mrr_norm": 0.0196197140214973,
+            "confidence": 0.010770056521998042
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.006030335808733429,
+            "wear_mm": 0.026586861751140993,
+            "Ra_um": 0.09753354614398918,
+            "vib_rms": 0.06374579271773698,
+            "temp/100": 0.026636666766297352,
+            "force_norm": 0.11509971034736302,
+            "mrr_norm": 0.026338611576086184,
+            "confidence": 0.014992173356180891
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.002706834509060414,
+              0.024958104435849907,
+              0.08959008291833313,
+              0.07705184437825528,
+              0.010201256585665378,
+              0.14384273269505055,
+              0.010010207272376987,
+              0.004209553531638628
+            ],
+            [
+              0.004145711207181667,
+              0.02541642556737321,
+              0.09307987220152306,
+              0.06674135801248031,
+              0.017363937780054784,
+              0.12727179858266874,
+              0.017336190891828602,
+              0.00869321587223815
+            ],
+            [
+              0.00548022681028006,
+              0.02521164888704416,
+              0.09717117374303033,
+              0.06014120768056419,
+              0.023580499680147287,
+              0.11148307129505206,
+              0.022197493417568364,
+              0.012452876949089316
+            ],
+            [
+              0.006266447927084755,
+              0.025432702100802073,
+              0.10112407424068996,
+              0.05316782110832276,
+              0.028758609987501915,
+              0.0957009671266057,
+              0.02981887991161336,
+              0.015861951422929527
+            ],
+            [
+              0.006441093914380737,
+              0.025639011577592782,
+              0.10512679833442991,
+              0.04773337384240682,
+              0.03539298449187076,
+              0.08412598661635691,
+              0.03249922867092211,
+              0.019222910310537057
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -7755.780538596089,
+            "Ra_um": -5063.1305749849635,
+            "vib_rms": 6.658486718387106,
+            "temp/100": null,
+            "force_norm": 9.62088809221527,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00012265884243281542,
+            "Ra_um": 0.0003679796657731048,
+            "vib_rms": 0.09041515206835703,
+            "temp/100": 0.0,
+            "force_norm": 0.14219513171147302,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.027482211085497008,
+            "Ra_um": 0.08244662970974827,
+            "vib_rms": 0.08522688387500381,
+            "temp/100": 0.0,
+            "force_norm": 0.16212765070050938,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.027482211085496974,
+              0.08244662970974821,
+              0.08522688387500378,
+              0.0,
+              0.16212765070050925,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.027482211085496974,
+              0.08244662970974821,
+              0.08522688387500378,
+              0.0,
+              0.16212765070050925,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.027482211085496974,
+              0.08244662970974821,
+              0.08522688387500378,
+              0.0,
+              0.16212765070050925,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.027482211085496974,
+              0.08244662970974821,
+              0.08522688387500378,
+              0.0,
+              0.16212765070050925,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.027482211085496974,
+              0.08244662970974821,
+              0.08522688387500378,
+              0.0,
+              0.16212765070050925,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.02193983644247055,
+            "wear_mm": 0.04115987569093704,
+            "Ra_um": 0.09956681728363037,
+            "vib_rms": 0.12738636136054993,
+            "temp/100": 0.11851567029953003,
+            "force_norm": 0.25026851892471313,
+            "mrr_norm": 0.10292148700682446,
+            "confidence": 0.06661069393157959
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.13795838970690966,
+            "wear_mm": 0.025270849795849534,
+            "Ra_um": 0.37225660043479875,
+            "vib_rms": 0.09496836293743384,
+            "temp/100": 0.0,
+            "force_norm": 0.11306164269185905,
+            "mrr_norm": 4.8593763494864106e-05,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 4.579669976578771e-16,
+            "Ra_um": 1.1102230246251565e-14,
+            "vib_rms": 2.248201624865942e-15,
+            "temp/100": 0.0,
+            "force_norm": 7.632783294297951e-16,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              1.6653345369377348e-16,
+              2.6645352591003757e-15,
+              4.996003610813204e-16,
+              0.0,
+              8.326672684688674e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              2.6645352591003757e-15,
+              4.996003610813204e-16,
+              0.0,
+              8.326672684688674e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              2.6645352591003757e-15,
+              4.996003610813204e-16,
+              0.0,
+              8.326672684688674e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              2.6645352591003757e-15,
+              4.996003610813204e-16,
+              0.0,
+              8.326672684688674e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              2.6645352591003757e-15,
+              4.996003610813204e-16,
+              0.0,
+              8.326672684688674e-17,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -20502.550370301487,
+            "Ra_um": -101062.27472860718,
+            "vib_rms": -5.035893613975703,
+            "temp/100": null,
+            "force_norm": 20.488387098039684,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.15350122470408678,
+            "wear_mm": 0.07688253606644879,
+            "Ra_um": 0.6129975448667477,
+            "vib_rms": 0.1978858449276891,
+            "temp/100": 0.11851567029953003,
+            "force_norm": 0.45681643185859433,
+            "mrr_norm": 0.1028728932433296,
+            "confidence": 0.06661069393157959
+          }
+        }
+      },
+      "local_detail_report": {
+        "path": "reports\\wm_history_mechanism_cvsf_c1_20261112.json",
+        "sha256": "ff0e6255d7e786449a4a96cdb6ec9888fe7df4ea9042bd0c018e163fd6306469"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c"
+    },
+    {
+      "checkpoint": {
+        "path": "D:\\灵境制造\\data\\models\\world_model\\cvsf-c4.pt",
+        "sha256": "3a2dd2023f0f1a04ea61bd483bb39da827c502b29348f04025b277d6956dd2db",
+        "config": {
+          "state_dim": 8,
+          "action_dim": 4,
+          "hidden_dim": 64,
+          "num_lstm_layers": 2,
+          "num_ltc_layers": 2,
+          "dropout": 0.1,
+          "max_trajectory_length": 100,
+          "seed": 42,
+          "use_fusion": true,
+          "feature_dim": 32,
+          "d_model": 64,
+          "fused_dim": 128,
+          "delta_prediction": true
+        },
+        "state_feedback": true,
+        "model_selection": null,
+        "input_contract": null
+      },
+      "dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c4_val.npz",
+        "sha256": "db554787be0e8377a83324bdb885a4bcb0a967aec3b477bc5d1deb9b5ca6e247",
+        "n_windows": 113,
+        "history_steps": 20,
+        "horizon": 5,
+        "duplicate_windows": 0,
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c4.meta.json",
+          "sha256": "a42d757370eb16ea4db0a8177577bce3b9994ac15c2f1fac09fa372f9a71dfe6",
+          "content": {
+            "generated_at": "2026-10-21T13:03:01.636401+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c1",
+                "c6"
+              ],
+              "val": [
+                "c4"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              },
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              }
+            }
+          }
+        }
+      },
+      "train_dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c4_train.npz",
+        "sha256": "0b9cf46c00bc014b4d4ebfeac5caa697d469f557122b2bc86ab16d915f602985",
+        "n_windows": 226,
+        "exact_window_overlap": 0,
+        "mean_baseline_fit_scope": "train_targets_only",
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c4.meta.json",
+          "sha256": "a42d757370eb16ea4db0a8177577bce3b9994ac15c2f1fac09fa372f9a71dfe6",
+          "content": {
+            "generated_at": "2026-10-21T13:03:01.636401+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c1",
+                "c6"
+              ],
+              "val": [
+                "c4"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              },
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              }
+            }
+          }
+        }
+      },
+      "protocol": {
+        "shuffle_seed": 42,
+        "batch_size": 64,
+        "torch": "2.7.1+cpu",
+        "independent_units": "experiment groups; windows and horizon steps are repeated measurements",
+        "feedback_control": "latest state fixed across all model ablations",
+        "last_only_limit": "changes history length; out-of-distribution diagnostic, not retrained baseline",
+        "train_mean_information": "fit using only training targets; no validation-target fitting",
+        "cross_channel_aggregate": "not reported because dimensions have different units",
+        "endpoint_scope": "wear, vibration and normalized force; other channels include proxies/constants"
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nonzero_fraction": 0.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 3319.4580078125,
+          "first_step_gate_affine_max_abs": 3644.3642578125,
+          "first_step_gate_affine_abs_gt20_fraction": 0.98828125,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.030671308156663336,
+            "wear_mm": 0.011440568621707174,
+            "Ra_um": 0.025090813003810105,
+            "vib_rms": 0.15496320457885915,
+            "temp/100": 0.0716798581644497,
+            "force_norm": 0.12899378250230442,
+            "mrr_norm": 0.04821842207935993,
+            "confidence": 0.01058336992179398
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.02478209549218951,
+            "wear_mm": 0.03959239498717087,
+            "Ra_um": 0.12412871345373132,
+            "vib_rms": 0.092493504433822,
+            "temp/100": 0.03983820883750143,
+            "force_norm": 0.11977140023452724,
+            "mrr_norm": 0.029016854760886984,
+            "confidence": 0.01452194122962981
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0039520433058912435,
+              0.036528363922267604,
+              0.12058033520487116,
+              0.08714757057597061,
+              0.009340621172882682,
+              0.1401002588368929,
+              0.008915665730701478,
+              0.004923681983823301
+            ],
+            [
+              0.005084732620487603,
+              0.03801548223395559,
+              0.1220695843701138,
+              0.07929073638073851,
+              0.016011115074823362,
+              0.12754832101373062,
+              0.015059045933167732,
+              0.008678581647726207
+            ],
+            [
+              0.006267076668841715,
+              0.03844785595372104,
+              0.12319577658127427,
+              0.0744537935722992,
+              0.0229634110873567,
+              0.11428485509100958,
+              0.019627270664035648,
+              0.012292612620885796
+            ],
+            [
+              0.0062045536482909025,
+              0.038437206117692864,
+              0.12556174115467758,
+              0.06987547894769275,
+              0.028317067709173478,
+              0.10062174258594361,
+              0.026616716464758494,
+              0.015456852686720823
+            ],
+            [
+              0.006555403968796085,
+              0.03881357937328916,
+              0.12695742743955077,
+              0.06643005343717967,
+              0.03508352822194038,
+              0.09030753532613175,
+              0.030109691690249466,
+              0.018432493445790663
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -6120.338570239509,
+            "Ra_um": -4447.357879175599,
+            "vib_rms": -83.5256072582587,
+            "temp/100": null,
+            "force_norm": 4.371569170813945,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.04367749269029735,
+            "wear_mm": 0.060661765240726216,
+            "Ra_um": 0.05865818124956789,
+            "vib_rms": 0.14791994752646712,
+            "temp/100": 0.06105051640651922,
+            "force_norm": 0.14006114852830018,
+            "mrr_norm": 0.0346153913350133,
+            "confidence": 0.019418799666176854
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.03130015473228991,
+            "wear_mm": 0.040998398171420675,
+            "Ra_um": 0.12243745562501257,
+            "vib_rms": 0.08834877165561279,
+            "temp/100": 0.03948023793258773,
+            "force_norm": 0.12089872251706535,
+            "mrr_norm": 0.02805528201134299,
+            "confidence": 0.015768171678219933
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.004754403558824045,
+              0.0375735508566481,
+              0.11980445185733718,
+              0.08709625028040399,
+              0.0102821015452552,
+              0.13923901439359668,
+              0.00844669391456192,
+              0.007007465220820976
+            ],
+            [
+              0.006653561199389028,
+              0.038907681721164475,
+              0.12066140234429305,
+              0.07915309268291036,
+              0.01586842246038724,
+              0.12692546154021161,
+              0.014922110301632952,
+              0.011160822817829331
+            ],
+            [
+              0.00849962417368117,
+              0.039193703865670435,
+              0.1216069966117798,
+              0.075438438884678,
+              0.02311297696220878,
+              0.11291588813222417,
+              0.019925461477979606,
+              0.014959794267555246
+            ],
+            [
+              0.008989843289899725,
+              0.039294539426952504,
+              0.12358147526705407,
+              0.07141547028521573,
+              0.028869538720037453,
+              0.09923719010741501,
+              0.02722556072840902,
+              0.018184197162921797
+            ],
+            [
+              0.009630324348907468,
+              0.039854157271198745,
+              0.1254829044721047,
+              0.06801954769266828,
+              0.035662624127542016,
+              0.08862941647781485,
+              0.03034459680843637,
+              0.02066259987142428
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -32882.33947478364,
+            "Ra_um": -10530.972485539938,
+            "vib_rms": -75.18415593677122,
+            "temp/100": null,
+            "force_norm": -3.8331274118241514,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.026733219623565674,
+            "wear_mm": 0.08482617139816284,
+            "Ra_um": 0.04894685745239258,
+            "vib_rms": 0.03571808338165283,
+            "temp/100": 0.02940499782562256,
+            "force_norm": 0.04600632190704346,
+            "mrr_norm": 0.024592865258455276,
+            "confidence": 0.02992933988571167
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.030671308156663336,
+            "wear_mm": 0.011440568621707174,
+            "Ra_um": 0.025090813003810105,
+            "vib_rms": 0.15496320457885915,
+            "temp/100": 0.0716798581644497,
+            "force_norm": 0.12899378250230442,
+            "mrr_norm": 0.04821842207935993,
+            "confidence": 0.01058336992179398
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.02478209549218951,
+            "wear_mm": 0.03959239498717087,
+            "Ra_um": 0.12412871345373132,
+            "vib_rms": 0.092493504433822,
+            "temp/100": 0.03983820883750143,
+            "force_norm": 0.11977140023452724,
+            "mrr_norm": 0.029016854760886984,
+            "confidence": 0.01452194122962981
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0039520433058912435,
+              0.036528363922267604,
+              0.12058033520487116,
+              0.08714757057597061,
+              0.009340621172882682,
+              0.1401002588368929,
+              0.008915665730701478,
+              0.004923681983823301
+            ],
+            [
+              0.005084732620487603,
+              0.03801548223395559,
+              0.1220695843701138,
+              0.07929073638073851,
+              0.016011115074823362,
+              0.12754832101373062,
+              0.015059045933167732,
+              0.008678581647726207
+            ],
+            [
+              0.006267076668841715,
+              0.03844785595372104,
+              0.12319577658127427,
+              0.0744537935722992,
+              0.0229634110873567,
+              0.11428485509100958,
+              0.019627270664035648,
+              0.012292612620885796
+            ],
+            [
+              0.0062045536482909025,
+              0.038437206117692864,
+              0.12556174115467758,
+              0.06987547894769275,
+              0.028317067709173478,
+              0.10062174258594361,
+              0.026616716464758494,
+              0.015456852686720823
+            ],
+            [
+              0.006555403968796085,
+              0.03881357937328916,
+              0.12695742743955077,
+              0.06643005343717967,
+              0.03508352822194038,
+              0.09030753532613175,
+              0.030109691690249466,
+              0.018432493445790663
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -6120.338570239509,
+            "Ra_um": -4447.357879175599,
+            "vib_rms": -83.5256072582587,
+            "temp/100": null,
+            "force_norm": 4.371569170813945,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.030671308156663336,
+            "wear_mm": 0.011440568621707174,
+            "Ra_um": 0.025090813003810105,
+            "vib_rms": 0.15496320457885915,
+            "temp/100": 0.0716798581644497,
+            "force_norm": 0.12899378250230442,
+            "mrr_norm": 0.04821842207935993,
+            "confidence": 0.01058336992179398
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.02478209549218951,
+            "wear_mm": 0.03959239498717087,
+            "Ra_um": 0.12412871345373132,
+            "vib_rms": 0.092493504433822,
+            "temp/100": 0.03983820883750143,
+            "force_norm": 0.11977140023452724,
+            "mrr_norm": 0.029016854760886984,
+            "confidence": 0.01452194122962981
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0039520433058912435,
+              0.036528363922267604,
+              0.12058033520487116,
+              0.08714757057597061,
+              0.009340621172882682,
+              0.1401002588368929,
+              0.008915665730701478,
+              0.004923681983823301
+            ],
+            [
+              0.005084732620487603,
+              0.03801548223395559,
+              0.1220695843701138,
+              0.07929073638073851,
+              0.016011115074823362,
+              0.12754832101373062,
+              0.015059045933167732,
+              0.008678581647726207
+            ],
+            [
+              0.006267076668841715,
+              0.03844785595372104,
+              0.12319577658127427,
+              0.0744537935722992,
+              0.0229634110873567,
+              0.11428485509100958,
+              0.019627270664035648,
+              0.012292612620885796
+            ],
+            [
+              0.0062045536482909025,
+              0.038437206117692864,
+              0.12556174115467758,
+              0.06987547894769275,
+              0.028317067709173478,
+              0.10062174258594361,
+              0.026616716464758494,
+              0.015456852686720823
+            ],
+            [
+              0.006555403968796085,
+              0.03881357937328916,
+              0.12695742743955077,
+              0.06643005343717967,
+              0.03508352822194038,
+              0.09030753532613175,
+              0.030109691690249466,
+              0.018432493445790663
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -6120.338570239509,
+            "Ra_um": -4447.357879175599,
+            "vib_rms": -83.5256072582587,
+            "temp/100": null,
+            "force_norm": 4.371569170813945,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00018392196007534467,
+            "Ra_um": 0.0005517668428674208,
+            "vib_rms": 0.08443682976664596,
+            "temp/100": 0.0,
+            "force_norm": 0.13489061922674064,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.03801304136433594,
+            "Ra_um": 0.11403912369981627,
+            "vib_rms": 0.09543307468944895,
+            "temp/100": 0.0,
+            "force_norm": 0.15386189792529112,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.03801304136433597,
+              0.11403912369981614,
+              0.09543307468944899,
+              0.0,
+              0.1538618979252913,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.03801304136433597,
+              0.11403912369981614,
+              0.09543307468944899,
+              0.0,
+              0.1538618979252913,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.03801304136433597,
+              0.11403912369981614,
+              0.09543307468944899,
+              0.0,
+              0.1538618979252913,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.03801304136433597,
+              0.11403912369981614,
+              0.09543307468944899,
+              0.0,
+              0.1538618979252913,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.03801304136433597,
+              0.11403912369981614,
+              0.09543307468944899,
+              0.0,
+              0.1538618979252913,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.08014795184135437,
+            "wear_mm": 0.037464991211891174,
+            "Ra_um": 0.13529181480407715,
+            "vib_rms": 0.24335370678454638,
+            "temp/100": 0.1466311663389206,
+            "force_norm": 0.1773034930229187,
+            "mrr_norm": 0.1844337561633438,
+            "confidence": 0.0856163501739502
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.3730437783524394,
+            "wear_mm": 0.03892832667067845,
+            "Ra_um": 0.8709867708450981,
+            "vib_rms": 0.092639862532443,
+            "temp/100": 0.0,
+            "force_norm": 0.11052317721510187,
+            "mrr_norm": 0.0006803125143051147,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 3.0531133177191805e-16,
+            "Ra_um": 1.9761969838327786e-14,
+            "vib_rms": 8.326672684688674e-17,
+            "temp/100": 0.0,
+            "force_norm": 4.0245584642661925e-16,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              1.6653345369377348e-16,
+              4.218847493575595e-15,
+              8.326672684688674e-17,
+              0.0,
+              2.7755575615628914e-16,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              4.218847493575595e-15,
+              8.326672684688674e-17,
+              0.0,
+              2.7755575615628914e-16,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              4.218847493575595e-15,
+              8.326672684688674e-17,
+              0.0,
+              2.7755575615628914e-16,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              4.218847493575595e-15,
+              8.326672684688674e-17,
+              0.0,
+              2.7755575615628914e-16,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.6653345369377348e-16,
+              4.218847493575595e-15,
+              8.326672684688674e-17,
+              0.0,
+              2.7755575615628914e-16,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -21065.676276357233,
+            "Ra_um": -157754.13387994753,
+            "vib_rms": -9.714993787032704,
+            "temp/100": null,
+            "force_norm": 18.064593484205897,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.3902659146115184,
+            "wear_mm": 0.10936443825804554,
+            "Ra_um": 1.2537219907330202,
+            "vib_rms": 0.43001657060977994,
+            "temp/100": 0.1466311663389206,
+            "force_norm": 0.5238730743786353,
+            "mrr_norm": 0.1851140686776489,
+            "confidence": 0.0856163501739502
+          }
+        }
+      },
+      "local_detail_report": {
+        "path": "reports\\wm_history_mechanism_cvsf_c4_20261112.json",
+        "sha256": "83707d4b83e7da701c0ab53b0e9c3763c7128524d19eb93b5ff8f790fd3f1a68"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c"
+    },
+    {
+      "checkpoint": {
+        "path": "D:\\灵境制造\\data\\models\\world_model\\cvsf-c6.pt",
+        "sha256": "6c4255c9c671f9ab3fd4791fa3f151bec1d89d8e8f1331d5e6615d92ba50f96f",
+        "config": {
+          "state_dim": 8,
+          "action_dim": 4,
+          "hidden_dim": 64,
+          "num_lstm_layers": 2,
+          "num_ltc_layers": 2,
+          "dropout": 0.1,
+          "max_trajectory_length": 100,
+          "seed": 42,
+          "use_fusion": true,
+          "feature_dim": 32,
+          "d_model": 64,
+          "fused_dim": 128,
+          "delta_prediction": true
+        },
+        "state_feedback": true,
+        "model_selection": null,
+        "input_contract": null
+      },
+      "dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c6_val.npz",
+        "sha256": "0ef6509c96027b444b2c30c8032ff567882769a3dadd2dc6373787b896818031",
+        "n_windows": 113,
+        "history_steps": 20,
+        "horizon": 5,
+        "duplicate_windows": 0,
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c6.meta.json",
+          "sha256": "4a6efced5f26b645a490a82b5f15e014d9c7582580f75311abd0b08693edb86b",
+          "content": {
+            "generated_at": "2026-10-21T13:03:51.039456+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c1",
+                "c4"
+              ],
+              "val": [
+                "c6"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              },
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              }
+            }
+          }
+        }
+      },
+      "train_dataset": {
+        "path": "D:\\灵境制造\\data\\world_model\\cv_c6_train.npz",
+        "sha256": "31c078f82ead89c8da22dc459b6a1235b6ffe8f0b406a68ac592639bbe7abbc0",
+        "n_windows": 226,
+        "exact_window_overlap": 0,
+        "mean_baseline_fit_scope": "train_targets_only",
+        "metadata": {
+          "path": "D:\\灵境制造\\data\\world_model\\cv_c6.meta.json",
+          "sha256": "4a6efced5f26b645a490a82b5f15e014d9c7582580f75311abd0b08693edb86b",
+          "content": {
+            "generated_at": "2026-10-21T13:03:51.039456+00:00",
+            "provenance": "real_phm2010_wear_v1",
+            "source_csv": "D:\\灵境制造\\research\\datasets\\uniwear\\uniwear\\uniwear.csv",
+            "note": "真实 PHM2010 信号 + 真实磨损标签；几何/动作/温度/部分状态为常量或物理派生（见脚本文档）",
+            "history": 20,
+            "horizon": 5,
+            "split": {
+              "train": [
+                "c1",
+                "c4"
+              ],
+              "val": [
+                "c6"
+              ]
+            },
+            "train_samples": 226,
+            "val_samples": 113,
+            "per_experiment": {
+              "c1": {
+                "experiment": "c1",
+                "rows": 2841,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.5,
+                "chatter_p_physics": 0.08062669616355805,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000971875,
+                "wear_range": [
+                  0.04889261722564697,
+                  0.17268683016300201
+                ],
+                "vib_range": [
+                  0.0022360682487487793,
+                  0.7667991518974304
+                ],
+                "force_range": [
+                  -35.37099838256836,
+                  71.55999755859375
+                ]
+              },
+              "c4": {
+                "experiment": "c4",
+                "rows": 2839,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.75,
+                "chatter_p_physics": 0.42129481233081606,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.0014578125,
+                "wear_range": [
+                  0.031416356563568115,
+                  0.2109193652868271
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  0.7926695942878723
+                ],
+                "force_range": [
+                  -35.332000732421875,
+                  73.197998046875
+                ]
+              },
+              "c6": {
+                "experiment": "c6",
+                "rows": 2835,
+                "windows": 113,
+                "stride": 25,
+                "axial_depth_mm": 0.3,
+                "chatter_p_physics": 0.01587536323444053,
+                "feed_per_tooth_mm": 0.04983974358974359,
+                "mrr_norm": 0.000583125,
+                "wear_range": [
+                  0.06278865039348602,
+                  0.23471595346927643
+                ],
+                "vib_range": [
+                  0.0014142136787995696,
+                  1.4490004777908325
+                ],
+                "force_range": [
+                  -29.6560001373291,
+                  72.13899993896484
+                ]
+              }
+            }
+          }
+        }
+      },
+      "protocol": {
+        "shuffle_seed": 42,
+        "batch_size": 64,
+        "torch": "2.7.1+cpu",
+        "independent_units": "experiment groups; windows and horizon steps are repeated measurements",
+        "feedback_control": "latest state fixed across all model ablations",
+        "last_only_limit": "changes history length; out-of-distribution diagnostic, not retrained baseline",
+        "train_mean_information": "fit using only training targets; no validation-target fitting",
+        "cross_channel_aggregate": "not reported because dimensions have different units",
+        "endpoint_scope": "wear, vibration and normalized force; other channels include proxies/constants"
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nonzero_fraction": 0.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 3319.392578125,
+          "first_step_gate_affine_max_abs": 3644.3076171875,
+          "first_step_gate_affine_abs_gt20_fraction": 0.98828125,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.007558446454164465,
+            "wear_mm": 0.011539837961967012,
+            "Ra_um": 0.02183094151252139,
+            "vib_rms": 0.17051557210949866,
+            "temp/100": 0.013302683408281444,
+            "force_norm": 0.10380896348361981,
+            "mrr_norm": 0.024599300379209647,
+            "confidence": 0.009922808988959388
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.010690211345943224,
+            "wear_mm": 0.051400254052179635,
+            "Ra_um": 0.14706822014054335,
+            "vib_rms": 0.15443671681259918,
+            "temp/100": 0.018032007641342274,
+            "force_norm": 0.07741635956825302,
+            "mrr_norm": 0.02018126492550142,
+            "confidence": 0.01134907863549445
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.004099753843563038,
+              0.04556528175043637,
+              0.1456647324767561,
+              0.18122104530204963,
+              0.007004670168054927,
+              0.09998607370261502,
+              0.008028572000985735,
+              0.004493925361510877
+            ],
+            [
+              0.007791694765154164,
+              0.0484691746002327,
+              0.14646769398834927,
+              0.16202453083767007,
+              0.011202821239642606,
+              0.0860893367250922,
+              0.012350234103370229,
+              0.006591084415329611
+            ],
+            [
+              0.010469666877945531,
+              0.05102684909971531,
+              0.14613821128620727,
+              0.14993235351971093,
+              0.014398051324877812,
+              0.07337657217176372,
+              0.015507167386037368,
+              0.008183993273530275
+            ],
+            [
+              0.011791568102202972,
+              0.05337968623829422,
+              0.14797925471606027,
+              0.13779673106349044,
+              0.017602693028235743,
+              0.061516220905369186,
+              0.020061454455167882,
+              0.010453031920743533
+            ],
+            [
+              0.012998160162544861,
+              0.0559468887276762,
+              0.14846315664709,
+              0.12858644460647242,
+              0.02157275972642971,
+              0.05330317535951148,
+              0.021981316167289322,
+              0.01214161644642219
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -6342.875904981831,
+            "Ra_um": -3962.8406196364813,
+            "vib_rms": 7.222261617312746,
+            "temp/100": null,
+            "force_norm": 10.531328990489683,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.009493023370994272,
+            "wear_mm": 0.04349341909442328,
+            "Ra_um": 0.03388941498984278,
+            "vib_rms": 0.17864452406590953,
+            "temp/100": 0.03289793629561905,
+            "force_norm": 0.10779943254557892,
+            "mrr_norm": 0.03158311494162504,
+            "confidence": 0.032710775231893086
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.011993688028605958,
+            "wear_mm": 0.05292752218192809,
+            "Ra_um": 0.14546175587028912,
+            "vib_rms": 0.15730839181494374,
+            "temp/100": 0.02024101151868674,
+            "force_norm": 0.07617627492252889,
+            "mrr_norm": 0.018563602841037377,
+            "confidence": 0.011913456007686335
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.004557680992936217,
+              0.04671526351617691,
+              0.14515329687741657,
+              0.18154016692506086,
+              0.00810526994861035,
+              0.09877109716739996,
+              0.00888894375362416,
+              0.006125426539936064
+            ],
+            [
+              0.009069470824141022,
+              0.049595176104811206,
+              0.14537261202123045,
+              0.16171278841730347,
+              0.011450415604653827,
+              0.08512737629884123,
+              0.01224048866399929,
+              0.008874801806544113
+            ],
+            [
+              0.011505409848991708,
+              0.05202699368073406,
+              0.14436094592796073,
+              0.15109221833889458,
+              0.014691475236675789,
+              0.07215571753858742,
+              0.015466260038280714,
+              0.01067040688339209
+            ],
+            [
+              0.013037362100202093,
+              0.05423834817779348,
+              0.14569890208772293,
+              0.13917555889830963,
+              0.01775894293995301,
+              0.060506067401939666,
+              0.02042266561126793,
+              0.012670188513337129
+            ],
+            [
+              0.014225229605563338,
+              0.05696301001614948,
+              0.14661932667921823,
+              0.13012777179802676,
+              0.021621244670346013,
+              0.052237309621465625,
+              0.02196848279670278,
+              0.013947710077383456
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -24183.070770343067,
+            "Ra_um": -6206.979097419071,
+            "vib_rms": 2.799288579677151,
+            "temp/100": null,
+            "force_norm": 7.0921080244275085,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.017625393578782678,
+            "wear_mm": 0.060148417949676514,
+            "Ra_um": 0.06802499294281006,
+            "vib_rms": 0.04681345820426941,
+            "temp/100": 0.04599703848361969,
+            "force_norm": 0.03693174384534359,
+            "mrr_norm": 0.021953890100121498,
+            "confidence": 0.04162132740020752
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.007558446454164465,
+            "wear_mm": 0.011539837961967012,
+            "Ra_um": 0.02183094151252139,
+            "vib_rms": 0.17051557210949866,
+            "temp/100": 0.013302683408281444,
+            "force_norm": 0.10380896348361981,
+            "mrr_norm": 0.024599300379209647,
+            "confidence": 0.009922808988959388
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.010690211345943224,
+            "wear_mm": 0.051400254052179635,
+            "Ra_um": 0.14706822014054335,
+            "vib_rms": 0.15443671681259918,
+            "temp/100": 0.018032007641342274,
+            "force_norm": 0.07741635956825302,
+            "mrr_norm": 0.02018126492550142,
+            "confidence": 0.01134907863549445
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.004099753843563038,
+              0.04556528175043637,
+              0.1456647324767561,
+              0.18122104530204963,
+              0.007004670168054927,
+              0.09998607370261502,
+              0.008028572000985735,
+              0.004493925361510877
+            ],
+            [
+              0.007791694765154164,
+              0.0484691746002327,
+              0.14646769398834927,
+              0.16202453083767007,
+              0.011202821239642606,
+              0.0860893367250922,
+              0.012350234103370229,
+              0.006591084415329611
+            ],
+            [
+              0.010469666877945531,
+              0.05102684909971531,
+              0.14613821128620727,
+              0.14993235351971093,
+              0.014398051324877812,
+              0.07337657217176372,
+              0.015507167386037368,
+              0.008183993273530275
+            ],
+            [
+              0.011791568102202972,
+              0.05337968623829422,
+              0.14797925471606027,
+              0.13779673106349044,
+              0.017602693028235743,
+              0.061516220905369186,
+              0.020061454455167882,
+              0.010453031920743533
+            ],
+            [
+              0.012998160162544861,
+              0.0559468887276762,
+              0.14846315664709,
+              0.12858644460647242,
+              0.02157275972642971,
+              0.05330317535951148,
+              0.021981316167289322,
+              0.01214161644642219
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -6342.875904981831,
+            "Ra_um": -3962.8406196364813,
+            "vib_rms": 7.222261617312746,
+            "temp/100": null,
+            "force_norm": 10.531328990489683,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.007558446454164465,
+            "wear_mm": 0.011539837961967012,
+            "Ra_um": 0.02183094151252139,
+            "vib_rms": 0.17051557210949866,
+            "temp/100": 0.013302683408281444,
+            "force_norm": 0.10380896348361981,
+            "mrr_norm": 0.024599300379209647,
+            "confidence": 0.009922808988959388
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.010690211345943224,
+            "wear_mm": 0.051400254052179635,
+            "Ra_um": 0.14706822014054335,
+            "vib_rms": 0.15443671681259918,
+            "temp/100": 0.018032007641342274,
+            "force_norm": 0.07741635956825302,
+            "mrr_norm": 0.02018126492550142,
+            "confidence": 0.01134907863549445
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.004099753843563038,
+              0.04556528175043637,
+              0.1456647324767561,
+              0.18122104530204963,
+              0.007004670168054927,
+              0.09998607370261502,
+              0.008028572000985735,
+              0.004493925361510877
+            ],
+            [
+              0.007791694765154164,
+              0.0484691746002327,
+              0.14646769398834927,
+              0.16202453083767007,
+              0.011202821239642606,
+              0.0860893367250922,
+              0.012350234103370229,
+              0.006591084415329611
+            ],
+            [
+              0.010469666877945531,
+              0.05102684909971531,
+              0.14613821128620727,
+              0.14993235351971093,
+              0.014398051324877812,
+              0.07337657217176372,
+              0.015507167386037368,
+              0.008183993273530275
+            ],
+            [
+              0.011791568102202972,
+              0.05337968623829422,
+              0.14797925471606027,
+              0.13779673106349044,
+              0.017602693028235743,
+              0.061516220905369186,
+              0.020061454455167882,
+              0.010453031920743533
+            ],
+            [
+              0.012998160162544861,
+              0.0559468887276762,
+              0.14846315664709,
+              0.12858644460647242,
+              0.02157275972642971,
+              0.05330317535951148,
+              0.021981316167289322,
+              0.01214161644642219
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -6342.875904981831,
+            "Ra_um": -3962.8406196364813,
+            "vib_rms": 7.222261617312746,
+            "temp/100": null,
+            "force_norm": 10.531328990489683,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00017911004545414342,
+            "Ra_um": 0.0005373319693371258,
+            "vib_rms": 0.18378931743966465,
+            "temp/100": 0.0,
+            "force_norm": 0.1160282837693936,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.046535344845109454,
+            "Ra_um": 0.1396060328867639,
+            "vib_rms": 0.199627768150294,
+            "temp/100": 0.0,
+            "force_norm": 0.11498004163700697,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              0.046535344845109454,
+              0.13960603288676396,
+              0.19962776815029398,
+              0.0,
+              0.11498004163700704,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.046535344845109454,
+              0.13960603288676396,
+              0.19962776815029398,
+              0.0,
+              0.11498004163700704,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.046535344845109454,
+              0.13960603288676396,
+              0.19962776815029398,
+              0.0,
+              0.11498004163700704,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.046535344845109454,
+              0.13960603288676396,
+              0.19962776815029398,
+              0.0,
+              0.11498004163700704,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.046535344845109454,
+              0.13960603288676396,
+              0.19962776815029398,
+              0.0,
+              0.11498004163700704,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.046825384721159935,
+            "wear_mm": 0.11015854775905609,
+            "Ra_um": 0.09499812126159668,
+            "vib_rms": 0.3689541220664978,
+            "temp/100": 0.08654218912124634,
+            "force_norm": 0.23987087607383728,
+            "mrr_norm": 0.0857213267008774,
+            "confidence": 0.038707613945007324
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.23508538864552975,
+            "wear_mm": 0.03818543252435034,
+            "Ra_um": 0.4987301704102863,
+            "vib_rms": 0.1559809120138315,
+            "temp/100": 0.0,
+            "force_norm": 0.10323173200272055,
+            "mrr_norm": 0.0006317187508102506,
+            "confidence": 0.0
+          },
+          "prediction_std_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 8.049116928532385e-16,
+            "Ra_um": 7.993605777301127e-15,
+            "vib_rms": 6.938893903907228e-16,
+            "temp/100": 0.0,
+            "force_norm": 4.579669976578771e-16,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "prediction_std_across_windows_by_horizon_and_dim": [
+            [
+              0.0,
+              4.163336342344337e-17,
+              3.1086244689504383e-15,
+              3.608224830031759e-16,
+              0.0,
+              5.551115123125783e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              4.163336342344337e-17,
+              3.1086244689504383e-15,
+              3.608224830031759e-16,
+              0.0,
+              5.551115123125783e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              4.163336342344337e-17,
+              3.1086244689504383e-15,
+              3.608224830031759e-16,
+              0.0,
+              5.551115123125783e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              4.163336342344337e-17,
+              3.1086244689504383e-15,
+              3.608224830031759e-16,
+              0.0,
+              5.551115123125783e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              4.163336342344337e-17,
+              3.1086244689504383e-15,
+              3.608224830031759e-16,
+              0.0,
+              5.551115123125783e-17,
+              0.0,
+              0.0
+            ]
+          ],
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -21219.537063110594,
+            "Ra_um": -92716.02414714682,
+            "vib_rms": 15.130588552820676,
+            "temp/100": null,
+            "force_norm": 11.028821034797183,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.2819107733666897,
+            "wear_mm": 0.18445639390069826,
+            "Ra_um": 0.7646946719262453,
+            "vib_rms": 0.7470865773924099,
+            "temp/100": 0.08654218912124634,
+            "force_norm": 0.3311481068596501,
+            "mrr_norm": 0.08635304545168765,
+            "confidence": 0.038707613945007324
+          }
+        }
+      },
+      "local_detail_report": {
+        "path": "reports\\wm_history_mechanism_cvsf_c6_20261112.json",
+        "sha256": "7b9ddc08d27f729b6701fe9750317285f7534edb9a06451804bf765624b99209"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c"
+    }
+  ]
+}

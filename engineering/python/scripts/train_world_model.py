@@ -61,6 +61,7 @@ from app.plugins.world_model.training.fusion_dataset import (  # noqa: E402
 from app.plugins.world_model.training.fusion_trainer import (  # noqa: E402
     FusionWorldModelTrainer,
 )
+from app.plugins.world_model.training.weights_resolver import build_canonical_weights_path  # noqa: E402
 
 MODEL_URI_TEMPLATE = "model://world_model/{version}"
 
@@ -146,6 +147,12 @@ def main() -> int:
     parser.add_argument("--models-dir", type=str, default=None)
     parser.add_argument("--device", type=str, default="auto")
     parser.add_argument("--no-amp", action="store_true", help="禁用混合精度（CPU 自动禁用）")
+    parser.add_argument("--normalize-inputs", action="store_true", help="仅拟合训练历史的几何/动力学标准化，并随checkpoint保存")
+    parser.add_argument("--no-tracking", action="store_true", help="不写MLflow，仅保存本次checkpoint和报告")
+    parser.add_argument("--loss-scale", choices=("none", "train-persistence-rmse"), default="none")
+    parser.add_argument("--selection-loss-scale", choices=("none", "train-persistence-rmse"), default="none")
+    parser.add_argument("--delta-output-scale", choices=("none", "train-persistence-rmse"), default="none")
+    parser.add_argument("--zero-init-delta-head", action="store_true", help="增量头从精确持久性预测初始化")
     parser.add_argument(
         "--loss-weights",
         type=str,
@@ -156,6 +163,19 @@ def main() -> int:
         ),
     )
     args = parser.parse_args()
+    if args.loss_scale != "none" and args.loss_weights:
+        print("[train] 损失尺度与手工权重不能同时使用", file=sys.stderr)
+        return 1
+    if (args.zero_init_delta_head or args.delta_output_scale != "none") and not args.delta_prediction:
+        print("[train] 增量初始化/尺度要求--delta-prediction", file=sys.stderr)
+        return 1
+    if args.zero_init_delta_head and args.init_checkpoint:
+        print("[train] 零增量初始化不能覆盖初始化checkpoint的已学习增量头", file=sys.stderr)
+        return 1
+    output_weights = Path(build_canonical_weights_path(args.version, args.models_dir))
+    if output_weights.exists():
+        print(f"[train] 版本已存在，拒绝覆盖：{output_weights}", file=sys.stderr)
+        return 1
 
     try:
         import torch
@@ -248,12 +268,30 @@ def main() -> int:
         num_workers=0,
     )
 
+    normalization = None
+    if args.normalize_inputs:
+        from app.plugins.world_model.input_normalization import fit_fusion_normalization
+        normalization = fit_fusion_normalization(
+            np.stack([sample["geometry_seq"] for sample in train_samples]),
+            np.stack([sample["dynamics_seq"] for sample in train_samples]),
+        )
+    state_scale = None
+    if any(value != "none" for value in (args.loss_scale, args.selection_loss_scale, args.delta_output_scale)):
+        from app.plugins.world_model.state_loss_normalization import fit_state_scale
+        if any("initial_state" not in sample for sample in train_samples):
+            print("[train] 状态尺度拟合要求训练数据提供实际末条initial_state", file=sys.stderr)
+            return 1
+        state_scale = fit_state_scale(np.stack([sample["target_trajectory"] for sample in train_samples]),
+                                      np.stack([sample["initial_state"] for sample in train_samples]))
     config = WorldModelConfig(
         state_dim=state_dim,
         action_dim=action_dim,
         use_fusion=True,
         feature_dim=feature_dim,
         delta_prediction=args.delta_prediction,
+        input_normalization=normalization,
+        seed=args.seed,
+        delta_output_normalization=state_scale if args.delta_output_scale != "none" else None,
     )
     print(f"[train] delta_prediction={args.delta_prediction}", file=sys.stderr)
     model = WorldModelNet(config)
@@ -288,10 +326,14 @@ def main() -> int:
             print(f"[train] 初始化 checkpoint 不存在: {ckpt_path}", file=sys.stderr)
             return 1
         payload = torch.load(ckpt_path, map_location="cpu", weights_only=True)
+        if isinstance(payload, dict) and any(payload.get("model_config", {}).get(name) != getattr(config, name)
+                                            for name in ("input_normalization", "delta_output_normalization")):
+            print("[train] 初始化权重的标准化契约不同，请使用匹配契约或从头重训", file=sys.stderr)
+            return 1
         state_dict = payload.get("model_state_dict", payload) if isinstance(payload, dict) else payload
         try:
             model.load_state_dict(state_dict)
-        except RuntimeError as exc:
+        except RuntimeError:
             if not args.delta_prediction:
                 raise
             # Δ 模式下新增 delta_head，旧 checkpoint 没有该键：按 strict=False 加载，
@@ -304,6 +346,10 @@ def main() -> int:
             )
         init_info = {"path": str(ckpt_path), "epoch": payload.get("epoch") if isinstance(payload, dict) else None}
         print(f"[train] 从 checkpoint 初始化: {ckpt_path}", file=sys.stderr)
+
+    if args.zero_init_delta_head:
+        torch.nn.init.zeros_(model.delta_head.weight)
+        torch.nn.init.zeros_(model.delta_head.bias)
 
     frozen_params = 0
     if args.freeze_geometry:
@@ -325,9 +371,11 @@ def main() -> int:
         device=args.device,
         use_amp=not args.no_amp,
         seed=args.seed,
-        track_experiment=True,
+        track_experiment=not args.no_tracking,
         models_dir=args.models_dir,
         loss_weights=loss_weights,
+        loss_normalization=state_scale if args.loss_scale != "none" else None,
+        selection_loss_normalization=state_scale if args.selection_loss_scale != "none" else None,
     )
 
     started = time.perf_counter()
@@ -361,6 +409,9 @@ def main() -> int:
             "init_checkpoint": init_info or None,
             "frozen_geometry_params": frozen_params,
             "loss_weights": loss_weights,
+            "loss_normalization": trainer.loss_normalization,
+            "selection_loss_normalization": trainer.selection_loss_normalization,
+            "zero_init_delta_head": args.zero_init_delta_head,
         },
         "model": {
             "class": "WorldModelNet",
@@ -387,7 +438,7 @@ def main() -> int:
 
     report_dir = _REPO_ROOT / "reports"
     report_dir.mkdir(parents=True, exist_ok=True)
-    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    stamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
     report_path = report_dir / f"wm_training_report_{stamp}.json"
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 

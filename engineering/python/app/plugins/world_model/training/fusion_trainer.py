@@ -20,6 +20,8 @@
 4. checkpoint 保存：调用 ``build_canonical_weights_path(version, models_dir)``
    决定写入位置，格式与 ``LNNTrainer.save_checkpoint`` 对齐，便于
    ``TrajectoryPredictor.load_model`` 通过 ``torch.load + load_state_dict`` 加载。
+   正常结束/早停均恢复最佳验证轮的模型与优化器等状态；checkpoint 分别
+   记录实际训练轮数、权重对应轮数及观察到的训练输入窗口。
 
 工程边界
 --------
@@ -33,9 +35,11 @@
 from __future__ import annotations
 
 import logging
+import math
 import os
 import time
 from contextlib import nullcontext
+from copy import deepcopy
 from datetime import datetime, timezone
 from typing import Any, Union
 
@@ -144,6 +148,8 @@ class FusionWorldModelTrainer:
         models_dir: str | None = None,
         save_every_epoch: bool = False,
         loss_weights: list[float] | None = None,
+        loss_normalization: dict[str, Any] | None = None,
+        selection_loss_normalization: dict[str, Any] | None = None,
     ) -> None:
         if not HAS_TORCH:
             raise RuntimeError(
@@ -178,15 +184,7 @@ class FusionWorldModelTrainer:
         # 按维损失权重（2026-10-21 真实数据微调新增）：
         # 8 维状态量级差异大（Ra 2–7 µm vs 磨损 0.1 mm），未加权 MSE 会被
         # 大量级维度主导，磨损通道几乎拿不到梯度。None 保持原行为。
-        self.loss_weights = list(loss_weights) if loss_weights is not None else None
-        if self.loss_weights is not None:
-            expected_dim = getattr(model_config, "state_dim", None)
-            if expected_dim is not None and len(self.loss_weights) != expected_dim:
-                raise FusionTrainerError(
-                    f"loss_weights 长度 ({len(self.loss_weights)}) 必须等于 state_dim ({expected_dim})"
-                )
-            if any(w < 0 for w in self.loss_weights):
-                raise FusionTrainerError("loss_weights 不允许负值")
+        self._configure_loss(loss_weights, loss_normalization, selection_loss_normalization)
 
         # 设备解析（auto cuda if available else cpu）
         if isinstance(device, str) and device == "auto":
@@ -213,6 +211,10 @@ class FusionWorldModelTrainer:
         self.current_epoch = 0
         self.best_val_loss = float("inf")
         self.epochs_without_improvement = 0
+        self.selected_epoch: int | None = None
+        self._selection_applied = False
+        self._observed_history_steps: set[int] = set()
+        self._training_horizon: int | None = None
         self.training_history: dict[str, list[float]] = {
             "train_loss": [],
             "val_loss": [],
@@ -302,6 +304,21 @@ class FusionWorldModelTrainer:
         """
         if horizon <= 0:
             raise FusionTrainerError(f"horizon 必须为正数: {horizon}")
+        if self.epochs <= 0:
+            raise FusionTrainerError(f"epochs 必须为正数: {self.epochs}")
+
+        # 每次调用是一轮独立选模；加载的模型/优化器可继续微调，但不能拿
+        # 上轮（可能来自不同数据）的最低损失参与本轮选模。
+        self.current_epoch = 0
+        self.best_val_loss = float("inf")
+        self.epochs_without_improvement = 0
+        self.selected_epoch = None
+        self._selection_applied = False
+        self._observed_history_steps = set()
+        self._training_horizon = horizon
+        self.saw_initial_state = False
+        self.training_history = {"train_loss": [], "val_loss": [], "learning_rate": []}
+        best_snapshot: dict[str, Any] | None = None
 
         # 延迟导入：app.ai.lnn.training 包初始化会触发 dataset.py 的硬 torch
         # 依赖，放在模块级会导致无 torch 环境下整个 fusion_trainer 不可导入
@@ -359,7 +376,8 @@ class FusionWorldModelTrainer:
 
         with tracking_ctx:
             # 记录超参（含融合专属字段）
-            mlflow_log_params(self._collect_hyperparams(horizon))
+            if self.track_experiment:
+                mlflow_log_params(self._collect_hyperparams(horizon))
 
             train_size = len(train_loader.dataset)
             val_size = len(val_loader.dataset)
@@ -381,6 +399,10 @@ class FusionWorldModelTrainer:
 
                 train_loss = self._train_epoch(train_loader, horizon)
                 val_loss = self._validate(val_loader, horizon)
+                if not math.isfinite(train_loss) or not math.isfinite(val_loss):
+                    raise FusionTrainerError(
+                        f"[训练错误] 第{self.current_epoch}轮损失为非有限值。建议操作：检查输入数据、学习率与数值溢出。"
+                    )
                 epoch_time = time.perf_counter() - epoch_start
 
                 # 记录历史
@@ -389,14 +411,15 @@ class FusionWorldModelTrainer:
                 self.training_history["learning_rate"].append(self.optimizer.param_groups[0]["lr"])
 
                 # MLflow 指标记录
-                mlflow_log_metrics(
-                    {
-                        "train_loss": train_loss,
-                        "val_loss": val_loss,
-                        "learning_rate": self.optimizer.param_groups[0]["lr"],
-                    },
-                    step=epoch + 1,
-                )
+                if self.track_experiment:
+                    mlflow_log_metrics(
+                        {
+                            "train_loss": train_loss,
+                            "val_loss": val_loss,
+                            "learning_rate": self.optimizer.param_groups[0]["lr"],
+                        },
+                        step=epoch + 1,
+                    )
 
                 logger.info(
                     "epoch %d/%d train_loss=%.6f val_loss=%.6f lr=%.2e time=%.2fs",
@@ -422,6 +445,8 @@ class FusionWorldModelTrainer:
                 if val_loss < self.best_val_loss - 1e-9:
                     self.best_val_loss = val_loss
                     self.epochs_without_improvement = 0
+                    self.selected_epoch = self.current_epoch
+                    best_snapshot = self._capture_training_state()
                 else:
                     self.epochs_without_improvement += 1
                     if self.epochs_without_improvement >= self.early_stopping_patience:
@@ -450,6 +475,14 @@ class FusionWorldModelTrainer:
                             exc,
                         )
 
+            if best_snapshot is None:
+                raise FusionTrainerError("[训练错误] 未产生有效验证轮。建议操作：检查训练配置及验证数据。")
+            self._restore_training_state(best_snapshot)
+            self._selection_applied = True
+            # 每轮自动保存的文件最终也须对应最佳轮，而非最后一轮。
+            if self.save_every_epoch:
+                self.save_checkpoint(version=self._extract_version_from_uri(self.model_uri))
+
             total_time = time.perf_counter() - training_start
             logger.info(
                 "融合训练结束: total_epochs=%d best_val_loss=%.6f time=%.2fs",
@@ -460,12 +493,64 @@ class FusionWorldModelTrainer:
 
         return self.training_history
 
-    def _compute_loss(self, pred: "torch.Tensor", target: "torch.Tensor") -> "torch.Tensor":
+    def _capture_training_state(self) -> dict[str, Any]:
+        """深拷贝，防止后续 optimizer.step 原地改变最佳轮快照。"""
+        return deepcopy({
+            "model": self.model.state_dict(),
+            "optimizer": self.optimizer.state_dict(),
+            "scaler": self.scaler.state_dict() if self.scaler is not None else None,
+            "scheduler": self.lr_scheduler.state_dict() if self.lr_scheduler is not None else None,
+        })
+
+    def _restore_training_state(self, snapshot: dict[str, Any]) -> None:
+        self.model.load_state_dict(snapshot["model"])
+        self.optimizer.load_state_dict(snapshot["optimizer"])
+        if self.scaler is not None and snapshot["scaler"] is not None:
+            self.scaler.load_state_dict(snapshot["scaler"])
+        if self.lr_scheduler is not None and snapshot["scheduler"] is not None:
+            self.lr_scheduler.load_state_dict(snapshot["scheduler"])
+
+    def _configure_loss(self, weights, normalization, selection_normalization) -> None:
+        from app.plugins.world_model.state_loss_normalization import validate_state_scale
+
+        dimension = self.model.config.state_dim
+        try:
+            copied_weights = [float(value) for value in weights] if weights is not None else None
+            if copied_weights is not None:
+                if len(copied_weights) != dimension:
+                    raise ValueError(f"loss_weights 长度必须等于 state_dim ({dimension})")
+                if any(not math.isfinite(value) or value < 0 for value in copied_weights) or not any(value > 0 for value in copied_weights):
+                    raise ValueError("loss_weights必须非负有限，且至少一项为正")
+            if normalization is not None and copied_weights is not None:
+                raise ValueError("损失标准化与手工权重不能叠加")
+            for spec in (normalization, selection_normalization):
+                if spec is not None:
+                    validate_state_scale(spec, dimension)
+        except (TypeError, ValueError) as exc:
+            raise FusionTrainerError(f"[损失配置错误] {exc}。建议操作：检查仅用训练数据拟合的尺度与权重。") from exc
+        self.loss_weights = copied_weights
+        self.loss_normalization = deepcopy(normalization)
+        self.selection_loss_normalization = deepcopy(selection_normalization)
+        # 小尺度残差的相对损失可能超出FP16梯度范围，训练/选模均固定FP32。
+        if normalization is not None or selection_normalization is not None:
+            self.use_amp = False
+            if hasattr(self, "scaler"):
+                self.scaler = None
+
+    def _compute_loss(self, pred: "torch.Tensor", target: "torch.Tensor", *, validation: bool = False) -> "torch.Tensor":
         """按维加权 MSE（loss_weights 为 None 时退化为普通 MSE）."""
-        if self.loss_weights is None:
-            return self.criterion(pred, target)
-        weight = torch.as_tensor(self.loss_weights, dtype=pred.dtype, device=pred.device).view(1, 1, -1)
-        return (((pred - target) ** 2) * weight).mean()
+        normalization = self.selection_loss_normalization if validation and self.selection_loss_normalization is not None else self.loss_normalization
+        if normalization is not None:
+            scale = torch.as_tensor(normalization["scale"], dtype=torch.float32, device=pred.device).view(1, 1, -1)
+            loss = (((pred.float() - target.float()) / scale) ** 2).mean()
+        elif self.loss_weights is not None:
+            weight = torch.as_tensor(self.loss_weights, dtype=pred.dtype, device=pred.device).view(1, 1, -1)
+            loss = (((pred - target) ** 2) * weight).mean()
+        else:
+            loss = self.criterion(pred, target)
+        if not torch.isfinite(loss):
+            raise FusionTrainerError("[训练错误] 批次损失为非有限值。建议操作：检查数据、尺度和学习率；未执行本批次参数更新。")
+        return loss
 
     def _train_epoch(
         self,
@@ -484,6 +569,7 @@ class FusionWorldModelTrainer:
             else:
                 geometry, dynamics, actions, target = batch
                 initial_state = None
+            self._observed_history_steps.add(int(geometry.shape[1]))
             geometry = geometry.to(self.device)
             dynamics = dynamics.to(self.device)
             actions = actions.to(self.device)
@@ -576,7 +662,7 @@ class FusionWorldModelTrainer:
                             initial_state=initial_state,
                         )
                         pred = output["predicted_trajectory"]
-                        loss = self._compute_loss(pred, target)
+                        loss = self._compute_loss(pred, target, validation=True)
                 else:
                     output = self.model(
                         states=None,
@@ -586,7 +672,7 @@ class FusionWorldModelTrainer:
                         initial_state=initial_state,
                     )
                     pred = output["predicted_trajectory"]
-                    loss = self._compute_loss(pred, target)
+                    loss = self._compute_loss(pred, target, validation=True)
 
                 batch_size = geometry.size(0)
                 total_loss += loss.item() * batch_size
@@ -643,8 +729,22 @@ class FusionWorldModelTrainer:
             "model_uri": self.model_uri,
             "trainer_type": "FusionWorldModelTrainer",
             "loss_weights": self.loss_weights,
+            "loss_normalization": deepcopy(self.loss_normalization),
+            "selection_loss_normalization": deepcopy(self.selection_loss_normalization),
             # ADR-023：是否以状态反馈（initial_state 直连）模式训练
             "state_feedback": getattr(self, "saw_initial_state", False),
+            "model_selection": {
+                "criterion": "validation_loss",
+                "selected_epoch": self.selected_epoch,
+                "selected_val_loss": self.best_val_loss if self.selected_epoch is not None else None,
+                "weights_epoch": self.selected_epoch if self._selection_applied else self.current_epoch,
+                "applied": self._selection_applied,
+            },
+            "input_contract": {
+                "schema_version": 1,
+                "history_steps": sorted(self._observed_history_steps),
+                "training_horizon": self._training_horizon,
+            },
         }
 
         os.makedirs(
@@ -683,11 +783,20 @@ class FusionWorldModelTrainer:
             # PyTorch < 2.0 不支持 weights_only，回退默认加载
             checkpoint = torch.load(path, map_location=self.device)
 
+        self._configure_loss(checkpoint.get("loss_weights"), checkpoint.get("loss_normalization"),
+                             checkpoint.get("selection_loss_normalization"))
         self.model.load_state_dict(checkpoint["model_state_dict"])
         self.optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
         self.current_epoch = checkpoint.get("epoch", 0)
         self.best_val_loss = checkpoint.get("best_val_loss", float("inf"))
         self.training_history = checkpoint.get("training_history", self.training_history)
+        selection = checkpoint.get("model_selection", {})
+        self.selected_epoch = selection.get("selected_epoch")
+        self._selection_applied = selection.get("applied", False)
+        contract = checkpoint.get("input_contract", {})
+        self._observed_history_steps = set(contract.get("history_steps", []))
+        self._training_horizon = contract.get("training_horizon")
+        self.saw_initial_state = bool(checkpoint.get("state_feedback", False))
 
         if self.scaler is not None and checkpoint.get("scaler_state_dict") is not None:
             self.scaler.load_state_dict(checkpoint["scaler_state_dict"])
@@ -759,12 +868,14 @@ class FusionWorldModelTrainer:
         return {
             "total_epochs": self.current_epoch,
             "best_val_loss": self.best_val_loss,
+            "selected_epoch": self.selected_epoch,
             "final_train_loss": self.training_history["train_loss"][-1]
             if self.training_history["train_loss"]
             else None,
             "final_val_loss": self.training_history["val_loss"][-1] if self.training_history["val_loss"] else None,
             "optimizer": self.optimizer_type,
-            "loss_function": "mse",
+            "loss_function": "train_persistence_rmse_mse" if self.loss_normalization else "weighted_mse" if self.loss_weights else "mse",
+            "selection_loss_normalization": deepcopy(self.selection_loss_normalization),
             "device": str(self.device),
             "use_amp": self.use_amp,
             "model_uri": self.model_uri,

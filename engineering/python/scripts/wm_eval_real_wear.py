@@ -47,15 +47,23 @@ DIM_NAMES = [
 def main() -> int:
     parser = argparse.ArgumentParser(description="世界模型真实数据评估")
     parser.add_argument("--dataset", required=True)
-    parser.add_argument("--weights", default=None)
+    parser.add_argument("--weights", required=True)
     parser.add_argument("--out", required=True)
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument(
         "--state-feedback",
         action="store_true",
+        default=None,
         help="what-if：把最后观测状态直连为解码器初始状态（验证状态反馈能否修复磨损常数化）",
     )
     args = parser.parse_args()
+
+    out_path = Path(args.out)
+    if not out_path.is_absolute():
+        out_path = _REPO_ROOT / out_path
+    if out_path.exists():
+        print("[eval] 输出已存在，请指定新文件，保留历史评估结果", file=sys.stderr)
+        return 1
 
     try:
         import torch
@@ -104,13 +112,16 @@ def main() -> int:
             k.startswith("delta_head.") for k in state_dict
         )
 
-    config = WorldModelConfig(
-        state_dim=state_dim,
-        action_dim=action_dim,
-        use_fusion=True,
-        feature_dim=feature_dim,
-        delta_prediction=delta_flag,
-    )
+    if not isinstance(payload, dict) or not isinstance(payload.get("model_config"), dict):
+        print("[eval] checkpoint缺少明确model_config，拒绝猜测训练结构", file=sys.stderr)
+        return 1
+    config = WorldModelConfig(**payload["model_config"])
+    config.validate()
+    if not config.use_fusion or (config.state_dim, config.action_dim, config.feature_dim) != (state_dim, action_dim, feature_dim):
+        print("[eval] 权重结构与评估数组不匹配", file=sys.stderr)
+        return 1
+    feedback_trained = bool(payload.get("state_feedback", False))
+    feedback_used = feedback_trained if args.state_feedback is None else args.state_feedback
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = WorldModelNet(config)
     weights_source = "random_init"
@@ -135,12 +146,15 @@ def main() -> int:
                 ),
                 initial_state=(
                     torch.from_numpy(state_hist[sl, -1, :]).to(device)
-                    if args.state_feedback
+                    if feedback_used
                     else None
                 ),
             )
             preds.append(out["predicted_trajectory"].cpu().numpy())
     pred = np.concatenate(preds, axis=0)
+    if pred.shape != tgt.shape or not np.isfinite(pred).all() or not np.isfinite(tgt).all():
+        print("[eval] 预测或目标形状/有限性不合格", file=sys.stderr)
+        return 1
 
     model_mae = np.abs(pred - tgt).mean(axis=(0, 1))
     persist_state = np.repeat(state_hist[:, -1:, :], horizon, axis=1)
@@ -150,14 +164,14 @@ def main() -> int:
     for i, name in enumerate(DIM_NAMES[:state_dim]):
         m = float(model_mae[i])
         p = float(persist_mae[i])
-        gain = (p - m) / p * 100.0 if p > 1e-12 else 0.0
+        gain = (p - m) / p * 100.0 if p > 1e-12 else None
         rows.append(
             {
                 "dim": i,
                 "name": name,
                 "model_mae": round(m, 6),
                 "persistence_mae": round(p, 6),
-                "gain_pct": round(gain, 2),
+                "gain_pct": round(gain, 2) if gain is not None else None,
                 "beats_persistence": bool(m < p),
             }
         )
@@ -165,8 +179,9 @@ def main() -> int:
     print(f"[eval] dataset={ds_path.name} n={geo.shape[0]} H={horizon} weights={weights_source}", file=sys.stderr)
     print(f"{'dim':<4}{'name':<12}{'model MAE':>12}{'persist MAE':>14}{'gain%':>9}", file=sys.stderr)
     for r in rows:
+        gain_text = f"{r['gain_pct']:.2f}" if r["gain_pct"] is not None else "undefined"
         print(
-            f"{r['dim']:<4}{r['name']:<12}{r['model_mae']:>12.6f}{r['persistence_mae']:>14.6f}{r['gain_pct']:>9.2f}",
+            f"{r['dim']:<4}{r['name']:<12}{r['model_mae']:>12.6f}{r['persistence_mae']:>14.6f}{gain_text:>9}",
             file=sys.stderr,
         )
 
@@ -177,17 +192,20 @@ def main() -> int:
         "horizon": horizon,
         "weights": args.weights,
         "weights_source": weights_source,
+        "state_feedback_trained": feedback_trained,
+        "state_feedback_used": feedback_used,
+        "evaluation_kind": "exploratory_validation_reanalysis" if feedback_used == feedback_trained else "what_if_feedback_override",
+        "independent_final_test_established": False,
+        "overall_note": "legacy mixed-unit average for compatibility; not a physical aggregate or primary endpoint",
         "dims": rows,
         "overall": {
             "model_mae": round(float(model_mae.mean()), 6),
             "persistence_mae": round(float(persist_mae.mean()), 6),
         },
     }
-    out_path = Path(args.out)
-    if not out_path.is_absolute():
-        out_path = _REPO_ROOT / out_path
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    with out_path.open("x", encoding="utf-8") as stream:
+        json.dump(payload, stream, ensure_ascii=False, indent=2, allow_nan=False)
     print(f"[eval] 结果 → {out_path}", file=sys.stderr)
     return 0
 

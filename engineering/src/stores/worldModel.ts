@@ -65,6 +65,7 @@ export const useWorldModelStore = defineStore(
 
     /** 最近一次世界模型预测响应（含轨迹 / 指标 / 模型信息）。 */
     const lastPrediction = ref<WorldModelPredictResponse | null>(null)
+    let predictionRevision = 0
 
 // Loading 标志
 
@@ -206,7 +207,9 @@ export const useWorldModelStore = defineStore(
     async function predict(
       request: WorldModelPredictRequest,
     ): Promise<WorldModelPredictResponse | null> {
+      const revision = ++predictionRevision
       predicting.value = true
+      lastPrediction.value = null
       error.value = null
       try {
         const response = await http.post(
@@ -214,13 +217,15 @@ export const useWorldModelStore = defineStore(
           request,
         )
         const payload = unwrap<WorldModelPredictResponse>(response)
+        if (revision !== predictionRevision) return null
         lastPrediction.value = payload
         return payload
       } catch (e) {
+        if (revision !== predictionRevision) return null
         error.value = extractErrorMessage(e, '世界模型预测失败')
         return null
       } finally {
-        predicting.value = false
+        if (revision === predictionRevision) predicting.value = false
       }
     }
 
@@ -233,11 +238,14 @@ export const useWorldModelStore = defineStore(
 
     /** 清空最近一次预测结果。 */
     function clearLastPrediction(): void {
+      predictionRevision++
       lastPrediction.value = null
+      predicting.value = false
     }
 
     /** 重置 Store 到初始状态。 */
     function $reset(): void {
+      predictionRevision++
       versions.value = []
       versionPagination.value = { total: 0, limit: 50, offset: 0 }
       currentVersion.value = null

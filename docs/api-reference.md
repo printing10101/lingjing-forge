@@ -806,6 +806,8 @@ Content-Type: application/json
 | `POST` | `/api/v1/workflows/{workflow_run_id}/resume` | 断点续跑：从指定 workflow_run_id 继续，仅重跑 FAILED/PENDING 节点。 |
 | `GET` | `/api/v1/workflows/{workflow_run_id}/stream` | SSE 事件流：实时推送节点状态变化。 |
 | `POST` | `/api/v1/world-model/predict` | 执行世界模型轨迹预测（不走工作流，直接调用服务层）. |
+| `GET` | `/api/v1/world-model/input-requirements` | 按 `model_uri` 读取实际训练权重的融合/状态反馈要求、已记录训练窗口及已审核零件来源；需要 `world_model:write`。`training_history_steps=[]`、`training_horizon=null`表示旧权重缺少记录。 |
+| `POST` | `/api/v1/world-model/prepare-geometry` | 由 `feature_task_id` 读取原始网格与审核特征，返回几何摘要和尺度来源；未标定网格必须明确提供 `millimeters_per_unit`。 |
 | `GET` | `/api/v1/world-model/versions` | 分页列出世界模型版本. |
 | `GET` | `/api/v1/world-model/versions/{version}` | 查询世界模型版本详情. |
 
@@ -3451,16 +3453,30 @@ version / description / author / license / spec 等字段。
 
 世界模型预测请求体.
 
+2026-11-12 行为更正：`POST /api/v1/world-model/predict` 与 `/preview` 必须解析并成功加载训练权重，缺失、损坏或结构不匹配时返回错误，不再返回随机初始化预测。网络结构以 checkpoint 的 `model_config` 为准；融合权重要求 `unified_state`，不再靠环境变量强行切换输入结构。响应 `model_info.weights_source` 成功时为 `checkpoint`。融合输出按训练八列读取（颤振、磨损、Ra、振动、温度/100、力归一化、MRR归一化、置信度），力归一化通道不能直接解释为牛顿。状态反馈模型另需在 `current_state` 中提供训练口径的完整八列。字段及示例见 [科研端修复记录](reports/research_reliability_fixes_20261112.md)。
+
+同日界面接入：`POST /predict` 可用 `feature_task_id` + `millimeters_per_unit` 代替直接提交 `unified_state`（两种来源互斥）。服务在预测时重新读取任务网格并使用已审核参数，`current_state` 至少含转速、进给、切深、磨损、振动、温度六项；不会补默认加工状态。已标定且来源路径一致的网格只能使用毫米尺度1，未标定网格要求明确的正有限换算值。详见[界面输入验收](reports/world_model_ui_inputs_20261112.md)。
+
+历史输入扩展：任务来源模式可提供`fusion_history`，此时`current_state`须为`{}`、`unified_state`须为空。`fusion_history`含`schema_version=1`、非空`source`、正有限`sample_period_seconds`及2至256条`samples`；每条含有限秒数`time_seconds`、完整六项动力学的`current_state`与完整四项delta的`action`。时间严格递增、等间隔；已知训练历史长度须匹配。反馈模型从末条读取反馈，并由摄氏温度派生温度/100。服务不截断、插值或补历史动作；同一任务的几何沿历史窗口保持不变。成功响应`model_info.input_history`保留声明来源、实际历史长度与间隔；来源核实标记为`user_declared`，训练采样间隔匹配始终为`unknown`。详见[历史输入格式与验收](reports/world_model_history_inputs_20261112.md)。本扩展用于`/predict`，`/preview`不接受历史序列。
+
+标准化契约：`GET /input-requirements`新增`input_normalization`（`none`或`train_zscore`）、`caller_input_units=original`。调用方始终提供原单位几何和动力学；新权重在网络入口依据`model_config.input_normalization`统一转换，禁止客户端重复z-score。动作、反馈及预测输出不变换单位。旧权重无此契约时按原行为推理；新权重的配置与持久buffer不一致、参数缺失/非有限/尺度非正时拒绝加载。实施与探索性重训结果见[标准化验收](reports/world_model_normalization_results_20261112.md)。
+
+增量尺度扩展：若checkpoint的`model_config.delta_output_normalization`存在，网络将增量头的相对数值还原成原单位增量；`state_feedback`必须为true，调用方提供实际末条状态。接口输入、反馈、响应均保持原单位，客户端不能再乘尺度。尺度buffer和元数据缺失/冲突会拒绝加载。训练损失尺度与推理增量尺度是不同配置，见[状态尺度验收](reports/world_model_state_scale_results_20261112.md)。
+
 与 ``app.contracts.world_model.WorldModelPredictRequest`` 对齐，
 但使用 Pydantic 以获得自动校验和 OpenAPI 文档。
 
 | 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
 |--------|------|------|--------|------|------|
-| `current_state` | `dict[str, float]` | 是 | `-` | 当前加工状态（字段名见 StateField，至少包含全部 8 个状态字段）。融合模式下可为空（由 unified_state 提供状态信息） | - |
+| `current_state` | `dict[str, float]` | 否 | `{}` | 原始模型需完整8项状态；直接融合输入可由`unified_state`提供动力学；任务来源需实际6项动力学。状态反馈模型另需训练口径8项反馈 | 有限数；各模式必需字段由服务校验 |
 | `candidate_action` | `dict[str, float]` | 是 | `-` | 候选切削参数调整量（字段名见 ActionField，4 个 delta 字段） | - |
-| `horizon` | `int` | 是 | `-` |  | - |
+| `horizon` | `int` | 否 | `10` | 未来预测步数；界面超过已记录训练预测长度时提示外推风险 | ≥ 1; ≤ 100 |
 | `model_uri` | `str` | 否 | `'model://world_model/1.0.0'` | 世界模型 URI | 最小长度: 1; 最大长度: 256 |
-| `unified_state` | `dict[str, Any] | None` | 否 | `None` | ADR-020 思路 1 融合模式可选输入。包含几何特征（ADR-007）与动力学状态（ADR-013）的统一状态字典。提供时走融合路径（GeometryEncoder/DynamicsEncoder/FusionLayer）。为 None 时走原始 state_dim 字段拼接路径（向后兼容）。需配合环境变量 WORLD_MODEL_USE_FUSION=true 使用 | - |
+| `unified_state` | `dict[str, Any] | None` | 否 | `None` | 直接提交融合几何和动力学；输入模式以权重配置为准，与任务来源互斥 | - |
+| `feature_task_id` | `str | None` | 否 | `None` | 从已审核特征任务读取网格，组装融合输入 | - |
+| `feature_task_updated_at` | `float | None` | 否 | `None` | 界面读取的任务修订时间；过期时拒绝预测并要求重新读取 | 有限数 |
+| `millimeters_per_unit` | `float | None` | 否 | `None` | 每个网格单位对应的毫米数；未标定来源必填，已标定来源只能为1 | 正有限数 |
+| `fusion_history` | `dict[str, Any] | None` | 否 | `None` | 有来源声明的等间隔加工状态及实际动作；需零件任务，与手动状态互斥 | 2至256条；记录格式版本1 |
 
 ### `TaskCreateRequest`
 

@@ -103,9 +103,21 @@ class WorldModelConfig:
     # 从而在慢变量上达到持久性基线水平，同时保留快变量（振动/力）的预测能力。
     # 默认 False，保证既有 checkpoint 的 state_dict 键不变（可直接加载）。
     delta_prediction: bool = False
+    input_normalization: dict[str, Any] | None = None
+    delta_output_normalization: dict[str, Any] | None = None
 
     def validate(self) -> None:
         """参数校验."""
+        if self.delta_output_normalization is not None:
+            from app.plugins.world_model.state_loss_normalization import validate_state_scale
+            if not self.use_fusion or not self.delta_prediction:
+                raise ValueError("增量尺度需要融合Δ预测模型")
+            validate_state_scale(self.delta_output_normalization, self.state_dim)
+        if self.input_normalization is not None:
+            from app.plugins.world_model.input_normalization import validate_normalization
+            if not self.use_fusion:
+                raise ValueError("融合输入标准化不能用于原始八字段模型")
+            validate_normalization(self.input_normalization, self.feature_dim + 5)
         if self.state_dim <= 0:
             raise ValueError(f"state_dim 必须为正数: {self.state_dim}")
         if self.action_dim <= 0:
@@ -129,7 +141,7 @@ class WorldModelConfig:
                 raise ValueError(f"use_fusion=True 时 fused_dim 必须为正数: {self.fused_dim}")
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        result = {
             "state_dim": self.state_dim,
             "action_dim": self.action_dim,
             "hidden_dim": self.hidden_dim,
@@ -144,6 +156,13 @@ class WorldModelConfig:
             "fused_dim": self.fused_dim,
             "delta_prediction": self.delta_prediction,
         }
+        if self.input_normalization is not None:
+            from copy import deepcopy
+            result["input_normalization"] = deepcopy(self.input_normalization)
+        if self.delta_output_normalization is not None:
+            from copy import deepcopy
+            result["delta_output_normalization"] = deepcopy(self.delta_output_normalization)
+        return result
 
 
 if HAS_TORCH:
@@ -231,6 +250,14 @@ if HAS_TORCH:
             super().__init__()
             config.validate()
             self.config = config
+            self.delta_output_scaler = None
+            if config.delta_output_normalization is not None:
+                from app.plugins.world_model.state_loss_normalization import DeltaOutputScaler
+                self.delta_output_scaler = DeltaOutputScaler(config.delta_output_normalization)
+            self.input_normalizer = None
+            if config.input_normalization is not None:
+                from app.plugins.world_model.input_normalization import FusionInputNormalizer
+                self.input_normalizer = FusionInputNormalizer(config.input_normalization, config.feature_dim + 5)
 
             # 固定种子（学术可复现）
             torch.manual_seed(config.seed)
@@ -305,6 +332,8 @@ if HAS_TORCH:
                 融合 embedding，shape ``[batch, T, fused_dim]``。
             """
             geometry_tensor, dynamics_tensor = unified_states
+            if self.input_normalizer is not None:
+                geometry_tensor, dynamics_tensor = self.input_normalizer(geometry_tensor, dynamics_tensor)
             # (batch, T, input_dim) (batch*T, input_dim) 以复用 MLP
             batch, T, _ = geometry_tensor.shape
             geo_emb = self.geometry_encoder(geometry_tensor.reshape(batch * T, -1))
@@ -346,6 +375,8 @@ if HAS_TORCH:
             """
             if horizon <= 0 or horizon > self.config.max_trajectory_length:
                 raise ValueError(f"horizon 必须在 [1, {self.config.max_trajectory_length}], 当前: {horizon}")
+            if self.delta_output_scaler is not None and initial_state is None:
+                raise ValueError("增量尺度模型需要实际末条状态反馈")
 
             # 推断 batch / T 与构造 LSTM 输入
             # ADR-020 P3：按输入类型判定路径，而非仅依赖 config.use_fusion——
@@ -404,7 +435,10 @@ if HAS_TORCH:
                 # 预测下一步状态：Δ 模式输出增量（更容易保持慢变量水平），
                 # 绝对模式沿用 state_head
                 if self.delta_head is not None:
-                    prev_state = prev_state + self.delta_head(h)
+                    delta = self.delta_head(h)
+                    if self.delta_output_scaler is not None:
+                        delta = self.delta_output_scaler(delta)
+                    prev_state = prev_state + delta
                 else:
                     prev_state = self.state_head(h)
                 predicted_states.append(prev_state)
@@ -442,6 +476,8 @@ else:
 
         def __init__(self, config: WorldModelConfig) -> None:
             config.validate()
+            if config.input_normalization is not None or config.delta_output_normalization is not None:
+                raise RuntimeError("标准化融合权重需要torch，不能退回随机NumPy预测")
             self.config = config
             if config.use_fusion:
                 # ADR-020 P3 降级兜底：torch 不可用时不再 raise，

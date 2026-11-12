@@ -169,6 +169,62 @@ export interface WorldModelPredictRequest {
   horizon: number
   /** 世界模型 URI（如 `model://world_model/1.0.0`） */
   model_uri: string
+  feature_task_id?: string
+  feature_task_updated_at?: number
+  millimeters_per_unit?: number
+  fusion_history?: WorldModelHistory
+  /** 融合训练模型需要实际零件几何及动力学输入；不能用八字段状态替代。 */
+  unified_state?: {
+    geometry: {
+      bbox_dimensions: number[]
+      feature_vector: number[]
+      symmetry_score: number
+      complexity_score: number
+    }
+    dynamics: {
+      spindle_speed: number
+      feed_rate: number
+      depth_of_cut: number
+      tool_wear: number
+      vibration_rms: number
+      temperature: number
+    }
+  }
+}
+
+export interface WorldModelHistory {
+  schema_version: 1
+  source: string
+  sample_period_seconds: number
+  samples: Array<{ time_seconds: number; current_state: Record<string, number>; action: Record<string, number> }>
+}
+
+export interface WorldModelInputRequirements {
+  model_uri: string
+  use_fusion: boolean
+  feature_dim: number
+  state_feedback: boolean
+  feedback_fields: string[]
+  /** 空列表/空值表示历史权重未记录，不能推断训练窗口。 */
+  training_history_steps?: number[]
+  training_horizon?: number | null
+  /** 调用方始终提供原单位；转换由模型按checkpoint契约执行。 */
+  input_normalization?: 'none' | 'train_zscore'
+  caller_input_units?: 'original'
+  geometry_sources: Array<{ task_id: string; name: string; updated_at: number; calibrated: boolean }>
+}
+
+export interface WorldModelGeometryInput {
+  geometry: NonNullable<WorldModelPredictRequest['unified_state']>['geometry']
+  source: {
+    task_id: string
+    name: string
+    updated_at: number
+    feature_count: number
+    scale_source: 'upstream_calibration' | 'user_supplied'
+    millimeters_per_unit: number
+  }
+  notes: string[]
 }
 
 /**
@@ -221,6 +277,16 @@ export interface WorldModelInfo {
   prediction_horizon: number
   /** 模型预测不确定性估计 [0, 1] */
   uncertainty_estimate: number
+  /** 实际权重来源；直接预测成功时必须为 checkpoint。 */
+  weights_source?: 'checkpoint' | 'random_init' | 'unknown'
+  input_history?: {
+    source: string
+    source_verification: 'user_declared'
+    history_steps: number
+    sample_period_seconds: number
+    training_window_match: 'matched' | 'unknown'
+    training_sample_period_match: 'unknown'
+  }
 }
 
 /**

@@ -143,10 +143,14 @@ class WorldModelPredictRequest:
     model_uri: str = "model://world_model/1.0.0"
     # ADR-020 思路 1：融合模式可选输入（默认 None 保持向后兼容）
     unified_state: dict[str, Any] | None = None
+    feature_task_id: str | None = None
+    feature_task_updated_at: float | None = None
+    millimeters_per_unit: float | None = None
+    fusion_history: dict[str, Any] | None = None
 
     def __post_init__(self) -> None:
         # 融合模式下 current_state 可为空（由 unified_state 提供状态信息）
-        if not self.current_state and not self.unified_state:
+        if not self.current_state and not self.unified_state and self.fusion_history is None:
             raise ValueError("current_state 不能为空（除非提供 unified_state 走融合模式）")
         if not self.candidate_action:
             raise ValueError("candidate_action 不能为空")
@@ -260,12 +264,16 @@ class WorldModelInfo:
         训练时的预测步长.
     uncertainty_estimate : float
         模型预测不确定性估计 [0, 1].
+    weights_source : str
+        实际权重来源。直接预测服务成功时必须为 checkpoint。
     """
 
     world_model_version: str
     training_data_size: int
     prediction_horizon: int
     uncertainty_estimate: float
+    weights_source: str = "unknown"
+    input_history: dict[str, Any] | None = None
 
     def __post_init__(self) -> None:
         if not self.world_model_version:
@@ -278,12 +286,16 @@ class WorldModelInfo:
             raise ValueError(f"uncertainty_estimate 必须在 [0, 1]: {self.uncertainty_estimate}")
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        result = {
             "world_model_version": self.world_model_version,
             "training_data_size": self.training_data_size,
             "prediction_horizon": self.prediction_horizon,
             "uncertainty_estimate": self.uncertainty_estimate,
+            "weights_source": self.weights_source,
         }
+        if self.input_history is not None:
+            result["input_history"] = self.input_history
+        return result
 
 
 @dataclass

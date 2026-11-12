@@ -1,0 +1,2006 @@
+{
+  "date": "2026-11-12",
+  "kind": "exploratory_normalization_pilot",
+  "independent_final_test_established": false,
+  "experiment_groups": 3,
+  "seed": 42,
+  "epochs_per_run": 20,
+  "batch_size": 32,
+  "learning_rate": 0.001,
+  "device": "cpu",
+  "elapsed_seconds": 41.679385999999795,
+  "training_and_inference_contract": "original units -> train-only fitted model buffers -> original-unit outputs",
+  "finding": "input scale and history sensitivity repaired; uniform forecasting advantage not established",
+  "checks": {
+    "matched_initial_parameters_and_capacity": true,
+    "normalization_matches_training_inputs_only": true,
+    "production_active_version_changed": false
+  },
+  "source_sha256_at_report_compilation": {
+    "engineering/python/app/plugins/world_model/input_normalization.py": "c3e8132af89dfed1b7b5ca8176a6c2a01a055ee0e78f60ad7f31e1b15d567730",
+    "engineering/python/app/plugins/world_model/net.py": "d77fa926581c2bfec96fb9a2f6d3b0006a2f4ce1c98f246e911a13eb62fcc768",
+    "engineering/python/app/plugins/world_model/training/fusion_trainer.py": "60bd869a7932eef2447d218cbd9fbdeae09a4456a42165b3e85f18d466fcbdb7",
+    "engineering/python/scripts/wm_train_normalization_pilot.py": "0848b64890ad86a25f79dd49a22ac0a6479f05e8ffa672aa617bcdae33971123",
+    "engineering/python/scripts/train_world_model.py": "9f4c4f8bbc0758e3cfc8c71e71b9239b3366a579a9555c1dd4f4f98508fea831",
+    "docs/reports/world_model_normalization_protocol_20261112.md": "9e1d09e745d730ffd41e9936c01fe1900bcc7510409d081c7dbf853dd32e14ac"
+  },
+  "local_ledger": {
+    "path": "reports\\wm_norm_pilot_20261112\\ledger.json",
+    "sha256": "d46e5b473c5e180a271c1551931638c718154aa593c753d930325cc0bf40c3bd"
+  },
+  "paired_force_comparisons": [
+    {
+      "group": "c1",
+      "raw_force_mae": 0.12487769097434764,
+      "zscore_force_mae": 0.12436476306939179,
+      "zscore_improvement_vs_raw_pct": 0.41074422577305836,
+      "zscore_beats_train_mean_force": false
+    },
+    {
+      "group": "c4",
+      "raw_force_mae": 0.11916675424781233,
+      "zscore_force_mae": 0.12688195737531055,
+      "zscore_improvement_vs_raw_pct": -6.4742915725086645,
+      "zscore_beats_train_mean_force": false
+    },
+    {
+      "group": "c6",
+      "raw_force_mae": 0.10331064171870692,
+      "zscore_force_mae": 0.10246894528730814,
+      "zscore_improvement_vs_raw_pct": 0.8147238439294012,
+      "zscore_beats_train_mean_force": true
+    }
+  ],
+  "runs": [
+    {
+      "group": "c1",
+      "mode": "raw",
+      "version": "normpilot-c1-raw-s42",
+      "initial_parameters_sha256": "3508c97745844756150da864b739d3a1dc051eaa9097b362fff8c7d42abe4d57",
+      "trainable_parameters": 187475,
+      "checkpoint": "D:\\灵境制造\\reports\\wm_norm_pilot_20261112\\models\\world_model\\normpilot-c1-raw-s42.pt",
+      "checkpoint_sha256": "fe186627abb7bf05d1c024e1fe83eab729efb506dcfdcf47231b6aed500a1a0e",
+      "training_dataset_sha256": "ffd8c7a5c8accd50a4e283a40e605c65a7be456c135876152ae69496d40d9a4d",
+      "validation_dataset_sha256": "7d667bdb4ed310e251735d55372a848a5ebfd650f1c32da848c541578829e3eb",
+      "audit_path": "reports\\wm_norm_pilot_20261112\\normpilot-c1-raw-s42.audit.json",
+      "audit_sha256": "bdecd320075fecf18141642a39aa1cd360f5640c64bfdcdc3379f960f89f20fa",
+      "elapsed_seconds": 16.276437499996973,
+      "selection": {
+        "total_epochs": 20,
+        "best_val_loss": 0.005242813329121708,
+        "selected_epoch": 15,
+        "final_train_loss": 0.006701410811938411,
+        "final_val_loss": 0.005350855838474447,
+        "optimizer": "adamw",
+        "loss_function": "mse",
+        "device": "cpu",
+        "use_amp": false,
+        "model_uri": "model://world_model/normpilot-c1-raw-s42"
+      },
+      "normalization": null,
+      "checkpoint_model_selection": {
+        "criterion": "validation_loss",
+        "selected_epoch": 15,
+        "selected_val_loss": 0.005242813329121708,
+        "weights_epoch": 15,
+        "applied": true
+      },
+      "input_contract": {
+        "schema_version": 1,
+        "history_steps": [
+          20
+        ],
+        "training_horizon": 5
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          2.7345980376026993e-26,
+          2.883040829107015e-25,
+          1.2312685222323788e-25,
+          4.85778573282836e-26,
+          1.3289574822089721e-25,
+          1.0925329106858403e-25
+        ],
+        "nonzero_fraction": 1.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 3003.448486328125,
+          "first_step_gate_affine_max_abs": 3832.81689453125,
+          "first_step_gate_affine_abs_gt20_fraction": 0.984375,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c",
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.010509886417900566,
+            "wear_mm": 0.008406295291090434,
+            "Ra_um": 0.012145641208749957,
+            "vib_rms": 0.08998898016371294,
+            "temp/100": 0.01767581922818074,
+            "force_norm": 0.12487769097434764,
+            "mrr_norm": 0.012906023711831499,
+            "confidence": 0.016489322734090078
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -6753.395258230044,
+            "Ra_um": -3200.6283603287275,
+            "vib_rms": 0.47135009441988657,
+            "temp/100": null,
+            "force_norm": 12.17864530852157,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.03201369695958838,
+            "wear_mm": 0.013027965738973786,
+            "Ra_um": 0.01979565240640556,
+            "vib_rms": 0.1092306585817606,
+            "temp/100": 0.015164120112900185,
+            "force_norm": 0.11828631332390235,
+            "mrr_norm": 0.016641503188293428,
+            "confidence": 0.08217805792800092
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -10521.301718308376,
+            "Ra_um": -5279.550624031357,
+            "vib_rms": -20.810125386039715,
+            "temp/100": null,
+            "force_norm": 16.814090679337642,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.04856288433074951,
+            "wear_mm": 0.028014391660690308,
+            "Ra_um": 0.05377030372619629,
+            "vib_rms": 0.06000463664531708,
+            "temp/100": 0.02213093638420105,
+            "force_norm": 0.04427952179685235,
+            "mrr_norm": 0.02362796850502491,
+            "confidence": 0.1016683578491211
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.010509886417900566,
+            "wear_mm": 0.008406295291090434,
+            "Ra_um": 0.012145641208749957,
+            "vib_rms": 0.08998898016371294,
+            "temp/100": 0.01767581922818074,
+            "force_norm": 0.12487769097434764,
+            "mrr_norm": 0.012906023711831499,
+            "confidence": 0.016489322734090078
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -6753.395258230044,
+            "Ra_um": -3200.6283603287275,
+            "vib_rms": 0.47135009441988657,
+            "temp/100": null,
+            "force_norm": 12.17864530852157,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.010509886417900566,
+            "wear_mm": 0.008406295291090434,
+            "Ra_um": 0.012145641208749957,
+            "vib_rms": 0.08998898016371294,
+            "temp/100": 0.01767581922818074,
+            "force_norm": 0.12487769097434764,
+            "mrr_norm": 0.012906023711831499,
+            "confidence": 0.016489322734090078
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -6753.395258230044,
+            "Ra_um": -3200.6283603287275,
+            "vib_rms": 0.47135009441988657,
+            "temp/100": null,
+            "force_norm": 12.17864530852157,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00012265884243281542,
+            "Ra_um": 0.0003679796657731048,
+            "vib_rms": 0.09041515206835703,
+            "temp/100": 0.0,
+            "force_norm": 0.14219513171147302,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.050512658432126045,
+            "wear_mm": 0.038084253668785095,
+            "Ra_um": 0.051512718200683594,
+            "vib_rms": 0.15680921077728271,
+            "temp/100": 0.0798063576221466,
+            "force_norm": 0.40368595719337463,
+            "mrr_norm": 0.057790660473983735,
+            "confidence": 0.07671403884887695
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.13795838970690966,
+            "wear_mm": 0.025270849795849534,
+            "Ra_um": 0.37225660043479875,
+            "vib_rms": 0.09496836293743384,
+            "temp/100": 0.0,
+            "force_norm": 0.11306164269185905,
+            "mrr_norm": 4.8593763494864106e-05,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -20502.550370301487,
+            "Ra_um": -101062.27472860718,
+            "vib_rms": -5.035893613975703,
+            "temp/100": null,
+            "force_norm": 20.488387098039684,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.1884710481390357,
+            "wear_mm": 0.08134021843758832,
+            "Ra_um": 0.5867205987989377,
+            "vib_rms": 0.1879971959408727,
+            "temp/100": 0.0798063576221466,
+            "force_norm": 0.4051363736177038,
+            "mrr_norm": 0.05774206671048887,
+            "confidence": 0.07671403884887695
+          }
+        }
+      }
+    },
+    {
+      "group": "c1",
+      "mode": "zscore",
+      "version": "normpilot-c1-zscore-s42",
+      "initial_parameters_sha256": "3508c97745844756150da864b739d3a1dc051eaa9097b362fff8c7d42abe4d57",
+      "trainable_parameters": 187475,
+      "checkpoint": "D:\\灵境制造\\reports\\wm_norm_pilot_20261112\\models\\world_model\\normpilot-c1-zscore-s42.pt",
+      "checkpoint_sha256": "849c67a32125e13bddc973843f1d0f190805287ac0fe0ad24c33667a86606dd1",
+      "training_dataset_sha256": "ffd8c7a5c8accd50a4e283a40e605c65a7be456c135876152ae69496d40d9a4d",
+      "validation_dataset_sha256": "7d667bdb4ed310e251735d55372a848a5ebfd650f1c32da848c541578829e3eb",
+      "audit_path": "reports\\wm_norm_pilot_20261112\\normpilot-c1-zscore-s42.audit.json",
+      "audit_sha256": "99241d84ca53fe4ad2ee1ac8853bd5ecd0531ac646d33e17026f2a01170b4133",
+      "elapsed_seconds": 3.947345700002188,
+      "selection": {
+        "total_epochs": 20,
+        "best_val_loss": 0.005157896383475941,
+        "selected_epoch": 15,
+        "final_train_loss": 0.0061604962879956695,
+        "final_val_loss": 0.005234495349294316,
+        "optimizer": "adamw",
+        "loss_function": "mse",
+        "device": "cpu",
+        "use_amp": false,
+        "model_uri": "model://world_model/normpilot-c1-zscore-s42"
+      },
+      "normalization": {
+        "schema_version": 1,
+        "method": "train_zscore",
+        "fit_scope": "train_history_inputs_only",
+        "constant_scale": 1.0,
+        "dynamics_order": [
+          "spindle_speed",
+          "feed_rate",
+          "depth_of_cut",
+          "tool_wear",
+          "vibration_rms",
+          "temperature"
+        ],
+        "train_windows": 226,
+        "train_history_points": 4520,
+        "fit_inputs_sha256": "0035fe8f296c993990703fdd33ab73633bf4d34b5a45fc3a68bd7cabf3ed9e01",
+        "geometry": {
+          "mean": [
+            60.0,
+            60.0,
+            10.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "constant_features": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36
+          ]
+        },
+        "dynamics": {
+          "mean": [
+            10400.0,
+            1555.0,
+            0.5250000059604645,
+            0.12258619744808669,
+            0.19816846140854544,
+            25.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            0.22499999403953108,
+            0.04552418847252515,
+            0.17691283424493345,
+            1.0
+          ],
+          "constant_features": [
+            0,
+            1,
+            5
+          ]
+        }
+      },
+      "checkpoint_model_selection": {
+        "criterion": "validation_loss",
+        "selected_epoch": 15,
+        "selected_val_loss": 0.005157896383475941,
+        "weights_epoch": 15,
+        "applied": true
+      },
+      "input_contract": {
+        "schema_version": 1,
+        "history_steps": [
+          20
+        ],
+        "training_horizon": 5
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          0.0025882036425173283,
+          0.009388845413923264,
+          0.09027036279439926,
+          0.19484111666679382,
+          0.036425065249204636,
+          0.010196059942245483
+        ],
+        "nonzero_fraction": 1.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 0.408963143825531,
+          "first_step_gate_affine_max_abs": 0.6069847941398621,
+          "first_step_gate_affine_abs_gt20_fraction": 0.0,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c",
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.013473072598597645,
+            "wear_mm": 0.020467609773694943,
+            "Ra_um": 0.022621806954915544,
+            "vib_rms": 0.07627201270048334,
+            "temp/100": 0.026451478938085842,
+            "force_norm": 0.12436476306939179,
+            "mrr_norm": 0.015761938436158758,
+            "confidence": 0.018463536068401506
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -16586.615793643883,
+            "Ra_um": -6047.569841227066,
+            "vib_rms": 15.642443820899599,
+            "temp/100": null,
+            "force_norm": 12.539366451912496,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.032123202784399014,
+            "wear_mm": 0.02175434950112769,
+            "Ra_um": 0.05788332761916439,
+            "vib_rms": 0.07809427956663138,
+            "temp/100": 0.019816722964818498,
+            "force_norm": 0.1257244186043887,
+            "mrr_norm": 0.015819481443366513,
+            "confidence": 0.030638022232899624
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -17635.65531000614,
+            "Ra_um": -15630.034293485956,
+            "vib_rms": 13.6269997006814,
+            "temp/100": null,
+            "force_norm": 11.583176518662327,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.04022727906703949,
+            "wear_mm": 0.025295168161392212,
+            "Ra_um": 0.06323421001434326,
+            "vib_rms": 0.07643982768058777,
+            "temp/100": 0.022533848881721497,
+            "force_norm": 0.026030004024505615,
+            "mrr_norm": 0.026915419846773148,
+            "confidence": 0.05107438564300537
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.013598153357748437,
+            "wear_mm": 0.020247490554058972,
+            "Ra_um": 0.022607317856982747,
+            "vib_rms": 0.07567390873368862,
+            "temp/100": 0.026406240146771995,
+            "force_norm": 0.12442989695115521,
+            "mrr_norm": 0.015661550156640267,
+            "confidence": 0.01895515211915548
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -16407.159331092855,
+            "Ra_um": -6043.6323687848435,
+            "vib_rms": 16.303952376835586,
+            "temp/100": null,
+            "force_norm": 12.493560466166384,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.011092320084571838,
+            "wear_mm": 0.024340257048606873,
+            "Ra_um": 0.006674051284790039,
+            "vib_rms": 0.033319443464279175,
+            "temp/100": 0.008944034576416016,
+            "force_norm": 0.009179051965475082,
+            "mrr_norm": 0.015265213325619698,
+            "confidence": 0.013571023941040039
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.013512092980399596,
+            "wear_mm": 0.02066525120156265,
+            "Ra_um": 0.022630783519913666,
+            "vib_rms": 0.07619043968749785,
+            "temp/100": 0.026553829897821478,
+            "force_norm": 0.1243702851150036,
+            "mrr_norm": 0.015823127011113297,
+            "confidence": 0.018456556944720513
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -16747.746800547004,
+            "Ra_um": -6050.009259986595,
+            "vib_rms": 15.732664332749003,
+            "temp/100": null,
+            "force_norm": 12.53548302387572,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.007636629045009613,
+            "wear_mm": 0.01059720665216446,
+            "Ra_um": 0.0039452314376831055,
+            "vib_rms": 0.02052438259124756,
+            "temp/100": 0.005795121192932129,
+            "force_norm": 0.00619080662727356,
+            "mrr_norm": 0.008285272866487503,
+            "confidence": 0.006029903888702393
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00012265884243281542,
+            "Ra_um": 0.0003679796657731048,
+            "vib_rms": 0.09041515206835703,
+            "temp/100": 0.0,
+            "force_norm": 0.14219513171147302,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.050064535811543465,
+            "wear_mm": 0.039886943995952606,
+            "Ra_um": 0.06316637992858887,
+            "vib_rms": 0.2010405957698822,
+            "temp/100": 0.08931887149810791,
+            "force_norm": 0.3686910569667816,
+            "mrr_norm": 0.0693394701811485,
+            "confidence": 0.06976509094238281
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.13795838970690966,
+            "wear_mm": 0.025270849795849534,
+            "Ra_um": 0.37225660043479875,
+            "vib_rms": 0.09496836293743384,
+            "temp/100": 0.0,
+            "force_norm": 0.11306164269185905,
+            "mrr_norm": 4.8593763494864106e-05,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -20502.550370301487,
+            "Ra_um": -101062.27472860718,
+            "vib_rms": -5.035893613975703,
+            "temp/100": null,
+            "force_norm": 20.488387098039684,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.18802292551845312,
+            "wear_mm": 0.11102536554423581,
+            "Ra_um": 0.5797627101957272,
+            "vib_rms": 0.19429916523065235,
+            "temp/100": 0.08931887149810791,
+            "force_norm": 0.42578845916038266,
+            "mrr_norm": 0.06929087641765364,
+            "confidence": 0.06976509094238281
+          }
+        }
+      }
+    },
+    {
+      "group": "c4",
+      "mode": "raw",
+      "version": "normpilot-c4-raw-s42",
+      "initial_parameters_sha256": "3508c97745844756150da864b739d3a1dc051eaa9097b362fff8c7d42abe4d57",
+      "trainable_parameters": 187475,
+      "checkpoint": "D:\\灵境制造\\reports\\wm_norm_pilot_20261112\\models\\world_model\\normpilot-c4-raw-s42.pt",
+      "checkpoint_sha256": "e84e835a9fa0266c47209ffdb8e7929f8bd2d759d87717ff0fa3e96e6ad73120",
+      "training_dataset_sha256": "0b9cf46c00bc014b4d4ebfeac5caa697d469f557122b2bc86ab16d915f602985",
+      "validation_dataset_sha256": "db554787be0e8377a83324bdb885a4bcb0a967aec3b477bc5d1deb9b5ca6e247",
+      "audit_path": "reports\\wm_norm_pilot_20261112\\normpilot-c4-raw-s42.audit.json",
+      "audit_sha256": "0e09df17fa725fe9ace0fc148826c982fac247b771b58cd814bc9c3a9bdb6793",
+      "elapsed_seconds": 3.9073043999997026,
+      "selection": {
+        "total_epochs": 20,
+        "best_val_loss": 0.016875784926578007,
+        "selected_epoch": 16,
+        "final_train_loss": 0.0069063854325496785,
+        "final_val_loss": 0.017067543057873186,
+        "optimizer": "adamw",
+        "loss_function": "mse",
+        "device": "cpu",
+        "use_amp": false,
+        "model_uri": "model://world_model/normpilot-c4-raw-s42"
+      },
+      "normalization": null,
+      "checkpoint_model_selection": {
+        "criterion": "validation_loss",
+        "selected_epoch": 16,
+        "selected_val_loss": 0.016875784926578007,
+        "weights_epoch": 16,
+        "applied": true
+      },
+      "input_contract": {
+        "schema_version": 1,
+        "history_steps": [
+          20
+        ],
+        "training_horizon": 5
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          3.5475834186410176e-25,
+          8.372261645353383e-25,
+          1.8190995656333283e-25,
+          1.2337582412049662e-24,
+          2.2351038602355283e-24,
+          6.478359946756186e-25
+        ],
+        "nonzero_fraction": 1.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 3244.8154296875,
+          "first_step_gate_affine_max_abs": 3725.4599609375,
+          "first_step_gate_affine_abs_gt20_fraction": 0.984375,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c",
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.14188278298989862,
+            "wear_mm": 0.0931437253886092,
+            "Ra_um": 0.09172959032311903,
+            "vib_rms": 0.1483535602402387,
+            "temp/100": 0.1299427466780211,
+            "force_norm": 0.11916675424781233,
+            "mrr_norm": 0.038645812615636835,
+            "confidence": 0.061873846349462996
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -50543.06913130566,
+            "Ra_um": -16524.701449333,
+            "vib_rms": -75.69769098417879,
+            "temp/100": null,
+            "force_norm": 11.656752018090838,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.14588745901014952,
+            "wear_mm": 0.12423350769466003,
+            "Ra_um": 0.10495384013758297,
+            "vib_rms": 0.16964908807715648,
+            "temp/100": 0.17620310968002387,
+            "force_norm": 0.11759899444028167,
+            "mrr_norm": 0.028161580581218003,
+            "confidence": 0.02540751168158202
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -67446.85935478672,
+            "Ra_um": -18921.41121640421,
+            "vib_rms": -100.91835345548567,
+            "temp/100": null,
+            "force_norm": 12.81899726280676,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.02499181032180786,
+            "wear_mm": 0.052861154079437256,
+            "Ra_um": 0.04537487030029297,
+            "vib_rms": 0.04613712430000305,
+            "temp/100": 0.07273503392934799,
+            "force_norm": 0.014275766909122467,
+            "mrr_norm": 0.014982648193836212,
+            "confidence": 0.090487539768219
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.14188278298989862,
+            "wear_mm": 0.0931437253886092,
+            "Ra_um": 0.09172959032311903,
+            "vib_rms": 0.1483535602402387,
+            "temp/100": 0.1299427466780211,
+            "force_norm": 0.11916675424781233,
+            "mrr_norm": 0.038645812615636835,
+            "confidence": 0.061873846349462996
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -50543.06913130566,
+            "Ra_um": -16524.701449333,
+            "vib_rms": -75.69769098417879,
+            "temp/100": null,
+            "force_norm": 11.656752018090838,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.14188278298989862,
+            "wear_mm": 0.0931437253886092,
+            "Ra_um": 0.09172959032311903,
+            "vib_rms": 0.1483535602402387,
+            "temp/100": 0.1299427466780211,
+            "force_norm": 0.11916675424781233,
+            "mrr_norm": 0.038645812615636835,
+            "confidence": 0.061873846349462996
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -50543.06913130566,
+            "Ra_um": -16524.701449333,
+            "vib_rms": -75.69769098417879,
+            "temp/100": null,
+            "force_norm": 11.656752018090838,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00018392196007534467,
+            "Ra_um": 0.0005517668428674208,
+            "vib_rms": 0.08443682976664596,
+            "temp/100": 0.0,
+            "force_norm": 0.13489061922674064,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.26553021371364594,
+            "wear_mm": 0.212585911154747,
+            "Ra_um": 0.2701094150543213,
+            "vib_rms": 0.26750747580081224,
+            "temp/100": 0.28749093413352966,
+            "force_norm": 0.3821617662906647,
+            "mrr_norm": 0.13391662924550474,
+            "confidence": 0.14644944667816162
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.3730437783524394,
+            "wear_mm": 0.03892832667067845,
+            "Ra_um": 0.8709867708450981,
+            "vib_rms": 0.092639862532443,
+            "temp/100": 0.0,
+            "force_norm": 0.11052317721510187,
+            "mrr_norm": 0.0006803125143051147,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -21065.676276357233,
+            "Ra_um": -157754.13387994753,
+            "vib_rms": -9.714993787032704,
+            "temp/100": null,
+            "force_norm": 18.064593484205897,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.3977100281044841,
+            "wear_mm": 0.2688995780571636,
+            "Ra_um": 1.199442424921863,
+            "vib_rms": 0.3553304605900961,
+            "temp/100": 0.28749093413352966,
+            "force_norm": 0.45048223289456546,
+            "mrr_norm": 0.13459694175980985,
+            "confidence": 0.14644944667816162
+          }
+        }
+      }
+    },
+    {
+      "group": "c4",
+      "mode": "zscore",
+      "version": "normpilot-c4-zscore-s42",
+      "initial_parameters_sha256": "3508c97745844756150da864b739d3a1dc051eaa9097b362fff8c7d42abe4d57",
+      "trainable_parameters": 187475,
+      "checkpoint": "D:\\灵境制造\\reports\\wm_norm_pilot_20261112\\models\\world_model\\normpilot-c4-zscore-s42.pt",
+      "checkpoint_sha256": "80564782bc6a32bd96da2af38e98f84e064fcab1300651261c293ec6ca64a8de",
+      "training_dataset_sha256": "0b9cf46c00bc014b4d4ebfeac5caa697d469f557122b2bc86ab16d915f602985",
+      "validation_dataset_sha256": "db554787be0e8377a83324bdb885a4bcb0a967aec3b477bc5d1deb9b5ca6e247",
+      "audit_path": "reports\\wm_norm_pilot_20261112\\normpilot-c4-zscore-s42.audit.json",
+      "audit_sha256": "3dace581474270a56ed496722d85d1e101b6b47850e01245a10673d7f245c69a",
+      "elapsed_seconds": 3.8136392000014894,
+      "selection": {
+        "total_epochs": 20,
+        "best_val_loss": 0.014372407780152507,
+        "selected_epoch": 12,
+        "final_train_loss": 0.006165764356378169,
+        "final_val_loss": 0.01440911067534337,
+        "optimizer": "adamw",
+        "loss_function": "mse",
+        "device": "cpu",
+        "use_amp": false,
+        "model_uri": "model://world_model/normpilot-c4-zscore-s42"
+      },
+      "normalization": {
+        "schema_version": 1,
+        "method": "train_zscore",
+        "fit_scope": "train_history_inputs_only",
+        "constant_scale": 1.0,
+        "dynamics_order": [
+          "spindle_speed",
+          "feed_rate",
+          "depth_of_cut",
+          "tool_wear",
+          "vibration_rms",
+          "temperature"
+        ],
+        "train_windows": 226,
+        "train_history_points": 4520,
+        "fit_inputs_sha256": "44a82f3991ac7eee2aadab94ee771bfb0685b179ad932e7d8ead439892eb2668",
+        "geometry": {
+          "mean": [
+            60.0,
+            60.0,
+            10.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "constant_features": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36
+          ]
+        },
+        "dynamics": {
+          "mean": [
+            10400.0,
+            1555.0,
+            0.4000000059604645,
+            0.12651477467466507,
+            0.1994899073324632,
+            25.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            0.09999999403953187,
+            0.040275062380821645,
+            0.17815846420065776,
+            1.0
+          ],
+          "constant_features": [
+            0,
+            1,
+            5
+          ]
+        }
+      },
+      "checkpoint_model_selection": {
+        "criterion": "validation_loss",
+        "selected_epoch": 12,
+        "selected_val_loss": 0.014372407780152507,
+        "weights_epoch": 12,
+        "applied": true
+      },
+      "input_contract": {
+        "schema_version": 1,
+        "history_steps": [
+          20
+        ],
+        "training_horizon": 5
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          0.005046777427196503,
+          0.007062280550599098,
+          0.06716373562812805,
+          0.2802998721599579,
+          0.034724161028862,
+          0.0035985910799354315
+        ],
+        "nonzero_fraction": 1.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 0.8970114588737488,
+          "first_step_gate_affine_max_abs": 0.8612912893295288,
+          "first_step_gate_affine_abs_gt20_fraction": 0.0,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c",
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.1100704567358557,
+            "wear_mm": 0.052406847312123375,
+            "Ra_um": 0.09048691133482266,
+            "vib_rms": 0.10372803903296095,
+            "temp/100": 0.1239181403037721,
+            "force_norm": 0.12688195737531055,
+            "mrr_norm": 0.06409530323369643,
+            "confidence": 0.09721353349432481
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -28394.06742438729,
+            "Ra_um": -16299.48331519532,
+            "vib_rms": -22.846913271885246,
+            "temp/100": null,
+            "force_norm": 5.937152559117663,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.11497832771423644,
+            "wear_mm": 0.08770406216514849,
+            "Ra_um": 0.0805533632767939,
+            "vib_rms": 0.14989432603949104,
+            "temp/100": 0.1776854131205947,
+            "force_norm": 0.12901878681150264,
+            "mrr_norm": 0.09137549452541346,
+            "confidence": 0.08588475294872723
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -47585.4760188615,
+            "Ra_um": -14499.167079010102,
+            "vib_rms": -77.52244660741864,
+            "temp/100": null,
+            "force_norm": 4.3530324413204085,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.03117893636226654,
+            "wear_mm": 0.0918017327785492,
+            "Ra_um": 0.05741477012634277,
+            "vib_rms": 0.10285023599863052,
+            "temp/100": 0.09731400012969971,
+            "force_norm": 0.03977843001484871,
+            "mrr_norm": 0.10691991448402405,
+            "confidence": 0.08433866500854492
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.11009180965149297,
+            "wear_mm": 0.05246345547843823,
+            "Ra_um": 0.09054261984023372,
+            "vib_rms": 0.10389740985088809,
+            "temp/100": 0.12423277642676787,
+            "force_norm": 0.12683687541212482,
+            "mrr_norm": 0.0641017264880207,
+            "confidence": 0.09727398399758128
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -28424.845786194477,
+            "Ra_um": -16309.579700313634,
+            "vib_rms": -23.047502065182233,
+            "temp/100": null,
+            "force_norm": 5.970573684651936,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.004218786954879761,
+            "wear_mm": 0.011669844388961792,
+            "Ra_um": 0.006656169891357422,
+            "vib_rms": 0.009504169225692749,
+            "temp/100": 0.01714441552758217,
+            "force_norm": 0.01255178451538086,
+            "mrr_norm": 0.0061571598052978516,
+            "confidence": 0.006348967552185059
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.10999659946007011,
+            "wear_mm": 0.05233923099209777,
+            "Ra_um": 0.09046089712497407,
+            "vib_rms": 0.10364271812243964,
+            "temp/100": 0.12394374025144936,
+            "force_norm": 0.12682665038696259,
+            "mrr_norm": 0.06425999322106683,
+            "confidence": 0.0974962002408188
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -28357.303831829933,
+            "Ra_um": -16294.768604591582,
+            "vib_rms": -22.745866239734575,
+            "temp/100": null,
+            "force_norm": 5.978153919082507,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0027802884578704834,
+            "wear_mm": 0.006022289395332336,
+            "Ra_um": 0.0027909278869628906,
+            "vib_rms": 0.006300583481788635,
+            "temp/100": 0.007237549871206284,
+            "force_norm": 0.005789285525679588,
+            "mrr_norm": 0.004007443785667419,
+            "confidence": 0.0039397478103637695
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00018392196007534467,
+            "Ra_um": 0.0005517668428674208,
+            "vib_rms": 0.08443682976664596,
+            "temp/100": 0.0,
+            "force_norm": 0.13489061922674064,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.25079575181007385,
+            "wear_mm": 0.19931386411190033,
+            "Ra_um": 0.24147868156433105,
+            "vib_rms": 0.23838955163955688,
+            "temp/100": 0.28594498336315155,
+            "force_norm": 0.3312865197658539,
+            "mrr_norm": 0.15754760592244565,
+            "confidence": 0.1649012565612793
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.3730437783524394,
+            "wear_mm": 0.03892832667067845,
+            "Ra_um": 0.8709867708450981,
+            "vib_rms": 0.092639862532443,
+            "temp/100": 0.0,
+            "force_norm": 0.11052317721510187,
+            "mrr_norm": 0.0006803125143051147,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -21065.676276357233,
+            "Ra_um": -157754.13387994753,
+            "vib_rms": -9.714993787032704,
+            "temp/100": null,
+            "force_norm": 18.064593484205897,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.39730921667069197,
+            "wear_mm": 0.24444173594557606,
+            "Ra_um": 1.1883418942974733,
+            "vib_rms": 0.2915416293561178,
+            "temp/100": 0.28594498336315155,
+            "force_norm": 0.45562760385480106,
+            "mrr_norm": 0.15822791843675077,
+            "confidence": 0.1649012565612793
+          }
+        }
+      }
+    },
+    {
+      "group": "c6",
+      "mode": "raw",
+      "version": "normpilot-c6-raw-s42",
+      "initial_parameters_sha256": "3508c97745844756150da864b739d3a1dc051eaa9097b362fff8c7d42abe4d57",
+      "trainable_parameters": 187475,
+      "checkpoint": "D:\\灵境制造\\reports\\wm_norm_pilot_20261112\\models\\world_model\\normpilot-c6-raw-s42.pt",
+      "checkpoint_sha256": "0c28f97e2d99980e55a4a91aef3edfad940add9f5e743127601417426deb23e9",
+      "training_dataset_sha256": "31c078f82ead89c8da22dc459b6a1235b6ffe8f0b406a68ac592639bbe7abbc0",
+      "validation_dataset_sha256": "0ef6509c96027b444b2c30c8032ff567882769a3dadd2dc6373787b896818031",
+      "audit_path": "reports\\wm_norm_pilot_20261112\\normpilot-c6-raw-s42.audit.json",
+      "audit_sha256": "80dd2f55eca1b0108a9ea8509b7d6f9d2e881f87b34063db4f2b111dcf4e2d08",
+      "elapsed_seconds": 5.366199299998698,
+      "selection": {
+        "total_epochs": 20,
+        "best_val_loss": 0.009485801418138816,
+        "selected_epoch": 13,
+        "final_train_loss": 0.005149323193447054,
+        "final_val_loss": 0.009651879128892865,
+        "optimizer": "adamw",
+        "loss_function": "mse",
+        "device": "cpu",
+        "use_amp": false,
+        "model_uri": "model://world_model/normpilot-c6-raw-s42"
+      },
+      "normalization": null,
+      "checkpoint_model_selection": {
+        "criterion": "validation_loss",
+        "selected_epoch": 13,
+        "selected_val_loss": 0.009485801418138816,
+        "weights_epoch": 13,
+        "applied": true
+      },
+      "input_contract": {
+        "schema_version": 1,
+        "history_steps": [
+          20
+        ],
+        "training_horizon": 5
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          1.5771312691683752e-23,
+          6.499722240905004e-23,
+          1.4529162843991884e-23,
+          3.047816803229848e-23,
+          1.3046831671930995e-22,
+          6.760799859564605e-24
+        ],
+        "nonzero_fraction": 1.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 3041.1748046875,
+          "first_step_gate_affine_max_abs": 4337.18994140625,
+          "first_step_gate_affine_abs_gt20_fraction": 0.9921875,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c",
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.02082839905885996,
+            "wear_mm": 0.0208737620869569,
+            "Ra_um": 0.02174056757867864,
+            "vib_rms": 0.1548715056830902,
+            "temp/100": 0.021903542844595107,
+            "force_norm": 0.10331064171870692,
+            "mrr_norm": 0.019879633211015633,
+            "confidence": 0.03136200736054277
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -11554.154871118659,
+            "Ra_um": -3946.0216066240528,
+            "vib_rms": 15.7342179400975,
+            "temp/100": null,
+            "force_norm": 10.96081199991117,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.034285990252629316,
+            "wear_mm": 0.02576626706044231,
+            "Ra_um": 0.033498272642625115,
+            "vib_rms": 0.15348116296211636,
+            "temp/100": 0.017595581987262826,
+            "force_norm": 0.10102846796966397,
+            "mrr_norm": 0.0376510846882902,
+            "confidence": 0.1111511064841684
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -14285.718564869165,
+            "Ra_um": -6134.185671838943,
+            "vib_rms": 16.490705172512545,
+            "temp/100": null,
+            "force_norm": 12.927723579486694,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.03832543361932039,
+            "wear_mm": 0.08346246927976608,
+            "Ra_um": 0.057787537574768066,
+            "vib_rms": 0.03884291648864746,
+            "temp/100": 0.057859838008880615,
+            "force_norm": 0.024434678256511688,
+            "mrr_norm": 0.0429561585187912,
+            "confidence": 0.126581609249115
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.02082839905885996,
+            "wear_mm": 0.0208737620869569,
+            "Ra_um": 0.02174056757867864,
+            "vib_rms": 0.1548715056830902,
+            "temp/100": 0.021903542844595107,
+            "force_norm": 0.10331064171870692,
+            "mrr_norm": 0.019879633211015633,
+            "confidence": 0.03136200736054277
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -11554.154871118659,
+            "Ra_um": -3946.0216066240528,
+            "vib_rms": 15.7342179400975,
+            "temp/100": null,
+            "force_norm": 10.96081199991117,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.02082839905885996,
+            "wear_mm": 0.0208737620869569,
+            "Ra_um": 0.02174056757867864,
+            "vib_rms": 0.1548715056830902,
+            "temp/100": 0.021903542844595107,
+            "force_norm": 0.10331064171870692,
+            "mrr_norm": 0.019879633211015633,
+            "confidence": 0.03136200736054277
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -11554.154871118659,
+            "Ra_um": -3946.0216066240528,
+            "vib_rms": 15.7342179400975,
+            "temp/100": null,
+            "force_norm": 10.96081199991117,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": 0.0,
+            "force_norm": 0.0,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00017911004545414342,
+            "Ra_um": 0.0005373319693371258,
+            "vib_rms": 0.18378931743966465,
+            "temp/100": 0.0,
+            "force_norm": 0.1160282837693936,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.08732679672539234,
+            "wear_mm": 0.12561263144016266,
+            "Ra_um": 0.08309304714202881,
+            "vib_rms": 0.6815347075462341,
+            "temp/100": 0.0661373883485794,
+            "force_norm": 0.32666127383708954,
+            "mrr_norm": 0.12490248895483091,
+            "confidence": 0.17360812425613403
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.23508538864552975,
+            "wear_mm": 0.03818543252435034,
+            "Ra_um": 0.4987301704102863,
+            "vib_rms": 0.1559809120138315,
+            "temp/100": 0.0,
+            "force_norm": 0.10323173200272055,
+            "mrr_norm": 0.0006317187508102506,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -21219.537063110594,
+            "Ra_um": -92716.02414714682,
+            "vib_rms": 15.130588552820676,
+            "temp/100": null,
+            "force_norm": 11.028821034797183,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.3224121853709221,
+            "wear_mm": 0.17446430105287417,
+            "Ra_um": 0.7729975989434572,
+            "vib_rms": 0.6157345700033413,
+            "temp/100": 0.0661373883485794,
+            "force_norm": 0.278238225983109,
+            "mrr_norm": 0.12427077020402066,
+            "confidence": 0.17360812425613403
+          }
+        }
+      }
+    },
+    {
+      "group": "c6",
+      "mode": "zscore",
+      "version": "normpilot-c6-zscore-s42",
+      "initial_parameters_sha256": "3508c97745844756150da864b739d3a1dc051eaa9097b362fff8c7d42abe4d57",
+      "trainable_parameters": 187475,
+      "checkpoint": "D:\\灵境制造\\reports\\wm_norm_pilot_20261112\\models\\world_model\\normpilot-c6-zscore-s42.pt",
+      "checkpoint_sha256": "5eeaaf35b6cb3265d58a32a8cbb4c6499692ed8c61cfc85b9cb22b065f3c63d2",
+      "training_dataset_sha256": "31c078f82ead89c8da22dc459b6a1235b6ffe8f0b406a68ac592639bbe7abbc0",
+      "validation_dataset_sha256": "0ef6509c96027b444b2c30c8032ff567882769a3dadd2dc6373787b896818031",
+      "audit_path": "reports\\wm_norm_pilot_20261112\\normpilot-c6-zscore-s42.audit.json",
+      "audit_sha256": "e7d1348a568f47a05075946e90935f74d6d920d49952c469eb7538aaeee69543",
+      "elapsed_seconds": 3.7685911999979,
+      "selection": {
+        "total_epochs": 20,
+        "best_val_loss": 0.009048961646920812,
+        "selected_epoch": 15,
+        "final_train_loss": 0.004772439719573389,
+        "final_val_loss": 0.009060821158036721,
+        "optimizer": "adamw",
+        "loss_function": "mse",
+        "device": "cpu",
+        "use_amp": false,
+        "model_uri": "model://world_model/normpilot-c6-zscore-s42"
+      },
+      "normalization": {
+        "schema_version": 1,
+        "method": "train_zscore",
+        "fit_scope": "train_history_inputs_only",
+        "constant_scale": 1.0,
+        "dynamics_order": [
+          "spindle_speed",
+          "feed_rate",
+          "depth_of_cut",
+          "tool_wear",
+          "vibration_rms",
+          "temperature"
+        ],
+        "train_windows": 226,
+        "train_history_points": 4520,
+        "fit_inputs_sha256": "2213fe4fb4b66c9a2eab86965e656ff355232a0f6970014d44d497a25abb3ea5",
+        "geometry": {
+          "mean": [
+            60.0,
+            60.0,
+            10.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "constant_features": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36
+          ]
+        },
+        "dynamics": {
+          "mean": [
+            10400.0,
+            1555.0,
+            0.625,
+            0.10976505523250826,
+            0.13847953067117358,
+            25.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            0.125,
+            0.033309783002171266,
+            0.09698578002897866,
+            1.0
+          ],
+          "constant_features": [
+            0,
+            1,
+            5
+          ]
+        }
+      },
+      "checkpoint_model_selection": {
+        "criterion": "validation_loss",
+        "selected_epoch": 15,
+        "selected_val_loss": 0.009048961646920812,
+        "weights_epoch": 15,
+        "applied": true
+      },
+      "input_contract": {
+        "schema_version": 1,
+        "history_steps": [
+          20
+        ],
+        "training_horizon": 5
+      },
+      "history_gradient_probe": {
+        "windows": 8,
+        "scope": "first windows, normalized force summed over forecast steps; feedback fixed",
+        "max_abs_gradient_by_dynamic": [
+          0.0034491303376853466,
+          0.006868456024676561,
+          0.08656301349401474,
+          0.23389789462089539,
+          0.13652819395065308,
+          0.007201671600341797
+        ],
+        "nonzero_fraction": 1.0,
+        "scale_probe": {
+          "encoder_input_max_abs": 0.5278126001358032,
+          "first_step_gate_affine_max_abs": 0.6267083883285522,
+          "first_step_gate_affine_abs_gt20_fraction": 0.0,
+          "scope": "first LSTM layer, first time step, zero initial recurrent state; descriptive scale probe"
+        },
+        "interpretation": "local float32 sensitivity only; zero gradient does not establish global causation"
+      },
+      "evaluator_sha256": "d905cede58628bd648f2c7ed40ecc3fb9c8846d9217404f00b466916233c3b5c",
+      "results": {
+        "full": {
+          "mae_by_dim": {
+            "chatter_p": 0.022890102311935837,
+            "wear_mm": 0.022498210381090112,
+            "Ra_um": 0.03255119914502169,
+            "vib_rms": 0.14720203764365772,
+            "temp/100": 0.050439807614394,
+            "force_norm": 0.10246894528730814,
+            "mrr_norm": 0.0199062218424963,
+            "confidence": 0.023149154671525535
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -12461.110307378158,
+            "Ra_um": -5957.930851420985,
+            "vib_rms": 19.90718519753902,
+            "temp/100": null,
+            "force_norm": 11.68623549498902,
+            "mrr_norm": null,
+            "confidence": null
+          }
+        },
+        "last_only": {
+          "mae_by_dim": {
+            "chatter_p": 0.04506702295265498,
+            "wear_mm": 0.01587798798506239,
+            "Ra_um": 0.055225229896275346,
+            "vib_rms": 0.15307066223617083,
+            "temp/100": 0.01726198773995965,
+            "force_norm": 0.10445595862801327,
+            "mrr_norm": 0.018454618252344034,
+            "confidence": 0.044765705450446204
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -8764.934373057007,
+            "Ra_um": -10177.67433313216,
+            "vib_rms": 16.714059136531862,
+            "temp/100": null,
+            "force_norm": 9.97371051732554,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.11504089087247849,
+            "wear_mm": 0.07427984476089478,
+            "Ra_um": 0.12247955799102783,
+            "vib_rms": 0.09608030319213867,
+            "temp/100": 0.0891004353761673,
+            "force_norm": 0.047133230371400714,
+            "mrr_norm": 0.05521071515977383,
+            "confidence": 0.09940296411514282
+          }
+        },
+        "repeat_last": {
+          "mae_by_dim": {
+            "chatter_p": 0.022854150716726362,
+            "wear_mm": 0.025039562345606035,
+            "Ra_um": 0.03154977148613044,
+            "vib_rms": 0.14607502589933574,
+            "temp/100": 0.05114616145074895,
+            "force_norm": 0.10259030004571794,
+            "mrr_norm": 0.018195103493053467,
+            "confidence": 0.032754186507874886
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -13879.987712088869,
+            "Ra_um": -5771.56046662392,
+            "vib_rms": 20.52039371260517,
+            "temp/100": null,
+            "force_norm": 11.581644825828567,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.039018239825963974,
+            "wear_mm": 0.08743247389793396,
+            "Ra_um": 0.027941465377807617,
+            "vib_rms": 0.05804866552352905,
+            "temp/100": 0.06514346599578857,
+            "force_norm": 0.07044727355241776,
+            "mrr_norm": 0.06744223833084106,
+            "confidence": 0.08587831258773804
+          }
+        },
+        "shuffle_past": {
+          "mae_by_dim": {
+            "chatter_p": 0.02272297215227664,
+            "wear_mm": 0.022652320220934608,
+            "Ra_um": 0.03215895226571412,
+            "vib_rms": 0.14695236035375403,
+            "temp/100": 0.04978304310182555,
+            "force_norm": 0.10228677681231031,
+            "mrr_norm": 0.0197635806080127,
+            "confidence": 0.024296716884174178
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -12547.152293160552,
+            "Ra_um": -5884.931867237807,
+            "vib_rms": 20.043034926664685,
+            "temp/100": null,
+            "force_norm": 11.843239002306158,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.014304164797067642,
+            "wear_mm": 0.04022832214832306,
+            "Ra_um": 0.01638948917388916,
+            "vib_rms": 0.027789950370788574,
+            "temp/100": 0.027755171060562134,
+            "force_norm": 0.030904674902558327,
+            "mrr_norm": 0.03666628198698163,
+            "confidence": 0.04407602548599243
+          }
+        },
+        "persistence": {
+          "mae_by_dim": {
+            "chatter_p": 0.0,
+            "wear_mm": 0.00017911004545414342,
+            "Ra_um": 0.0005373319693371258,
+            "vib_rms": 0.18378931743966465,
+            "temp/100": 0.0,
+            "force_norm": 0.1160282837693936,
+            "mrr_norm": 0.0,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": 0.0,
+            "Ra_um": 0.0,
+            "vib_rms": 0.0,
+            "temp/100": null,
+            "force_norm": 0.0,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.11147441156208515,
+            "wear_mm": 0.09121768176555634,
+            "Ra_um": 0.09448659420013428,
+            "vib_rms": 0.6694186329841614,
+            "temp/100": 0.10479468107223511,
+            "force_norm": 0.3016490340232849,
+            "mrr_norm": 0.11805808759527281,
+            "confidence": 0.16354906558990479
+          }
+        },
+        "train_mean": {
+          "mae_by_dim": {
+            "chatter_p": 0.23508538864552975,
+            "wear_mm": 0.03818543252435034,
+            "Ra_um": 0.4987301704102863,
+            "vib_rms": 0.1559809120138315,
+            "temp/100": 0.0,
+            "force_norm": 0.10323173200272055,
+            "mrr_norm": 0.0006317187508102506,
+            "confidence": 0.0
+          },
+          "gain_vs_persistence_pct": {
+            "chatter_p": null,
+            "wear_mm": -21219.537063110594,
+            "Ra_um": -92716.02414714682,
+            "vib_rms": 15.130588552820676,
+            "temp/100": null,
+            "force_norm": 11.028821034797183,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "max_abs_change_vs_full_by_dim": {
+            "chatter_p": 0.3465598002076149,
+            "wear_mm": 0.20744396823961123,
+            "Ra_um": 0.7563084176156374,
+            "vib_rms": 0.6119415092237698,
+            "temp/100": 0.10479468107223511,
+            "force_norm": 0.30052708487364244,
+            "mrr_norm": 0.11742636884446256,
+            "confidence": 0.16354906558990479
+          }
+        }
+      }
+    }
+  ]
+}

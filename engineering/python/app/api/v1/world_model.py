@@ -27,6 +27,7 @@
 from __future__ import annotations
 
 import logging
+import asyncio
 from typing import Any
 
 import numpy as np
@@ -50,7 +51,7 @@ from app.plugins.rl_agent.safety_shield import SafetyShield
 
 logger = logging.getLogger(__name__)
 
-# 注意：本 router 尚未接入（main/router_registry 未引用本文件），路由未挂载。
+# 本 router 由 app.api.routers.workflows 注册。
 router = APIRouter(prefix="/api/v1/world-model", tags=["World Model"])
 
 
@@ -94,9 +95,13 @@ class WorldModelPredictRequest(BaseModel):
             "动力学状态（ADR-013）的统一状态字典。提供时走融合路径"
             "（GeometryEncoder/DynamicsEncoder/FusionLayer）。"
             "为 None 时走原始 state_dim 字段拼接路径（向后兼容）。"
-            "需配合环境变量 WORLD_MODEL_USE_FUSION=true 使用"
+            "输入模式由训练权重的 model_config 决定"
         ),
     )
+    feature_task_id: str | None = Field(None, description="已审核的零件特征任务ID，由服务端重新读取几何")
+    feature_task_updated_at: float | None = Field(None, allow_inf_nan=False, description="界面读取的任务修订时间，防止使用过期几何摘要")
+    millimeters_per_unit: float | None = Field(None, gt=0, allow_inf_nan=False, description="未标定网格每单位对应的毫米数")
+    fusion_history: dict[str, Any] | None = Field(None, description="来源声明、等间隔时间及逐时刻状态/动作；仅用于零件任务融合预测")
 
 
 # 辅助函数
@@ -147,6 +152,32 @@ def _handle_service_exception(e: Exception, *, action: str):
 
 
 # 端点 1: GET /versions —— 列出世界模型版本
+
+@router.get("/input-requirements", dependencies=[Depends(require_permission("world_model:write"))])
+async def input_requirements(model_uri: str = Query(..., min_length=1, max_length=256)):
+    """读取训练模型输入要求与可选零件来源。"""
+    try:
+        result = await asyncio.to_thread(get_world_model_service().input_requirements, model_uri)
+        return success(data=result)
+    except Exception as exc:
+        return _handle_service_exception(exc, action="读取模型输入要求")
+
+
+class GeometryInputRequest(BaseModel):
+    feature_task_id: str = Field(..., min_length=1, max_length=256)
+    millimeters_per_unit: float | None = Field(None, gt=0, allow_inf_nan=False)
+
+
+@router.post("/prepare-geometry", dependencies=[Depends(require_permission("world_model:write"))])
+async def prepare_geometry_input(request: GeometryInputRequest):
+    """读取已审核特征和原始网格，预览融合模型使用的几何与尺度来源。"""
+    from app.services.world_model_inputs import prepare_geometry
+
+    try:
+        result = await asyncio.to_thread(prepare_geometry, request.feature_task_id, request.millimeters_per_unit)
+        return success(data=result)
+    except Exception as exc:
+        return _handle_service_exception(exc, action="读取零件几何")
 
 
 @router.get("/versions")
@@ -235,6 +266,10 @@ async def predict(request: WorldModelPredictRequest):
             horizon=request.horizon,
             model_uri=request.model_uri,
             unified_state=request.unified_state,
+            feature_task_id=request.feature_task_id,
+            feature_task_updated_at=request.feature_task_updated_at,
+            millimeters_per_unit=request.millimeters_per_unit,
+            fusion_history=request.fusion_history,
         )
     except ValueError as e:
         return error(

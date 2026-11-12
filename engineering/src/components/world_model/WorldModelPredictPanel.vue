@@ -33,13 +33,14 @@
       <el-divider content-position="left">{{ t('worldModel.currentState') }}</el-divider>
       <div class="wm-state-grid">
         <el-form-item
-          v-for="field in STATE_FIELD_VALUES"
+          v-for="field in (stateFields || STATE_FIELD_VALUES)"
           :key="field"
-          :label="STATE_FIELD_LABELS[field]"
-          label-width="120px"
+          :label="fieldLabels?.[field] || defaultFieldLabels[field] || field"
+          label-width="165px"
         >
           <el-input-number
             :model-value="currentState[field]"
+            :disabled="stateReadOnly"
             :step="0.01"
             controls-position="right"
             class="wm-state-input"
@@ -73,6 +74,7 @@
         <el-button
           type="primary"
           :loading="predicting"
+          :disabled="predictionDisabled"
           :icon="VideoPlay"
           @click="emit('predict')"
         >
@@ -105,6 +107,11 @@
           {{ lastPrediction.trajectory_metrics.final_surface_roughness.toFixed(4) }} μm
         </el-descriptions-item>
       </el-descriptions>
+
+      <p v-if="lastPrediction.model_info.input_history">
+        {{ t('worldModel.inputContext.historyResult', { steps: lastPrediction.model_info.input_history.history_steps,
+          source: lastPrediction.model_info.input_history.source }) }}
+      </p>
 
       <!-- 模型信息 -->
       <el-descriptions :column="2" border size="small" class="wm-model-info">
@@ -185,11 +192,16 @@ import {
 } from '@/contracts/world_model'
 
 const { t } = useI18n()
+const defaultFieldLabels: Readonly<Record<string, string>> = STATE_FIELD_LABELS
 
 defineProps<{
   modelUri: string
   horizon: number
-  currentState: Record<string, number>
+  currentState: Record<string, number | undefined>
+  stateFields?: readonly string[]
+  fieldLabels?: Record<string, string>
+  predictionDisabled?: boolean
+  stateReadOnly?: boolean
   candidateAction: Record<string, number>
   predicting: boolean
   lastPrediction: WorldModelPredictResponse | null
@@ -200,7 +212,7 @@ defineProps<{
 const emit = defineEmits<{
   'update:model-uri': [value: string]
   'update:horizon': [value: number]
-  'update-state': [field: string, value: number]
+  'update-state': [field: string, value: number | undefined]
   'update-action': [field: string, value: number]
   'predict': []
   'reset-form': []
@@ -213,9 +225,7 @@ function handleHorizonUpdate(value: number | undefined): void {
 }
 
 function handleStateUpdate(field: string, value: number | undefined): void {
-  if (value !== undefined) {
-    emit('update-state', field, value)
-  }
+  emit('update-state', field, value)
 }
 
 function handleActionUpdate(field: string, value: number | undefined): void {
@@ -250,6 +260,14 @@ function formatStateBrief(state: Record<string, number>): string {
   grid-template-columns: repeat(2, 1fr);
   gap: 0 16px;
 }
+
+@media (max-width: 700px) {
+  .wm-state-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+:deep(.el-form-item__content) { min-width: 0; }
+:deep(.el-form-item) { align-items: center; }
+:deep(.el-form-item__label) { height: auto; line-height: 20px; white-space: normal; }
 
 .wm-state-input {
   width: 100%;

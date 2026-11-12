@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "手工构造的合成示例，仅用于接口演示，不是真实加工测量",
+  "sample_period_seconds": 0.1,
+  "samples": [
+    {
+      "time_seconds": 0,
+      "current_state": {"spindle_speed": 8000, "feed_rate": 500, "depth_of_cut": 0.5, "tool_wear": 0.1, "vibration_rms": 0.2, "temperature": 25},
+      "action": {"spindle_speed_delta": 0, "feed_rate_delta": 0, "depth_of_cut_delta": 0, "width_of_cut_delta": 0}
+    },
+    {
+      "time_seconds": 0.1,
+      "current_state": {"spindle_speed": 8000, "feed_rate": 500, "depth_of_cut": 0.5, "tool_wear": 0.101, "vibration_rms": 0.21, "temperature": 25.1},
+      "action": {"spindle_speed_delta": 0, "feed_rate_delta": 0, "depth_of_cut_delta": 0, "width_of_cut_delta": 0}
+    },
+    {
+      "time_seconds": 0.2,
+      "current_state": {"spindle_speed": 8000, "feed_rate": 500, "depth_of_cut": 0.5, "tool_wear": 0.102, "vibration_rms": 0.22, "temperature": 25.2, "chatter_probability": 0.2, "surface_roughness": 1.5, "cutting_force_norm": 0.3, "mrr_norm": 0.4, "confidence": 0.9},
+      "action": {"spindle_speed_delta": 0, "feed_rate_delta": 0, "depth_of_cut_delta": 0, "width_of_cut_delta": 0}
+    }
+  ]
+}

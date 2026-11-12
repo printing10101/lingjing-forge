@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import logging
+import pickle
 import threading
 from dataclasses import dataclass
 from typing import Any, Union
@@ -101,6 +102,9 @@ class TrajectoryPredictor:
         # 避免"加载了但没生效"这类静默失败。
         self._weights_source: str = "unloaded"
         self._weights_path: str | None = None
+        self.state_schema = "legacy"
+        self.state_feedback = False
+        self.training_input_contract: dict[str, Any] = {}
         self._lock = threading.Lock()
         logger.info(
             "TrajectoryPredictor 初始化: device=%s config=%s",
@@ -129,11 +133,16 @@ class TrajectoryPredictor:
                 （仅用于接口验证，预测无意义）。
         """
         with self._lock:
-            self._model = WorldModelNet(self.config)
+            # 先清空旧状态，读取训练配置后再构造网络；失败不能复用旧权重。
+            self._model = None
             self._model_uri = model_uri
             # 默认视为随机初始化；成功加载 checkpoint 后覆盖为 "checkpoint"
             self._weights_source = "random_init"
             self._weights_path = None
+            self.state_schema = "legacy"
+            self.state_feedback = False
+            self.training_input_contract = {}
+            state_dict = None
 
             if HAS_TORCH and weights_path:
                 try:
@@ -149,8 +158,8 @@ class TrajectoryPredictor:
                         f"世界模型权重加载被拒绝（weights_only 校验失败）: {weights_path}。"
                         "文件包含非标准权重对象，可能已损坏或被篡改，请使用可信权重。"
                     ) from e
-                except (RuntimeError, OSError, KeyError) as exc:
-                    logger.warning("权重加载失败，使用随机初始化: %s", exc)
+                except (RuntimeError, OSError, KeyError, EOFError, pickle.UnpicklingError) as exc:
+                    raise RuntimeError(f"世界模型权重读取失败: {weights_path}。请重新导出有效权重。") from exc
                 else:
                     # 修复（2026-10-21 世界模型通电）：
                     #   1. 原先 load_state_dict 位于 except 块内 raise 之后，
@@ -159,21 +168,51 @@ class TrajectoryPredictor:
                     #      含 model_state_dict 的 checkpoint dict，不能直接
                     #      喂给 load_state_dict，需先解包。
                     state_dict = self._extract_model_state_dict(payload)
-                    if hasattr(self._model, "load_state_dict"):
-                        self._model.load_state_dict(state_dict)
-                        self._weights_source = "checkpoint"
-                        self._weights_path = weights_path
-                        logger.info(
-                            "世界模型权重已加载: uri=%s path=%s",
-                            model_uri,
-                            weights_path,
-                        )
+                    if isinstance(payload, dict) and "model_config" in payload:
+                        self.config = WorldModelConfig(**payload["model_config"])
+                        self.config.validate()
+                    if isinstance(payload, dict):
+                        # 当前历史融合训练批次采用文档化的加工状态八列，
+                        # 与 legacy StateField 的八列不是同一个输出契约。
+                        is_fusion_training = payload.get("trainer_type") == "FusionWorldModelTrainer"
+                        self.state_schema = payload.get("state_schema", "machining_v1" if is_fusion_training else "legacy")
+                        self.state_feedback = bool(payload.get("state_feedback", False))
+                        if self.config.delta_output_normalization is not None and not self.state_feedback:
+                            raise ValueError("增量尺度权重必须声明并提供末条状态反馈")
+                        self.training_input_contract = self._read_input_contract(payload.get("input_contract"))
+                        if self.state_schema not in ("legacy", "machining_v1"):
+                            raise ValueError(f"未知的模型状态口径: {self.state_schema!r}")
+                        if self.state_schema == "machining_v1" and self.config.state_dim != 8:
+                            raise ValueError("machining_v1 权重必须包含八个状态输出")
+                        if self.state_feedback and self.state_schema != "machining_v1":
+                            raise ValueError("状态反馈需要明确的 machining_v1 状态口径")
             elif not weights_path:
                 logger.warning("未提供权重路径，使用随机初始化权重。预测结果无实际意义，仅用于接口验证。")
 
-            if HAS_TORCH and hasattr(self._model, "to") and hasattr(self._device, "type"):
+            model = WorldModelNet(self.config)
+            if state_dict is not None and hasattr(model, "load_state_dict"):
+                model.load_state_dict(state_dict)
+                self._weights_source = "checkpoint"
+                self._weights_path = weights_path
+            self._model = model
+            if HAS_TORCH and hasattr(self._model, "to"):
                 self._model.to(self._device)
                 self._model.eval()
+
+    @staticmethod
+    def _read_input_contract(value: Any) -> dict[str, Any]:
+        """旧权重无记录时保持未知，不从推理默认值推断训练窗口。"""
+        if value is None:
+            return {}
+        if not isinstance(value, dict) or value.get("schema_version") != 1:
+            raise ValueError("未知的训练输入记录格式")
+        steps = value.get("history_steps", [])
+        horizon = value.get("training_horizon")
+        if not isinstance(steps, list) or any(type(step) is not int or step <= 0 for step in steps):
+            raise ValueError("训练历史长度必须为正整数列表")
+        if horizon is not None and (type(horizon) is not int or horizon <= 0):
+            raise ValueError("训练预测步长必须为正整数")
+        return {"schema_version": 1, "history_steps": sorted(set(steps)), "training_horizon": horizon}
 
     @staticmethod
     def _extract_model_state_dict(payload: Any) -> dict[str, Any]:
@@ -195,6 +234,9 @@ class TrajectoryPredictor:
         candidate_action: np.ndarray | None = None,
         horizon: int = 10,
         unified_state: Union[UnifiedState, dict, None] = None,
+        initial_state: np.ndarray | None = None,
+        unified_history: list[dict] | None = None,
+        history_actions: np.ndarray | None = None,
     ) -> TrajectoryPrediction:
         """执行轨迹预测.
 
@@ -238,6 +280,20 @@ class TrajectoryPredictor:
         if candidate_action is None:
             raise ValueError("candidate_action 不能为 None")
 
+        if unified_history is not None:
+            if not self.config.use_fusion or unified_state is not None or current_state is not None:
+                raise ValueError("历史融合输入不能与单时刻或原始输入混用")
+            if not isinstance(unified_history, list) or not 2 <= len(unified_history) <= 256:
+                raise ValueError("历史融合输入须含2至256个时刻")
+            if history_actions is None:
+                raise ValueError("历史融合输入必须提供实际历史动作，不能补零")
+            return self._predict_fused(
+                [self._coerce_unified_state(item) for item in unified_history],
+                candidate_action, horizon, initial_state, history_actions,
+            )
+        if history_actions is not None:
+            raise ValueError("history_actions 需要对应的 unified_history")
+
         # 选择输入路径：融合模式 vs 原始模式
         # ADR-020 P3：基于输入类型判定路径，而非仅依赖 use_fusion 配置。
         # has_unified_input=True 当且仅当传入 unified_state 或 current_state
@@ -273,7 +329,7 @@ class TrajectoryPredictor:
             if not isinstance(us_source, (UnifiedState, dict)):
                 raise ValueError(f"融合模式 unified_state 必须为 UnifiedState 或 dict，实际 {type(us_source)}")
             us = self._coerce_unified_state(us_source)
-            return self._predict_fused(us, candidate_action, horizon)
+            return self._predict_fused(us, candidate_action, horizon, initial_state)
 
         # 原始模式：current_state 必须是 np.ndarray
         if current_state is None:
@@ -282,7 +338,7 @@ class TrajectoryPredictor:
             raise ValueError(f"原始模式 current_state 必须为 np.ndarray，实际: {type(current_state)}")
 
         states_arr = self._standardize_states(current_state)
-        actions_arr = self._standardize_actions(candidate_action, horizon, states_arr.shape[0])
+        actions_arr = self._standardize_actions(candidate_action, horizon, states_arr.shape[0], states_arr.shape[1])
 
         if HAS_TORCH:
             return self._predict_torch(states_arr, actions_arr, horizon)
@@ -300,9 +356,11 @@ class TrajectoryPredictor:
 
     def _predict_fused(
         self,
-        unified_state: UnifiedState,
+        unified_state: UnifiedState | list[UnifiedState],
         candidate_action: np.ndarray,
         horizon: int,
+        initial_state: np.ndarray | None = None,
+        history_actions: np.ndarray | None = None,
     ) -> TrajectoryPrediction:
         """融合模式前向预测.
 
@@ -314,9 +372,10 @@ class TrajectoryPredictor:
         assert torch is not None
         assert self._model is not None
 
-        # 1. 张量化 UnifiedState [1, 1, input_dim]
-        geo_input = np.asarray(unified_state.geometry.to_tensor_input(), dtype=np.float32).reshape(1, 1, -1)
-        dyn_input = np.asarray(unified_state.dynamics.to_tensor_input(), dtype=np.float32).reshape(1, 1, -1)
+        # 1. 逐时刻张量化；保持历史顺序，不复制最新状态伪造序列。
+        history = unified_state if isinstance(unified_state, list) else [unified_state]
+        geo_input = np.asarray([item.geometry.to_tensor_input() for item in history], dtype=np.float32)[None, ...]
+        dyn_input = np.asarray([item.dynamics.to_tensor_input() for item in history], dtype=np.float32)[None, ...]
 
         # 维度校验
         expected_geo = 3 + self.config.feature_dim + 1 + 1
@@ -327,14 +386,25 @@ class TrajectoryPredictor:
             )
         if dyn_input.shape[-1] != 6:
             raise ValueError(f"dynamics 输入维度不匹配: 期望 6, 实际 {dyn_input.shape[-1]}")
+        if not np.all(np.isfinite(geo_input)) or not np.all(np.isfinite(dyn_input)):
+            raise ValueError("几何与动力学输入必须为有限数，不能包含 NaN/Inf")
+        if self.state_feedback and initial_state is None:
+            raise ValueError("该权重需要完整的上一时刻加工状态，请补齐状态反馈输入")
 
         # 2. 标准化动作：[1, T + horizon, action_dim]（T=1）
-        actions_arr = self._standardize_actions(candidate_action, horizon, batch_size=1)
+        actions_arr = self._standardize_actions(candidate_action, horizon, batch_size=1,
+                                                history_steps=len(history), history_actions=history_actions)
 
         # 3. 转 torch 张量
         geo_tensor = torch.from_numpy(geo_input).to(self._device)
         dyn_tensor = torch.from_numpy(dyn_input).to(self._device)
         actions_tensor = torch.from_numpy(actions_arr).to(self._device)
+        initial_tensor = None
+        if initial_state is not None:
+            initial_arr = np.asarray(initial_state, dtype=np.float32).reshape(1, -1)
+            if initial_arr.shape != (1, self.config.state_dim) or not np.all(np.isfinite(initial_arr)):
+                raise ValueError("状态反馈必须为完整、有限的模型状态向量")
+            initial_tensor = torch.from_numpy(initial_arr).to(self._device)
 
         # 4. 前向（融合路径）
         with torch.inference_mode():
@@ -343,6 +413,7 @@ class TrajectoryPredictor:
                 actions=actions_tensor,
                 horizon=horizon,
                 unified_states=(geo_tensor, dyn_tensor),
+                initial_state=initial_tensor,
             )
 
         trajectory = outputs["predicted_trajectory"].cpu().numpy()
@@ -365,6 +436,8 @@ class TrajectoryPredictor:
                 "fused_embedding_dim": self.config.fused_dim,
                 "weights_source": self._weights_source,
                 "weights_path": self._weights_path,
+                "state_schema": self.state_schema,
+                "history_steps": len(history),
             },
         )
 
@@ -388,6 +461,8 @@ class TrajectoryPredictor:
         candidate_action: np.ndarray,
         horizon: int,
         batch_size: int,
+        history_steps: int = 1,
+        history_actions: np.ndarray | None = None,
     ) -> np.ndarray:
         """标准化动作输入为 ``[batch, T + horizon, action_dim]``.
 
@@ -403,10 +478,18 @@ class TrajectoryPredictor:
             raise ValueError(f"candidate_action 时间维度 ({arr.shape[0]}) 必须等于 horizon ({horizon})")
         if arr.shape[1] != self.config.action_dim:
             raise ValueError(f"action_dim 不匹配: 期望 {self.config.action_dim}, 实际 {arr.shape[1]}")
-        # 历史动作用零填充（长度 T=1）
-        history_actions = np.zeros((batch_size, 1, self.config.action_dim), dtype=np.float32)
+        if history_actions is None:
+            history_arr = np.zeros((batch_size, history_steps, self.config.action_dim), dtype=np.float32)
+        else:
+            supplied = np.asarray(history_actions, dtype=np.float32)
+            if supplied.shape != (history_steps, self.config.action_dim):
+                raise ValueError("历史动作须与每个历史时刻一一对应")
+            history_arr = np.tile(supplied[None, ...], (batch_size, 1, 1))
         future_actions = np.tile(arr.reshape(1, horizon, -1), (batch_size, 1, 1))
-        return np.concatenate([history_actions, future_actions], axis=1)
+        combined = np.concatenate([history_arr, future_actions], axis=1)
+        if not np.isfinite(combined).all():
+            raise ValueError("动作必须为有限数")
+        return combined
 
     def _predict_torch(
         self,
@@ -472,6 +555,11 @@ class TrajectoryPredictor:
                 "backend": "numpy",
             },
         )
+
+    @property
+    def weights_source(self) -> str:
+        """实际加载状态，服务据此拒绝随机初始化结果。"""
+        return self._weights_source
 
     @property
     def model_uri(self) -> str | None:

@@ -25,6 +25,7 @@
 from __future__ import annotations
 
 import logging
+import asyncio
 from datetime import datetime
 
 import os
@@ -64,6 +65,12 @@ _STATE_FIELD_ORDER: list[str] = StateField.all()
 """状态字段顺序（与 WorldModelNet 输入维度对齐）."""
 
 _STATE_FIELD_INDEX: dict[str, int] = {name: idx for idx, name in enumerate(_STATE_FIELD_ORDER)}
+
+# 历史融合训练数据的输出顺序。归一化通道保留原名，不冒充实测物理量。
+_MACHINING_STATE_FIELDS = (
+    "chatter_probability", "tool_wear", "surface_roughness", "vibration_rms",
+    "temperature_over_100c", "cutting_force_norm", "mrr_norm", "confidence",
+)
 
 
 # 单例
@@ -285,6 +292,22 @@ class WorldModelService(BaseSingletonService):
 
     # ── 轨迹预测 ──────────────────────────────────────────────────────
 
+    def input_requirements(self, model_uri: str) -> dict[str, Any]:
+        """由实际训练权重声明界面所需输入。"""
+        from app.services.world_model_inputs import list_geometry_sources
+
+        predictor = self._get_or_load_predictor(model_uri)
+        training_inputs = getattr(predictor, "training_input_contract", {})
+        normalization = getattr(predictor.config, "input_normalization", None)
+        return {"model_uri": model_uri, "use_fusion": predictor.config.use_fusion,
+                "feature_dim": predictor.config.feature_dim, "state_feedback": predictor.state_feedback,
+                "feedback_fields": list(_MACHINING_STATE_FIELDS) if predictor.state_feedback else [],
+                "training_history_steps": training_inputs.get("history_steps", []),
+                "training_horizon": training_inputs.get("training_horizon"),
+                "input_normalization": normalization["method"] if normalization else "none",
+                "caller_input_units": "original",
+                "geometry_sources": list_geometry_sources() if predictor.config.use_fusion else []}
+
     async def predict(self, request: WorldModelPredictRequest) -> WorldModelPredictResponse:
         """执行轨迹预测（不走工作流，直接调用插件层）.
 
@@ -304,6 +327,42 @@ class WorldModelService(BaseSingletonService):
         """
         start_time = time.perf_counter()
         try:
+            predictor = self._get_or_load_predictor(request.model_uri)
+            unified_input = request.unified_state
+            prepared_history = None
+            if request.fusion_history is not None and (
+                not request.feature_task_id or request.current_state or unified_input is not None
+            ):
+                raise InvalidStateError("历史预测须选择已审核零件，且不能混入手动状态或直接几何输入。")
+            if request.feature_task_id:
+                from app.services.world_model_inputs import prepare_geometry
+                from app.plugins.world_model.dynamics_state_bridge import DynamicsStateBridge
+                from app.plugins.world_model.unified_state import UnifiedState
+
+                if unified_input is not None:
+                    raise InvalidStateError("零件任务与直接几何输入不能同时提供，请选择一种输入来源。")
+                if not predictor.config.use_fusion:
+                    raise InvalidStateError("当前模型不使用零件几何，请选择融合模型或移除零件来源。")
+                geometry = (await asyncio.to_thread(
+                    prepare_geometry, request.feature_task_id, request.millimeters_per_unit, request.feature_task_updated_at
+                ))["geometry"]
+                if request.fusion_history is not None:
+                    from app.services.world_model_history import prepare_fusion_history
+
+                    prepared_history = prepare_fusion_history(
+                        request.fusion_history, geometry,
+                        training_steps=predictor.training_input_contract.get("history_steps", []),
+                        feedback_fields=list(_MACHINING_STATE_FIELDS) if predictor.state_feedback else [],
+                    )
+                else:
+                    dynamics = DynamicsStateBridge.from_current_state_strict(request.current_state)
+                    if any(not np.isfinite(getattr(dynamics, name)) or getattr(dynamics, name) < 0 for name in (
+                        "spindle_speed", "feed_rate", "depth_of_cut", "tool_wear", "vibration_rms")) or not np.isfinite(dynamics.temperature):
+                        raise InvalidStateError("加工状态必须为有限数，转速、进给、切深、磨损和振动必须非负。")
+                    unified_input = UnifiedState.from_dict({"geometry": geometry, "dynamics": {
+                        name: getattr(dynamics, name) for name in (
+                            "spindle_speed", "feed_rate", "depth_of_cut", "tool_wear", "vibration_rms", "temperature")
+                    }}).to_dict()
             # 1. 动作字典 ndarray，扩展为 [horizon, action_dim]
             action_arr = self._action_dict_to_array(
                 request.candidate_action,
@@ -312,16 +371,35 @@ class WorldModelService(BaseSingletonService):
             )
 
             # 2. 获取或加载 predictor
-            predictor = self._get_or_load_predictor(request.model_uri)
+            if predictor.config.use_fusion and unified_input is None and prepared_history is None:
+                raise InvalidStateError(
+                    "[模型输入不匹配] 当前训练权重需要零件几何与动力学输入。"
+                    "建议操作：提供 unified_state，或选择按八字段原始输入训练的模型。"
+                )
 
             # 3. 路由判断：融合模式 vs 原始模式
-            if request.unified_state is not None:
+            if prepared_history is not None:
+                prediction = predictor.predict(
+                    unified_history=prepared_history.states,
+                    history_actions=prepared_history.actions,
+                    candidate_action=action_arr, horizon=request.horizon,
+                    initial_state=prepared_history.initial_state,
+                )
+                prediction.model_info["input_history"] = prepared_history.summary
+            elif unified_input is not None:
                 # 融合模式：unified_state 路径（ADR-020 思路 1）
                 # predictor.predict 内部会校验 config.use_fusion 是否已开启
+                initial_state = None
+                if predictor.state_feedback:
+                    missing = [name for name in _MACHINING_STATE_FIELDS if name not in request.current_state]
+                    if missing:
+                        raise InvalidStateError(f"[状态反馈缺失] 缺少 {missing}。建议操作：提供模型训练口径的上一时刻状态。")
+                    initial_state = np.asarray([request.current_state[name] for name in _MACHINING_STATE_FIELDS], dtype=np.float32)
                 prediction = predictor.predict(
-                    unified_state=request.unified_state,
+                    unified_state=unified_input,
                     candidate_action=action_arr,
                     horizon=request.horizon,
+                    initial_state=initial_state,
                 )
             else:
                 # 原始模式：current_state 字段拼接路径（向后兼容）
@@ -339,7 +417,7 @@ class WorldModelService(BaseSingletonService):
             )
 
             elapsed_ms = (time.perf_counter() - start_time) * 1000
-            mode = "fusion" if request.unified_state is not None else "legacy"
+            mode = "fusion_history" if prepared_history is not None else "fusion" if unified_input is not None else "legacy"
             logger.info(
                 "世界模型预测完成: model_uri=%s horizon=%d mode=%s time=%.2fms",
                 request.model_uri,
@@ -349,7 +427,7 @@ class WorldModelService(BaseSingletonService):
             )
             return response
 
-        except ModelNotFoundError:
+        except (ModelNotFoundError, InvalidStateError):
             raise
         except (ValueError, KeyError) as exc:
             raise InvalidStateError(f"状态/动作字段不合法: {exc}") from exc
@@ -439,12 +517,18 @@ class WorldModelService(BaseSingletonService):
                 config=self._build_world_model_config(),
                 device="auto",
             )
-            # 权重路径解析：从 model_uri 推导（v1 使用随机初始化，仅接口验证）
+            # 直接预测与工作流使用相同解析器；缺失权重不能伪装为预测成功。
             weights_path = self._resolve_weights_path(model_uri)
+            if not weights_path:
+                raise ModelNotFoundError(
+                    f"[模型权重缺失] {model_uri} 没有可用训练权重。建议操作：训练并导出该版本，或选择已有模型。"
+                )
             try:
                 predictor.load_model(model_uri=model_uri, weights_path=weights_path)
-            except (RuntimeError, OSError, KeyError) as exc:
+            except (RuntimeError, OSError, KeyError, TypeError, ValueError) as exc:
                 raise ModelNotFoundError(f"加载世界模型失败: model_uri={model_uri} error={exc}") from exc
+            if predictor.weights_source != "checkpoint":
+                raise ModelNotFoundError("[模型权重未生效] 不能使用随机初始化结果。建议操作：检查推理环境及训练权重。")
 
             # LRU 淘汰
             if len(self._predictor_cache) >= self._PREDICTOR_CACHE_LIMIT:
@@ -515,12 +599,10 @@ class WorldModelService(BaseSingletonService):
         return config
 
     def _resolve_weights_path(self, model_uri: str) -> str | None:
-        """从模型 URI 解析权重文件路径.
+        """复用工作流的版本路径约定，不接受随机权重作为服务结果。"""
+        from app.plugins.world_model.training.weights_resolver import resolve_world_model_weights_path
 
-        v1 实现：返回 None（使用随机初始化，仅用于接口验证）.
-        实际部署中应调用 ModelRegistry.resolve(model_uri).
-        """
-        return None
+        return resolve_world_model_weights_path(model_uri)
 
     def _build_response(
         self,
@@ -557,6 +639,11 @@ class WorldModelService(BaseSingletonService):
         # - numpy 回退路径输出为随机噪声，confidence 应显著降低以警示下游消费方
         # - torch 路径保持 v1 固定置信度
         model_info_dict = prediction.model_info or {}
+        machining_schema = model_info_dict.get("state_schema") == "machining_v1"
+        if not np.all(np.isfinite(traj_arr)):
+            raise PredictionError("[预测输出无效] 模型返回非有限值。建议操作：核查输入范围与权重。")
+        if machining_schema and state_dim != len(_MACHINING_STATE_FIELDS):
+            raise PredictionError("[预测输出不匹配] 加工状态必须包含八列。建议操作：核查训练输出契约。")
         backend = model_info_dict.get("backend", "torch")
         if backend == "numpy":
             step_confidence = 0.2
@@ -564,8 +651,8 @@ class WorldModelService(BaseSingletonService):
             step_confidence = 0.8
 
         # 字段索引
-        chatter_idx = _STATE_FIELD_INDEX.get(StateField.CHATTER_PROBABILITY, state_dim - 1)
-        wear_idx = _STATE_FIELD_INDEX.get(StateField.TOOL_WEAR, 0)
+        chatter_idx = 0 if machining_schema else _STATE_FIELD_INDEX.get(StateField.CHATTER_PROBABILITY, state_dim - 1)
+        wear_idx = 1 if machining_schema else _STATE_FIELD_INDEX.get(StateField.TOOL_WEAR, 0)
         vib_idx = _STATE_FIELD_INDEX.get(StateField.VIBRATION_RMS, 0)
 
         steps: list[TrajectoryStep] = []
@@ -574,7 +661,7 @@ class WorldModelService(BaseSingletonService):
             row = traj_arr[step_idx] if state_dim > 0 else np.array([])
             # 还原状态字典
             state_dict: dict[str, float] = {}
-            for field_idx, field_name in enumerate(_STATE_FIELD_ORDER):
+            for field_idx, field_name in enumerate(_MACHINING_STATE_FIELDS if machining_schema else _STATE_FIELD_ORDER):
                 if field_idx < len(row):
                     state_dict[field_name] = float(row[field_idx])
 
@@ -588,7 +675,7 @@ class WorldModelService(BaseSingletonService):
             prev_wear = cur_wear
 
             vib_rms = float(row[vib_idx]) if state_dim > 0 else 0.0
-            surface_roughness = max(0.0, vib_rms * 0.1)  # 简化映射
+            surface_roughness = max(0.0, float(row[2]) if machining_schema else vib_rms * 0.1)
 
             steps.append(
                 TrajectoryStep(
@@ -597,7 +684,7 @@ class WorldModelService(BaseSingletonService):
                     chatter_probability=chatter_prob,
                     tool_wear_increment=wear_inc,
                     surface_roughness=surface_roughness,
-                    confidence=step_confidence,
+                    confidence=max(0.0, min(1.0, float(row[7]))) if machining_schema else step_confidence,
                 )
             )
 
@@ -623,6 +710,8 @@ class WorldModelService(BaseSingletonService):
             training_data_size=int(model_info_dict.get("training_data_size", 0)),
             prediction_horizon=int(model_info_dict.get("prediction_horizon", prediction.horizon)),
             uncertainty_estimate=float(model_info_dict.get("uncertainty_estimate", 0.2)),
+            weights_source=model_info_dict.get("weights_source", "unknown"),
+            input_history=model_info_dict.get("input_history"),
         )
 
         return WorldModelPredictResponse(
