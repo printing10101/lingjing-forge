@@ -1,0 +1,1816 @@
+{
+  "kind": "exploratory_residual_seed_sweep",
+  "independent_final_test_established": false,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "epochs_per_run": 20,
+  "groups": {
+    "c1": {
+      "datasets_sha256": {
+        "train": "ffd8c7a5c8accd50a4e283a40e605c65a7be456c135876152ae69496d40d9a4d",
+        "val": "7d667bdb4ed310e251735d55372a848a5ebfd650f1c32da848c541578829e3eb"
+      },
+      "ridge_alone_r2_vs_persistence": {
+        "chatter_probability": null,
+        "tool_wear": 0.19063960704730876,
+        "surface_roughness": 0.19064451887702127,
+        "vibration_rms": 0.27483896388524076,
+        "temperature_over_100c": null,
+        "cutting_force_norm": 0.547459685134009,
+        "mrr_norm": null,
+        "confidence": null
+      },
+      "ridge_alone_metrics": {
+        "chatter_probability": {
+          "mae": 0.0,
+          "mse": 0.0
+        },
+        "tool_wear": {
+          "mae": 0.0001695265517908191,
+          "mse": 7.395833270854651e-08
+        },
+        "surface_roughness": {
+          "mae": 0.0005085832856779186,
+          "mse": 6.656232141318588e-07
+        },
+        "vibration_rms": {
+          "mae": 0.08261793450273205,
+          "mse": 0.009948743653009968
+        },
+        "temperature_over_100c": {
+          "mae": 0.0,
+          "mse": 0.0
+        },
+        "cutting_force_norm": {
+          "mae": 0.09997196291554115,
+          "mse": 0.02059430145502203
+        },
+        "mrr_norm": {
+          "mae": 0.0,
+          "mse": 0.0
+        },
+        "confidence": {
+          "mae": 0.0,
+          "mse": 0.0
+        }
+      },
+      "seeds": {
+        "42": {
+          "control": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.0007053804608572901,
+                "mse": 1.1011096119021595e-06
+              },
+              "tool_wear": {
+                "mae": 0.0001498522022656635,
+                "mse": 7.524149716842318e-08
+              },
+              "surface_roughness": {
+                "mae": 0.0005134061374495515,
+                "mse": 6.714510219460186e-07
+              },
+              "vibration_rms": {
+                "mae": 0.07685787010674192,
+                "mse": 0.009391454022089614
+              },
+              "temperature_over_100c": {
+                "mae": 0.0004004634059635939,
+                "mse": 3.6608579516018183e-07
+              },
+              "cutting_force_norm": {
+                "mae": 0.12312943860694671,
+                "mse": 0.03123854774033304
+              },
+              "mrr_norm": {
+                "mae": 0.0007124084430186293,
+                "mse": 8.937286295483784e-07
+              },
+              "confidence": {
+                "mae": 0.00100704959008546,
+                "mse": 1.484272712867798e-06
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.17659734225530244,
+              "surface_roughness": 0.18355827534287206,
+              "vibration_rms": 0.31545964326639553,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.3135624307898389,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 42,
+            "selected_epoch": 15,
+            "checkpoint_sha256": "ada52f2c7b0a7e91ed9e922b43e17f9badd953f732e54bb47950aa4ed3add41b"
+          },
+          "residual": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.000168590669610859,
+                "mse": 4.28746741153383e-08
+              },
+              "tool_wear": {
+                "mae": 0.00017165438068828488,
+                "mse": 7.415784952509657e-08
+              },
+              "surface_roughness": {
+                "mae": 0.0005198484936346407,
+                "mse": 6.689056938488528e-07
+              },
+              "vibration_rms": {
+                "mae": 0.07758929074522258,
+                "mse": 0.009487409559184302
+              },
+              "temperature_over_100c": {
+                "mae": 6.767611587997031e-05,
+                "mse": 8.50146199888113e-09
+              },
+              "cutting_force_norm": {
+                "mae": 0.10013554386670247,
+                "mse": 0.02053102389961511
+              },
+              "mrr_norm": {
+                "mae": 9.887372545354003e-05,
+                "mse": 1.6312892641491357e-08
+              },
+              "confidence": {
+                "mae": 0.00012179433771994262,
+                "mse": 2.2230208347875017e-08
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.18845620183616107,
+              "surface_roughness": 0.1866532323740573,
+              "vibration_rms": 0.30846547202956,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.5488501496229521,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 42,
+            "selected_epoch": 20,
+            "checkpoint_sha256": "51562379ff7837d6d1939146e60a4de92c75170eab77dce4e4decd6372d683dc"
+          }
+        },
+        "43": {
+          "control": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.000528292806275123,
+                "mse": 3.6243129498779164e-07
+              },
+              "tool_wear": {
+                "mae": 0.00015093924856818882,
+                "mse": 7.573972797714703e-08
+              },
+              "surface_roughness": {
+                "mae": 0.0004825781931919334,
+                "mse": 6.810279844799413e-07
+              },
+              "vibration_rms": {
+                "mae": 0.07663177652202086,
+                "mse": 0.009398646212694567
+              },
+              "temperature_over_100c": {
+                "mae": 0.00017419631502269643,
+                "mse": 5.4579531270927474e-08
+              },
+              "cutting_force_norm": {
+                "mae": 0.12354742975266589,
+                "mse": 0.03167014593119236
+              },
+              "mrr_norm": {
+                "mae": 0.00021662442724475951,
+                "mse": 9.029944153386098e-08
+              },
+              "confidence": {
+                "mae": 0.00035410391545928686,
+                "mse": 2.0954527992188583e-07
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.17114497105706317,
+              "surface_roughness": 0.17191329819247447,
+              "vibration_rms": 0.31493540658155095,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.3040784683639398,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 43,
+            "selected_epoch": 20,
+            "checkpoint_sha256": "099b61b46ea03efaeda5c38abbb1df412ffb60f4e4abecf83da7328d33a1db0e"
+          },
+          "residual": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.000526803481367837,
+                "mse": 4.097652616186122e-07
+              },
+              "tool_wear": {
+                "mae": 0.0001712767657008122,
+                "mse": 7.424775679405545e-08
+              },
+              "surface_roughness": {
+                "mae": 0.0005096949914241894,
+                "mse": 6.665731022938079e-07
+              },
+              "vibration_rms": {
+                "mae": 0.08243133431939693,
+                "mse": 0.009922745775276812
+              },
+              "temperature_over_100c": {
+                "mae": 0.0005815206112059872,
+                "mse": 4.946178371307664e-07
+              },
+              "cutting_force_norm": {
+                "mae": 0.09963028310425971,
+                "mse": 0.020638630774458284
+              },
+              "mrr_norm": {
+                "mae": 0.000553426372847495,
+                "mse": 4.514335977584642e-07
+              },
+              "confidence": {
+                "mae": 0.0007350982817928348,
+                "mse": 7.444330091567659e-07
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.18747230482457455,
+              "surface_roughness": 0.18948951530442204,
+              "vibration_rms": 0.2767339416443729,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.5464855902262846,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 43,
+            "selected_epoch": 6,
+            "checkpoint_sha256": "4c2b27cd481754cf3e7f52881c44cef723f8cee3810b8ff9e759a4dad20ab6eb"
+          }
+        },
+        "44": {
+          "control": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.00046651404252094506,
+                "mse": 3.009356704093728e-07
+              },
+              "tool_wear": {
+                "mae": 0.00014839320715549773,
+                "mse": 7.458142072123495e-08
+              },
+              "surface_roughness": {
+                "mae": 0.00050455004768034,
+                "mse": 6.688689218681167e-07
+              },
+              "vibration_rms": {
+                "mae": 0.0750895532804121,
+                "mse": 0.009234516415401805
+              },
+              "temperature_over_100c": {
+                "mae": 0.00027677437900441935,
+                "mse": 1.3638516345466076e-07
+              },
+              "cutting_force_norm": {
+                "mae": 0.12430748884887172,
+                "mse": 0.03104998866206441
+              },
+              "mrr_norm": {
+                "mae": 0.00014055120306443917,
+                "mse": 3.5259416226274176e-08
+              },
+              "confidence": {
+                "mae": 0.0001831695041825286,
+                "mse": 5.5535781101082895e-08
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.18382086546235477,
+              "surface_roughness": 0.18669794476318158,
+              "vibration_rms": 0.3268987798488996,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.3177058383648368,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 44,
+            "selected_epoch": 16,
+            "checkpoint_sha256": "82e9ac8c1abd58055b57756bb4e16f6f70b5f6d348ab0dc82a2e188a364ea666"
+          },
+          "residual": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.00020248011677666047,
+                "mse": 7.037176113043326e-08
+              },
+              "tool_wear": {
+                "mae": 0.00017164325756486277,
+                "mse": 7.414339028250859e-08
+              },
+              "surface_roughness": {
+                "mae": 0.0005215693272020321,
+                "mse": 6.693692927434584e-07
+              },
+              "vibration_rms": {
+                "mae": 0.07709613985953238,
+                "mse": 0.008996850149550836
+              },
+              "temperature_over_100c": {
+                "mae": 0.00016371006459261464,
+                "mse": 4.186197957089192e-08
+              },
+              "cutting_force_norm": {
+                "mae": 0.10073924515276675,
+                "mse": 0.020574048276907866
+              },
+              "mrr_norm": {
+                "mae": 0.00019437699355658936,
+                "mse": 5.636974178267059e-08
+              },
+              "confidence": {
+                "mae": 0.0001611840408460229,
+                "mse": 4.143090978964492e-08
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.18861443604499506,
+              "surface_roughness": 0.18608952561259617,
+              "vibration_rms": 0.3442222049571415,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.547904729585788,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 44,
+            "selected_epoch": 9,
+            "checkpoint_sha256": "67fee9f8a914951927ab21bad4e26400ff8e44de7a830288d876d268f1345687"
+          }
+        }
+      },
+      "p1_passes": [
+        true,
+        true,
+        true
+      ],
+      "p2_passes": [
+        true,
+        false,
+        true
+      ],
+      "aggregate": {
+        "control": {
+          "cutting_force_norm": {
+            "seeds": 3,
+            "r2_mean": 0.3117822458395385,
+            "r2_min": 0.3040784683639398,
+            "r2_max": 0.3177058383648368,
+            "mae_mean": 0.12366145240282811,
+            "mae_min": 0.12312943860694671,
+            "mae_max": 0.12430748884887172
+          },
+          "tool_wear": {
+            "seeds": 3,
+            "r2_mean": 0.1771877262582401,
+            "r2_min": 0.17114497105706317,
+            "r2_max": 0.18382086546235477,
+            "mae_mean": 0.00014972821932978333,
+            "mae_min": 0.00014839320715549773,
+            "mae_max": 0.00015093924856818882
+          },
+          "vibration_rms": {
+            "seeds": 3,
+            "r2_mean": 0.319097943232282,
+            "r2_min": 0.31493540658155095,
+            "r2_max": 0.3268987798488996,
+            "mae_mean": 0.07619306663639162,
+            "mae_min": 0.0750895532804121,
+            "mae_max": 0.07685787010674192
+          }
+        },
+        "residual": {
+          "cutting_force_norm": {
+            "seeds": 3,
+            "r2_mean": 0.5477468231450082,
+            "r2_min": 0.5464855902262846,
+            "r2_max": 0.5488501496229521,
+            "mae_mean": 0.1001683573745763,
+            "mae_min": 0.09963028310425971,
+            "mae_max": 0.10073924515276675
+          },
+          "tool_wear": {
+            "seeds": 3,
+            "r2_mean": 0.18818098090191024,
+            "r2_min": 0.18747230482457455,
+            "r2_max": 0.18861443604499506,
+            "mae_mean": 0.00017152480131798662,
+            "mae_min": 0.0001712767657008122,
+            "mae_max": 0.00017165438068828488
+          },
+          "vibration_rms": {
+            "seeds": 3,
+            "r2_mean": 0.3098072062103581,
+            "r2_min": 0.2767339416443729,
+            "r2_max": 0.3442222049571415,
+            "mae_mean": 0.07903892164138397,
+            "mae_min": 0.07709613985953238,
+            "mae_max": 0.08243133431939693
+          }
+        }
+      },
+      "feature_ablation": {
+        "state_only": {
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.1910889187824798,
+            "surface_roughness": 0.191093678966044,
+            "vibration_rms": 0.24827885754624046,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.5435472704795906,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.0001708809388184974,
+              "mse": 7.391727516843338e-08
+            },
+            "surface_roughness": {
+              "mae": 0.0005126464964374213,
+              "mse": 6.652538197321321e-07
+            },
+            "vibration_rms": {
+              "mae": 0.08419148323755153,
+              "mse": 0.010313131252734207
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.09965500844698554,
+              "mse": 0.020772348458047603
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          }
+        },
+        "state_dynamics": {
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.19063960704730876,
+            "surface_roughness": 0.19064451887701528,
+            "vibration_rms": 0.2748389636350793,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.5474596851363428,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.0001695265517908191,
+              "mse": 7.395833270854651e-08
+            },
+            "surface_roughness": {
+              "mae": 0.0005085832856779189,
+              "mse": 6.656232141318638e-07
+            },
+            "vibration_rms": {
+              "mae": 0.08261793451951596,
+              "mse": 0.009948743656442023
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.09997196291592843,
+              "mse": 0.020594301454915823
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          }
+        },
+        "state_dynamics_actions": {
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.19063960704730876,
+            "surface_roughness": 0.19064451887702127,
+            "vibration_rms": 0.27483896388524076,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.547459685134009,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.0001695265517908191,
+              "mse": 7.395833270854651e-08
+            },
+            "surface_roughness": {
+              "mae": 0.0005085832856779186,
+              "mse": 6.656232141318588e-07
+            },
+            "vibration_rms": {
+              "mae": 0.08261793450273205,
+              "mse": 0.009948743653009968
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.09997196291554115,
+              "mse": 0.02059430145502203
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          }
+        }
+      }
+    },
+    "c4": {
+      "datasets_sha256": {
+        "train": "0b9cf46c00bc014b4d4ebfeac5caa697d469f557122b2bc86ab16d915f602985",
+        "val": "db554787be0e8377a83324bdb885a4bcb0a967aec3b477bc5d1deb9b5ca6e247"
+      },
+      "ridge_alone_r2_vs_persistence": {
+        "chatter_probability": null,
+        "tool_wear": 0.13115671296995202,
+        "surface_roughness": 0.13116552777784884,
+        "vibration_rms": -0.5775792584706729,
+        "temperature_over_100c": null,
+        "cutting_force_norm": 0.33759619957578424,
+        "mrr_norm": null,
+        "confidence": null
+      },
+      "ridge_alone_metrics": {
+        "chatter_probability": {
+          "mae": 0.0,
+          "mse": 0.0
+        },
+        "tool_wear": {
+          "mae": 0.00021683004051483958,
+          "mse": 1.702943595123818e-07
+        },
+        "surface_roughness": {
+          "mae": 0.0006504939743472999,
+          "mse": 1.5326294549114128e-06
+        },
+        "vibration_rms": {
+          "mae": 0.11544561462322993,
+          "mse": 0.019890238380214413
+        },
+        "temperature_over_100c": {
+          "mae": 0.0,
+          "mse": 0.0
+        },
+        "cutting_force_norm": {
+          "mae": 0.14392591617695477,
+          "mse": 0.028136416347001748
+        },
+        "mrr_norm": {
+          "mae": 0.0,
+          "mse": 0.0
+        },
+        "confidence": {
+          "mae": 0.0,
+          "mse": 0.0
+        }
+      },
+      "seeds": {
+        "42": {
+          "control": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.0015918779689653784,
+                "mse": 3.4870213490102216e-06
+              },
+              "tool_wear": {
+                "mae": 0.0002145802684589825,
+                "mse": 1.690586735300574e-07
+              },
+              "surface_roughness": {
+                "mae": 0.0007042159021428201,
+                "mse": 1.4201605457920593e-06
+              },
+              "vibration_rms": {
+                "mae": 0.06930676133977662,
+                "mse": 0.009045048126670355
+              },
+              "temperature_over_100c": {
+                "mae": 0.00073840351758805,
+                "mse": 7.124588846283872e-07
+              },
+              "cutting_force_norm": {
+                "mae": 0.13253461626956892,
+                "mse": 0.03207310418608929
+              },
+              "mrr_norm": {
+                "mae": 0.0010254175499709018,
+                "mse": 2.060089881469319e-06
+              },
+              "confidence": {
+                "mae": 0.0014382888785505717,
+                "mse": 3.0181794480413434e-06
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.13746119348060348,
+              "surface_roughness": 0.19492318621444904,
+              "vibration_rms": 0.2825988284434856,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.24491641571364153,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 42,
+            "selected_epoch": 18,
+            "checkpoint_sha256": "0caa8ef297c99e0b03b781ce6ef2fbca7abc203c10c63381bde13b40e7c1c87f"
+          },
+          "residual": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.0004403541573381002,
+                "mse": 2.409870620429409e-07
+              },
+              "tool_wear": {
+                "mae": 0.00021728019404501105,
+                "mse": 1.6993925411959032e-07
+              },
+              "surface_roughness": {
+                "mae": 0.0006500912151440796,
+                "mse": 1.5246980983280729e-06
+              },
+              "vibration_rms": {
+                "mae": 0.11970686116405597,
+                "mse": 0.020991065550977753
+              },
+              "temperature_over_100c": {
+                "mae": 0.00021739662748522463,
+                "mse": 6.313700702195061e-08
+              },
+              "cutting_force_norm": {
+                "mae": 0.14888413418843605,
+                "mse": 0.030502785251791606
+              },
+              "mrr_norm": {
+                "mae": 0.0002498146495781839,
+                "mse": 8.703196285269751e-08
+              },
+              "confidence": {
+                "mae": 7.752675925735878e-05,
+                "mse": 1.1593895385531704e-08
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.13296846373843596,
+              "surface_roughness": 0.13566174569210665,
+              "vibration_rms": -0.6648905354176955,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.28188577304502516,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 42,
+            "selected_epoch": 18,
+            "checkpoint_sha256": "107ee03a970a5a0397b4daa7affadcd6543dc2dc79d7e5fe36aedf1e22d25691"
+          }
+        },
+        "43": {
+          "control": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.0010995382756258535,
+                "mse": 2.088323828521315e-06
+              },
+              "tool_wear": {
+                "mae": 0.0002075458588325872,
+                "mse": 1.752416804943703e-07
+              },
+              "surface_roughness": {
+                "mae": 0.0007140383256220185,
+                "mse": 1.3960342129297538e-06
+              },
+              "vibration_rms": {
+                "mae": 0.07085774883533111,
+                "mse": 0.009448332346608823
+              },
+              "temperature_over_100c": {
+                "mae": 0.0009141050345074814,
+                "mse": 1.261527287056684e-06
+              },
+              "cutting_force_norm": {
+                "mae": 0.1299325999236944,
+                "mse": 0.03182710197086857
+              },
+              "mrr_norm": {
+                "mae": 0.000667756893754467,
+                "mse": 7.653186148031667e-07
+              },
+              "confidence": {
+                "mae": 0.000799714464001951,
+                "mse": 1.2252844123938114e-06
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.10591543876514731,
+              "surface_roughness": 0.20860019706133293,
+              "vibration_rms": 0.25061264464408384,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.2507079422629117,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 43,
+            "selected_epoch": 10,
+            "checkpoint_sha256": "1afb1a0820828a66278baf98e4f1775411d339611dc17cb7c8624c7d5c24238f"
+          },
+          "residual": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.0006746566928593458,
+                "mse": 5.153883844474622e-07
+              },
+              "tool_wear": {
+                "mae": 0.00021628691956306046,
+                "mse": 1.7122952994319524e-07
+              },
+              "surface_roughness": {
+                "mae": 0.0006423988124757021,
+                "mse": 1.5513879012486846e-06
+              },
+              "vibration_rms": {
+                "mae": 0.11544177561984549,
+                "mse": 0.019904094054688612
+              },
+              "temperature_over_100c": {
+                "mae": 0.0008941884061931509,
+                "mse": 8.856233762422945e-07
+              },
+              "cutting_force_norm": {
+                "mae": 0.1496628409043199,
+                "mse": 0.029979302649260867
+              },
+              "mrr_norm": {
+                "mae": 0.0005298844000852081,
+                "mse": 3.376355025880268e-07
+              },
+              "confidence": {
+                "mae": 0.0021867324820661967,
+                "mse": 7.272496470027092e-06
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.12638546538801332,
+              "surface_roughness": 0.12053152569017989,
+              "vibration_rms": -0.578678210843429,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.29420990349205245,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 43,
+            "selected_epoch": 7,
+            "checkpoint_sha256": "03d822c3845d451e64d9f46e502c2b21a7913842289a6c52370eaa1d66bc5158"
+          }
+        },
+        "44": {
+          "control": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.0012976642203541985,
+                "mse": 2.9865806476650565e-06
+              },
+              "tool_wear": {
+                "mae": 0.00021641203655605823,
+                "mse": 1.6940101921379102e-07
+              },
+              "surface_roughness": {
+                "mae": 0.0007133087225719891,
+                "mse": 1.4010029618692841e-06
+              },
+              "vibration_rms": {
+                "mae": 0.07221186646029551,
+                "mse": 0.009789468837409582
+              },
+              "temperature_over_100c": {
+                "mae": 0.0017619360600952553,
+                "mse": 3.547000774363079e-06
+              },
+              "cutting_force_norm": {
+                "mae": 0.12496330276377854,
+                "mse": 0.032198974303482474
+              },
+              "mrr_norm": {
+                "mae": 0.002048829905235464,
+                "mse": 4.846469695848117e-06
+              },
+              "confidence": {
+                "mae": 0.0008907217895035196,
+                "mse": 1.2465340749480598e-06
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.1357145428574862,
+              "surface_roughness": 0.20578345597062309,
+              "vibration_rms": 0.22355566111742653,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.24195310854997099,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 44,
+            "selected_epoch": 9,
+            "checkpoint_sha256": "4280bf417337f44b97c36a30a25211ca590d891730e23d07a877e3dd1ab8a8b9"
+          },
+          "residual": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.0010591056494586237,
+                "mse": 1.5676469552560907e-06
+              },
+              "tool_wear": {
+                "mae": 0.00021590487907979165,
+                "mse": 1.7183741776248168e-07
+              },
+              "surface_roughness": {
+                "mae": 0.0006470751924643809,
+                "mse": 1.5404120643757955e-06
+              },
+              "vibration_rms": {
+                "mae": 0.11640595088941354,
+                "mse": 0.020277377486694472
+              },
+              "temperature_over_100c": {
+                "mae": 0.0008217183362066218,
+                "mse": 9.425166538617188e-07
+              },
+              "cutting_force_norm": {
+                "mae": 0.1487281033796737,
+                "mse": 0.03044238484248068
+              },
+              "mrr_norm": {
+                "mae": 0.0007824530429412834,
+                "mse": 8.491864637242357e-07
+              },
+              "confidence": {
+                "mae": 0.0007945509083503115,
+                "mse": 8.762766536613353e-07
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.1232840165052278,
+              "surface_roughness": 0.12675363332754364,
+              "vibration_rms": -0.6082849047706862,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.2833077544438396,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 44,
+            "selected_epoch": 15,
+            "checkpoint_sha256": "c912f6bc010bee4e758830a1441c1952e04dfac02745908f6c4d9ffd03d8697e"
+          }
+        }
+      },
+      "p1_passes": [
+        true,
+        true,
+        true
+      ],
+      "p2_passes": [
+        false,
+        false,
+        false
+      ],
+      "aggregate": {
+        "control": {
+          "cutting_force_norm": {
+            "seeds": 3,
+            "r2_mean": 0.2458591555088414,
+            "r2_min": 0.24195310854997099,
+            "r2_max": 0.2507079422629117,
+            "mae_mean": 0.12914350631901395,
+            "mae_min": 0.12496330276377854,
+            "mae_max": 0.13253461626956892
+          },
+          "tool_wear": {
+            "seeds": 3,
+            "r2_mean": 0.12636372503441232,
+            "r2_min": 0.10591543876514731,
+            "r2_max": 0.13746119348060348,
+            "mae_mean": 0.00021284605461587596,
+            "mae_min": 0.0002075458588325872,
+            "mae_max": 0.00021641203655605823
+          },
+          "vibration_rms": {
+            "seeds": 3,
+            "r2_mean": 0.2522557114016653,
+            "r2_min": 0.22355566111742653,
+            "r2_max": 0.2825988284434856,
+            "mae_mean": 0.07079212554513441,
+            "mae_min": 0.06930676133977662,
+            "mae_max": 0.07221186646029551
+          }
+        },
+        "residual": {
+          "cutting_force_norm": {
+            "seeds": 3,
+            "r2_mean": 0.2864678103269724,
+            "r2_min": 0.28188577304502516,
+            "r2_max": 0.29420990349205245,
+            "mae_mean": 0.14909169282414322,
+            "mae_min": 0.1487281033796737,
+            "mae_max": 0.1496628409043199
+          },
+          "tool_wear": {
+            "seeds": 3,
+            "r2_mean": 0.12754598187722568,
+            "r2_min": 0.1232840165052278,
+            "r2_max": 0.13296846373843596,
+            "mae_mean": 0.0002164906642292877,
+            "mae_min": 0.00021590487907979165,
+            "mae_max": 0.00021728019404501105
+          },
+          "vibration_rms": {
+            "seeds": 3,
+            "r2_mean": -0.6172845503439369,
+            "r2_min": -0.6648905354176955,
+            "r2_max": -0.578678210843429,
+            "mae_mean": 0.11718486255777166,
+            "mae_min": 0.11544177561984549,
+            "mae_max": 0.11970686116405597
+          }
+        }
+      },
+      "feature_ablation": {
+        "state_only": {
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.10471776496954766,
+            "surface_roughness": 0.10472853956693462,
+            "vibration_rms": -1.5964542787500866,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.2646578169025957,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.0002122970031369352,
+              "mse": 1.7547642604051315e-07
+            },
+            "surface_roughness": {
+              "mae": 0.00063689508636863,
+              "mse": 1.5792644678242442e-06
+            },
+            "vibration_rms": {
+              "mae": 0.1582865019746979,
+              "mse": 0.032736291549453685
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.15320125323478204,
+              "mse": 0.03123456388367875
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          }
+        },
+        "state_dynamics": {
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.13115671296995202,
+            "surface_roughness": 0.13116552777784884,
+            "vibration_rms": -0.5775792586757651,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.33759619964962595,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.00021683004051483958,
+              "mse": 1.702943595123818e-07
+            },
+            "surface_roughness": {
+              "mae": 0.0006504939743472999,
+              "mse": 1.5326294549114128e-06
+            },
+            "vibration_rms": {
+              "mae": 0.11544561463039124,
+              "mse": 0.01989023838280023
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.1439259161575356,
+              "mse": 0.028136416343865232
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          }
+        },
+        "state_dynamics_actions": {
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.13115671296995202,
+            "surface_roughness": 0.13116552777784884,
+            "vibration_rms": -0.5775792584706729,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.33759619957578424,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.00021683004051483958,
+              "mse": 1.702943595123818e-07
+            },
+            "surface_roughness": {
+              "mae": 0.0006504939743472999,
+              "mse": 1.5326294549114128e-06
+            },
+            "vibration_rms": {
+              "mae": 0.11544561462322993,
+              "mse": 0.019890238380214413
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.14392591617695477,
+              "mse": 0.028136416347001748
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          }
+        }
+      }
+    },
+    "c6": {
+      "datasets_sha256": {
+        "train": "31c078f82ead89c8da22dc459b6a1235b6ffe8f0b406a68ac592639bbe7abbc0",
+        "val": "0ef6509c96027b444b2c30c8032ff567882769a3dadd2dc6373787b896818031"
+      },
+      "ridge_alone_r2_vs_persistence": {
+        "chatter_probability": null,
+        "tool_wear": 0.2458664909519862,
+        "surface_roughness": 0.24586800460472402,
+        "vibration_rms": 0.3757946375522284,
+        "temperature_over_100c": null,
+        "cutting_force_norm": 0.35224249567208576,
+        "mrr_norm": null,
+        "confidence": null
+      },
+      "ridge_alone_metrics": {
+        "chatter_probability": {
+          "mae": 0.0,
+          "mse": 0.0
+        },
+        "tool_wear": {
+          "mae": 0.00022794976499785222,
+          "mse": 1.2332827049921647e-07
+        },
+        "surface_roughness": {
+          "mae": 0.0006838511218506115,
+          "mse": 1.109957405234004e-06
+        },
+        "vibration_rms": {
+          "mae": 0.14133108959027482,
+          "mse": 0.041368103582748686
+        },
+        "temperature_over_100c": {
+          "mae": 0.0,
+          "mse": 0.0
+        },
+        "cutting_force_norm": {
+          "mae": 0.11117309446653446,
+          "mse": 0.020400996360106033
+        },
+        "mrr_norm": {
+          "mae": 0.0,
+          "mse": 0.0
+        },
+        "confidence": {
+          "mae": 0.0,
+          "mse": 0.0
+        }
+      },
+      "seeds": {
+        "42": {
+          "control": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.00045352352173191256,
+                "mse": 4.005837880899006e-07
+              },
+              "tool_wear": {
+                "mae": 0.00020608299337657152,
+                "mse": 1.3325030978155263e-07
+              },
+              "surface_roughness": {
+                "mae": 0.0006582420484154626,
+                "mse": 1.1362563149993218e-06
+              },
+              "vibration_rms": {
+                "mae": 0.16957883161855283,
+                "mse": 0.05643091499808006
+              },
+              "temperature_over_100c": {
+                "mae": 0.000405298687715446,
+                "mse": 2.19722250181908e-07
+              },
+              "cutting_force_norm": {
+                "mae": 0.12068757746131438,
+                "mse": 0.02491079702137224
+              },
+              "mrr_norm": {
+                "mae": 0.0006151155518178325,
+                "mse": 5.587298055030588e-07
+              },
+              "confidence": {
+                "mae": 0.00042257446103391395,
+                "mse": 2.9714047211106957e-07
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.1851947384769692,
+              "surface_roughness": 0.22799988713956942,
+              "vibration_rms": 0.1485111305821315,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.2090506059332754,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 42,
+            "selected_epoch": 20,
+            "checkpoint_sha256": "a817a26f8c3c8e404afd6d6c4458351ba669d95d70be4f93d8973bec52adecb4"
+          },
+          "residual": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 9.964332808699227e-05,
+                "mse": 1.6028192720013718e-08
+              },
+              "tool_wear": {
+                "mae": 0.00023095322179380692,
+                "mse": 1.229942121997712e-07
+              },
+              "surface_roughness": {
+                "mae": 0.000690214227165871,
+                "mse": 1.1070531718464282e-06
+              },
+              "vibration_rms": {
+                "mae": 0.140845185035701,
+                "mse": 0.04097979973338282
+              },
+              "temperature_over_100c": {
+                "mae": 0.00017018827189386418,
+                "mse": 5.012246283113776e-08
+              },
+              "cutting_force_norm": {
+                "mae": 0.118035779821745,
+                "mse": 0.022211958255980362
+              },
+              "mrr_norm": {
+                "mae": 0.00012345124294659932,
+                "mse": 2.7520380285486687e-08
+              },
+              "confidence": {
+                "mae": 7.465086152068282e-05,
+                "mse": 1.0811496928005579e-08
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.24790920635347125,
+              "surface_roughness": 0.2478412112425089,
+              "vibration_rms": 0.3816537735541593,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.29474215905134993,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 42,
+            "selected_epoch": 12,
+            "checkpoint_sha256": "2423f7e7f2ed92cab203d8fd200ae17cd9abc686cabd426682699d4e471af118"
+          }
+        },
+        "43": {
+          "control": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.00040800233033642307,
+                "mse": 3.061764817850628e-07
+              },
+              "tool_wear": {
+                "mae": 0.00019999168879162948,
+                "mse": 1.373651932898216e-07
+              },
+              "surface_roughness": {
+                "mae": 0.000632001657401566,
+                "mse": 1.1633953138485127e-06
+              },
+              "vibration_rms": {
+                "mae": 0.17813967465818653,
+                "mse": 0.06232869427145972
+              },
+              "temperature_over_100c": {
+                "mae": 0.00022185315600538677,
+                "mse": 7.238913713296638e-08
+              },
+              "cutting_force_norm": {
+                "mae": 0.11598578433277482,
+                "mse": 0.023242850102753006
+              },
+              "mrr_norm": {
+                "mae": 0.00036926540449278147,
+                "mse": 2.372503497208424e-07
+              },
+              "confidence": {
+                "mae": 0.00034789268949390515,
+                "mse": 2.3184331043534363e-07
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.1600328552619248,
+              "surface_roughness": 0.2095609927651897,
+              "vibration_rms": 0.05951924721931445,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.2620100356731381,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 43,
+            "selected_epoch": 20,
+            "checkpoint_sha256": "2c8ea0ac4f7d5a8033a74198091f8c79f09e3ff2fc4576bc422c1da30651bc23"
+          },
+          "residual": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 9.84369604065355e-05,
+                "mse": 1.878279883011606e-08
+              },
+              "tool_wear": {
+                "mae": 0.00022583246258632417,
+                "mse": 1.2373182002469183e-07
+              },
+              "surface_roughness": {
+                "mae": 0.0006812451781229781,
+                "mse": 1.1114771771616933e-06
+              },
+              "vibration_rms": {
+                "mae": 0.14133267226032656,
+                "mse": 0.04145397663884838
+              },
+              "temperature_over_100c": {
+                "mae": 0.00010788234989200019,
+                "mse": 2.0718591676905308e-08
+              },
+              "cutting_force_norm": {
+                "mae": 0.11733136928153944,
+                "mse": 0.02224025704262245
+              },
+              "mrr_norm": {
+                "mae": 0.00013740503258047115,
+                "mse": 3.666568433379813e-08
+              },
+              "confidence": {
+                "mae": 0.00013471725767692634,
+                "mse": 3.36024930122857e-08
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.24339884733313466,
+              "surface_roughness": 0.2448354346781939,
+              "vibration_rms": 0.3744988947585084,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.29384363669061697,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 43,
+            "selected_epoch": 20,
+            "checkpoint_sha256": "612f48d8daae9a182cfd0a7d069ef71875c19c824ef67b446943cea33a72f76a"
+          }
+        },
+        "44": {
+          "control": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.0005452029341090042,
+                "mse": 6.67444011565532e-07
+              },
+              "tool_wear": {
+                "mae": 0.00019718926828519434,
+                "mse": 1.3865013363490082e-07
+              },
+              "surface_roughness": {
+                "mae": 0.0006453990936279297,
+                "mse": 1.1319440958268226e-06
+              },
+              "vibration_rms": {
+                "mae": 0.17637962318454103,
+                "mse": 0.06120251188957837
+              },
+              "temperature_over_100c": {
+                "mae": 0.00018716238241280075,
+                "mse": 5.6061217409115366e-08
+              },
+              "cutting_force_norm": {
+                "mae": 0.12163692095008652,
+                "mse": 0.025329355770305883
+              },
+              "mrr_norm": {
+                "mae": 0.00042440474325810575,
+                "mse": 3.256569765770977e-07
+              },
+              "confidence": {
+                "mae": 0.0002607957451744417,
+                "mse": 1.1031292646307962e-07
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.1521756416041844,
+              "surface_roughness": 0.23092971348588132,
+              "vibration_rms": 0.07651226891919471,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.19576083489277607,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 44,
+            "selected_epoch": 18,
+            "checkpoint_sha256": "f98b7ae29da35682205b10bdbebccd4a752c630bfaf7f09bcadff2197879ac5f"
+          },
+          "residual": {
+            "metrics": {
+              "chatter_probability": {
+                "mae": 0.00016429280549024058,
+                "mse": 4.257636502020413e-08
+              },
+              "tool_wear": {
+                "mae": 0.00022630320161093657,
+                "mse": 1.2363135412777526e-07
+              },
+              "surface_roughness": {
+                "mae": 0.0006820170455086289,
+                "mse": 1.1119904675400955e-06
+              },
+              "vibration_rms": {
+                "mae": 0.14041257803389748,
+                "mse": 0.04070363259278285
+              },
+              "temperature_over_100c": {
+                "mae": 0.00014153004220101686,
+                "mse": 3.2532371785256034e-08
+              },
+              "cutting_force_norm": {
+                "mae": 0.11489387601102684,
+                "mse": 0.020984525455294924
+              },
+              "mrr_norm": {
+                "mae": 0.00016906223525406497,
+                "mse": 4.147863706626218e-08
+              },
+              "confidence": {
+                "mae": 0.00013566048799362856,
+                "mse": 2.9527175358837273e-08
+              }
+            },
+            "r2_vs_persistence": {
+              "chatter_probability": null,
+              "tool_wear": 0.24401318092489477,
+              "surface_roughness": 0.24448669273957868,
+              "vibration_rms": 0.3858208732073872,
+              "temperature_over_100c": null,
+              "cutting_force_norm": 0.3337147069440103,
+              "mrr_norm": null,
+              "confidence": null
+            },
+            "seed": 44,
+            "selected_epoch": 13,
+            "checkpoint_sha256": "3956553e9f9594632f0fab972075bba75d968498ed1ef1d1b0579c95e0adf506"
+          }
+        }
+      },
+      "p1_passes": [
+        true,
+        true,
+        true
+      ],
+      "p2_passes": [
+        false,
+        false,
+        false
+      ],
+      "aggregate": {
+        "control": {
+          "cutting_force_norm": {
+            "seeds": 3,
+            "r2_mean": 0.22227382549972985,
+            "r2_min": 0.19576083489277607,
+            "r2_max": 0.2620100356731381,
+            "mae_mean": 0.11943676091472526,
+            "mae_min": 0.11598578433277482,
+            "mae_max": 0.12163692095008652
+          },
+          "tool_wear": {
+            "seeds": 3,
+            "r2_mean": 0.1658010784476928,
+            "r2_min": 0.1521756416041844,
+            "r2_max": 0.1851947384769692,
+            "mae_mean": 0.00020108798348446514,
+            "mae_min": 0.00019718926828519434,
+            "mae_max": 0.00020608299337657152
+          },
+          "vibration_rms": {
+            "seeds": 3,
+            "r2_mean": 0.09484754890688023,
+            "r2_min": 0.05951924721931445,
+            "r2_max": 0.1485111305821315,
+            "mae_mean": 0.17469937648709347,
+            "mae_min": 0.16957883161855283,
+            "mae_max": 0.17813967465818653
+          }
+        },
+        "residual": {
+          "cutting_force_norm": {
+            "seeds": 3,
+            "r2_mean": 0.30743350089532573,
+            "r2_min": 0.29384363669061697,
+            "r2_max": 0.3337147069440103,
+            "mae_mean": 0.11675367503810376,
+            "mae_min": 0.11489387601102684,
+            "mae_max": 0.118035779821745
+          },
+          "tool_wear": {
+            "seeds": 3,
+            "r2_mean": 0.24510707820383357,
+            "r2_min": 0.24339884733313466,
+            "r2_max": 0.24790920635347125,
+            "mae_mean": 0.0002276962953303559,
+            "mae_min": 0.00022583246258632417,
+            "mae_max": 0.00023095322179380692
+          },
+          "vibration_rms": {
+            "seeds": 3,
+            "r2_mean": 0.38065784717335166,
+            "r2_min": 0.3744988947585084,
+            "r2_max": 0.3858208732073872,
+            "mae_mean": 0.14086347844330835,
+            "mae_min": 0.14041257803389748,
+            "mae_max": 0.14133267226032656
+          }
+        }
+      },
+      "feature_ablation": {
+        "state_only": {
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.2516327875322405,
+            "surface_roughness": 0.2516342723539725,
+            "vibration_rms": 0.3783403892984978,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.3233694870894206,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.00022837385558315565,
+              "mse": 1.2238527118159428e-07
+            },
+            "surface_roughness": {
+              "mae": 0.0006851231899366288,
+              "mse": 1.1014704140601503e-06
+            },
+            "vibration_rms": {
+              "mae": 0.1409100457648175,
+              "mse": 0.04119938839977964
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.11411235419768909,
+              "mse": 0.02131034613847938
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          }
+        },
+        "state_dynamics": {
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.24586649095377144,
+            "surface_roughness": 0.24586800460650793,
+            "vibration_rms": 0.3757946375693634,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.3522424956714516,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.0002279497649995453,
+              "mse": 1.233282704989245e-07
+            },
+            "surface_roughness": {
+              "mae": 0.000683851121855689,
+              "mse": 1.1099574052313784e-06
+            },
+            "vibration_rms": {
+              "mae": 0.14133108958892612,
+              "mse": 0.041368103581613094
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.11117309446811598,
+              "mse": 0.020400996360126007
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          }
+        },
+        "state_dynamics_actions": {
+          "r2_vs_persistence": {
+            "chatter_probability": null,
+            "tool_wear": 0.2458664909519862,
+            "surface_roughness": 0.24586800460472402,
+            "vibration_rms": 0.3757946375522284,
+            "temperature_over_100c": null,
+            "cutting_force_norm": 0.35224249567208576,
+            "mrr_norm": null,
+            "confidence": null
+          },
+          "metrics": {
+            "chatter_probability": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "tool_wear": {
+              "mae": 0.00022794976499785222,
+              "mse": 1.2332827049921647e-07
+            },
+            "surface_roughness": {
+              "mae": 0.0006838511218506115,
+              "mse": 1.109957405234004e-06
+            },
+            "vibration_rms": {
+              "mae": 0.14133108959027482,
+              "mse": 0.041368103582748686
+            },
+            "temperature_over_100c": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "cutting_force_norm": {
+              "mae": 0.11117309446653446,
+              "mse": 0.020400996360106033
+            },
+            "mrr_norm": {
+              "mae": 0.0,
+              "mse": 0.0
+            },
+            "confidence": {
+              "mae": 0.0,
+              "mse": 0.0
+            }
+          }
+        }
+      }
+    }
+  },
+  "runs": [
+    {
+      "group": "c1",
+      "arm": "control",
+      "seed": 42,
+      "force_r2": 0.3135624307898389
+    },
+    {
+      "group": "c1",
+      "arm": "residual",
+      "seed": 42,
+      "force_r2": 0.5488501496229521
+    },
+    {
+      "group": "c1",
+      "arm": "control",
+      "seed": 43,
+      "force_r2": 0.3040784683639398
+    },
+    {
+      "group": "c1",
+      "arm": "residual",
+      "seed": 43,
+      "force_r2": 0.5464855902262846
+    },
+    {
+      "group": "c1",
+      "arm": "control",
+      "seed": 44,
+      "force_r2": 0.3177058383648368
+    },
+    {
+      "group": "c1",
+      "arm": "residual",
+      "seed": 44,
+      "force_r2": 0.547904729585788
+    },
+    {
+      "group": "c4",
+      "arm": "control",
+      "seed": 42,
+      "force_r2": 0.24491641571364153
+    },
+    {
+      "group": "c4",
+      "arm": "residual",
+      "seed": 42,
+      "force_r2": 0.28188577304502516
+    },
+    {
+      "group": "c4",
+      "arm": "control",
+      "seed": 43,
+      "force_r2": 0.2507079422629117
+    },
+    {
+      "group": "c4",
+      "arm": "residual",
+      "seed": 43,
+      "force_r2": 0.29420990349205245
+    },
+    {
+      "group": "c4",
+      "arm": "control",
+      "seed": 44,
+      "force_r2": 0.24195310854997099
+    },
+    {
+      "group": "c4",
+      "arm": "residual",
+      "seed": 44,
+      "force_r2": 0.2833077544438396
+    },
+    {
+      "group": "c6",
+      "arm": "control",
+      "seed": 42,
+      "force_r2": 0.2090506059332754
+    },
+    {
+      "group": "c6",
+      "arm": "residual",
+      "seed": 42,
+      "force_r2": 0.29474215905134993
+    },
+    {
+      "group": "c6",
+      "arm": "control",
+      "seed": 43,
+      "force_r2": 0.2620100356731381
+    },
+    {
+      "group": "c6",
+      "arm": "residual",
+      "seed": 43,
+      "force_r2": 0.29384363669061697
+    },
+    {
+      "group": "c6",
+      "arm": "control",
+      "seed": 44,
+      "force_r2": 0.19576083489277607
+    },
+    {
+      "group": "c6",
+      "arm": "residual",
+      "seed": 44,
+      "force_r2": 0.3337147069440103
+    }
+  ],
+  "status": "completed",
+  "elapsed_seconds": 139.59502999999995,
+  "summary": {
+    "p1_pass_count": 9,
+    "p1_total": 9,
+    "p2_pass_count": 2,
+    "p2_total": 9
+  }
+}
