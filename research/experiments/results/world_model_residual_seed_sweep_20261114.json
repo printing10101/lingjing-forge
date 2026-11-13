@@ -13,6 +13,33 @@
         "train": "ffd8c7a5c8accd50a4e283a40e605c65a7be456c135876152ae69496d40d9a4d",
         "val": "7d667bdb4ed310e251735d55372a848a5ebfd650f1c32da848c541578829e3eb"
       },
+      "action_channel": {
+        "train_std_by_axis": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "val_std_by_axis": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "train_unique_by_axis": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "val_unique_by_axis": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "note": "std 全零时动作特征不携带信息，动作消融结果不可解释为模型能力"
+      },
       "ridge_alone_r2_vs_persistence": {
         "chatter_probability": null,
         "tool_wear": 0.19063960704730876,
@@ -106,7 +133,7 @@
             },
             "seed": 42,
             "selected_epoch": 15,
-            "checkpoint_sha256": "ada52f2c7b0a7e91ed9e922b43e17f9badd953f732e54bb47950aa4ed3add41b"
+            "checkpoint_sha256": "baa1940e1b7bfb6b8e09d41699dba022ccb7c18914d7c2c2a6c4ae8ccd1b4792"
           },
           "residual": {
             "metrics": {
@@ -155,7 +182,7 @@
             },
             "seed": 42,
             "selected_epoch": 20,
-            "checkpoint_sha256": "51562379ff7837d6d1939146e60a4de92c75170eab77dce4e4decd6372d683dc"
+            "checkpoint_sha256": "114c5b50dbac68d1c48273148c6f64d17ca12684e5f7797de72ffa682de2f611"
           }
         },
         "43": {
@@ -206,7 +233,7 @@
             },
             "seed": 43,
             "selected_epoch": 20,
-            "checkpoint_sha256": "099b61b46ea03efaeda5c38abbb1df412ffb60f4e4abecf83da7328d33a1db0e"
+            "checkpoint_sha256": "4c91308fbc76218a33c8709dc3d620c9779ddf6419f4ba51bdb9194d790bdc45"
           },
           "residual": {
             "metrics": {
@@ -255,7 +282,7 @@
             },
             "seed": 43,
             "selected_epoch": 6,
-            "checkpoint_sha256": "4c2b27cd481754cf3e7f52881c44cef723f8cee3810b8ff9e759a4dad20ab6eb"
+            "checkpoint_sha256": "b28db29834256f7c6407b19a465911409acd3b22ff544876f62db18f283e9b2d"
           }
         },
         "44": {
@@ -306,7 +333,7 @@
             },
             "seed": 44,
             "selected_epoch": 16,
-            "checkpoint_sha256": "82e9ac8c1abd58055b57756bb4e16f6f70b5f6d348ab0dc82a2e188a364ea666"
+            "checkpoint_sha256": "0129c77699435dacd44654ee88d4acc9e1169c0f7f8889e5bb199cec60f6a4fa"
           },
           "residual": {
             "metrics": {
@@ -355,7 +382,7 @@
             },
             "seed": 44,
             "selected_epoch": 9,
-            "checkpoint_sha256": "67fee9f8a914951927ab21bad4e26400ff8e44de7a830288d876d268f1345687"
+            "checkpoint_sha256": "10dbd12ee80e30cd4d86152f9b9d54ed0281fabca98e71311943be75d874b508"
           }
         }
       },
@@ -575,6 +602,33 @@
         "train": "0b9cf46c00bc014b4d4ebfeac5caa697d469f557122b2bc86ab16d915f602985",
         "val": "db554787be0e8377a83324bdb885a4bcb0a967aec3b477bc5d1deb9b5ca6e247"
       },
+      "action_channel": {
+        "train_std_by_axis": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "val_std_by_axis": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "train_unique_by_axis": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "val_unique_by_axis": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "note": "std 全零时动作特征不携带信息，动作消融结果不可解释为模型能力"
+      },
       "ridge_alone_r2_vs_persistence": {
         "chatter_probability": null,
         "tool_wear": 0.13115671296995202,
@@ -668,7 +722,7 @@
             },
             "seed": 42,
             "selected_epoch": 18,
-            "checkpoint_sha256": "0caa8ef297c99e0b03b781ce6ef2fbca7abc203c10c63381bde13b40e7c1c87f"
+            "checkpoint_sha256": "c1032accd3c11c8be5bd413858ac3262e87d7e600aa20bb78e8d65e5a4fe20ba"
           },
           "residual": {
             "metrics": {
@@ -717,7 +771,7 @@
             },
             "seed": 42,
             "selected_epoch": 18,
-            "checkpoint_sha256": "107ee03a970a5a0397b4daa7affadcd6543dc2dc79d7e5fe36aedf1e22d25691"
+            "checkpoint_sha256": "9919ad8173930d1c356b16a3ba41001ef5c9df18cce71d0fc541d1eef239cf53"
           }
         },
         "43": {
@@ -768,7 +822,7 @@
             },
             "seed": 43,
             "selected_epoch": 10,
-            "checkpoint_sha256": "1afb1a0820828a66278baf98e4f1775411d339611dc17cb7c8624c7d5c24238f"
+            "checkpoint_sha256": "4675ea0fa222b6f44e0fd7349605a461bd9442c43063bb0300fe8524b1e95669"
           },
           "residual": {
             "metrics": {
@@ -817,7 +871,7 @@
             },
             "seed": 43,
             "selected_epoch": 7,
-            "checkpoint_sha256": "03d822c3845d451e64d9f46e502c2b21a7913842289a6c52370eaa1d66bc5158"
+            "checkpoint_sha256": "587aabe839b905546149b0bae76ec25179a70918e62024c18bccd970ea9a3dff"
           }
         },
         "44": {
@@ -868,7 +922,7 @@
             },
             "seed": 44,
             "selected_epoch": 9,
-            "checkpoint_sha256": "4280bf417337f44b97c36a30a25211ca590d891730e23d07a877e3dd1ab8a8b9"
+            "checkpoint_sha256": "cda06a9c5e88f9bff1732f93c2a73e16e214b3ad7755b15a58b3978bce90c797"
           },
           "residual": {
             "metrics": {
@@ -917,7 +971,7 @@
             },
             "seed": 44,
             "selected_epoch": 15,
-            "checkpoint_sha256": "c912f6bc010bee4e758830a1441c1952e04dfac02745908f6c4d9ffd03d8697e"
+            "checkpoint_sha256": "478f62f16f8d3ed369b6bb60963a297a9dc5b4df569b7e2c37072566705d047c"
           }
         }
       },
@@ -1137,6 +1191,33 @@
         "train": "31c078f82ead89c8da22dc459b6a1235b6ffe8f0b406a68ac592639bbe7abbc0",
         "val": "0ef6509c96027b444b2c30c8032ff567882769a3dadd2dc6373787b896818031"
       },
+      "action_channel": {
+        "train_std_by_axis": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "val_std_by_axis": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "train_unique_by_axis": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "val_unique_by_axis": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "note": "std 全零时动作特征不携带信息，动作消融结果不可解释为模型能力"
+      },
       "ridge_alone_r2_vs_persistence": {
         "chatter_probability": null,
         "tool_wear": 0.2458664909519862,
@@ -1230,7 +1311,7 @@
             },
             "seed": 42,
             "selected_epoch": 20,
-            "checkpoint_sha256": "a817a26f8c3c8e404afd6d6c4458351ba669d95d70be4f93d8973bec52adecb4"
+            "checkpoint_sha256": "b9707f744ae00b7c9b707f83dff56df24db41f2babdbcaab351dec9ec40e1d19"
           },
           "residual": {
             "metrics": {
@@ -1279,7 +1360,7 @@
             },
             "seed": 42,
             "selected_epoch": 12,
-            "checkpoint_sha256": "2423f7e7f2ed92cab203d8fd200ae17cd9abc686cabd426682699d4e471af118"
+            "checkpoint_sha256": "2cf077440562b4f8cbdf83c86808e96da933072cdab6980090601b43dec8dc40"
           }
         },
         "43": {
@@ -1330,7 +1411,7 @@
             },
             "seed": 43,
             "selected_epoch": 20,
-            "checkpoint_sha256": "2c8ea0ac4f7d5a8033a74198091f8c79f09e3ff2fc4576bc422c1da30651bc23"
+            "checkpoint_sha256": "dba6de43e9c100ce60cf97a56f7acfba9dc692a9189b63b7d8c8b298c24e3d18"
           },
           "residual": {
             "metrics": {
@@ -1379,7 +1460,7 @@
             },
             "seed": 43,
             "selected_epoch": 20,
-            "checkpoint_sha256": "612f48d8daae9a182cfd0a7d069ef71875c19c824ef67b446943cea33a72f76a"
+            "checkpoint_sha256": "004072869320aa95930e1e5aba1bd84630c9339b3eaf9de219f94308cf3886b8"
           }
         },
         "44": {
@@ -1430,7 +1511,7 @@
             },
             "seed": 44,
             "selected_epoch": 18,
-            "checkpoint_sha256": "f98b7ae29da35682205b10bdbebccd4a752c630bfaf7f09bcadff2197879ac5f"
+            "checkpoint_sha256": "c5215e1aa3f97d127953235f76cca28e4b1b62d7495f822c2394189556350768"
           },
           "residual": {
             "metrics": {
@@ -1479,7 +1560,7 @@
             },
             "seed": 44,
             "selected_epoch": 13,
-            "checkpoint_sha256": "3956553e9f9594632f0fab972075bba75d968498ed1ef1d1b0579c95e0adf506"
+            "checkpoint_sha256": "6ec6bed7d538e8f2a5244fef5ca75e1534c3d46b004a2c19ff05c732fee83cdc"
           }
         }
       },
@@ -1806,7 +1887,7 @@
     }
   ],
   "status": "completed",
-  "elapsed_seconds": 139.59502999999995,
+  "elapsed_seconds": 134.39085270000032,
   "summary": {
     "p1_pass_count": 9,
     "p1_total": 9,

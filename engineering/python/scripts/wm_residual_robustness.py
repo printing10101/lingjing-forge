@@ -111,6 +111,13 @@ def run_robustness(data_dir: Path, output_dir: Path, summary_path: Path, *, grou
                                for name in STATE_COLUMNS}
             ridge_alone = channel_metrics(initial_val + ridge_val_delta, target_val)
             group_ledger: dict = {"datasets_sha256": {"train": file_hash(train_path), "val": file_hash(val_path)},
+                "action_channel": {"train_std_by_axis": train_arrays["actions"].std(axis=(0, 1)).tolist(),
+                                   "val_std_by_axis": val_arrays["actions"].std(axis=(0, 1)).tolist(),
+                                   "train_unique_by_axis": [int(np.unique(train_arrays["actions"][:, :, axis]).size)
+                                                            for axis in range(train_arrays["actions"].shape[2])],
+                                   "val_unique_by_axis": [int(np.unique(val_arrays["actions"][:, :, axis]).size)
+                                                          for axis in range(val_arrays["actions"].shape[2])],
+                                   "note": "std 全零时动作特征不携带信息，动作消融结果不可解释为模型能力"},
                 "ridge_alone_r2_vs_persistence": r2_vs_persistence(ridge_alone, persistence_mse),
                 "ridge_alone_metrics": ridge_alone, "seeds": {}, "p1_passes": [], "p2_passes": []}
             for seed in seeds:
