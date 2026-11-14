@@ -1,12 +1,9 @@
 name: CI Pipeline
 
-# 覆盖率阈值统一说明：所有测试类型（单元/集成/全量/前端）的覆盖率阈值
-# 统一为 24%，与 .coveragerc 中的 fail_under 保持一致。
-# 理由：2026-08-04 全量 unit 修复后实测覆盖率 24.45%（1927 passed），
-# 原 65% 阈值与真实覆盖率严重矛盾导致 CI 永远失败（门禁失效且误导）。
-# 统一为 24% 反映真实测试现状，后续随测试补全逐步提升，目标 65%+。
-# 契约测试（ADR-005）阈值单列 65%：2026-09-10 CI 实测 68.00%，原 90% 与现状
-# 矛盾导致门禁永久红，随测试补全逐步提升回 90% 目标。
+# 覆盖率阈值统一说明：以 .coveragerc 的 fail_under 为准。
+# 2026-11-14 起 unit 阈值为 40%（实测 44.46%，棘轮只升不降）；
+# integration 步骤仍按 24% 打印提示但不阻断（由 unit/full 门禁把关）；
+# 契约测试（ADR-005）阈值单列 65%：2026-09-10 CI 实测 68.00%。
 
 on:
   push:
@@ -115,12 +112,12 @@ jobs:
             --timeout=300 \
             -m "not skip_ci"
 
-      - name: Check unit test coverage threshold (24%)
+      - name: Check unit test coverage threshold (40%)
         working-directory: engineering/python
         if: matrix.python-version == '3.11'
         run: |
           echo "======================================================"
-          echo "  COVERAGE CHECK: Unit Tests (threshold >= 24%)"
+          echo "  COVERAGE CHECK: Unit Tests (threshold >= 40%)"
           echo "======================================================"
 
           echo ""
@@ -167,8 +164,8 @@ jobs:
           print(f'  Statements: {covered} covered, {missing} missing out of {total} total')
           print('')
 
-          if pct < 24:
-              print(f'  >>> RESULT: FAIL (coverage {pct:.2f}% < 24% threshold)')
+          if pct < 40:
+              print(f'  >>> RESULT: FAIL (coverage {pct:.2f}% < 40% threshold)')
               print('')
 
               # List files with lowest coverage
@@ -176,13 +173,13 @@ jobs:
               low_files = []
               for fname, fdata in files.items():
                   fpct = fdata.get('summary', {}).get('percent_covered', 0)
-                  if fpct < 24:
+                  if fpct < 40:
                       fcovered = fdata.get('summary', {}).get('covered_lines', 0)
                       fmissing = fdata.get('summary', {}).get('missing_lines', 0)
                       low_files.append((fpct, fcovered, fmissing, fname))
 
               low_files.sort()
-              print(f'  Files below 24% coverage ({len(low_files)} files):')
+              print(f'  Files below 40% coverage ({len(low_files)} files):')
               print(f'  {\"Coverage\":>9}  {\"Cov\":>5} {\"Miss\":>5}  File')
               print(f'  {\"-\"*9}  {\"-\"*5} {\"-\"*5}  {\"-\"*40}')
               for fpct, fcovered, fmissing, fname in low_files:
@@ -197,7 +194,7 @@ jobs:
 
               sys.exit(1)
           else:
-              print(f'  >>> RESULT: PASSED (coverage {pct:.2f}% >= 24% threshold)')
+              print(f'  >>> RESULT: PASSED (coverage {pct:.2f}% >= 40% threshold)')
           "
           echo ""
 

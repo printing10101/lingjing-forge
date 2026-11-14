@@ -50,11 +50,11 @@ exclude_lines =
 
 # Fail if coverage is below threshold
 # [E-P0-2] 防复发：与 ci.yml 单元测试阈值保持一致。
-# 历史：原值 70% → 65%（与当时实际不符），2026-08-04 全量 unit 修复后实测
-# 覆盖率 24.45%（83308 statements，1927 passed），65% 仍与实际矛盾会导致
-# CI 永远失败（门禁失效且误导）。统一为 24% 反映真实测试现状，
-# 待后续冲刺补齐测试（目标 65%+）后逐步上调。
-fail_under = 24
+# 历史：70% → 65% → 24%（2026-08-04 全量 unit 实测 24.45%，原阈值导致 CI 永久红）。
+# 2026-11-14 实测：CI 口径（tests/unit/ + not skip_ci）44.46%（99388 statements，
+# 4708 passed，另 3 项 SSM 用例仅在整套运行时受顺序污染失败、单跑通过）。
+# 按棘轮原则只升不降，上调至 40%（留 4.4pp 余量吸收 Python 版本/依赖差异）。
+fail_under = 40
 
 # Precision for coverage percentage
 precision = 2
