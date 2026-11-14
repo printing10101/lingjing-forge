@@ -89,6 +89,18 @@ Content-Type: application/json
 
 所有已注册路由的完整清单（按路径前缀分组）。
 
+### /agent-runtime/run
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `POST` | `/agent-runtime/run` | 执行统一 Agent 任务：任务描述 → 多轮工具调用 → 最终回答 + 轨迹。 |
+
+### /agent-runtime/traces
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `GET` | `/agent-runtime/traces` | 读取最近的 Agent 执行轨迹（按时间倒序）。 |
+
 ### /agents
 
 | 方法 | 路径 | 说明 |
@@ -117,6 +129,13 @@ Content-Type: application/json
 | `POST` | `/agents/{agent_id}/rollback` |  |
 | `POST` | `/agents/{agent_id}/save` |  |
 | `POST` | `/agents/{agent_id}/snapshot` |  |
+
+### /api/agent
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `POST` | `/api/agent/v1/cam/knowledge-candidates` |  |
+| `GET` | `/api/agent/v1/cam/knowledge-candidates/{record_id}` |  |
 
 ### /api/chatter
 
@@ -192,14 +211,12 @@ Content-Type: application/json
 | `POST` | `/api/rag/maintenance/cleanup` |  |
 | `POST` | `/api/rag/maintenance/optimize` |  |
 | `POST` | `/api/rag/process/add` | 添加工艺四元组到索引。 |
-| `POST` | `/api/agent/v1/cam/knowledge-candidates` | Agent 提交待审候选，按提交编号与内容持久去重；需要 R+W。 |
-| `GET` | `/api/agent/v1/cam/knowledge-candidates/{record_id}` | Agent 查询自己提交的候选及当前人工审核结果；需要 R。 |
-| `GET` | `/api/rag/process/review/records` | 工程师或管理员读取知识版本及审核历史。 |
-| `POST` | `/api/rag/process/review/{record_id}` | 按预期版本批准、拒绝、撤销或修订工艺知识。 |
 | `GET` | `/api/rag/process/features` | 列出所有已建模的特征类型。 |
 | `POST` | `/api/rag/process/flush` | 强制将工艺四元组索引落盘。 |
 | `POST` | `/api/rag/process/recommend` | 根据加工特征推荐工艺方案（CAMWorks TechDB 式自动决策）。 |
 | `POST` | `/api/rag/process/related-documents` | 集成点 4：通过 chunk_ids + EntityIndex 反向查询原始文档。 |
+| `GET` | `/api/rag/process/review/records` |  |
+| `POST` | `/api/rag/process/review/{record_id}` |  |
 | `POST` | `/api/rag/process/seed` | 注入默认工艺知识库（覆盖常见特征的典型工艺方案）。 |
 | `POST` | `/api/rag/process/similar` | 查找相似工艺记录（3 层匹配：精确 / 同特征 / 材料迁移）。 |
 | `GET` | `/api/rag/process/stats` | 获取工艺四元组索引统计信息。 |
@@ -333,7 +350,7 @@ Content-Type: application/json
 | `GET` | `/api/v1/dnc/machines` | 列出已连接机床 |
 | `POST` | `/api/v1/dnc/machines` | 添加机床连接 |
 | `DELETE` | `/api/v1/dnc/machines/{machine_id}` | 移除机床连接 |
-| `GET` | `/api/v1/dnc/machines/{machine_id}/alarms` | 获取机床报警（仅 MTConnect；OPC UA 未接入返回 SERVICE_UNAVAILABLE 错误体） |
+| `GET` | `/api/v1/dnc/machines/{machine_id}/alarms` | 获取机床报警 |
 | `GET` | `/api/v1/dnc/machines/{machine_id}/status` | 获取机床状态 |
 | `POST` | `/api/v1/dnc/nc-program/send` | 发送 NC 程序到机床 |
 | `GET` | `/api/v1/dnc/status` | 获取所有机床状态 |
@@ -349,22 +366,22 @@ Content-Type: application/json
 | `DELETE` | `/api/v1/documents/{doc_id}` | 删除文档。 |
 | `GET` | `/api/v1/documents/{doc_id}` | 获取单个文档详情（浏览量+1）。 |
 | `PUT` | `/api/v1/documents/{doc_id}` | 更新文档。 |
-| `GET` | `/api/v1/dreaming/learnings` | 「它这周学会了什么」：窗口期内新增规则草稿与灰度事件流。 |
-| `POST` | `/api/v1/dreaming/reflect` | 触发完整离线反思（提取→反思→合成→报告，产物一律 draft 状态）。 |
-| `GET` | `/api/v1/dreaming/rules` | 规则草稿 × 灰度发布状态联查。 |
-| `POST` | `/api/v1/dreaming/rules/{rule_id}/promote` | 灰度晋级（SHADOW→CANARY→FULL，FULL 强制双重沙箱校验）。 |
-| `POST` | `/api/v1/dreaming/rules/{rule_id}/publish` | 人工放行：草稿进入灰度 SHADOW（AI 起草，人确认）。 |
-| `POST` | `/api/v1/dreaming/rules/{rule_id}/rollback` | 一键回滚（经 RollbackManager，含冷却期与历史留痕）。 |
-| `GET` | `/api/v1/dreaming/status` | 子系统状态（阶段分布 / 草稿数 / 最近反思）。 |
+| `GET` | `/api/v1/dreaming/learnings` | 「它这周学会了什么」：窗口期内的新增规则草稿 + 灰度事件流（看板数据源）。 |
+| `POST` | `/api/v1/dreaming/reflect` | 触发一次完整离线反思。 |
+| `GET` | `/api/v1/dreaming/rules` | 规则草稿 × 灰度状态联查。 |
+| `POST` | `/api/v1/dreaming/rules/{rule_id}/promote` | 灰度晋级。FULL 阶段由发布器强制重新沙箱校验（双重校验）。 |
+| `POST` | `/api/v1/dreaming/rules/{rule_id}/publish` | 人工放行规则草稿进入灰度 SHADOW 阶段（影子模式，0% 流量仅记录）。 |
+| `POST` | `/api/v1/dreaming/rules/{rule_id}/rollback` | 一键回滚：硬约束违反直接废弃；普通异常经灰度逐级降级。含冷却期与审计。 |
+| `GET` | `/api/v1/dreaming/status` | 子系统状态：灰度阶段分布、草稿规模、最近一次反思。 |
 | `POST` | `/api/v1/dynamic-adjustment/calibrate-wear` | 使用实时传感器数据 EWMA 校正磨损预测。 |
 | `POST` | `/api/v1/dynamic-adjustment/closed-loop` | 端到端闭环：磨损 → 决策 → NC 改写（单次调用完成全链路）。 |
 | `POST` | `/api/v1/dynamic-adjustment/decide` | 根据刀具磨损状态生成切削参数调整决策。 |
 | `GET` | `/api/v1/dynamic-adjustment/health` | 动态调参闭环模块健康检查。 |
 | `POST` | `/api/v1/dynamic-adjustment/rewrite-nc` | 按调整决策改写 NC 代码中的主轴转速与进给速度。 |
-| `POST` | `/api/v1/embedding/encode` | 三模态特征 → 512 维统一制造语义嵌入（纯 NumPy 投影，零模型加载）。 |
-| `POST` | `/api/v1/embedding/index` | 为指定层（cognitive/perception/execution）构建 kd-tree ANN 索引。 |
-| `POST` | `/api/v1/embedding/query` | 跨层检索（支持语义轴加权 axis_weights 与模态过滤）。 |
-| `GET` | `/api/v1/embedding/status` | 已建索引统计（层名/规模/维度）。 |
+| `POST` | `/api/v1/embedding/encode` | 三模态特征 → 512 维统一嵌入（纯 NumPy 投影，无模型加载）。 |
+| `POST` | `/api/v1/embedding/index` | 为指定层构建 kd-tree ANN 索引（进程内，重启后需重建）。 |
+| `POST` | `/api/v1/embedding/query` | 跨层检索（kd-tree ANN，支持语义轴加权与模态过滤）。 |
+| `GET` | `/api/v1/embedding/status` | 已建索引统计（层名 / 规模 / 维度）。 |
 | `GET` | `/api/v1/equipment` | 获取设备列表，可按状态过滤并分页。 |
 | `GET` | `/api/v1/equipment/alarms/` | 获取告警列表，支持多条件过滤和分页。 |
 | `PUT` | `/api/v1/equipment/alarms/{alarm_id}/status` | 更新告警状态。 |
@@ -374,6 +391,19 @@ Content-Type: application/json
 | `GET` | `/api/v1/equipment/stats/` | 获取设备统计信息。 |
 | `GET` | `/api/v1/equipment/{equipment_id}` | 获取单台设备详情及当前指标。 |
 | `PUT` | `/api/v1/equipment/{equipment_id}` | 更新设备状态和指标。 |
+| `POST` | `/api/v1/evolution/loop/run` | 手动触发一次演化循环（统计→提案→报告；提案制不自动发布）。 |
+| `GET` | `/api/v1/evolution/proposals` | 全部提示词候选/应用版本记录（proposed/applied/rejected/rolled_back）。 |
+| `POST` | `/api/v1/evolution/proposals/{prompt_id}/{version}/promote` | 候选版本门控发布：热更新上线 → replay 回归门控 → FAIL 自动回滚。 |
+| `POST` | `/api/v1/evolution/proposals/{prompt_id}/{version}/reject` | 拒绝提案（候选不进线上注册表，仅留痕）。 |
+| `POST` | `/api/v1/evolution/proposals/{prompt_id}/{version}/rollback` | 回滚已应用的提示词版本（线上立即回到剩余最高版本）。 |
+| `GET` | `/api/v1/evolution/reports` | 最近一份进化报告内容 + 报告文件列表。 |
+| `GET` | `/api/v1/evolution/stats` | 失败案例库统计 + 失败 TOP 类别 + 提示词版本总览。 |
+| `GET` | `/api/v1/experience` | 分页查询切削实测记录。 |
+| `POST` | `/api/v1/experience/batch` | 批量采集（MTConnect 管道 / CSV 导入）。 |
+| `POST` | `/api/v1/experience/capture` | 单条切削实测采集。 |
+| `GET` | `/api/v1/experience/stats` | 聚合统计（节拍/粗糙度/磨损均值、合格率、异常率）。 |
+| `DELETE` | `/api/v1/experience/{record_id}` | 删除记录（管理用途）。 |
+| `GET` | `/api/v1/experience/{record_id}` | 单条详情。 |
 | `GET` | `/api/v1/explainability/` | 分页列出历史解释记录（支持 explanation_type / model_uri 过滤）. |
 | `POST` | `/api/v1/explainability/compare` | 对比两个解释（生成差异 payload）. |
 | `POST` | `/api/v1/explainability/confidence` | 生成置信度分布解释（MC dropout 采样）. |
@@ -393,20 +423,13 @@ Content-Type: application/json
 | `GET` | `/api/v1/feature_extraction/tasks/{task_id}/result` | 获取已提取的特征列表 |
 | `POST` | `/api/v1/feature_extraction/tasks/{task_id}/review` | 工程师审核单个特征（人工介入核心端点） |
 | `POST` | `/api/v1/feature_extraction/tasks/{task_id}/run` | 异步触发特征提取执行 |
-| `POST` | `/api/v1/evolution/loop/run` | 手动触发一次演化循环（统计→提示词补丁提案→报告；提案制不自动发布，需 governance:write） |
-| `GET` | `/api/v1/evolution/proposals` | 列出提示词候选/应用版本记录（proposed/applied/rejected/rolled_back） |
-| `POST` | `/api/v1/evolution/proposals/{prompt_id}/{version}/promote` | 候选版本门控发布：热更新上线 → replay 回归门控 → FAIL 自动回滚 |
-| `POST` | `/api/v1/evolution/proposals/{prompt_id}/{version}/reject` | 拒绝提案（候选不进线上注册表，仅留痕） |
-| `POST` | `/api/v1/evolution/proposals/{prompt_id}/{version}/rollback` | 回滚已应用的提示词版本（线上立即回到剩余最高版本） |
-| `GET` | `/api/v1/evolution/reports` | 最近一份进化报告内容与报告文件列表 |
-| `GET` | `/api/v1/evolution/stats` | 失败案例库统计、失败 TOP 类别与提示词版本总览 |
 | `GET` | `/api/v1/flywheel/definitions` | 获取指标定义说明 |
 | `GET` | `/api/v1/flywheel/deployments` | 获取模型热更新部署记录 |
-| `POST` | `/api/v1/flywheel/feedback` | 提交用户反馈到飞轮反馈数据集（annotation/adoption/correction；自进化 M0 反馈回流入口，需 dataset:write） |
+| `POST` | `/api/v1/flywheel/feedback` | 提交用户反馈到飞轮反馈数据集（annotation / adoption / correction）。 |
 | `GET` | `/api/v1/flywheel/metrics` | 获取飞轮指标详情（含历史数据） |
 | `GET` | `/api/v1/flywheel/report/weekly` | 生成每周飞轮报告 |
 | `GET` | `/api/v1/flywheel/status` | 获取飞轮当前状态 |
-| `POST` | `/api/v1/flywheel/synthetic/generate` | W4.1 仿真合成数据：体素校验+切削力模型参数扫描，生成「参数→仿真结果」样本对并提交为带血缘的不可变数据集版本。 |
+| `POST` | `/api/v1/flywheel/synthetic/generate` | 体素仿真+切削力模型参数扫描，批量生成"参数→仿真结果"样本对落库。 |
 | `GET` | `/api/v1/gcode-generation/precision_info` | 查询当前精度档位信息、控制器类型与工业硬门槛（不创建任务）。 |
 | `GET` | `/api/v1/gcode-generation/tasks` | 列出最近任务 |
 | `POST` | `/api/v1/gcode-generation/tasks` | 创建 G 代码生成任务 |
@@ -453,6 +476,9 @@ Content-Type: application/json
 | `GET` | `/api/v1/governance/reports/governance` |  |
 | `POST` | `/api/v1/governance/risk-assess` |  |
 | `GET` | `/api/v1/governance/risk-categories` |  |
+| `GET` | `/api/v1/governance/sovereignty` | 读取 AI 主权设置（前端设置面板的权威数据源）。 |
+| `PUT` | `/api/v1/governance/sovereignty` | 更新 AI 主权设置（部分更新），立即持久化并影响后端 AI 动作决策。 |
+| `POST` | `/api/v1/governance/sovereignty/reset` | 恢复默认主权设置（推荐模式，等级 2）。 |
 | `GET` | `/api/v1/health/quick` | Quick health check — returns a simple OK/ERROR status. |
 | `GET` | `/api/v1/health/system` | Full system health check — returns status of all components. |
 | `GET` | `/api/v1/heartbeat/budget/notifications` | 获取预算通知 |
@@ -467,9 +493,6 @@ Content-Type: application/json
 | `POST` | `/api/v1/heartbeat/tasks/{task_id}/pause` | 暂停任务 |
 | `POST` | `/api/v1/heartbeat/tasks/{task_id}/resume` | 恢复任务 |
 | `POST` | `/api/v1/heartbeat/tasks/{task_id}/trigger` | 立即触发任务执行 |
-| `GET` | `/api/v1/governance/sovereignty` | 读取数据主权/自主等级设置（W9.1）。 |
-| `PUT` | `/api/v1/governance/sovereignty` | 更新主权/自主等级设置（影响 AI 介入强度）。 |
-| `POST` | `/api/v1/governance/sovereignty/reset` | 恢复默认主权/自主等级设置。 |
 | `GET` | `/api/v1/image_to_3d/precision_info` | 查询当前精度档位信息（不创建任务）。 |
 | `GET` | `/api/v1/image_to_3d/tasks` | 列出最近任务 |
 | `POST` | `/api/v1/image_to_3d/tasks` | 上传多张照片创建重建任务 |
@@ -504,7 +527,7 @@ Content-Type: application/json
 | `GET` | `/api/v1/llm-providers/{provider_id}/health` | 健康检查指定 Provider |
 | `GET` | `/api/v1/llm-providers/{provider_id}/models` | 列出指定 Provider 可用的模型 |
 | `POST` | `/api/v1/llm-providers/{provider_id}/test` | 测试 Provider 调用（发送一条对话） |
-| `POST` | `/api/v1/llm/chat/stream` | LLM 流式对话补全（SSE）。原生流（Ollama NDJSON/OpenAI SSE）逐 token 输出，其余后端伪流式降级；6xxx 分级错误以错误帧返回。 |
+| `POST` | `/api/v1/llm/chat/stream` | LLM 流式对话补全（SSE，text/event-stream）。 |
 | `POST` | `/api/v1/lnn/batch-inference` | 异步启动批量推理,立即返回 job_id。 |
 | `DELETE` | `/api/v1/lnn/cache/clear` | 清空所有模型缓存 |
 | `GET` | `/api/v1/lnn/cache/stats` | 获取模型缓存统计信息 |
@@ -546,7 +569,7 @@ Content-Type: application/json
 | `POST` | `/api/v1/nl2cad/generate-nc` | 根据工艺规划生成NC代码。 |
 | `POST` | `/api/v1/nl2cad/process-planning` | 根据CAD参数生成工艺规划。 |
 | `POST` | `/api/v1/nl2cad/refine` | 根据用户指令微调3D模型。 |
-| `POST` | `/api/v1/nl2cad/regenerate-params` | 按参数覆写重新执行 CadQuery 脚本生成模型（不调用 LLM，支撑前端滑杆调参）。 |
+| `POST` | `/api/v1/nl2cad/regenerate-params` | 按参数覆写重新执行脚本生成模型（不调用 LLM）。 |
 | `GET` | `/api/v1/notifications` | 聚合顶栏通知：进行中/失败任务 + 未处理告警 + 低库存物料 + 待处理质量异常。 |
 | `GET` | `/api/v1/parametric_geometry/precision_info` | 查询当前精度档位信息与工业硬门槛（不创建任务）。 |
 | `GET` | `/api/v1/parametric_geometry/tasks` | 列出最近任务 |
@@ -646,7 +669,7 @@ Content-Type: application/json
 | `GET` | `/api/v1/resource-cards/models/{model_id}/metrics` | 获取模型指标历史（追加式记录列表）. |
 | `POST` | `/api/v1/resource-cards/models/{model_id}/metrics` | 追加一条指标记录到模型历史（同时更新当前指标快照）. |
 | `POST` | `/api/v1/rl-agent/act` | 执行 RL 决策（不走工作流，直接调用服务层）. |
-| `POST` | `/api/v1/rl-agent/training/start` | 启动离线 RL 训练（PPO + 真实轨迹回放；数据缺失时拒绝）. |
+| `POST` | `/api/v1/rl-agent/training/start` | 启动 RL 训练 Workflow. |
 | `GET` | `/api/v1/rl-agent/training/status` | 查询当前 RL 训练状态. |
 | `POST` | `/api/v1/rl-agent/training/stop` | 停止当前 RL 训练. |
 | `GET` | `/api/v1/rl-agent/versions` | 分页列出 RL 策略版本. |
@@ -796,7 +819,6 @@ Content-Type: application/json
 | `POST` | `/api/v1/workflow-templates/{template_id}/rate` | 给模板评分（1.0-5.0），增量更新 avg_rating / rating_count. |
 | `POST` | `/api/v1/workflow-templates/{template_id}/unpublish` | 下架模板（status -> unpublished，不删除数据）. |
 | `GET` | `/api/v1/workflow-templates/{template_id}/versions` | 列出某模板的所有版本（按创建时间倒序）. |
-| `POST` | `/api/v1/world-model/preview` | 世界模型预演卡：给定工艺/参数上下文预测切削力、颤振倾向、碰撞概率（确认页事前预演）。 |
 | `GET` | `/api/v1/workflows` | 列出工作流运行记录。 |
 | `POST` | `/api/v1/workflows/run` | 提交工作流，返回 workflow_run_id。 |
 | `POST` | `/api/v1/workflows/validate` | 仅校验 WorkflowSpec，不执行。返回校验错误列表（空表示通过）。 |
@@ -805,9 +827,10 @@ Content-Type: application/json
 | `POST` | `/api/v1/workflows/{workflow_run_id}/cancel` | 取消工作流。下游未启动节点标记为 SKIPPED。 |
 | `POST` | `/api/v1/workflows/{workflow_run_id}/resume` | 断点续跑：从指定 workflow_run_id 继续，仅重跑 FAILED/PENDING 节点。 |
 | `GET` | `/api/v1/workflows/{workflow_run_id}/stream` | SSE 事件流：实时推送节点状态变化。 |
+| `GET` | `/api/v1/world-model/input-requirements` | 读取训练模型输入要求与可选零件来源。 |
 | `POST` | `/api/v1/world-model/predict` | 执行世界模型轨迹预测（不走工作流，直接调用服务层）. |
-| `GET` | `/api/v1/world-model/input-requirements` | 按 `model_uri` 读取实际训练权重的融合/状态反馈要求、已记录训练窗口及已审核零件来源；需要 `world_model:write`。`training_history_steps=[]`、`training_horizon=null`表示旧权重缺少记录。 |
-| `POST` | `/api/v1/world-model/prepare-geometry` | 由 `feature_task_id` 读取原始网格与审核特征，返回几何摘要和尺度来源；未标定网格必须明确提供 `millimeters_per_unit`。 |
+| `POST` | `/api/v1/world-model/prepare-geometry` | 读取已审核特征和原始网格，预览融合模型使用的几何与尺度来源。 |
+| `POST` | `/api/v1/world-model/preview` | 物理预演卡：确认前展示 AI 对物理结果的预判。 |
 | `GET` | `/api/v1/world-model/versions` | 分页列出世界模型版本. |
 | `GET` | `/api/v1/world-model/versions/{version}` | 查询世界模型版本详情. |
 
@@ -816,6 +839,18 @@ Content-Type: application/json
 | 方法 | 路径 | 说明 |
 |------|------|------|
 | `GET` | `/audit-log` | 审计日志查询（C类，仅管理员） |
+
+### /cam/process-recommend
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `GET` | `/cam/process-recommend` | 工艺四元组推荐（R 类）：feature+material → 工艺/刀具/参数。 |
+
+### /cam/quadruple-stats
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `GET` | `/cam/quadruple-stats` | 工艺知识库统计（R 类）：四元组总数 / 特征/工艺/材料/刀具覆盖。 |
 
 ### /dxf/batch
 
@@ -827,13 +862,13 @@ Content-Type: application/json
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| `POST` | `/dxf/batch-async` | 批量处理多个 DXF（异步任务模式），立即返回 job_id。 |
+| `POST` | `/dxf/batch-async` | 批量处理多个 DXF（异步任务模式）。 |
 
-### /dxf/batch-status/{job_id}
+### /dxf/batch-status
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| `GET` | `/dxf/batch-status/{job_id}` | 查询批量处理任务进度（done/success/failed/results）。 |
+| `GET` | `/dxf/batch-status/{job_id}` | 查询批量处理任务进度。 |
 
 ### /dxf/e2e-fixture
 
@@ -847,48 +882,43 @@ Content-Type: application/json
 |------|------|------|
 | `POST` | `/dxf/process` | 处理单个 DXF 文件（端到端）。 |
 
+### /dxf/summary
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `GET` | `/dxf/summary` | DXF 文件解析摘要（R 类）：实体统计/版本/范围/警告。 |
+
 ### /execute
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
 | `POST` | `/execute` | 工艺参数下发（T类，paper_only默认） |
 
-### /experience
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| `GET` | `/experience` | 分页查询切削实测记录。 |
-
-### /experience/batch
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| `POST` | `/experience/batch` | 批量采集（MTConnect 管道 / CSV 导入）。 |
-
-### /experience/capture
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| `POST` | `/experience/capture` | 单条切削实测采集。 |
-
-### /experience/stats
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| `GET` | `/experience/stats` | 聚合统计（节拍/粗糙度/磨损均值、合格率、异常率）。 |
-
-### /experience/{record_id}
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| `DELETE` | `/experience/{record_id}` | 删除记录（管理用途）。 |
-| `GET` | `/experience/{record_id}` | 单条详情。 |
-
 ### /explain
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
 | `POST` | `/explain` | 模型预测结果解释 |
+
+### /gcode/failure-cases
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `GET` | `/gcode/failure-cases` | 最近运行案例列表（R 类），按时间倒序。 |
+
+### /gcode/failure-stats
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `GET` | `/gcode/failure-stats` | 失败案例库基线报表（R 类）：一次通过率 + 失败分布。 |
+
+### /gcode/jobs
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `GET` | `/gcode/jobs` | 最近 G 代码生成任务列表（R 类），按创建时间倒序。 |
+| `POST` | `/gcode/jobs` | 创建 G 代码生成任务（写类）：后台异步执行，返回 task_id。 |
+| `GET` | `/gcode/jobs/{task_id}` | 任务详情（R 类）：状态/错误/警告/特征摘要，G 代码全文按需索取。 |
 
 ### /health
 
@@ -1005,6 +1035,18 @@ Content-Type: application/json
 | 方法 | 路径 | 说明 |
 |------|------|------|
 | `POST` | `/predict` | LNN 预测（R类） |
+
+### /process-planning/run
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `POST` | `/process-planning/run` | 端到端工艺规划（写类，同步）：零件描述 → 工序 → G 代码。 |
+
+### /query
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `POST` | `/query` | 工艺理解主接口 |
 
 ### /stats
 
@@ -1984,6 +2026,37 @@ Attributes:
 | `tags` | `list[str] | None` | 否 | `None` |  | - |
 | `status` | `str | None` | 否 | `None` |  | - |
 
+### `ReflectionRequest`
+
+反思触发参数（与 DreamingCLI reflect 子命令对齐）。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `lookback_days` | `int` | 否 | `30` | 回看天数 | ≥ 1; ≤ 365 |
+| `max_sessions` | `int | None` | 否 | `None` | 最多提取的 Session 数 | ≥ 1 |
+| `instructions` | `str | None` | 否 | `None` | 反思指令（自然语言） | - |
+| `enable_llm` | `bool` | 否 | `True` | 启用 LLM 反思（False = 规则统计降级） | - |
+| `include_ar_02` | `bool` | 否 | `False` | 包含 AR-02 修复前数据 | - |
+
+### `PromoteRequest`
+
+灰度晋级参数。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `target_stage` | `str | None` | 否 | `None` | 目标阶段（shadow/canary/rolling_10/rolling_50/full），None=下一阶段 | - |
+| `metrics` | `dict[str, Any] | None` | 否 | `None` | 效果指标快照（accuracy/false_positive_rate/sample_size/error_rate） | - |
+
+### `RollbackRequest`
+
+一键回滚参数。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `reason` | `str` | 是 | `-` | 回滚原因（必填，入审计） | 最小长度: 1; 最大长度: 500 |
+| `severity` | `str` | 否 | `'manual'` | 严重级别（hard_constraint 立即废弃） | - |
+| `fully_deprecate` | `bool` | 否 | `False` | 强制完全废弃 | - |
+
 ### `DxfProcessRequest`
 
 | 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
@@ -1992,6 +2065,7 @@ Attributes:
 | `output_dir` | `str | None` | 否 | `None` |  | - |
 | `postprocessor` | `str | None` | 否 | `'fanuc_0i'` |  | - |
 | `user_id` | `str | None` | 否 | `None` |  | - |
+| `material` | `str` | 否 | `'45钢'` |  | - |
 
 ### `DxfBatchRequest`
 
@@ -2001,6 +2075,7 @@ Attributes:
 | `output_dir` | `str | None` | 否 | `None` |  | - |
 | `postprocessor` | `str | None` | 否 | `'fanuc_0i'` |  | - |
 | `user_id` | `str | None` | 否 | `None` |  | - |
+| `material` | `str` | 否 | `'45钢'` |  | - |
 
 ### `DxfE2EFixtureRequest`
 
@@ -2134,6 +2209,39 @@ NC 代码改写请求。
 | `elapsed_time` | `float` | 是 | `-` | 自上次校正以来的时间 (分钟) | > 0.0 |
 | `input_parameters` | `dict[str, Any]` | 是 | `-` | 当前切削参数（cutting_speed/feed_rate/depth_of_cut/material_type/tool_type/tool_diameter/current_wear） | - |
 
+### `EmbeddingEncodeRequest`
+
+三模态编码请求（至少提供一种模态特征）。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `llm_text_features` | `list[list[float]] | None` | 否 | `None` | 文本嵌入 [n,768] | - |
+| `lnn_state_features` | `list[list[float]] | None` | 否 | `None` | 状态特征 [n,18] | - |
+| `jepa_visual_features` | `list[list[float]] | None` | 否 | `None` | 视觉特征 [n,1024] | - |
+| `modality_weights` | `dict[str, float] | None` | 否 | `None` | 融合权重 {"llm":0.6,...} | - |
+
+### `EmbeddingIndexRequest`
+
+索引构建请求。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `layer` | `str` | 是 | `-` | 层名 cognitive/perception/execution | 最小长度: 1; 最大长度: 64 |
+| `vectors` | `list[list[float]]` | 是 | `-` | 512 维嵌入 [n,512] | 最小长度: 1 |
+| `metadata` | `list[dict[str, Any]] | None` | 否 | `None` | 与向量行数对齐的元数据 | - |
+
+### `EmbeddingQueryRequest`
+
+跨层检索请求。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `layer` | `str` | 是 | `-` |  | 最小长度: 1; 最大长度: 64 |
+| `query_vector` | `list[float]` | 是 | `-` | 512 维查询嵌入 | - |
+| `k` | `int` | 否 | `5` |  | ≥ 1; ≤ 100 |
+| `axis_weights` | `dict[str, float] | None` | 否 | `None` | 语义轴权重 {"material":0.8,...} | - |
+| `modality_filter` | `str | None` | 否 | `None` | 按元数据 modality 字段过滤 | - |
+
 ### `EquipmentUpdateRequest`
 
 更新设备状态和指标的请求体（白名单字段）。
@@ -2174,6 +2282,14 @@ status 必须为 ``_ALARM_VALID_STATUSES`` 之一（service 层二次校验）�
 | `last_date` | `str | None` | 否 | `None` | 上次维护日期 | - |
 | `next_date` | `str | None` | 否 | `None` | 下次维护日期 | - |
 | `status` | `str | None` | 否 | `None` | 计划状态 | - |
+
+### `LoopRunRequest`
+
+演化循环触发请求。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `target_prompt_id` | `str | None` | 否 | `None` | 提案目标提示词 ID（默认 orchestrator.gcode_repair.system） | - |
 
 ### `GenerateHiddenStateRequest`
 
@@ -2284,6 +2400,72 @@ status 必须为 ``_ALARM_VALID_STATUSES`` 之一（service 层二次校验）�
 |--------|------|------|--------|------|------|
 | `metrics` | `list[MetricDefinition]` | 是 | `-` |  | - |
 
+### `SyntheticGenerateRequest`
+
+合成数据生成请求（参数扫描网格）。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `material` | `str` | 否 | `'45steel'` | 材料标识（透传切削力预测器） | - |
+| `tool` | `str` | 否 | `'endmill_d10'` | 刀具标识 | - |
+| `rpm_values` | `list[float] | None` | 否 | `None` | 转速扫描档（默认 3 档） | - |
+| `feed_values` | `list[float] | None` | 否 | `None` | 进给扫描档（默认 3 档） | - |
+| `depth_values` | `list[float] | None` | 否 | `None` | 切深扫描档（默认 3 档） | - |
+| `stock` | `dict[str, float] | None` | 否 | `None` | 毛坯尺寸 {length,width,height} | - |
+| `dataset_name` | `str` | 否 | `'synthetic_machining_params_v1'` | 目标数据集名 | - |
+| `use_pinn` | `bool` | 否 | `False` | 切削力优先 PINN（无 torch 自动降级 Kienzle） | - |
+| `max_combinations` | `int` | 否 | `200` | 网格上限 | ≥ 1; ≤ 200 |
+
+### `SyntheticGenerateResponse`
+
+合成数据生成结果。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `success` | `bool` | 是 | `-` |  | - |
+| `dataset_id` | `str | None` | 否 | `None` |  | - |
+| `version` | `str | None` | 否 | `None` |  | - |
+| `total` | `int` | 否 | `0` |  | - |
+| `voxel_passed` | `int` | 否 | `0` |  | - |
+| `voxel_failed` | `int` | 否 | `0` |  | - |
+| `duration_seconds` | `float` | 否 | `0.0` |  | - |
+| `combos_skipped` | `int` | 否 | `0` |  | - |
+| `errors` | `list[str]` | 是 | `-` |  | - |
+| `message` | `str` | 否 | `''` |  | - |
+
+### `FeedbackSubmitRequest`
+
+用户反馈提交请求（标注 / 采纳 / 修正三选一）。
+
+``prediction_id`` 建议传编排器返回的 ``pipeline_id`` 或 G 代码任务
+``task_id``，使反馈可与失败案例库 / trace 关联（自进化血缘）。
+``metadata`` 可携带 ``prompt_id`` / ``prompt_version`` / 评分摘要，
+供提示词迭代按反馈质量分组。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `feedback_type` | `str` | 是 | `-` | annotation | adoption | correction | - |
+| `prediction_id` | `str | None` | 否 | `None` | 关联的预测/管线 ID（pipeline_id 或 task_id） | - |
+| `model_version` | `str | None` | 否 | `None` | 被反馈的模型/提示词版本标识 | - |
+| `original_output` | `dict[str, Any] | None` | 否 | `None` | 原始模型输出（correction 必填） | - |
+| `corrected_output` | `dict[str, Any] | None` | 否 | `None` | 用户修正后的输出（correction 必填） | - |
+| `accepted` | `bool | None` | 否 | `None` | 是否采纳（adoption 必填） | - |
+| `notes` | `str` | 否 | `''` | 用户备注 | - |
+| `user_id` | `str` | 否 | `'local'` | 反馈用户 ID | - |
+| `metadata` | `dict[str, Any] | None` | 否 | `None` | 扩展元数据（prompt_version 等） | - |
+| `flush` | `bool` | 否 | `False` | 提交后立即落盘（默认入缓冲区批量提交） | - |
+
+### `FeedbackSubmitResponse`
+
+用户反馈提交结果。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `feedback_id` | `str` | 是 | `-` | 反馈唯一 ID | - |
+| `feedback_type` | `str` | 是 | `-` | annotation | adoption | correction | - |
+| `flushed` | `bool` | 否 | `False` | 是否已立即落盘 | - |
+| `buffer_size` | `int` | 否 | `0` | 采集器当前缓冲区条数 | - |
+
 ### `GoalCreateRequest`
 
 目标对齐创建请求模型。
@@ -2300,6 +2482,19 @@ level/status 在端点内会再做枚举校验（GoalLevel / GoalStatus），
 | `name` | `str` | 否 | `''` | 目标名称 | - |
 | `description` | `str` | 否 | `''` | 目标描述 | - |
 | `parent_id` | `str | None` | 否 | `None` | 父目标ID（非 mission 必填） | - |
+
+### `SovereigntyUpdateRequest`
+
+主权设置部分更新：仅提交需要修改的字段。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `ai_autonomy_level` | `int | None` | 否 | `None` | 自主等级 0-4 | ≥ 0; ≤ 4 |
+| `require_confirmation_for_predict` | `bool | None` | 否 | `None` | 预测动作是否需确认 | - |
+| `require_confirmation_for_train` | `bool | None` | 否 | `None` | 训练动作是否需确认 | - |
+| `show_confidence_indicator` | `bool | None` | 否 | `None` |  | - |
+| `show_alternatives` | `bool | None` | 否 | `None` |  | - |
+| `show_reasoning` | `bool | None` | 否 | `None` |  | - |
 
 ### `CreateApprovalRequest`
 
@@ -2511,6 +2706,17 @@ Provider 调用测试请求体。
 | `max_tokens` | `int` | 否 | `256` |  | ≥ 1; ≤ 8192 |
 | `temperature` | `float` | 否 | `0.7` |  | ≥ 0.0; ≤ 2.0 |
 | `model` | `str | None` | 否 | `None` | 可选，覆盖默认模型 | - |
+
+### `ChatStreamRequest`
+
+流式对话请求。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `messages` | `list[dict[str, str]]` | 是 | `-` | 消息列表 [{role, content}] | - |
+| `max_tokens` | `int` | 否 | `2048` |  | ≥ 1; ≤ 32768 |
+| `temperature` | `float` | 否 | `0.7` |  | ≥ 0.0; ≤ 2.0 |
+| `model` | `str | None` | 否 | `None` | 模型名，None 使用当前激活模型 | - |
 
 ### `MaterialCreate`
 
@@ -3453,30 +3659,90 @@ version / description / author / license / spec 等字段。
 
 世界模型预测请求体.
 
-2026-11-12 行为更正：`POST /api/v1/world-model/predict` 与 `/preview` 必须解析并成功加载训练权重，缺失、损坏或结构不匹配时返回错误，不再返回随机初始化预测。网络结构以 checkpoint 的 `model_config` 为准；融合权重要求 `unified_state`，不再靠环境变量强行切换输入结构。响应 `model_info.weights_source` 成功时为 `checkpoint`。融合输出按训练八列读取（颤振、磨损、Ra、振动、温度/100、力归一化、MRR归一化、置信度），力归一化通道不能直接解释为牛顿。状态反馈模型另需在 `current_state` 中提供训练口径的完整八列。字段及示例见 [科研端修复记录](reports/research_reliability_fixes_20261112.md)。
-
-同日界面接入：`POST /predict` 可用 `feature_task_id` + `millimeters_per_unit` 代替直接提交 `unified_state`（两种来源互斥）。服务在预测时重新读取任务网格并使用已审核参数，`current_state` 至少含转速、进给、切深、磨损、振动、温度六项；不会补默认加工状态。已标定且来源路径一致的网格只能使用毫米尺度1，未标定网格要求明确的正有限换算值。详见[界面输入验收](reports/world_model_ui_inputs_20261112.md)。
-
-历史输入扩展：任务来源模式可提供`fusion_history`，此时`current_state`须为`{}`、`unified_state`须为空。`fusion_history`含`schema_version=1`、非空`source`、正有限`sample_period_seconds`及2至256条`samples`；每条含有限秒数`time_seconds`、完整六项动力学的`current_state`与完整四项delta的`action`。时间严格递增、等间隔；已知训练历史长度须匹配。反馈模型从末条读取反馈，并由摄氏温度派生温度/100。服务不截断、插值或补历史动作；同一任务的几何沿历史窗口保持不变。成功响应`model_info.input_history`保留声明来源、实际历史长度与间隔；来源核实标记为`user_declared`，训练采样间隔匹配始终为`unknown`。详见[历史输入格式与验收](reports/world_model_history_inputs_20261112.md)。本扩展用于`/predict`，`/preview`不接受历史序列。
-
-标准化契约：`GET /input-requirements`新增`input_normalization`（`none`或`train_zscore`）、`caller_input_units=original`。调用方始终提供原单位几何和动力学；新权重在网络入口依据`model_config.input_normalization`统一转换，禁止客户端重复z-score。动作、反馈及预测输出不变换单位。旧权重无此契约时按原行为推理；新权重的配置与持久buffer不一致、参数缺失/非有限/尺度非正时拒绝加载。实施与探索性重训结果见[标准化验收](reports/world_model_normalization_results_20261112.md)。
-
-增量尺度扩展：若checkpoint的`model_config.delta_output_normalization`存在，网络将增量头的相对数值还原成原单位增量；`state_feedback`必须为true，调用方提供实际末条状态。接口输入、反馈、响应均保持原单位，客户端不能再乘尺度。尺度buffer和元数据缺失/冲突会拒绝加载。训练损失尺度与推理增量尺度是不同配置，见[状态尺度验收](reports/world_model_state_scale_results_20261112.md)。
-
 与 ``app.contracts.world_model.WorldModelPredictRequest`` 对齐，
 但使用 Pydantic 以获得自动校验和 OpenAPI 文档。
 
 | 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
 |--------|------|------|--------|------|------|
-| `current_state` | `dict[str, float]` | 否 | `{}` | 原始模型需完整8项状态；直接融合输入可由`unified_state`提供动力学；任务来源需实际6项动力学。状态反馈模型另需训练口径8项反馈 | 有限数；各模式必需字段由服务校验 |
+| `current_state` | `dict[str, float]` | 是 | `-` | 当前加工状态（字段名见 StateField，至少包含全部 8 个状态字段）。融合模式下可为空（由 unified_state 提供状态信息） | - |
 | `candidate_action` | `dict[str, float]` | 是 | `-` | 候选切削参数调整量（字段名见 ActionField，4 个 delta 字段） | - |
-| `horizon` | `int` | 否 | `10` | 未来预测步数；界面超过已记录训练预测长度时提示外推风险 | ≥ 1; ≤ 100 |
+| `horizon` | `int` | 是 | `-` |  | - |
 | `model_uri` | `str` | 否 | `'model://world_model/1.0.0'` | 世界模型 URI | 最小长度: 1; 最大长度: 256 |
-| `unified_state` | `dict[str, Any] | None` | 否 | `None` | 直接提交融合几何和动力学；输入模式以权重配置为准，与任务来源互斥 | - |
-| `feature_task_id` | `str | None` | 否 | `None` | 从已审核特征任务读取网格，组装融合输入 | - |
-| `feature_task_updated_at` | `float | None` | 否 | `None` | 界面读取的任务修订时间；过期时拒绝预测并要求重新读取 | 有限数 |
-| `millimeters_per_unit` | `float | None` | 否 | `None` | 每个网格单位对应的毫米数；未标定来源必填，已标定来源只能为1 | 正有限数 |
-| `fusion_history` | `dict[str, Any] | None` | 否 | `None` | 有来源声明的等间隔加工状态及实际动作；需零件任务，与手动状态互斥 | 2至256条；记录格式版本1 |
+| `unified_state` | `dict[str, Any] | None` | 否 | `None` | ADR-020 思路 1 融合模式可选输入。包含几何特征（ADR-007）与动力学状态（ADR-013）的统一状态字典。提供时走融合路径（GeometryEncoder/DynamicsEncoder/FusionLayer）。为 None 时走原始 state_dim 字段拼接路径（向后兼容）。输入模式由训练权重的 model_config 决定 | - |
+| `feature_task_id` | `str | None` | 否 | `None` | 已审核的零件特征任务ID，由服务端重新读取几何 | - |
+| `feature_task_updated_at` | `float | None` | 否 | `None` | 界面读取的任务修订时间，防止使用过期几何摘要 | - |
+| `millimeters_per_unit` | `float | None` | 否 | `None` | 未标定网格每单位对应的毫米数 | > 0 |
+| `fusion_history` | `dict[str, Any] | None` | 否 | `None` | 来源声明、等间隔时间及逐时刻状态/动作；仅用于零件任务融合预测 | - |
+
+### `GeometryInputRequest`
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `feature_task_id` | `str` | 是 | `-` |  | 最小长度: 1; 最大长度: 256 |
+| `millimeters_per_unit` | `float | None` | 否 | `None` |  | > 0 |
+
+### `WorldModelPreviewRequest`
+
+物理预演请求体（与 /predict 同构，另加安全盾开关）.
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `current_state` | `dict[str, float]` | 是 | `-` | 当前加工状态（字段名见 StateField） | - |
+| `candidate_action` | `dict[str, float]` | 是 | `-` | 候选切削参数调整量（ActionField delta，[-1, 1]） | - |
+| `horizon` | `int` | 是 | `-` |  | - |
+| `unified_state` | `dict[str, Any] | None` | 否 | `None` | ADR-020 融合模式可选输入 | - |
+| `apply_shield` | `bool` | 否 | `True` | 是否经 SafetyShield 过滤（默认开启，仅供测试关闭） | - |
+
+### `GCodeJobRequest`
+
+创建 G 代码生成任务请求。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `chatter_report_path` | `str` | 是 | `-` |  | 最小长度: 1; 最大长度: 1024 |
+| `operation_plan_path` | `str` | 是 | `-` |  | 最小长度: 1; 最大长度: 1024 |
+| `controller_type` | `str` | 否 | `'fanuc_0i'` |  | - |
+| `material_name` | `str` | 否 | `'45#钢'` |  | - |
+
+### `CandidateContent`
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `feature` | `Identifier` | 是 | `-` |  | - |
+| `process` | `Identifier` | 是 | `-` |  | - |
+| `tool` | `Identifier` | 是 | `-` |  | - |
+| `material` | `Identifier` | 是 | `-` |  | - |
+| `parameters` | `dict[str, PositiveParameter]` | 是 | `-` |  | 最小长度: 1; 最大长度: 64 |
+| `candidate_context` | `dict` | 是 | `-` |  | - |
+| `chunk_ids` | `list[str]` | 是 | `-` |  | 最大长度: 64 |
+| `tags` | `list[str]` | 是 | `-` |  | 最大长度: 32 |
+
+### `CandidateSubmission`
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `submission_id` | `Identifier` | 是 | `-` |  | - |
+| `content` | `CandidateContent` | 是 | `-` |  | - |
+
+### `ProcessPlanningRequest`
+
+工艺规划请求。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `part_description` | `dict[str, Any]` | 是 | `-` | 零件描述：material 必填 + holes 列表 | - |
+| `controller_type` | `str` | 否 | `'fanuc_0i'` |  | - |
+| `safe_z` | `float` | 否 | `50.0` |  | ≥ 1.0; ≤ 500.0 |
+| `program_number` | `int` | 否 | `1000` |  | ≥ 1; ≤ 9999 |
+
+### `AgentRuntimeRunRequest`
+
+AgentRuntime 执行请求。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `task` | `str` | 是 | `-` | 任务描述（自然语言） | 最小长度: 1 |
+| `record` | `bool` | 否 | `True` | 是否把轨迹落盘（评估/回放场景可关） | - |
 
 ### `TaskCreateRequest`
 
@@ -3628,6 +3894,8 @@ version / description / author / license / spec 等字段。
 | `safe_z` | `float` | 否 | `80.0` | 安全 Z 高度 (mm)，CollisionDetector 用于碰撞检测。 | - |
 | `stock_top_z` | `float` | 否 | `50.0` | 毛坯顶面 Z (mm)，CollisionDetector 用于 AABB 包围盒计算。 | - |
 | `cam_backend` | `str` | 否 | `'internal_only'` | CAM 后端：internal_only（仅内部预校验）/ pycam / nx_open / powermill / manual。CAM 软件不可用时自动降级到 manual。 | - |
+| `tool_diameter_mm` | `float | None` | 否 | `None` | 实际装刀直径 (mm，可选)。提供时体素材料去除仿真基于该直径执行（tool_source=actual）；缺省回退配置默认值并向任务写警告，提示工程师对照刀具表确认。 | - |
+| `tool_type` | `str` | 否 | `''` | 实际刀具类型（可选，如 end_mill / ball_end_mill），随体素仿真报告落盘。 | - |
 
 ### `TaskCreateResponse`
 
@@ -4028,6 +4296,7 @@ STEP 文件路径仅作追溯用，本模块不重新解析 STEP，
 | `estimated_cutting_time_s` | `float` | 是 | `-` |  | - |
 | `tool_life_estimate_min` | `float` | 是 | `-` |  | - |
 | `warnings` | `list[str]` | 是 | `-` |  | - |
+| `stability_evidence` | `dict[str, Any]` | 是 | `-` | 稳定性证据（B1）：limit_depth_mm / margin_ratio / status(ok|marginal|violated|unavailable) / lobe_sample。status=unavailable 时含 reason，不伪造数值。 | - |
 | `review_status` | `str` | 是 | `-` |  | - |
 | `edited_params` | `dict[str, Any]` | 是 | `-` |  | - |
 | `effective_params` | `dict[str, Any]` | 是 | `-` |  | - |
@@ -4434,6 +4703,8 @@ Response model for NL to CAD conversion.
 | `model_path` | `str` | 是 | `-` | 生成的模型文件路径 | - |
 | `params` | `dict[str, Any]` | 是 | `-` | 提取的CAD参数 | - |
 | `confidence` | `float` | 是 | `-` | 参数提取置信度 | ≥ 0.0; ≤ 1.0 |
+| `script` | `str` | 否 | `''` | 等价参数化 CadQuery 模板脚本（顶层命名尺寸变量），供滑杆调参重执行 | - |
+| `parameters` | `dict[str, float]` | 是 | `-` | 脚本可调参数表（参数名 → 当前值 mm）；为空表示脚本不可参数化 | - |
 
 ### `RefineRequest`
 
@@ -4470,6 +4741,34 @@ Response model for parameter extraction.
 |--------|------|------|--------|------|------|
 | `params` | `dict[str, Any]` | 是 | `-` | 提取的CAD参数 | - |
 | `confidence` | `float` | 是 | `-` | 置信度 | ≥ 0.0; ≤ 1.0 |
+
+### `RegenerateParamsRequest`
+
+Request model for parameter-driven regeneration (no LLM).
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `script` | `str` | 是 | `-` | 此前生成的 CadQuery 脚本（/generate 返回的 script） | 最小长度: 1; 最大长度: 50000 |
+| `params` | `dict[str, float]` | 是 | `-` | 要覆写的尺寸参数（键必须来自该脚本的参数表） | - |
+| `output_format` | `str` | 否 | `'step'` | 输出格式 | 正则: `^(stl|step|obj|gltf)$` |
+| `task_id` | `str | None` | 否 | `None` | 任务 ID（缺省自动生成） | - |
+
+### `RegenerateParamsResponse`
+
+Response model for parameter-driven regeneration.
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `model_path` | `str` | 是 | `-` | 重新生成的模型文件路径 | - |
+| `params` | `dict[str, float]` | 是 | `-` | 覆写后的完整参数表 | - |
+
+### `RegenerateParamsError`
+
+Error detail for parameter-driven regeneration.
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `detail` | `str` | 是 | `-` | 失败原因（未知参数 / 非法值 / 执行失败） | - |
 
 ### `ProcessPlanningRequest`
 
@@ -4665,6 +4964,59 @@ Response model for full pipeline execution.
 | `download_url` | `str` | 是 | `-` |  | - |
 | `step_disclaimer` | `dict[str, Any]` | 是 | `-` |  | - |
 
+### `DrillingLimits`
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `schema_version` | `StrictInt` | 是 | `-` |  | ≥ 1; ≤ 1 |
+| `hardness_min_hrc` | `float` | 是 | `-` |  | ≥ 0; ≤ 100 |
+| `hardness_max_hrc` | `float` | 是 | `-` |  | ≥ 0; ≤ 100 |
+| `hardness_max_inclusive` | `StrictBool` | 是 | `-` |  | - |
+| `diameter_min_mm` | `float` | 是 | `-` |  | > 0 |
+| `diameter_max_mm` | `float` | 是 | `-` |  | > 0 |
+| `max_depth_to_diameter` | `float` | 是 | `-` |  | > 0 |
+| `coolants` | `list[Coolant]` | 是 | `-` |  | 最小长度: 1 |
+| `workholdings` | `list[Workholding]` | 是 | `-` |  | 最小长度: 1 |
+
+### `MachiningConditions`
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `tool` | `str` | 是 | `-` |  | 最小长度: 1; 最大长度: 128 |
+| `hardness_hrc` | `float` | 是 | `-` |  | ≥ 0; ≤ 100 |
+| `diameter_mm` | `float` | 是 | `-` |  | > 0 |
+| `depth_mm` | `float` | 是 | `-` |  | > 0 |
+| `coolant` | `Coolant` | 是 | `-` |  | - |
+| `workholding` | `Workholding` | 是 | `-` |  | - |
+
+### `ReviewAction`
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `expected_revision` | `int` | 是 | `-` |  | ≥ 1 |
+| `decision` | `Literal[approved, rejected, revoked, revise]` | 是 | `-` |  | - |
+| `note` | `str` | 是 | `-` |  | 最小长度: 1; 最大长度: 4000 |
+| `evidence` | `dict[str, Any] | None` | 否 | `None` |  | - |
+| `replacement` | `dict[str, Any] | None` | 否 | `None` |  | - |
+
+### `SourceFact`
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `key` | `StrictStr` | 是 | `-` |  | 最小长度: 1; 最大长度: 80 |
+| `value` | `StrictStr` | 是 | `-` |  | 最小长度: 1; 最大长度: 2000 |
+| `pdf_pages` | `list[StrictInt]` | 是 | `-` |  | 最小长度: 1; 最大长度: 10 |
+| `locator` | `StrictStr` | 是 | `-` |  | 最小长度: 1; 最大长度: 500 |
+
+### `SourceSupplement`
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `document_sha256` | `StrictStr` | 是 | `-` |  | - |
+| `shared_facts` | `list[SourceFact]` | 是 | `-` |  | 最小长度: 1 |
+| `materials` | `dict[StrictStr, list[SourceFact]]` | 是 | `-` |  | - |
+| `open_questions` | `list[StrictStr]` | 是 | `-` |  | 最小长度: 1 |
+
 ### `ExplainRequest`
 
 模型预测结果解释请求（修复：拆分时丢失的类型定义，2026-08-03）
@@ -4677,6 +5029,14 @@ Response model for full pipeline execution.
 | `wear_conf` | `float` | 否 | `0.0` | 刀具磨损置信度 (%) | - |
 | `visual_status` | `str` | 否 | `''` | 工件状态描述 | - |
 | `anomaly_prob` | `float` | 否 | `0.0` | 异常概率 (%) | - |
+
+### `QueryRequest`
+
+工艺理解主接口请求。
+
+| 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
+|--------|------|------|--------|------|------|
+| `query` | `str` | 是 | `-` | 用户自然语言输入 | 最小长度: 1; 最大长度: 2000 |
 
 ### `SimulationRequest`
 
@@ -4791,7 +5151,7 @@ Attributes:
 
 | 字段名 | 类型 | 必填 | 默认值 | 说明 | 约束 |
 |--------|------|------|--------|------|------|
-| `nc_code` | `str` | 否 | `''` | G-code text content for toolpath visualization. | - |
+| `nc_code` | `str` | 否 | `''` | G-code text content for toolpath visualization (capped at 200KB to bound render cost). | 最大长度: 200000 |
 | `format` | `str` | 否 | `'gif'` | Output format: gif or mp4. | 正则: `^(gif|mp4)$` |
 | `voxel_size` | `float` | 否 | `1.0` | Voxel resolution in mm. | ≥ 0.1; ≤ 10.0 |
 | `tool_diameter` | `float` | 否 | `10.0` | Tool diameter in mm. | ≥ 0.5; ≤ 300.0 |
@@ -5028,143 +5388,3 @@ Kienzle 正向切削力计算请求。
 ---
 
 *本文档由 API 文档自动生成系统生成，如有疑问请联系开发团队。*
-
-### 2026-10-16：NC 下发与评分响应契约补充
-
-- `POST /api/v1/dnc/nc-program/send` 保持请求字段不变。默认门禁新增内容一致性检查：
-  阶段 7 记录 `source_gcode_sha256`，必须与本次发送内容一致；旧记录没有指纹、
-  或内容改变，均返回 HTTP 403 / `NC_NOT_VALIDATED`（8013），要求重新校验与审核。
-  下发使用检查过的私有内容快照，原路径在网络等待期间改变不会替换本次发送内容。
-  显式历史程序逃生阀及审计要求不变。没有实机安全认证含义。
-- CAM 任务及导出报告新增 `source_gcode_sha256`；加载结果增加 `gcode_sha256`。
-  摘要来自一次读取的原始 UTF-8 字节，文本校验消费该次读取内容。
-- 统一评分报告增加 `dimensions_complete`、`fully_validated` 和
-  `validation_scope="software_checks_only"`。`passed` 保留原有部分评分语义；
-  完整验收须三维度均实际执行并通过，且体素报告有切削段和非零材料去除。
-  内置 Agent 的 evaluate_gcode 工具透传这些标志，并接受 cutting_params 对象，
-  所需键为 spindle_rpm、feed_rate、depth_of_cut。
-# 工艺推荐的业务状态（2026-10-16）
-
-`GET /api/agent/v1/cam/process-recommend` 保留 `recommendations` 列表，新增 `recommendation_status` 和 `hint`。
-`matched` 表示存在匹配项；`knowledge_empty` 表示四元组知识库没有数据；`no_match` 表示有知识但此次查询没有命中。
-I15 增加 `knowledge_requires_review`：有知识记录但有效批准数量为零，不能作为正式推荐；
-统计接口增加 `approved_quadruples`，与 `total_quadruples` 分别表示有效批准和全部记录数量。
-后两种状态仍返回 HTTP 200 / code=0，表示查询执行成功，不能作为工艺推荐验收通过的依据。
-有匹配项也不等于完成物理校验或允许下发。知识缺失时不得补造加工参数。
-
-工艺四元组单例默认持久化到 `engineering/python/data/entity_index/process_quadruple.json`，
-可用 `LINGJING_PROCESS_KNOWLEDGE_DIR` 指定数据目录（在第一次获取索引前配置）。
-单条和批量新增只有在原子替换文件成功后才确认成功；失败会撤回此次内存新增并返回错误，原文件保留。
-损坏文件会停止加载并报错，不会作为空库继续写入。
-读取接口不再自动填入默认配方；显式 `/api/rag/process/seed` 添加的是 `source=example` 演示记录，
-不参与正式推荐。正式推荐要求针对明确材料的有效批准记录；其他材料和通用记录仍可由相似查询作为参考返回。
-
-来源增强：省略 `source` 的四元组标为 `unverified`；来源标识去空白、转小写。
-任何来源标识（包括 `manual`、`experiment`、`generated_validated`）均不能绕过审核，
-未审核记录仍可在相似参考查询中查看。仿真通过不自动升级为工艺知识批准。
-孔加工草案的 `cutting_parameters` 新增 `source` 和 `source_verified=false`，保留原有参数字段。
-匹配器会提示该来源尚未核验；适用度评分不等于来源可信度或机床校验结果。
-
-材料与刀具规格整改：孔加工草案的工具增加 `diameter_range_mm` 与 `diameter_verified`。
-范围型刀具不再以区间中点作为固定直径；范围内选取的目标尺寸标为候选，`diameter_verified=false`，评分上限 50。
-固定精确尺寸优先；过大或过小钻头不能称为目标孔的匹配规格。缺少具体钻头会返回待确认候选，
-缺少中心钻则直径为 0（未知），不会借用最终孔径。`diameter_verified=true` 仅表示记录给出了确定尺寸，
-不证明实际库存、安装或机床验证通过。
-参数查询通过已知旧 ID 别名或唯一精确材料名称关联规范材料，禁止用子串或同类材料代替牌号。
-孔刀具匹配会同时核对参数中的刀具材质；WC/carbide 的内部别名归一化不会合并 HSS 或涂层材质。
-
-工艺知识审核（I13）：新增记录由服务端生成 `record_id`，初始 `revision=1`、`review.status=pending`。
-新增与修订请求中的审核元数据不受信任，不会导入批准状态。
-读取 `GET /api/rag/process/review/records` 后，向 `POST /api/rag/process/review/{record_id}` 提交：
-
-```json
-{"expected_revision": 1, "decision": "rejected", "note": "来源材料映射尚未确认"}
-```
-
-`decision` 可为 `approved`、`rejected`、`revoked`、`revise`。
-待审可批准或拒绝；已批准可撤销；所有状态均可修订后重新待审。
-修订需 `replacement` 完整四元组；批准需 `evidence` 包含 HTTPS `source_url`、
-文档 `document_sha256`、正整数 `page`、明确匹配的 `material`/`tool`、
-与所有参数键对应的 `parameter_units`、非空 `applicability`/`verification_method`、`unresolved=[]`。
-当前批准契约要求参数为有限正数；范围需拆为带单位的上下界。`general` 材料不能批准。
-审核身份取自登录用户，只接受非访客工程师或管理员；即便关闭一般权限检查，匿名身份也不能审核。
-请求不接受自报 `actor`。字段格式错误返回 422；依据不完整返回 400；记录不存在返回 404；
-旧版本或非法状态转换返回 409；存储失败返回 503 并撤回内存和索引变更。
-每次变更递增版本，保留旧内容快照、审核人、时间和说明；内容及审核历史在同一文件原子保存。
-只有当前版本内容摘要匹配且依据完整的批准记录进入推荐。修改内容自动重新待审，撤销立即停止推荐。
-旧文件缺少审核字段时按待审加载，不因历史来源标签自动批准。
-I14 增加可选 `candidate_context`，用于新增和修订时保存待审依据：来源链接、文档校验值、页码、
-参数单位、适用条件、核验方法、未解决事项和资料说明。它只保存候选信息，不能写入审核状态或审核人。
-字段类型错误、未知字段以及伪造批准字段会被拒绝；审批仍使用独立的 `evidence` 和登录审核人。
-省略该字段的旧记录按空对象读取；参数单位与来源不再因新增待审或修订而丢失。
-该机制验证审核契约与追溯性，不自动验证远程文档内容、现场工况或参数安全性，也不代替体素、DNC 和实物验收。
-持久化适用于当前单后端进程；多个写进程共享目录尚无跨进程锁，禁止据此宣称支持多进程并发审核。
-
-Agent 候选提交（I15）：请求为 `{"submission_id":"stable_id","content":{...}}`。
-content 必填 feature、process、tool、material、parameters；四个标识使用 1–64 位 ASCII 字母数字、下划线或连字符。
-参数为最多 64 项有限正数；可携带 candidate_context、chunk_ids、tags。请求上限 64KB。
-Agent 身份来自网关验证后的 token，来源统一为 `agent_candidate`，排序权重 0.5，初始状态 pending。
-请求不能指定审核人、批准状态、来源可信等级、记录标识或提交所有者。
-写请求仍需 `Idempotency-Key` 请求头；该路由不读取通用短期响应缓存，改用记录中的 submission 持久去重。
-同一 Agent、submission_id 和规范内容再次提交返回 created=false 及当前版本；改变内容复用编号返回 409。
-人工修订保留原始提交指纹，重试不会覆盖人工结果或重新变成待审；失败写盘不留下候选。
-读取仅允许当前 Agent 的候选，未知或其他 Agent 的记录统一返回 404。
-GET 返回 record、eligible_for_recommendation、next_action 和 review_url；只有有效批准时 next_action=query_recommendation。
-Agent 工具不包含批准接口。人工审批仍在原审核页面中通过工程师或管理员身份完成。
-
-MCP 新增 cam_submit_knowledge_candidate(submission_id, content) 与 cam_get_knowledge_candidate(record_id)。
-可使用 `LINGJING_MCP_KNOWLEDGE_TOOLS=0` 关闭注册。提交工具自动提供请求级 Idempotency-Key，
-稳定业务提交编号放在 submission_id；调用失败不会宣称已经入库，也不会自动批准。
-MCP HTTP 错误携带 detail.http_status 和 detail.retryable。409 要求核对已有候选，422 要求修改输入；
-认证、权限、未知记录和大小错误不会被标成可直接重试。服务异常和限流可按相同业务编号及内容恢复，不自动循环重试。
-
-### I17：钻孔适用条件核验（2026-10-17）
-
-`GET /api/agent/v1/cam/process-recommend` 新增可选查询参数 `conditions`（JSON对象字符串，最多4096字符）。
-保持旧调用可达，但省略现场条件时不能得到正式参数。当前仅支持 feature=hole、process=drill/drilling，
-硬度单位为HRC，尺寸单位为mm；不自动转换HB/HV，不扩展到铣削或其他加工方式。
-
-现场条件示例仅为合成测试，不能用于真实加工：
-
-```json
-{"tool":"fixture_d8","hardness_hrc":20,"diameter_mm":8,"depth_mm":32,"coolant":"flood","workholding":"vise"}
-```
-
-tool 必须匹配当前记录刀具标识（去除首尾空白、不区分大小写），不能用刀具材质或系列名替代。
-coolant 允许 dry/flood/mist/through_tool；workholding 允许 vise/chuck/fixture/collet。
-硬度为0–100 HRC，孔径和孔深为有限正数，拒绝布尔、数字字符串、未知字段及非有限数。
-部分条件可以查询，响应缺失字段；格式非法返回422，不反射NaN数值或伪装成500。
-
-响应新增 `applicability_checks`，逐条包含 record_id、revision、status、missing、mismatched。
-missing列出缺失字段；mismatched列出tool/hardness_hrc/diameter_mm/depth_mm/coolant/workholding中的不符项。
-被拦截的检查条目不携带参数。只有matched条目参与排序和top_k截取。
-业务状态新增conditions_missing、conditions_mismatch、unsupported_process；保留knowledge_empty、knowledge_requires_review、no_match、matched。
-响应固定 `physical_validation_required=true`，适用性核验不等于仿真或实物验收。
-
-批准 evidence 现在必须包含完整 `constraints`：
-
-```json
-{
-  "schema_version":1,
-  "hardness_min_hrc":0,
-  "hardness_max_hrc":24,
-  "hardness_max_inclusive":false,
-  "diameter_min_mm":8,
-  "diameter_max_mm":8,
-  "max_depth_to_diameter":4,
-  "coolants":["flood"],
-  "workholdings":["vise"]
-}
-```
-
-此示例仍为合成范围。硬度下界包含边界，上界由hardness_max_inclusive明确；孔径包含上下界，深径比允许相等。
-schema_version严格为整数1；范围下界不得超过上界，排除空的硬度区间；冷却与装夹允许列表不能为空。
-constraints只规定审核范围，不可反推或填造现场条件。
-候选candidate_context允许保存局部constraints草稿；草稿不能参与批准或推荐。
-
-服务端为批准依据生成 evidence_digest，并同时检查当前内容摘要、证据摘要、批准版本和身份。
-缺少结构化范围或证据摘要的旧批准不再参与正式推荐；必须人工修订并重新审核，系统不会自动补全或批准。
-修订和撤销会立即使相应版本失去推荐资格；版本历史保留范围和来源。
-
-MCP `cam_recommend_process` 与本地Agent的 `rag_recommend_process` 均新增conditions对象参数。
-本地知识增强器在没有现场条件时不会注入正式参数。安装在Nexent的旧工具schema和Skill需要单独刷新；源码更新不代表线上更新完成。
