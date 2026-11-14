@@ -18,6 +18,7 @@ from __future__ import annotations
 import asyncio
 import json
 import re
+from pathlib import Path
 from typing import Any
 
 import pytest
@@ -180,31 +181,20 @@ class Test3ViewToNCConversion:
         self.gcode_validator = GCodeValidator()
 
     # 认知层：用户意图解析
+    # 2026-11-14（A1 清理）：原 test_user_intent_extraction 依赖 app.ai.agents.UnderstandingAgent，
+    # 该 Agent 契约已在 v2.5 重构中移除（现由 app.ai.process_understanding 承担，接口不同）。
+    # 按 A1 口径改为对现行模块的真实契约断言（规则分类第一级，不依赖 LLM）。
 
-    def test_user_intent_extraction(self, material_steel_45, it8_tolerance_data, production_batch_100):
-        """认知层验证：用户意图解析准确率 > 95%."""
-        try:
-            from app.ai.agents import UnderstandingAgent, AgentContext
-        except ImportError as e:
-            pytest.skip(f"Agent模块导入失败: {e}")
+    def test_process_understanding_rule_classification(self):
+        """认知层验证：工艺理解模块的规则分类可命中（无 LLM 依赖）."""
+        from app.ai.process_understanding import TaskClassifier, TaskType
 
-        agent = UnderstandingAgent()
-        context = AgentContext(
-            user_input=f"加工{material_steel_45.name}法兰盘，IT8级精度，批量{production_batch_100['quantity']}件"
+        classifier = TaskClassifier()
+        result = asyncio.new_event_loop().run_until_complete(
+            classifier.classify("45钢法兰盘铣削，切削参数推荐")
         )
-
-        try:
-            result = asyncio.new_event_loop().run_until_complete(agent.execute(context))
-            assert result.extracted_params, "应提取到参数"
-            params = result.extracted_params
-            assert any(
-                keyword in json.dumps(params, ensure_ascii=False).lower() for keyword in ["45", "钢", "steel"]
-            ), f"应识别出材料类型，实际: {params}"
-            assert result.stage_status == "completed", f"理解阶段应完成，实际: {result.stage_status}"
-        except Exception as e:
-            _ = e
-            params = context.extracted_params
-            assert isinstance(params, dict), "降级后仍应返回字典"
+        assert result.task_type == TaskType.PROCESS_CONSULT, f"应识别为工艺咨询，实际: {result.task_type}"
+        assert 0.0 < result.confidence <= 1.0, f"置信度应在(0,1]，实际: {result.confidence}"
 
     def test_constraint_extraction_completeness(self, it8_tolerance_data, machining_params_steel):
         """认知层验证：工艺约束提取完整性 100%."""
@@ -227,24 +217,17 @@ class Test3ViewToNCConversion:
     # 感知层：CadQuery模型生成（I-JEPA 模块已于 v2.5 移除）
 
     def test_cadquery_3d_model_generation(self, temp_dir, standard_3view_images):
-        """感知层验证：CadQuery 3D模型生成完整性."""
+        """感知层验证：CadQuery 3D模型生成完整性（现行 generate_3d_model 契约）."""
         import asyncio as aio
 
-        try:
-            from app.cad.cadquery_gen import CadQueryGenerator
-        except ImportError:
-            pytest.skip("CadQuery或相关依赖未安装")
+        from app.cad.cadquery_gen import CadQueryGenerator
 
         generator = CadQueryGenerator()
 
         async def _run():
             return await generator.extract_geometry_params_from_views(standard_3view_images)
 
-        try:
-            params = aio.new_event_loop().run_until_complete(_run())
-        except Exception:
-            params = {"dimensions": {"length": 100.0, "width": 60.0, "height": 30.0}}
-
+        params = aio.new_event_loop().run_until_complete(_run())
         # 处理嵌套维度参数
         dims = params.get("dimensions", params)
 
@@ -253,21 +236,21 @@ class Test3ViewToNCConversion:
             f"至少应包含基本尺寸参数，实际: {list(dims.keys())}"
         )
 
-        # 验证STL导出能力
-        try:
-            model = generator.generate_from_params(
-                length=dims.get("length", 100.0),
-                width=dims.get("width", 60.0),
-                height=dims.get("height", 30.0),
+        # 现行 API：generate_3d_model(params) 直接导出 STL 并返回路径
+        model_path = Path(
+            generator.generate_3d_model(
+                {
+                    "shape_type": "box",
+                    "dimensions": {
+                        "length": float(dims.get("length", 100.0)),
+                        "width": float(dims.get("width", 60.0)),
+                        "height": float(dims.get("height", 30.0)),
+                    },
+                }
             )
-            assert model is not None, "3D模型生成失败"
-        except (AttributeError, TypeError):
-            pytest.skip("CadQuery生成器API不匹配")
-
-        stl_path = temp_dir / "test_output.stl"
-        generator.export_stl(model, str(stl_path))
-        assert stl_path.exists(), "STL文件导出失败"
-        assert stl_path.stat().st_size > 0, "STL文件为空"
+        )
+        assert model_path.exists(), f"STL 文件未生成: {model_path}"
+        assert model_path.stat().st_size > 0, "STL文件为空"
 
     def test_3d_model_integrity_check(self, temp_dir):
         """感知层验证：3D模型完整性100%（无缺失面/破损）."""
@@ -339,57 +322,33 @@ class Test3ViewToNCConversion:
         assert error < 15.0, f"切削力预测误差{error:.1f}%超出合理范围"
 
     def test_parameter_agent_lnn_integration(self, material_steel_45, it8_tolerance_data):
-        """执行层验证：LNN增强参数Agent分层推理策略."""
-        try:
-            from app.ai.parameter_agent_lnn import ParameterAgentLNN
-            from app.ai.agents import AgentContext
+        """执行层验证：LNN 推理引擎可初始化契约（现行 app.ai.lnn 接口）."""
+        from app.ai.lnn.engine import HybridInferenceEngine
 
-            agent = ParameterAgentLNN()
-            context = AgentContext(
-                user_input=f"加工{material_steel_45.name}零件，精度IT8级",
-                extracted_params={
-                    "material": material_steel_45.name,
-                    "tolerance": "IT8",
-                    "roughness": "Ra3.2",
-                },
-            )
-
-            result = asyncio.new_event_loop().run_until_complete(agent.execute(context))
-
-            assert result.cutting_parameters, "应生成切削参数"
-            assert result.stage_status == "completed", "参数生成阶段应完成"
-
-        except ImportError:
-            pytest.skip("ParameterAgentLNN模块未安装")
+        engine = HybridInferenceEngine()
+        stats = engine.get_engine_stats()
+        assert isinstance(stats, dict), f"应返回引擎统计字典，实际: {type(stats)}"
+        assert stats.get("stub_implementation") is False, "推理引擎不应为 stub 实现"
+        assert "total_inferences" in stats, "统计应包含推理计数"
 
     # 执行层：Rule Engine安全规则验证
 
     def test_safety_rules_coverage(self, machining_params_steel):
-        """执行层验证：Rule Engine安全规则执行覆盖率 100%."""
-        try:
-            from app.rules.safety_constraint_rules import SafetyRuleEngine
+        """执行层验证：安全规则库加载与优先级覆盖（现行 from_yaml 契约）."""
+        from app.rules.safety_constraint_rules import SafetyRuleEngine
 
-            engine = SafetyRuleEngine()
+        rules_path = Path(__file__).resolve().parents[4] / "config" / "safety_rules.yaml"
+        assert rules_path.exists(), f"规则文件不存在: {rules_path}"
 
-            # 兼容不同API版本
-            try:
-                rules = engine.get_rules()
-            except AttributeError:
-                rules = getattr(engine, "rules", [])
-                if not rules:
-                    rules = getattr(engine, "_rules", [])
+        engine = SafetyRuleEngine.from_yaml(str(rules_path))
+        rules = engine.rules
 
-            if not rules:
-                pytest.skip("安全规则库为空")
+        assert rules, "安全规则库为空"
+        assert engine.rule_count == len(rules), "规则计数应与规则列表一致"
 
-            assert len(rules) > 0, "安全规则库为空"
-
-            # 验证规则优先级覆盖
-            priorities_found = {getattr(rule, "priority", None) for rule in rules}
-            assert len(priorities_found) >= 2, f"安全规则优先级覆盖不足: {priorities_found}"
-
-        except ImportError:
-            pytest.skip("安全规则引擎模块未安装")
+        # 验证规则优先级覆盖（P0/P1/P2/P3 至少两类）
+        priorities_found = {rule.priority for rule in rules}
+        assert len(priorities_found) >= 2, f"安全规则优先级覆盖不足: {priorities_found}"
 
     def test_cutting_constraint_validation(self, material_steel_45, machining_params_steel):
         """执行层验证：切削参数约束校验."""
@@ -427,24 +386,9 @@ class Test3ViewToNCConversion:
             pytest.skip("约束校验模块未安装")
 
     # 执行层：NC代码生成
-
-    def test_nc_code_generation_flow(self, sample_process_card):
-        """执行层验证：NC代码生成逻辑完整."""
-        try:
-            from app.ai.agents import AgentContext
-        except ImportError:
-            pytest.skip("Agent模块不可用")
-
-        context = AgentContext()
-        context.process_route = sample_process_card.operations
-        context.cutting_parameters = sample_process_card.cutting_parameters
-        context.extracted_params = {
-            "material": sample_process_card.material,
-            "part_type": "法兰盘",
-        }
-
-        assert len(context.process_route) >= 3, "工艺路线应至少包含3道工序"
-        assert context.cutting_parameters, "切削参数不为空"
+    # 2026-11-14（A1 清理）：原 test_nc_code_generation_flow 依赖 app.ai.agents.AgentContext，
+    # 且断言对象仅为测试夹具（process_card）本身，未触达产品代码路径。按 A1 口径删除；
+    # NC 生成链路的真实校验由下方 G-code 语法/安全/完整性三项测试覆盖。
 
     def test_gcode_syntax_validation(self, sample_gcode_fanuc):
         """执行层验证：G-code语法检查 100%通过."""
@@ -481,50 +425,32 @@ class Test3ViewToNCConversion:
             assert result["is_valid"], f"{name} G-code语法错误: {result['errors']}"
 
     # 认知层：方案验证
-
-    def test_verification_mechanism(self, sample_process_card):
-        """认知层验证：方案验证机制有效性."""
-        try:
-            from app.ai.agents import VerificationAgent, AgentContext
-        except ImportError:
-            pytest.skip("Agent模块不可用")
-
-        agent = VerificationAgent()
-        context = AgentContext()
-        context.process_route = sample_process_card.operations
-        context.cutting_parameters = sample_process_card.cutting_parameters
-        context.nc_code = "%\nG21 G90\nG01 X10 F500\nM30\n%"
-
-        try:
-            result = asyncio.new_event_loop().run_until_complete(agent.execute(context))
-            assert result.verification_result, "应生成验证结果"
-            assert "is_valid" in result.verification_result, "验证结果应包含is_valid字段"
-        except Exception:
-            pass
+    # 2026-11-14（A1 清理）：原 test_verification_mechanism 依赖已移除的 VerificationAgent，
+    # 且以 try/except pass 吞掉全部失败（即使模块存在也不构成断言）。方案验证的真实能力
+    # 由 test_gcode_full_validation 覆盖（GCodeValidator.full_validation）。
 
     def test_repair_suggestions(self):
-        """认知层验证：修复建议输出完整性."""
-        try:
-            from app.ai.agents import RepairAgent, AgentContext
-        except ImportError:
-            pytest.skip("Agent模块不可用")
+        """认知层验证：修复建议映射（现行 gcode_repair.plan_repairs 契约）."""
+        from app.agent.gcode_repair import plan_repairs
 
-        agent = RepairAgent()
-        context = AgentContext()
-        context.verification_result = {
-            "is_valid": False,
+        report = {
             "issues": [
-                {"type": "parameter_error", "description": "切削速度偏高", "severity": "high"},
-                {"type": "safety_risk", "description": "缺少冷却液指令", "severity": "medium"},
-            ],
-            "summary": "存在2个问题",
+                {"severity": "error", "code": "NEGATIVE_FEED", "message": "负进给",
+                 "context": {"line": 12}},
+                {"severity": "error", "code": "FEED_OUT_OF_RANGE", "message": "进给越界",
+                 "recommended": 500.0, "context": {"line": 15}},
+                {"severity": "warning", "code": "SOMETHING", "message": "非阻断项"},
+            ]
         }
+        actions = plan_repairs(report)
+        assert [action["action"] for action in actions] == ["clamp_negative_feed", "clamp_feed_range"], (
+            f"修复动作映射不符: {actions}"
+        )
+        assert actions[1]["value"] == 500.0, "越界修复应携带 clamp 建议值"
+        assert actions[0]["line"] == 12, "应保留定位行号"
 
-        try:
-            result = asyncio.new_event_loop().run_until_complete(agent.execute(context))
-            assert result.stage_status == "completed", "修复阶段应完成"
-        except Exception:
-            pass
+        # 存在不可修复错误时整体转人工（空列表），不得静默忽略
+        assert plan_repairs({"issues": [{"severity": "error", "code": "UNKNOWN_CODE"}]}) == []
 
     # 端到端全流程
 
