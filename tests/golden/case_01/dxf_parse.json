@@ -1,0 +1,38 @@
+{
+  "file_name": "case11_perforated_plate.dxf",
+  "file_size": 17943,
+  "dxf_version": "AC1024 (2010)",
+  "parse_time_ms": 8.97,
+  "entity_counts": {
+    "LINE": 0,
+    "CIRCLE": 25,
+    "ARC": 0,
+    "TEXT": 1,
+    "DIMENSION": 0,
+    "POLYLINE": 1,
+    "HATCH": 0,
+    "INSERT": 0,
+    "SPLINE": 0
+  },
+  "total_entities": 27,
+  "lines_count": 0,
+  "circles_count": 25,
+  "arcs_count": 0,
+  "texts_count": 1,
+  "dimensions_count": 0,
+  "polylines_count": 1,
+  "hatches_count": 0,
+  "inserts_count": 0,
+  "splines_count": 0,
+  "extents": {
+    "min_x": 0.0,
+    "min_y": 0.0,
+    "max_x": 100.0,
+    "max_y": 100.0,
+    "width": 100.0,
+    "height": 100.0
+  },
+  "warnings": [],
+  "errors": [],
+  "success": true
+}

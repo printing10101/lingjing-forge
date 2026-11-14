@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "engine": "python",
+  "voxel_size_mm": 1.0,
+  "total_segments": 1162,
+  "cutting_segments": 520,
+  "collision_count": 0,
+  "collision_blocks": [],
+  "collision_positions": [],
+  "severity": "none",
+  "removed_voxel_count": 99354,
+  "voxel_count": 195000,
+  "duration_seconds": 1.1904,
+  "warnings": [
+    "程序 XY 包络 195.0×95.0mm 超出请求毛坯 100.0×100.0mm，体素仿真按包络扩料为 195.0×100.0mm 后继续；请工程师确认实际装夹材料尺寸（扩料不等于工件真的能装上）。",
+    "检测到 150 个钻穿超程点（在 3.00mm 容差内，不计为过切）；请确认垫板厚度足以承受该超程。"
+  ],
+  "tool_diameter_mm": 6.0,
+  "tool_type": "flat",
+  "tool_source": "actual"
+}
