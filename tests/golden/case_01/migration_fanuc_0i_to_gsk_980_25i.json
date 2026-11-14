@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "tol_mm": 0.001,
+  "checks": [
+    {
+      "name": "total_segments",
+      "status": "warn",
+      "detail": "source=312 target=313（含快速定位拓扑，差异仅供参考）"
+    },
+    {
+      "name": "cutting_segment_count",
+      "status": "ok",
+      "detail": "source=95 target=95"
+    },
+    {
+      "name": "cutting_motion_sequence",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "name": "cutting_endpoint_deviation",
+      "status": "ok",
+      "detail": "最大偏差 0.000000 mm（容差 0.001 mm）"
+    },
+    {
+      "name": "arc_radius",
+      "status": "ok",
+      "detail": "圆弧 0 段，最大半径差 0.000000 mm"
+    },
+    {
+      "name": "feed_rates",
+      "status": "ok",
+      "detail": "source=[137.5, 275.0] target=[137.5, 275.0]"
+    },
+    {
+      "name": "spindle_speeds",
+      "status": "ok",
+      "detail": "source=[1150, 1850] target=[1150, 1850]"
+    },
+    {
+      "name": "xy_positions",
+      "status": "ok",
+      "detail": "source=63 点 target=63 点"
+    },
+    {
+      "name": "drill_cycles",
+      "status": "ok",
+      "detail": "source=25 target=25"
+    },
+    {
+      "name": "dialect_codes",
+      "status": "warn",
+      "detail": "仅源: ['G5.1']；仅目标: ['G30']"
+    }
+  ],
+  "dialect_differences": {
+    "only_in_source": [
+      "G5.1"
+    ],
+    "only_in_target": [
+      "G30"
+    ]
+  },
+  "summary": {
+    "segments": {
+      "source": 312,
+      "target": 313
+    },
+    "failed": [],
+    "warned": [
+      "total_segments",
+      "dialect_codes"
+    ]
+  },
+  "case": {
+    "dxf": "case11_perforated_plate.dxf",
+    "holes": 25,
+    "stock_height_mm": 10.0,
+    "source_controller": "fanuc_0i",
+    "target_controller": "gsk_980_25i"
+  }
+}
