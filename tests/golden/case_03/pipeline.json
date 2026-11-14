@@ -1,0 +1,40 @@
+{
+  "summary": "流水线执行成功 (507ms) | 零件: 45#钢(plate) | 孔识别: 9个孔 ({'through_hole': 9}) | 工序规划: 10个工序, 18.3min预估工时 | G代码: 432行 (2把刀具, 21.3min预估周期)",
+  "stages": [
+    {
+      "name": "输入验证",
+      "status": "success",
+      "errors": []
+    },
+    {
+      "name": "孔特征识别",
+      "status": "success",
+      "errors": []
+    },
+    {
+      "name": "知识库查询",
+      "status": "success",
+      "errors": []
+    },
+    {
+      "name": "工序规划",
+      "status": "success",
+      "errors": []
+    },
+    {
+      "name": "仿真验证",
+      "status": "success",
+      "errors": []
+    },
+    {
+      "name": "G代码生成",
+      "status": "success",
+      "errors": []
+    },
+    {
+      "name": "结果验证",
+      "status": "success",
+      "errors": []
+    }
+  ]
+}

@@ -53,5 +53,32 @@ Remove-Item Env:PYTHONPATH -ErrorAction SilentlyContinue
 ## 验收
 
 - 脚本 `engineering/python/scripts/golden_case_01.py`；产物 8 个 + `run.log`；manifest 含全部 SHA256。
-- e2e 测试 3 项通过（`tests/e2e/test_golden_case_01.py`）。
+- e2e 测试 5 项通过（`tests/e2e/test_golden_case_01.py`，含 3 个几何案例）。
 - 断链即失败：任一阶段抛错则命令返回非零，不产出 `manifest.json`（fail-closed）。
+
+## 案例 02 / 03（C2 几何覆盖）
+
+同一脚本 + 不同 DXF，验证链路对非矩形外轮廓与多孔分布的通用性：
+
+| 案例 | 输入 | 孔 | STEP 体积 | 体素校验 | 耗时 |
+|---|---|---:|---:|---|---:|
+| case_02 | `case6_flange.dxf`（200×200×10 法兰，圆形/台阶轮廓） | 7 | 272,925 mm³ | 0 碰撞，去除 100,686 | 6.7 s |
+| case_03 | `case18_sprocket.dxf`（180×180×10 链轮，齿形轮廓） | 9 | 232,129 mm³ | 0 碰撞，去除 101,341 | 6.8 s |
+
+复现：
+
+```bash
+PY='C:/Users/<user>/AppData/Local/Programs/Python/Python314/python.exe'
+$PY engineering/python/scripts/golden_case_01.py \
+  --dxf data/test_fixtures/case6_flange.dxf --out-dir tests/golden/case_02 \
+  --case-name case_02_flange_200x200_7holes --force
+$PY engineering/python/scripts/golden_case_01.py \
+  --dxf data/test_fixtures/case18_sprocket.dxf --out-dir tests/golden/case_03 \
+  --case-name case_03_sprocket_180x180_9holes --force
+```
+
+**诚实边界（C2 未完全关闭）**：三例均为仓库自带测试图纸（`data/test_fixtures`），
+不是客户真实零件。C2 要求「≥3 个真实零件 + 零件来源说明」，其中"真实来源"
+仍需外部图纸（提供 DXF/STEP 后可直接复用本脚本产出案例 04+）。
+
+几何预期已从包围盒改为**外轮廓多边形面积**（鞋带公式），非矩形件体积校验同样有效（偏差 <0.01%）。

@@ -72,6 +72,15 @@ def _stage(records: list[dict], name: str, started: float, **payload) -> None:
     logger.info("[stage] %s %s", name, payload.get("status", "ok"))
 
 
+def _polygon_area(points: list[tuple[float, float]]) -> float:
+    """鞋带公式面积（mm²），用于非矩形轮廓的体积预期。"""
+    total = 0.0
+    for index, (x1, y1) in enumerate(points):
+        x2, y2 = points[(index + 1) % len(points)]
+        total += x1 * y2 - x2 * y1
+    return abs(total) / 2.0
+
+
 def build_step(features, step_path: Path) -> dict:
     """外轮廓拉伸 − 孔布尔 → STEP；返回几何摘要。"""
     import cadquery as cq
@@ -89,17 +98,19 @@ def build_step(features, step_path: Path) -> dict:
         solid = solid.cut(cylinder)
     volume = float(solid.val().Volume())
     cq.exporters.export(solid, str(step_path))
-    expected = float(features.overall_length) * float(features.overall_width) * height
+    # 预期体积按真实外轮廓多边形面积（非包围盒），孔按圆柱扣除
+    expected = _polygon_area(points) * height
     expected -= sum(3.141592653589793 * (float(h.diameter) / 2) ** 2 * height for h in features.holes)
     error_pct = abs(volume - expected) / expected * 100
     if error_pct > 5.0:
-        raise RuntimeError(f"STEP 体积与解析预期偏差 {error_pct:.2f}% > 5%")
+        raise RuntimeError(f"STEP 体积与轮廓预期偏差 {error_pct:.2f}% > 5%")
     return {"volume_mm3": round(volume, 1), "expected_volume_mm3": round(expected, 1),
             "volume_error_pct": round(error_pct, 3), "height_mm": height,
-            "outer_vertices": len(points), "holes_subtracted": len(features.holes)}
+            "outer_vertices": len(points), "outer_area_mm2": round(_polygon_area(points), 1),
+            "holes_subtracted": len(features.holes)}
 
 
-def run(dxf_path: Path, out_dir: Path) -> dict:
+def run(dxf_path: Path, out_dir: Path, case_name: str | None = None) -> dict:
     from app.cam_validation.voxel_validator import VoxelValidator
     from app.config import CamValidationConfig
     from app.cutting_parameters.recommender import CuttingParamRecommender
@@ -107,6 +118,8 @@ def run(dxf_path: Path, out_dir: Path) -> dict:
     from app.dxf.feature_extractor import FeatureExtractor
     from app.process_planning.pipeline import ProcessPlanningPipeline
 
+    dxf_path = dxf_path.resolve()
+    out_dir = out_dir.resolve()
     stages: list[dict] = []
     started_all = time.perf_counter()
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -223,8 +236,9 @@ def run(dxf_path: Path, out_dir: Path) -> dict:
     artifacts = ["dxf_parse.json", "features.json", "model.step", "cutting_params.json",
                  "chatter_report.json", "program.nc", "pipeline.json", "voxel_report.json"]
     manifest = {
-        "case": "case_01_perforated_plate_100x100x10_25holes",
-        "dxf": {"path": str(dxf_path.relative_to(_REPO_ROOT)), "sha256": _sha256(dxf_path)},
+        "case": case_name or f"{dxf_path.stem}",
+        "dxf": {"path": str(dxf_path.relative_to(_REPO_ROOT)) if dxf_path.is_relative_to(_REPO_ROOT) else str(dxf_path),
+                "sha256": _sha256(dxf_path)},
         "artifacts": {name: {"bytes": (out_dir / name).stat().st_size,
                              "sha256": _sha256(out_dir / name)} for name in artifacts},
         "program_body_sha256": _program_body_digest(program_text),
@@ -246,6 +260,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dxf", type=Path, default=DEFAULT_DXF)
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT)
+    parser.add_argument("--case-name", default=None, help="manifest 中的案例名（默认取 DXF 文件名）")
     parser.add_argument("--force", action="store_true", help="覆盖已有输出目录")
     args = parser.parse_args()
 
@@ -266,7 +281,7 @@ def main() -> int:
         return 1
 
     try:
-        manifest = run(args.dxf, args.out_dir)
+        manifest = run(args.dxf, args.out_dir, args.case_name)
     except (RuntimeError, ValueError, KeyError, OSError) as exc:
         logger.error("[golden] 失败: %s", exc)
         return 1

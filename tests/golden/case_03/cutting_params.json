@@ -1,0 +1,113 @@
+{
+  "material": "steel_45",
+  "features": [
+    {
+      "feature_id": "HOLE_002",
+      "spindle_speed_rpm": 7780.9,
+      "feed_rate_mm_per_min": 3890.45,
+      "axial_depth_mm": 0.55,
+      "stability_status": "ok",
+      "stability_limit_mm": 10.5,
+      "stability_margin": 19.091,
+      "warnings": [
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+      ]
+    },
+    {
+      "feature_id": "HOLE_003",
+      "spindle_speed_rpm": 7780.9,
+      "feed_rate_mm_per_min": 3890.45,
+      "axial_depth_mm": 0.55,
+      "stability_status": "ok",
+      "stability_limit_mm": 10.5,
+      "stability_margin": 19.091,
+      "warnings": [
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+      ]
+    },
+    {
+      "feature_id": "HOLE_004",
+      "spindle_speed_rpm": 7780.9,
+      "feed_rate_mm_per_min": 3890.45,
+      "axial_depth_mm": 0.55,
+      "stability_status": "ok",
+      "stability_limit_mm": 10.5,
+      "stability_margin": 19.091,
+      "warnings": [
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+      ]
+    },
+    {
+      "feature_id": "HOLE_005",
+      "spindle_speed_rpm": 7780.9,
+      "feed_rate_mm_per_min": 3890.45,
+      "axial_depth_mm": 0.55,
+      "stability_status": "ok",
+      "stability_limit_mm": 10.5,
+      "stability_margin": 19.091,
+      "warnings": [
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+      ]
+    },
+    {
+      "feature_id": "HOLE_006",
+      "spindle_speed_rpm": 7780.9,
+      "feed_rate_mm_per_min": 3890.45,
+      "axial_depth_mm": 0.55,
+      "stability_status": "ok",
+      "stability_limit_mm": 10.5,
+      "stability_margin": 19.091,
+      "warnings": [
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+      ]
+    },
+    {
+      "feature_id": "HOLE_007",
+      "spindle_speed_rpm": 7780.9,
+      "feed_rate_mm_per_min": 3890.45,
+      "axial_depth_mm": 0.55,
+      "stability_status": "ok",
+      "stability_limit_mm": 10.5,
+      "stability_margin": 19.091,
+      "warnings": [
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+      ]
+    },
+    {
+      "feature_id": "HOLE_008",
+      "spindle_speed_rpm": 7780.9,
+      "feed_rate_mm_per_min": 3890.45,
+      "axial_depth_mm": 0.55,
+      "stability_status": "ok",
+      "stability_limit_mm": 10.5,
+      "stability_margin": 19.091,
+      "warnings": [
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+      ]
+    },
+    {
+      "feature_id": "HOLE_009",
+      "spindle_speed_rpm": 7780.9,
+      "feed_rate_mm_per_min": 3890.45,
+      "axial_depth_mm": 0.55,
+      "stability_status": "ok",
+      "stability_limit_mm": 10.5,
+      "stability_margin": 19.091,
+      "warnings": [
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+      ]
+    },
+    {
+      "feature_id": "HOLE_010",
+      "spindle_speed_rpm": 7780.9,
+      "feed_rate_mm_per_min": 3890.45,
+      "axial_depth_mm": 0.55,
+      "stability_status": "ok",
+      "stability_limit_mm": 10.5,
+      "stability_margin": 19.091,
+      "warnings": [
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "source_feature": "HOLE_002",
+  "spindle_speed_rpm": 7780.9,
+  "limit_depth_mm": 10.5,
+  "margin_ratio": 19.091,
+  "status": "ok",
+  "method": "Tlusty 1-DOF 绝对包络（app.simulation.chatter.stability）",
+  "caveats": [
+    "单模态 1-DOF，未计径向浸入增益",
+    "证据供工程师复核，不构成上机许可"
+  ]
+}

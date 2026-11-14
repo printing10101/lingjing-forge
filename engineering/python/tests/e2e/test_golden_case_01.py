@@ -49,6 +49,25 @@ def test_golden_case_01_runs_end_to_end(tmp_path: Path):
     assert "M30" in program and "G21" in program
 
 
+@pytest.mark.parametrize(
+    ("dxf_name", "expected_holes", "case_name"),
+    [
+        ("case6_flange.dxf", 7, "case_02_flange"),
+        ("case18_sprocket.dxf", 9, "case_03_sprocket"),
+    ],
+)
+def test_golden_cases_geometry_coverage(tmp_path: Path, dxf_name: str, expected_holes: int, case_name: str):
+    """C2 几何覆盖：法兰/链轮轮廓（非矩形外轮廓 + 多孔）同样跑通."""
+    dxf = golden_case_01.DEFAULT_DXF.parent / dxf_name
+    assert dxf.exists(), dxf
+    manifest = golden_case_01.run(dxf, tmp_path / case_name, case_name)
+    assert manifest["passed"] is True
+    features = json.loads((tmp_path / case_name / "features.json").read_text(encoding="utf-8"))
+    assert features["hole_count"] == expected_holes
+    voxel = json.loads((tmp_path / case_name / "voxel_report.json").read_text(encoding="utf-8"))
+    assert voxel["passed"] is True and voxel["collision_count"] == 0
+
+
 def test_golden_case_01_is_deterministic(tmp_path: Path):
     first = golden_case_01.run(golden_case_01.DEFAULT_DXF, tmp_path / "a")
     second = golden_case_01.run(golden_case_01.DEFAULT_DXF, tmp_path / "b")

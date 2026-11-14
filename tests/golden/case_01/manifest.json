@@ -1,13 +1,13 @@
 {
-  "case": "case_01_perforated_plate_100x100x10_25holes",
+  "case": "case11_perforated_plate",
   "dxf": {
     "path": "data\\test_fixtures\\case11_perforated_plate.dxf",
     "sha256": "4460b903669e72191497dcac3973a0fc2dd1583be4a70a5b80edbb25ea994ba1"
   },
   "artifacts": {
     "dxf_parse.json": {
-      "bytes": 752,
-      "sha256": "57b4e0a8ae03644fc376404c5244acf434411af554f5770ead0e13100043a7dc"
+      "bytes": 753,
+      "sha256": "b34efbf3765d8fc1a413759c0834c11a648aeeba4586b80a37a5a3d8c534a232"
     },
     "features.json": {
       "bytes": 112530,
@@ -15,7 +15,7 @@
     },
     "model.step": {
       "bytes": 109077,
-      "sha256": "22525aa4cc393832bcf456c481f89ec131303069c4996dad9f8d82e474f59221"
+      "sha256": "9e0ee9f692bd20d69dd232272a31c9d5593d2ac3fea657aa74d454dbbbecc713"
     },
     "cutting_params.json": {
       "bytes": 9202,
@@ -31,67 +31,68 @@
     },
     "pipeline.json": {
       "bytes": 904,
-      "sha256": "f39b187481bd90481cf0a806717e2edfdf0fca5443b77c8b696c9c6660cc12ba"
+      "sha256": "6e6f6464f69d9fc92435bc085283481f9078c3957482fc0724cbfe4bf0635893"
     },
     "voxel_report.json": {
       "bytes": 776,
-      "sha256": "e074ce5e73cf6b8ebe31e543ce4eb86c62c18b4ac5658ef6413f65aba6ca32d9"
+      "sha256": "2ad925cfbb93e66e2fb4917ecd731435dad3fb4e0f5efbc39adaffd4c3ec7566"
     }
   },
   "program_body_sha256": "f6514128e1cdf3c6f5b309ebe5b26c78d38c231a28f711304741c283e461ee11",
   "stages": [
     {
       "stage": "dxf_parse",
-      "duration_ms": 38.68,
+      "duration_ms": 22.21,
       "status": "ok",
       "entities": 27
     },
     {
       "stage": "feature_extract",
-      "duration_ms": 10.5,
+      "duration_ms": 8.94,
       "status": "ok",
       "holes": 25,
       "contours": 26
     },
     {
       "stage": "step_build",
-      "duration_ms": 365.73,
+      "duration_ms": 441.88,
       "status": "ok",
       "volume_mm3": 92931.4,
       "expected_volume_mm3": 92931.4,
       "volume_error_pct": 0.0,
       "height_mm": 10.0,
       "outer_vertices": 4,
+      "outer_area_mm2": 10000.0,
       "holes_subtracted": 25
     },
     {
       "stage": "cutting_params",
-      "duration_ms": 133.94,
+      "duration_ms": 175.74,
       "status": "ok",
       "features": 25
     },
     {
       "stage": "chatter",
-      "duration_ms": 6.88,
+      "duration_ms": 2.82,
       "status": "ok",
       "worst_margin": 19.091
     },
     {
       "stage": "gcode",
-      "duration_ms": 851.9,
+      "duration_ms": 946.47,
       "status": "ok",
       "lines": 624,
       "program_number": 1000
     },
     {
       "stage": "voxel_validation",
-      "duration_ms": 1195.19,
+      "duration_ms": 1623.36,
       "status": "ok",
       "removed_voxels": 99354,
       "segments": 1162
     }
   ],
-  "elapsed_seconds": 2.67,
+  "elapsed_seconds": 3.3,
   "environment": {
     "python": "3.14.4",
     "platform": "Windows-11-10.0.26300-SP0"
