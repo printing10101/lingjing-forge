@@ -288,13 +288,11 @@ class Test3ViewToNCConversion:
 
     def test_lnn_cutting_force_prediction(self, machining_params_steel, material_steel_45):
         """执行层验证：LNN切削力预测误差范围 < 5%."""
-        try:
-            from research.models.parameter_models import (
-                CuttingParameters,
-                ParameterSource,
-            )  # 阶段2 解耦：models/ 已迁移到 research/
-        except ImportError:
-            pytest.skip("LNN模块未安装")
+        # 阶段2 解耦：models/ 已迁移到 research/；导入失败即为环境问题，必须显式失败
+        from research.models.parameter_models import (
+            CuttingParameters,
+            ParameterSource,
+        )
 
         # 已知基准值
         expected_force = 150.0  # N, 基准切削力
@@ -351,39 +349,35 @@ class Test3ViewToNCConversion:
         assert len(priorities_found) >= 2, f"安全规则优先级覆盖不足: {priorities_found}"
 
     def test_cutting_constraint_validation(self, material_steel_45, machining_params_steel):
-        """执行层验证：切削参数约束校验."""
-        try:
-            from app.database.constraints import CuttingConstraintValidator, ConstraintResult
+        """执行层验证：切削参数约束校验（模块导入失败即环境问题，不跳过）."""
+        from app.database.constraints import ConstraintResult, CuttingConstraintValidator
 
-            validator = CuttingConstraintValidator()
+        validator = CuttingConstraintValidator()
 
-            # 验证正常参数通过
-            result = validator.validate(
-                material_id="steel_45",
-                tool_id="endmill_10mm",
-                params={
-                    "cutting_speed": machining_params_steel["cutting_speed"],
-                    "feed": machining_params_steel["feed_rate"],
-                    "depth_of_cut": machining_params_steel["depth_of_cut"],
-                    "spindle_speed": machining_params_steel["spindle_speed"],
-                },
-            )
-            assert isinstance(result, ConstraintResult), "应返回约束检查结果"
+        # 验证正常参数通过
+        result = validator.validate(
+            material_id="steel_45",
+            tool_id="endmill_10mm",
+            params={
+                "cutting_speed": machining_params_steel["cutting_speed"],
+                "feed": machining_params_steel["feed_rate"],
+                "depth_of_cut": machining_params_steel["depth_of_cut"],
+                "spindle_speed": machining_params_steel["spindle_speed"],
+            },
+        )
+        assert isinstance(result, ConstraintResult), "应返回约束检查结果"
 
-            # 验证超过材料允许范围的参数被拒绝
-            result_high = validator.validate(
-                material_id="steel_45",
-                tool_id="endmill_10mm",
-                params={
-                    "cutting_speed": 500.0,  # 超出45钢范围
-                    "feed": 5.0,
-                    "depth_of_cut": 20.0,
-                },
-            )
-            assert isinstance(result_high, ConstraintResult), "超范围参数也应返回有效结果"
-
-        except ImportError:
-            pytest.skip("约束校验模块未安装")
+        # 验证超过材料允许范围的参数被拒绝
+        result_high = validator.validate(
+            material_id="steel_45",
+            tool_id="endmill_10mm",
+            params={
+                "cutting_speed": 500.0,  # 超出45钢范围
+                "feed": 5.0,
+                "depth_of_cut": 20.0,
+            },
+        )
+        assert isinstance(result_high, ConstraintResult), "超范围参数也应返回有效结果"
 
     # 执行层：NC代码生成
     # 2026-11-14（A1 清理）：原 test_nc_code_generation_flow 依赖 app.ai.agents.AgentContext，
