@@ -1063,6 +1063,11 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
+      - name: Check sovereignty ratio (autonomy gate)
+        # P5-2 收尾：默认模式曾因 summary['ratio'] KeyError 必崩；修复后接入门禁。
+        # 阈值默认 0.50，当前实测 98.33%；未达目标脚本返回非零。
+        run: python scripts/sovereignty_ratio.py
+
       - name: Run API documentation sync check
         # --fail-on-unsync 仅对 code_only（代码新增路由未入文档）失败；
         # docs_only（文档滞后于已删路由）只报告不阻断。脚本语义已按

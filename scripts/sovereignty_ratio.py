@@ -165,8 +165,8 @@ def analyze_tree(root: Path = APP_ROOT) -> list[dict[str, Any]]:
     return results
 
 
-def aggregate(results: list[dict[str, Any]]) -> dict[str, Any]:
-    """汇总统计。"""
+def aggregate(results: list[dict[str, Any]], target: float = 0.50) -> dict[str, Any]:
+    """汇总统计；target 与 --target 保持一致，避免 JSON 门禁误读。"""
     total = sum(r["total"] for r in results)
     sovereign = sum(r["sovereign"] for r in results)
     framework = sum(r["framework"] for r in results)
@@ -177,7 +177,8 @@ def aggregate(results: list[dict[str, Any]]) -> dict[str, Any]:
         "sovereign_lines": sovereign,
         "framework_lines": framework,
         "sovereignty_ratio": ratio,
-        "target_met": ratio >= 0.50,
+        "target": target,
+        "target_met": ratio >= target,
     }
 
 
@@ -189,7 +190,7 @@ def main() -> int:
     args = parser.parse_args()
 
     results = analyze_tree()
-    summary = aggregate(results)
+    summary = aggregate(results, target=args.target)
 
     if args.json:
         print(json.dumps({"summary": summary, "modules": results}, ensure_ascii=False, indent=2))
@@ -200,7 +201,7 @@ def main() -> int:
         print(f"  自主行: {summary['sovereign_lines']}")
         print(f"  框架行: {summary['framework_lines']}")
         print(f"  自主占比: {summary['sovereignty_ratio']:.2%}")
-        print(f"  目标达成: {'✅' if summary['ratio'] >= args.target else '❌'}")
+        print(f"  目标达成: {'✅' if summary['sovereignty_ratio'] >= args.target else '❌'}")
 
         if args.verbose:
             print("\n按模块：")
