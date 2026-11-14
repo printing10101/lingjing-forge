@@ -112,6 +112,8 @@ class RecommendedCuttingParams:
     estimated_cutting_time_s: float = 0.0
     tool_life_estimate_min: float = 0.0
     warnings: list[str] = field(default_factory=list)
+    # 稳定性证据（B1）：limit_depth / margin / status / 叶瓣采样，见 stability_evidence.py
+    stability_evidence: dict[str, Any] = field(default_factory=dict)
     # 工程师审核
     review_status: str = CuttingReviewStatus.PENDING.value
     edited_params: dict[str, float] = field(default_factory=dict)
@@ -158,6 +160,7 @@ class RecommendedCuttingParams:
             "estimated_cutting_time_s": self.estimated_cutting_time_s,
             "tool_life_estimate_min": self.tool_life_estimate_min,
             "warnings": list(self.warnings),
+            "stability_evidence": dict(self.stability_evidence),
             "review_status": self.review_status,
             "edited_params": dict(self.edited_params),
             "reviewed_by": self.reviewed_by,

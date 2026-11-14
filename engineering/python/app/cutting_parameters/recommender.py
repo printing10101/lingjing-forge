@@ -44,6 +44,7 @@ from app.cutting_parameters.material_resolver import (
     MaterialResolverError,
     get_material_resolver,
 )
+from app.cutting_parameters.stability_evidence import build_stability_evidence
 
 logger = logging.getLogger(__name__)
 
@@ -172,6 +173,15 @@ class CuttingParamRecommender:
         )
         cutting_time_s = self._estimate_cutting_time(feature_type, axial_depth, radial_depth, feed_rate)
 
+        # 6.5 稳定性证据（B1）：极限切深/裕度/叶瓣采样；不足时写入 warnings
+        stability_evidence = build_stability_evidence(
+            machine_type=machine_type,
+            tool_diameter_mm=tool_diameter_mm,
+            num_flutes=num_flutes,
+            spindle_rpm=spindle_rpm,
+            axial_depth_mm=axial_depth,
+        )
+
         # 7. 构造 warnings
         warnings = self._build_warnings(
             material=material,
@@ -180,6 +190,20 @@ class CuttingParamRecommender:
             cutting_speed=cutting_speed,
             material_speed_range=material.cutting_speed_range[operation],
         )
+
+        stability_status = stability_evidence.get("status")
+        if stability_status == "violated":
+            warnings.append(
+                "稳定性裕度不足：绝对极限切深 "
+                f"{stability_evidence.get('limit_depth_mm')} mm < 推荐轴向切深 {axial_depth:.3f} mm，"
+                "须降低 ap 或提高转速区间后再审核"
+            )
+        elif stability_status == "marginal":
+            warnings.append(
+                "接近稳定性边界：极限切深 "
+                f"{stability_evidence.get('limit_depth_mm')} mm / 推荐切深 {axial_depth:.3f} mm "
+                f"（裕度 {stability_evidence.get('margin_ratio')}），请结合叶瓣图复核"
+            )
 
         return RecommendedCuttingParams(
             feature_id=feature_id,
@@ -194,6 +218,7 @@ class CuttingParamRecommender:
             estimated_cutting_time_s=round(cutting_time_s, 1),
             tool_life_estimate_min=round(tool_life_min, 1),
             warnings=warnings,
+            stability_evidence=stability_evidence,
             review_status="pending",
             edited_params={},
             reviewed_by="",

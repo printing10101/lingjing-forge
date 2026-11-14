@@ -409,6 +409,7 @@ async def get_task_result(task_id: str) -> dict[str, Any]:
             "estimated_cutting_time_s": p.estimated_cutting_time_s,
             "tool_life_estimate_min": p.tool_life_estimate_min,
             "warnings": list(p.warnings),
+            "stability_evidence": dict(p.stability_evidence),
             "review_status": p.review_status,
             "edited_params": dict(p.edited_params),
             "effective_params": p.effective_params(),

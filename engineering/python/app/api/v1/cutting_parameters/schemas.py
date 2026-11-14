@@ -141,6 +141,13 @@ class RecommendedParamsResponse(BaseModel):
     estimated_cutting_time_s: float
     tool_life_estimate_min: float
     warnings: list[str]
+    stability_evidence: dict[str, Any] = Field(
+        default_factory=dict,
+        description=(
+            "稳定性证据（B1）：limit_depth_mm / margin_ratio / status(ok|marginal|violated|unavailable) "
+            "/ lobe_sample。status=unavailable 时含 reason，不伪造数值。"
+        ),
+    )
     review_status: str
     edited_params: dict[str, Any]
     effective_params: dict[str, Any]

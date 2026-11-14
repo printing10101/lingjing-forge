@@ -143,8 +143,10 @@ class MaterialResolver:
     def __init__(self, materials_json_path: str | Path | None = None) -> None:
         if materials_json_path is None:
             # 默认路径：python/app/database/data/materials.json
-            project_root = Path(__file__).resolve().parents[3]
-            self._materials_json_path = project_root / "app" / "database" / "data" / "materials.json"
+            # 本文件位于 python/app/cutting_parameters/，python 根为 parents[2]；
+            # 原实现取 parents[3]（engineering/）导致路径少一层，17 种材料全部加载失败。
+            python_root = Path(__file__).resolve().parents[2]
+            self._materials_json_path = python_root / "app" / "database" / "data" / "materials.json"
         else:
             self._materials_json_path = Path(materials_json_path)
 
