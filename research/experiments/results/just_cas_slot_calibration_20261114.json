@@ -1,0 +1,324 @@
+{
+  "source": {
+    "directory": "D:\\灵境制造\\data\\external\\just_cas",
+    "files": 15,
+    "design": "槽铣 ae=6mm(D6), ap=1mm, n=5000rpm, 四刃",
+    "licence": "CC BY 4.0"
+  },
+  "caveats": [
+    "Kienzle 线性近似，忽略刃口/剪切非线性与刀具磨损漂移",
+    "同一把刀贯穿全部试验",
+    "F_mean 为走刀内合力均值（N）"
+  ],
+  "by_material": {
+    "aluminium_7030": {
+      "kc_N_per_mm2": 1044.0613121927624,
+      "ke_N_per_mm": 40.13706459106914,
+      "r2_vs_mean": 0.9906012731448615,
+      "residual_rmse": 2.0339537447382785,
+      "samples": 7,
+      "table": [
+        {
+          "fz": 0.02,
+          "F_mean": 58.54982140641906
+        },
+        {
+          "fz": 0.03,
+          "F_mean": 75.89673711479321
+        },
+        {
+          "fz": 0.04,
+          "F_mean": 80.71494273659792
+        },
+        {
+          "fz": 0.05,
+          "F_mean": 92.27759975496363
+        },
+        {
+          "fz": 0.06,
+          "F_mean": 101.55021716397475
+        },
+        {
+          "fz": 0.07,
+          "F_mean": 113.22994824916616
+        },
+        {
+          "fz": 0.08,
+          "F_mean": 124.16164497903603
+        }
+      ]
+    },
+    "steel_CK45": {
+      "kc_N_per_mm2": 1824.4444559948042,
+      "ke_N_per_mm": 64.30105833750324,
+      "r2_vs_mean": 0.9919580944009275,
+      "residual_rmse": 1.8819718570227981,
+      "samples": 8,
+      "table": [
+        {
+          "fz": 0.02,
+          "F_mean": 102.36766487260675
+        },
+        {
+          "fz": 0.025,
+          "F_mean": 109.79510382400981
+        },
+        {
+          "fz": 0.03,
+          "F_mean": 117.88056356039895
+        },
+        {
+          "fz": 0.035,
+          "F_mean": 125.98713431198031
+        },
+        {
+          "fz": 0.04,
+          "F_mean": 138.06301741129192
+        },
+        {
+          "fz": 0.045,
+          "F_mean": 148.8567185534796
+        },
+        {
+          "fz": 0.05,
+          "F_mean": 152.3648550426706
+        },
+        {
+          "fz": 0.055,
+          "F_mean": 166.42674592202962
+        }
+      ]
+    }
+  },
+  "samples": [
+    {
+      "file": "M_45_1.xlsx",
+      "material": "steel_CK45",
+      "index": 1,
+      "fz_mm_per_tooth": 0.02,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 400.0,
+      "rows": 50000,
+      "force_mean_resultant": 102.36766487260675,
+      "fx_mean": -45.2316890785168,
+      "fy_mean": 71.860990526894,
+      "fz_mean": -4.118801311466759
+    },
+    {
+      "file": "M_45_2.xlsx",
+      "material": "steel_CK45",
+      "index": 2,
+      "fz_mm_per_tooth": 0.025,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 500.0,
+      "rows": 50000,
+      "force_mean_resultant": 109.79510382400981,
+      "fx_mean": -46.43146502202559,
+      "fy_mean": 83.82839063841,
+      "fz_mean": -7.2984632786071995
+    },
+    {
+      "file": "M_45_3.xlsx",
+      "material": "steel_CK45",
+      "index": 3,
+      "fz_mm_per_tooth": 0.03,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 600.0,
+      "rows": 50000,
+      "force_mean_resultant": 117.88056356039895,
+      "fx_mean": -51.440622710167204,
+      "fy_mean": 94.0888567546,
+      "fz_mean": -10.82470302845516
+    },
+    {
+      "file": "M_45_4.xlsx",
+      "material": "steel_CK45",
+      "index": 4,
+      "fz_mm_per_tooth": 0.035,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 700.0000000000001,
+      "rows": 50000,
+      "force_mean_resultant": 125.98713431198031,
+      "fx_mean": -50.5532599817006,
+      "fy_mean": 105.09627222199998,
+      "fz_mean": -14.572652663752521
+    },
+    {
+      "file": "M_45_5.xlsx",
+      "material": "steel_CK45",
+      "index": 5,
+      "fz_mm_per_tooth": 0.04,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 800.0,
+      "rows": 50000,
+      "force_mean_resultant": 138.06301741129192,
+      "fx_mean": -59.93502011507678,
+      "fy_mean": 114.342975998,
+      "fz_mean": -18.7190330534166
+    },
+    {
+      "file": "M_45_6.xlsx",
+      "material": "steel_CK45",
+      "index": 6,
+      "fz_mm_per_tooth": 0.045,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 900.0,
+      "rows": 50000,
+      "force_mean_resultant": 148.8567185534796,
+      "fx_mean": -62.9265622765884,
+      "fy_mean": 125.908728704,
+      "fz_mean": -22.839218265950297
+    },
+    {
+      "file": "M_45_7.xlsx",
+      "material": "steel_CK45",
+      "index": 7,
+      "fz_mm_per_tooth": 0.05,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 1000.0,
+      "rows": 50000,
+      "force_mean_resultant": 152.3648550426706,
+      "fx_mean": -59.086222104200004,
+      "fy_mean": 135.175307368,
+      "fz_mean": -27.2086213026
+    },
+    {
+      "file": "M_45_8.xlsx",
+      "material": "steel_CK45",
+      "index": 8,
+      "fz_mm_per_tooth": 0.055,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 1100.0,
+      "rows": 50000,
+      "force_mean_resultant": 166.42674592202962,
+      "fx_mean": -68.83500727399999,
+      "fy_mean": 146.39335010000002,
+      "fz_mean": -31.26558931
+    },
+    {
+      "file": "M_7030_1.xlsx",
+      "material": "aluminium_7030",
+      "index": 1,
+      "fz_mm_per_tooth": 0.02,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 400.0,
+      "rows": 50000,
+      "force_mean_resultant": 58.54982140641906,
+      "fx_mean": -33.9764685602,
+      "fy_mean": 45.618382586,
+      "fz_mean": 3.1350866628218204
+    },
+    {
+      "file": "M_7030_2.xlsx",
+      "material": "aluminium_7030",
+      "index": 2,
+      "fz_mm_per_tooth": 0.03,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 600.0,
+      "rows": 50000,
+      "force_mean_resultant": 75.89673711479321,
+      "fx_mean": -45.967103351999995,
+      "fy_mean": 57.94899109599999,
+      "fz_mean": -0.48850054660346004
+    },
+    {
+      "file": "M_7030_3.xlsx",
+      "material": "aluminium_7030",
+      "index": 3,
+      "fz_mm_per_tooth": 0.04,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 800.0,
+      "rows": 50000,
+      "force_mean_resultant": 80.71494273659792,
+      "fx_mean": -42.64749749,
+      "fy_mean": 66.206323786,
+      "fz_mean": -5.9445930562984
+    },
+    {
+      "file": "M_7030_4.xlsx",
+      "material": "aluminium_7030",
+      "index": 4,
+      "fz_mm_per_tooth": 0.05,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 1000.0,
+      "rows": 50000,
+      "force_mean_resultant": 92.27759975496363,
+      "fx_mean": -47.358356984000004,
+      "fy_mean": 76.788080434,
+      "fz_mean": -11.039272327
+    },
+    {
+      "file": "M_7030_5.xlsx",
+      "material": "aluminium_7030",
+      "index": 5,
+      "fz_mm_per_tooth": 0.06,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 1200.0,
+      "rows": 50000,
+      "force_mean_resultant": 101.55021716397475,
+      "fx_mean": -51.93354746800001,
+      "fy_mean": 83.98565083599999,
+      "fz_mean": -14.8369659584
+    },
+    {
+      "file": "M_7030_6.xlsx",
+      "material": "aluminium_7030",
+      "index": 6,
+      "fz_mm_per_tooth": 0.07,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 1400.0000000000002,
+      "rows": 50000,
+      "force_mean_resultant": 113.22994824916616,
+      "fx_mean": -55.909261812,
+      "fy_mean": 94.574014254,
+      "fz_mean": -19.4988144814
+    },
+    {
+      "file": "M_7030_7.xlsx",
+      "material": "aluminium_7030",
+      "index": 7,
+      "fz_mm_per_tooth": 0.08,
+      "ap": 1.0,
+      "ae": 6.0,
+      "speed": 5000.0,
+      "feed_mm_per_min": 1600.0,
+      "rows": 50000,
+      "force_mean_resultant": 124.16164497903603,
+      "fx_mean": -59.26792465799999,
+      "fy_mean": 104.529703532,
+      "fz_mean": -23.569617442000002
+    }
+  ],
+  "side_milling_consistency": {
+    "b_ap": 0.6526317885040844,
+    "b_ae": 0.4981888953968685
+  }
+}

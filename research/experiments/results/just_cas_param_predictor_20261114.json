@@ -1,0 +1,108 @@
+{
+  "source": {
+    "samples_path": "D:\\灵境制造\\research\\experiments\\results\\just_cas_param_response_20261114.json"
+  },
+  "responses": {
+    "force_rms": {
+      "within_condition": {
+        "r2_pooled": 0.9916490445648583,
+        "mae_mean": 1.6624559733080317,
+        "baseline_mae_mean": 20.819862295489045,
+        "folds": 100
+      },
+      "unseen_condition_hierarchical": {
+        "r2_mean": 0.17914338551403813,
+        "mae_mean": 26.880220039304604,
+        "folds": 4
+      },
+      "unseen_condition_pooled": {
+        "r2_mean": 0.179278332323291,
+        "mae_mean": 26.879102101218983,
+        "folds": 4
+      },
+      "final_model": {
+        "response": "force_rms",
+        "model": "log y = a_condition + b_ap·log ap + b_ae·log ae",
+        "b_ap": 0.6519798086953882,
+        "b_ae": 0.49769120419267565,
+        "lambda": 0.1,
+        "intercepts": {
+          "G1": 3.61740230094296,
+          "G2": 3.2485327942893276,
+          "G3": 4.001979474564786,
+          "G4": 4.009598053871503
+        },
+        "intercept_population": 3.7193781559171453,
+        "n_samples": 100
+      }
+    },
+    "current_rms": {
+      "within_condition": {
+        "r2_pooled": 0.9984604218301928,
+        "mae_mean": 0.02650428159423033,
+        "baseline_mae_mean": 1.0708337344288181,
+        "folds": 100
+      },
+      "unseen_condition_hierarchical": {
+        "r2_mean": -0.16768411443302506,
+        "mae_mean": 1.5034955797910043,
+        "folds": 4
+      },
+      "unseen_condition_pooled": {
+        "r2_mean": -0.16768384840532508,
+        "mae_mean": 1.5034955903795009,
+        "folds": 4
+      },
+      "final_model": {
+        "response": "current_rms",
+        "model": "log y = a_condition + b_ap·log ap + b_ae·log ae",
+        "b_ap": -0.003427864240255328,
+        "b_ae": -0.0025469128452200052,
+        "lambda": 0.01,
+        "intercepts": {
+          "G1": 2.365609665646229,
+          "G2": 2.053952085136464,
+          "G3": 2.366792114912725,
+          "G4": 2.3677808169830024
+        },
+        "intercept_population": 2.2885336706696053,
+        "n_samples": 100
+      }
+    },
+    "noise_rms": {
+      "within_condition": {
+        "r2_pooled": 0.7409796664710313,
+        "mae_mean": 0.047980183675796734,
+        "baseline_mae_mean": 0.1114766006864053,
+        "folds": 100
+      },
+      "unseen_condition_hierarchical": {
+        "r2_mean": 0.04892531271312975,
+        "mae_mean": 0.145077146332523,
+        "folds": 4
+      },
+      "unseen_condition_pooled": {
+        "r2_mean": 0.048925312713129804,
+        "mae_mean": 0.145077146332523,
+        "folds": 4
+      },
+      "final_model": {
+        "response": "noise_rms",
+        "model": "log y = a_condition + b_ap·log ap + b_ae·log ae",
+        "b_ap": 0.7606398477955306,
+        "b_ae": 0.13577422249011253,
+        "lambda": 0.1,
+        "intercepts": {
+          "G1": -1.6064121471914456,
+          "G2": -2.070151077278088,
+          "G3": -1.2212851127821764,
+          "G4": -1.1720515759072287
+        },
+        "intercept_population": -1.517474978289735,
+        "n_samples": 100
+      }
+    }
+  },
+  "design": "log 幂律 + 工况截距（斜率组内识别）",
+  "note": "工况因素各仅 2 水平，unseen_condition 仅代表截距回退上限"
+}
