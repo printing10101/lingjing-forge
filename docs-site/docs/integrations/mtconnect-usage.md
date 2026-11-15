@@ -9,7 +9,7 @@
 MTConnect 适配器 V1 是 APT 数据底座的"设备 - 时序库"桥梁，负责：
 
 1. 周期性（默认 **1 Hz**）从 MTConnect Agent 的 `/sample` 端点拉取 XML 数据。
-2. 将响应解析为强类型的 [`Sample`](../../python/app/integrations/mtconnect/parser.py) 对象，仅保留 M0.3 任务指定的四个核心数据项：
+2. 将响应解析为强类型的 [`Sample`](https://github.com/printing10101/Virtual-Realm-Manufacturing/blob/main/engineering/python/app/integrations/mtconnect/parser.py) 对象，仅保留 M0.3 任务指定的四个核心数据项：
    - `spindle_speed`（主轴转速）
    - `spindle_load`（主轴负载）
    - `feedrate`（进给速度）
@@ -36,7 +36,7 @@ python/app/integrations/mtconnect/
 `requests` 与 `lxml` 已分别声明在两份依赖清单中：
 
 - 根目录 [`requirements.txt`](../../requirements.txt)：包含 `lxml==5.3.0`。
-- 子目录 [`python/requirements.txt`](../../python/requirements.txt)：包含 `requests>=2.32.0` 与 `lxml>=5.0.0`。
+- 子目录 [`python/requirements.txt`](https://github.com/printing10101/Virtual-Realm-Manufacturing/blob/main/engineering/python/requirements.txt)：包含 `requests>=2.32.0` 与 `lxml>=5.0.0`。
 
 首次拉取代码后：
 

@@ -559,4 +559,4 @@ class ActiveLearningTrigger:
 
 - [Bayesian LNN 架构与训练指南](./bayesian-lnn-guide.md) - LNN 模型架构与训练实现
 - [模型自动微调流水线指南](./auto-retrain-guide.md) - 模型自动迭代与版本管理
-- [API 参考文档](../api-reference.md) - LNN 推理与不确定性评估接口
+- [API 参考文档](/api/README) - LNN 推理与不确定性评估接口

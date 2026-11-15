@@ -365,7 +365,7 @@ class CustomEvaluator(ModelEvaluator):
 
 - [Bayesian LNN 架构与训练指南](./bayesian-lnn-guide.md) - LNN 训练器实现细节
 - [主动学习触发器系统](./active-learning-triggers.md) - 不确定性场景识别
-- LNN 训练器源码：[`python/app/ai/lnn/training/trainer.py`](../../python/app/ai/lnn/training/trainer.py)
+- LNN 训练器源码：[`python/app/ai/lnn/training/trainer.py`](https://github.com/printing10101/Virtual-Realm-Manufacturing/blob/main/engineering/python/app/ai/lnn/training/trainer.py)
 
 ---
 

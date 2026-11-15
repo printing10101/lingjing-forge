@@ -21,7 +21,8 @@ export default defineConfig({
       { text: '用户指南', link: '/user-guide/快速入门' },
       { text: '开发者文档', link: '/development/开发环境搭建' },
       { text: 'API 参考', link: '/api/README' },
-      { text: '更新日志', link: '/changelog/概述' }
+      { text: '更新日志', link: '/changelog/概述' },
+      { text: '支持', link: '/support/支持与反馈' }
     ],
 
     sidebar: {
@@ -190,14 +191,14 @@ export default defineConfig({
     }
   },
 
+  // 注意：outDir 必须用 VitePress 顶层配置；写在 vite.build 会破坏
+  // SSR 阶段读取 .vitepress/.temp/app.js（实测 build 必失败）。
+  outDir: '../dist',
+
   vite: {
     server: {
       port: 5173,
       host: '0.0.0.0'
-    },
-    build: {
-      outDir: '../dist',
-      assetsDir: 'assets'
     }
   }
 })
