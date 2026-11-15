@@ -152,7 +152,7 @@ class AdvancedFeatureBuilder:
                     result = self._apply_slot(result, spec)
                 else:
                     logger.warning("未知特征类型: %s", ftype)
-            except (ValueError, KeyError, TypeError, OSError, RuntimeError, AttributeError) as e:
+            except Exception as e:  # noqa: BLE001 - 单个特征失败不得击穿整条建模链路（下方记录完整堆栈）
                 logger.error(
                     "特征应用失败 type=%s params=%s err=%s: %s",
                     ftype,
