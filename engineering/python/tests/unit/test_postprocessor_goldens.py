@@ -23,19 +23,21 @@ def test_normalize_only_touches_date():
 
 
 def test_domestic_goldens_byte_identical():
-    """三家国产控制器：重新生成必须与冻结文件逐字节一致（日期归一化后）。"""
+    """四家国产控制器：重新生成必须与冻结文件逐字节一致（日期归一化后）。"""
     ok, report = goldens.verify(goldens.DEFAULT_DXF, goldens.DEFAULT_OUT)
     assert ok, report
-    assert set(report["programs"]) == {"gsk_980_25i", "hnc_848_22", "knd_1000_2000_3000"}
+    assert set(report["programs"]) == {
+        "gsk_980_25i", "hnc_848_22", "knd_1000_2000_3000", "xmachine_xm100"}
     for controller, info in report["programs"].items():
         assert info["status"] == "identical", (controller, info)
 
 
-def test_xmachine_rejects_out_of_travel():
-    """XM-100 行程 ±50mm：100×100 件必须被硬闸拒绝，而不是静默生成。"""
-    from app.process_planning.gcode_generator import GCodeGenerator
+def test_xmachine_program_stays_within_travel():
+    """XM-100 行程 ±50mm：黄金程序所有 X/Y/Z 坐标必须在包络内。"""
+    import re
 
-    plan, height, _origin = goldens.build_plan(goldens.DEFAULT_DXF)
-    with pytest.raises(ValueError, match="XM-100"):
-        GCodeGenerator().generate(plan, controller_type="xmachine_xm100",
-                                  material_name="45#钢", safe_z=goldens.SAFE_Z, stock_top_z=height)
+    program = (goldens.DEFAULT_OUT / "xmachine_xm100.nc").read_text(encoding="utf-8")
+    for axis in ("X", "Y", "Z"):
+        values = [float(value) for value in re.findall(rf"{axis}(-?\d+(?:\.\d+)?)", program)]
+        assert values, f"{axis} 轴无坐标"
+        assert max(abs(value) for value in values) <= 50.0 + 1e-6, f"{axis} 超程: {max(values)}"

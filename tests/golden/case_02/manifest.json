@@ -7,7 +7,7 @@
   "artifacts": {
     "dxf_parse.json": {
       "bytes": 745,
-      "sha256": "300a5cd960e19aaef8f7143cf456b1e3056cddd56de30e250e54230135e0ba57"
+      "sha256": "c4ac47fffe95006d4df43dc5fd117ae49b346a91b549ee0b32e84c05f9555782"
     },
     "features.json": {
       "bytes": 37795,
@@ -15,7 +15,7 @@
     },
     "model.step": {
       "bytes": 211145,
-      "sha256": "852ce91668248a9075d1ea519d865a9d75fa681b1a2a1254e518876db7e9a9e6"
+      "sha256": "bf517da9da594caee71ced4c36a615cbcb4b7c8406e5d5629e13d45800a2ef3b"
     },
     "cutting_params.json": {
       "bytes": 2614,
@@ -31,31 +31,31 @@
     },
     "pipeline.json": {
       "bytes": 902,
-      "sha256": "2e2c88772c4c51b892afb7f7c982de8a5a4b75f6a7a20cb28cd2dfdf7b890892"
+      "sha256": "82169536bcd22dafc24b79b1d862dbdcadffff5707fc8b6bbcb9f6e295bde261"
     },
     "voxel_report.json": {
       "bytes": 554,
-      "sha256": "8e4f9eb71271b3b595b091c7e38ec4008941eb5c464815373e76f84bde660444"
+      "sha256": "1887df9c9d46fb030210100b2752355734ece7539a18d42a75f56ae637c03e84"
     }
   },
   "program_body_sha256": "198b1af27d22e0bf642828671be15b6a3de62168e9b3ab9e6d449c04230be26d",
   "stages": [
     {
       "stage": "dxf_parse",
-      "duration_ms": 28.43,
+      "duration_ms": 26.37,
       "status": "ok",
       "entities": 9
     },
     {
       "stage": "feature_extract",
-      "duration_ms": 7.51,
+      "duration_ms": 7.31,
       "status": "ok",
       "holes": 7,
       "contours": 8
     },
     {
       "stage": "step_build",
-      "duration_ms": 305.04,
+      "duration_ms": 256.5,
       "status": "ok",
       "volume_mm3": 272924.8,
       "expected_volume_mm3": 272924.8,
@@ -67,32 +67,32 @@
     },
     {
       "stage": "cutting_params",
-      "duration_ms": 68.97,
+      "duration_ms": 68.57,
       "status": "ok",
       "features": 7
     },
     {
       "stage": "chatter",
-      "duration_ms": 3.29,
+      "duration_ms": 3.38,
       "status": "ok",
       "worst_margin": 19.091
     },
     {
       "stage": "gcode",
-      "duration_ms": 983.58,
+      "duration_ms": 975.4,
       "status": "ok",
       "lines": 708,
       "program_number": 1000
     },
     {
       "stage": "voxel_validation",
-      "duration_ms": 1757.37,
+      "duration_ms": 1712.04,
       "status": "ok",
       "removed_voxels": 207379,
       "segments": 832
     }
   ],
-  "elapsed_seconds": 3.24,
+  "elapsed_seconds": 3.15,
   "environment": {
     "python": "3.14.4",
     "platform": "Windows-11-10.0.26300-SP0"

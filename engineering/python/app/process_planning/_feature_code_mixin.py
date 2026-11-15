@@ -177,6 +177,18 @@ class _FeatureCodeMixin:
                 mill_depth = stock_top_z - abs(_doc)
             mill_length = length if length is not None else 10.0
             mill_width = width if width is not None else 10.0
+            # geom 的 x/y 在 anchor="center" 时是**中心**；模板走线需要角点。
+            # 此前直接当角点用，100mm 件在中心零点下会从 0 切到 100（实测五轴路径
+            # 插补点 X66.7，超出 XM-100 ±50 行程）。
+            # 仅当上游显式声明 anchor="center" 时按中心换算；缺省保持旧契约
+            # （x/y 即角点），避免无几何的模板调用行为漂移。
+            _anchor = geom.get("anchor")
+            if _anchor == "center":
+                mill_x0 = float(x_pos) - mill_length / 2.0
+                mill_y0 = float(y_pos) - mill_width / 2.0
+            else:
+                mill_x0 = float(x_pos)
+                mill_y0 = float(y_pos)
 
             # 平面刀轨引擎：能从真实几何计算刀心轨迹时优先，
             # 替换模板式的直线走线（无几何刀轨层的旧路径保留为回退）
@@ -206,7 +218,7 @@ class _FeatureCodeMixin:
                 # 抬刀到安全平面后再快速定位（避免G00在切削深度处移动引发碰撞）
                 lines.append(f"G00 Z{safe_z:.3f}")
                 # 移动到起始位置上方
-                lines.append(f"G00 X{x_pos:.3f} Y{y_pos:.3f}")
+                lines.append(f"G00 X{mill_x0:.3f} Y{mill_y0:.3f}")
                 # 下刀到切削深度
                 lines.append(f"G01 Z{mill_depth:.3f} F{feed_rate}")
                 # 启用半径补偿
@@ -218,8 +230,8 @@ class _FeatureCodeMixin:
                     lines.append(postprocessor.format_rtcp_on())
 
                     # 使用五轴规划器生成刀具姿态序列
-                    start_x, start_y, start_z = x_pos, y_pos, mill_depth
-                    end_x, end_y, end_z = x_pos + mill_length, y_pos + mill_width, mill_depth
+                    start_x, start_y, start_z = mill_x0, mill_y0, mill_depth
+                    end_x, end_y, end_z = mill_x0 + mill_length, mill_y0 + mill_width, mill_depth
 
                     orientations = self._five_axis_planner.plan_lead_angle_toolpath(
                         start_x=start_x,
@@ -257,20 +269,20 @@ class _FeatureCodeMixin:
                     if radius_comp not in ["G41", "G42"]:
                         # 抬刀到安全平面后再快速定位（避免G00在切削深度处移动引发碰撞）
                         lines.append(f"G00 Z{safe_z:.3f}")
-                        lines.append(f"G00 X{x_pos:.3f} Y{y_pos:.3f}")
+                        lines.append(f"G00 X{mill_x0:.3f} Y{mill_y0:.3f}")
                         lines.append(f"G01 Z{mill_depth:.3f} F{feed_rate}")
                     lines.append(
                         postprocessor.format_linear_move(
-                            x=x_pos + mill_length,
-                            y=y_pos,
+                            x=mill_x0 + mill_length,
+                            y=mill_y0,
                             z=mill_depth,
                             feed=feed_rate,
                         )
                     )
                     lines.append(
                         postprocessor.format_linear_move(
-                            x=x_pos + mill_length,
-                            y=y_pos + mill_width,
+                            x=mill_x0 + mill_length,
+                            y=mill_y0 + mill_width,
                             z=mill_depth,
                             feed=feed_rate,
                         )

@@ -2,7 +2,7 @@
   "file_name": "case11_perforated_plate.dxf",
   "file_size": 17943,
   "dxf_version": "AC1024 (2010)",
-  "parse_time_ms": 22.93,
+  "parse_time_ms": 15.56,
   "entity_counts": {
     "LINE": 0,
     "CIRCLE": 25,

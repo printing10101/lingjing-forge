@@ -39,10 +39,10 @@ DEFAULT_DXF = _REPO_ROOT / "data" / "test_fixtures" / "case11_perforated_plate.d
 DEFAULT_OUT = _REPO_ROOT / "tests" / "golden" / "postprocessors"
 SOURCE_CONTROLLER = "fanuc_0i"
 SAFE_Z = 80.0
-# XMachine XM-100 行程仅 ±50mm，且本管线平面工序坐标不随工件零点平移
-# （实测仍在 X195），故不纳入黄金集；其"超程拒绝"行为由
-# tests/unit/test_postprocessor_goldens.py 单独断言。
-DOMESTIC_CONTROLLERS = ("gsk_980_25i", "hnc_848_22", "knd_1000_2000_3000")
+# 四家国产：广数 / 华中 / 凯恩帝 / 数马 XM-100。
+# XM-100 行程仅 ±50mm，依赖「工件零点=毛坯中心」与模板走线角点推导
+# （2026-11-15 修复：此前中心被当角点，五轴插补点 X66.7 超程）。
+DOMESTIC_CONTROLLERS = ("gsk_980_25i", "hnc_848_22", "knd_1000_2000_3000", "xmachine_xm100")
 DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 

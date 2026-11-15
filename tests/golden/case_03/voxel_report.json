@@ -10,7 +10,7 @@
   "severity": "none",
   "removed_voxel_count": 168146,
   "voxel_count": 324000,
-  "duration_seconds": 1.8629,
+  "duration_seconds": 1.7233,
   "warnings": [
     "检测到 54 个钻穿超程点（在 3.00mm 容差内，不计为过切）；请确认垫板厚度足以承受该超程。"
   ],

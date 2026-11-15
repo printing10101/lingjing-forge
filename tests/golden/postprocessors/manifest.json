@@ -21,6 +21,11 @@
       "bytes": 16456,
       "lines": 690,
       "sha256": "320aa7b62ad506edf9adf05ca2d9086e4e73eadfd894ba5a134beb8fd4e27bc2"
+    },
+    "xmachine_xm100": {
+      "bytes": 11283,
+      "lines": 476,
+      "sha256": "621b54c5569213fb8a5089272e580a3dfa4288e58699e6ab0390d783384c08b4"
     }
   }
 }
