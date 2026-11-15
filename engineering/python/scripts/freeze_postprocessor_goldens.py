@@ -81,13 +81,21 @@ def build_plan(dxf_path: Path, *, center_origin: bool = True):
             "type": "top_plane",
             "geometric_type": "plane",
             "surface": "A",
+            "position": {"x": 0.0, "y": 0.0},
             "dimensions": {"length": float(features.overall_length),
                            "width": float(features.overall_width)},
+            "normal": [0, 0, 1],
             "boundary": shifted,
             "contour": shifted,
         })
+    # 基准面刀轨取 overall_dimensions 推导；不传会回退 200×100 固定值。
+    # 传「中心零点」包络，使平面工序与孔位处于同一工件坐标系。
+    overall = {"length": float(features.overall_length), "width": float(features.overall_width),
+               "min_x": -float(features.overall_length) / 2 if center_origin else float(features.overall_min_x),
+               "min_y": -float(features.overall_width) / 2 if center_origin else float(features.overall_min_y)}
     pipeline_result = ProcessPlanningPipeline().run(
-        {"material": "45#钢", "part_type": "plate", "holes": holes, "features": contours},
+        {"material": "45#钢", "part_type": "plate", "holes": holes, "planes": contours,
+         "overall_dimensions": overall},
         controller_type=SOURCE_CONTROLLER, safe_z=SAFE_Z, stock_top_z=height)
     if not pipeline_result.success or pipeline_result.operation_plan is None:
         raise RuntimeError(f"工序计划生成失败: {pipeline_result.summary}")

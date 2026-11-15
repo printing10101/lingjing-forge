@@ -196,8 +196,14 @@ def run(dxf_path: Path, out_dir: Path, case_name: str | None = None) -> dict:
               "position": [hole.center_x, hole.center_y],
               "diameter": hole.diameter, "depth": float(features.overall_height)}
              for hole in features.holes]
+    # 基准面刀轨由 overall_dimensions 推导；缺省会回退 200×100 固定包络，
+    # 对 100×100 件会切到工件外（A2 首版实测 X 至 195），故显式传真实包络。
     pipeline_result = ProcessPlanningPipeline().run(
-        {"material": "45#钢", "part_type": "plate", "holes": holes},
+        {"material": "45#钢", "part_type": "plate", "holes": holes,
+         "overall_dimensions": {"length": float(features.overall_length),
+                                "width": float(features.overall_width),
+                                "min_x": float(features.overall_min_x),
+                                "min_y": float(features.overall_min_y)}},
         controller_type=CONTROLLER, safe_z=SAFE_Z, stock_top_z=float(features.overall_height))
     if not pipeline_result.success or pipeline_result.gcode_result is None:
         raise RuntimeError(f"工艺规划/编程失败: {pipeline_result.summary}")

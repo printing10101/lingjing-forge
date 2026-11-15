@@ -7,7 +7,7 @@
   "artifacts": {
     "dxf_parse.json": {
       "bytes": 747,
-      "sha256": "34ab968c3e379ce8be36dcfaf20f9ed3cfdebfca52c7e5f2fd1d95c430681254"
+      "sha256": "eb47565ed861357505e4f8cc716bd4e1b8f765d55751564a192a6bf64b0e2ea7"
     },
     "features.json": {
       "bytes": 47170,
@@ -15,7 +15,7 @@
     },
     "model.step": {
       "bytes": 219328,
-      "sha256": "9550e76afc28461da594117ba25a942eb27abc49857bc29ce913df025456ddbf"
+      "sha256": "3f86fccc226a701dfaf348ff36a89c02148ef175b832eaa997c12bff393a9b67"
     },
     "cutting_params.json": {
       "bytes": 3346,
@@ -26,36 +26,36 @@
       "sha256": "11765a0755ddb4b46fd080968e6c335020ecff9af8cd6023a114770101808dcf"
     },
     "program.nc": {
-      "bytes": 11206,
-      "sha256": "db77da389e0554708beeed72e724416b665b12c909b8c51474c6c3e2c2da78e4"
+      "bytes": 17217,
+      "sha256": "cfeba767f2f44651b8f36e57f8f18ec763bcbdc426c304b2e220d31c5c155496"
     },
     "pipeline.json": {
       "bytes": 903,
-      "sha256": "b56ac0366d54aea12ddc37d558b97b4941cedb80c147dfbf172d8bfa9dc1541f"
+      "sha256": "7e50d27f2407147949d57c14ae0ee5501ce4e1e2b0106beb2bec453a3e9dc286"
     },
     "voxel_report.json": {
-      "bytes": 776,
-      "sha256": "7c341c7ead9caea7e392f8b0768132a4a003f1643843720d03804127fd689608"
+      "bytes": 554,
+      "sha256": "8fc490dff734d2cd5e8c27c9c28f6b7045c38d6178612723134af496fd5aff69"
     }
   },
-  "program_body_sha256": "6ecfb4c6722f2c620a6371a8d5830986013e479621605ae622dada4c82f8173e",
+  "program_body_sha256": "9bbed094b760c859593be6ff2e8a78c57b479abf0d555ef3ffdabf8532be0bd5",
   "stages": [
     {
       "stage": "dxf_parse",
-      "duration_ms": 113.85,
+      "duration_ms": 29.2,
       "status": "ok",
       "entities": 11
     },
     {
       "stage": "feature_extract",
-      "duration_ms": 122.99,
+      "duration_ms": 9.98,
       "status": "ok",
       "holes": 9,
       "contours": 10
     },
     {
       "stage": "step_build",
-      "duration_ms": 716.41,
+      "duration_ms": 368.92,
       "status": "ok",
       "volume_mm3": 232128.8,
       "expected_volume_mm3": 232128.8,
@@ -67,32 +67,32 @@
     },
     {
       "stage": "cutting_params",
-      "duration_ms": 176.48,
+      "duration_ms": 84.48,
       "status": "ok",
       "features": 9
     },
     {
       "stage": "chatter",
-      "duration_ms": 20.22,
+      "duration_ms": 3.42,
       "status": "ok",
       "worst_margin": 19.091
     },
     {
       "stage": "gcode",
-      "duration_ms": 2430.52,
+      "duration_ms": 1071.82,
       "status": "ok",
-      "lines": 432,
+      "lines": 672,
       "program_number": 1000
     },
     {
       "stage": "voxel_validation",
-      "duration_ms": 3124.22,
+      "duration_ms": 1867.11,
       "status": "ok",
-      "removed_voxels": 101341,
-      "segments": 602
+      "removed_voxels": 168146,
+      "segments": 842
     }
   ],
-  "elapsed_seconds": 6.83,
+  "elapsed_seconds": 3.53,
   "environment": {
     "python": "3.14.4",
     "platform": "Windows-11-10.0.26300-SP0"
