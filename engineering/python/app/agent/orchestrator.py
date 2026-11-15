@@ -1041,7 +1041,67 @@ class AgentOrchestrator:
             part_desc["holes"] = holes
         if planes:
             part_desc["planes"] = planes
+
+        # 包络必须显式给：规划器缺 overall_dimensions 时回退 200×100 固定基准面，
+        # 小件会切到工件外（2026-11-15 实测 X 至 195/件宽 100）。
+        overall = (
+            input_data.get("overall_dimensions")
+            or pipeline_input.get("overall_dimensions")
+            or dxf_output.get("overall_dimensions")
+        )
+        if not isinstance(overall, dict) or not overall:
+            overall = self._infer_overall_dimensions(holes, planes)
+        if overall:
+            part_desc["overall_dimensions"] = overall
         return part_desc
+
+    @staticmethod
+    def _infer_overall_dimensions(
+        holes: list[Any],
+        planes: list[Any],
+    ) -> dict[str, float]:
+        """由孔/平面特征推导工件包络；无法推导时返回空字典（交回退口径）。"""
+        xs: list[float] = []
+        ys: list[float] = []
+        for hole in holes or []:
+            if not isinstance(hole, dict):
+                continue
+            position = hole.get("position") or {}
+            try:
+                cx = float(position.get("x", hole.get("center_x", 0.0)))
+                cy = float(position.get("y", hole.get("center_y", 0.0)))
+            except (TypeError, ValueError):
+                continue
+            radius = 0.0
+            try:
+                radius = float(hole.get("diameter", 0.0)) / 2.0
+            except (TypeError, ValueError):
+                radius = 0.0
+            xs += [cx - radius, cx + radius]
+            ys += [cy - radius, cy + radius]
+        for plane in planes or []:
+            if not isinstance(plane, dict):
+                continue
+            dims = plane.get("dimensions") or {}
+            position = plane.get("position") or {}
+            try:
+                length = float(dims.get("length", plane.get("length", 0.0)) or 0.0)
+                width = float(dims.get("width", plane.get("width", 0.0)) or 0.0)
+                cx = float(position.get("x", 0.0) or 0.0)
+                cy = float(position.get("y", 0.0) or 0.0)
+            except (TypeError, ValueError):
+                continue
+            if length > 0 and width > 0:
+                xs += [cx - length / 2.0, cx + length / 2.0]
+                ys += [cy - width / 2.0, cy + width / 2.0]
+        if not xs or not ys:
+            return {}
+        min_x, max_x, min_y, max_y = min(xs), max(xs), min(ys), max(ys)
+        length, width = max_x - min_x, max_y - min_y
+        if length <= 0 or width <= 0:
+            return {}
+        return {"length": round(length, 3), "width": round(width, 3),
+                "min_x": round(min_x, 3), "min_y": round(min_y, 3)}
 
     async def _step_gcode_generate(self, input_data: Any, context: dict[str, Any]) -> dict[str, Any]:
         """Generate G-code from process plan and parameters."""
