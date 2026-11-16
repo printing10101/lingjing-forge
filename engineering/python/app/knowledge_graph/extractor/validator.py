@@ -253,7 +253,13 @@ class ExtractionValidator:
                 result.errors.append(f"confidence 必须在 [0, 100] 范围内，当前: {confidence}")
 
         # 使用 Pydantic 关系模型验证
-        entity_type_map = {e["id"]: str(e.get("entity_type") or "") for e in entities}
+        # 健壮性：实体缺 id / 非 dict 时不得让整份校验崩溃（上游多为 LLM 原始输出）。
+        # 缺 id 的实体已在 _validate_entity 记为无效，这里只需跳过。
+        entity_type_map = {
+            str(entity["id"]): str(entity.get("entity_type") or "")
+            for entity in entities
+            if isinstance(entity, dict) and entity.get("id")
+        }
         source_type = entity_type_map.get(source_id, "")
         target_type = entity_type_map.get(target_id, "")
 

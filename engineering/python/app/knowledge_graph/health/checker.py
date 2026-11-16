@@ -203,8 +203,12 @@ class HealthChecker:
                     continue
                 seen_pairs.add(pair_key)
 
-                # 获取反向边的信息
-                for _, _, key_v_u, data_v_u in graph.edges(v, u, keys=True, data=True):
+                # 获取反向边的信息。
+                # networkx ≥3.4 的 MultiEdgeView 签名为 edges(nbunch, data, *, default, keys)，
+                # ``edges(v, u, keys=True, data=True)`` 会把 u 当作 data 实参并抛
+                # TypeError: multiple values for 'data'（实测 nx 3.6.1）。
+                # 用邻接字典直接取反向边，跨版本稳定。
+                for key_v_u, data_v_u in (graph.get_edge_data(v, u) or {}).items():
                     results.append(
                         ContradictoryEdgeResult(
                             source_id=u,
