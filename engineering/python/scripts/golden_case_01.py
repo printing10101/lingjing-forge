@@ -213,14 +213,24 @@ def run(dxf_path: Path, out_dir: Path, case_name: str | None = None) -> dict:
     # 通孔深度取**毛坯厚度**（零件厚 + 余量）：光刀把顶面降下来之后，
     # 孔仍要切到零件底面，否则螺旋铣会在孔底留下一个等于余量的台。
     stock_top = float(features.overall_height) + FACE_ALLOWANCE_MM
-    holes = [{"id": hole.hole_id, "type": hole.hole_type,
-              "position": [hole.center_x, hole.center_y],
-              "diameter": hole.diameter, "depth": stock_top}
-             for hole in features.holes]
+    rec_by_id = {r["feature_id"]: r for r in rows}
+    holes = []
+    for hole in features.holes:
+        rec = rec_by_id.get(hole.hole_id, {})
+        holes.append({
+            "id": hole.hole_id,
+            "type": hole.hole_type,
+            "position": [hole.center_x, hole.center_y],
+            "diameter": hole.diameter,
+            "depth": stock_top,
+            "spindle_speed": rec.get("spindle_speed_rpm"),
+            "feed_rate": rec.get("feed_rate_mm_per_min"),
+            "params_source": "切削参数推荐器",
+        })
     # 基准面刀轨由 overall_dimensions 推导；缺省会回退 200×100 固定包络，
     # 对 100×100 件会切到工件外（A2 首版实测 X 至 195），故显式传真实包络。
     pipeline_result = ProcessPlanningPipeline().run(
-        {"material": "45#钢", "part_type": "plate", "holes": holes,
+        {"material": MATERIAL_ID, "part_type": "plate", "holes": holes,
          "face_allowance_mm": FACE_ALLOWANCE_MM,
          "overall_dimensions": {"length": float(features.overall_length),
                                 "width": float(features.overall_width),
@@ -242,14 +252,20 @@ def run(dxf_path: Path, out_dir: Path, case_name: str | None = None) -> dict:
     _stage(stages, "gcode", started, status="ok", lines=gcode_result.total_lines,
            program_number=gcode_result.program_number)
 
-    # 7. 体素校验
+    # 7. 体素校验（含 D4 期望孔特征欠切/切到位检查）
     started = time.perf_counter()
+    expected_features = [
+        {"id": hole.hole_id, "type": "hole", "x": hole.center_x, "y": hole.center_y,
+         "diameter": hole.diameter, "depth": stock_top}
+        for hole in features.holes
+    ]
     report = VoxelValidator(CamValidationConfig()).validate(
         gcode_text=program_text, controller_type=CONTROLLER, safe_z=SAFE_Z,
         stock_top_z=stock_top,
         stock_length=float(features.overall_length), stock_width=float(features.overall_width),
         stock_height=stock_top, tool_diameter_mm=TOOL_DIAMETER_MM,
-        breakthrough_tolerance_mm=BREAKTHROUGH_TOLERANCE_MM)
+        breakthrough_tolerance_mm=BREAKTHROUGH_TOLERANCE_MM,
+        expected_features=expected_features)
     voxel = report.to_dict()
     (out_dir / "voxel_report.json").write_text(
         json.dumps(voxel, ensure_ascii=False, indent=2), encoding="utf-8")

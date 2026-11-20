@@ -45,6 +45,7 @@ from app.cutting_parameters.material_resolver import (
     get_material_resolver,
 )
 from app.cutting_parameters.stability_evidence import build_stability_evidence
+from app.simulation.kinematics.machine import load_profile
 
 logger = logging.getLogger(__name__)
 
@@ -163,9 +164,29 @@ class CuttingParamRecommender:
         axial_depth = self._pick_axial_depth(material, operation, feature_type)
         radial_depth = self._pick_radial_depth(feature_type, tool_diameter_mm)
 
-        # 6. 计算衍生参数
+        # 6. 计算衍生参数（含机床能力限幅，确保推荐值可直接用于下游与稳定性校核）
         spindle_rpm = self._compute_spindle_rpm(cutting_speed, tool_diameter_mm)
         feed_rate = self._compute_feed_rate(spindle_rpm, num_flutes, feed_per_tooth)
+        limit_warnings: list[str] = []
+        if machine_type and machine_type != "default":
+            profile = load_profile(machine_type)
+            if profile.max_spindle_rpm > 0 and spindle_rpm > profile.max_spindle_rpm:
+                raw_rpm = spindle_rpm
+                spindle_rpm = float(profile.max_spindle_rpm)
+                # 保持每齿进给不变重算进给，避免降速不降进给导致每齿切厚超载
+                feed_rate = self._compute_feed_rate(spindle_rpm, num_flutes, feed_per_tooth)
+                cutting_speed = spindle_rpm * math.pi * tool_diameter_mm / 1000.0
+                limit_warnings.append(
+                    f"主轴转速受机床 {machine_type} 上限 {profile.max_spindle_rpm:.0f} rpm 限幅"
+                    f"（理论值 {raw_rpm:.0f} rpm），进给同步按每齿进给重算为 {feed_rate:.1f} mm/min"
+                )
+            if profile.max_cutting_feed > 0 and feed_rate > profile.max_cutting_feed:
+                raw_feed = feed_rate
+                feed_rate = float(profile.max_cutting_feed)
+                limit_warnings.append(
+                    f"切削进给受机床 {machine_type} 上限 {profile.max_cutting_feed:.0f} mm/min 限幅"
+                    f"（原值 {raw_feed:.1f} mm/min）"
+                )
         tool_life_min = self._estimate_tool_life(
             cutting_speed,
             material.taylor_exponent_n,
@@ -190,6 +211,7 @@ class CuttingParamRecommender:
             cutting_speed=cutting_speed,
             material_speed_range=material.cutting_speed_range[operation],
         )
+        warnings.extend(limit_warnings)
 
         stability_status = stability_evidence.get("status")
         if stability_status == "violated":

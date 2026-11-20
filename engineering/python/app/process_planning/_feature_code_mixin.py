@@ -50,6 +50,58 @@ def _material_category(material: str) -> str:
 class _FeatureCodeMixin:
     # 宿主契约：由主类 / 兄弟 mixin 提供
     _config_limiter: Any
+
+    def _resolve_spindle_and_feed(
+        self,
+        *,
+        op: Operation,
+        cut_params: dict[str, Any],
+        material: str,
+        op_type: str,
+        tool_diameter: float,
+        default_rpm: int,
+        default_feed: float,
+        context_label: str,
+        rpm_scale: float = 1.0,
+        feed_scale: float = 1.0,
+    ) -> tuple[int, float, str]:
+        """统一解析主轴转速与进给率。
+
+        优先使用上游已校验的参数（如 CuttingParamRecommender 产出并限幅的 S/F），
+        缺失时再按归一后的材料类别查切削参数库，最后经过 ConfigLimiter 安全限幅。
+        """
+        explicit_rpm = cut_params.get("spindle_speed")
+        explicit_feed = cut_params.get("feed_rate")
+        _category = _material_category(material)
+
+        has_explicit = False
+        if explicit_rpm is not None and explicit_feed is not None:
+            try:
+                rpm_f = float(explicit_rpm)
+                feed_f = float(explicit_feed)
+                if rpm_f > 0 and feed_f > 0:
+                    spindle_speed = int(round(rpm_f))
+                    feed_rate: float = round(feed_f, 2)
+                    params_source = str(cut_params.get("params_source") or f"上游推荐参数[{_category}]")
+                    has_explicit = True
+            except (TypeError, ValueError):
+                has_explicit = False
+
+        if not has_explicit:
+            try:
+                db_params = get_cutting_params(_category, op_type, tool_diameter)
+                spindle_speed = int(round(db_params["spindle_speed"] * rpm_scale))
+                feed_rate = round(float(db_params["feed_rate"]) * feed_scale, 2)
+                params_source = f"切削参数库[{_category}]"
+            except (ValueError, KeyError):
+                spindle_speed = int(round(default_rpm * rpm_scale))
+                feed_rate = round(float(default_feed) * feed_scale, 2)
+                params_source = f"内置默认值（{material} 未命中参数库[{_category}]）"
+
+        if self._config_limiter:
+            spindle_speed = self._config_limiter.limit_spindle_rpm(spindle_speed, context=context_label)
+            feed_rate = self._config_limiter.limit_feed_rate(feed_rate, context=context_label)
+        return spindle_speed, feed_rate, params_source
     _five_axis_planner: Any
 
     def _generate_feature_code(
@@ -106,37 +158,28 @@ class _FeatureCodeMixin:
             # 钻孔类工序
             lines.append(postprocessor._comment(f"钻孔: {op.feature_name}"))
 
-            # 从数据库获取切削参数
-            params_source = "切削参数库"
-            _category = _material_category(material)
-            try:
-                db_params = get_cutting_params(_category, "drilling", tool_diameter)
-                spindle_speed = db_params["spindle_speed"]
-                feed_rate = db_params["feed_rate"]
-                params_source = f"切削参数库[{_category}]"
-            except (ValueError, KeyError):
-                # 如果数据库查询失败，使用安全默认值
-                spindle_speed = 1200
-                feed_rate = 150
-                params_source = f"内置默认值（{material} 未命中参数库[{_category}]）"
-
             if "中心" in method:
-                # 中心钻使用更高转速
-                spindle_speed = int(spindle_speed * 1.5)
-                feed_rate = int(feed_rate * 0.6)
+                rpm_scale, feed_scale = 1.5, 0.6
                 depth = z_depth if z_depth is not None else 3.0
             elif "沉头" in method:
-                # 沉头钻使用较低转速
-                spindle_speed = int(spindle_speed * 0.7)
-                feed_rate = int(feed_rate * 0.7)
+                rpm_scale, feed_scale = 0.7, 0.7
                 depth = z_depth if z_depth is not None else 8.0
             else:
+                rpm_scale, feed_scale = 1.0, 1.0
                 depth = z_depth if z_depth is not None else 25.0  # 默认钻孔深度
 
-            # ConfigLimiter 限幅
-            if self._config_limiter:
-                spindle_speed = self._config_limiter.limit_spindle_rpm(spindle_speed, context=f"钻孔-{op.feature_name}")
-                feed_rate = self._config_limiter.limit_feed_rate(feed_rate, context=f"钻孔-{op.feature_name}")
+            spindle_speed, feed_rate, params_source = self._resolve_spindle_and_feed(
+                op=op,
+                cut_params=cut_params,
+                material=material,
+                op_type="drilling",
+                tool_diameter=tool_diameter,
+                default_rpm=1200,
+                default_feed=150,
+                context_label=f"钻孔-{op.feature_name}",
+                rpm_scale=rpm_scale,
+                feed_scale=feed_scale,
+            )
 
             lines.append(f"S{spindle_speed} M03")
             lines.append(postprocessor._comment(f"进给: {recommended_feed}, 切速: {recommended_speed}"))
@@ -188,23 +231,19 @@ class _FeatureCodeMixin:
             # 铣削类工序
             lines.append(postprocessor._comment(f"铣削: {op.feature_name}"))
 
-            # 从数据库获取切削参数
-            try:
-                db_params = get_cutting_params(material, "milling", tool_diameter)
-                spindle_speed = db_params["spindle_speed"]
-                feed_rate = db_params["feed_rate"]
-            except (ValueError, KeyError):
-                # 如果数据库查询失败，使用安全默认值
-                spindle_speed = 2500
-                feed_rate = 300
-
-            # ConfigLimiter 限幅
-            if self._config_limiter:
-                spindle_speed = self._config_limiter.limit_spindle_rpm(spindle_speed, context=f"铣削-{op.feature_name}")
-                feed_rate = self._config_limiter.limit_feed_rate(feed_rate, context=f"铣削-{op.feature_name}")
+            spindle_speed, feed_rate, params_source = self._resolve_spindle_and_feed(
+                op=op,
+                cut_params=cut_params,
+                material=material,
+                op_type="milling",
+                tool_diameter=tool_diameter,
+                default_rpm=2500,
+                default_feed=300,
+                context_label=f"铣削-{op.feature_name}",
+            )
 
             lines.append(f"S{spindle_speed} M03")
-            lines.append(postprocessor._comment(f"参数来自数据库: 材料={material}, 直径={tool_diameter}mm"))
+            lines.append(postprocessor._comment(f"参数来源: {params_source}, 材料={material}, 直径={tool_diameter}mm"))
 
             # 从几何参数获取铣削深度和范围
             # mill_depth 基于毛坯顶面 stock_top_z 向下计算（避免负值触发过切误报）
@@ -335,23 +374,19 @@ class _FeatureCodeMixin:
             # 车削类工序
             lines.append(postprocessor._comment(f"车削: {op.feature_name}"))
 
-            # 从数据库获取切削参数
-            try:
-                db_params = get_cutting_params(material, "turning", tool_diameter)
-                spindle_speed = db_params["spindle_speed"]
-                feed_rate = db_params["feed_rate"]
-            except (ValueError, KeyError):
-                # 如果数据库查询失败，使用安全默认值
-                spindle_speed = 1500
-                feed_rate = 0.15
-
-            # ConfigLimiter 限幅
-            if self._config_limiter:
-                spindle_speed = self._config_limiter.limit_spindle_rpm(spindle_speed, context=f"车削-{op.feature_name}")
-                feed_rate = self._config_limiter.limit_feed_rate(feed_rate, context=f"车削-{op.feature_name}")
+            spindle_speed, feed_rate, params_source = self._resolve_spindle_and_feed(
+                op=op,
+                cut_params=cut_params,
+                material=material,
+                op_type="turning",
+                tool_diameter=tool_diameter,
+                default_rpm=1500,
+                default_feed=0.15,
+                context_label=f"车削-{op.feature_name}",
+            )
 
             lines.append(f"S{spindle_speed} M03")
-            lines.append(postprocessor._comment(f"参数来自数据库: 材料={material}, 直径={tool_diameter}mm"))
+            lines.append(postprocessor._comment(f"参数来源: {params_source}, 材料={material}, 直径={tool_diameter}mm"))
 
             # 刀具半径补偿 (G41/G42)
             if radius_comp in ["G41", "G42"]:
@@ -371,23 +406,21 @@ class _FeatureCodeMixin:
         elif "镗" in method:
             lines.append(postprocessor._comment(f"镗孔: {op.feature_name}"))
 
-            # 从数据库获取切削参数（镗孔使用钻孔参数）
-            try:
-                db_params = get_cutting_params(material, "drilling", tool_diameter)
-                spindle_speed = int(db_params["spindle_speed"] * 0.8)  # 镗孔转速略低
-                feed_rate = db_params["feed_rate"] * 0.6  # 镗孔进给较慢
-            except (ValueError, KeyError):
-                # 如果数据库查询失败，使用安全默认值
-                spindle_speed = 800
-                feed_rate = 80
-
-            # ConfigLimiter 限幅
-            if self._config_limiter:
-                spindle_speed = self._config_limiter.limit_spindle_rpm(spindle_speed, context=f"镗孔-{op.feature_name}")
-                feed_rate = self._config_limiter.limit_feed_rate(feed_rate, context=f"镗孔-{op.feature_name}")
+            spindle_speed, feed_rate, params_source = self._resolve_spindle_and_feed(
+                op=op,
+                cut_params=cut_params,
+                material=material,
+                op_type="drilling",
+                tool_diameter=tool_diameter,
+                default_rpm=800,
+                default_feed=80,
+                context_label=f"镗孔-{op.feature_name}",
+                rpm_scale=0.8,
+                feed_scale=0.6,
+            )
 
             lines.append(f"S{spindle_speed} M03")
-            lines.append(postprocessor._comment(f"参数来自数据库: 材料={material}, 直径={tool_diameter}mm"))
+            lines.append(postprocessor._comment(f"参数来源: {params_source}, 材料={material}, 直径={tool_diameter}mm"))
 
             # 从几何参数获取镗孔尺寸
             bore_x = x_pos
@@ -402,23 +435,20 @@ class _FeatureCodeMixin:
             # 五轴专用工序
             lines.append(postprocessor._comment(f"五轴加工: {op.feature_name}"))
 
-            # 从数据库获取切削参数（五轴使用铣削参数）
-            try:
-                db_params = get_cutting_params(material, "milling", tool_diameter)
-                spindle_speed = db_params["spindle_speed"]
-                feed_rate = db_params["feed_rate"] * 0.7  # 五轴加工进给略慢
-            except (ValueError, KeyError):
-                # 如果数据库查询失败，使用安全默认值
-                spindle_speed = 3000
-                feed_rate = 200
-
-            # ConfigLimiter 限幅
-            if self._config_limiter:
-                spindle_speed = self._config_limiter.limit_spindle_rpm(spindle_speed, context=f"五轴-{op.feature_name}")
-                feed_rate = self._config_limiter.limit_feed_rate(feed_rate, context=f"五轴-{op.feature_name}")
+            spindle_speed, feed_rate, params_source = self._resolve_spindle_and_feed(
+                op=op,
+                cut_params=cut_params,
+                material=material,
+                op_type="milling",
+                tool_diameter=tool_diameter,
+                default_rpm=3000,
+                default_feed=200,
+                context_label=f"五轴-{op.feature_name}",
+                feed_scale=0.7,
+            )
 
             lines.append(f"S{spindle_speed} M03")
-            lines.append(postprocessor._comment(f"参数来自数据库: 材料={material}, 直径={tool_diameter}mm"))
+            lines.append(postprocessor._comment(f"参数来源: {params_source}, 材料={material}, 直径={tool_diameter}mm"))
 
             # 从几何参数获取五轴加工范围
             # work_depth 基于 stock_top_z 向下计算（避免负值触发过切误报）

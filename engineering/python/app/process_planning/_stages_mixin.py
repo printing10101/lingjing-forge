@@ -196,8 +196,24 @@ class _StagesMixin:
             )
         )
 
+        raw_hole_by_id = {
+            str(h.get("id")): h
+            for h in (part_description.get("holes") or [])
+            if isinstance(h, dict) and h.get("id") is not None
+        }
         for hole, plan in zip(hole_result.holes, process_plans):
             hole_dict = hole.to_machining_feature()
+            dims: dict[str, Any] = {
+                "diameter": hole.diameter,
+                "depth": hole.depth,
+                "position_x": hole.position_x,
+                "position_y": hole.position_y,
+            }
+            raw_hole = raw_hole_by_id.get(str(hole.hole_id))
+            if raw_hole:
+                for key in ("spindle_speed", "feed_rate", "params_source"):
+                    if raw_hole.get(key) is not None:
+                        dims[key] = raw_hole[key]
 
             mf = MachiningFeature(
                 name=hole.hole_id,
@@ -208,12 +224,7 @@ class _StagesMixin:
                 is_datum_candidate=hole.type == "center_hole",
                 priority=hole_dict["priority"],
                 surface=hole.surface,
-                dimensions={
-                    "diameter": hole.diameter,
-                    "depth": hole.depth,
-                    "position_x": hole.position_x,
-                    "position_y": hole.position_y,
-                },
+                dimensions=dims,
             )
             features.append(mf)
 

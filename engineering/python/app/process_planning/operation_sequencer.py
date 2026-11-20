@@ -238,6 +238,11 @@ class OperationSequencer:
                 cutting_params["material"] = material
             if tool_diameter is not None:
                 cutting_params["tool_diameter"] = tool_diameter
+            # 上游（如 CuttingParamRecommender）已计算并限幅的 S/F 直接下传 G 代码层
+            for _k in ("spindle_speed", "feed_rate", "params_source"):
+                _val = fe.dimensions.get(_k)
+                if _val is not None:
+                    cutting_params[_k] = _val
             if not tool_feasible:
                 cutting_params["tool_feasible"] = False
                 cutting_params["tool_note"] = tool_note
