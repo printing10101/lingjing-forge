@@ -455,7 +455,11 @@ def main() -> int:
     for sub in ("app", "alembic", "config"):
         s = args.backend_src / sub
         if s.is_dir():
-            n = copy_tree(s, backend_dst / sub, ignore=("__pycache__", "tests", "data", ".pyc"))
+            # 2026-11-18 修复：原 ignore 含 "data"，按目录名匹配会误伤业务代码包
+            # `app/data`（内含 process_data_manager.py 等，被 app.process_planning
+            # 直接 import），导致安装包启动即 ModuleNotFoundError: app.data。
+            # app 下所有 data 目录合计 <1MB，无需排除。
+            n = copy_tree(s, backend_dst / sub, ignore=("__pycache__", "tests", ".pyc"))
             log(f"复制 {sub}/ {n} 个文件")
     for f in ("start_server.py", "alembic.ini", "requirements.txt", "requirements-desktop-constraints.txt"):
         s = args.backend_src / f

@@ -328,7 +328,10 @@ impl SidecarManager {
         let port = self.state.read().port;
         let url = format!("http://127.0.0.1:{port}/api/health/ping");
         let mut last_progress: u8 = 5;
-        let max_attempts: u32 = 90; // 90 * 500ms = 45s
+        // 2026-11-18：45s → 120s。打包版首次冷启动需导入 torch /
+        // sentence-transformers / chromadb（实测导入合计 80s+，且瘦身删除了
+        // .pyc 需现场编译字节码），45s 会在干净机器上稳定误判超时并杀进程。
+        let max_attempts: u32 = 240; // 240 * 500ms = 120s
         let state_file_path = std::path::Path::new(&self.log_dir(app)).join("sidecar.json");
         for attempt in 0..max_attempts {
             if *self.shutdown_in_progress.read() {

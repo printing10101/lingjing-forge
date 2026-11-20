@@ -15,6 +15,33 @@ S3 修复：移除"密钥缺失时自动生成临时密钥"的回退逻辑——
 
 import os
 import sys
+from pathlib import Path
+
+
+def _resolve_data_dir(py_dir: Path) -> Path:
+    """解析可写的数据目录（安装到 Program Files 时回退到用户目录）。"""
+    explicit = os.environ.get("LNN_DATA_DIR")
+    if explicit:
+        d = Path(explicit)
+        d.mkdir(parents=True, exist_ok=True)
+        return d
+    preferred = py_dir / "data"
+    try:
+        preferred.mkdir(parents=True, exist_ok=True)
+        probe = preferred / ".write_probe"
+        probe.write_text("", encoding="utf-8")
+        probe.unlink()
+        return preferred
+    except OSError:
+        base = os.environ.get("LOCALAPPDATA") or str(Path.home() / "AppData" / "Local")
+        fallback = Path(base) / "com.lingjing.manufacturing" / "data"
+        try:
+            fallback.mkdir(parents=True, exist_ok=True)
+        except OSError as exc:
+            print(f"[startup] FATAL: 无可用数据目录（{exc}）", file=sys.stderr)
+            sys.exit(1)
+        print(f"[startup] 安装目录不可写，数据目录回退到 {fallback}")
+        return fallback
 
 
 def _is_dev_env() -> bool:
@@ -30,7 +57,6 @@ def main():
     # 服务端部署（install.sh 已生成 .env）时跳过生成，仅加载。
     # 生成位置：python_dir 的父目录（工程版=仓库根；桌面版=desktop_runtime/）。
     import secrets
-    from pathlib import Path
 
     _py_dir = os.path.dirname(os.path.abspath(__file__))
     # Windows 长路径修复（2026-08-09）：Tauri resource_dir 会返回 \\?\ 前缀路径
@@ -39,20 +65,28 @@ def main():
     # 登录/数据功能不可用）。此处剥离 \\?\ 前缀，恢复普通绝对路径。
     if _py_dir.startswith("\\\\?\\"):
         _py_dir = _py_dir[4:]
-    # 确保数据库目录存在（桌面首次启动无 data/，SQLite 打开前必须建目录）
-    Path(_py_dir, "data").mkdir(parents=True, exist_ok=True)
-    _env_file = Path(_py_dir).parent / ".env"
+    # 数据目录解析（2026-11-18 桌面安装包修复）：
+    # NSIS perMachine 安装到 Program Files，普通用户启动时该目录只读，
+    # 原实现在此 mkdir 会抛 PermissionError 击穿启动（且 SQLite 无法落盘）。
+    # 策略：LNN_DATA_DIR 显式指定 > 安装目录可写则用 ../data > 回退到
+    # %LOCALAPPDATA%\com.lingjing.manufacturing\data（与 Tauri appDataDir 一致）。
+    _data_dir = _resolve_data_dir(Path(_py_dir))
+    _env_candidates = [Path(_py_dir).parent / ".env", _data_dir / ".env"]
+    _env_file = next((p for p in _env_candidates if p.exists()), _env_candidates[0])
     if not _env_file.exists():
-        try:
-            _jwt = secrets.token_urlsafe(48)
-            _db_url = "sqlite+aiosqlite:///" + _py_dir.replace("\\", "/") + "/data/app.db"
-            _env_file.write_text(
-                "LNN_JWT_SECRET=" + _jwt + "\nDATABASE_URL=" + _db_url + "\nREDIS_URL=\n",
-                encoding="utf-8",
-            )
-            print(f"[startup] 已生成 {_env_file}（随机 JWT + SQLite 单机模式）")
-        except OSError as _e:
-            print(f"[startup] WARNING: .env 生成失败（{_e}），继续按环境变量启动")
+        _jwt = secrets.token_urlsafe(48)
+        _db_url = "sqlite+aiosqlite:///" + _data_dir.as_posix() + "/app.db"
+        _content = "LNN_JWT_SECRET=" + _jwt + "\nDATABASE_URL=" + _db_url + "\nREDIS_URL=\n"
+        for _target in _env_candidates:
+            try:
+                _target.write_text(_content, encoding="utf-8")
+                _env_file = _target
+                print(f"[startup] 已生成 {_env_file}（随机 JWT + SQLite 单机模式）")
+                break
+            except OSError as _e:
+                print(f"[startup] WARNING: {_target} 写入失败（{_e}），尝试备用位置")
+        else:
+            print("[startup] WARNING: .env 无法落盘，按环境变量启动（重启后登录态失效）")
     try:
         from dotenv import load_dotenv
 
