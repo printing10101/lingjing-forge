@@ -31,6 +31,7 @@ MAX_DRILL_DIAMETER_MM = 20.0
 # 铣削默认刀具直径（mm）。对应知识库中已入库的 φ10 硬质合金平底立铣刀
 # （app/database/data/tools.json: endmill_wc_flat_d10），不是凭空的兜底值。
 DEFAULT_MILL_DIAMETER_MM = 10.0
+_STANDARD_MILL_DIAMETERS_MM: tuple[float, ...] = (10.0, 6.0, 4.0, 3.0, 2.0)
 
 
 def _circle_contour(
@@ -417,9 +418,10 @@ class OperationSequencer:
     ) -> float | None:
         """孔径超过一次钻削上限时返回孔径，否则 None。
 
-        只在「本来打算钻孔」的通孔上触发；中心孔、沉头孔与既有铣/镗工序不动。
+        对所有打算用钻/镗单刃加工的大孔（Ø>20mm，含沉头孔）统一改走螺旋铣孔，
+        仅排除中心孔（中心钻规范最大 Ø6mm）；避免大孔被误判拒绝。
         """
-        if "钻" not in method or "中心" in method or "沉头" in method:
+        if ("钻" not in method and "镗" not in method) or "中心" in method:
             return None
         try:
             diameter = float(fe.dimensions.get("diameter") or 0.0)
@@ -428,6 +430,41 @@ class OperationSequencer:
         if diameter > MAX_DRILL_DIAMETER_MM:
             return diameter
         return None
+
+    @staticmethod
+    def _select_mill_diameter(fe: MachiningFeature) -> float:
+        """为铣削/挖槽工序匹配能放入几何内部的最大标准立铣刀直径。"""
+        dims = fe.dimensions or {}
+        contour = dims.get("contour")
+        # 优先按真实闭合多边形内缩测试（仅针对内腔/槽，外轮廓不需要内切限制）
+        if isinstance(contour, list) and len(contour) >= 3 and ("槽" in fe.type or "腔" in fe.type or "pocket" in fe.type.lower()):
+            try:
+                from shapely.geometry import Polygon
+
+                poly = Polygon([(float(p[0]), float(p[1])) for p in contour])
+                if not poly.is_valid:
+                    poly = poly.buffer(0)
+                if not poly.is_empty and poly.area > 0:
+                    for dia in _STANDARD_MILL_DIAMETERS_MM:
+                        eroded = poly.buffer(-dia / 2.0 * 1.02)
+                        if not eroded.is_empty:
+                            return dia
+                    return _STANDARD_MILL_DIAMETERS_MM[-1]
+            except Exception:
+                pass
+        # 无多边形或非型腔：若有显式窄宽尺寸且 < 10mm，按短边降级
+        try:
+            width_val = float(dims.get("width") or 0.0)
+            length_val = float(dims.get("length") or 0.0)
+            span = min(v for v in (width_val, length_val) if v > 0) if (width_val > 0 or length_val > 0) else 0.0
+            if 0 < span < DEFAULT_MILL_DIAMETER_MM and ("槽" in fe.type or "腔" in fe.type or "pocket" in fe.type.lower()):
+                for dia in _STANDARD_MILL_DIAMETERS_MM:
+                    if dia <= span * 0.95:
+                        return dia
+                return _STANDARD_MILL_DIAMETERS_MM[-1]
+        except (TypeError, ValueError):
+            pass
+        return DEFAULT_MILL_DIAMETER_MM
 
     def _resolve_hole_tooling(
         self,
@@ -444,13 +481,12 @@ class OperationSequencer:
             method: 加工方法名。
 
         Returns:
-            ``(tool_diameter_mm, feasible, note)``。铣削工序返回刀具库的 Ø10 立铣刀；
+            ``(tool_diameter_mm, feasible, note)``。铣削工序按几何宽窄选标准立铣刀；
             车削等不参与直径约束的工序返回 ``(None, True, "")``。
         """
         if "钻" not in method and "镗" not in method:
-            # 铣削工序用刀具库里的 φ10 平底立铣刀；车削/其他不参与直径约束
             if "铣" in method or "槽" in method:
-                return DEFAULT_MILL_DIAMETER_MM, True, ""
+                return self._select_mill_diameter(fe), True, ""
             return None, True, ""
 
         try:
