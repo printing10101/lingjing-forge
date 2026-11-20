@@ -162,6 +162,15 @@ class _StagesMixin:
         if not (math.isfinite(blank_x0) and math.isfinite(blank_y0)):
             blank_x0 = blank_y0 = 0.0
 
+        # 毛坯余量（mm）：只有声明了余量，基准面光刀才有东西可切。
+        # 缺省 0 = 毛坯与零件等厚，此时光刀会直接把零件切薄，必须跳过。
+        try:
+            face_allowance = float(part_description.get("face_allowance_mm") or 0.0)
+        except (TypeError, ValueError):
+            face_allowance = 0.0
+        if not math.isfinite(face_allowance) or face_allowance < 0:
+            face_allowance = 0.0
+
         # 下游 `_extract_feature_geometry` 用 center_x/center_y 判定 anchor="center"，
         # 而刀轨引擎的 raster rect = 中心 ± length/2、width/2。所以这里必须传**中心**，
         # 传角点会把整张面铣往 −L/2,−W/2 方向平移半个零件（实测 case6 因此有 83%
@@ -182,6 +191,7 @@ class _StagesMixin:
                     "width": blank_width,
                     "center_x": blank_x0 + blank_length / 2.0,
                     "center_y": blank_y0 + blank_width / 2.0,
+                    "face_allowance": face_allowance,
                 },
             )
         )

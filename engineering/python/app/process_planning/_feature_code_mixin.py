@@ -18,6 +18,34 @@ from app.toolpath.planar_engine import (
 
 logger = logging.getLogger(__name__)
 
+# 基准面光刀的默认余量（mm）。0 = 毛坯与零件等厚时不光刀（避免把零件切薄）。
+# 由 part_description / cutting_params 的 face_allowance_mm 覆盖。
+DEFAULT_FACE_ALLOWANCE_MM = 0.0
+
+# 钻孔固定循环的 R 平面距工件顶面的安全间隙（mm）。
+# 工业常规 1–5mm；取 3 兼顾安全与空行程。
+DRILL_R_PLANE_CLEARANCE_MM = 3.0
+
+# 材料名 → 切削参数库类别。图纸/流程里的材料写法五花八门（"45#钢"、"AL6061"、
+# "al_6061"、"304"），而参数库只认 6 个类别键。此前直接拿原始材料名查库，
+# 一律落空后静默用 1200rpm/150mm/min 默认值，注释却写"参数来自数据库"。
+_MATERIAL_KEYWORDS: tuple[tuple[tuple[str, ...], str], ...] = (
+    (("铝", "aluminum", "aluminium", "al_", "6061", "7075"), "aluminum"),
+    (("不锈钢", "stainless", "ss_", "304", "316"), "stainless"),
+    (("钛", "titanium", "ti_", "tc4"), "titanium"),
+    (("铸铁", "cast_iron", "cast iron", "ht250"), "cast_iron"),
+    (("铜", "brass", "bronze", "c36000", "c11000"), "brass"),
+)
+
+
+def _material_category(material: str) -> str:
+    """把任意材料写法归一为切削参数库的类别键（缺省碳钢）。"""
+    key = (material or "").strip().lower()
+    for tokens, category in _MATERIAL_KEYWORDS:
+        if any(token in key for token in tokens):
+            return category
+    return "steel"
+
 
 class _FeatureCodeMixin:
     # 宿主契约：由主类 / 兄弟 mixin 提供
@@ -79,14 +107,18 @@ class _FeatureCodeMixin:
             lines.append(postprocessor._comment(f"钻孔: {op.feature_name}"))
 
             # 从数据库获取切削参数
+            params_source = "切削参数库"
+            _category = _material_category(material)
             try:
-                db_params = get_cutting_params(material, "drilling", tool_diameter)
+                db_params = get_cutting_params(_category, "drilling", tool_diameter)
                 spindle_speed = db_params["spindle_speed"]
                 feed_rate = db_params["feed_rate"]
+                params_source = f"切削参数库[{_category}]"
             except (ValueError, KeyError):
                 # 如果数据库查询失败，使用安全默认值
                 spindle_speed = 1200
                 feed_rate = 150
+                params_source = f"内置默认值（{material} 未命中参数库[{_category}]）"
 
             if "中心" in method:
                 # 中心钻使用更高转速
@@ -108,7 +140,7 @@ class _FeatureCodeMixin:
 
             lines.append(f"S{spindle_speed} M03")
             lines.append(postprocessor._comment(f"进给: {recommended_feed}, 切速: {recommended_speed}"))
-            lines.append(postprocessor._comment(f"参数来自数据库: 材料={material}, 直径={tool_diameter}mm"))
+            lines.append(postprocessor._comment(f"参数来源: {params_source}, 材料={material}, 直径={tool_diameter}mm"))
 
             # 五轴模式：开启 RTCP
             if is_five_axis and hasattr(postprocessor, "format_rtcp_on"):
@@ -131,6 +163,10 @@ class _FeatureCodeMixin:
                 )
                 depth = max_drill_depth
             drill_z = stock_top_z - abs(depth)
+            # R 平面：工件顶面上方安全间隙（3mm），而不是后处理默认的 safe_z(80)。
+            # 10mm 板上每个啄钻回退 80mm 是纯空行程；按顶面+3 计算后单孔可省
+            # 数百毫米快移，且不影响退刀安全性。
+            r_plane = float(stock_top_z) + DRILL_R_PLANE_CLEARANCE_MM
             lines.append(
                 postprocessor.format_cycle_drill(
                     x=x_pos,
@@ -138,6 +174,8 @@ class _FeatureCodeMixin:
                     z=drill_z,
                     depth=depth,
                     dwell=0.5 if depth > 15 else 0.0,
+                    r_plane=r_plane,
+                    feed=feed_rate,
                 )
             )
             lines.append("G80")  # 取消固定循环
@@ -476,17 +514,46 @@ class _FeatureCodeMixin:
         if kind is None:
             return None
 
-        # 深度：几何 depth/z_depth 优先（与钻孔语义一致：正值向下），
-        # 其次毛坯全高（铣穿至底面 Z=0）。
+        # 深度：几何 depth/z_depth 优先（与钻孔语义一致：正值向下）。
         # P0 修复（2026-10-21）：原回退把 depth_of_cut 当**总深度**用，而它实际是
         # **单层**切深（见下方 stepdown）。结果 10mm 厚零件只切 5mm 就抬刀，且
         # stock_top_z 未由零件高度驱动时刀路整体悬空（实测 case2 切削 Z=45/46/48）。
+        #
+        # P0 修复（2026-11-18）：基准面（raster）无 depth 时原回退到「毛坯全高」，
+        # 等于从顶面一路铣到底面——实测 case_02 的 OP01 切到 Z0，整块 10mm 板被
+        # 完全铣掉，而体素闸判 PASS（它只查碰撞，不查该切的料切没切）。面铣的语义
+        # 是「去除毛坯余量」，不是「把零件铣穿」：有声明余量就切那么多，没有就跳过。
         depth = geom.get("depth", geom.get("z_depth"))
+        skip_note: str | None = None
         if depth is None:
-            stock_h = float(stock_top_z) if stock_top_z else 0.0
-            depth = abs(stock_h) if stock_h > 0 else None
-        if depth is None:
+            if kind == "raster":
+                allowance = geom.get("face_allowance_mm", cut_params.get("face_allowance_mm", DEFAULT_FACE_ALLOWANCE_MM))
+                try:
+                    allowance = float(allowance)
+                except (TypeError, ValueError):
+                    allowance = DEFAULT_FACE_ALLOWANCE_MM
+                if allowance > 0:
+                    depth = allowance
+                else:
+                    # 毛坯与零件等厚 ⇒ 没有可去除的余量，光刀只会把零件切薄。
+                    skip_note = (
+                        "基准面未声明毛坯余量（毛坯厚度=零件厚度），已跳过光刀，"
+                        "以免切薄零件；若毛坯确实留有余量，请传入 face_allowance_mm"
+                    )
+            else:
+                stock_h = float(stock_top_z) if stock_top_z else 0.0
+                depth = abs(stock_h) if stock_h > 0 else None
+        if depth is None and skip_note is None:
             depth = float(cut_params.get("depth_of_cut", 5.0) or 5.0)
+
+        if skip_note is not None:
+            logger.warning("%s: %s", op.feature_name, skip_note)
+            if fallback_notes is not None:
+                fallback_notes.append(postprocessor._comment(f"[跳过] {skip_note}"))
+            # 不产生任何切削运动：返回空段会让调用方误判为「引擎拒绝」并回退模板，
+            # 所以这里返回仅含说明的一行，明确表达「工序成立但无切削」。
+            return [postprocessor._comment(f"基准面 {op.feature_name}: 无余量，本工序不切削")]
+
         z_top = float(stock_top_z)
         z_bottom = z_top - abs(float(depth))
 

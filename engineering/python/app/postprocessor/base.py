@@ -167,6 +167,8 @@ class BasePostProcessor(_ConfigMixin, _FormatMixin, ABC):
         depth: float,
         dwell: float = 0.0,
         pecking: bool = True,
+        r_plane: float | None = None,
+        feed: float | None = None,
     ) -> str:
         """生成钻孔固定循环指令。
 
@@ -177,6 +179,11 @@ class BasePostProcessor(_ConfigMixin, _FormatMixin, ABC):
             depth: 钻孔深度
             dwell: 孔底暂停时间(秒)
             pecking: 是否啄钻，True用G83，False用G81
+            r_plane: R 平面高度（mm）。None 时用后处理器默认（通常=safe_z）；
+                传实际值时用于把空行程压到「工件顶面+安全间隙」，避免每个
+                啄钻回退都跑到 Z80。
+            feed: 钻孔进给（mm/min）。None 时用后处理器默认（safe 值）；
+                传实际值时用切削参数库算出的进给，替代硬编码 F3000。
 
         Returns:
             钻孔循环NC代码字符串

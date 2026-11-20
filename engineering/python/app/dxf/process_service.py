@@ -249,6 +249,7 @@ class DxfProcessService:
         material: str = "45钢",
         stock_top_z: float | None = None,
         max_stepdown: float | None = None,
+        face_allowance_mm: float = 0.0,
     ) -> DxfProcessResult:
         """一站式处理 DXF 文件。
 
@@ -260,6 +261,8 @@ class DxfProcessService:
             material: 零件材料名（工艺规划知识库查询用）
             stock_top_z: 明确的毛坯顶面 Z；None 保留历史生成坐标约定
             max_stepdown: 可选最大分层切深；仅约束走刀分层，不改变加工总深度
+            face_allowance_mm: 毛坯顶面余量（mm）。>0 时才生成基准面光刀；
+                0 表示毛坯与零件等厚，光刀会把零件切薄，故跳过。
         """
         t0 = time.time()
         path = Path(dxf_path)
@@ -291,7 +294,8 @@ class DxfProcessService:
             ctl = postprocessor or self._default_postprocessor
             features_summary = result.features.summary if result.features else {}
             result.gcode = self._run_gcode(
-                path, out_dir, ctl, user_id, features_summary, material, stock_top_z, max_stepdown
+                path, out_dir, ctl, user_id, features_summary, material, stock_top_z,
+                max_stepdown, face_allowance_mm
             )
 
         # 收集输出文件
@@ -555,6 +559,7 @@ class DxfProcessService:
         material: str = "45钢",
         stock_top_z: float | None = None,
         max_stepdown: float | None = None,
+        face_allowance_mm: float = 0.0,
     ) -> StageResult:
         t0 = time.time()
         try:
@@ -589,6 +594,7 @@ class DxfProcessService:
                 "material": material,
                 "part_type": "general",
                 "holes": holes,
+                "face_allowance_mm": float(face_allowance_mm or 0.0),
                 "overall_dimensions": {
                     "length": summary.get("overall_length", 0.0),
                     "width": summary.get("overall_width", 0.0),
@@ -612,10 +618,19 @@ class DxfProcessService:
                 part_description["cavities"] = cavities
             if contour_notes:
                 part_description["contour_notes"] = contour_notes
+            # 毛坯顶面：缺省取零件高度，而不是历史约定的常数 50。
+            # 常数 50 会让基准面光刀悬在零件上方 40mm 处切空气（或按旧逻辑
+            # 从 50 一路铣到 0，把零件铣穿），两种都不是真实工艺。
+            if stock_top_z is None:
+                resolved_stock_top = float(summary.get("overall_height", 0.0) or 0.0)
+                if resolved_stock_top <= 0:
+                    resolved_stock_top = 50.0
+            else:
+                resolved_stock_top = float(stock_top_z)
             process_result = ProcessPlanningPipeline().run(
                 part_description=part_description,
                 controller_type=controller,
-                stock_top_z=50.0 if stock_top_z is None else stock_top_z,
+                stock_top_z=resolved_stock_top,
                 max_stepdown=max_stepdown,
             )
             if not process_result.success or not process_result.gcode_result:

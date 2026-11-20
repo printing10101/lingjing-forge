@@ -118,6 +118,8 @@ class SiemensPostProcessor(BasePostProcessor):
         depth: float,
         dwell: float = 0.0,
         pecking: bool = True,
+        r_plane: float | None = None,
+        feed: float | None = None,
     ) -> str:
         # pecking 参数与基类签名对齐：True 用啄钻循环，False 用普通循环
         # Siemens 840D 钻孔循环族：
@@ -130,15 +132,17 @@ class SiemensPostProcessor(BasePostProcessor):
         else:
             cycle_code = "CYCLE83"
         cfg = self.get_cycle_config("drilling", cycle_code)
-        r_plane = self.safe_z_height
         peck_depth = cfg.get("peck_depth", 5.0)
         retract_dist = cfg.get("retract_distance", 1.0)
-        drill_feed = self._fmt(self.get_feed_rate(self.rapid_feed * 0.3))
+        # R 平面/进给仅在后处理内部兜底；工艺层应传真实值。
+        r_value = float(r_plane) if r_plane is not None else self.safe_z_height
+        feed_value = float(feed) if feed is not None else self.get_feed_rate(self.rapid_feed * 0.3)
+        drill_feed = self._fmt(feed_value)
 
         if dwell > 0:
             lines = [
                 f"N{self._next_block():05d} CYCLE82("
-                f"{self._fmt(r_plane)}, {self._fmt(0.0)}, "
+                f"{self._fmt(r_value)}, {self._fmt(0.0)}, "
                 f"{self._fmt(retract_dist)}, {self._fmt(-abs(depth))}, "
                 f"{drill_feed}, {self._fmt(dwell)})",
                 f"N{self._next_block():05d} G00 X{self._fmt(x)} Y{self._fmt(y)}",
@@ -147,7 +151,7 @@ class SiemensPostProcessor(BasePostProcessor):
         else:
             lines = [
                 f"N{self._next_block():05d} CYCLE83("
-                f"{self._fmt(r_plane)}, {self._fmt(0.0)}, "
+                f"{self._fmt(r_value)}, {self._fmt(0.0)}, "
                 f"{self._fmt(retract_dist)}, {self._fmt(-abs(depth))}, "
                 f"{self._fmt(-abs(depth))}, ,{self._fmt(peck_depth)}, "
                 f", ,{self._fmt(0.0)}, ,1, ,1,1)",

@@ -39,6 +39,9 @@ DEFAULT_DXF = _REPO_ROOT / "data" / "test_fixtures" / "case11_perforated_plate.d
 DEFAULT_OUT = _REPO_ROOT / "tests" / "golden" / "postprocessors"
 SOURCE_CONTROLLER = "fanuc_0i"
 SAFE_Z = 80.0
+# 毛坯顶面余量（mm）：与 golden_case_01 同口径，真实板料比成品厚一点。
+# 余量为 0 时管线会跳过基准面光刀，黄金程序就只剩钻孔，失去面铣覆盖。
+FACE_ALLOWANCE_MM = 0.5
 # 四家国产：广数 / 华中 / 凯恩帝 / 数马 XM-100。
 # XM-100 行程仅 ±50mm，依赖「工件零点=毛坯中心」与模板走线角点推导
 # （2026-11-15 修复：此前中心被当角点，五轴插补点 X66.7 超程）。
@@ -68,7 +71,8 @@ def build_plan(dxf_path: Path, *, center_origin: bool = True):
         offset_y = float(features.overall_min_y) + float(features.overall_width) / 2
     holes = [{"id": hole.hole_id, "type": hole.hole_type,
               "position": [hole.center_x - offset_x, hole.center_y - offset_y],
-              "diameter": hole.diameter, "depth": height} for hole in features.holes]
+              "diameter": hole.diameter, "depth": height + FACE_ALLOWANCE_MM}
+             for hole in features.holes]
     # 平面工序需显式给轮廓，否则管线用 0..L 外包络（平移后仍越出小行程机床）
     from app.dxf.contour_extractor import classify_rings
 
@@ -95,8 +99,10 @@ def build_plan(dxf_path: Path, *, center_origin: bool = True):
                "min_y": -float(features.overall_width) / 2 if center_origin else float(features.overall_min_y)}
     pipeline_result = ProcessPlanningPipeline().run(
         {"material": "45#钢", "part_type": "plate", "holes": holes, "planes": contours,
+         "face_allowance_mm": FACE_ALLOWANCE_MM,
          "overall_dimensions": overall},
-        controller_type=SOURCE_CONTROLLER, safe_z=SAFE_Z, stock_top_z=height)
+        controller_type=SOURCE_CONTROLLER, safe_z=SAFE_Z,
+        stock_top_z=height + FACE_ALLOWANCE_MM)
     if not pipeline_result.success or pipeline_result.operation_plan is None:
         raise RuntimeError(f"工序计划生成失败: {pipeline_result.summary}")
     return pipeline_result.operation_plan, height, {"offset_x": round(-offset_x, 3), "offset_y": round(-offset_y, 3)}
@@ -109,7 +115,7 @@ def generate_all(dxf_path: Path) -> dict[str, str]:
     programs: dict[str, str] = {}
     for controller in DOMESTIC_CONTROLLERS:
         result = generator.generate(plan, controller_type=controller, material_name="45#钢",
-                                    safe_z=SAFE_Z, stock_top_z=height)
+                                    safe_z=SAFE_Z, stock_top_z=height + FACE_ALLOWANCE_MM)
         if not result.is_valid:
             raise RuntimeError(f"{controller} 程序未通过语法校验: {result.errors}")
         programs[controller] = normalize(result.program_text)

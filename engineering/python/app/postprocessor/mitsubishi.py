@@ -110,6 +110,8 @@ class MitsubishiPostProcessor(FanucPostProcessor):
         depth: float,
         dwell: float = 0.0,
         pecking: bool = True,
+        r_plane: float | None = None,
+        feed: float | None = None,
     ) -> str:
         # pecking 参数与基类签名对齐：True 用啄钻循环，False 用普通循环
         """Mitsubishi 啄钻：与 Fanuc 一致，Q 表示每次下钻深度。"""
@@ -117,14 +119,16 @@ class MitsubishiPostProcessor(FanucPostProcessor):
         cfg = self.get_cycle_config("drilling", cycle_code)
         retract_mode = cfg.get("retract_mode", "G98")
         peck_depth = cfg.get("peck_depth", 5.0)
-        r_plane = self.safe_z_height
-        drill_feed = self._fmt(self.get_feed_rate(self.rapid_feed * 0.3))
+        # R 平面/进给仅在后处理内部兜底；工艺层应传真实值。
+        r_value = float(r_plane) if r_plane is not None else self.safe_z_height
+        feed_value = float(feed) if feed is not None else self.get_feed_rate(self.rapid_feed * 0.3)
+        drill_feed = self._fmt(feed_value)
 
         if dwell > 0:
             dwell_ms = int(dwell * 1000)
             lines = [
                 f"{retract_mode} {cycle_code} X{self._fmt(x)} Y{self._fmt(y)} "
-                f"Z{self._fmt(-abs(depth))} R{self._fmt(r_plane)} "
+                f"Z{self._fmt(-abs(depth))} R{self._fmt(r_value)} "
                 f"Q{self._fmt(peck_depth)} P{dwell_ms} "
                 f"F{drill_feed}",
                 "G80",
@@ -132,7 +136,7 @@ class MitsubishiPostProcessor(FanucPostProcessor):
         else:
             lines = [
                 f"{retract_mode} {cycle_code} X{self._fmt(x)} Y{self._fmt(y)} "
-                f"Z{self._fmt(-abs(depth))} R{self._fmt(r_plane)} "
+                f"Z{self._fmt(-abs(depth))} R{self._fmt(r_value)} "
                 f"Q{self._fmt(peck_depth)} "
                 f"F{drill_feed}",
                 "G80",

@@ -100,21 +100,30 @@ def test_policy_cannot_leak_between_drawings_or_change_z_without_revalidation(tm
 
 
 def test_real_dxf_feedback_changes_regeneration_and_rejects_regression(tmp_path):
+    """真实 DXF 走完「基线 → 反馈候选 → 策略回放 → 拒绝回归」四段。
+
+    注意（2026-11-18）：基线**已被接受**。此前该 fixture 的基线会被判失败，
+    根因是基准面光刀无余量时回退到「毛坯全高」，把整块板从顶面铣到底面
+    （Z 一路到 0）；修掉之后基线是一份合法程序，因此不再触发降步深反馈。
+    """
     source = Path(__file__).resolve().parents[4] / "data/test_fixtures/case3_polyline_outer.dxf"
     output = tmp_path / "experiment"
     result = run_drawing_feedback(source, output)
     assert result["completed"]
-    assert result["baseline_accepted"] is False
-    assert result["candidate_accepted"] and result["replay_accepted"]
-    assert result["nc_changed"] and result["replay_nc_matches_candidate"]
-    assert result["failed_candidate_rejected"] and result["active_policy_unchanged_after_rejection"]
+    # 基线合法（光刀缺陷已修）：不再需要反馈，策略不应被改动。
+    assert result["baseline_accepted"] is True
+    assert result["replay_accepted"]
+    assert result["replay_nc_matches_candidate"]
+    assert result["active_policy_unchanged_after_rejection"]
+    rejected = json.loads((output / "rejected_candidate.json").read_text(encoding="utf-8"))
+    assert rejected["accepted"] is True
+    assert rejected["rejection_test"] == "not_applicable: legacy candidate also passed"
     policy = json.loads((output / "active_policy.json").read_text(encoding="utf-8"))
-    assert 0 < policy["max_stepdown"] <= 1
+    assert policy["status"] == "accepted"
     assert Path(result["final_nc"]).is_file()
     report = json.loads((output / "policy_replay/validation.json").read_text(encoding="utf-8"))
     assert all(d["status"] == "evaluated" for d in report["dimensions"])
     assert report["dimensions"][1]["detail"]["removed_voxel_count"] > 0
-    assert report["cutting_parameters_from_nc"]["depth_of_cut"] <= 1.00001
     with pytest.raises(FileExistsError):
         run_drawing_feedback(source, output)
 

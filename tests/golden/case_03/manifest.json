@@ -7,7 +7,7 @@
   "artifacts": {
     "dxf_parse.json": {
       "bytes": 747,
-      "sha256": "c265925cd62a4f9d7e336b3af84efabc6ffb13ffbbe90f689fbddaf6f2eb3e1e"
+      "sha256": "ac72a9ccef3faa1a54a96cab6b2b2f5082713f4607cea0a1769281d858999883"
     },
     "features.json": {
       "bytes": 47170,
@@ -15,47 +15,47 @@
     },
     "model.step": {
       "bytes": 219328,
-      "sha256": "3539201f7abb5af80659581e056239a3fbe62912edafada1a80537018c48bf03"
+      "sha256": "18d6590b57ff9bbe8989a4cce1efb5808af613541dfcddb698442c5f5a4665e9"
     },
     "cutting_params.json": {
-      "bytes": 3346,
-      "sha256": "4e34fc4a40873df6fd3bdeee3d1cfb1b9e7facc55ab4555ada42627fb45b93c2"
+      "bytes": 3940,
+      "sha256": "799815de1bc41ae0f08579dec752f5c2ba1f51bb81cf23edb1c49b3f18fa42b1"
     },
     "chatter_report.json": {
       "bytes": 350,
-      "sha256": "11765a0755ddb4b46fd080968e6c335020ecff9af8cd6023a114770101808dcf"
+      "sha256": "0087ca8be26ae513d735c7ca6c2d8da189de5f13e19a3f7ae4f4c68634203324"
     },
     "program.nc": {
-      "bytes": 17217,
-      "sha256": "cfeba767f2f44651b8f36e57f8f18ec763bcbdc426c304b2e220d31c5c155496"
+      "bytes": 50456,
+      "sha256": "b273141541fdf948701eca25aaf05722ffeb224bf7c930188f7047fee6b77966"
     },
     "pipeline.json": {
-      "bytes": 903,
-      "sha256": "e9f05d25a79b89499fa9b40b209ccc4eda3d55593b966128fa68d7a7bab79e19"
+      "bytes": 904,
+      "sha256": "f7fc206a8cb8380d772075c7578c79c1f61304685ac2d8c2b9a5c5b3bd807803"
     },
     "voxel_report.json": {
-      "bytes": 554,
-      "sha256": "aa9d1fc5aa651fe236a4d05de743e2586fdecb2e4cc42d8a31a8545cc55006b3"
+      "bytes": 555,
+      "sha256": "ad5dd9c539f64a3745fa6a36d8d72690bd574219c03e2784323acf84b0b0fdf9"
     }
   },
-  "program_body_sha256": "9bbed094b760c859593be6ff2e8a78c57b479abf0d555ef3ffdabf8532be0bd5",
+  "program_body_sha256": "a603e3b4fea1d5c3fde95b91486423b8e81011bd1be023388d2ffef0baaa2acd",
   "stages": [
     {
       "stage": "dxf_parse",
-      "duration_ms": 26.31,
+      "duration_ms": 20.73,
       "status": "ok",
       "entities": 11
     },
     {
       "stage": "feature_extract",
-      "duration_ms": 7.87,
+      "duration_ms": 7.72,
       "status": "ok",
       "holes": 9,
       "contours": 10
     },
     {
       "stage": "step_build",
-      "duration_ms": 343.25,
+      "duration_ms": 401.74,
       "status": "ok",
       "volume_mm3": 232128.8,
       "expected_volume_mm3": 232128.8,
@@ -67,43 +67,44 @@
     },
     {
       "stage": "cutting_params",
-      "duration_ms": 94.45,
+      "duration_ms": 108.8,
       "status": "ok",
       "features": 9
     },
     {
       "stage": "chatter",
-      "duration_ms": 2.99,
+      "duration_ms": 0.49,
       "status": "ok",
       "worst_margin": 19.091
     },
     {
       "stage": "gcode",
-      "duration_ms": 1047.06,
+      "duration_ms": 1349.27,
       "status": "ok",
-      "lines": 672,
+      "lines": 1453,
       "program_number": 1000
     },
     {
       "stage": "voxel_validation",
-      "duration_ms": 1727.32,
+      "duration_ms": 898.89,
       "status": "ok",
-      "removed_voxels": 168146,
-      "segments": 842
+      "removed_voxels": 23340,
+      "segments": 1396
     }
   ],
-  "elapsed_seconds": 3.35,
+  "elapsed_seconds": 2.91,
   "environment": {
-    "python": "3.14.4",
+    "python": "3.12.14",
     "platform": "Windows-11-10.0.26300-SP0"
   },
   "parameters": {
     "material": "steel_45",
     "controller": "fanuc_0i",
-    "tool_diameter_mm": 6.0,
+    "tool_diameter_rule": "按孔径取刀（>Ø20 改螺旋铣，用 Ø10 立铣刀）",
     "num_flutes": 4,
     "machine": "vmc_850",
     "safe_z": 80.0,
+    "face_allowance_mm": 0.5,
     "breakthrough_tolerance_mm": 3.0
   },
   "passed": true

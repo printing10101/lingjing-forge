@@ -49,6 +49,9 @@ NUM_FLUTES = 4
 MACHINE_TYPE = "vmc_850"
 SAFE_Z = 80.0
 BREAKTHROUGH_TOLERANCE_MM = 3.0  # 与 _DRILL_BREAKTHROUGH_MM 对齐
+# 毛坯顶面余量（mm）：真实板料总比成品厚一点，第一道工序把它光掉。
+# 毛坯厚度 = 零件厚度 + 该余量；余量为 0 时管线会跳过光刀（避免把零件切薄）。
+FACE_ALLOWANCE_MM = 0.5
 
 logger = logging.getLogger("golden_case_01")
 
@@ -152,18 +155,33 @@ def run(dxf_path: Path, out_dir: Path, case_name: str | None = None) -> dict:
     _stage(stages, "step_build", started, status="ok", **geometry)
 
     # 4. 切削参数（含稳定性证据）
+    # 每个孔按**实际会用到的刀具**取直径：能一次钻透的按孔径，超过钻削上限的
+    # 改走螺旋铣（用立铣刀）。此前全部按 TOOL_DIAMETER_MM=6 计算，导致 Ø60 孔
+    # 拿到的是 Ø6 刀的参数——线速度换算差一个量级，证据链第一环就是假的。
+    from app.process_planning.operation_sequencer import (
+        DEFAULT_MILL_DIAMETER_MM,
+        MAX_DRILL_DIAMETER_MM,
+    )
+
     started = time.perf_counter()
     recommender = CuttingParamRecommender()
     rows = []
     for hole in features.holes:
+        cutting_tool_mm = (
+            float(hole.diameter)
+            if float(hole.diameter) <= MAX_DRILL_DIAMETER_MM
+            else DEFAULT_MILL_DIAMETER_MM
+        )
         params = recommender.recommend(
             feature_id=hole.hole_id, feature_type="hole", material_id=MATERIAL_ID,
-            precision_tier="standard", tool_diameter_mm=TOOL_DIAMETER_MM,
+            precision_tier="standard", tool_diameter_mm=cutting_tool_mm,
             num_flutes=NUM_FLUTES, machine_type=MACHINE_TYPE)
         evidence = params.stability_evidence
         if not evidence or evidence.get("status") == "unavailable":
             raise RuntimeError(f"{hole.hole_id} 缺少稳定性证据: {evidence}")
-        rows.append({"feature_id": params.feature_id, "spindle_speed_rpm": params.spindle_speed_rpm,
+        rows.append({"feature_id": params.feature_id, "hole_diameter_mm": float(hole.diameter),
+                     "tool_diameter_mm": cutting_tool_mm,
+                     "spindle_speed_rpm": params.spindle_speed_rpm,
                      "feed_rate_mm_per_min": params.feed_rate_mm_per_min,
                      "axial_depth_mm": params.axial_depth_mm,
                      "stability_status": evidence["status"],
@@ -192,19 +210,23 @@ def run(dxf_path: Path, out_dir: Path, case_name: str | None = None) -> dict:
 
     # 6. G-code（孔识别 → 工序规划 → 后处理 → 语法校验）
     started = time.perf_counter()
+    # 通孔深度取**毛坯厚度**（零件厚 + 余量）：光刀把顶面降下来之后，
+    # 孔仍要切到零件底面，否则螺旋铣会在孔底留下一个等于余量的台。
+    stock_top = float(features.overall_height) + FACE_ALLOWANCE_MM
     holes = [{"id": hole.hole_id, "type": hole.hole_type,
               "position": [hole.center_x, hole.center_y],
-              "diameter": hole.diameter, "depth": float(features.overall_height)}
+              "diameter": hole.diameter, "depth": stock_top}
              for hole in features.holes]
     # 基准面刀轨由 overall_dimensions 推导；缺省会回退 200×100 固定包络，
     # 对 100×100 件会切到工件外（A2 首版实测 X 至 195），故显式传真实包络。
     pipeline_result = ProcessPlanningPipeline().run(
         {"material": "45#钢", "part_type": "plate", "holes": holes,
+         "face_allowance_mm": FACE_ALLOWANCE_MM,
          "overall_dimensions": {"length": float(features.overall_length),
                                 "width": float(features.overall_width),
                                 "min_x": float(features.overall_min_x),
                                 "min_y": float(features.overall_min_y)}},
-        controller_type=CONTROLLER, safe_z=SAFE_Z, stock_top_z=float(features.overall_height))
+        controller_type=CONTROLLER, safe_z=SAFE_Z, stock_top_z=stock_top)
     if not pipeline_result.success or pipeline_result.gcode_result is None:
         raise RuntimeError(f"工艺规划/编程失败: {pipeline_result.summary}")
     gcode_result = pipeline_result.gcode_result
@@ -224,9 +246,9 @@ def run(dxf_path: Path, out_dir: Path, case_name: str | None = None) -> dict:
     started = time.perf_counter()
     report = VoxelValidator(CamValidationConfig()).validate(
         gcode_text=program_text, controller_type=CONTROLLER, safe_z=SAFE_Z,
-        stock_top_z=float(features.overall_height),
+        stock_top_z=stock_top,
         stock_length=float(features.overall_length), stock_width=float(features.overall_width),
-        stock_height=float(features.overall_height), tool_diameter_mm=TOOL_DIAMETER_MM,
+        stock_height=stock_top, tool_diameter_mm=TOOL_DIAMETER_MM,
         breakthrough_tolerance_mm=BREAKTHROUGH_TOLERANCE_MM)
     voxel = report.to_dict()
     (out_dir / "voxel_report.json").write_text(
@@ -252,8 +274,10 @@ def run(dxf_path: Path, out_dir: Path, case_name: str | None = None) -> dict:
         "elapsed_seconds": round(time.perf_counter() - started_all, 2),
         "environment": {"python": platform.python_version(), "platform": platform.platform()},
         "parameters": {"material": MATERIAL_ID, "controller": CONTROLLER,
-                       "tool_diameter_mm": TOOL_DIAMETER_MM, "num_flutes": NUM_FLUTES,
+                       "tool_diameter_rule": "按孔径取刀（>Ø20 改螺旋铣，用 Ø10 立铣刀）",
+                       "num_flutes": NUM_FLUTES,
                        "machine": MACHINE_TYPE, "safe_z": SAFE_Z,
+                       "face_allowance_mm": FACE_ALLOWANCE_MM,
                        "breakthrough_tolerance_mm": BREAKTHROUGH_TOLERANCE_MM},
         "passed": True,
     }

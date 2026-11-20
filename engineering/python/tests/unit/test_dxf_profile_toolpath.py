@@ -126,7 +126,11 @@ class TestProfileOnMainPath:
         """
         src = FIXTURES / "case2_box_4holes.dxf"
         out = tmp_path / "case2"
-        result = DxfProcessService().process(dxf_path=src, output_dir=out, postprocessor="fanuc_0i")
+        # 声明 0.5mm 毛坯余量：没有余量时基准面光刀会把零件切薄，工艺层会
+        # 主动跳过（本测试要验的是「按真实包络扫描」，必须先有可切的余量）。
+        result = DxfProcessService().process(
+            dxf_path=src, output_dir=out, postprocessor="fanuc_0i", face_allowance_mm=0.5
+        )
         assert result.gcode is not None and result.gcode.success
         text = next(out.glob("*.nc")).read_text(encoding="utf-8")
         fs = result.features.summary or {}

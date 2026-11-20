@@ -113,6 +113,8 @@ class FanucPostProcessor(BasePostProcessor):
         depth: float,
         dwell: float = 0.0,
         pecking: bool = True,
+        r_plane: float | None = None,
+        feed: float | None = None,
     ) -> str:
         # pecking 参数与基类签名对齐：True 用啄钻循环，False 用普通循环
         # When a dwell is requested, use the high-speed peck drill
@@ -123,14 +125,17 @@ class FanucPostProcessor(BasePostProcessor):
         retract_mode = cfg.get("retract_mode", "G98")
         peck_depth = cfg.get("peck_depth", 5.0)
         _retract_dist = cfg.get("retract_distance", 1.0)
-        r_plane = self.safe_z_height
-        drill_feed = self._fmt(self.get_feed_rate(self.rapid_feed * 0.3))
+        # R 平面与进给默认值仅作兜底：调用方（工艺规划层）应传真实值，
+        # 否则 10mm 板的每次啄钻都回退到 Z80，且进给写死 3000（比库值高一个量级）。
+        r_value = float(r_plane) if r_plane is not None else self.safe_z_height
+        feed_value = float(feed) if feed is not None else self.get_feed_rate(self.rapid_feed * 0.3)
+        drill_feed = self._fmt(feed_value)
 
         if dwell > 0:
             dwell_ms = int(dwell * 1000)
             lines = [
                 f"{retract_mode} {cycle_code} X{self._fmt(x)} Y{self._fmt(y)} "
-                f"Z{self._fmt(z)} R{self._fmt(r_plane)} "
+                f"Z{self._fmt(z)} R{self._fmt(r_value)} "
                 f"Q{self._fmt(peck_depth)} P{dwell_ms} "
                 f"F{drill_feed}",
                 "G80",
@@ -138,7 +143,7 @@ class FanucPostProcessor(BasePostProcessor):
         else:
             lines = [
                 f"{retract_mode} {cycle_code} X{self._fmt(x)} Y{self._fmt(y)} "
-                f"Z{self._fmt(z)} R{self._fmt(r_plane)} "
+                f"Z{self._fmt(z)} R{self._fmt(r_value)} "
                 f"Q{self._fmt(peck_depth)} "
                 f"F{drill_feed}",
                 "G80",

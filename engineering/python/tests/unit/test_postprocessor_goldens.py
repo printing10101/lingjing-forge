@@ -23,7 +23,14 @@ def test_normalize_only_touches_date():
 
 
 def test_domestic_goldens_byte_identical():
-    """四家国产控制器：重新生成必须与冻结文件逐字节一致（日期归一化后）。"""
+    """四家国产控制器：重新生成必须与冻结文件逐字节一致（日期归一化后）。
+
+    先重置后处理器注册表单例：方言声明化测试会往单例里注册 YAML 方言，
+    残留状态会让同一控制器的输出与冻结口径不一致（测试间污染）。
+    """
+    from app.postprocessor.registry import PostProcessorRegistry
+
+    PostProcessorRegistry.reset()
     ok, report = goldens.verify(goldens.DEFAULT_DXF, goldens.DEFAULT_OUT)
     assert ok, report
     assert set(report["programs"]) == {

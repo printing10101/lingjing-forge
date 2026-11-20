@@ -342,6 +342,19 @@ class ProcessPlanningDataManager:
         "castiron": "cast_iron_ht250",
         "brass": "brass_c36000",
         "copper": "copper_c11000",
+        # 牌号直呼（用户/上游常直接写牌号而不是类名）
+        "6061": "al_6061",
+        "aluminum6061": "al_6061",
+        "铝6061": "al_6061",
+        "7075": "al_7075",
+        "aluminum7075": "al_7075",
+        "304": "ss_304",
+        "304stainless": "ss_304",
+        "tc4": "ti_tc4",
+        "tc4titanium": "ti_tc4",
+        "ht250": "cast_iron_ht250",
+        "40cr": "steel_40cr",
+        "q235": "steel_q235",
     }
 
     @classmethod
@@ -372,11 +385,20 @@ class ProcessPlanningDataManager:
         if not name or not name.strip():
             raise QueryError("材料名称不能为空")
         search_name = self._normalize_material_name(name)
+        # 1) 名称精确命中
         for material in self._materials.values():
-            material_name = self._normalize_material_name(material.name)
-            if material_name == search_name or search_name in material_name:
+            if self._normalize_material_name(material.name) == search_name:
                 return material
-        # 精确/子串未命中时尝试英文别名表
+        # 2) 库 ID 命中：上游常直接传规范 ID（steel_45 / al_6061），
+        #    此前只比对 name，导致「用自己的 ID 查自己」反而失败。
+        for material_id, material in self._materials.items():
+            if self._normalize_material_name(material_id) == search_name:
+                return material
+        # 3) 名称子串匹配
+        for material in self._materials.values():
+            if search_name in self._normalize_material_name(material.name):
+                return material
+        # 4) 英文/牌号别名表
         alias = self._MATERIAL_ALIASES.get(search_name)
         if alias:
             return self._materials.get(alias)

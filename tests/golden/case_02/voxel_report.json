@@ -2,17 +2,17 @@
   "passed": true,
   "engine": "python",
   "voxel_size_mm": 1.0,
-  "total_segments": 832,
-  "cutting_segments": 314,
+  "total_segments": 1998,
+  "cutting_segments": 1815,
   "collision_count": 0,
   "collision_blocks": [],
   "collision_positions": [],
   "severity": "none",
-  "removed_voxel_count": 207379,
-  "voxel_count": 400000,
-  "duration_seconds": 1.7083,
+  "removed_voxel_count": 41142,
+  "voxel_count": 440000,
+  "duration_seconds": 1.2751,
   "warnings": [
-    "检测到 42 个钻穿超程点（在 3.00mm 容差内，不计为过切）；请确认垫板厚度足以承受该超程。"
+    "检测到 54 个钻穿超程点（在 3.00mm 容差内，不计为过切）；请确认垫板厚度足以承受该超程。"
   ],
   "tool_diameter_mm": 6.0,
   "tool_type": "flat",

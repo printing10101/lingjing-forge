@@ -1,6 +1,6 @@
 {
   "source_feature": "HOLE_002",
-  "spindle_speed_rpm": 7780.9,
+  "spindle_speed_rpm": 4668.5,
   "limit_depth_mm": 10.5,
   "margin_ratio": 19.091,
   "status": "ok",

@@ -31,36 +31,40 @@ class _HeidenhainCyclesMixin:
         depth: float,
         dwell: float = 0.0,
         pecking: bool = True,
+        r_plane: float | None = None,
+        feed: float | None = None,
     ) -> str:
         # pecking 参数与基类签名对齐：Heidenhain 用 Q202（PLUNGING DEPTH）表达啄钻，
         # 循环选择由 dwell 决定（CYCL DEF 200 普通钻孔 / 203 万能钻孔），pecking 不参与分支。
         cfg = self.get_cycle_config("drilling", "G83" if dwell > 0 else "G81")
-        r_plane = self.safe_z_height
         peck_depth = cfg.get("peck_depth", 5.0)
-        drill_feed = self._fmt(self.get_feed_rate(self.rapid_feed * 0.3))
+        # R 平面/进给仅在后处理内部兜底；工艺层应传真实值。
+        r_value = float(r_plane) if r_plane is not None else self.safe_z_height
+        feed_value = float(feed) if feed is not None else self.get_feed_rate(self.rapid_feed * 0.3)
+        drill_feed = self._fmt(feed_value)
 
         if dwell > 0:
             lines = [
                 f"{self._next_block()}  CYCL DEF 200 DRILLING",
-                f"{self._next_block()}     Q200={self._fmt(r_plane)}  ;SET-UP CLEARANCE",
+                f"{self._next_block()}     Q200={self._fmt(r_value)}  ;SET-UP CLEARANCE",
                 f"{self._next_block()}     Q201={self._fmt(-abs(depth))}  ;DEPTH",
                 f"{self._next_block()}     Q206={drill_feed}  ;FEED RATE",
                 f"{self._next_block()}     Q202={self._fmt(peck_depth)}  ;PLUNGING DEPTH",
                 f"{self._next_block()}     Q210={self._fmt(dwell)}  ;DWELL TIME AT TOP",
                 f"{self._next_block()}     Q211={self._fmt(dwell or 0.0)}  ;DWELL TIME AT DEPTH",
                 f"{self._next_block()}     Q203={self._fmt(0.0)}  ;SURFACE COORDINATE",
-                f"{self._next_block()}     Q204={self._fmt(r_plane)}  ;2ND SET-UP CLEARANCE",
+                f"{self._next_block()}     Q204={self._fmt(r_value)}  ;2ND SET-UP CLEARANCE",
                 f"{self._next_block()}  CYCL CALL",
             ]
         else:
             lines = [
                 f"{self._next_block()}  CYCL DEF 203 UNIVERSAL DRILLING",
-                f"{self._next_block()}     Q200={self._fmt(r_plane)}  ;SET-UP CLEARANCE",
+                f"{self._next_block()}     Q200={self._fmt(r_value)}  ;SET-UP CLEARANCE",
                 f"{self._next_block()}     Q201={self._fmt(-abs(depth))}  ;DEPTH",
                 f"{self._next_block()}     Q206={drill_feed}  ;FEED RATE",
                 f"{self._next_block()}     Q202={self._fmt(peck_depth)}  ;PLUNGING DEPTH",
                 f"{self._next_block()}     Q203={self._fmt(0.0)}  ;SURFACE COORDINATE",
-                f"{self._next_block()}     Q204={self._fmt(r_plane)}  ;2ND SET-UP CLEARANCE",
+                f"{self._next_block()}     Q204={self._fmt(r_value)}  ;2ND SET-UP CLEARANCE",
                 f"{self._next_block()}  CYCL CALL",
             ]
         return "\n".join(lines)

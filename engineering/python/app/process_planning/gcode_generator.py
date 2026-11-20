@@ -214,11 +214,14 @@ class GCodeGenerator(_FeatureCodeMixin, _HoleDrillingMixin, _PreviewMixin):
         # 收集刀具信息：刀具类型 -> {直径, 加工方法, 关联工序}
         tool_info: dict[str, dict[str, Any]] = {}
         for op in operation_plan.operations:
+            # 被阻断的工序不进入刀具清单——清单只列真正会装到主轴上的刀
+            if (op.cutting_params or {}).get("tool_feasible") is False:
+                continue
             tool_key = op.tool_type or "UNKNOWN"
             if tool_key not in tool_info:
                 # 从 cutting_params 提取刀具直径
                 cut_params = op.cutting_params or {}
-                tool_diameter = cut_params.get("tool_diameter", 0.0)
+                tool_diameter = cut_params.get("tool_diameter") or 0.0
                 tool_info[tool_key] = {
                     "diameter": tool_diameter,
                     "methods": set(),
@@ -329,7 +332,25 @@ class GCodeGenerator(_FeatureCodeMixin, _HoleDrillingMixin, _PreviewMixin):
                 }
                 op = replace(op, cutting_params=cut_params)
             material = cut_params.get("material", "steel")
-            tool_diameter = cut_params.get("tool_diameter", 10.0)
+
+            # 刀具不可行（如孔径超出钻削上限）→ 拒绝生成该工序，并记录为错误。
+            # 少生成一个孔是可见缺陷；用小钻头假装完成大孔是隐性废件。
+            if cut_params.get("tool_feasible") is False:
+                note = str(cut_params.get("tool_note") or "刀具规格不可用")
+                errors.append(f"{op.name}({op.feature_name}): {note}，已拒绝生成该工序")
+                lines.append(postprocessor._comment(f"[阻断] {op.name}: {note}"))
+                if use_coolant:
+                    lines.append(postprocessor.format_coolant("off"))
+                continue
+
+            # 缺省直径只允许作为「外部计划兼容」路径：显式告警，绝不静默假定，
+            # 否则 9 个不同孔径的孔会被同一把 Ø10 钻头一次性"钻完"。
+            tool_diameter = cut_params.get("tool_diameter")
+            if tool_diameter is None:
+                tool_diameter = 10.0
+                warnings.append(
+                    f"{op.name}: 工序未指定刀具直径，按 Ø{tool_diameter:g} 假定（外部工序计划兼容口径）"
+                )
             radius_comp = cut_params.get("radius_comp", "G41")
 
             feature_lines = self._generate_feature_code(

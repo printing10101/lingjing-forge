@@ -3,6 +3,8 @@
   "features": [
     {
       "feature_id": "HOLE_001",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -15,6 +17,8 @@
     },
     {
       "feature_id": "HOLE_002",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -27,6 +31,8 @@
     },
     {
       "feature_id": "HOLE_003",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -39,6 +45,8 @@
     },
     {
       "feature_id": "HOLE_004",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -51,6 +59,8 @@
     },
     {
       "feature_id": "HOLE_005",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -63,6 +73,8 @@
     },
     {
       "feature_id": "HOLE_006",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -75,6 +87,8 @@
     },
     {
       "feature_id": "HOLE_007",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -87,6 +101,8 @@
     },
     {
       "feature_id": "HOLE_008",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -99,6 +115,8 @@
     },
     {
       "feature_id": "HOLE_009",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -111,6 +129,8 @@
     },
     {
       "feature_id": "HOLE_010",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -123,6 +143,8 @@
     },
     {
       "feature_id": "HOLE_011",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -135,6 +157,8 @@
     },
     {
       "feature_id": "HOLE_012",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -147,6 +171,8 @@
     },
     {
       "feature_id": "HOLE_013",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -159,6 +185,8 @@
     },
     {
       "feature_id": "HOLE_014",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -171,6 +199,8 @@
     },
     {
       "feature_id": "HOLE_015",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -183,6 +213,8 @@
     },
     {
       "feature_id": "HOLE_016",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -195,6 +227,8 @@
     },
     {
       "feature_id": "HOLE_017",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -207,6 +241,8 @@
     },
     {
       "feature_id": "HOLE_018",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -219,6 +255,8 @@
     },
     {
       "feature_id": "HOLE_019",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -231,6 +269,8 @@
     },
     {
       "feature_id": "HOLE_020",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -243,6 +283,8 @@
     },
     {
       "feature_id": "HOLE_021",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -255,6 +297,8 @@
     },
     {
       "feature_id": "HOLE_022",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -267,6 +311,8 @@
     },
     {
       "feature_id": "HOLE_023",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -279,6 +325,8 @@
     },
     {
       "feature_id": "HOLE_024",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,
@@ -291,6 +339,8 @@
     },
     {
       "feature_id": "HOLE_025",
+      "hole_diameter_mm": 6.0,
+      "tool_diameter_mm": 6.0,
       "spindle_speed_rpm": 7780.9,
       "feed_rate_mm_per_min": 3890.45,
       "axial_depth_mm": 0.55,

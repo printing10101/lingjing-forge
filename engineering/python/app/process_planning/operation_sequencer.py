@@ -7,6 +7,7 @@ operation planning, fixture suggestions, and time estimation.
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -20,6 +21,34 @@ from app.process_planning.fixture_analyzer import (
     FixtureAnalyzer,
     FixtureRecommendation,
 )
+
+# 一次钻削的直径上限（mm）。超过此直径的孔规范做法是分级扩孔后镗孔或螺旋铣，
+# 不能指望一把小钻头"钻一刀就完成"。超过上限的通孔在工序层自动改走螺旋铣孔
+# （见 ``_oversized_hole_diameter``）；若下游仍以钻孔方式调用，则标记
+# ``tool_feasible=False``，由 G 代码层拒绝生成。
+MAX_DRILL_DIAMETER_MM = 20.0
+
+# 铣削默认刀具直径（mm）。对应知识库中已入库的 φ10 硬质合金平底立铣刀
+# （app/database/data/tools.json: endmill_wc_flat_d10），不是凭空的兜底值。
+DEFAULT_MILL_DIAMETER_MM = 10.0
+
+
+def _circle_contour(
+    center_x: float,
+    center_y: float,
+    radius: float,
+    segments: int = 48,
+) -> list[list[float]]:
+    """生成圆的闭合多段线（供平面刀轨引擎按挖槽环切铣孔）。"""
+    if radius <= 0:
+        return []
+    return [
+        [
+            round(center_x + radius * math.cos(2.0 * math.pi * i / segments), 6),
+            round(center_y + radius * math.sin(2.0 * math.pi * i / segments), 6),
+        ]
+        for i in range(segments)
+    ]
 
 
 @dataclass
@@ -170,7 +199,48 @@ class OperationSequencer:
                 )
 
             method = self._select_machining_method(fe, blank_type)
+
+            # 孔径超过一次钻削上限 → 改走螺旋铣孔（立铣刀环切），
+            # 而不是用一把小钻头"钻一刀"就算完成大孔。
+            bore_diameter = self._oversized_hole_diameter(fe, method)
+            if bore_diameter is not None:
+                method = "螺旋铣孔"
+
             tool = self._select_tool(fe, method)
+
+            # 刀具直径必须来自特征本身（孔径），不能靠下游默认值兜底：
+            # 此前这里不写 tool_diameter，G 代码层读到 fallback 10.0，
+            # 于是 Ø38.2 / Ø5.5 / Ø6.6 的孔全部用同一把 Ø10 钻头"完成"。
+            tool_diameter, tool_feasible, tool_note = self._resolve_hole_tooling(fe, method)
+            if tool_diameter is not None:
+                # 直径进刀具名 → 不同孔径自动成为不同刀具（不同 T 号）
+                tool = f"{tool} Ø{tool_diameter:g}"
+
+            geometry = self._extract_feature_geometry(fe)
+            if bore_diameter is not None:
+                # 挖槽环切按圆轮廓走刀，刀心轨迹由引擎按刀具半径偏置
+                geometry["contour"] = _circle_contour(
+                    float(geometry.get("x", 0.0)),
+                    float(geometry.get("y", 0.0)),
+                    bore_diameter / 2.0,
+                )
+                geometry["diameter"] = bore_diameter
+
+            cutting_params: dict[str, Any] = {
+                "feed_rate_factor": feed_rate_factor,
+                "recommended_feed": self._recommend_feed(fe, material),
+                "recommended_speed": self._recommend_speed(fe, material),
+                "geometry": geometry,
+            }
+            # 材料随工序下传：G 代码层的参数查库与注释必须用同一份材料名，
+            # 此前这里不写，G 代码层一律按 "steel" 查表，与图纸材料脱节。
+            if material:
+                cutting_params["material"] = material
+            if tool_diameter is not None:
+                cutting_params["tool_diameter"] = tool_diameter
+            if not tool_feasible:
+                cutting_params["tool_feasible"] = False
+                cutting_params["tool_note"] = tool_note
 
             estimated_time = self._estimate_operation_time(
                 fe,
@@ -186,12 +256,7 @@ class OperationSequencer:
                 surface=fe.surface,
                 tolerance_grade=fe.tolerance_grade,
                 tool_type=tool,
-                cutting_params={
-                    "feed_rate_factor": feed_rate_factor,
-                    "recommended_feed": self._recommend_feed(fe, material),
-                    "recommended_speed": self._recommend_speed(fe, material),
-                    "geometry": self._extract_feature_geometry(fe),
-                },
+                cutting_params=cutting_params,
                 estimated_time_min=estimated_time,
                 notes=self._generate_operation_notes(fe, method),
             )
@@ -316,6 +381,13 @@ class OperationSequencer:
                 except (TypeError, ValueError):
                     continue
 
+        # 毛坯余量透传给刀轨层：决定基准面光刀切多深（0 = 不切）。
+        if "face_allowance" in dims:
+            try:
+                geom["face_allowance_mm"] = float(dims["face_allowance"])
+            except (TypeError, ValueError):
+                pass
+
         center_x = dims.get("center_x", dims.get("position_x"))
         center_y = dims.get("center_y", dims.get("position_y"))
         if center_x is not None and center_y is not None:
@@ -332,6 +404,67 @@ class OperationSequencer:
         if pts:
             geom["contour"] = pts
         return geom
+
+    def _oversized_hole_diameter(
+        self,
+        fe: MachiningFeature,
+        method: str,
+    ) -> float | None:
+        """孔径超过一次钻削上限时返回孔径，否则 None。
+
+        只在「本来打算钻孔」的通孔上触发；中心孔、沉头孔与既有铣/镗工序不动。
+        """
+        if "钻" not in method or "中心" in method or "沉头" in method:
+            return None
+        try:
+            diameter = float(fe.dimensions.get("diameter") or 0.0)
+        except (TypeError, ValueError):
+            return None
+        if diameter > MAX_DRILL_DIAMETER_MM:
+            return diameter
+        return None
+
+    def _resolve_hole_tooling(
+        self,
+        fe: MachiningFeature,
+        method: str,
+    ) -> tuple[float | None, bool, str]:
+        """确定孔加工的刀具直径与可行性。
+
+        直径取自特征自身的 ``dimensions["diameter"]``（即图纸孔径），因为这正是
+        钻头必须匹配的量；知识库里的刀具族只给区间，无法当成具体规格。
+
+        Args:
+            fe: 加工特征。
+            method: 加工方法名。
+
+        Returns:
+            ``(tool_diameter_mm, feasible, note)``。铣削工序返回刀具库的 Ø10 立铣刀；
+            车削等不参与直径约束的工序返回 ``(None, True, "")``。
+        """
+        if "钻" not in method and "镗" not in method:
+            # 铣削工序用刀具库里的 φ10 平底立铣刀；车削/其他不参与直径约束
+            if "铣" in method or "槽" in method:
+                return DEFAULT_MILL_DIAMETER_MM, True, ""
+            return None, True, ""
+
+        try:
+            hole_diameter = float(fe.dimensions.get("diameter") or 0.0)
+        except (TypeError, ValueError):
+            hole_diameter = 0.0
+        if not (hole_diameter > 0):
+            return None, False, "孔直径缺失，无法确定刀具规格"
+
+        if "中心" in method:
+            # 中心钻常用 A 型规格上限 6mm，孔径小于该值时按孔径取
+            return round(min(hole_diameter, 6.0), 2), True, ""
+
+        if hole_diameter > MAX_DRILL_DIAMETER_MM:
+            return None, False, (
+                f"孔径 Ø{hole_diameter:.1f} 超过一次钻削上限 Ø{MAX_DRILL_DIAMETER_MM:.1f}"
+                "（规范做法为分级扩孔后镗孔/螺旋铣，当前未实现）"
+            )
+        return round(hole_diameter, 2), True, ""
 
     def _select_tool(self, fe: MachiningFeature, method: str) -> str:
         if "车" in method:
