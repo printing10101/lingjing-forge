@@ -1,8 +1,8 @@
 {
   "source_feature": "HOLE_001",
-  "spindle_speed_rpm": 35367.8,
+  "spindle_speed_rpm": 4668.5,
   "limit_depth_mm": 10.5,
-  "margin_ratio": 13.125,
+  "margin_ratio": 19.091,
   "status": "ok",
   "method": "Tlusty 1-DOF 绝对包络（app.simulation.chatter.stability）",
   "caveats": [

@@ -1,5 +1,5 @@
 {
-  "case": "case_03_sprocket_180x180_9holes",
+  "case": "case_03_sprocket",
   "dxf": {
     "path": "data\\test_fixtures\\case18_sprocket.dxf",
     "sha256": "5ca264e013a19fd2037391c2fb190429b8ae287bfc9fb3e1619fe63cc7bb76c9"
@@ -7,7 +7,7 @@
   "artifacts": {
     "dxf_parse.json": {
       "bytes": 747,
-      "sha256": "ac72a9ccef3faa1a54a96cab6b2b2f5082713f4607cea0a1769281d858999883"
+      "sha256": "fd744206650433a96bc4b35cf7e1fd611f682cd09418fb0830159acfe55ca0a9"
     },
     "features.json": {
       "bytes": 47170,
@@ -15,7 +15,7 @@
     },
     "model.step": {
       "bytes": 219328,
-      "sha256": "18d6590b57ff9bbe8989a4cce1efb5808af613541dfcddb698442c5f5a4665e9"
+      "sha256": "b8ba13d72f8197d9fac6361a9b38787e17829e66946a936bf63a9e81f2814209"
     },
     "cutting_params.json": {
       "bytes": 3940,
@@ -26,36 +26,36 @@
       "sha256": "0087ca8be26ae513d735c7ca6c2d8da189de5f13e19a3f7ae4f4c68634203324"
     },
     "program.nc": {
-      "bytes": 50456,
-      "sha256": "b273141541fdf948701eca25aaf05722ffeb224bf7c930188f7047fee6b77966"
+      "bytes": 51685,
+      "sha256": "9b25ea099ef8d5294e0ab6e08745086c219c1db782d93de3e7828c19ce3c1720"
     },
     "pipeline.json": {
-      "bytes": 904,
-      "sha256": "f7fc206a8cb8380d772075c7578c79c1f61304685ac2d8c2b9a5c5b3bd807803"
+      "bytes": 907,
+      "sha256": "ddf48f23aab65f00aee3577a66b5e4f5a49c5bbfa04eb9f7649f86e4e22f394d"
     },
     "voxel_report.json": {
-      "bytes": 555,
-      "sha256": "ad5dd9c539f64a3745fa6a36d8d72690bd574219c03e2784323acf84b0b0fdf9"
+      "bytes": 607,
+      "sha256": "0151ae95d148bfbfda5ab4adc2c86ddad74d0d9757c6c4c55a18bd03d348788c"
     }
   },
-  "program_body_sha256": "a603e3b4fea1d5c3fde95b91486423b8e81011bd1be023388d2ffef0baaa2acd",
+  "program_body_sha256": "8bcbfad32fed38acef4f692be1264b2e601fecf8f0843df8ecc289f6f9b341c2",
   "stages": [
     {
       "stage": "dxf_parse",
-      "duration_ms": 20.73,
+      "duration_ms": 55.23,
       "status": "ok",
       "entities": 11
     },
     {
       "stage": "feature_extract",
-      "duration_ms": 7.72,
+      "duration_ms": 14.77,
       "status": "ok",
       "holes": 9,
       "contours": 10
     },
     {
       "stage": "step_build",
-      "duration_ms": 401.74,
+      "duration_ms": 807.91,
       "status": "ok",
       "volume_mm3": 232128.8,
       "expected_volume_mm3": 232128.8,
@@ -67,34 +67,34 @@
     },
     {
       "stage": "cutting_params",
-      "duration_ms": 108.8,
+      "duration_ms": 173.04,
       "status": "ok",
       "features": 9
     },
     {
       "stage": "chatter",
-      "duration_ms": 0.49,
+      "duration_ms": 3.52,
       "status": "ok",
       "worst_margin": 19.091
     },
     {
       "stage": "gcode",
-      "duration_ms": 1349.27,
+      "duration_ms": 3221.14,
       "status": "ok",
       "lines": 1453,
       "program_number": 1000
     },
     {
       "stage": "voxel_validation",
-      "duration_ms": 898.89,
+      "duration_ms": 4265.74,
       "status": "ok",
-      "removed_voxels": 23340,
+      "removed_voxels": 38764,
       "segments": 1396
     }
   ],
-  "elapsed_seconds": 2.91,
+  "elapsed_seconds": 8.71,
   "environment": {
-    "python": "3.12.14",
+    "python": "3.14.4",
     "platform": "Windows-11-10.0.26300-SP0"
   },
   "parameters": {

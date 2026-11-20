@@ -6,6 +6,10 @@
 
 **结论：链路能跑，但生成的程序不能上机。三处硬缺陷，任何一处都会废件。**
 
+> **2026-11-20 修复记录（D1–D4 全部闭环）**
+> - **D3 已闭环**：`CuttingParamRecommender` 按 `load_profile(machine_type)` 执行主轴转速/进给上限限幅（`vmc_850` 上限 8000 rpm，按每齿进给同步重算 `feed_rate`）；`ProcessPlanningPipeline` → `OperationSequencer` → `_FeatureCodeMixin` 打通推荐 S/F 直传，全加工分支（钻/铣/车/镗/五轴）统一材料归一与限幅，消除推荐器与 G 代码两套数字脱节；`golden_case_01` 材料不再写死 `"45#钢"`。
+> - **D4 已闭环**：`VoxelValidator` 解析 G 代码刀具清单（支持 `Φ`/`Ø`/`mm` 格式）按 `seg.tool_id` 切换刀具直径去料，并新增 `expected_features` 欠切/切到位校验（`undercut_count` / `undercut_features`），残留超过容差直接判 `critical` 不通过；已补充单元测试 `tests/unit/test_d3_d4_closure.py` 验证「Ø10 钻 Ø38.2 孔」与「漏孔」场景被拦截。
+
 > **2026-11-18 修复记录（D1/D2 已闭环，D3 部分，D4 未动）**
 > 1. 工序层按孔径选刀：`OperationSequencer._resolve_hole_tooling` 把孔径写进
 >    `cutting_params["tool_diameter"]`，刀具名带直径（`麻花钻 Ø5.5`），不同孔径

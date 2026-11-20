@@ -1,110 +1,132 @@
 {
-  "material": "al_6061",
+  "material": "steel_45",
   "features": [
     {
       "feature_id": "HOLE_001",
-      "spindle_speed_rpm": 35367.8,
-      "feed_rate_mm_per_min": 14147.11,
-      "axial_depth_mm": 0.8,
+      "hole_diameter_mm": 38.2,
+      "tool_diameter_mm": 10.0,
+      "spindle_speed_rpm": 4668.5,
+      "feed_rate_mm_per_min": 2334.27,
+      "axial_depth_mm": 0.55,
       "stability_status": "ok",
       "stability_limit_mm": 10.5,
-      "stability_margin": 13.125,
+      "stability_margin": 19.091,
       "warnings": [
         "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
       ]
     },
     {
       "feature_id": "HOLE_002",
-      "spindle_speed_rpm": 35367.8,
-      "feed_rate_mm_per_min": 14147.11,
-      "axial_depth_mm": 0.8,
+      "hole_diameter_mm": 5.5,
+      "tool_diameter_mm": 5.5,
+      "spindle_speed_rpm": 8000.0,
+      "feed_rate_mm_per_min": 4000.0,
+      "axial_depth_mm": 0.55,
       "stability_status": "ok",
       "stability_limit_mm": 10.5,
-      "stability_margin": 13.125,
+      "stability_margin": 19.091,
       "warnings": [
-        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度",
+        "主轴转速受机床 vmc_850 上限 8000 rpm 限幅（理论值 8488 rpm），进给同步按每齿进给重算为 4000.0 mm/min"
       ]
     },
     {
       "feature_id": "HOLE_003",
-      "spindle_speed_rpm": 35367.8,
-      "feed_rate_mm_per_min": 14147.11,
-      "axial_depth_mm": 0.8,
+      "hole_diameter_mm": 5.5,
+      "tool_diameter_mm": 5.5,
+      "spindle_speed_rpm": 8000.0,
+      "feed_rate_mm_per_min": 4000.0,
+      "axial_depth_mm": 0.55,
       "stability_status": "ok",
       "stability_limit_mm": 10.5,
-      "stability_margin": 13.125,
+      "stability_margin": 19.091,
       "warnings": [
-        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度",
+        "主轴转速受机床 vmc_850 上限 8000 rpm 限幅（理论值 8488 rpm），进给同步按每齿进给重算为 4000.0 mm/min"
       ]
     },
     {
       "feature_id": "HOLE_004",
-      "spindle_speed_rpm": 35367.8,
-      "feed_rate_mm_per_min": 14147.11,
-      "axial_depth_mm": 0.8,
+      "hole_diameter_mm": 5.5,
+      "tool_diameter_mm": 5.5,
+      "spindle_speed_rpm": 8000.0,
+      "feed_rate_mm_per_min": 4000.0,
+      "axial_depth_mm": 0.55,
       "stability_status": "ok",
       "stability_limit_mm": 10.5,
-      "stability_margin": 13.125,
+      "stability_margin": 19.091,
       "warnings": [
-        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度",
+        "主轴转速受机床 vmc_850 上限 8000 rpm 限幅（理论值 8488 rpm），进给同步按每齿进给重算为 4000.0 mm/min"
       ]
     },
     {
       "feature_id": "HOLE_005",
-      "spindle_speed_rpm": 35367.8,
-      "feed_rate_mm_per_min": 14147.11,
-      "axial_depth_mm": 0.8,
+      "hole_diameter_mm": 5.5,
+      "tool_diameter_mm": 5.5,
+      "spindle_speed_rpm": 8000.0,
+      "feed_rate_mm_per_min": 4000.0,
+      "axial_depth_mm": 0.55,
       "stability_status": "ok",
       "stability_limit_mm": 10.5,
-      "stability_margin": 13.125,
+      "stability_margin": 19.091,
       "warnings": [
-        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
+        "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度",
+        "主轴转速受机床 vmc_850 上限 8000 rpm 限幅（理论值 8488 rpm），进给同步按每齿进给重算为 4000.0 mm/min"
       ]
     },
     {
       "feature_id": "HOLE_006",
-      "spindle_speed_rpm": 35367.8,
-      "feed_rate_mm_per_min": 14147.11,
-      "axial_depth_mm": 0.8,
+      "hole_diameter_mm": 6.6,
+      "tool_diameter_mm": 6.6,
+      "spindle_speed_rpm": 7073.6,
+      "feed_rate_mm_per_min": 3536.78,
+      "axial_depth_mm": 0.55,
       "stability_status": "ok",
       "stability_limit_mm": 10.5,
-      "stability_margin": 13.125,
+      "stability_margin": 19.091,
       "warnings": [
         "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
       ]
     },
     {
       "feature_id": "HOLE_007",
-      "spindle_speed_rpm": 35367.8,
-      "feed_rate_mm_per_min": 14147.11,
-      "axial_depth_mm": 0.8,
+      "hole_diameter_mm": 6.6,
+      "tool_diameter_mm": 6.6,
+      "spindle_speed_rpm": 7073.6,
+      "feed_rate_mm_per_min": 3536.78,
+      "axial_depth_mm": 0.55,
       "stability_status": "ok",
       "stability_limit_mm": 10.5,
-      "stability_margin": 13.125,
+      "stability_margin": 19.091,
       "warnings": [
         "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
       ]
     },
     {
       "feature_id": "HOLE_008",
-      "spindle_speed_rpm": 35367.8,
-      "feed_rate_mm_per_min": 14147.11,
-      "axial_depth_mm": 0.8,
+      "hole_diameter_mm": 6.6,
+      "tool_diameter_mm": 6.6,
+      "spindle_speed_rpm": 7073.6,
+      "feed_rate_mm_per_min": 3536.78,
+      "axial_depth_mm": 0.55,
       "stability_status": "ok",
       "stability_limit_mm": 10.5,
-      "stability_margin": 13.125,
+      "stability_margin": 19.091,
       "warnings": [
         "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
       ]
     },
     {
       "feature_id": "HOLE_009",
-      "spindle_speed_rpm": 35367.8,
-      "feed_rate_mm_per_min": 14147.11,
-      "axial_depth_mm": 0.8,
+      "hole_diameter_mm": 6.6,
+      "tool_diameter_mm": 6.6,
+      "spindle_speed_rpm": 7073.6,
+      "feed_rate_mm_per_min": 3536.78,
+      "axial_depth_mm": 0.55,
       "stability_status": "ok",
       "stability_limit_mm": 10.5,
-      "stability_margin": 13.125,
+      "stability_margin": 19.091,
       "warnings": [
         "孔加工建议二次复核：钻孔后铰孔或镗孔保证精度"
       ]

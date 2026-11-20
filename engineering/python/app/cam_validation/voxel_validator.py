@@ -42,6 +42,7 @@
 from __future__ import annotations
 
 import logging
+import re
 import time
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
@@ -66,6 +67,23 @@ logger = logging.getLogger(__name__)
 
 # 碰撞坐标列表导出上限（与 VoxelCutter.run_simulation 的 :20 截断对齐）
 _MAX_COLLISION_POSITIONS: int = 20
+
+# 从程序刀具清单注释提取 T 号与直径，如 "; T01 | 麻花钻 Ø5.5 | Φ5.5 | 钻孔" 或 "(T01 | ... | 10.0mm)"
+_TOOL_TABLE_RE = re.compile(
+    r"T0*(\d+)\s*\|[^|\n]*\|\s*[ΦφØø]?\s*(\d+(?:\.\d+)?)(?:\s*mm)?(?=\s|\||$)",
+    re.IGNORECASE,
+)
+
+
+def _parse_tool_diameters(gcode_text: str) -> dict[int, float]:
+    """从 G 代码头部刀具清单注释解析 {T号: 直径mm}。"""
+    result: dict[int, float] = {}
+    for m in _TOOL_TABLE_RE.finditer(gcode_text):
+        tid = int(m.group(1))
+        dia = float(m.group(2))
+        if dia > 0 and tid not in result:
+            result[tid] = dia
+    return result
 
 
 @dataclass
@@ -111,6 +129,8 @@ class VoxelValidationReport:
     tool_diameter_mm: float = 0.0
     tool_type: str = ""
     tool_source: str = "config_default"
+    undercut_count: int = 0
+    undercut_features: list[dict[str, Any]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -130,6 +150,8 @@ class VoxelValidationReport:
             "tool_diameter_mm": self.tool_diameter_mm,
             "tool_type": self.tool_type,
             "tool_source": self.tool_source,
+            "undercut_count": self.undercut_count,
+            "undercut_features": [dict(item) for item in self.undercut_features],
         }
 
 
@@ -163,6 +185,9 @@ class VoxelValidator:
         tool_type: str = "",
         tool_source: str = "",
         breakthrough_tolerance_mm: float | None = None,
+        expected_features: list[dict[str, Any]] | None = None,
+        undercut_tolerance_ratio: float = 0.25,
+        tool_diameters_by_id: dict[int, float] | None = None,
     ) -> VoxelValidationReport:
         """执行体素材料去除仿真校验。
 
@@ -354,9 +379,27 @@ class VoxelValidator:
         tol = max(tol, 0.0)
         cutting_segments = [s for s in segments if s.type in ("linear", "arc")]
         tool_mask = cutter._build_tool_mask(tool)
+        parsed_tool_diameters = _parse_tool_diameters(gcode_text)
+        if tool_diameters_by_id:
+            parsed_tool_diameters.update({int(k): float(v) for k, v in tool_diameters_by_id.items() if float(v) > 0})
+        tool_masks_by_id: dict[int, Any] = {}
+        for tid, dia in parsed_tool_diameters.items():
+            if abs(dia - effective_diameter) < 1e-6:
+                tool_masks_by_id[tid] = tool_mask
+            else:
+                try:
+                    t_model = ToolModel(
+                        diameter=dia,
+                        cutting_length=max(tool_length, dia),
+                        tool_type=effective_tool_type,
+                    )
+                    tool_masks_by_id[tid] = cutter._build_tool_mask(t_model)
+                except ValueError:
+                    tool_masks_by_id[tid] = tool_mask
 
         for seg_index, seg in enumerate(segments):
             if seg.type in ("linear", "arc"):
+                seg_mask = tool_masks_by_id.get(seg.tool_id, tool_mask) if seg.tool_id is not None else tool_mask
                 seg_points = _discretize_segment(seg, voxel_size * 0.5, voxel_size)
                 keep: list[np.ndarray] = []
                 for pt in seg_points:
@@ -374,7 +417,7 @@ class VoxelValidator:
                 if keep:
                     removed_count += cutter._apply_tool_mask_batch(
                         voxel_grid,
-                        tool_mask,
+                        seg_mask,
                         np.array(keep, dtype=np.float64),
                         bbox_min,
                         voxel_size,
@@ -427,6 +470,32 @@ class VoxelValidator:
             )
             severity = "critical"
 
+        # D4（2026-11-20）：期望去除特征欠切/切到位检查（completion gate）。
+        # 仅判碰撞/空切会放行「用 Ø10 钻头在 Ø38.2 孔中心钻一刀」或「漏孔/深度不足」的程序；
+        # 当调用方传入 expected_features 时，逐特征检查毛坯目标区域内残留体素比例。
+        undercut_features: list[dict[str, Any]] = []
+        if expected_features:
+            undercut_features = self._check_expected_features(
+                voxel_grid=voxel_grid,
+                bbox_min=bbox_min,
+                stock_top_z=stock_top_z,
+                stock_height=stock_height,
+                voxel_size=voxel_size,
+                padding=padding,
+                expected_features=expected_features,
+                tolerance_ratio=undercut_tolerance_ratio,
+            )
+            if undercut_features:
+                severity = "critical"
+                summary = "、".join(
+                    f"{item['feature_id']}(残留{item['residual_ratio'] * 100:.1f}%)"
+                    for item in undercut_features[:10]
+                )
+                warnings.append(
+                    f"欠切/未切到位检测：{len(undercut_features)} 个期望特征未完整切除（{summary}），"
+                    "按 fail-closed 判定不通过。"
+                )
+
         # 7. 未归因碰撞提示（与 InternalValidator 的 unknown 归因口径一致）
         attributed_hint = f"（block 列表供特征归因：{sorted(set(collision_blocks))[:20]}）" if collision_blocks else ""
         if collision_positions:
@@ -440,7 +509,7 @@ class VoxelValidator:
         unique_positions = unique_positions[:_MAX_COLLISION_POSITIONS]
 
         report = VoxelValidationReport(
-            passed=not collision_positions and not empty_cut,
+            passed=not collision_positions and not empty_cut and not undercut_features,
             engine="rust" if is_rust_available() else "python",
             voxel_size_mm=voxel_size,
             total_segments=len(segments),
@@ -456,6 +525,8 @@ class VoxelValidator:
             tool_diameter_mm=effective_diameter,
             tool_type=effective_tool_type,
             tool_source=tool_source,
+            undercut_count=len(undercut_features),
+            undercut_features=undercut_features,
         )
 
         logger.info(
@@ -471,6 +542,84 @@ class VoxelValidator:
             report.duration_seconds,
         )
         return report
+
+    @staticmethod
+    def _check_expected_features(
+        *,
+        voxel_grid: np.ndarray,
+        bbox_min: np.ndarray,
+        stock_top_z: float,
+        stock_height: float,
+        voxel_size: float,
+        padding: float,
+        expected_features: list[dict[str, Any]],
+        tolerance_ratio: float,
+    ) -> list[dict[str, Any]]:
+        """检查期望切除的特征区域是否仍残留过多未切除体素。"""
+        nx, ny, nz = voxel_grid.shape
+        centers_x = bbox_min[0] - padding + (np.arange(nx) + 0.5) * voxel_size
+        centers_y = bbox_min[1] - padding + (np.arange(ny) + 0.5) * voxel_size
+        centers_z = bbox_min[2] - padding + (np.arange(nz) + 0.5) * voxel_size
+        z_floor = bbox_min[2]
+
+        undercuts: list[dict[str, Any]] = []
+        for idx, feat in enumerate(expected_features):
+            ftype = str(feat.get("type", "hole")).lower()
+            if ftype != "hole":
+                continue
+            fid = str(feat.get("feature_id") or feat.get("id") or f"HOLE_{idx + 1:03d}")
+            cx = float(feat.get("x", feat.get("center_x", 0.0)))
+            cy = float(feat.get("y", feat.get("center_y", 0.0)))
+            diameter = float(feat.get("diameter", 0.0))
+            if diameter <= 0:
+                continue
+            depth = float(feat.get("depth", stock_height) or stock_height)
+            # 内缩半个体素消除圆柱网格锯齿误报，同时保留最小探测半径
+            r_check = max(diameter / 2.0 - 0.5 * voxel_size, 0.5 * voxel_size)
+            z_bottom = max(z_floor + 0.5 * voxel_size, float(stock_top_z) - abs(depth) + 0.5 * voxel_size)
+            z_top = min(float(stock_top_z) - 0.5 * voxel_size, z_floor + stock_height)
+            if z_top <= z_bottom:
+                z_bottom = z_floor
+                z_top = z_floor + stock_height
+
+            dx2 = (centers_x[:, None] - cx) ** 2
+            dy2 = (centers_y[None, :] - cy) ** 2
+            xy_mask = (dx2 + dy2) <= (r_check**2)
+            z_mask = (centers_z >= z_bottom) & (centers_z <= z_top)
+            if not np.any(xy_mask) or not np.any(z_mask):
+                # 期望特征完全落在毛坯/程序仿真包络之外 → 未触及即 100% 漏加工
+                undercuts.append(
+                    {
+                        "feature_id": fid,
+                        "type": ftype,
+                        "diameter_mm": diameter,
+                        "expected_voxels": 0,
+                        "remaining_voxels": 0,
+                        "residual_ratio": 1.0,
+                    }
+                )
+                continue
+
+            sub_grid = voxel_grid[np.ix_(np.where(xy_mask.any(axis=1))[0], np.where(xy_mask.any(axis=0))[0], np.where(z_mask)[0])]
+            sub_xy = xy_mask[np.ix_(np.where(xy_mask.any(axis=1))[0], np.where(xy_mask.any(axis=0))[0])]
+            # 只统计落在圆内的体素
+            expected_voxels = int(sub_xy.sum()) * int(z_mask.sum())
+            if expected_voxels <= 0:
+                continue
+            remaining_voxels = int(sub_grid[sub_xy].sum())
+            residual_ratio = remaining_voxels / expected_voxels
+            if residual_ratio > tolerance_ratio:
+                undercuts.append(
+                    {
+                        "feature_id": fid,
+                        "type": ftype,
+                        "diameter_mm": diameter,
+                        "expected_voxels": expected_voxels,
+                        "remaining_voxels": remaining_voxels,
+                        "residual_ratio": round(residual_ratio, 4),
+                    }
+                )
+        return undercuts
 
     @staticmethod
     def _build_box_grid(

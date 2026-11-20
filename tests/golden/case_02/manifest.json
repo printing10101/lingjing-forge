@@ -1,5 +1,5 @@
 {
-  "case": "case_02_flange_200x200_7holes",
+  "case": "case_02_flange",
   "dxf": {
     "path": "data\\test_fixtures\\case6_flange.dxf",
     "sha256": "d5112ccfb3e0eb840219e2332dffcd2f64f4ff8998a2e79519a17318e9461234"
@@ -7,7 +7,7 @@
   "artifacts": {
     "dxf_parse.json": {
       "bytes": 745,
-      "sha256": "6b69233a67ffd3fc60cfcb65dd1f7d6bca91e657900f85204790d1ba25bc8ef0"
+      "sha256": "6f79c57c5f439939ed5e96006fa10eaf7516b43fb7b6f80e2b00f69afef69efb"
     },
     "features.json": {
       "bytes": 37795,
@@ -15,7 +15,7 @@
     },
     "model.step": {
       "bytes": 211145,
-      "sha256": "7c26f64a5c5c67227161304be10480292569be4ff09f2e0d8c6070b0b210f1ef"
+      "sha256": "8c736349a7bd6cc58e791d27f82afcbfce1c0e8946ce5a493dd6feb34c9daa26"
     },
     "cutting_params.json": {
       "bytes": 3076,
@@ -26,36 +26,36 @@
       "sha256": "0087ca8be26ae513d735c7ca6c2d8da189de5f13e19a3f7ae4f4c68634203324"
     },
     "program.nc": {
-      "bytes": 72566,
-      "sha256": "a7ea2aeeb654b524e69fc10d4847296b8a7ef50d9e8f2c1ddc8781643beebc2d"
+      "bytes": 74376,
+      "sha256": "3c955045f632472dd8a8618a38def9cc26d15f6ad618e950a0f5bfaa365b7c70"
     },
     "pipeline.json": {
-      "bytes": 903,
-      "sha256": "fd19a3ffbe9459db1ee3c8b8b036dd2f061e34c6cbb7ee53b00ee64302d28f79"
+      "bytes": 906,
+      "sha256": "794d84cffbef018afb8f99561f2d8d1c7cc278505e3faac2b8286d0d1824f3b3"
     },
     "voxel_report.json": {
-      "bytes": 555,
-      "sha256": "b65c517711ab64aa7cc0de6844ea93d856a102ff19becfa478d12e6fbd896dbd"
+      "bytes": 607,
+      "sha256": "4585ed1243c65b81a5909961fa94d0d87c3e5eda565a05f172ce6833b1451e6d"
     }
   },
-  "program_body_sha256": "043f5e58be8716a2e09b22196c499d6c0ae6865d62d926035d5e193f933893c3",
+  "program_body_sha256": "7a0806ee4f2d286f53a1467561e2198ec07eae92fc4bd0fa7fc6f0a867912eb0",
   "stages": [
     {
       "stage": "dxf_parse",
-      "duration_ms": 24.32,
+      "duration_ms": 52.49,
       "status": "ok",
       "entities": 9
     },
     {
       "stage": "feature_extract",
-      "duration_ms": 7.59,
+      "duration_ms": 12.92,
       "status": "ok",
       "holes": 7,
       "contours": 8
     },
     {
       "stage": "step_build",
-      "duration_ms": 355.46,
+      "duration_ms": 678.32,
       "status": "ok",
       "volume_mm3": 272924.8,
       "expected_volume_mm3": 272924.8,
@@ -67,34 +67,34 @@
     },
     {
       "stage": "cutting_params",
-      "duration_ms": 88.12,
+      "duration_ms": 88.89,
       "status": "ok",
       "features": 7
     },
     {
       "stage": "chatter",
-      "duration_ms": 1.18,
+      "duration_ms": 0.92,
       "status": "ok",
       "worst_margin": 19.091
     },
     {
       "stage": "gcode",
-      "duration_ms": 1554.01,
+      "duration_ms": 4063.81,
       "status": "ok",
       "lines": 2053,
       "program_number": 1000
     },
     {
       "stage": "voxel_validation",
-      "duration_ms": 1276.65,
+      "duration_ms": 3050.15,
       "status": "ok",
-      "removed_voxels": 41142,
+      "removed_voxels": 62654,
       "segments": 1998
     }
   ],
-  "elapsed_seconds": 3.45,
+  "elapsed_seconds": 8.1,
   "environment": {
-    "python": "3.12.14",
+    "python": "3.14.4",
     "platform": "Windows-11-10.0.26300-SP0"
   },
   "parameters": {

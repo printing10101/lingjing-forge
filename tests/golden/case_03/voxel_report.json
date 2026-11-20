@@ -8,13 +8,15 @@
   "collision_blocks": [],
   "collision_positions": [],
   "severity": "none",
-  "removed_voxel_count": 23340,
+  "removed_voxel_count": 38764,
   "voxel_count": 356400,
-  "duration_seconds": 0.8974,
+  "duration_seconds": 4.2639,
   "warnings": [
     "检测到 72 个钻穿超程点（在 3.00mm 容差内，不计为过切）；请确认垫板厚度足以承受该超程。"
   ],
   "tool_diameter_mm": 6.0,
   "tool_type": "flat",
-  "tool_source": "actual"
+  "tool_source": "actual",
+  "undercut_count": 0,
+  "undercut_features": []
 }
