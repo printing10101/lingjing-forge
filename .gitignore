@@ -638,3 +638,4 @@ research/prototypes/**/coverage.json
 
 # 外部公开数据集（体积大、有上游源与许可，不入库；下载命令见 docs/reports）
 data/external/
+.alma-snapshots

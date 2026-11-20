@@ -1,0 +1,38 @@
+{
+  "file_name": "nema23_plate.dxf",
+  "file_size": 44431,
+  "dxf_version": "AC1024 (2010)",
+  "parse_time_ms": 31.0,
+  "entity_counts": {
+    "LINE": 0,
+    "CIRCLE": 9,
+    "ARC": 0,
+    "TEXT": 1,
+    "DIMENSION": 0,
+    "POLYLINE": 1,
+    "HATCH": 0,
+    "INSERT": 0,
+    "SPLINE": 0
+  },
+  "total_entities": 11,
+  "lines_count": 0,
+  "circles_count": 9,
+  "arcs_count": 0,
+  "texts_count": 1,
+  "dimensions_count": 0,
+  "polylines_count": 1,
+  "hatches_count": 0,
+  "inserts_count": 0,
+  "splines_count": 0,
+  "extents": {
+    "min_x": 0.0,
+    "min_y": 0.0,
+    "max_x": 140.0,
+    "max_y": 140.0,
+    "width": 140.0,
+    "height": 140.0
+  },
+  "warnings": [],
+  "errors": [],
+  "success": true
+}
